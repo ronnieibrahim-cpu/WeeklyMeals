@@ -214,12 +214,25 @@ Full TypeScript interfaces are defined in Step 3 (Folder Architecture) and Step 
 
 ## 10. Technical Requirements
 
-- **Framework:** React Native + **Expo** (managed workflow) for easy iOS builds and in-Claude preview.
+### 10.0 Platform strategy (decided)
+**One codebase, two targets.** A single Expo/TypeScript/React Native project that:
+- Runs as a **true native iOS app** (Expo Go for dev; EAS Build → App Store later — Apple
+  Developer account only needed at publish time).
+- Exports to a **portable web app** (via `react-native-web` / `expo export`) that can be
+  opened from a link on any device and **"Add to Home Screen"** on iPhone for an app-like,
+  zero-install experience — including from a link inside the Claude iOS app.
+
+Implication for engineering: **avoid native-only APIs in v1 unless they have a web fallback.**
+Storage, navigation, and styling choices below are all chosen to work on both targets.
+
+### 10.1 Stack
+- **Framework:** React Native + **Expo** (managed workflow), web target enabled.
 - **Language:** TypeScript (strict).
 - **Navigation:** Expo Router (file-based) or React Navigation.
 - **State:** Lightweight store (Zustand) + React Query-style patterns where useful.
-- **Storage:** Local (AsyncStorage / expo-secure-store / MMKV) behind a **repository interface**
-  so a future swap to **Supabase/Firebase** touches one layer only.
+- **Storage:** Local, **cross-platform** (AsyncStorage — works on native *and* web via
+  IndexedDB/localStorage) behind a **repository interface** so a future swap to
+  **Supabase/Firebase** touches one layer only. Reliable persistence on both targets.
 - **Styling:** Centralized theme tokens (color, spacing, type, radius), full **dark mode**.
 - **Architecture:** Reusable components, feature folders, clear separation of
   domain/engine/data/UI. **No placeholder code** unless unavoidable.
@@ -271,7 +284,8 @@ Each Step 5 sub-feature is built and verified before the next.
 
 ## 14. Open Questions (for confirmation, with proposed defaults)
 
-1. **Navigation lib:** Expo Router (proposed) vs. React Navigation. → *Default: Expo Router.*
+1. **Navigation lib:** Expo Router (proposed — works great on native + web with file-based
+   routes and shareable URLs) vs. React Navigation. → *Default: Expo Router.*
 2. **Recipe imagery:** bundled illustrative photos / emoji-forward cards (offline-safe, proposed)
    vs. remote image URLs. → *Default: offline-safe bundled/gradient cards in v1.*
 3. **Cost data:** hand-curated realistic H-E-B price table (proposed) vs. live pricing (future).
