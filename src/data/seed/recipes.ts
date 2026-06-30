@@ -1,11 +1,13 @@
 import { Recipe } from '@/domain/models';
 
+import { recipeBatch2 } from './recipeBatch2';
+
 /**
- * Seed recipe library. Initial batch of 24 spanning all 12 cuisines and a range
- * of healthiness styles. Grows toward 200+ in subsequent batches; will be split
- * into per-cuisine files once large. Nutrition is per serving.
+ * Seed recipe library, assembled from incremental batches as it grows toward 200+.
+ * Each batch spans all 12 cuisines and a range of healthiness styles.
+ * Nutrition is per serving.
  */
-export const RECIPES: Recipe[] = [
+const batch1: Recipe[] = [
   // ---------- Italian ----------
   {
     id: 'it-tuscan-chicken',
@@ -819,6 +821,8 @@ export const RECIPES: Recipe[] = [
     dietTags: ['gluten-free', 'dairy-free'],
   },
 ];
+
+export const RECIPES: Recipe[] = [...batch1, ...recipeBatch2];
 
 /** Fast lookup by id. */
 export const recipesById: Record<string, Recipe> = RECIPES.reduce(
