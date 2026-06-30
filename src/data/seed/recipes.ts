@@ -2,6 +2,7 @@ import { Recipe } from '@/domain/models';
 
 import { recipeBatch2 } from './recipeBatch2';
 import { recipeBatch3 } from './recipeBatch3';
+import { recipeBatch4 } from './recipeBatch4';
 
 /**
  * Seed recipe library, assembled from incremental batches as it grows toward 200+.
@@ -823,7 +824,7 @@ const batch1: Recipe[] = [
   },
 ];
 
-export const RECIPES: Recipe[] = [...batch1, ...recipeBatch2, ...recipeBatch3];
+export const RECIPES: Recipe[] = [...batch1, ...recipeBatch2, ...recipeBatch3, ...recipeBatch4];
 
 /** Fast lookup by id. */
 export const recipesById: Record<string, Recipe> = RECIPES.reduce(
