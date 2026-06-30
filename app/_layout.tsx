@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { useProfileStore } from '@/stores/profileStore';
 import { AppThemeProvider } from '@/ui/theme/ThemeProvider';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -14,6 +15,7 @@ function RootNavigator() {
   const theme = useTheme();
 
   useEffect(() => {
+    void useProfileStore.getState().init();
     SplashScreen.hideAsync();
   }, []);
 

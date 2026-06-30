@@ -4,3 +4,8 @@ export { PrimaryButton } from './PrimaryButton';
 export { SecondaryButton } from './SecondaryButton';
 export { Screen } from './Screen';
 export { EmptyState } from './EmptyState';
+export { Chip } from './Chip';
+export { ChipMultiSelect, type ChipOption } from './ChipMultiSelect';
+export { ChipSingleSelect } from './ChipSingleSelect';
+export { Stepper } from './Stepper';
+export { SectionHeader } from './SectionHeader';
