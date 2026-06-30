@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { usePantryStore } from '@/stores/pantryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
 import { AppThemeProvider } from '@/ui/theme/ThemeProvider';
@@ -18,6 +19,7 @@ function RootNavigator() {
   useEffect(() => {
     void useProfileStore.getState().init();
     void usePlanStore.getState().init();
+    void usePantryStore.getState().init();
     SplashScreen.hideAsync();
   }, []);
 

@@ -78,6 +78,7 @@ export function QuestionScaffold({
             style={{ marginTop: theme.spacing.xl }}
             contentContainerStyle={{ paddingBottom: theme.spacing.xl }}
             showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
           >
             {children}
           </ScrollView>

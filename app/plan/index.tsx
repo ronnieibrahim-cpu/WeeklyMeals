@@ -2,11 +2,11 @@ import { useRouter } from 'expo-router';
 import { ReactNode, useState } from 'react';
 import { View } from 'react-native';
 
+import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
 import {
   ADVENTUROUS_OPTIONS,
   BUDGET_OPTIONS,
   COMMON_DIETS,
-  COMMON_PANTRY,
   CUISINE_LABEL,
   CUISINES,
   HEALTHY_COMFORT_OPTIONS,
@@ -16,9 +16,11 @@ import {
 } from '@/domain/constants';
 import { createDefaultProfile, createIntakeFromProfile } from '@/domain/defaults';
 import { Cuisine, IntakeAnswers } from '@/domain/models';
+import { usePantryStore } from '@/stores/pantryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
 import {
+  AutocompleteTagInput,
   ChipMultiSelect,
   ChipOption,
   ChipSingleSelect,
@@ -47,6 +49,9 @@ export default function PlanIntakeScreen() {
   const router = useRouter();
   const theme = useTheme();
   const profile = useProfileStore((s) => s.profile);
+  const pantryItems = usePantryStore((s) => s.items);
+  const addPantry = usePantryStore((s) => s.add);
+  const removePantry = usePantryStore((s) => s.remove);
 
   const [answers, setAnswers] = useState<IntakeAnswers>(() =>
     createIntakeFromProfile(profile ?? createDefaultProfile()),
@@ -158,12 +163,14 @@ export default function PlanIntakeScreen() {
     },
     {
       title: 'Anything already at home?',
-      subtitle: "I'll plan around it to cut waste and cost.",
+      subtitle: "I'll strongly build the week around these. Saved to your pantry for next time.",
       control: (
-        <ChipMultiSelect
-          options={toOptions(COMMON_PANTRY)}
-          values={answers.ingredientsAtHome}
-          onToggle={(v) => patch({ ingredientsAtHome: toggle(answers.ingredientsAtHome, v) })}
+        <AutocompleteTagInput
+          values={pantryItems}
+          suggestions={INGREDIENT_SUGGESTIONS}
+          onAdd={addPantry}
+          onRemove={removePantry}
+          placeholder="e.g. ground beef, spinach…"
         />
       ),
       canSkip: true,
@@ -202,7 +209,8 @@ export default function PlanIntakeScreen() {
   const isLast = index === steps.length - 1;
 
   const finish = () => {
-    usePlanStore.getState().setIntake(answers);
+    const pantry = usePantryStore.getState().items;
+    usePlanStore.getState().setIntake({ ...answers, ingredientsAtHome: pantry });
     usePlanStore.getState().generate();
     router.replace('/plan/review');
   };
@@ -226,6 +234,7 @@ export default function PlanIntakeScreen() {
 
 function IntakeSummary({ answers }: { answers: IntakeAnswers }) {
   const theme = useTheme();
+  const pantryCount = usePantryStore((s) => s.items.length);
   const cuisines =
     answers.cuisines.length > 0
       ? answers.cuisines.map((c) => CUISINE_LABEL[c]).join(', ')
@@ -237,6 +246,7 @@ function IntakeSummary({ answers }: { answers: IntakeAnswers }) {
     ['Budget', `$${answers.budget}`],
     ['Time limit', `${answers.maxPrepMinutes}m prep · ${answers.maxCookMinutes}m cook`],
     ['Cuisines', cuisines],
+    ['Building around', pantryCount > 0 ? `${pantryCount} pantry item${pantryCount === 1 ? '' : 's'}` : 'Nothing on hand'],
     ['Style', vibe],
     ['Leftovers', `${answers.desiredLeftovers} meal${answers.desiredLeftovers === 1 ? '' : 's'}`],
   ];

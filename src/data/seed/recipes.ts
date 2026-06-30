@@ -829,3 +829,8 @@ export const recipesById: Record<string, Recipe> = RECIPES.reduce(
 export function getRecipe(id: string): Recipe | undefined {
   return recipesById[id];
 }
+
+/** Unique ingredient names used across the library (for pantry autocomplete). */
+export const RECIPE_INGREDIENT_NAMES: string[] = Array.from(
+  new Set(RECIPES.flatMap((r) => r.ingredients.map((i) => i.name))),
+).sort();

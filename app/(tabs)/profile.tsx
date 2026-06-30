@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { ReactNode } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
+import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
 import {
   BUDGET_OPTIONS,
   COMMON_ALLERGENS,
@@ -14,8 +15,10 @@ import {
   SPICE_LEVELS,
 } from '@/domain/constants';
 import { Cuisine, Difficulty, Protein, SpiceLevel } from '@/domain/models';
+import { usePantryStore } from '@/stores/pantryStore';
 import { useProfileStore } from '@/stores/profileStore';
 import {
+  AutocompleteTagInput,
   Card,
   ChipMultiSelect,
   ChipOption,
@@ -39,6 +42,9 @@ export default function ProfileScreen() {
   const profile = useProfileStore((s) => s.profile);
   const hydrated = useProfileStore((s) => s.hydrated);
   const update = useProfileStore((s) => s.update);
+  const pantryItems = usePantryStore((s) => s.items);
+  const addPantry = usePantryStore((s) => s.add);
+  const removePantry = usePantryStore((s) => s.remove);
 
   const settingsButton = (
     <Pressable
@@ -137,6 +143,20 @@ export default function ProfileScreen() {
             onChange={(v) => update({ avgCookMinutes: Number(v) })}
           />
         </StackField>
+      </Card>
+
+      <SectionHeader title="My Pantry" />
+      <Card>
+        <Text variant="subhead" color="secondary" style={{ marginBottom: theme.spacing.md }}>
+          Ingredients you have on hand. I’ll build weeks around these to cut waste.
+        </Text>
+        <AutocompleteTagInput
+          values={pantryItems}
+          suggestions={INGREDIENT_SUGGESTIONS}
+          onAdd={addPantry}
+          onRemove={removePantry}
+          placeholder="Add an ingredient…"
+        />
       </Card>
 
       <Text variant="footnote" color="tertiary" center style={{ marginTop: theme.spacing.xl }}>
