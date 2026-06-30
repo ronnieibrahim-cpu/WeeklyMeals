@@ -9,3 +9,5 @@ export { ChipMultiSelect, type ChipOption } from './ChipMultiSelect';
 export { ChipSingleSelect } from './ChipSingleSelect';
 export { Stepper } from './Stepper';
 export { SectionHeader } from './SectionHeader';
+export { ProgressBar } from './ProgressBar';
+export { QuestionScaffold } from './QuestionScaffold';

@@ -1,6 +1,6 @@
 import { createId } from '@/utils/id';
 
-import { Profile } from './models';
+import { IntakeAnswers, Profile } from './models';
 
 /** Sensible starting profile for a first-run Texas / H-E-B household. Fully editable. */
 export function createDefaultProfile(): Profile {
@@ -26,5 +26,23 @@ export function createDefaultProfile(): Profile {
     targetCaloriesPerMeal: 600,
     targetProteinPerMeal: 40,
     pantryStaples: ['Salt', 'Pepper', 'Olive Oil'],
+  };
+}
+
+/** Seed this week's intake from the saved profile (the user can tweak each answer). */
+export function createIntakeFromProfile(p: Profile): IntakeAnswers {
+  return {
+    dinners: 7,
+    people: p.familySize,
+    budget: p.weeklyBudget,
+    maxPrepMinutes: 20,
+    maxCookMinutes: p.avgCookMinutes,
+    cuisines: [...p.favoriteCuisines],
+    healthyVsComfort: 0.5,
+    dietaryRestrictions: [...p.dietaryRestrictions],
+    ingredientsAtHome: [],
+    adventurousness: 0.5,
+    specialOccasions: [],
+    desiredLeftovers: 2,
   };
 }
