@@ -12,6 +12,7 @@ export default function ThisWeekScreen() {
   const plan = usePlanStore((s) => s.plan);
   const hydrated = usePlanStore((s) => s.hydrated);
   const recipeFor = usePlanStore((s) => s.recipeFor);
+  const shoppingList = usePlanStore((s) => s.shoppingList);
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -59,12 +60,18 @@ export default function ThisWeekScreen() {
   }
 
   const meals = [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex);
-  const totalCost = meals.reduce((sum, m) => {
+  const hasList = !!shoppingList && shoppingList.planId === plan.id;
+  const totalServings = meals.reduce((s, m) => s + m.servings, 0);
+  const roughTotal = meals.reduce((sum, m) => {
     const r = recipeFor(m);
     return r ? sum + roughCostPerServing(r) * m.servings : sum;
   }, 0);
-  const totalServings = meals.reduce((s, m) => s + m.servings, 0);
-  const perServing = totalServings ? totalCost / totalServings : 0;
+  const totalCost = hasList ? shoppingList!.estimatedTotal : roughTotal;
+  const perServing = hasList
+    ? shoppingList!.costPerServing
+    : totalServings
+      ? roughTotal / totalServings
+      : 0;
 
   const dayLabel = (i: number) => {
     if (i === 0) return 'Tonight';

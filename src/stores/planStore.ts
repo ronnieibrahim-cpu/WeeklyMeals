@@ -1,15 +1,19 @@
 import { create } from 'zustand';
 
+import { hebProvider } from '@/data/grocery/heb/HebProvider';
 import { getRecipe, RECIPES } from '@/data/seed/recipes';
 import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
+import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
-import { IntakeAnswers, PlannedMeal, Profile, Recipe, WeeklyPlan } from '@/domain/models';
+import { IntakeAnswers, PlannedMeal, Profile, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 import { passesHardFilters, scoreRecipe } from '@/engine/recommendation';
 import { localRecommendationEngine } from '@/engine/recommendation';
 import { GenerateContext } from '@/engine/recommendation';
 import { seasonForDate } from '@/engine/season';
+import { buildShoppingList } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
 
+import { usePantryStore } from './pantryStore';
 import { useProfileStore } from './profileStore';
 
 function shuffle<T>(items: T[]): T[] {
@@ -34,6 +38,7 @@ function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: strin
 interface PlanState {
   intake: IntakeAnswers | null;
   plan: WeeklyPlan | null;
+  shoppingList: ShoppingList | null;
   hydrated: boolean;
   init: () => Promise<void>;
   setIntake: (intake: IntakeAnswers) => void;
@@ -45,6 +50,9 @@ interface PlanState {
   /** Replace a single meal (by day index) with a fresh pick. */
   swapMeal: (dayIndex: number) => void;
   approve: () => void;
+  /** (Re)build the H-E-B shopping list from the current plan. */
+  buildList: () => void;
+  toggleShoppingItem: (ingredientName: string, unit: string) => void;
   clear: () => void;
   recipeFor: (meal: PlannedMeal) => Recipe | undefined;
 }
@@ -53,15 +61,33 @@ function persist(plan: WeeklyPlan) {
   void localPlanRepository.save(plan);
 }
 
+function persistList(list: ShoppingList) {
+  void localShoppingListRepository.save(list);
+}
+
+function listFor(plan: WeeklyPlan): ShoppingList {
+  const pantry = usePantryStore.getState().items;
+  return buildShoppingList(plan.id, plan.meals, getRecipe, pantry, hebProvider);
+}
+
 export const usePlanStore = create<PlanState>((set, get) => ({
   intake: null,
   plan: null,
+  shoppingList: null,
   hydrated: false,
 
   init: async () => {
     if (get().hydrated) return;
-    const plan = await localPlanRepository.load();
-    set({ plan: plan ?? null, intake: plan?.intake ?? null, hydrated: true });
+    const [plan, shoppingList] = await Promise.all([
+      localPlanRepository.load(),
+      localShoppingListRepository.load(),
+    ]);
+    set({
+      plan: plan ?? null,
+      intake: plan?.intake ?? null,
+      shoppingList: shoppingList ?? null,
+      hydrated: true,
+    });
   },
 
   setIntake: (intake) => set({ intake }),
@@ -140,13 +166,35 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const plan = get().plan;
     if (!plan) return;
     const next: WeeklyPlan = { ...plan, status: 'approved' };
-    set({ plan: next });
+    const shoppingList = listFor(next);
+    set({ plan: next, shoppingList });
     persist(next);
+    persistList(shoppingList);
+  },
+
+  buildList: () => {
+    const plan = get().plan;
+    if (!plan) return;
+    const shoppingList = listFor(plan);
+    set({ shoppingList });
+    persistList(shoppingList);
+  },
+
+  toggleShoppingItem: (ingredientName, unit) => {
+    const list = get().shoppingList;
+    if (!list) return;
+    const items = list.items.map((i) =>
+      i.ingredientName === ingredientName && i.unit === unit ? { ...i, checked: !i.checked } : i,
+    );
+    const next = { ...list, items };
+    set({ shoppingList: next });
+    persistList(next);
   },
 
   clear: () => {
-    set({ plan: null, intake: null });
+    set({ plan: null, intake: null, shoppingList: null });
     void localPlanRepository.clear();
+    void localShoppingListRepository.clear();
   },
 
   recipeFor: (meal) => getRecipe(meal.recipeId),
