@@ -1,20 +1,153 @@
 import { create } from 'zustand';
 
-import { IntakeAnswers } from '@/domain/models';
+import { getRecipe, RECIPES } from '@/data/seed/recipes';
+import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
+import { createDefaultProfile } from '@/domain/defaults';
+import { IntakeAnswers, PlannedMeal, Profile, Recipe, WeeklyPlan } from '@/domain/models';
+import { passesHardFilters, scoreRecipe } from '@/engine/recommendation';
+import { localRecommendationEngine } from '@/engine/recommendation';
+import { GenerateContext } from '@/engine/recommendation';
+import { seasonForDate } from '@/engine/season';
+import { createId } from '@/utils/id';
 
-interface PlanState {
-  /** This week's captured intake answers (set when the questionnaire completes). */
-  intake: IntakeAnswers | null;
-  setIntake: (intake: IntakeAnswers) => void;
-  clearIntake: () => void;
+import { useProfileStore } from './profileStore';
+
+function shuffle<T>(items: T[]): T[] {
+  const a = [...items];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-/**
- * Holds the in-progress weekly plan. For now just the intake answers; meal
- * generation, the shopping list, and the schedule are layered on in later steps.
- */
-export const usePlanStore = create<PlanState>((set) => ({
+function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: string[]): GenerateContext {
+  return {
+    intake,
+    profile,
+    pantry: intake.ingredientsAtHome,
+    season: seasonForDate(new Date()),
+    lockedRecipeIds,
+  };
+}
+
+interface PlanState {
+  intake: IntakeAnswers | null;
+  plan: WeeklyPlan | null;
+  hydrated: boolean;
+  init: () => Promise<void>;
+  setIntake: (intake: IntakeAnswers) => void;
+  /** Build a fresh draft plan from the current intake. */
+  generate: () => void;
+  /** Re-pick every unlocked meal, keeping locked ones. */
+  regenerate: () => void;
+  toggleLock: (recipeId: string) => void;
+  /** Replace a single meal (by day index) with a fresh pick. */
+  swapMeal: (dayIndex: number) => void;
+  approve: () => void;
+  clear: () => void;
+  recipeFor: (meal: PlannedMeal) => Recipe | undefined;
+}
+
+function persist(plan: WeeklyPlan) {
+  void localPlanRepository.save(plan);
+}
+
+export const usePlanStore = create<PlanState>((set, get) => ({
   intake: null,
+  plan: null,
+  hydrated: false,
+
+  init: async () => {
+    if (get().hydrated) return;
+    const plan = await localPlanRepository.load();
+    set({ plan: plan ?? null, intake: plan?.intake ?? null, hydrated: true });
+  },
+
   setIntake: (intake) => set({ intake }),
-  clearIntake: () => set({ intake: null }),
+
+  generate: () => {
+    const intake = get().intake;
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    if (!intake) return;
+    const meals = localRecommendationEngine.generate(context(intake, profile, []), RECIPES);
+    const plan: WeeklyPlan = {
+      id: createId(),
+      weekStartISO: new Date().toISOString(),
+      intake,
+      meals,
+      status: 'draft',
+      createdAtISO: new Date().toISOString(),
+    };
+    set({ plan });
+    persist(plan);
+  },
+
+  regenerate: () => {
+    const { plan, intake } = get();
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    if (!plan || !intake) return;
+    const lockedIds = plan.meals.filter((m) => m.locked).map((m) => m.recipeId);
+    const meals = localRecommendationEngine.generate(context(intake, profile, lockedIds), RECIPES);
+    const next: WeeklyPlan = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+  },
+
+  toggleLock: (recipeId) => {
+    const plan = get().plan;
+    if (!plan) return;
+    const meals = plan.meals.map((m) =>
+      m.recipeId === recipeId ? { ...m, locked: !m.locked } : m,
+    );
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+  },
+
+  swapMeal: (dayIndex) => {
+    const { plan, intake } = get();
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    if (!plan || !intake) return;
+    const used = new Set(plan.meals.map((m) => m.recipeId));
+    const selected = plan.meals
+      .filter((m) => m.dayIndex !== dayIndex)
+      .map((m) => getRecipe(m.recipeId))
+      .filter((r): r is Recipe => !!r);
+    const ctx = context(intake, profile, []);
+    const candidates = RECIPES.filter(
+      (r) => !used.has(r.id) && passesHardFilters(r, intake, profile),
+    );
+    if (candidates.length === 0) return;
+    let best = candidates[0];
+    let bestScore = -Infinity;
+    for (const r of shuffle(candidates)) {
+      const s = scoreRecipe(r, ctx, selected);
+      if (s > bestScore) {
+        bestScore = s;
+        best = r;
+      }
+    }
+    const meals = plan.meals.map((m) =>
+      m.dayIndex === dayIndex ? { ...m, recipeId: best.id, locked: false } : m,
+    );
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+  },
+
+  approve: () => {
+    const plan = get().plan;
+    if (!plan) return;
+    const next: WeeklyPlan = { ...plan, status: 'approved' };
+    set({ plan: next });
+    persist(next);
+  },
+
+  clear: () => {
+    set({ plan: null, intake: null });
+    void localPlanRepository.clear();
+  },
+
+  recipeFor: (meal) => getRecipe(meal.recipeId),
 }));

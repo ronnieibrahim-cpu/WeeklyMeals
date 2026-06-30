@@ -11,3 +11,4 @@ export { Stepper } from './Stepper';
 export { SectionHeader } from './SectionHeader';
 export { ProgressBar } from './ProgressBar';
 export { QuestionScaffold } from './QuestionScaffold';
+export { MealCard } from './MealCard';

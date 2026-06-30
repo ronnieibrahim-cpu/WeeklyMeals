@@ -1,0 +1,98 @@
+import { Ionicons } from '@expo/vector-icons';
+import { Pressable, View } from 'react-native';
+
+import { Cuisine, Recipe } from '@/domain/models';
+import { useTheme } from '@/ui/theme/useTheme';
+
+import { Card } from './Card';
+import { Text } from './Text';
+
+const CUISINE_EMOJI: Record<Cuisine, string> = {
+  Italian: '🍝',
+  Mexican: '🌮',
+  Greek: '🥙',
+  Indian: '🍛',
+  Thai: '🍜',
+  Japanese: '🍱',
+  Chinese: '🥡',
+  French: '🥐',
+  Mediterranean: '🫒',
+  American: '🍔',
+  MiddleEastern: '🧆',
+  BBQ: '🍖',
+};
+
+interface Props {
+  recipe: Recipe;
+  dayLabel?: string;
+  badge?: string;
+  locked?: boolean;
+  onPress?: () => void;
+  onToggleLock?: () => void;
+  onSwap?: () => void;
+}
+
+/** Compact meal card used on This Week and the Review screen. */
+export function MealCard({ recipe, dayLabel, badge, locked, onPress, onToggleLock, onSwap }: Props) {
+  const theme = useTheme();
+  const showActions = !!(onToggleLock || onSwap);
+
+  return (
+    <Card onPress={onPress} padded={false} style={{ marginBottom: theme.spacing.md }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', padding: theme.spacing.md }}>
+        <View
+          style={{
+            width: 52,
+            height: 52,
+            borderRadius: theme.radius.md,
+            backgroundColor: theme.colors.backgroundSecondary,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: theme.spacing.md,
+          }}
+        >
+          <Text style={{ fontSize: 26, lineHeight: 32 }}>{CUISINE_EMOJI[recipe.cuisine]}</Text>
+        </View>
+
+        <View style={{ flex: 1 }}>
+          {dayLabel ? (
+            <Text variant="caption" color="tertiary" style={{ marginBottom: 1 }}>
+              {dayLabel.toUpperCase()}
+            </Text>
+          ) : null}
+          <Text variant="headline" numberOfLines={1}>
+            {recipe.name}
+          </Text>
+          <Text variant="footnote" color="secondary" style={{ marginTop: 2 }}>
+            {recipe.cuisine} · {recipe.difficulty} · {recipe.prepMinutes + recipe.cookMinutes}m
+          </Text>
+          <Text variant="footnote" color="tertiary" style={{ marginTop: 1 }}>
+            {recipe.nutrition.calories} cal · {recipe.nutrition.protein}g protein
+            {badge ? `  ·  ${badge}` : ''}
+          </Text>
+        </View>
+
+        {showActions ? (
+          <View style={{ gap: theme.spacing.md, marginLeft: theme.spacing.sm }}>
+            {onToggleLock ? (
+              <Pressable accessibilityLabel={locked ? 'Unlock' : 'Lock'} hitSlop={6} onPress={onToggleLock}>
+                <Ionicons
+                  name={locked ? 'lock-closed' : 'lock-open-outline'}
+                  size={22}
+                  color={locked ? theme.colors.accent : theme.colors.textTertiary}
+                />
+              </Pressable>
+            ) : null}
+            {onSwap ? (
+              <Pressable accessibilityLabel="Swap" hitSlop={6} onPress={onSwap}>
+                <Ionicons name="swap-horizontal" size={22} color={theme.colors.textTertiary} />
+              </Pressable>
+            ) : null}
+          </View>
+        ) : onPress ? (
+          <Ionicons name="chevron-forward" size={20} color={theme.colors.textTertiary} />
+        ) : null}
+      </View>
+    </Card>
+  );
+}

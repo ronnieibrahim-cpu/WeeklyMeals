@@ -193,7 +193,7 @@ export default function PlanIntakeScreen() {
     {
       title: 'You’re all set 🎉',
       subtitle: 'Here’s what I’ll plan around this week.',
-      continueLabel: 'Done',
+      continueLabel: 'Build my week 🍳',
       control: <IntakeSummary answers={answers} />,
     },
   ];
@@ -203,7 +203,8 @@ export default function PlanIntakeScreen() {
 
   const finish = () => {
     usePlanStore.getState().setIntake(answers);
-    router.back();
+    usePlanStore.getState().generate();
+    router.replace('/plan/review');
   };
 
   return (
