@@ -62,9 +62,10 @@ export const recipeBatch6: Recipe[] = [
       { name: 'avocado', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     steps: [
-      'Simmer lentils with taco seasoning until soft.',
-      'Warm tortillas.',
-      'Build tacos with salsa, lettuce, and avocado.',
+      'Simmer the brown lentils in plenty of water until tender, 20–25 minutes, then drain.',
+      'Return them to the pan with the taco seasoning and a splash of water and cook a few minutes into a thick, taco-meat texture; season with salt.',
+      'Warm the corn tortillas.',
+      'Build tacos with the lentils, salsa, shredded lettuce, and sliced avocado.',
     ],
     leftoverNotes: 'Lentil filling keeps well.',
     makesLeftovers: true,
