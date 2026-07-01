@@ -968,9 +968,10 @@ export const recipeBatch7: Recipe[] = [
       { name: 'cheddar cheese', quantity: 4, unit: 'oz', department: 'Dairy' },
     ],
     steps: [
-      'Brown beef with chili powder.',
-      'Add tomato, beans, macaroni, and water; simmer.',
-      'Stir in cheese.',
+      'Brown the ground beef with the chili powder in a large pot, breaking it up.',
+      'Add the crushed tomatoes, drained kidney beans, macaroni, and about 2 cups water and bring to a simmer.',
+      'Cover and simmer, stirring occasionally, 12–15 minutes, until the macaroni is tender and saucy (add water if needed).',
+      'Stir in the cheddar until melted and serve.',
     ],
     leftoverNotes: 'Great for lunches.',
     makesLeftovers: true,

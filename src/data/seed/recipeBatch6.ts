@@ -132,9 +132,10 @@ export const recipeBatch6: Recipe[] = [
       { name: 'butter', quantity: 3, unit: 'tbsp', department: 'Dairy' },
     ],
     steps: [
-      'Simmer lentils, carrot, and peas in broth.',
-      'Spread into a dish; top with mashed potato.',
-      'Bake until golden.',
+      'Heat the oven to 400°F. Peel and boil the potatoes until tender, then mash with butter, a splash of milk, and salt.',
+      'Meanwhile, simmer the green lentils with the diced carrots and vegetable broth until the lentils are tender and saucy, about 25 minutes, adding the peas at the end; season.',
+      'Spread the lentil mixture in a baking dish and top evenly with the mashed potato.',
+      'Bake 15–20 minutes, until golden on top. Serve.',
     ],
     leftoverNotes: 'Reheats well.',
     freezingNotes: 'Freezes well.',

@@ -943,9 +943,10 @@ export const recipeBatch5: Recipe[] = [
       { name: 'bell pepper', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     steps: [
-      'Sear thinly sliced beef with onion and pepper.',
-      'Melt provolone over the top.',
-      'Pile into rolls.',
+      'Freeze the ribeye 20 minutes to firm it up, then slice it as thinly as possible.',
+      'Slice the onion and bell pepper and saute in a hot skillet until soft and browned; push to one side.',
+      'Add the beef and cook, chopping it up, until just cooked through, then mix with the vegetables and lay the provolone over the top to melt.',
+      'Scoop into the hoagie rolls and serve hot.',
     ],
     makesLeftovers: false,
     seasons: [],
