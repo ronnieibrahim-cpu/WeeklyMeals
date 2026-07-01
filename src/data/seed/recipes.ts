@@ -5,6 +5,7 @@ import { recipeBatch3 } from './recipeBatch3';
 import { recipeBatch4 } from './recipeBatch4';
 import { recipeBatch5 } from './recipeBatch5';
 import { recipeBatch6 } from './recipeBatch6';
+import { recipeBatch7 } from './recipeBatch7';
 
 /**
  * Seed recipe library, assembled from incremental batches as it grows toward 200+.
@@ -833,6 +834,7 @@ export const RECIPES: Recipe[] = [
   ...recipeBatch4,
   ...recipeBatch5,
   ...recipeBatch6,
+  ...recipeBatch7,
 ];
 
 /** Fast lookup by id. */
