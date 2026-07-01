@@ -11,6 +11,7 @@ export const PROTEINS: LabeledOption<Protein>[] = [
   { value: 'Shellfish', label: 'Shellfish' },
   { value: 'Tofu', label: 'Tofu' },
   { value: 'Beans', label: 'Beans' },
+  { value: 'Lentils', label: 'Lentils' },
   { value: 'Eggs', label: 'Eggs' },
 ];
 

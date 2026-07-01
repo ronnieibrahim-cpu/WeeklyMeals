@@ -6,7 +6,7 @@ const lower = (s: string) => s.trim().toLowerCase();
 function satisfiesDiet(recipe: Recipe, diet: string): boolean {
   const tags = recipe.dietTags.map(lower);
   const d = lower(diet);
-  const isVegetarianProtein = ['tofu', 'beans', 'eggs', 'none'].includes(
+  const isVegetarianProtein = ['tofu', 'beans', 'lentils', 'eggs', 'none'].includes(
     recipe.primaryProtein.toLowerCase(),
   );
   switch (d) {
@@ -16,7 +16,7 @@ function satisfiesDiet(recipe: Recipe, diet: string): boolean {
       return tags.includes('vegan');
     case 'pescatarian':
       return (
-        ['fish', 'shellfish', 'tofu', 'beans', 'eggs', 'none'].includes(
+        ['fish', 'shellfish', 'tofu', 'beans', 'lentils', 'eggs', 'none'].includes(
           recipe.primaryProtein.toLowerCase(),
         ) || tags.includes('vegetarian')
       );

@@ -17,6 +17,7 @@ const PROTEIN_COST: Record<Protein, number> = {
   Eggs: 0.8,
   Tofu: 1.2,
   Beans: 0.6,
+  Lentils: 0.5,
   None: 0.4,
 };
 

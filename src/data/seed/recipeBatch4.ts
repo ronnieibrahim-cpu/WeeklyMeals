@@ -336,7 +336,7 @@ export const recipeBatch4: Recipe[] = [
     name: 'Palak Dal (Spinach Lentils)',
     cuisine: 'Indian',
     categories: ['Vegetarian', 'Healthy', 'Soups', 'OnePot'],
-    primaryProtein: 'Beans',
+    primaryProtein: 'Lentils',
     vegetables: ['spinach'],
     techniques: ['simmer'],
     difficulty: 'Easy',

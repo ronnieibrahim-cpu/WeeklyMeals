@@ -1001,7 +1001,7 @@ export const recipeBatch3: Recipe[] = [
     name: 'Harira (Lentil Chickpea Soup)',
     cuisine: 'MiddleEastern',
     categories: ['Soups', 'Vegetarian', 'Healthy', 'OnePot'],
-    primaryProtein: 'Beans',
+    primaryProtein: 'Lentils',
     vegetables: ['tomato', 'celery'],
     techniques: ['simmer'],
     difficulty: 'Easy',

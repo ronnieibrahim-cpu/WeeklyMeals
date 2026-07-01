@@ -76,6 +76,7 @@ export type Protein =
   | 'Lamb'
   | 'Tofu'
   | 'Beans'
+  | 'Lentils'
   | 'Eggs'
   | 'None';
 
