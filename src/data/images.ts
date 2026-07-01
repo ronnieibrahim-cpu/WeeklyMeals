@@ -1,21 +1,24 @@
 import { Cuisine, Recipe } from '@/domain/models';
 
+import { RECIPE_IMAGE_URLS } from './recipeImages';
+
 /**
  * Recipe imagery.
  *
  * We deliberately do NOT use a free keyword photo source: they return unrelated
- * pictures too often (a "greek,food" query might show a beach). Instead every
- * recipe gets a clean, deterministic per-cuisine tile — a soft two-tone
- * background with the cuisine's emoji. It always looks intentional, loads
- * instantly, and works offline. If we later wire up a real per-recipe photo
- * (e.g. bundled assets or a licensed API), set RECIPE_IMAGES_ENABLED = true and
- * return the URL from imageForRecipe.
+ * pictures too often (a "greek,food" query might show a beach). Real photos are
+ * instead curated per recipe in RECIPE_IMAGE_URLS. Any recipe without a curated
+ * URL falls back to a clean, deterministic per-cuisine tile — a soft two-tone
+ * background with the cuisine's emoji — which always looks intentional, loads
+ * instantly, and works offline. Set RECIPE_IMAGES_ENABLED = false to force
+ * tiles everywhere regardless of the map.
  */
-export const RECIPE_IMAGES_ENABLED = false;
+export const RECIPE_IMAGES_ENABLED = true;
 
-/** Photo URL for a recipe, or '' to use the per-cuisine tile. */
-export function imageForRecipe(_recipe: Recipe): string {
-  return '';
+/** Curated photo URL for a recipe, or '' to use the per-cuisine tile. */
+export function imageForRecipe(recipe: Recipe): string {
+  if (!RECIPE_IMAGES_ENABLED) return '';
+  return RECIPE_IMAGE_URLS[recipe.id] ?? recipe.image ?? '';
 }
 
 /**
