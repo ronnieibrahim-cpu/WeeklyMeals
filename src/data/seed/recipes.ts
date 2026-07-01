@@ -285,9 +285,10 @@ const batch1: Recipe[] = [
       { name: 'ginger', quantity: 1, unit: 'tbsp', department: 'Produce' },
     ],
     steps: [
-      'Saute onion, ginger, and spices.',
-      'Add tomatoes and chickpeas; simmer 20 minutes.',
-      'Serve over basmati rice.',
+      'Rinse the basmati rice and cook it (simmer in 1.5× water, covered, about 12 minutes, then rest 5 and fluff).',
+      'Saute the finely chopped onion in oil until golden, then add the ginger and garam masala (a pinch of cumin seeds to start is nice) and cook 1 minute, until fragrant.',
+      'Add the crushed tomatoes and drained chickpeas and simmer 20 minutes, mashing a few chickpeas to thicken, until saucy.',
+      'Season with salt and a squeeze of lemon; serve over the basmati rice.',
     ],
     makesLeftovers: true,
     seasons: [],

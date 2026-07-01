@@ -95,9 +95,10 @@ export const recipeBatch6: Recipe[] = [
       { name: 'basmati rice', quantity: 1.5, unit: 'cup', department: 'International' },
     ],
     steps: [
-      'Simmer lentils with curry powder, tomato, and coconut milk.',
-      'Stir in spinach to wilt.',
-      'Serve over basmati rice.',
+      'Cook the basmati rice. Simmer the rinsed red lentils with the curry powder, crushed tomatoes, coconut milk, and about a cup of water until the lentils are soft, 20–25 minutes.',
+      'Stir in the spinach and cook just until wilted.',
+      'Season well with salt and a squeeze of lime.',
+      'Serve over the basmati rice.',
     ],
     leftoverNotes: 'Thickens; loosen with water.',
     freezingNotes: 'Freezes well.',
