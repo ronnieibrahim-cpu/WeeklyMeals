@@ -165,9 +165,10 @@ export const recipeBatch8: Recipe[] = [
       { name: 'sesame seeds', quantity: 1, unit: 'tbsp', department: 'Spices' },
     ],
     steps: [
-      'Roast pressed tofu cubes until golden.',
-      'Steam broccoli and cook rice.',
-      'Toss tofu in teriyaki; build bowls with sesame and green onion.',
+      'Cook the jasmine rice. Press the tofu, cut into cubes, and roast at 425°F (or pan-fry) until golden and firm.',
+      'Steam the broccoli.',
+      'Toss the tofu in the teriyaki sauce to glaze.',
+      'Build bowls with rice, the tofu, and broccoli, finished with sesame seeds and sliced green onion.',
     ],
     leftoverNotes: 'Great cold for lunch.',
     makesLeftovers: true,

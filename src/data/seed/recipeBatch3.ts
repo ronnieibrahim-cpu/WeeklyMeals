@@ -605,9 +605,10 @@ export const recipeBatch3: Recipe[] = [
       { name: 'soy sauce', quantity: 2, unit: 'tbsp', department: 'International' },
     ],
     steps: [
-      'Heat dashi with soy.',
-      'Cook udon and shrimp in the broth.',
-      'Add spinach and green onion.',
+      'Bring the dashi to a simmer with the soy sauce (and a splash of mirin).',
+      'Add the udon and the shrimp and cook until the shrimp are pink and the udon is heated through, 3–4 minutes.',
+      'Stir in the spinach until wilted.',
+      'Ladle into bowls and top with sliced green onions.',
     ],
     makesLeftovers: false,
     seasons: ['winter'],
