@@ -28,9 +28,10 @@ export const recipeBatch6: Recipe[] = [
       { name: 'garlic', quantity: 3, unit: 'clove', department: 'Produce' },
     ],
     steps: [
-      'Saute carrot, onion, and garlic.',
-      'Add lentils and tomatoes; simmer until tender.',
-      'Toss with cooked spaghetti.',
+      'Finely dice the carrots and onion and mince the garlic; saute in olive oil until softened.',
+      'Add the green lentils and crushed tomatoes with about 2 cups water and simmer 25–30 minutes, until the lentils are tender and the sauce is thick; season.',
+      'Meanwhile, boil the spaghetti in salted water until al dente.',
+      'Toss the pasta with the lentil sauce (loosen with pasta water) and serve with parmesan.',
     ],
     leftoverNotes: 'Sauce is even better next day.',
     freezingNotes: 'Sauce freezes well.',

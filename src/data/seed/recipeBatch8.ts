@@ -531,9 +531,10 @@ export const recipeBatch8: Recipe[] = [
       { name: 'garlic', quantity: 3, unit: 'clove', department: 'Produce' },
     ],
     steps: [
-      'Boil spaghetti.',
-      'Simmer garlic, tomatoes, olives, and capers.',
-      'Fold in tuna; toss with pasta.',
+      'Boil the spaghetti in salted water until al dente.',
+      'Meanwhile, saute the garlic in oil, then add the crushed tomatoes, kalamata olives, and capers (a pinch of chili flakes is classic) and simmer 10 minutes.',
+      'Fold in the drained tuna, breaking it into chunks, and warm through.',
+      'Toss with the spaghetti and serve.',
     ],
     leftoverNotes: 'Keeps well for lunch.',
     makesLeftovers: true,
