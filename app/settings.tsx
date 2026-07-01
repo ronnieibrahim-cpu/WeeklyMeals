@@ -140,6 +140,14 @@ export default function SettingsScreen() {
       <Text variant="footnote" color="tertiary" center>
         Weekly Meals · Version 1.0.0
       </Text>
+      <Text
+        variant="footnote"
+        color="tertiary"
+        center
+        style={{ marginTop: theme.spacing.xs }}
+      >
+        Some recipe photos courtesy of TheMealDB.com
+      </Text>
     </Screen>
   );
 }
