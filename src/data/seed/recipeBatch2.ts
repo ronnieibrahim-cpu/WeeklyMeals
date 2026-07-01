@@ -1064,9 +1064,10 @@ export const recipeBatch2: Recipe[] = [
       { name: 'red onion', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     steps: [
-      'Marinate and sear chicken; slice.',
-      'Warm pita.',
-      'Wrap with vegetables and garlic sauce.',
+      'Cut the chicken thighs into strips and toss with the shawarma seasoning, a glug of oil, and salt. Marinate 15–20 minutes if you can.',
+      'Sear the chicken in a hot skillet over medium-high until browned and cooked through, 6–8 minutes, then slice.',
+      'Warm the pita until soft. Dice the tomatoes and thinly slice the red onion.',
+      'Spread garlic sauce on each pita, add the chicken, tomato, and onion, and roll up tightly. Serve with pickles or fries if you like.',
     ],
     makesLeftovers: false,
     seasons: [],
@@ -1182,7 +1183,7 @@ export const recipeBatch2: Recipe[] = [
     difficulty: 'Medium',
     spiceLevel: 'Mild',
     prepMinutes: 15,
-    cookMinutes: 30,
+    cookMinutes: 180,
     baseServings: 4,
     nutrition: { calories: 680, protein: 42, carbs: 24, fat: 44 },
     ingredients: [

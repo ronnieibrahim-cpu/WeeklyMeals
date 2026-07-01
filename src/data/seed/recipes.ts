@@ -777,7 +777,7 @@ const batch1: Recipe[] = [
     difficulty: 'Easy',
     spiceLevel: 'Mild',
     prepMinutes: 15,
-    cookMinutes: 30,
+    cookMinutes: 480,
     baseServings: 6,
     nutrition: { calories: 600, protein: 40, carbs: 40, fat: 30 },
     ingredients: [
