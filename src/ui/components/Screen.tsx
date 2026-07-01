@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { ScrollView, View, ViewStyle } from 'react-native';
-import { Edge, SafeAreaView } from 'react-native-safe-area-context';
+import { Edge, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -30,6 +30,7 @@ export function Screen({
   edges = ['top', 'left', 'right'],
 }: Props) {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
 
   const header = title ? (
     <View
@@ -57,7 +58,11 @@ export function Screen({
   const body = (
     <View
       style={[
-        { paddingHorizontal: theme.spacing.xl, paddingBottom: theme.spacing.xxl, flexGrow: 1 },
+        {
+          paddingHorizontal: theme.spacing.xl,
+          paddingBottom: theme.spacing.xxl + insets.bottom,
+          flexGrow: 1,
+        },
         contentStyle,
       ]}
     >

@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { roughCostPerServing } from '@/engine/cost';
 import { usePlanStore } from '@/stores/planStore';
@@ -11,6 +11,7 @@ import { useTheme } from '@/ui/theme/useTheme';
 export default function ReviewPlanScreen() {
   const router = useRouter();
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   const plan = usePlanStore((s) => s.plan);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const regenerate = usePlanStore((s) => s.regenerate);
@@ -48,7 +49,10 @@ export default function ReviewPlanScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: theme.colors.background }}
+      edges={['top', 'left', 'right']}
+    >
       <View
         style={{
           flexDirection: 'row',
@@ -115,7 +119,7 @@ export default function ReviewPlanScreen() {
         style={{
           paddingHorizontal: theme.spacing.xl,
           paddingTop: theme.spacing.md,
-          paddingBottom: theme.spacing.lg,
+          paddingBottom: theme.spacing.lg + insets.bottom,
           borderTopWidth: 1,
           borderTopColor: theme.colors.separator,
         }}

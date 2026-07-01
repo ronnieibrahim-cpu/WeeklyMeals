@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { ReactNode } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -41,9 +41,13 @@ export function QuestionScaffold({
   continueDisabled,
 }: Props) {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: theme.colors.background }}
+      edges={['top', 'left', 'right']}
+    >
       <View style={{ flex: 1, paddingHorizontal: theme.spacing.xl }}>
         <View
           style={{
@@ -84,7 +88,7 @@ export function QuestionScaffold({
           </ScrollView>
         </View>
 
-        <View style={{ paddingBottom: theme.spacing.md, gap: theme.spacing.md }}>
+        <View style={{ paddingBottom: theme.spacing.md + insets.bottom, gap: theme.spacing.md }}>
           <PrimaryButton title={continueLabel} onPress={onContinue} disabled={continueDisabled} />
           <View style={{ flexDirection: 'row', justifyContent: 'center', gap: theme.spacing.xxl }}>
             {onBack ? (
