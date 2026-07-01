@@ -59,6 +59,8 @@ interface PlanState {
   /** (Re)build the H-E-B shopping list from the current plan. */
   buildList: () => void;
   toggleShoppingItem: (ingredientName: string, unit: string) => void;
+  /** Replace plan + shopping list from a remote sync payload. */
+  hydrateFromSync: (plan: WeeklyPlan | null, shoppingList: ShoppingList | null) => void;
   clear: () => void;
   recipeFor: (meal: PlannedMeal) => Recipe | undefined;
 }
@@ -206,6 +208,14 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const next = { ...list, items };
     set({ shoppingList: next });
     persistList(next);
+  },
+
+  hydrateFromSync: (plan, shoppingList) => {
+    set({ plan, shoppingList, intake: plan?.intake ?? get().intake });
+    if (plan) persist(plan);
+    else void localPlanRepository.clear();
+    if (shoppingList) persistList(shoppingList);
+    else void localShoppingListRepository.clear();
   },
 
   clear: () => {

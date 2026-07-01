@@ -9,6 +9,7 @@ import { useLearningStore } from '@/stores/learningStore';
 import { usePantryStore } from '@/stores/pantryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
+import { useSyncStore } from '@/stores/syncStore';
 import { AppThemeProvider } from '@/ui/theme/ThemeProvider';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -22,6 +23,7 @@ function RootNavigator() {
     void usePlanStore.getState().init();
     void usePantryStore.getState().init();
     void useLearningStore.getState().init();
+    void useSyncStore.getState().init();
     SplashScreen.hideAsync();
   }, []);
 
@@ -38,6 +40,7 @@ function RootNavigator() {
         <Stack.Screen name="plan" options={{ presentation: 'modal' }} />
         <Stack.Screen name="review" options={{ presentation: 'modal' }} />
         <Stack.Screen name="meal/[id]" />
+        <Stack.Screen name="household" />
         <Stack.Screen name="settings" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>

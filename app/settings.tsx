@@ -88,6 +88,29 @@ export default function SettingsScreen() {
         color="secondary"
         style={{ marginBottom: theme.spacing.sm, marginLeft: theme.spacing.xs }}
       >
+        SYNC
+      </Text>
+      <Card padded={false} style={{ marginBottom: theme.spacing.xl }}>
+        <Pressable
+          onPress={() => router.push('/household')}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingVertical: theme.spacing.md,
+            paddingHorizontal: theme.spacing.lg,
+          }}
+        >
+          <Text variant="body">Household sync</Text>
+          <Ionicons name="chevron-forward" size={18} color={theme.colors.textTertiary} />
+        </Pressable>
+      </Card>
+
+      <Text
+        variant="footnote"
+        color="secondary"
+        style={{ marginBottom: theme.spacing.sm, marginLeft: theme.spacing.xs }}
+      >
         COMING SOON
       </Text>
       <Card padded={false} style={{ marginBottom: theme.spacing.xl }}>
