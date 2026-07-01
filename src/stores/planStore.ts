@@ -13,6 +13,7 @@ import { seasonForDate } from '@/engine/season';
 import { buildShoppingList } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
 
+import { useLearningStore } from './learningStore';
 import { usePantryStore } from './pantryStore';
 import { useProfileStore } from './profileStore';
 
@@ -26,9 +27,12 @@ function shuffle<T>(items: T[]): T[] {
 }
 
 function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: string[]): GenerateContext {
+  const learning = useLearningStore.getState();
   return {
     intake,
     profile,
+    preferences: learning.preferences,
+    favoriteRecipeIds: learning.favorites,
     pantry: intake.ingredientsAtHome,
     season: seasonForDate(new Date()),
     lockedRecipeIds,
@@ -49,6 +53,8 @@ interface PlanState {
   toggleLock: (recipeId: string) => void;
   /** Replace a single meal (by day index) with a fresh pick. */
   swapMeal: (dayIndex: number) => void;
+  /** Mark a meal cooked / not cooked (week progress). */
+  toggleCooked: (dayIndex: number) => void;
   approve: () => void;
   /** (Re)build the H-E-B shopping list from the current plan. */
   buildList: () => void;
@@ -156,6 +162,17 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     }
     const meals = plan.meals.map((m) =>
       m.dayIndex === dayIndex ? { ...m, recipeId: best.id, locked: false } : m,
+    );
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+  },
+
+  toggleCooked: (dayIndex) => {
+    const plan = get().plan;
+    if (!plan) return;
+    const meals = plan.meals.map((m) =>
+      m.dayIndex === dayIndex ? { ...m, cooked: !m.cooked } : m,
     );
     const next = { ...plan, meals };
     set({ plan: next });

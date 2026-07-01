@@ -13,6 +13,7 @@ export default function ThisWeekScreen() {
   const hydrated = usePlanStore((s) => s.hydrated);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const shoppingList = usePlanStore((s) => s.shoppingList);
+  const toggleCooked = usePlanStore((s) => s.toggleCooked);
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -82,17 +83,20 @@ export default function ThisWeekScreen() {
 
   const [tonight, ...rest] = meals;
   const tonightRecipe = tonight ? recipeFor(tonight) : undefined;
+  const cookedCount = meals.filter((m) => m.cooked).length;
 
   return (
     <Screen
       title="This Week"
-      subtitle={`${meals.length} dinners · ~$${totalCost.toFixed(0)} · $${perServing.toFixed(2)}/serving`}
+      subtitle={`${meals.length} dinners · $${totalCost.toFixed(0)} · ${cookedCount}/${meals.length} cooked`}
     >
       {tonight && tonightRecipe ? (
         <MealCard
           recipe={tonightRecipe}
           dayLabel={dayLabel(tonight.dayIndex)}
           badge={tonightRecipe.makesLeftovers ? 'leftovers' : undefined}
+          cooked={tonight.cooked}
+          onToggleCooked={() => toggleCooked(tonight.dayIndex)}
           onPress={() =>
             router.push({ pathname: '/meal/[id]', params: { id: tonightRecipe.id } })
           }
@@ -118,14 +122,20 @@ export default function ThisWeekScreen() {
             recipe={recipe}
             dayLabel={dayLabel(meal.dayIndex)}
             badge={recipe.makesLeftovers ? 'leftovers' : undefined}
+            cooked={meal.cooked}
+            onToggleCooked={() => toggleCooked(meal.dayIndex)}
             onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
           />
         );
       })}
 
-      <Card style={{ marginTop: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}>
-        <Text variant="subhead" color="secondary">
-          Shopping list & schedule are coming in the next steps.
+      <Card
+        onPress={() => router.push('/review')}
+        style={{ marginTop: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}
+      >
+        <Text variant="headline">⭐ How did this week go?</Text>
+        <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+          Rate your meals — favorites come back and your weeks keep improving.
         </Text>
       </Card>
 

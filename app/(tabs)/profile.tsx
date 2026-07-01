@@ -10,11 +10,13 @@ import {
   COMMON_DIETS,
   COOK_TIME_OPTIONS,
   COOKING_SKILLS,
+  CUISINE_LABEL,
   CUISINES,
   PROTEINS,
   SPICE_LEVELS,
 } from '@/domain/constants';
 import { Cuisine, Difficulty, Protein, SpiceLevel } from '@/domain/models';
+import { useLearningStore } from '@/stores/learningStore';
 import { usePantryStore } from '@/stores/pantryStore';
 import { useProfileStore } from '@/stores/profileStore';
 import {
@@ -45,6 +47,17 @@ export default function ProfileScreen() {
   const pantryItems = usePantryStore((s) => s.items);
   const addPantry = usePantryStore((s) => s.add);
   const removePantry = usePantryStore((s) => s.remove);
+  const preferences = useLearningStore((s) => s.preferences);
+  const favorites = useLearningStore((s) => s.favorites);
+
+  const topAffinity = (record: Record<string, number>) => {
+    const entry = Object.entries(record)
+      .filter(([, v]) => v > 0.05)
+      .sort((a, b) => b[1] - a[1])[0];
+    return entry?.[0];
+  };
+  const topCuisine = topAffinity(preferences.cuisineAffinity);
+  const topProtein = topAffinity(preferences.proteinAffinity);
 
   const settingsButton = (
     <Pressable
@@ -69,6 +82,28 @@ export default function ProfileScreen() {
 
   return (
     <Screen title="Profile" subtitle="The more I know, the better your plans" headerRight={settingsButton}>
+      <SectionHeader title="What I've learned" />
+      <Card>
+        {preferences.mealsRated > 0 ? (
+          <View style={{ gap: theme.spacing.sm }}>
+            <LearnRow
+              label="Meals rated"
+              value={`${preferences.mealsRated} · avg ★${preferences.avgEnjoyment.toFixed(1)}`}
+            />
+            {topCuisine ? (
+              <LearnRow label="Favorite cuisine" value={CUISINE_LABEL[topCuisine as Cuisine] ?? topCuisine} />
+            ) : null}
+            {topProtein ? <LearnRow label="Top protein" value={topProtein} /> : null}
+            <LearnRow label="Favorites saved" value={`${favorites.length}`} />
+          </View>
+        ) : (
+          <Text variant="subhead" color="secondary">
+            Cook and rate your meals (tap “How did this week go?” on This Week) and I’ll learn your
+            tastes to steer future weeks.
+          </Text>
+        )}
+      </Card>
+
       <SectionHeader title="Household" />
       <Card padded={false}>
         <RowField label="Family size">
@@ -163,6 +198,18 @@ export default function ProfileScreen() {
         Saved automatically · Store: H-E-B
       </Text>
     </Screen>
+  );
+}
+
+/** Read-only label + value row for the insights card. */
+function LearnRow({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Text variant="body" color="secondary">
+        {label}
+      </Text>
+      <Text variant="body">{value}</Text>
+    </View>
   );
 }
 

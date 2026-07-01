@@ -3,7 +3,9 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
 import { getRecipe } from '@/data/seed/recipes';
-import { Card, EmptyState, Screen, Text } from '@/ui/components';
+import { useLearningStore } from '@/stores/learningStore';
+import { usePlanStore } from '@/stores/planStore';
+import { Card, EmptyState, Screen, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function MealDetailScreen() {
@@ -11,25 +13,57 @@ export default function MealDetailScreen() {
   const theme = useTheme();
   const { id } = useLocalSearchParams<{ id: string }>();
   const recipe = id ? getRecipe(id) : undefined;
+  const favorites = useLearningStore((s) => s.favorites);
+  const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
+  const plan = usePlanStore((s) => s.plan);
+  const toggleCooked = usePlanStore((s) => s.toggleCooked);
 
-  const back = (
-    <Pressable
-      accessibilityLabel="Back"
-      hitSlop={8}
-      onPress={() => router.back()}
-      style={{ flexDirection: 'row', alignItems: 'center', marginBottom: theme.spacing.md }}
+  const isFavorite = recipe ? favorites.includes(recipe.id) : false;
+  const plannedMeal =
+    recipe && plan?.status === 'approved'
+      ? plan.meals.find((m) => m.recipeId === recipe.id)
+      : undefined;
+
+  const header = (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: theme.spacing.md,
+      }}
     >
-      <Ionicons name="chevron-back" size={26} color={theme.colors.accent} />
-      <Text variant="body" color="accent">
-        Back
-      </Text>
-    </Pressable>
+      <Pressable
+        accessibilityLabel="Back"
+        hitSlop={8}
+        onPress={() => router.back()}
+        style={{ flexDirection: 'row', alignItems: 'center' }}
+      >
+        <Ionicons name="chevron-back" size={26} color={theme.colors.accent} />
+        <Text variant="body" color="accent">
+          Back
+        </Text>
+      </Pressable>
+      {recipe ? (
+        <Pressable
+          accessibilityLabel={isFavorite ? 'Remove favorite' : 'Add favorite'}
+          hitSlop={8}
+          onPress={() => toggleFavorite(recipe.id)}
+        >
+          <Ionicons
+            name={isFavorite ? 'heart' : 'heart-outline'}
+            size={26}
+            color={isFavorite ? theme.colors.danger : theme.colors.textTertiary}
+          />
+        </Pressable>
+      ) : null}
+    </View>
   );
 
   if (!recipe) {
     return (
       <Screen>
-        {back}
+        {header}
         <EmptyState emoji="🍽️" title="Recipe not found" />
       </Screen>
     );
@@ -44,7 +78,7 @@ export default function MealDetailScreen() {
 
   return (
     <Screen>
-      {back}
+      {header}
 
       <View
         style={{
@@ -89,6 +123,14 @@ export default function MealDetailScreen() {
       <Text variant="footnote" color="tertiary" style={{ marginTop: theme.spacing.sm }}>
         Carbs {recipe.nutrition.carbs}g · Fat {recipe.nutrition.fat}g · per serving
       </Text>
+
+      {plannedMeal ? (
+        <SecondaryButton
+          title={plannedMeal.cooked ? '✓ Cooked' : 'Mark as cooked'}
+          onPress={() => toggleCooked(plannedMeal.dayIndex)}
+          style={{ marginTop: theme.spacing.lg }}
+        />
+      ) : null}
 
       <Text variant="title3" style={{ marginTop: theme.spacing.xl, marginBottom: theme.spacing.sm }}>
         Ingredients

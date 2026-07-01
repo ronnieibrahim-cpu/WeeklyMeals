@@ -5,6 +5,7 @@ export interface PlannedMeal {
   servings: number; // scaled to the number of people
   dayIndex: number; // 0–6 within the week
   locked: boolean; // user "kept" it during review
+  cooked?: boolean; // marked done during the week (progress tracking)
   isLeftoverDay?: boolean; // reuses a prior meal instead of cooking
   leftoverFromRecipeId?: string;
 }

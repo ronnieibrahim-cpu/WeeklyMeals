@@ -88,6 +88,23 @@ function seasonFit(recipe: Recipe, ctx: GenerateContext): number {
   return recipe.seasons.includes(ctx.season) ? 1 : 0.2;
 }
 
+/** Learned positive likes (0–1): favored cuisine/protein/technique drift the score up. */
+function affinityBonus(recipe: Recipe, ctx: GenerateContext): number {
+  const prefs = ctx.preferences;
+  if (!prefs) return 0;
+  const parts: number[] = [];
+  parts.push(Math.max(0, prefs.cuisineAffinity[recipe.cuisine] ?? 0));
+  parts.push(Math.max(0, prefs.proteinAffinity[recipe.primaryProtein] ?? 0));
+  let techMax = 0;
+  for (const t of recipe.techniques) techMax = Math.max(techMax, Math.max(0, prefs.techniqueAffinity[t] ?? 0));
+  parts.push(techMax);
+  return parts.reduce((a, b) => a + b, 0) / parts.length;
+}
+
+function favoriteBonus(recipe: Recipe, ctx: GenerateContext): number {
+  return ctx.favoriteRecipeIds?.includes(recipe.id) ? 1 : 0;
+}
+
 function ratingsPenalty(recipe: Recipe, ctx: GenerateContext): number {
   const prefs = ctx.preferences;
   if (!prefs) return 0;
@@ -104,6 +121,8 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
   return (
     WEIGHTS.pantry * pantryOverlap(recipe, ctx.pantry) +
     WEIGHTS.preference * preferenceMatch(recipe, ctx) +
+    WEIGHTS.affinity * affinityBonus(recipe, ctx) +
+    WEIGHTS.favorite * favoriteBonus(recipe, ctx) +
     WEIGHTS.variety * varietyBonus(recipe, selected) +
     WEIGHTS.budget * budgetFit(recipe, ctx) +
     WEIGHTS.time * timeFit(recipe, ctx) +

@@ -17,6 +17,8 @@ export interface GenerateContext {
   season: Season;
   /** Recipes the user locked during review; always kept, never re-scored out. */
   lockedRecipeIds?: string[];
+  /** Favorited recipes get a reintroduction bonus. */
+  favoriteRecipeIds?: string[];
 }
 
 export interface RecommendationProvider {
@@ -31,6 +33,8 @@ export interface RecommendationProvider {
 export const WEIGHTS = {
   pantry: 3.0,
   preference: 1.5,
+  affinity: 1.4, // learned positive likes (cuisine/protein/technique)
+  favorite: 1.0, // periodic reintroduction of favorited recipes
   variety: 1.3,
   budget: 0.9,
   time: 0.5,

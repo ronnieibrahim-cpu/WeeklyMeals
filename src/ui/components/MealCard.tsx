@@ -27,13 +27,25 @@ interface Props {
   dayLabel?: string;
   badge?: string;
   locked?: boolean;
+  cooked?: boolean;
   onPress?: () => void;
   onToggleLock?: () => void;
   onSwap?: () => void;
+  onToggleCooked?: () => void;
 }
 
 /** Compact meal card used on This Week and the Review screen. */
-export function MealCard({ recipe, dayLabel, badge, locked, onPress, onToggleLock, onSwap }: Props) {
+export function MealCard({
+  recipe,
+  dayLabel,
+  badge,
+  locked,
+  cooked,
+  onPress,
+  onToggleLock,
+  onSwap,
+  onToggleCooked,
+}: Props) {
   const theme = useTheme();
   const showActions = !!(onToggleLock || onSwap);
 
@@ -72,7 +84,20 @@ export function MealCard({ recipe, dayLabel, badge, locked, onPress, onToggleLoc
           </Text>
         </View>
 
-        {showActions ? (
+        {onToggleCooked ? (
+          <Pressable
+            accessibilityLabel={cooked ? 'Mark not cooked' : 'Mark cooked'}
+            hitSlop={8}
+            onPress={onToggleCooked}
+            style={{ marginLeft: theme.spacing.sm }}
+          >
+            <Ionicons
+              name={cooked ? 'checkmark-circle' : 'ellipse-outline'}
+              size={26}
+              color={cooked ? theme.colors.success : theme.colors.textTertiary}
+            />
+          </Pressable>
+        ) : showActions ? (
           <View style={{ gap: theme.spacing.md, marginLeft: theme.spacing.sm }}>
             {onToggleLock ? (
               <Pressable accessibilityLabel={locked ? 'Unlock' : 'Lock'} hitSlop={6} onPress={onToggleLock}>
