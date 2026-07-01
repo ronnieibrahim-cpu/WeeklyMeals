@@ -1,63 +1,103 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
+import { ComponentProps } from 'react';
+import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
+
+type IoniconName = ComponentProps<typeof Ionicons>['name'];
+
+const ICONS: Record<string, IoniconName> = {
+  index: 'restaurant',
+  schedule: 'calendar',
+  shopping: 'cart',
+  profile: 'person',
+};
+const LABELS: Record<string, string> = {
+  index: 'This Week',
+  schedule: 'Schedule',
+  shopping: 'Shopping',
+  profile: 'Profile',
+};
+
+interface TabBarProps {
+  state: { index: number; routes: { key: string; name: string }[] };
+  navigation: {
+    emit: (event: {
+      type: 'tabPress';
+      target: string;
+      canPreventDefault: boolean;
+    }) => { defaultPrevented: boolean };
+    navigate: (name: string) => void;
+  };
+}
+
+/**
+ * Custom bottom tab bar so spacing/height is fully controlled (the platform
+ * default was clipping labels under the home indicator on iPhone). Uses the
+ * safe-area inset with a sensible floor.
+ */
+function TabBar({ state, navigation }: TabBarProps) {
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        backgroundColor: theme.colors.tabBar,
+        borderTopWidth: 1,
+        borderTopColor: theme.colors.border,
+        paddingTop: 8,
+        paddingBottom: Math.max(insets.bottom, 12),
+      }}
+    >
+      {state.routes.map((route, index) => {
+        const focused = state.index === index;
+        const color = focused ? theme.colors.accent : theme.colors.tabBarInactive;
+        return (
+          <Pressable
+            key={route.key}
+            accessibilityRole="button"
+            accessibilityState={{ selected: focused }}
+            onPress={() => {
+              const event = navigation.emit({
+                type: 'tabPress',
+                target: route.key,
+                canPreventDefault: true,
+              });
+              if (!focused && !event.defaultPrevented) navigation.navigate(route.name);
+            }}
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 3 }}
+          >
+            <Ionicons name={ICONS[route.name] ?? 'ellipse'} size={24} color={color} />
+            <Text variant="caption" numberOfLines={1} style={{ color, fontSize: 11 }}>
+              {LABELS[route.name] ?? route.name}
+            </Text>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
+}
 
 export default function TabsLayout() {
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
-  // Explicitly size the tab bar so labels clear the home indicator on every device
-  // (and don't rely on the platform default, which was 0 on web pre-viewport-fit).
-  const bottomInset = insets.bottom;
 
   return (
     <Tabs
+      tabBar={(props) => <TabBar {...(props as unknown as TabBarProps)} />}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: theme.colors.accent,
-        tabBarInactiveTintColor: theme.colors.tabBarInactive,
-        tabBarStyle: {
-          backgroundColor: theme.colors.tabBar,
-          borderTopColor: theme.colors.border,
-          height: 58 + bottomInset,
-          paddingBottom: bottomInset + 6,
-          paddingTop: 8,
-        },
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '500' },
         sceneStyle: { backgroundColor: theme.colors.background },
       }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'This Week',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="restaurant" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="schedule"
-        options={{
-          title: 'Schedule',
-          tabBarIcon: ({ color, size }) => <Ionicons name="calendar" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="shopping"
-        options={{
-          title: 'Shopping',
-          tabBarIcon: ({ color, size }) => <Ionicons name="cart" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
-        }}
-      />
+      <Tabs.Screen name="index" options={{ title: 'This Week' }} />
+      <Tabs.Screen name="schedule" options={{ title: 'Schedule' }} />
+      <Tabs.Screen name="shopping" options={{ title: 'Shopping' }} />
+      <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
     </Tabs>
   );
 }
