@@ -216,9 +216,10 @@ const batch1: Recipe[] = [
       { name: 'olive oil', quantity: 3, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     steps: [
-      'Chop cucumber and tomatoes.',
-      'Combine with chickpeas and olives.',
-      'Top with feta and olive oil; season.',
+      'Dice the cucumber and tomatoes into chunks and thinly slice a little red onion if you like.',
+      'Combine in a bowl with the drained chickpeas and the kalamata olives.',
+      'Dress with the olive oil, a splash of red wine vinegar, dried oregano, salt, and pepper, and toss.',
+      'Top with the feta (in a slab or crumbled) and a little more oil. Serve, ideally after 10 minutes to let it meld.',
     ],
     makesLeftovers: false,
     seasons: ['summer'],

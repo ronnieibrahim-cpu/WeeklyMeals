@@ -501,9 +501,10 @@ export const recipeBatch8: Recipe[] = [
       { name: 'olive oil', quantity: 3, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     steps: [
-      'Soften onion, garlic, and tomato into a light sauce.',
-      'Nestle cod into the sauce in a baking dish.',
-      'Bake at 400°F until fish flakes; finish with lemon.',
+      'Heat the oven to 400°F. Soften the sliced onion and garlic in olive oil, then add the chopped tomatoes and simmer into a light sauce; season.',
+      'Spread the sauce in a baking dish and nestle the cod fillets into it.',
+      'Bake 20–25 minutes, until the cod flakes and is opaque.',
+      'Finish with a squeeze of lemon and a drizzle of olive oil; serve with bread or rice.',
     ],
     makesLeftovers: false,
     seasons: [],
