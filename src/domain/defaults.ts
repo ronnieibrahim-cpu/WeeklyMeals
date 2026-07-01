@@ -38,6 +38,7 @@ export function createIntakeFromProfile(p: Profile): IntakeAnswers {
     maxPrepMinutes: 20,
     maxCookMinutes: p.avgCookMinutes,
     cuisines: [...p.favoriteCuisines],
+    proteins: [...p.preferredProteins],
     healthyVsComfort: 0.5,
     dietaryRestrictions: [...p.dietaryRestrictions],
     ingredientsAtHome: [],

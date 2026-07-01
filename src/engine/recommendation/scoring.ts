@@ -19,9 +19,14 @@ function pantryOverlap(recipe: Recipe, pantry: string[]): number {
 
 function preferenceMatch(recipe: Recipe, ctx: GenerateContext): number {
   let score = 0.5;
-  if (ctx.profile.favoriteCuisines.includes(recipe.cuisine)) score += 0.3;
+  if (ctx.profile.favoriteCuisines.includes(recipe.cuisine)) score += 0.25;
   if (ctx.intake.cuisines.length > 0 && ctx.intake.cuisines.includes(recipe.cuisine)) score += 0.2;
-  if (ctx.profile.preferredProteins.includes(recipe.primaryProtein)) score += 0.2;
+  if (ctx.profile.preferredProteins.includes(recipe.primaryProtein)) score += 0.15;
+  // This week's craving (from the questionnaire) gets a stronger, timely boost.
+  const weekProteins = ctx.intake.proteins ?? [];
+  if (weekProteins.length > 0 && weekProteins.includes(recipe.primaryProtein)) {
+    score += 0.3;
+  }
   return Math.min(1, score);
 }
 

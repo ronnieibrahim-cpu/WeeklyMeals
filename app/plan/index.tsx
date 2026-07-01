@@ -12,10 +12,11 @@ import {
   HEALTHY_COMFORT_OPTIONS,
   MAX_COOK_OPTIONS,
   MAX_PREP_OPTIONS,
+  PROTEINS,
   SPECIAL_OCCASIONS,
 } from '@/domain/constants';
 import { createDefaultProfile, createIntakeFromProfile } from '@/domain/defaults';
-import { Cuisine, IntakeAnswers } from '@/domain/models';
+import { Cuisine, IntakeAnswers, Protein } from '@/domain/models';
 import { usePantryStore } from '@/stores/pantryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
@@ -125,6 +126,18 @@ export default function PlanIntakeScreen() {
           options={CUISINES}
           values={answers.cuisines}
           onToggle={(v) => patch({ cuisines: toggle(answers.cuisines, v as Cuisine) })}
+        />
+      ),
+      canSkip: true,
+    },
+    {
+      title: 'Any proteins you’re craving this week?',
+      subtitle: 'Pre-filled from your profile — tweak just for this week.',
+      control: (
+        <ChipMultiSelect
+          options={PROTEINS}
+          values={answers.proteins}
+          onToggle={(v) => patch({ proteins: toggle(answers.proteins, v as Protein) })}
         />
       ),
       canSkip: true,
@@ -246,6 +259,7 @@ function IntakeSummary({ answers }: { answers: IntakeAnswers }) {
     ['Budget', `$${answers.budget}`],
     ['Time limit', `${answers.maxPrepMinutes}m prep · ${answers.maxCookMinutes}m cook`],
     ['Cuisines', cuisines],
+    ['Proteins', answers.proteins.length > 0 ? answers.proteins.join(', ') : 'No preference'],
     ['Building around', pantryCount > 0 ? `${pantryCount} pantry item${pantryCount === 1 ? '' : 's'}` : 'Nothing on hand'],
     ['Style', vibe],
     ['Leftovers', `${answers.desiredLeftovers} meal${answers.desiredLeftovers === 1 ? '' : 's'}`],
