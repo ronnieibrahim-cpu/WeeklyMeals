@@ -659,9 +659,10 @@ export const recipeBatch8: Recipe[] = [
       { name: 'olive oil', quantity: 3, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     steps: [
-      'Stuff branzino with lemon, garlic, and herbs.',
-      'Roast over sliced fennel at 425°F until cooked through.',
-      'Drizzle with olive oil and serve.',
+      'Heat the oven to 425°F. Slice the fennel and spread it in a roasting pan; season and drizzle with oil.',
+      'Stuff the branzino cavities with lemon slices, smashed garlic, and the herbs; season the skin and rub with oil.',
+      'Set the fish on the fennel and roast 20–25 minutes, until the flesh is opaque and flakes at the bone.',
+      'Drizzle with olive oil and a squeeze of lemon and serve.',
     ],
     makesLeftovers: false,
     seasons: [],

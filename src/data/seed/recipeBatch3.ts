@@ -835,9 +835,10 @@ export const recipeBatch3: Recipe[] = [
       { name: 'olive oil', quantity: 3, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     steps: [
-      'Grill halloumi slices.',
-      'Toss greens, cucumber, and tomato.',
-      'Top with halloumi and lemon dressing.',
+      'Slice the halloumi and pat dry. Grill or pan-sear the slices over medium-high 1–2 minutes per side, until golden with grill marks.',
+      'Toss the arugula, sliced cucumber, and cherry tomatoes together.',
+      'Whisk a dressing from the lemon juice, olive oil, salt, and pepper and toss with the salad.',
+      'Top with the warm halloumi and serve immediately.',
     ],
     makesLeftovers: false,
     seasons: ['summer'],

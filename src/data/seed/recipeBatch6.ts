@@ -165,9 +165,10 @@ export const recipeBatch6: Recipe[] = [
       { name: 'olive oil', quantity: 3, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     steps: [
-      'Cook and cool lentils.',
-      'Chop cucumber, tomato, and parsley.',
-      'Toss with lemon and olive oil.',
+      'Simmer the green lentils in salted water until tender but not mushy, 18–20 minutes, then drain and cool slightly.',
+      'Dice the cucumber and tomatoes and chop the parsley.',
+      'Toss the lentils with the vegetables, parsley, lemon juice, olive oil, salt, and pepper.',
+      'Serve at room temperature or chilled — even better after 30 minutes for the flavors to meld.',
     ],
     leftoverNotes: 'Great packed for lunch.',
     makesLeftovers: true,
