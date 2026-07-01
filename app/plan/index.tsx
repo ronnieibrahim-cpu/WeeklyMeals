@@ -119,6 +119,19 @@ export default function PlanIntakeScreen() {
       ),
     },
     {
+      title: 'Which proteins this week?',
+      subtitle:
+        'This is often the biggest week-to-week change — pick any that sound good (or none for “anything”). Just for this week; your saved profile stays as-is.',
+      control: (
+        <ChipMultiSelect
+          options={PROTEINS}
+          values={answers.proteins}
+          onToggle={(v) => patch({ proteins: toggle(answers.proteins, v as Protein) })}
+        />
+      ),
+      canSkip: true,
+    },
+    {
       title: 'Any cuisines you’re craving?',
       subtitle: 'Leave all unselected for no preference — I’ll rotate for variety.',
       control: (
@@ -126,18 +139,6 @@ export default function PlanIntakeScreen() {
           options={CUISINES}
           values={answers.cuisines}
           onToggle={(v) => patch({ cuisines: toggle(answers.cuisines, v as Cuisine) })}
-        />
-      ),
-      canSkip: true,
-    },
-    {
-      title: 'Any proteins you’re craving this week?',
-      subtitle: 'Pre-filled from your profile — tweak just for this week.',
-      control: (
-        <ChipMultiSelect
-          options={PROTEINS}
-          values={answers.proteins}
-          onToggle={(v) => patch({ proteins: toggle(answers.proteins, v as Protein) })}
         />
       ),
       canSkip: true,
