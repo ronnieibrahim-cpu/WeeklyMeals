@@ -5,7 +5,7 @@ import { Pressable, View } from 'react-native';
 import { getRecipe } from '@/data/seed/recipes';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
-import { Card, EmptyState, Screen, SecondaryButton, Text } from '@/ui/components';
+import { Card, EmptyState, RecipeImage, Screen, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function MealDetailScreen() {
@@ -80,17 +80,8 @@ export default function MealDetailScreen() {
     <Screen>
       {header}
 
-      <View
-        style={{
-          height: 120,
-          borderRadius: theme.radius.xl,
-          backgroundColor: theme.colors.accentMuted,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: theme.spacing.lg,
-        }}
-      >
-        <Text style={{ fontSize: 56, lineHeight: 64 }}>🍽️</Text>
+      <View style={{ marginBottom: theme.spacing.lg }}>
+        <RecipeImage recipe={recipe} height={180} emojiSize={64} radius={theme.radius.xl} />
       </View>
 
       <Text variant="largeTitle">{recipe.name}</Text>

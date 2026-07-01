@@ -1,26 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, View } from 'react-native';
 
-import { Cuisine, Recipe } from '@/domain/models';
+import { Recipe } from '@/domain/models';
 import { useTheme } from '@/ui/theme/useTheme';
 
 import { Card } from './Card';
+import { RecipeImage } from './RecipeImage';
 import { Text } from './Text';
-
-const CUISINE_EMOJI: Record<Cuisine, string> = {
-  Italian: '🍝',
-  Mexican: '🌮',
-  Greek: '🥙',
-  Indian: '🍛',
-  Thai: '🍜',
-  Japanese: '🍱',
-  Chinese: '🥡',
-  French: '🥐',
-  Mediterranean: '🫒',
-  American: '🍔',
-  MiddleEastern: '🧆',
-  BBQ: '🍖',
-};
 
 interface Props {
   recipe: Recipe;
@@ -52,18 +38,8 @@ export function MealCard({
   return (
     <Card onPress={onPress} padded={false} style={{ marginBottom: theme.spacing.md }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: theme.spacing.md }}>
-        <View
-          style={{
-            width: 52,
-            height: 52,
-            borderRadius: theme.radius.md,
-            backgroundColor: theme.colors.backgroundSecondary,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginRight: theme.spacing.md,
-          }}
-        >
-          <Text style={{ fontSize: 26, lineHeight: 32 }}>{CUISINE_EMOJI[recipe.cuisine]}</Text>
+        <View style={{ marginRight: theme.spacing.md }}>
+          <RecipeImage recipe={recipe} width={52} height={52} emojiSize={26} radius={theme.radius.md} />
         </View>
 
         <View style={{ flex: 1 }}>

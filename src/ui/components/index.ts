@@ -15,3 +15,4 @@ export { MealCard } from './MealCard';
 export { AutocompleteTagInput } from './AutocompleteTagInput';
 export { StarRating } from './StarRating';
 export { YesNoToggle } from './YesNoToggle';
+export { RecipeImage } from './RecipeImage';
