@@ -730,9 +730,10 @@ export const recipeBatch7: Recipe[] = [
       { name: 'flour', quantity: 0.33, unit: 'cup', department: 'DryGoods' },
     ],
     steps: [
-      'Dredge sole lightly in flour.',
-      'Sear in butter.',
-      'Finish with lemon-butter and parsley.',
+      'Pat the sole fillets dry and season. Dredge lightly in the flour, shaking off the excess.',
+      'Melt half the butter in a skillet over medium-high and pan-fry the sole 2–3 minutes per side, until golden and just cooked; transfer to plates.',
+      'Add the rest of the butter to the pan and cook to a light brown, then add the lemon juice and parsley.',
+      'Spoon the lemon-brown-butter over the fish and serve.',
     ],
     makesLeftovers: false,
     seasons: ['spring'],

@@ -630,9 +630,10 @@ export const recipeBatch8: Recipe[] = [
       { name: 'baby potatoes', quantity: 1, unit: 'lb', department: 'Produce' },
     ],
     steps: [
-      'Boil potatoes as a side.',
-      'Dredge trout lightly and pan-fry in butter until golden.',
-      'Toast almonds in brown butter; finish with lemon and parsley.',
+      'Boil the baby potatoes as a side until tender.',
+      'Pat the trout dry, season, dredge lightly in flour, and pan-fry in half the butter until golden and just cooked, 3–4 minutes per side; transfer to plates.',
+      'Add the rest of the butter and the sliced almonds to the pan and cook until the butter browns and the almonds are toasted.',
+      'Add the lemon juice and parsley and spoon over the trout. Serve with the potatoes.',
     ],
     makesLeftovers: false,
     seasons: [],

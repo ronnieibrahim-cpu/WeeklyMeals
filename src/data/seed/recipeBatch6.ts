@@ -200,9 +200,10 @@ export const recipeBatch6: Recipe[] = [
       { name: 'olive oil', quantity: 3, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     steps: [
-      'Cook lentils; cool slightly.',
-      'Whisk a dijon vinaigrette with shallot.',
-      'Toss lentils and arugula; top with goat cheese.',
+      'Simmer the French green lentils in salted water until tender but still holding their shape, about 20 minutes, then drain and cool slightly.',
+      'Whisk a vinaigrette from the minced shallot, dijon, olive oil, a splash of vinegar, salt, and pepper.',
+      'Toss the warm lentils with some of the vinaigrette, then fold in the arugula.',
+      'Plate and top with crumbled goat cheese and the remaining vinaigrette.',
     ],
     leftoverNotes: 'Keeps a couple of days.',
     makesLeftovers: true,
