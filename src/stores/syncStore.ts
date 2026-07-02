@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { kvStore } from '@/data/repositories/local/kvStore';
 import { SYNC_ENABLED } from '@/data/sync/config';
 import { getHousehold, SyncPayload, upsertHousehold } from '@/data/sync/householdApi';
+import { mergeSyncPayload, stableStringify, SyncMergePayload } from '@/engine/syncMerge';
 
 import { usePlanStore } from './planStore';
 
@@ -46,6 +47,16 @@ interface SyncState {
 export const useSyncStore = create<SyncState>((set, get) => {
   const setStatus = (status: SyncStatus, extra: Partial<SyncState> = {}) => set({ status, ...extra });
 
+  /** Write `data` to the household row unconditionally, and record it as
+   * the new last-known-synced state. Shared by the debounced local-edit
+   * push and the post-merge push-back, so there's one place that talks to
+   * the server. */
+  async function pushSnapshot(code: string, data: SyncPayload) {
+    const row = await upsertHousehold(code, data);
+    lastDataJson = stableStringify(data);
+    lastSyncedTs = Date.parse(row.updated_at) || Date.now();
+  }
+
   async function pull() {
     const code = get().code;
     if (!code || !SYNC_ENABLED) return;
@@ -55,15 +66,31 @@ export const useSyncStore = create<SyncState>((set, get) => {
       return;
     }
     const remoteTs = Date.parse(row.updated_at) || 0;
-    const remoteJson = JSON.stringify(row.data);
-    if (remoteTs > lastSyncedTs && remoteJson !== JSON.stringify(currentPayload())) {
+    if (remoteTs <= lastSyncedTs) return; // already caught up with this server state
+
+    const remote: SyncMergePayload = { plan: row.data?.plan ?? null, shoppingList: row.data?.shoppingList ?? null };
+    const local: SyncMergePayload = currentPayload();
+    const merged = mergeSyncPayload(local, remote);
+    const mergedKey = stableStringify(merged);
+
+    if (mergedKey !== stableStringify(local)) {
+      // Snapshot first: hydrateFromSync must see the exact merged result,
+      // not something re-read from the store after this point.
+      const snapshot = merged;
       applying = true;
-      usePlanStore.getState().hydrateFromSync(row.data?.plan ?? null, row.data?.shoppingList ?? null);
+      usePlanStore.getState().hydrateFromSync(snapshot.plan, snapshot.shoppingList);
       applying = false;
     }
-    if (remoteTs > lastSyncedTs) {
+
+    if (mergedKey !== stableStringify(remote)) {
+      // Local (or the merge itself) knows something this server row
+      // doesn't yet — write the converged result back so the other device
+      // picks it up on its next poll, instead of re-sending its own stale
+      // state and ping-ponging.
+      await pushSnapshot(code, merged);
+    } else {
       lastSyncedTs = remoteTs;
-      lastDataJson = remoteJson;
+      lastDataJson = stableStringify(remote);
     }
   }
 
@@ -71,11 +98,8 @@ export const useSyncStore = create<SyncState>((set, get) => {
     const code = get().code;
     if (!code || !SYNC_ENABLED || applying) return;
     const data = currentPayload();
-    const json = JSON.stringify(data);
-    if (json === lastDataJson) return; // nothing changed
-    const row = await upsertHousehold(code, data);
-    lastDataJson = json;
-    lastSyncedTs = Date.parse(row.updated_at) || Date.now();
+    if (stableStringify(data) === lastDataJson) return; // nothing changed
+    await pushSnapshot(code, data);
   }
 
   async function run(action: () => Promise<void>) {

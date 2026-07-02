@@ -8,6 +8,7 @@ export interface ShoppingItem {
   hebProductName?: string;
   estimatedPrice: number; // USD
   checked: boolean;
+  checkedAtISO?: string | null; // when this device last toggled `checked` (sync merge key)
   fromRecipeIds: string[]; // provenance, for edits/regeneration
 }
 

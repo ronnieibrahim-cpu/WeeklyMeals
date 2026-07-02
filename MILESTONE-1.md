@@ -75,7 +75,7 @@ allergies.)
 only ever produce hand-curated recipes; with no allergies set, imported recipes
 still appear; the detail-screen note shows on imported recipes.
 
-## [ ] M1.6 — Shopping-list sync merges instead of overwriting
+## [x] M1.6 — Shopping-list sync merges instead of overwriting — done: `ShoppingItem.checkedAtISO` / `PlannedMeal.cookedAtISO` stamped in `planStore.toggleShoppingItem`/`toggleCooked`; new pure `src/engine/syncMerge.ts` (`mergeShoppingLists`, `mergePlanMeals`, `mergeSyncPayload`) merges per-item/per-meal state instead of whole-payload replace, is commutative and idempotent by construction, and is wired into `syncStore.pull()` (push-back only when the merge actually adds something the server doesn't have yet, gated by a stable/sorted-key stringify so it can't ping-pong). Differing plan ids now compare `createdAtISO` — the newer plan wins regardless of which side is "local" vs "remote" — so a freshly generated week can't be raced away by a stale poll. Verified with `scripts/checkSyncMerge.ts` (9 assertions: cross-device convergence, newer-uncheck-beats-older-check, one-sided items survive, legacy/missing-timestamp data, planId-differ newer-wins both directions, idempotence, commutativity) — all passing; run via `npx tsx --tsconfig ./tsconfig.json scripts/checkSyncMerge.ts`. These assertions should migrate into the real test suite once M2.5 sets one up (no runner installed yet — PROJECT.md #11).
 **Problem:** Household sync pushes the whole payload, last-write-wins, 20s
 polling. Two phones checking items in-store clobber each other's checkmarks.
 **Approach (keep it simple, no new backend):**

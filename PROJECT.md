@@ -68,7 +68,8 @@ src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, Shoppin
 src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 12 weighted factors,
                      WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker with shuffle
                      tie-breaking) · shoppingList.ts · cost.ts (rough heuristic, scoring-only) ·
-                     learning.ts · season.ts · schedule.ts (local-date math: todayOffset/dayLabel)
+                     learning.ts · season.ts · schedule.ts (local-date math: todayOffset/dayLabel) ·
+                     syncMerge.ts (pure, commutative/idempotent household-sync merge, M1.6)
 src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipeImported.ts
                      (311 TheMealDB imports, GENERATED — never hand-edit; re-run
                      scripts/importRecipes.ts via normalize.ts). 541 recipes total.
@@ -76,7 +77,8 @@ src/data/grocery/heb HebProvider: curated price table, per-lb conversion (g/ml/k
 src/data/repositories/local  kvStore (AsyncStorage JSON) + one repo per aggregate
 src/data/sync/       config.ts (URL/key/SYNC_ENABLED kill-switch) · householdApi.ts (get/upsert row by 6-char code)
 src/stores/          planStore (orchestrator) · profileStore · pantryStore · learningStore ·
-                     settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms, last-write-wins)
+                     settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms,
+                     per-item/per-meal merge via src/engine/syncMerge.ts as of M1.6)
 src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji-tile fallback
 ```
 
@@ -102,8 +104,24 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    calls `planStore.markReviewed()`, stamping `plan.reviewedAtISO`; once set,
    the home card shows "Week rated ✓" and re-opening `/review` shows a
    read-only summary instead of the wizard — one review per plan (M1.3).
-5. **Sync (optional)**: `{plan, shoppingList}` pushed/pulled as one JSON blob
-   against the household row. Profile, pantry, and learning stay per-device.
+5. **Sync (optional)**: `{plan, shoppingList}` synced against the household
+   row. **M1.6:** no longer whole-payload last-write-wins. `src/engine/syncMerge.ts`
+   (pure, commutative, idempotent) merges per-item `checked`/`checkedAtISO`
+   and per-meal `cooked`/`cookedAtISO` — whichever device toggled an item or
+   meal more recently wins just that item/meal, not the whole list/plan; a
+   missing timestamp (legacy data) is never treated as newer than a real one,
+   and equal timestamps resolve to true/checked so a toggle is never silently
+   lost. If the two sides are looking at different plan ids, the plan with
+   the newer `createdAtISO` wins outright (a freshly generated week can't be
+   raced away by a stale poll). `syncStore.pull()` only pushes the merged
+   result back when it actually adds something the server doesn't have yet
+   (compared via a stable, sorted-key stringify — never raw
+   `JSON.stringify` — to avoid ping-ponging). Profile, pantry, and learning
+   stay per-device (still out of scope). Verified in
+   `scripts/checkSyncMerge.ts` (run via
+   `npx tsx --tsconfig ./tsconfig.json scripts/checkSyncMerge.ts`); those
+   assertions should migrate into the real test suite once a runner exists
+   (M2.5).
 
 ## 6. Coding conventions
 
@@ -140,8 +158,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 3. **"Plan a new week" destroys the current week before approval.**
    `generate()` overwrites the approved plan (and cooked progress) the moment
    the questionnaire finishes; closing review without approving loses the week.
-4. **Shared shopping list loses updates.** Whole-payload last-write-wins sync;
-   two phones checking items in-store clobber each other. Needs per-item merge.
+4. ~~Shared shopping list loses updates.~~ **Fixed (M1.6):** per-item/per-meal
+   merge in `src/engine/syncMerge.ts` replaces whole-payload last-write-wins;
+   see §5 above for details.
 
 **P1**
 5. ~~"Tonight" never advances~~ — **fixed (M1.4)**: `weekStartISO` is now
@@ -198,8 +217,8 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
   persist theme (done) · one-review-per-plan guard (done) · unblock/reset UI.
 - **Milestone 2 — Reduce Sunday friction:** "Same as last week?" one-tap fast
   path + cross-week recency penalty so the engine rotates on its own.
-- **Milestone 3 — Family list:** manual shopping items · per-item sync merge
-  (P0-4) · checks survive rebuilds.
+- **Milestone 3 — Family list:** manual shopping items · ~~per-item sync merge
+  (P0-4)~~ (done, M1.6) · checks survive rebuilds.
 - **Milestone 4 — Engine test suite:** filters (every allergen), scoring
   invariants, shopping consolidation, learning math.
 - Later: use learned dials in scoring · day-aware planning/reorder · recipe

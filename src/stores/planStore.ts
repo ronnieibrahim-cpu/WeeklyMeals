@@ -182,8 +182,9 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   toggleCooked: (dayIndex) => {
     const plan = get().plan;
     if (!plan) return;
+    const now = new Date().toISOString();
     const meals = plan.meals.map((m) =>
-      m.dayIndex === dayIndex ? { ...m, cooked: !m.cooked } : m,
+      m.dayIndex === dayIndex ? { ...m, cooked: !m.cooked, cookedAtISO: now } : m,
     );
     const next = { ...plan, meals };
     set({ plan: next });
@@ -219,8 +220,11 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   toggleShoppingItem: (ingredientName, unit) => {
     const list = get().shoppingList;
     if (!list) return;
+    const now = new Date().toISOString();
     const items = list.items.map((i) =>
-      i.ingredientName === ingredientName && i.unit === unit ? { ...i, checked: !i.checked } : i,
+      i.ingredientName === ingredientName && i.unit === unit
+        ? { ...i, checked: !i.checked, checkedAtISO: now }
+        : i,
     );
     const next = { ...list, items };
     set({ shoppingList: next });

@@ -6,6 +6,7 @@ export interface PlannedMeal {
   dayIndex: number; // 0–6 within the week
   locked: boolean; // user "kept" it during review
   cooked?: boolean; // marked done during the week (progress tracking)
+  cookedAtISO?: string | null; // when this device last toggled `cooked` (sync merge key)
   isLeftoverDay?: boolean; // reuses a prior meal instead of cooking
   leftoverFromRecipeId?: string;
 }
