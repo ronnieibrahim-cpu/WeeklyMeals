@@ -6,6 +6,7 @@ import { useTheme } from '@/ui/theme/useTheme';
 
 import { Card } from './Card';
 import { RecipeImage } from './RecipeImage';
+import { StarRating } from './StarRating';
 import { Text } from './Text';
 
 interface Props {
@@ -14,10 +15,14 @@ interface Props {
   badge?: string;
   locked?: boolean;
   cooked?: boolean;
+  /** Current 1–5 star rating for this meal (0/undefined = unrated). */
+  rating?: number;
   onPress?: () => void;
   onToggleLock?: () => void;
   onSwap?: () => void;
   onToggleCooked?: () => void;
+  /** When set, cooked meals show an inline star row for one-tap rating. */
+  onRate?: (value: number) => void;
 }
 
 /** Compact meal card used on This Week and the Review screen. */
@@ -27,10 +32,12 @@ export function MealCard({
   badge,
   locked,
   cooked,
+  rating,
   onPress,
   onToggleLock,
   onSwap,
   onToggleCooked,
+  onRate,
 }: Props) {
   const theme = useTheme();
   const showActions = !!(onToggleLock || onSwap);
@@ -60,21 +67,21 @@ export function MealCard({
           </Text>
         </View>
 
-        {onToggleCooked ? (
-          <Pressable
-            accessibilityLabel={cooked ? 'Mark not cooked' : 'Mark cooked'}
-            hitSlop={8}
-            onPress={onToggleCooked}
-            style={{ marginLeft: theme.spacing.sm }}
-          >
-            <Ionicons
-              name={cooked ? 'checkmark-circle' : 'ellipse-outline'}
-              size={26}
-              color={cooked ? theme.colors.success : theme.colors.textTertiary}
-            />
-          </Pressable>
-        ) : showActions ? (
-          <View style={{ gap: theme.spacing.md, marginLeft: theme.spacing.sm }}>
+        {onToggleCooked || showActions ? (
+          <View style={{ alignItems: 'center', gap: theme.spacing.md, marginLeft: theme.spacing.sm }}>
+            {onToggleCooked ? (
+              <Pressable
+                accessibilityLabel={cooked ? 'Mark not cooked' : 'Mark cooked'}
+                hitSlop={8}
+                onPress={onToggleCooked}
+              >
+                <Ionicons
+                  name={cooked ? 'checkmark-circle' : 'ellipse-outline'}
+                  size={26}
+                  color={cooked ? theme.colors.success : theme.colors.textTertiary}
+                />
+              </Pressable>
+            ) : null}
             {onToggleLock ? (
               <Pressable accessibilityLabel={locked ? 'Unlock' : 'Lock'} hitSlop={6} onPress={onToggleLock}>
                 <Ionicons
@@ -94,6 +101,23 @@ export function MealCard({
           <Ionicons name="chevron-forward" size={20} color={theme.colors.textTertiary} />
         ) : null}
       </View>
+
+      {onRate && cooked ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingHorizontal: theme.spacing.md,
+            paddingBottom: theme.spacing.md,
+          }}
+        >
+          <Text variant="footnote" color="secondary">
+            {rating ? 'Your rating' : 'How was it?'}
+          </Text>
+          <StarRating value={rating ?? 0} onChange={onRate} size={22} />
+        </View>
+      ) : null}
     </Card>
   );
 }

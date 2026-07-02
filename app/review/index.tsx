@@ -38,12 +38,33 @@ export default function WeeklyReviewScreen() {
   const plan = usePlanStore((s) => s.plan);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const submitReview = useLearningStore((s) => s.submitReview);
+  const ratings = useLearningStore((s) => s.ratings);
 
   const meals = plan ? [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex) : [];
   const [index, setIndex] = useState(0);
+  // Start from any inline (day-by-day) ratings already given for this plan.
   const [drafts, setDrafts] = useState<Record<string, Draft>>(() => {
     const initial: Record<string, Draft> = {};
-    for (const m of meals) initial[m.recipeId] = { cooked: m.cooked, flags: [] };
+    for (const m of meals) {
+      const existing = plan
+        ? ratings.find((r) => r.planId === plan.id && r.recipeId === m.recipeId)
+        : undefined;
+      initial[m.recipeId] = existing
+        ? {
+            cooked: existing.cooked,
+            enjoyment: existing.enjoyment,
+            cookAgain: existing.cookAgain,
+            familyAgain: existing.familyAgain,
+            flags: [
+              existing.tooMuchPrep ? 'prep' : '',
+              existing.tooExpensive ? 'pricey' : '',
+              existing.tooSpicy ? 'spicy' : '',
+              existing.tooBland ? 'bland' : '',
+              existing.tooManyLeftovers ? 'leftovers' : '',
+            ].filter(Boolean),
+          }
+        : { cooked: m.cooked, flags: [] };
+    }
     return initial;
   });
 

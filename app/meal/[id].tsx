@@ -5,7 +5,7 @@ import { Linking, Pressable, View } from 'react-native';
 import { getRecipe } from '@/data/seed/recipes';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
-import { Card, EmptyState, RecipeImage, Screen, SecondaryButton, Text } from '@/ui/components';
+import { Card, EmptyState, RecipeImage, Screen, SecondaryButton, StarRating, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function MealDetailScreen() {
@@ -15,6 +15,8 @@ export default function MealDetailScreen() {
   const recipe = id ? getRecipe(id) : undefined;
   const favorites = useLearningStore((s) => s.favorites);
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
+  const ratings = useLearningStore((s) => s.ratings);
+  const rateMeal = useLearningStore((s) => s.rateMeal);
   const plan = usePlanStore((s) => s.plan);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
 
@@ -69,6 +71,11 @@ export default function MealDetailScreen() {
     );
   }
 
+  const mealRating =
+    plannedMeal && plan
+      ? ratings.find((r) => r.planId === plan.id && r.recipeId === recipe.id)?.enjoyment
+      : undefined;
+
   const stats: [string, string][] = [
     [`${recipe.prepMinutes}m`, 'prep'],
     [`${recipe.cookMinutes}m`, 'cook'],
@@ -116,11 +123,42 @@ export default function MealDetailScreen() {
       </Text>
 
       {plannedMeal ? (
-        <SecondaryButton
-          title={plannedMeal.cooked ? '✓ Cooked' : 'Mark as cooked'}
-          onPress={() => toggleCooked(plannedMeal.dayIndex)}
-          style={{ marginTop: theme.spacing.lg }}
-        />
+        <>
+          <SecondaryButton
+            title={plannedMeal.cooked ? '✓ Cooked' : 'Mark as cooked'}
+            onPress={() => toggleCooked(plannedMeal.dayIndex)}
+            style={{ marginTop: theme.spacing.lg }}
+          />
+          {!plannedMeal.cooked ? (
+            <SecondaryButton
+              title="🎲 Reroll this dinner"
+              onPress={() =>
+                router.push({
+                  pathname: '/plan/reroll',
+                  params: { day: String(plannedMeal.dayIndex) },
+                })
+              }
+              style={{ marginTop: theme.spacing.sm }}
+            />
+          ) : (
+            <Card style={{ marginTop: theme.spacing.md }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text variant="headline">{mealRating ? 'Your rating' : 'How was it?'}</Text>
+                <StarRating
+                  value={mealRating ?? 0}
+                  onChange={(v) => plan && rateMeal(plan.id, recipe.id, v)}
+                  size={28}
+                />
+              </View>
+            </Card>
+          )}
+        </>
       ) : null}
 
       <Text variant="title3" style={{ marginTop: theme.spacing.xl, marginBottom: theme.spacing.sm }}>

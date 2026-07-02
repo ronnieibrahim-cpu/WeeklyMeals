@@ -53,6 +53,11 @@ interface PlanState {
   toggleLock: (recipeId: string) => void;
   /** Replace a single meal (by day index) with a fresh pick. */
   swapMeal: (dayIndex: number) => void;
+  /**
+   * Replace one meal after the week is finalized. Rebuilds the shopping list for
+   * the new week, keeping items you'd already checked off checked.
+   */
+  applyReroll: (dayIndex: number, recipeId: string) => void;
   /** Mark a meal cooked / not cooked (week progress). */
   toggleCooked: (dayIndex: number) => void;
   approve: () => void;
@@ -168,6 +173,32 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const next = { ...plan, meals };
     set({ plan: next });
     persist(next);
+  },
+
+  applyReroll: (dayIndex, recipeId) => {
+    const { plan, shoppingList } = get();
+    if (!plan) return;
+    const meals = plan.meals.map((m) =>
+      m.dayIndex === dayIndex ? { ...m, recipeId, locked: false, cooked: false } : m,
+    );
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+
+    if (plan.status !== 'approved') return;
+    const rebuilt = listFor(next);
+    if (shoppingList && shoppingList.planId === plan.id) {
+      const checked = new Set(
+        shoppingList.items
+          .filter((i) => i.checked)
+          .map((i) => `${i.ingredientName.toLowerCase()}|${i.unit}`),
+      );
+      rebuilt.items = rebuilt.items.map((i) =>
+        checked.has(`${i.ingredientName.toLowerCase()}|${i.unit}`) ? { ...i, checked: true } : i,
+      );
+    }
+    set({ shoppingList: rebuilt });
+    persistList(rebuilt);
   },
 
   toggleCooked: (dayIndex) => {

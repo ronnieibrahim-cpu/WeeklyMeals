@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 
+import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, EmptyState, MealCard, Screen, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -12,6 +13,8 @@ export default function ScheduleScreen() {
   const hydrated = usePlanStore((s) => s.hydrated);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
+  const ratings = useLearningStore((s) => s.ratings);
+  const rateMeal = useLearningStore((s) => s.rateMeal);
 
   if (!hydrated) {
     return (
@@ -67,7 +70,17 @@ export default function ScheduleScreen() {
               recipe={recipe}
               badge={recipe.makesLeftovers ? 'makes leftovers' : undefined}
               cooked={meal.cooked}
+              rating={
+                ratings.find((r) => r.planId === plan.id && r.recipeId === recipe.id)?.enjoyment
+              }
+              onRate={(v) => rateMeal(plan.id, recipe.id, v)}
               onToggleCooked={() => toggleCooked(meal.dayIndex)}
+              onSwap={
+                meal.cooked
+                  ? undefined
+                  : () =>
+                      router.push({ pathname: '/plan/reroll', params: { day: String(meal.dayIndex) } })
+              }
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
             />
           </View>

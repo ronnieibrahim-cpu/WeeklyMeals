@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 
 import { roughCostPerServing } from '@/engine/cost';
+import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, EmptyState, MealCard, Screen, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -14,6 +15,8 @@ export default function ThisWeekScreen() {
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const shoppingList = usePlanStore((s) => s.shoppingList);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
+  const ratings = useLearningStore((s) => s.ratings);
+  const rateMeal = useLearningStore((s) => s.rateMeal);
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -85,6 +88,11 @@ export default function ThisWeekScreen() {
   const tonightRecipe = tonight ? recipeFor(tonight) : undefined;
   const cookedCount = meals.filter((m) => m.cooked).length;
 
+  const ratingFor = (recipeId: string) =>
+    ratings.find((r) => r.planId === plan.id && r.recipeId === recipeId)?.enjoyment;
+  const rerollMeal = (dayIndex: number) =>
+    router.push({ pathname: '/plan/reroll', params: { day: String(dayIndex) } });
+
   return (
     <Screen
       title="This Week"
@@ -96,7 +104,10 @@ export default function ThisWeekScreen() {
           dayLabel={dayLabel(tonight.dayIndex)}
           badge={tonightRecipe.makesLeftovers ? 'leftovers' : undefined}
           cooked={tonight.cooked}
+          rating={ratingFor(tonightRecipe.id)}
+          onRate={(v) => rateMeal(plan.id, tonightRecipe.id, v)}
           onToggleCooked={() => toggleCooked(tonight.dayIndex)}
+          onSwap={tonight.cooked ? undefined : () => rerollMeal(tonight.dayIndex)}
           onPress={() =>
             router.push({ pathname: '/meal/[id]', params: { id: tonightRecipe.id } })
           }
@@ -123,7 +134,10 @@ export default function ThisWeekScreen() {
             dayLabel={dayLabel(meal.dayIndex)}
             badge={recipe.makesLeftovers ? 'leftovers' : undefined}
             cooked={meal.cooked}
+            rating={ratingFor(recipe.id)}
+            onRate={(v) => rateMeal(plan.id, recipe.id, v)}
             onToggleCooked={() => toggleCooked(meal.dayIndex)}
+            onSwap={meal.cooked ? undefined : () => rerollMeal(meal.dayIndex)}
             onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
           />
         );
