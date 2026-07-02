@@ -192,20 +192,31 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
     `RatingRepository` — none exist. Docs are aspirational.
 
 **P2**
-12. Duplicate `shuffle()` + inline re-implementation of engine selection in
-    `planStore.swapMeal`.
+12. ~~Duplicate `shuffle()` + inline re-implementation of engine selection in
+    `planStore.swapMeal`.~~ **Fixed (M1.7):** `shuffle()` now lives only in
+    `LocalRecommendationEngine.ts`; `swapMeal` delegates to a new exported
+    `selectReplacement(candidates, ctx, selected)` helper instead of
+    re-implementing the shuffle-then-best-score loop inline. `generate()`'s
+    own loop is untouched (behavior-preserving).
 13. Imported-recipe quality dilutes picks: cuisine mapping lumps British/Irish/
     Russian/Kenyan → "American", Vietnamese/Filipino/Malaysian → "Thai"; all
     imports claim 4 servings / ~15+30 min; nutrition is formula-guessed; odd
     units ("1 piece" salt cod). No scoring distinction curated vs estimated.
-14. `joinHousehold` with a short code silently no-ops (button appears dead);
-    create doesn't check code collisions.
+14. ~~`joinHousehold` with a short code silently no-ops (button appears dead);
+    create doesn't check code collisions.~~ **Partially fixed (M1.7):**
+    joining a code with no matching household row no longer silently creates
+    one from local data — `joinHousehold` now returns `'not_found'` and
+    `app/household.tsx` shows "No household found with that code — create a
+    new one?" before calling the new explicit `createHouseholdWithCode`.
+    Still open: `createHousehold` (random code path) doesn't check for
+    collisions.
 15. Sync security is honor-system: 6-char code is the only secret; **verify
     Supabase RLS on `households`** restricts anon select/upsert to a supplied
     code (key is public in the bundle). Data is low-sensitivity but dietary
     restrictions are health-adjacent.
-16. `recipesById` built with spread-inside-reduce (O(n²) over 541 recipes at
-    startup) — replace with a plain loop.
+16. ~~`recipesById` built with spread-inside-reduce (O(n²) over 541 recipes at
+    startup) — replace with a plain loop.~~ **Fixed (M1.7):** plain
+    `for`-loop assignment in `src/data/seed/recipes.ts`.
 17. A11y gaps: chips/star rating lack accessibilityRole/state.
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)

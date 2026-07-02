@@ -63,3 +63,26 @@ export class LocalRecommendationEngine implements RecommendationProvider {
 }
 
 export const localRecommendationEngine = new LocalRecommendationEngine();
+
+/**
+ * Pick the single best-scoring candidate not yet selected — for a one-off
+ * replacement (e.g. swapping a single meal) rather than building a whole
+ * week. Shuffled once so repeated swaps of the same day can land on a
+ * different tie-break, same as `generate()`.
+ */
+export function selectReplacement(
+  candidates: Recipe[],
+  ctx: GenerateContext,
+  selected: Recipe[],
+): Recipe | null {
+  let best: Recipe | null = null;
+  let bestScore = -Infinity;
+  for (const r of shuffle(candidates)) {
+    const score = scoreRecipe(r, ctx, selected);
+    if (score > bestScore) {
+      bestScore = score;
+      best = r;
+    }
+  }
+  return best;
+}

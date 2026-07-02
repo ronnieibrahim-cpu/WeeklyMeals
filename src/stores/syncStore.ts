@@ -39,7 +39,14 @@ interface SyncState {
   hydrated: boolean;
   init: () => Promise<void>;
   createHousehold: () => Promise<string>;
-  joinHousehold: (code: string) => Promise<void>;
+  /** Join an existing household code. Returns 'not_found' (without joining)
+   * if no household exists yet under that code, so the caller can confirm
+   * before creating one — see `createHouseholdWithCode`. */
+  joinHousehold: (code: string) => Promise<'joined' | 'not_found'>;
+  /** Explicitly create a new household under a chosen code (rather than a
+   * random one), seeding it from local data. Used after the user confirms
+   * "no household found — create one?" */
+  createHouseholdWithCode: (code: string) => Promise<void>;
   leave: () => void;
   syncNow: () => Promise<void>;
 }
@@ -143,6 +150,17 @@ export const useSyncStore = create<SyncState>((set, get) => {
     lastSyncedTs = 0;
   }
 
+  /** Adopt `code` as this device's household and seed the row with local
+   * data. Shared by `createHousehold` (random code) and
+   * `createHouseholdWithCode` (a code the user chose, after confirming). */
+  async function seedHousehold(code: string) {
+    resetMarkers();
+    set({ code });
+    await kvStore.setJSON(CODE_KEY, { code });
+    await run(push); // seed the row with local data
+    startPolling();
+  }
+
   return {
     code: null,
     status: 'idle',
@@ -162,22 +180,36 @@ export const useSyncStore = create<SyncState>((set, get) => {
 
     createHousehold: async () => {
       const code = makeCode();
-      resetMarkers();
-      set({ code });
-      await kvStore.setJSON(CODE_KEY, { code });
-      await run(push); // seed the row with local data
-      startPolling();
+      await seedHousehold(code);
       return code;
     },
 
     joinHousehold: async (raw) => {
       const code = raw.trim().toUpperCase();
-      if (code.length < 4) return;
+      if (code.length < 4 || !SYNC_ENABLED) return 'not_found';
+      setStatus('syncing');
+      try {
+        const row = await getHousehold(code);
+        if (!row) {
+          setStatus('idle');
+          return 'not_found';
+        }
+      } catch (e) {
+        setStatus('error', { error: e instanceof Error ? e.message : 'Sync failed' });
+        return 'not_found';
+      }
       resetMarkers();
       set({ code });
       await kvStore.setJSON(CODE_KEY, { code });
-      await run(pull); // adopt the household's existing data (or create if missing)
+      await run(pull); // adopt the household's existing data
       startPolling();
+      return 'joined';
+    },
+
+    createHouseholdWithCode: async (raw) => {
+      const code = raw.trim().toUpperCase();
+      if (code.length < 4) return;
+      await seedHousehold(code);
     },
 
     leave: () => {

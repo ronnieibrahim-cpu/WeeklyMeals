@@ -16,11 +16,13 @@ export default function HouseholdScreen() {
   const error = useSyncStore((s) => s.error);
   const createHousehold = useSyncStore((s) => s.createHousehold);
   const joinHousehold = useSyncStore((s) => s.joinHousehold);
+  const createHouseholdWithCode = useSyncStore((s) => s.createHouseholdWithCode);
   const leave = useSyncStore((s) => s.leave);
   const syncNow = useSyncStore((s) => s.syncNow);
 
   const [joinCode, setJoinCode] = useState('');
   const [busy, setBusy] = useState(false);
+  const [notFoundCode, setNotFoundCode] = useState<string | null>(null);
 
   const statusLine =
     status === 'syncing'
@@ -130,7 +132,10 @@ export default function HouseholdScreen() {
           >
             <TextInput
               value={joinCode}
-              onChangeText={(t) => setJoinCode(t.toUpperCase())}
+              onChangeText={(t) => {
+                setJoinCode(t.toUpperCase());
+                setNotFoundCode(null);
+              }}
               placeholder="6-character code"
               placeholderTextColor={theme.colors.textTertiary}
               autoCapitalize="characters"
@@ -150,11 +155,43 @@ export default function HouseholdScreen() {
             disabled={joinCode.trim().length < 4 || busy}
             onPress={async () => {
               setBusy(true);
-              await joinHousehold(joinCode);
+              const result = await joinHousehold(joinCode);
               setBusy(false);
-              setJoinCode('');
+              if (result === 'not_found') {
+                setNotFoundCode(joinCode.trim().toUpperCase());
+              } else {
+                setJoinCode('');
+              }
             }}
           />
+
+          {notFoundCode ? (
+            <Card style={{ marginTop: theme.spacing.md }}>
+              <Text variant="subhead">No household found with code {notFoundCode}.</Text>
+              <Text variant="footnote" color="secondary" style={{ marginTop: theme.spacing.xs }}>
+                Create a new household using this code instead?
+              </Text>
+              <View style={{ flexDirection: 'row', gap: theme.spacing.sm, marginTop: theme.spacing.md }}>
+                <SecondaryButton
+                  title="Cancel"
+                  onPress={() => setNotFoundCode(null)}
+                  style={{ flex: 1 }}
+                />
+                <PrimaryButton
+                  title="Create household"
+                  loading={busy}
+                  onPress={async () => {
+                    setBusy(true);
+                    await createHouseholdWithCode(notFoundCode);
+                    setBusy(false);
+                    setNotFoundCode(null);
+                    setJoinCode('');
+                  }}
+                  style={{ flex: 1 }}
+                />
+              </View>
+            </Card>
+          ) : null}
         </>
       )}
 

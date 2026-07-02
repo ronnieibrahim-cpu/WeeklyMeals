@@ -861,10 +861,10 @@ export const RECIPES: Recipe[] = [
 ];
 
 /** Fast lookup by id. */
-export const recipesById: Record<string, Recipe> = RECIPES.reduce(
-  (acc, r) => ({ ...acc, [r.id]: r }),
-  {} as Record<string, Recipe>,
-);
+export const recipesById: Record<string, Recipe> = {};
+for (const r of RECIPES) {
+  recipesById[r.id] = r;
+}
 
 export function getRecipe(id: string): Recipe | undefined {
   return recipesById[id];

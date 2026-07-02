@@ -94,7 +94,7 @@ checks items 4–6 within the same poll window — converges to all six checked 
 both devices. Cooked-toggles on meals should get the same per-meal treatment
 if straightforward; otherwise note it as follow-up.
 
-## [ ] M1.7 — Small correctness cleanups (one commit)
+## [x] M1.7 — Small correctness cleanups (one commit) — done: `syncStore.joinHousehold` now checks `getHousehold(code)` first and returns `'not_found'` instead of silently creating a row; `app/household.tsx` shows a "No household found with that code — create a new one?" confirm card wired to a new explicit `createHouseholdWithCode` action (shares a `seedHousehold` helper with the existing random-code `createHousehold`). `recipesById` (`src/data/seed/recipes.ts`) now built with a plain `for` loop instead of spread-in-reduce. `shuffle()` no longer duplicated in `planStore` — it's private to `LocalRecommendationEngine.ts`, and `swapMeal` delegates to a new exported `selectReplacement()` helper there instead of re-implementing the shuffle-then-best-score loop inline; `generate()`'s own loop was left untouched to keep behavior identical.
 - Joining a household code that doesn't exist should warn ("No household found
   with that code — create a new one?") instead of silently creating one from
   local data. Creating via explicit confirmation is fine.

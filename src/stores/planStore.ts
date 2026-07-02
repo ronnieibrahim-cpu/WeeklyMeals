@@ -6,9 +6,7 @@ import { localPlanRepository } from '@/data/repositories/local/LocalPlanReposito
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
 import { IntakeAnswers, PlannedMeal, Profile, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
-import { passesHardFilters, scoreRecipe } from '@/engine/recommendation';
-import { localRecommendationEngine } from '@/engine/recommendation';
-import { GenerateContext } from '@/engine/recommendation';
+import { GenerateContext, localRecommendationEngine, passesHardFilters, selectReplacement } from '@/engine/recommendation';
 import { localMidnight } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
 import { buildShoppingList } from '@/engine/shoppingList';
@@ -17,15 +15,6 @@ import { createId } from '@/utils/id';
 import { useLearningStore } from './learningStore';
 import { usePantryStore } from './pantryStore';
 import { useProfileStore } from './profileStore';
-
-function shuffle<T>(items: T[]): T[] {
-  const a = [...items];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: string[]): GenerateContext {
   const learning = useLearningStore.getState();
@@ -161,16 +150,8 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const candidates = RECIPES.filter(
       (r) => !used.has(r.id) && passesHardFilters(r, intake, profile),
     );
-    if (candidates.length === 0) return;
-    let best = candidates[0];
-    let bestScore = -Infinity;
-    for (const r of shuffle(candidates)) {
-      const s = scoreRecipe(r, ctx, selected);
-      if (s > bestScore) {
-        bestScore = s;
-        best = r;
-      }
-    }
+    const best = selectReplacement(candidates, ctx, selected);
+    if (!best) return;
     const meals = plan.meals.map((m) =>
       m.dayIndex === dayIndex ? { ...m, recipeId: best.id, locked: false } : m,
     );
