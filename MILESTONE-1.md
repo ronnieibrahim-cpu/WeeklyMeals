@@ -104,6 +104,23 @@ if straightforward; otherwise note it as follow-up.
   of re-implementing scoring inline.
 **Accept when:** behavior unchanged (except the join warning), typecheck green.
 
+## [x] M1.8 — Draft-plan protection, dead-question removal, unblock UI (one commit) — done: `planStore` now has a separate `draftPlan` slot (new `LocalDraftPlanRepository`, kvStore key `wm:draftPlan:v1`); `generate()`/`regenerate()`/`toggleLock()`/`swapMeal()` operate on it, and only `approve()` ever replaces the active `plan`. `app/plan/review.tsx` reads `draftPlan` and calls `discardDraft()` on close-without-approving. `app/(tabs)/index.tsx` nudges to review whenever a `draftPlan` exists, regardless of whether an older approved `plan` is still sitting underneath. Old pre-M1.8 unapproved plans migrate into `draftPlan` on next `init()`. Per Ronnie's decision, removed the two dead intake questions (`desiredLeftovers`, `specialOccasions`) entirely — from `IntakeAnswers`, `createIntakeFromProfile`, the Sunday wizard steps, the intake summary, and the now-unused `SPECIAL_OCCASIONS` constant — rather than wiring up real leftover-day logic (a Milestone-2+-scope feature, not a correctness fix). Added a "Blocked recipes" card to the Profile screen (shown only when non-empty) listing each blocked recipe by name with an "Unblock" action, wired to a new `learningStore.unblockRecipe(recipeId)`.
+- **P0-3 draft-plan protection:** "Plan a new week" must never destroy the
+  current approved plan (or its cooked progress) before the new week is
+  approved; closing review without approving must leave the old plan intact.
+- **Remove the two dead intake questions** (`desiredLeftovers`,
+  `specialOccasions`) — asked every Sunday, never read by the engine.
+  ✅ DECIDED (2026-07-02): remove rather than wire up; real leftovers-aware
+  planning is Milestone 2+ design work, not a revival of these fields.
+- **Unblock UI for blocked recipes** — repeatedly-disliked recipes get
+  blocked from recommendations with no way to see or undo it.
+**Accept when:** generating a new week never destroys an approved plan until
+the new one is approved; closing review without approving preserves the old
+plan; the two dead questions no longer appear anywhere in the Sunday wizard
+or summary; a blocked recipe can be viewed and unblocked from the Profile
+screen; existing saved plans/preferences still load correctly; typecheck
+green.
+
 ---
 
 ## Ronnie's manual checklist (not code)
@@ -113,6 +130,9 @@ if straightforward; otherwise note it as follow-up.
       walk you through checking this if unsure.
 
 ## Explicitly OUT of scope for Milestone 1
-Fast-path intake, removing dead questions, curated-first scoring, tests setup,
-photos, leftovers logic, notifications. These are Milestone 2+ — do not start
-them even if tempting.
+Fast-path intake, ~~removing dead questions~~ (carved out and done in M1.8,
+per Ronnie's explicit decision — see M1.8 note), curated-first scoring, tests
+setup, photos, **leftovers logic** (the real feature — deciding which day
+reuses a prior meal, adjusting the shopping list — is still Milestone 2+, not
+revived by M1.8's removal of the two dead questions), notifications. These
+are Milestone 2+ — do not start them even if tempting.

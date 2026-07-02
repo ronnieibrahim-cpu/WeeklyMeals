@@ -15,6 +15,8 @@ interface LearningState {
   toggleFavorite: (recipeId: string) => void;
   /** Record a batch of weekly-review ratings and update preferences. */
   submitReview: (events: RatingEvent[]) => void;
+  /** Remove one recipe from the blocked list so it can be recommended again. */
+  unblockRecipe: (recipeId: string) => void;
   reset: () => void;
 }
 
@@ -58,6 +60,17 @@ export const useLearningStore = create<LearningState>((set, get) => ({
     const preferences = applyRatings(get().preferences, events, recipesById);
     set({ ratings, preferences });
     persist({ ...get(), ratings, preferences });
+  },
+
+  unblockRecipe: (recipeId) => {
+    const prev = get().preferences;
+    if (!prev.blockedRecipeIds.includes(recipeId)) return;
+    const preferences = {
+      ...prev,
+      blockedRecipeIds: prev.blockedRecipeIds.filter((id) => id !== recipeId),
+    };
+    set({ preferences });
+    persist({ ...get(), preferences });
   },
 
   reset: () => {

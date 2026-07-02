@@ -155,9 +155,15 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    (halal/kosher/vegan).
 2. **Kosher filter no-op:** `(tags.includes('kosher') || true)` in
    `filters.ts` — only the pork/shellfish check actually runs.
-3. **"Plan a new week" destroys the current week before approval.**
-   `generate()` overwrites the approved plan (and cooked progress) the moment
-   the questionnaire finishes; closing review without approving loses the week.
+3. ~~"Plan a new week" destroys the current week before approval.~~ **Fixed
+   (M1.8):** `planStore` now has a separate `draftPlan` slot
+   (`LocalDraftPlanRepository`, kvStore key `wm:draftPlan:v1`). `generate()`/
+   `regenerate()`/`toggleLock()`/`swapMeal()` all operate on `draftPlan`;
+   `plan` (the active/approved week, with cooked progress) is only ever
+   replaced by `approve()`. Closing the review screen without approving
+   calls `discardDraft()` instead of leaving a half-finished plan sitting in
+   the active slot. Old persisted unapproved drafts migrate into `draftPlan`
+   on next load (`init()`) so existing saved data still loads correctly.
 4. ~~Shared shopping list loses updates.~~ **Fixed (M1.6):** per-item/per-meal
    merge in `src/engine/syncMerge.ts` replaces whole-payload last-write-wins;
    see §5 above for details.
@@ -173,15 +179,21 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    call `usePlanStore().previewShoppingList(plan)` (a thin wrapper around
    `buildShoppingList()`), so every screen shows the same H-E-B-priced total;
    `roughCostPerServing()` is scoped to engine scoring only.
-7. **Dead intake questions** — `desiredLeftovers` and `specialOccasions` are
-   asked every Sunday and never read; no leftover-day logic exists
-   (`isLeftoverDay` never set) despite README/PRD promises.
+7. ~~Dead intake questions~~ — **Removed (M1.8)**: `desiredLeftovers` and
+   `specialOccasions` were asked every Sunday and never read (no leftover-day
+   logic ever existed — `isLeftoverDay` was never set). Both questions,
+   their `IntakeAnswers` fields, and the `SPECIAL_OCCASIONS` constant are
+   gone. Real leftovers-aware planning (if wanted) is a Milestone 2+ feature
+   design, not a revival of these fields.
 8. **Half-connected learning** — `spiceTolerance`, `complexityPreference`,
    `budgetSensitivity`, `leftoverTolerance`, `vegetableAffinity` are learned
    but never used in scoring; profile `spiceLevel`/`equipment`/`cookingSkill`
    also unused. ~~Weekly review can be submitted repeatedly for the same plan
-   (double-counts).~~ **Fixed (M1.3)**: `plan.reviewedAtISO` guards it. Blocked
-   recipes have no unblock UI (reset fns exist, unwired).
+   (double-counts).~~ **Fixed (M1.3)**: `plan.reviewedAtISO` guards it.
+   ~~Blocked recipes have no unblock UI.~~ **Fixed (M1.8)**: Profile screen
+   shows a "Blocked recipes" card (only when non-empty) listing each blocked
+   recipe by name with an "Unblock" action, wired to a new
+   `learningStore.unblockRecipe(recipeId)`.
 9. **No cross-week memory** — engine has no plan history, so top-scored weeks
    repeat. Needs a recency penalty over the last 2–3 weeks.
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
@@ -221,11 +233,13 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 
-- **Milestone 1 — Trust & safety:** P0-1/2 allergen + kosher fixes + seed
-  validator + imports-guard · P0-3 draft-plan protection (new plan is a pending
-  draft; replace only on approve) · remove/wire dead questions · real dates +
-  correct "Tonight" (done) · single cost source (HebProvider everywhere, done) ·
-  persist theme (done) · one-review-per-plan guard (done) · unblock/reset UI.
+- **Milestone 1 — Trust & safety: done.** P0-1 allergen imports-guard (M1.5,
+  seed validator/canonical-list + Tree Nuts mismatch still open, see §7 #1) ·
+  P0-3 draft-plan protection (M1.8) · dead questions removed (M1.8) · real
+  dates + correct "Tonight" (M1.4) · single cost source (M1.2) · persist theme
+  (M1.1) · one-review-per-plan guard (M1.3) · sync per-item merge (M1.6) ·
+  unblock UI (M1.8) · small correctness cleanups (M1.7). Kosher filter no-op
+  (P0-2) remains open — not yet scheduled to a milestone task.
 - **Milestone 2 — Reduce Sunday friction:** "Same as last week?" one-tap fast
   path + cross-week recency penalty so the engine rotates on its own.
 - **Milestone 3 — Family list:** manual shopping items · ~~per-item sync merge

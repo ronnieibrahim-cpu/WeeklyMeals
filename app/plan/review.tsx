@@ -11,17 +11,24 @@ export default function ReviewPlanScreen() {
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const plan = usePlanStore((s) => s.plan);
+  const draftPlan = usePlanStore((s) => s.draftPlan);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const regenerate = usePlanStore((s) => s.regenerate);
   const toggleLock = usePlanStore((s) => s.toggleLock);
   const swapMeal = usePlanStore((s) => s.swapMeal);
   const approve = usePlanStore((s) => s.approve);
+  const discardDraft = usePlanStore((s) => s.discardDraft);
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
 
-  const close = () => router.dismissAll();
+  // Closing without approving discards the draft rather than leaving it
+  // sitting around half-reviewed — whatever plan was already active (if
+  // any) is untouched either way (P0-3).
+  const close = () => {
+    discardDraft();
+    router.dismissAll();
+  };
 
-  if (!plan) {
+  if (!draftPlan) {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: theme.spacing.xl }}>
@@ -34,11 +41,11 @@ export default function ReviewPlanScreen() {
     );
   }
 
-  const meals = [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex);
-  const preview = previewShoppingList(plan);
+  const meals = [...draftPlan.meals].sort((a, b) => a.dayIndex - b.dayIndex);
+  const preview = previewShoppingList(draftPlan);
   const totalCost = preview.estimatedTotal;
   const perServing = preview.costPerServing;
-  const shortfall = plan.intake.dinners - meals.length;
+  const shortfall = draftPlan.intake.dinners - meals.length;
 
   const onApprove = () => {
     approve();
@@ -84,7 +91,7 @@ export default function ReviewPlanScreen() {
           <Card style={{ marginBottom: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}>
             <Text variant="subhead">
               Only {meals.length} meals fit your filters this week. As the recipe library grows,
-              tight combinations will fill all {plan.intake.dinners}.
+              tight combinations will fill all {draftPlan.intake.dinners}.
             </Text>
           </Card>
         ) : null}

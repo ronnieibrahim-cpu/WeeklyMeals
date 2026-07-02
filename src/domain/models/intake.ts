@@ -13,6 +13,4 @@ export interface IntakeAnswers {
   dietaryRestrictions: string[];
   ingredientsAtHome: string[];
   adventurousness: number; // 0 safe … 1 adventurous
-  specialOccasions: string[];
-  desiredLeftovers: number; // number of meals that should yield leftovers
 }

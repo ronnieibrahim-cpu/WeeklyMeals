@@ -13,6 +13,7 @@ export default function ThisWeekScreen() {
   const router = useRouter();
   const theme = useTheme();
   const plan = usePlanStore((s) => s.plan);
+  const draftPlan = usePlanStore((s) => s.draftPlan);
   const hydrated = usePlanStore((s) => s.hydrated);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const shoppingList = usePlanStore((s) => s.shoppingList);
@@ -36,6 +37,22 @@ export default function ThisWeekScreen() {
     );
   }
 
+  // A freshly generated draft always takes priority to nudge toward review,
+  // regardless of whether an already-approved week still exists underneath
+  // (it does, untouched, until the draft is approved or discarded — P0-3).
+  if (draftPlan) {
+    return (
+      <Screen title="This Week" subtitle={today}>
+        <EmptyState
+          emoji="📝"
+          title="Your week is ready to review"
+          body="I've drafted your dinners. Take a look, lock your favorites, and approve."
+          action={{ label: 'Review my week', onPress: () => router.push('/plan/review') }}
+        />
+      </Screen>
+    );
+  }
+
   // No plan yet → invite to plan.
   if (!plan) {
     return (
@@ -46,20 +63,6 @@ export default function ThisWeekScreen() {
           body="Answer a few quick questions and I'll build your whole week of dinners — recipes, a schedule, and one H-E-B shopping list."
           action={{ label: "Let's plan this week", onPress: () => router.push('/plan') }}
           footnote="Takes about 3 minutes · 7 dinners"
-        />
-      </Screen>
-    );
-  }
-
-  // Draft plan → nudge to finish reviewing.
-  if (plan.status !== 'approved') {
-    return (
-      <Screen title="This Week" subtitle={today}>
-        <EmptyState
-          emoji="📝"
-          title="Your week is ready to review"
-          body="I've drafted your dinners. Take a look, lock your favorites, and approve."
-          action={{ label: 'Review my week', onPress: () => router.push('/plan/review') }}
         />
       </Screen>
     );

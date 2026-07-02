@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
+import { getRecipe } from '@/data/seed/recipes';
 import {
   BUDGET_OPTIONS,
   COMMON_ALLERGENS,
@@ -49,6 +50,7 @@ export default function ProfileScreen() {
   const removePantry = usePantryStore((s) => s.remove);
   const preferences = useLearningStore((s) => s.preferences);
   const favorites = useLearningStore((s) => s.favorites);
+  const unblockRecipe = useLearningStore((s) => s.unblockRecipe);
 
   const topAffinity = (record: Record<string, number>) => {
     const entry = Object.entries(record)
@@ -103,6 +105,54 @@ export default function ProfileScreen() {
           </Text>
         )}
       </Card>
+
+      {preferences.blockedRecipeIds.length > 0 ? (
+        <>
+          <SectionHeader title="Blocked recipes" />
+          <Card padded={false}>
+            <Text
+              variant="subhead"
+              color="secondary"
+              style={{ paddingHorizontal: theme.spacing.lg, paddingTop: theme.spacing.md }}
+            >
+              Repeatedly rated poorly, so these won't be suggested. Unblock any you'd like back in
+              rotation.
+            </Text>
+            {preferences.blockedRecipeIds.map((recipeId, i) => {
+              const recipe = getRecipe(recipeId);
+              return (
+                <View
+                  key={recipeId}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: theme.spacing.lg,
+                    paddingVertical: theme.spacing.md,
+                    borderTopWidth: i === 0 ? 0 : 1,
+                    borderTopColor: theme.colors.separator,
+                    marginTop: i === 0 ? theme.spacing.sm : 0,
+                  }}
+                >
+                  <Text variant="body" style={{ flex: 1, marginRight: theme.spacing.md }}>
+                    {recipe?.name ?? recipeId}
+                  </Text>
+                  <Pressable
+                    accessibilityLabel={`Unblock ${recipe?.name ?? recipeId}`}
+                    accessibilityRole="button"
+                    hitSlop={8}
+                    onPress={() => unblockRecipe(recipeId)}
+                  >
+                    <Text variant="subhead" color="accent">
+                      Unblock
+                    </Text>
+                  </Pressable>
+                </View>
+              );
+            })}
+          </Card>
+        </>
+      ) : null}
 
       <SectionHeader title="Household" />
       <Card padded={false}>

@@ -13,7 +13,6 @@ import {
   MAX_COOK_OPTIONS,
   MAX_PREP_OPTIONS,
   PROTEINS,
-  SPECIAL_OCCASIONS,
 } from '@/domain/constants';
 import { createDefaultProfile, createIntakeFromProfile } from '@/domain/defaults';
 import { Cuisine, IntakeAnswers, Protein } from '@/domain/models';
@@ -190,28 +189,6 @@ export default function PlanIntakeScreen() {
       canSkip: true,
     },
     {
-      title: 'Any special occasions?',
-      control: (
-        <ChipMultiSelect
-          options={toOptions(SPECIAL_OCCASIONS)}
-          values={answers.specialOccasions}
-          onToggle={(v) => patch({ specialOccasions: toggle(answers.specialOccasions, v) })}
-        />
-      ),
-      canSkip: true,
-    },
-    {
-      title: 'How many meals should make leftovers?',
-      subtitle: 'Great for lunches or a no-cook night.',
-      control: centeredStepper(
-        answers.desiredLeftovers,
-        'meals with leftovers',
-        (desiredLeftovers) => patch({ desiredLeftovers }),
-        0,
-        answers.dinners,
-      ),
-    },
-    {
       title: 'You’re all set 🎉',
       subtitle: 'Here’s what I’ll plan around this week.',
       continueLabel: 'Build my week 🍳',
@@ -263,7 +240,6 @@ function IntakeSummary({ answers }: { answers: IntakeAnswers }) {
     ['Proteins', answers.proteins.length > 0 ? answers.proteins.join(', ') : 'No preference'],
     ['Building around', pantryCount > 0 ? `${pantryCount} pantry item${pantryCount === 1 ? '' : 's'}` : 'Nothing on hand'],
     ['Style', vibe],
-    ['Leftovers', `${answers.desiredLeftovers} meal${answers.desiredLeftovers === 1 ? '' : 's'}`],
   ];
 
   return (

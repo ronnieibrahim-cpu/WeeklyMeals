@@ -74,14 +74,6 @@ export const COMMON_PANTRY: string[] = [
   'Canned tomatoes',
 ];
 
-export const SPECIAL_OCCASIONS: string[] = [
-  'Date night',
-  'Hosting guests',
-  'Kids’ pick',
-  'Busy week',
-  'Celebration',
-];
-
 /** Segmented choices mapped to the 0…1 sliders in IntakeAnswers. */
 export const HEALTHY_COMFORT_OPTIONS: LabeledOption<string>[] = [
   { value: '0', label: 'Healthy' },

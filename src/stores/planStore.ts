@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 import { hebProvider } from '@/data/grocery/heb/HebProvider';
 import { getRecipe, RECIPES } from '@/data/seed/recipes';
+import { localDraftPlanRepository } from '@/data/repositories/local/LocalDraftPlanRepository';
 import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
@@ -31,21 +32,30 @@ function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: strin
 
 interface PlanState {
   intake: IntakeAnswers | null;
+  /** The current active plan — last approved, with cooked progress. Only
+   * ever replaced by `approve()`, never by generating a new week. */
   plan: WeeklyPlan | null;
+  /** A freshly generated plan pending review. Lives here (not in `plan`)
+   * until approved, so closing review without approving can never destroy
+   * an already-approved week (P0-3). */
+  draftPlan: WeeklyPlan | null;
   shoppingList: ShoppingList | null;
   hydrated: boolean;
   init: () => Promise<void>;
   setIntake: (intake: IntakeAnswers) => void;
-  /** Build a fresh draft plan from the current intake. */
+  /** Build a fresh draft plan from the current intake (into `draftPlan`). */
   generate: () => void;
-  /** Re-pick every unlocked meal, keeping locked ones. */
+  /** Re-pick every unlocked meal in the draft, keeping locked ones. */
   regenerate: () => void;
   toggleLock: (recipeId: string) => void;
-  /** Replace a single meal (by day index) with a fresh pick. */
+  /** Replace a single meal (by day index) in the draft with a fresh pick. */
   swapMeal: (dayIndex: number) => void;
-  /** Mark a meal cooked / not cooked (week progress). */
+  /** Mark a meal cooked / not cooked (week progress, on the active plan). */
   toggleCooked: (dayIndex: number) => void;
+  /** Promote the draft to the active plan and build its shopping list. */
   approve: () => void;
+  /** Discard the pending draft without approving it (e.g. closing review). */
+  discardDraft: () => void;
   /** Mark the current plan as reviewed, so the weekly review can't be submitted again. */
   markReviewed: () => void;
   /** (Re)build the H-E-B shopping list from the current plan. */
@@ -67,6 +77,10 @@ function persist(plan: WeeklyPlan) {
   void localPlanRepository.save(plan);
 }
 
+function persistDraft(draft: WeeklyPlan) {
+  void localDraftPlanRepository.save(draft);
+}
+
 function persistList(list: ShoppingList) {
   void localShoppingListRepository.save(list);
 }
@@ -79,18 +93,32 @@ function listFor(plan: WeeklyPlan): ShoppingList {
 export const usePlanStore = create<PlanState>((set, get) => ({
   intake: null,
   plan: null,
+  draftPlan: null,
   shoppingList: null,
   hydrated: false,
 
   init: async () => {
     if (get().hydrated) return;
-    const [plan, shoppingList] = await Promise.all([
+    const [loadedPlan, loadedDraft, shoppingList] = await Promise.all([
       localPlanRepository.load(),
+      localDraftPlanRepository.load(),
       localShoppingListRepository.load(),
     ]);
+    // Migrate pre-M1.8 data: an unapproved plan used to live in the same
+    // slot as the active plan. Move it into draftPlan so it can never be
+    // mistaken for (or overwrite) an approved week.
+    let plan = loadedPlan;
+    let draftPlan = loadedDraft;
+    if (plan && plan.status !== 'approved' && !draftPlan) {
+      draftPlan = plan;
+      plan = null;
+      void localPlanRepository.clear();
+      void localDraftPlanRepository.save(draftPlan);
+    }
     set({
       plan: plan ?? null,
-      intake: plan?.intake ?? null,
+      draftPlan: draftPlan ?? null,
+      intake: draftPlan?.intake ?? plan?.intake ?? null,
       shoppingList: shoppingList ?? null,
       hydrated: true,
     });
@@ -103,7 +131,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!intake) return;
     const meals = localRecommendationEngine.generate(context(intake, profile, []), RECIPES);
-    const plan: WeeklyPlan = {
+    const draftPlan: WeeklyPlan = {
       id: createId(),
       weekStartISO: localMidnight(new Date()).toISOString(),
       intake,
@@ -111,38 +139,38 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       status: 'draft',
       createdAtISO: new Date().toISOString(),
     };
-    set({ plan });
-    persist(plan);
+    set({ draftPlan });
+    persistDraft(draftPlan);
   },
 
   regenerate: () => {
-    const { plan, intake } = get();
+    const { draftPlan, intake } = get();
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
-    if (!plan || !intake) return;
-    const lockedIds = plan.meals.filter((m) => m.locked).map((m) => m.recipeId);
+    if (!draftPlan || !intake) return;
+    const lockedIds = draftPlan.meals.filter((m) => m.locked).map((m) => m.recipeId);
     const meals = localRecommendationEngine.generate(context(intake, profile, lockedIds), RECIPES);
-    const next: WeeklyPlan = { ...plan, meals };
-    set({ plan: next });
-    persist(next);
+    const next: WeeklyPlan = { ...draftPlan, meals };
+    set({ draftPlan: next });
+    persistDraft(next);
   },
 
   toggleLock: (recipeId) => {
-    const plan = get().plan;
-    if (!plan) return;
-    const meals = plan.meals.map((m) =>
+    const draftPlan = get().draftPlan;
+    if (!draftPlan) return;
+    const meals = draftPlan.meals.map((m) =>
       m.recipeId === recipeId ? { ...m, locked: !m.locked } : m,
     );
-    const next = { ...plan, meals };
-    set({ plan: next });
-    persist(next);
+    const next = { ...draftPlan, meals };
+    set({ draftPlan: next });
+    persistDraft(next);
   },
 
   swapMeal: (dayIndex) => {
-    const { plan, intake } = get();
+    const { draftPlan, intake } = get();
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
-    if (!plan || !intake) return;
-    const used = new Set(plan.meals.map((m) => m.recipeId));
-    const selected = plan.meals
+    if (!draftPlan || !intake) return;
+    const used = new Set(draftPlan.meals.map((m) => m.recipeId));
+    const selected = draftPlan.meals
       .filter((m) => m.dayIndex !== dayIndex)
       .map((m) => getRecipe(m.recipeId))
       .filter((r): r is Recipe => !!r);
@@ -152,12 +180,12 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     );
     const best = selectReplacement(candidates, ctx, selected);
     if (!best) return;
-    const meals = plan.meals.map((m) =>
+    const meals = draftPlan.meals.map((m) =>
       m.dayIndex === dayIndex ? { ...m, recipeId: best.id, locked: false } : m,
     );
-    const next = { ...plan, meals };
-    set({ plan: next });
-    persist(next);
+    const next = { ...draftPlan, meals };
+    set({ draftPlan: next });
+    persistDraft(next);
   },
 
   toggleCooked: (dayIndex) => {
@@ -173,13 +201,20 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   },
 
   approve: () => {
-    const plan = get().plan;
-    if (!plan) return;
-    const next: WeeklyPlan = { ...plan, status: 'approved' };
+    const draftPlan = get().draftPlan;
+    if (!draftPlan) return;
+    const next: WeeklyPlan = { ...draftPlan, status: 'approved' };
     const shoppingList = listFor(next);
-    set({ plan: next, shoppingList });
+    set({ plan: next, draftPlan: null, shoppingList });
     persist(next);
     persistList(shoppingList);
+    void localDraftPlanRepository.clear();
+  },
+
+  discardDraft: () => {
+    if (!get().draftPlan) return;
+    set({ draftPlan: null });
+    void localDraftPlanRepository.clear();
   },
 
   markReviewed: () => {
@@ -221,8 +256,9 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   },
 
   clear: () => {
-    set({ plan: null, intake: null, shoppingList: null });
+    set({ plan: null, draftPlan: null, intake: null, shoppingList: null });
     void localPlanRepository.clear();
+    void localDraftPlanRepository.clear();
     void localShoppingListRepository.clear();
   },
 
