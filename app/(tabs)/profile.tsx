@@ -104,6 +104,18 @@ export default function ProfileScreen() {
         )}
       </Card>
 
+      <Card onPress={() => router.push('/history')} style={{ marginTop: theme.spacing.md }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <View>
+            <Text variant="headline">📜 Meal history</Text>
+            <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+              Past weeks, ratings, and what got cooked
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={20} color={theme.colors.textTertiary} />
+        </View>
+      </Card>
+
       <SectionHeader title="Household" />
       <Card padded={false}>
         <RowField label="Family size">

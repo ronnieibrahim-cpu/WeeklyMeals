@@ -89,7 +89,9 @@ function adventurousFit(recipe: Recipe, ctx: GenerateContext): number {
 }
 
 function seasonFit(recipe: Recipe, ctx: GenerateContext): number {
-  if (recipe.seasons.length === 0) return 0.6; // all-year
+  // Empty = available all year, which is (nearly) as in-season as it gets;
+  // explicitly in-season dishes keep a small edge, out-of-season a real penalty.
+  if (recipe.seasons.length === 0) return 0.85;
   return recipe.seasons.includes(ctx.season) ? 1 : 0.2;
 }
 
@@ -108,6 +110,11 @@ function affinityBonus(recipe: Recipe, ctx: GenerateContext): number {
 
 function favoriteBonus(recipe: Recipe, ctx: GenerateContext): number {
   return ctx.favoriteRecipeIds?.includes(recipe.id) ? 1 : 0;
+}
+
+/** 1 when this exact recipe appeared in a recent week (cooking fatigue). */
+function repeatPenalty(recipe: Recipe, ctx: GenerateContext): number {
+  return ctx.recentRecipeIds?.includes(recipe.id) ? 1 : 0;
 }
 
 function ratingsPenalty(recipe: Recipe, ctx: GenerateContext): number {
@@ -135,6 +142,7 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
     WEIGHTS.healthyComfort * healthyComfortFit(recipe, ctx) +
     WEIGHTS.adventurous * adventurousFit(recipe, ctx) +
     WEIGHTS.season * seasonFit(recipe, ctx) -
-    WEIGHTS.ratingsPenalty * ratingsPenalty(recipe, ctx)
+    WEIGHTS.ratingsPenalty * ratingsPenalty(recipe, ctx) -
+    WEIGHTS.repeatPenalty * repeatPenalty(recipe, ctx)
   );
 }

@@ -40,6 +40,7 @@ function RootNavigator() {
         <Stack.Screen name="plan" options={{ presentation: 'modal' }} />
         <Stack.Screen name="review" options={{ presentation: 'modal' }} />
         <Stack.Screen name="meal/[id]" />
+        <Stack.Screen name="history" />
         <Stack.Screen name="household" />
         <Stack.Screen name="settings" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />

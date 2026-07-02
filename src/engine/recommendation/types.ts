@@ -19,6 +19,8 @@ export interface GenerateContext {
   lockedRecipeIds?: string[];
   /** Favorited recipes get a reintroduction bonus. */
   favoriteRecipeIds?: string[];
+  /** Meals from recent archived weeks — penalized so weeks don't repeat back-to-back. */
+  recentRecipeIds?: string[];
 }
 
 export interface RecommendationProvider {
@@ -43,4 +45,5 @@ export const WEIGHTS = {
   adventurous: 0.8,
   season: 0.4,
   ratingsPenalty: 2.0,
+  repeatPenalty: 1.5, // cooked it in the last couple weeks — give it a rest
 } as const;

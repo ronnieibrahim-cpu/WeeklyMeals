@@ -2,11 +2,12 @@ import { create } from 'zustand';
 
 import { hebProvider } from '@/data/grocery/heb/HebProvider';
 import { getRecipe, RECIPES } from '@/data/seed/recipes';
+import { localPlanHistoryRepository } from '@/data/repositories/local/LocalPlanHistoryRepository';
 import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
 import { IntakeAnswers, PlannedMeal, Profile, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
-import { passesHardFilters, scoreRecipe } from '@/engine/recommendation';
+import { passesHardFilters, sampleTopScored, scoreRecipe } from '@/engine/recommendation';
 import { localRecommendationEngine } from '@/engine/recommendation';
 import { GenerateContext } from '@/engine/recommendation';
 import { seasonForDate } from '@/engine/season';
@@ -26,13 +27,21 @@ function shuffle<T>(items: T[]): T[] {
   return a;
 }
 
-function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: string[]): GenerateContext {
+function context(
+  intake: IntakeAnswers,
+  profile: Profile,
+  lockedRecipeIds: string[],
+  history: WeeklyPlan[],
+): GenerateContext {
   const learning = useLearningStore.getState();
+  // Meals from the last two archived weeks get a fatigue penalty.
+  const recentRecipeIds = history.slice(0, 2).flatMap((p) => p.meals.map((m) => m.recipeId));
   return {
     intake,
     profile,
     preferences: learning.preferences,
     favoriteRecipeIds: learning.favorites,
+    recentRecipeIds,
     pantry: intake.ingredientsAtHome,
     season: seasonForDate(new Date()),
     lockedRecipeIds,
@@ -43,6 +52,8 @@ interface PlanState {
   intake: IntakeAnswers | null;
   plan: WeeklyPlan | null;
   shoppingList: ShoppingList | null;
+  /** Past approved weeks, newest first. */
+  history: WeeklyPlan[];
   hydrated: boolean;
   init: () => Promise<void>;
   setIntake: (intake: IntakeAnswers) => void;
@@ -87,18 +98,21 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   intake: null,
   plan: null,
   shoppingList: null,
+  history: [],
   hydrated: false,
 
   init: async () => {
     if (get().hydrated) return;
-    const [plan, shoppingList] = await Promise.all([
+    const [plan, shoppingList, history] = await Promise.all([
       localPlanRepository.load(),
       localShoppingListRepository.load(),
+      localPlanHistoryRepository.load(),
     ]);
     set({
       plan: plan ?? null,
       intake: plan?.intake ?? null,
       shoppingList: shoppingList ?? null,
+      history: history ?? [],
       hydrated: true,
     });
   },
@@ -109,7 +123,20 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const intake = get().intake;
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!intake) return;
-    const meals = localRecommendationEngine.generate(context(intake, profile, []), RECIPES);
+
+    // Starting a new week retires the old one into history (drafts are discarded).
+    const previous = get().plan;
+    let history = get().history;
+    if (previous && previous.status === 'approved') {
+      history = [previous, ...history];
+      set({ history });
+      void localPlanHistoryRepository.save(history);
+    }
+
+    const meals = localRecommendationEngine.generate(
+      context(intake, profile, [], history),
+      RECIPES,
+    );
     const plan: WeeklyPlan = {
       id: createId(),
       weekStartISO: new Date().toISOString(),
@@ -127,7 +154,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!plan || !intake) return;
     const lockedIds = plan.meals.filter((m) => m.locked).map((m) => m.recipeId);
-    const meals = localRecommendationEngine.generate(context(intake, profile, lockedIds), RECIPES);
+    const meals = localRecommendationEngine.generate(
+      context(intake, profile, lockedIds, get().history),
+      RECIPES,
+    );
     const next: WeeklyPlan = { ...plan, meals };
     set({ plan: next });
     persist(next);
@@ -153,20 +183,17 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       .filter((m) => m.dayIndex !== dayIndex)
       .map((m) => getRecipe(m.recipeId))
       .filter((r): r is Recipe => !!r);
-    const ctx = context(intake, profile, []);
+    const ctx = context(intake, profile, [], get().history);
     const candidates = RECIPES.filter(
       (r) => !used.has(r.id) && passesHardFilters(r, intake, profile),
     );
     if (candidates.length === 0) return;
-    let best = candidates[0];
-    let bestScore = -Infinity;
-    for (const r of shuffle(candidates)) {
-      const s = scoreRecipe(r, ctx, selected);
-      if (s > bestScore) {
-        bestScore = s;
-        best = r;
-      }
-    }
+    const scored = shuffle(candidates).map((recipe) => ({
+      recipe,
+      score: scoreRecipe(recipe, ctx, selected),
+    }));
+    const best = sampleTopScored(scored, 5);
+    if (!best) return;
     const meals = plan.meals.map((m) =>
       m.dayIndex === dayIndex ? { ...m, recipeId: best.id, locked: false } : m,
     );
@@ -250,9 +277,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   },
 
   clear: () => {
-    set({ plan: null, intake: null, shoppingList: null });
+    set({ plan: null, intake: null, shoppingList: null, history: [] });
     void localPlanRepository.clear();
     void localShoppingListRepository.clear();
+    void localPlanHistoryRepository.clear();
   },
 
   recipeFor: (meal) => getRecipe(meal.recipeId),

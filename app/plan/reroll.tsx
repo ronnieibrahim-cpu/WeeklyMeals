@@ -40,6 +40,7 @@ export default function RerollMealScreen() {
   const dayIndex = Number(day);
 
   const plan = usePlanStore((s) => s.plan);
+  const history = usePlanStore((s) => s.history);
   const shoppingList = usePlanStore((s) => s.shoppingList);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const applyReroll = usePlanStore((s) => s.applyReroll);
@@ -71,6 +72,7 @@ export default function RerollMealScreen() {
       profile: profile ?? createDefaultProfile(),
       preferences,
       favoriteRecipeIds: favorites,
+      recentRecipeIds: history.slice(0, 2).flatMap((p) => p.meals.map((m) => m.recipeId)),
       pantry: [...plan.intake.ingredientsAtHome, ...useUp],
       season: seasonForDate(new Date()),
     };
@@ -83,7 +85,7 @@ export default function RerollMealScreen() {
       useUpIngredients: useUp,
       weekIngredients,
     });
-  }, [plan, meal, dayIndex, profile, preferences, favorites, useUp, declinedIds, weekIngredients, recipeFor]);
+  }, [plan, meal, dayIndex, profile, preferences, favorites, history, useUp, declinedIds, weekIngredients, recipeFor]);
 
   if (!plan || !meal || !current) {
     return (

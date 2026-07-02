@@ -21,9 +21,18 @@ const PROTEIN_COST: Record<Protein, number> = {
   None: 0.4,
 };
 
+/** Departments whose ingredients meaningfully move the bill. */
+const MAJOR_DEPARTMENTS = new Set(['Meat', 'Seafood', 'Produce', 'Dairy', 'Frozen', 'Bakery']);
+
 export function roughCostPerServing(recipe: Recipe): number {
   const protein = PROTEIN_COST[recipe.primaryProtein] ?? 1.5;
-  // Each non-staple ingredient adds a little; produce-heavy dishes cost a bit more.
-  const extras = recipe.ingredients.filter((i) => !i.pantryStaple).length * 0.25;
-  return Math.round((protein + extras) * 100) / 100;
+  // Groceries you actually buy add real cost; spices/condiments barely register.
+  // (Counting every listed pinch equally made web-imported recipes — which
+  // itemize each spice — look ~$1.50/serving pricier than hand-authored ones.)
+  let extras = 0;
+  for (const i of recipe.ingredients) {
+    if (i.pantryStaple) continue;
+    extras += MAJOR_DEPARTMENTS.has(i.department) ? 0.25 : 0.08;
+  }
+  return Math.round((protein + Math.min(extras, 2.5)) * 100) / 100;
 }
