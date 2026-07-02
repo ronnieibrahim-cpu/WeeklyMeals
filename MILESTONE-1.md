@@ -9,7 +9,7 @@ Product decisions already made by Ronnie are marked ✅ DECIDED. Anything marked
 
 ---
 
-## [ ] M1.1 — Persist the theme setting
+## [x] M1.1 — Persist the theme setting — done: added `SettingsRepository`/`LocalSettingsRepository` (kvStore `wm:settings:v1`), `settingsStore` now hydrates in `init()` wired from `app/_layout.tsx`.
 **Problem:** `settingsStore` is in-memory only; theme resets to System every launch.
 **Approach:** Persist `themePreference` via a small repository following the
 existing pattern (`kvStore` key like `wm:settings:v1`), hydrate in `init()`

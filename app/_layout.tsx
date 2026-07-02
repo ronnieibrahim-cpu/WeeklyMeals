@@ -9,6 +9,7 @@ import { useLearningStore } from '@/stores/learningStore';
 import { usePantryStore } from '@/stores/pantryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { useSyncStore } from '@/stores/syncStore';
 import { AppThemeProvider } from '@/ui/theme/ThemeProvider';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -19,6 +20,7 @@ function RootNavigator() {
   const theme = useTheme();
 
   useEffect(() => {
+    void useSettingsStore.getState().init();
     void useProfileStore.getState().init();
     void usePlanStore.getState().init();
     void usePantryStore.getState().init();

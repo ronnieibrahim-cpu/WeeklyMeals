@@ -142,7 +142,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    (double-counts). Blocked recipes have no unblock UI (reset fns exist, unwired).
 9. **No cross-week memory** — engine has no plan history, so top-scored weeks
    repeat. Needs a recency penalty over the last 2–3 weeks.
-10. **Theme preference resets every launch** (`settingsStore` never persists).
+10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
+    `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
+    `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
 11. **Zero tests** despite a deliberately pure engine; `docs/ARCHITECTURE.md`
     references `__tests__/`, `schedule.ts`, `units.ts`, `reviewStore`,
     `RatingRepository` — none exist. Docs are aspirational.
@@ -170,7 +172,7 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
   validator + imports-guard · P0-3 draft-plan protection (new plan is a pending
   draft; replace only on approve) · remove/wire dead questions · real dates +
   correct "Tonight" · single cost source (HebProvider everywhere) · persist
-  theme · one-review-per-plan guard · unblock/reset UI.
+  theme (done) · one-review-per-plan guard · unblock/reset UI.
 - **Milestone 2 — Reduce Sunday friction:** "Same as last week?" one-tap fast
   path + cross-week recency penalty so the engine rotates on its own.
 - **Milestone 3 — Family list:** manual shopping items · per-item sync merge
