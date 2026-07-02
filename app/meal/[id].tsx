@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Pressable, View } from 'react-native';
+import { Linking, Pressable, View } from 'react-native';
 
 import { getRecipe } from '@/data/seed/recipes';
 import { useLearningStore } from '@/stores/learningStore';
@@ -181,6 +181,26 @@ export default function MealDetailScreen() {
             {recipe.freezingNotes}
           </Text>
         </Card>
+      ) : null}
+
+      {recipe.sourceName ? (
+        <View style={{ marginTop: theme.spacing.lg }}>
+          {recipe.estimated ? (
+            <Text variant="footnote" color="tertiary" style={{ marginBottom: 2 }}>
+              Times and nutrition are estimated.
+            </Text>
+          ) : null}
+          <Pressable
+            disabled={!recipe.sourceUrl}
+            onPress={() => recipe.sourceUrl && Linking.openURL(recipe.sourceUrl)}
+          >
+            <Text variant="footnote" color={recipe.sourceUrl ? 'accent' : 'tertiary'}>
+              Recipe from {recipe.sourceName}
+              {recipe.origin ? ` · ${recipe.origin}` : ''}
+              {recipe.sourceUrl ? ' ↗' : ''}
+            </Text>
+          </Pressable>
+        </View>
       ) : null}
     </Screen>
   );

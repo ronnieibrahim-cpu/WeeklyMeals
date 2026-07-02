@@ -39,5 +39,9 @@ export interface Recipe {
   seasons: Season[]; // empty = available all year
   allergens: string[]; // e.g. ['peanuts', 'dairy']
   dietTags: string[]; // e.g. ['vegetarian', 'gluten-free']
-  image?: string; // asset key; UI falls back to a gradient card
+  image?: string; // direct photo URL or asset key; UI falls back to a cuisine tile
+  origin?: string; // true country/region label for display (may differ from the mapped `cuisine`)
+  sourceName?: string; // attribution, e.g. 'TheMealDB'
+  sourceUrl?: string; // link back to the original recipe (citation)
+  estimated?: boolean; // true when nutrition/times were inferred during import, not authored
 }

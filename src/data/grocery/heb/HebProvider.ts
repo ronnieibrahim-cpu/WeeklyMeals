@@ -24,6 +24,11 @@ const DEPARTMENT_DEFAULT: Record<Department, number> = {
 function toPounds(quantity: number, unit: Unit): number {
   if (unit === 'lb') return quantity;
   if (unit === 'oz') return quantity / 16;
+  // Metric weights/volumes (common in imported recipes) — convert so per-lb
+  // pricing stays sane instead of treating "400 g" as 400 lb. Volume is
+  // approximated at water density, which is close enough for a cost estimate.
+  if (unit === 'g' || unit === 'ml') return quantity / 453.6;
+  if (unit === 'kg' || unit === 'l') return quantity * 2.205;
   return quantity; // count-based; treated as 1 "unit" for weight scaling
 }
 
