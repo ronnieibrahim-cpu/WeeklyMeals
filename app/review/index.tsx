@@ -1,11 +1,15 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { getRecipe } from '@/data/seed/recipes';
 import { RatingEvent } from '@/domain/models';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import {
+  Card,
   ChipMultiSelect,
   ChipOption,
   QuestionScaffold,
@@ -24,6 +28,11 @@ interface Draft {
   flags: string[];
 }
 
+/** `flags` can be missing if a draft was only ever updated via `cooked`/`enjoyment` patches. */
+function normalizeDraft(draft: Draft | undefined): Draft {
+  return draft ? { ...draft, flags: draft.flags ?? [] } : { flags: [] };
+}
+
 const FLAG_OPTIONS: ChipOption[] = [
   { value: 'prep', label: 'Too much prep' },
   { value: 'pricey', label: 'Too pricey' },
@@ -37,7 +46,9 @@ export default function WeeklyReviewScreen() {
   const theme = useTheme();
   const plan = usePlanStore((s) => s.plan);
   const recipeFor = usePlanStore((s) => s.recipeFor);
+  const markReviewed = usePlanStore((s) => s.markReviewed);
   const submitReview = useLearningStore((s) => s.submitReview);
+  const ratings = useLearningStore((s) => s.ratings);
 
   const meals = plan ? [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex) : [];
   const [index, setIndex] = useState(0);
@@ -64,9 +75,78 @@ export default function WeeklyReviewScreen() {
     );
   }
 
+  if (plan.reviewedAtISO) {
+    const planRatings = ratings.filter((r) => r.planId === plan.id);
+    return (
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: theme.colors.background }}
+        edges={['top', 'left', 'right']}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            paddingHorizontal: theme.spacing.xl,
+            paddingTop: theme.spacing.sm,
+          }}
+        >
+          <Pressable accessibilityLabel="Close" accessibilityRole="button" hitSlop={8} onPress={() => router.dismissAll()}>
+            <Ionicons name="close" size={26} color={theme.colors.text} />
+          </Pressable>
+        </View>
+
+        <ScrollView contentContainerStyle={{ padding: theme.spacing.xl }} showsVerticalScrollIndicator={false}>
+          <View style={{ alignItems: 'center', marginBottom: theme.spacing.xl }}>
+            <Text style={{ fontSize: 44, lineHeight: 52 }}>⭐</Text>
+            <Text variant="title2" center style={{ marginTop: theme.spacing.md }}>
+              You've already rated this week
+            </Text>
+            <Text variant="body" color="secondary" center style={{ marginTop: theme.spacing.sm }}>
+              Thanks for the feedback — it's already shaping next week's picks.
+            </Text>
+          </View>
+
+          {planRatings.length > 0 ? (
+            <>
+              <Text variant="footnote" color="secondary" style={{ marginBottom: theme.spacing.sm }}>
+                WHAT YOU SAID
+              </Text>
+              <Card padded={false}>
+                {planRatings.map((r, i) => {
+                  const recipe = getRecipe(r.recipeId);
+                  const stars =
+                    r.cooked && typeof r.enjoyment === 'number'
+                      ? '★'.repeat(r.enjoyment) + '☆'.repeat(5 - r.enjoyment)
+                      : 'Not cooked';
+                  return (
+                    <View
+                      key={r.id}
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        paddingVertical: theme.spacing.md,
+                        paddingHorizontal: theme.spacing.lg,
+                        borderTopWidth: i === 0 ? 0 : 1,
+                        borderTopColor: theme.colors.separator,
+                      }}
+                    >
+                      <Text variant="body">{recipe?.name ?? 'Unknown recipe'}</Text>
+                      <Text variant="subhead" color="secondary">
+                        {stars}
+                      </Text>
+                    </View>
+                  );
+                })}
+              </Card>
+            </>
+          ) : null}
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
   const meal = meals[index];
   const recipe = recipeFor(meal);
-  const draft = drafts[meal.recipeId] ?? { flags: [] };
+  const draft = normalizeDraft(drafts[meal.recipeId]);
   const isLast = index === meals.length - 1;
 
   const update = (patch: Partial<Draft>) =>
@@ -75,7 +155,7 @@ export default function WeeklyReviewScreen() {
   const finish = (allDrafts: Record<string, Draft>) => {
     const now = new Date().toISOString();
     const events: RatingEvent[] = meals.map((m) => {
-      const a = allDrafts[m.recipeId] ?? { flags: [] };
+      const a = normalizeDraft(allDrafts[m.recipeId]);
       return {
         id: createId(),
         planId: plan.id,
@@ -93,6 +173,7 @@ export default function WeeklyReviewScreen() {
       };
     });
     submitReview(events);
+    markReviewed();
     router.dismissAll();
   };
 

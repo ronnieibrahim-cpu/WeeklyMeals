@@ -125,10 +125,21 @@ export default function ThisWeekScreen() {
         onPress={() => router.push('/review')}
         style={{ marginTop: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}
       >
-        <Text variant="headline">⭐ How did this week go?</Text>
-        <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
-          Rate your meals — favorites come back and your weeks keep improving.
-        </Text>
+        {plan.reviewedAtISO ? (
+          <>
+            <Text variant="headline">⭐ Week rated ✓</Text>
+            <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+              Thanks for the feedback — tap to see what you said.
+            </Text>
+          </>
+        ) : (
+          <>
+            <Text variant="headline">⭐ How did this week go?</Text>
+            <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+              Rate your meals — favorites come back and your weeks keep improving.
+            </Text>
+          </>
+        )}
       </Card>
 
       <SecondaryButton

@@ -28,7 +28,7 @@ scoring heuristic inside the engine.
 **Accept when:** the dollar total shown at approval equals the shopping tab's
 estimated total for the same plan (pantry exclusions included in both).
 
-## [ ] M1.3 — One review per plan
+## [x] M1.3 — One review per plan — done: `WeeklyPlan.reviewedAtISO` set by `planStore.markReviewed()` on submit; home card shows "Week rated ✓" and re-entering `/review` shows a read-only summary instead of the wizard. Also fixed a crash discovered while testing: the rating wizard threw when `flags` was missing from a draft (normalized via a small `normalizeDraft()` helper).
 **Problem:** The weekly review can be submitted repeatedly for the same plan,
 double-counting taste learning.
 **Approach:** Add a `reviewedAtISO?: string` field to `WeeklyPlan`. Set it in

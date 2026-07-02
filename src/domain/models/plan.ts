@@ -19,4 +19,6 @@ export interface WeeklyPlan {
   meals: PlannedMeal[];
   status: PlanStatus;
   createdAtISO: string;
+  /** Set once the weekly review has been submitted for this plan; guards against double-counting. */
+  reviewedAtISO?: string;
 }

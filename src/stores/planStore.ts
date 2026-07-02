@@ -56,6 +56,8 @@ interface PlanState {
   /** Mark a meal cooked / not cooked (week progress). */
   toggleCooked: (dayIndex: number) => void;
   approve: () => void;
+  /** Mark the current plan as reviewed, so the weekly review can't be submitted again. */
+  markReviewed: () => void;
   /** (Re)build the H-E-B shopping list from the current plan. */
   buildList: () => void;
   toggleShoppingItem: (ingredientName: string, unit: string) => void;
@@ -195,6 +197,14 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     set({ plan: next, shoppingList });
     persist(next);
     persistList(shoppingList);
+  },
+
+  markReviewed: () => {
+    const plan = get().plan;
+    if (!plan || plan.reviewedAtISO) return;
+    const next: WeeklyPlan = { ...plan, reviewedAtISO: new Date().toISOString() };
+    set({ plan: next });
+    persist(next);
   },
 
   buildList: () => {

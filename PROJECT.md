@@ -93,7 +93,10 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 4. **Weekly review** (`review/index`): per-meal ratings → `applyRatings()` →
    cuisine/protein/technique/vegetable affinities nudged (clamped ±1), four
    dials updated (spice/complexity/budget/leftovers), strong dislikes appended
-   to `blockedRecipeIds` → next week's scoring shifts.
+   to `blockedRecipeIds` → next week's scoring shifts. `submitReview()` also
+   calls `planStore.markReviewed()`, stamping `plan.reviewedAtISO`; once set,
+   the home card shows "Week rated ✓" and re-opening `/review` shows a
+   read-only summary instead of the wizard — one review per plan (M1.3).
 5. **Sync (optional)**: `{plan, shoppingList}` pushed/pulled as one JSON blob
    against the household row. Profile, pantry, and learning stay per-device.
 
@@ -140,8 +143,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 8. **Half-connected learning** — `spiceTolerance`, `complexityPreference`,
    `budgetSensitivity`, `leftoverTolerance`, `vegetableAffinity` are learned
    but never used in scoring; profile `spiceLevel`/`equipment`/`cookingSkill`
-   also unused. Weekly review can be submitted repeatedly for the same plan
-   (double-counts). Blocked recipes have no unblock UI (reset fns exist, unwired).
+   also unused. ~~Weekly review can be submitted repeatedly for the same plan
+   (double-counts).~~ **Fixed (M1.3)**: `plan.reviewedAtISO` guards it. Blocked
+   recipes have no unblock UI (reset fns exist, unwired).
 9. **No cross-week memory** — engine has no plan history, so top-scored weeks
    repeat. Needs a recency penalty over the last 2–3 weeks.
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
@@ -174,7 +178,7 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
   validator + imports-guard · P0-3 draft-plan protection (new plan is a pending
   draft; replace only on approve) · remove/wire dead questions · real dates +
   correct "Tonight" · single cost source (HebProvider everywhere, done) ·
-  persist theme (done) · one-review-per-plan guard · unblock/reset UI.
+  persist theme (done) · one-review-per-plan guard (done) · unblock/reset UI.
 - **Milestone 2 — Reduce Sunday friction:** "Same as last week?" one-tap fast
   path + cross-week recency penalty so the engine rotates on its own.
 - **Milestone 3 — Family list:** manual shopping items · per-item sync merge
