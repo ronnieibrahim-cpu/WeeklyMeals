@@ -5,7 +5,7 @@ import { Linking, Pressable, View } from 'react-native';
 import { getRecipe } from '@/data/seed/recipes';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
-import { Card, EmptyState, RecipeImage, Screen, SecondaryButton, Text } from '@/ui/components';
+import { Card, EmptyState, RecipeImage, Screen, SecondaryButton, StarRating, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function MealDetailScreen() {
@@ -17,6 +17,7 @@ export default function MealDetailScreen() {
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
   const plan = usePlanStore((s) => s.plan);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
+  const rateMeal = usePlanStore((s) => s.rateMeal);
 
   const isFavorite = recipe ? favorites.includes(recipe.id) : false;
   const plannedMeal =
@@ -121,6 +122,18 @@ export default function MealDetailScreen() {
           onPress={() => toggleCooked(plannedMeal.dayIndex)}
           style={{ marginTop: theme.spacing.lg }}
         />
+      ) : null}
+
+      {plannedMeal ? (
+        <Card style={{ marginTop: theme.spacing.lg }}>
+          <Text variant="headline">How was it?</Text>
+          <View style={{ marginTop: theme.spacing.sm }}>
+            <StarRating
+              value={plannedMeal.rating ?? 0}
+              onChange={(rating) => rateMeal(plannedMeal.dayIndex, rating as 1 | 2 | 3 | 4 | 5)}
+            />
+          </View>
+        </Card>
       ) : null}
 
       <Text variant="title3" style={{ marginTop: theme.spacing.xl, marginBottom: theme.spacing.sm }}>

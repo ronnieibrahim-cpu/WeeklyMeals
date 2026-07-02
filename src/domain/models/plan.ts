@@ -7,6 +7,8 @@ export interface PlannedMeal {
   locked: boolean; // user "kept" it during review
   cooked?: boolean; // marked done during the week (progress tracking)
   cookedAtISO?: string | null; // when this device last toggled `cooked` (sync merge key)
+  rating?: 1 | 2 | 3 | 4 | 5; // set any time, not gated on `cooked` (M2.1)
+  ratedAtISO?: string | null; // when this device last set/edited `rating` (sync merge key)
   isLeftoverDay?: boolean; // reuses a prior meal instead of cooking
   leftoverFromRecipeId?: string;
 }
@@ -20,6 +22,4 @@ export interface WeeklyPlan {
   meals: PlannedMeal[];
   status: PlanStatus;
   createdAtISO: string;
-  /** Set once the weekly review has been submitted for this plan; guards against double-counting. */
-  reviewedAtISO?: string;
 }

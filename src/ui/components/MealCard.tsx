@@ -6,6 +6,7 @@ import { useTheme } from '@/ui/theme/useTheme';
 
 import { Card } from './Card';
 import { RecipeImage } from './RecipeImage';
+import { StarRating } from './StarRating';
 import { Text } from './Text';
 
 interface Props {
@@ -14,6 +15,10 @@ interface Props {
   badge?: string;
   locked?: boolean;
   cooked?: boolean;
+  /** Current star rating (1-5), if this meal has one. */
+  rating?: number;
+  /** Presence enables the star row (This Week / Schedule); omit elsewhere (e.g. draft review). */
+  onRate?: (rating: 1 | 2 | 3 | 4 | 5) => void;
   onPress?: () => void;
   onToggleLock?: () => void;
   onSwap?: () => void;
@@ -27,6 +32,8 @@ export function MealCard({
   badge,
   locked,
   cooked,
+  rating,
+  onRate,
   onPress,
   onToggleLock,
   onSwap,
@@ -58,6 +65,11 @@ export function MealCard({
             {recipe.nutrition.calories} cal · {recipe.nutrition.protein}g protein
             {badge ? `  ·  ${badge}` : ''}
           </Text>
+          {onRate ? (
+            <View style={{ marginTop: 4 }}>
+              <StarRating value={rating ?? 0} onChange={(v) => onRate(v as 1 | 2 | 3 | 4 | 5)} size={16} />
+            </View>
+          ) : null}
         </View>
 
         {onToggleCooked ? (

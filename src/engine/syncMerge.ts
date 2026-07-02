@@ -140,15 +140,8 @@ function mergeStatus(a: PlanStatus, b: PlanStatus): PlanStatus {
   return STATUS_RANK[a] >= STATUS_RANK[b] ? a : b;
 }
 
-/** Once a review is submitted anywhere it stays submitted (ratchet); if
- * both sides somehow recorded one, keep the earliest. Commutative. */
-function mergeReviewedAt(a?: string, b?: string): string | undefined {
-  if (a && b) return a < b ? a : b;
-  return a ?? b;
-}
-
 function mealBaseKey(m: PlannedMeal): string {
-  const { cooked: _cooked, cookedAtISO: _cookedAtISO, ...rest } = m;
+  const { cooked: _cooked, cookedAtISO: _cookedAtISO, rating: _rating, ratedAtISO: _ratedAtISO, ...rest } = m;
   return stableStringify(rest);
 }
 
@@ -160,14 +153,32 @@ function resolveCooked(a: PlannedMeal, b: PlannedMeal): Pick<PlannedMeal, 'cooke
   return { cooked: flag, cookedAtISO: atISO };
 }
 
+/** Resolve `rating`/`ratedAtISO` between two sides of the same meal (M2.1):
+ * whichever side set/edited it more recently wins, exactly like
+ * `resolveCooked` — but a rating is a 1-5 value, not a boolean, so a tie
+ * (including both missing) falls back to the same deterministic,
+ * commutative tie-break used everywhere else instead of "true wins". */
+function resolveRating(a: PlannedMeal, b: PlannedMeal): Pick<PlannedMeal, 'rating' | 'ratedAtISO'> {
+  const aTs = tsOf(a.ratedAtISO);
+  const bTs = tsOf(b.ratedAtISO);
+  if (aTs !== bTs) {
+    const later = aTs > bTs ? a : b;
+    return { rating: later.rating, ratedAtISO: later.ratedAtISO ?? null };
+  }
+  const aVal = { rating: a.rating, ratedAtISO: a.ratedAtISO ?? null };
+  const bVal = { rating: b.rating, ratedAtISO: b.ratedAtISO ?? null };
+  return chooseBase(aVal, bVal, stableStringify);
+}
+
 /**
  * Merge two copies of the SAME plan (caller must check `a.id === b.id`).
  * Meals are matched by dayIndex; per meal, whichever side toggled `cooked`
- * more recently wins that meal's state. weekStartISO/intake/createdAtISO
- * are set once at generation and never mutated afterwards by any store
- * action, so they're identical between two copies of the same plan id by
- * construction — status and reviewedAtISO are the only other fields that
- * can legitimately diverge, and both are merged as one-way ratchets.
+ * or set/edited `rating` more recently wins that piece of that meal's
+ * state. weekStartISO/intake/createdAtISO are set once at generation and
+ * never mutated afterwards by any store action, so they're identical
+ * between two copies of the same plan id by construction — status is the
+ * only other field that can legitimately diverge, merged as a one-way
+ * ratchet.
  */
 export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
   const aByDay = new Map(a.meals.map((m) => [m.dayIndex, m]));
@@ -179,7 +190,7 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
     const bm = bByDay.get(day);
     if (am && bm) {
       const base = chooseBase(am, bm, mealBaseKey);
-      return { ...base, ...resolveCooked(am, bm) };
+      return { ...base, ...resolveCooked(am, bm), ...resolveRating(am, bm) };
     }
     return (am ?? bm)!;
   });
@@ -190,7 +201,6 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
     intake: a.intake,
     createdAtISO: a.createdAtISO,
     status: mergeStatus(a.status, b.status),
-    reviewedAtISO: mergeReviewedAt(a.reviewedAtISO, b.reviewedAtISO),
     meals,
   };
 }

@@ -5,8 +5,7 @@ import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { getRecipe } from '@/data/seed/recipes';
-import { RatingEvent } from '@/domain/models';
-import { useLearningStore } from '@/stores/learningStore';
+import { unratedMeals } from '@/engine/rating';
 import { usePlanStore } from '@/stores/planStore';
 import {
   Card,
@@ -18,7 +17,6 @@ import {
   YesNoToggle,
 } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
-import { createId } from '@/utils/id';
 
 interface Draft {
   cooked?: boolean;
@@ -46,11 +44,10 @@ export default function WeeklyReviewScreen() {
   const theme = useTheme();
   const plan = usePlanStore((s) => s.plan);
   const recipeFor = usePlanStore((s) => s.recipeFor);
-  const markReviewed = usePlanStore((s) => s.markReviewed);
-  const submitReview = useLearningStore((s) => s.submitReview);
-  const ratings = useLearningStore((s) => s.ratings);
+  const rateMeal = usePlanStore((s) => s.rateMeal);
 
-  const meals = plan ? [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex) : [];
+  const allMeals = plan ? [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex) : [];
+  const meals = unratedMeals(allMeals);
   const [index, setIndex] = useState(0);
   const [drafts, setDrafts] = useState<Record<string, Draft>>(() => {
     const initial: Record<string, Draft> = {};
@@ -58,7 +55,7 @@ export default function WeeklyReviewScreen() {
     return initial;
   });
 
-  if (!plan || meals.length === 0) {
+  if (!plan || allMeals.length === 0) {
     return (
       <QuestionScaffold
         step={1}
@@ -75,8 +72,10 @@ export default function WeeklyReviewScreen() {
     );
   }
 
-  if (plan.reviewedAtISO) {
-    const planRatings = ratings.filter((r) => r.planId === plan.id);
+  // Rate-as-you-go (M2.1): the wizard is only a catch-up for whatever hasn't
+  // been rated yet — once every meal has a rating, there's nothing to walk
+  // through, just a read-only recap.
+  if (meals.length === 0) {
     return (
       <SafeAreaView
         style={{ flex: 1, backgroundColor: theme.colors.background }}
@@ -98,47 +97,41 @@ export default function WeeklyReviewScreen() {
           <View style={{ alignItems: 'center', marginBottom: theme.spacing.xl }}>
             <Text style={{ fontSize: 44, lineHeight: 52 }}>⭐</Text>
             <Text variant="title2" center style={{ marginTop: theme.spacing.md }}>
-              You've already rated this week
+              You've rated every meal this week
             </Text>
             <Text variant="body" color="secondary" center style={{ marginTop: theme.spacing.sm }}>
               Thanks for the feedback — it's already shaping next week's picks.
             </Text>
           </View>
 
-          {planRatings.length > 0 ? (
-            <>
-              <Text variant="footnote" color="secondary" style={{ marginBottom: theme.spacing.sm }}>
-                WHAT YOU SAID
-              </Text>
-              <Card padded={false}>
-                {planRatings.map((r, i) => {
-                  const recipe = getRecipe(r.recipeId);
-                  const stars =
-                    r.cooked && typeof r.enjoyment === 'number'
-                      ? '★'.repeat(r.enjoyment) + '☆'.repeat(5 - r.enjoyment)
-                      : 'Not cooked';
-                  return (
-                    <View
-                      key={r.id}
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        paddingVertical: theme.spacing.md,
-                        paddingHorizontal: theme.spacing.lg,
-                        borderTopWidth: i === 0 ? 0 : 1,
-                        borderTopColor: theme.colors.separator,
-                      }}
-                    >
-                      <Text variant="body">{recipe?.name ?? 'Unknown recipe'}</Text>
-                      <Text variant="subhead" color="secondary">
-                        {stars}
-                      </Text>
-                    </View>
-                  );
-                })}
-              </Card>
-            </>
-          ) : null}
+          <Text variant="footnote" color="secondary" style={{ marginBottom: theme.spacing.sm }}>
+            WHAT YOU SAID
+          </Text>
+          <Card padded={false}>
+            {allMeals.map((m, i) => {
+              const recipe = getRecipe(m.recipeId);
+              const stars =
+                typeof m.rating === 'number' ? '★'.repeat(m.rating) + '☆'.repeat(5 - m.rating) : '—';
+              return (
+                <View
+                  key={m.recipeId}
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    paddingVertical: theme.spacing.md,
+                    paddingHorizontal: theme.spacing.lg,
+                    borderTopWidth: i === 0 ? 0 : 1,
+                    borderTopColor: theme.colors.separator,
+                  }}
+                >
+                  <Text variant="body">{recipe?.name ?? 'Unknown recipe'}</Text>
+                  <Text variant="subhead" color="secondary">
+                    {stars}
+                  </Text>
+                </View>
+              );
+            })}
+          </Card>
         </ScrollView>
       </SafeAreaView>
     );
@@ -153,15 +146,11 @@ export default function WeeklyReviewScreen() {
     setDrafts((d) => ({ ...d, [meal.recipeId]: { ...d[meal.recipeId], ...patch } }));
 
   const finish = (allDrafts: Record<string, Draft>) => {
-    const now = new Date().toISOString();
-    const events: RatingEvent[] = meals.map((m) => {
+    for (const m of meals) {
       const a = normalizeDraft(allDrafts[m.recipeId]);
-      return {
-        id: createId(),
-        planId: plan.id,
-        recipeId: m.recipeId,
-        cooked: a.cooked ?? false,
-        enjoyment: a.enjoyment,
+      if (!a.cooked || typeof a.enjoyment !== 'number') continue;
+      rateMeal(m.dayIndex, a.enjoyment as 1 | 2 | 3 | 4 | 5, {
+        cooked: true,
         cookAgain: a.cookAgain,
         familyAgain: a.familyAgain,
         tooMuchPrep: a.flags.includes('prep'),
@@ -169,11 +158,8 @@ export default function WeeklyReviewScreen() {
         tooSpicy: a.flags.includes('spicy'),
         tooBland: a.flags.includes('bland'),
         tooManyLeftovers: a.flags.includes('leftovers'),
-        ratedAtISO: now,
-      };
-    });
-    submitReview(events);
-    markReviewed();
+      });
+    }
     router.dismissAll();
   };
 

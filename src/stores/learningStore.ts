@@ -4,6 +4,7 @@ import { recipesById } from '@/data/seed/recipes';
 import { localLearningRepository } from '@/data/repositories/local/LocalLearningRepository';
 import { PreferenceProfile, RatingEvent } from '@/domain/models';
 import { applyRatings, createDefaultPreferences } from '@/engine/learning';
+import { createId } from '@/utils/id';
 
 interface LearningState {
   preferences: PreferenceProfile;
@@ -13,8 +14,15 @@ interface LearningState {
   init: () => Promise<void>;
   isFavorite: (recipeId: string) => boolean;
   toggleFavorite: (recipeId: string) => void;
-  /** Record a batch of weekly-review ratings and update preferences. */
-  submitReview: (events: RatingEvent[]) => void;
+  /**
+   * Record or edit the rating for one (planId, recipeId) meal and recompute
+   * the whole PreferenceProfile from scratch by re-folding the full rating
+   * history (M2.1). Recomputing from zero every time — rather than folding
+   * this one event onto the existing profile — makes edits/re-rates
+   * structurally incapable of double-counting: there is no running total to
+   * accidentally count twice.
+   */
+  rateRecipe: (event: Omit<RatingEvent, 'id'>) => void;
   /** Remove one recipe from the blocked list so it can be recommended again. */
   unblockRecipe: (recipeId: string) => void;
   reset: () => void;
@@ -55,9 +63,12 @@ export const useLearningStore = create<LearningState>((set, get) => ({
     persist({ ...get(), favorites });
   },
 
-  submitReview: (events) => {
-    const ratings = [...get().ratings, ...events];
-    const preferences = applyRatings(get().preferences, events, recipesById);
+  rateRecipe: (event) => {
+    const prevRatings = get().ratings;
+    const idx = prevRatings.findIndex((r) => r.planId === event.planId && r.recipeId === event.recipeId);
+    const withId: RatingEvent = { id: idx >= 0 ? prevRatings[idx].id : createId(), ...event };
+    const ratings = idx >= 0 ? prevRatings.map((r, i) => (i === idx ? withId : r)) : [...prevRatings, withId];
+    const preferences = applyRatings(createDefaultPreferences(), ratings, recipesById);
     set({ ratings, preferences });
     persist({ ...get(), ratings, preferences });
   },

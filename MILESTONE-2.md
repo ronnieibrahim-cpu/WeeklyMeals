@@ -8,7 +8,54 @@ Product decisions below are ✅ DECIDED by Ronnie unless marked ⚠️ ASK.
 
 ---
 
-## [ ] M2.1 — Mid-week re-roll from what we have (TOP PRIORITY)
+## [x] M2.1 — Rate-as-you-go (replaces the end-of-week rating wizard as the primary flow) — done: `PlannedMeal.rating`/`ratedAtISO` added; meal detail screen and every meal card (This Week + Schedule) show a tappable/always-visible star row; `learningStore.rateRecipe` upserts by (planId, recipeId) and recomputes `PreferenceProfile` from scratch via `applyRatings(createDefaultPreferences(), ratings, recipesById)` on every rate/edit, so double-counting is structurally impossible; `reviewedAtISO` removed in favor of a computed `allMealsRated()` check (`src/engine/rating.ts`); the wizard (`app/review/index.tsx`) now walks only `unratedMeals()` and shows a read-only recap once everything's rated; sync merges `rating`/`ratedAtISO` per meal like `cooked`/`cookedAtISO` (`src/engine/syncMerge.ts`), verified by two new assertions in `scripts/checkSyncMerge.ts` (11/11 passing). Manually verified end-to-end in the web preview: rating persists across reload, editing 4→2 stars updates the card instantly, and the catch-up wizard correctly skips already-rated meals.
+**User problem:** Ratings are currently only possible in the sequential
+end-of-week wizard, are never displayed afterward, and appear to "clear" on
+revisit. Ronnie wants to rate any day's meal at any time, see the rating
+persist on the meal detail screen, and see stars conspicuously on the week's
+menu at all times.
+
+**✅ DECIDED:** Ratings can be set on ANY meal in the current week at ANY
+time — not gated on the meal being marked cooked.
+
+**Behavior:**
+1. Add `rating?: 1|2|3|4|5` and `ratedAtISO?: string` to `PlannedMeal`
+   (optional fields — old persisted plans must load unchanged).
+2. Meal detail screen: a prominent tappable 5-star row for any meal in the
+   current week. Tapping sets/edits the rating instantly; it persists and
+   always displays.
+3. Week menu (This Week home + Schedule tab): once a meal is rated, its
+   stars display on the meal card at all times, clearly visible without
+   tapping in. Unrated meals show a subtle empty-stars affordance inviting a
+   rating.
+4. **Learning integrity:** replace the plan-level `reviewedAtISO`
+   double-count guard with recompute-from-history. Ratings are the source of
+   truth; whenever any rating is set or edited, recompute the entire
+   `PreferenceProfile` by folding over the full rating history (`learning.ts`
+   is already a pure fold — recomputing from scratch makes edits and
+   re-rates structurally incapable of double-counting). Preserve legacy
+   `RatingEvent`s so past learning isn't lost.
+5. The end-of-week review wizard becomes an optional catch-up: it shows ONLY
+   unrated meals from the week, and if everything is already rated the home
+   card shows "Week rated ✓" instead of prompting.
+6. **Sync:** `rating`/`ratedAtISO` merge per meal exactly like
+   `cooked`/`cookedAtISO` in the M1.6 `mergePlanMeals` logic (newer
+   `ratedAtISO` wins per meal, deterministic tie-break; missing timestamp =
+   epoch 0). Extend `scripts/checkSyncMerge.ts` with assertions covering
+   rating merges, including two devices rating different meals in the same
+   window and a newer rating edit beating an older one.
+7. Keep the layering: rating mutation + profile recompute live in the store
+   calling pure engine functions; screens stay thin; theme values via
+   `useTheme()` only.
+
+**Accept when:** rating from the detail screen persists across app restarts
+and displays on the week's cards at all times; editing a rating updates
+learning without double-counting (verify: rate a meal 5, change it to 1, and
+confirm the derived profile equals a fresh fold of the corrected history);
+the merge assertion script passes including the new rating cases; the wizard
+only ever shows unrated meals; typecheck green.
+
+## [ ] M2.2 — Mid-week re-roll from what we have (TOP PRIORITY)
 **User problem:** It's Wednesday, the family doesn't want the planned meal, and
 nobody is going back to H-E-B. They want one tap: "give me something else I can
 make with what we already bought."
@@ -44,14 +91,6 @@ meals coverable by pantry + this week's list; the shopping list is byte-for-byte
 unchanged after any re-roll; cooked/past days offer no re-roll; empty case
 shows the near-miss fallback with missing items labeled.
 
-## [ ] M2.2 — Remove the dead Sunday questions
-**✅ DECIDED:** Delete the "special occasions" step entirely (UI + field usage;
-keep type field tolerated for old persisted data). Remove the "desired
-leftovers" step from the wizard but keep the field in the model defaulted to 0
-— leftovers-aware planning is a future milestone.
-**Accept when:** the wizard no longer asks either question; old saved intakes
-still load; step count and progress indicator update correctly.
-
 ## [ ] M2.3 — "Same as last week" fast intake
 **User problem:** 14 steps every Sunday when most answers never change.
 **Behavior:** If a previous intake exists, the wizard opens with a summary card
@@ -76,9 +115,9 @@ clear majority of picks while imported recipes still appear.
 sanctioned new dev dependency. Write tests for: hard filters (each rule),
 allergy guard incl. imported exclusion, scoring invariants (locked recipes
 kept, no duplicates in a week), shopping-list consolidation & pantry exclusion,
-sync merge logic from M1.6, learning math, and the M2.1 reroll candidate
-function. Target: the engine folder is meaningfully covered; screens are not
-the goal.
+sync merge logic from M1.6 and M2.1, learning math, and the M2.2 reroll
+candidate function. Target: the engine folder is meaningfully covered;
+screens are not the goal.
 **Accept when:** `npm test` runs green and is documented in CLAUDE.md as a
 required pre-commit check alongside typecheck.
 
@@ -95,7 +134,10 @@ profile hard-filters still always win.
 
 ## Parked (do NOT start without explicit go-ahead from Ronnie)
 - **Photos for curated recipes** — approach undecided (real/AI/hybrid).
-- Leftovers-aware planning (wire `desiredLeftovers` into cook-night count).
+- Leftovers-aware planning (real day-aware leftover logic — the
+  `desiredLeftovers`/`specialOccasions` intake fields this was originally
+  scoped around were removed entirely in M1.8, not merely hidden; this would
+  need new design, not a revival).
 - End-of-week review nudge/notification; Sunday planning reminder.
 - Shopping list share/export; post-shop pantry auto-add.
 - Browse/search library; pin a specific recipe into the week.

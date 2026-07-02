@@ -42,7 +42,17 @@ function list(planId: string, items: ShoppingItem[], generatedAtISO = '2026-01-0
 }
 
 function meal(dayIndex: number, over: Partial<PlannedMeal> = {}): PlannedMeal {
-  return { recipeId: `r${dayIndex}`, servings: 4, dayIndex, locked: false, cooked: false, cookedAtISO: null, ...over };
+  return {
+    recipeId: `r${dayIndex}`,
+    servings: 4,
+    dayIndex,
+    locked: false,
+    cooked: false,
+    cookedAtISO: null,
+    rating: undefined,
+    ratedAtISO: null,
+    ...over,
+  };
 }
 
 function plan(id: string, meals: PlannedMeal[], over: Partial<WeeklyPlan> = {}): WeeklyPlan {
@@ -196,6 +206,39 @@ check('(f) merge(merge(A,B), B) === merge(A,B) [full sync payload]', () => {
   const merged = mergeSyncPayload(a, b);
   const mergedAgain = mergeSyncPayload(merged, b);
   assert.equal(stableStringify(mergedAgain), stableStringify(merged));
+});
+
+// ---------------------------------------------------------------------------
+// (g) M2.1: cross-device ratings of different meals converge, order-
+//     independent — the rating analogue of check (a) for shopping lists.
+// ---------------------------------------------------------------------------
+check('(g) cross-device ratings of different meals converge, order-independent', () => {
+  const a = plan('plan-1', [meal(0, { rating: 5, ratedAtISO: t1 }), meal(1)]);
+  const b = plan('plan-1', [meal(0), meal(1, { rating: 3, ratedAtISO: t1 })]);
+
+  const mergedAB = mergePlanMeals(a, b);
+  const mergedBA = mergePlanMeals(b, a);
+
+  assert.equal(mergedAB.meals.find((m) => m.dayIndex === 0)?.rating, 5);
+  assert.equal(mergedAB.meals.find((m) => m.dayIndex === 1)?.rating, 3);
+  assert.equal(stableStringify(mergedAB), stableStringify(mergedBA), 'merge(A,B) must equal merge(B,A)');
+});
+
+// ---------------------------------------------------------------------------
+// (h) M2.1: a newer rating edit beats an older rating for the same meal —
+//     e.g. rate 5, then change your mind to 1; the edit must win, not the
+//     original.
+// ---------------------------------------------------------------------------
+check('(h) newer rating edit beats an older rating', () => {
+  const older = plan('plan-1', [meal(0, { rating: 5, ratedAtISO: t1 })]);
+  const newer = plan('plan-1', [meal(0, { rating: 1, ratedAtISO: t2 })]);
+
+  const merged = mergePlanMeals(older, newer);
+  assert.equal(merged.meals[0].rating, 1, 'the later rating edit must win');
+  assert.equal(merged.meals[0].ratedAtISO, t2);
+
+  const mergedFlipped = mergePlanMeals(newer, older);
+  assert.equal(mergedFlipped.meals[0].rating, 1);
 });
 
 // ---------------------------------------------------------------------------

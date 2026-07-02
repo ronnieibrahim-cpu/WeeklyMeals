@@ -13,6 +13,7 @@ export default function ScheduleScreen() {
   const hydrated = usePlanStore((s) => s.hydrated);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
+  const rateMeal = usePlanStore((s) => s.rateMeal);
 
   if (!hydrated) {
     return (
@@ -68,6 +69,8 @@ export default function ScheduleScreen() {
               recipe={recipe}
               badge={recipe.makesLeftovers ? 'makes leftovers' : undefined}
               cooked={meal.cooked}
+              rating={meal.rating}
+              onRate={(rating) => rateMeal(meal.dayIndex, rating)}
               onToggleCooked={() => toggleCooked(meal.dayIndex)}
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
             />

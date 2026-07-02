@@ -6,7 +6,7 @@ import { localDraftPlanRepository } from '@/data/repositories/local/LocalDraftPl
 import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
-import { IntakeAnswers, PlannedMeal, Profile, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { IntakeAnswers, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 import { GenerateContext, localRecommendationEngine, passesHardFilters, selectReplacement } from '@/engine/recommendation';
 import { localMidnight } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
@@ -52,12 +52,29 @@ interface PlanState {
   swapMeal: (dayIndex: number) => void;
   /** Mark a meal cooked / not cooked (week progress, on the active plan). */
   toggleCooked: (dayIndex: number) => void;
+  /**
+   * Set/edit the star rating for one meal on the active plan (M2.1) — any
+   * meal, any time, not gated on `cooked`. Persists the rating on the plan
+   * (so it displays on the cards) and records the corresponding
+   * `RatingEvent` in the learning store, which recomputes the whole
+   * `PreferenceProfile` from the full rating history. `extra` carries the
+   * richer optional signals (cookAgain, tooSpicy, ...) the catch-up wizard
+   * collects that a quick star tap doesn't.
+   */
+  rateMeal: (
+    dayIndex: number,
+    rating: 1 | 2 | 3 | 4 | 5,
+    extra?: Partial<
+      Pick<
+        RatingEvent,
+        'cooked' | 'cookAgain' | 'familyAgain' | 'tooMuchPrep' | 'tooExpensive' | 'tooSpicy' | 'tooBland' | 'tooManyLeftovers'
+      >
+    >,
+  ) => void;
   /** Promote the draft to the active plan and build its shopping list. */
   approve: () => void;
   /** Discard the pending draft without approving it (e.g. closing review). */
   discardDraft: () => void;
-  /** Mark the current plan as reviewed, so the weekly review can't be submitted again. */
-  markReviewed: () => void;
   /** (Re)build the H-E-B shopping list from the current plan. */
   buildList: () => void;
   toggleShoppingItem: (ingredientName: string, unit: string) => void;
@@ -115,6 +132,29 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       void localPlanRepository.clear();
       void localDraftPlanRepository.save(draftPlan);
     }
+
+    // Migrate pre-M2.1 data: a plan reviewed through the old end-of-week
+    // wizard has no per-meal `rating` (that field didn't exist yet), which
+    // would make it look unrated again under the new "Week rated ✓" check.
+    // Backfill each meal's rating from its preserved RatingEvent so an
+    // already-reviewed week doesn't start re-prompting.
+    const legacyReviewedAtISO = (plan as { reviewedAtISO?: string } | null)?.reviewedAtISO;
+    if (plan && legacyReviewedAtISO && plan.meals.some((m) => m.rating === undefined)) {
+      await useLearningStore.getState().init();
+      const ratings = useLearningStore.getState().ratings;
+      const migratedPlan = plan;
+      const meals = migratedPlan.meals.map((m) => {
+        if (m.rating !== undefined) return m;
+        const event = ratings.find((r) => r.planId === migratedPlan.id && r.recipeId === m.recipeId);
+        if (event && event.cooked && typeof event.enjoyment === 'number') {
+          return { ...m, rating: event.enjoyment as 1 | 2 | 3 | 4 | 5, ratedAtISO: event.ratedAtISO };
+        }
+        return m;
+      });
+      plan = { ...migratedPlan, meals };
+      void localPlanRepository.save(plan);
+    }
+
     set({
       plan: plan ?? null,
       draftPlan: draftPlan ?? null,
@@ -200,6 +240,26 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     persist(next);
   },
 
+  rateMeal: (dayIndex, rating, extra) => {
+    const plan = get().plan;
+    if (!plan) return;
+    const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    if (!meal) return;
+    const now = new Date().toISOString();
+    const meals = plan.meals.map((m) => (m.dayIndex === dayIndex ? { ...m, rating, ratedAtISO: now } : m));
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+    useLearningStore.getState().rateRecipe({
+      ...extra,
+      planId: plan.id,
+      recipeId: meal.recipeId,
+      cooked: extra?.cooked ?? true,
+      enjoyment: rating,
+      ratedAtISO: now,
+    });
+  },
+
   approve: () => {
     const draftPlan = get().draftPlan;
     if (!draftPlan) return;
@@ -215,14 +275,6 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     if (!get().draftPlan) return;
     set({ draftPlan: null });
     void localDraftPlanRepository.clear();
-  },
-
-  markReviewed: () => {
-    const plan = get().plan;
-    if (!plan || plan.reviewedAtISO) return;
-    const next: WeeklyPlan = { ...plan, reviewedAtISO: new Date().toISOString() };
-    set({ plan: next });
-    persist(next);
   },
 
   buildList: () => {

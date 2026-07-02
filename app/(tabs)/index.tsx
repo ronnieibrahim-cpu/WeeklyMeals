@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import { PlannedMeal } from '@/domain/models';
+import { allMealsRated } from '@/engine/rating';
 import { dayLabel, todayOffset } from '@/engine/schedule';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, EmptyState, MealCard, Screen, SecondaryButton, Text } from '@/ui/components';
@@ -19,6 +20,7 @@ export default function ThisWeekScreen() {
   const shoppingList = usePlanStore((s) => s.shoppingList);
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
+  const rateMeal = usePlanStore((s) => s.rateMeal);
   const [showPast, setShowPast] = useState(false);
 
   const today = new Date().toLocaleDateString(undefined, {
@@ -79,7 +81,7 @@ export default function ThisWeekScreen() {
       onPress={() => router.push('/review')}
       style={{ marginTop: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}
     >
-      {plan.reviewedAtISO ? (
+      {allMealsRated(plan.meals) ? (
         <>
           <Text variant="headline">⭐ Week rated ✓</Text>
           <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
@@ -130,6 +132,8 @@ export default function ThisWeekScreen() {
         dayLabel={label}
         badge={recipe.makesLeftovers ? 'leftovers' : undefined}
         cooked={meal.cooked}
+        rating={meal.rating}
+        onRate={(rating) => rateMeal(meal.dayIndex, rating)}
         onToggleCooked={() => toggleCooked(meal.dayIndex)}
         onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
       />
@@ -173,6 +177,8 @@ export default function ThisWeekScreen() {
           dayLabel="Tonight"
           badge={tonightRecipe.makesLeftovers ? 'leftovers' : undefined}
           cooked={tonight.cooked}
+          rating={tonight.rating}
+          onRate={(rating) => rateMeal(tonight.dayIndex, rating)}
           onToggleCooked={() => toggleCooked(tonight.dayIndex)}
           onPress={() =>
             router.push({ pathname: '/meal/[id]', params: { id: tonightRecipe.id } })
