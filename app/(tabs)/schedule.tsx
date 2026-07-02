@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 
+import { dateForDayIndex } from '@/engine/schedule';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, EmptyState, MealCard, Screen, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -37,20 +38,20 @@ export default function ScheduleScreen() {
   }
 
   const meals = [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex);
-  const start = new Date(plan.weekStartISO);
-  const dayLabel = (i: number) => {
-    const d = new Date(start);
-    d.setDate(d.getDate() + i);
-    return d.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
-  };
-  const rangeEnd = new Date(start);
-  rangeEnd.setDate(rangeEnd.getDate() + Math.max(0, meals.length - 1));
+  const dateLabel = (i: number) =>
+    dateForDayIndex(plan.weekStartISO, i).toLocaleDateString(undefined, {
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+    });
+  const rangeStart = dateForDayIndex(plan.weekStartISO, 0);
+  const rangeEnd = dateForDayIndex(plan.weekStartISO, Math.max(0, meals.length - 1));
   const fmt = (d: Date) => d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
   const leftovers = meals.filter((m) => recipeFor(m)?.makesLeftovers).length;
   const cooked = meals.filter((m) => m.cooked).length;
 
   return (
-    <Screen title="Schedule" subtitle={`${fmt(start)} – ${fmt(rangeEnd)} · ${cooked}/${meals.length} cooked`}>
+    <Screen title="Schedule" subtitle={`${fmt(rangeStart)} – ${fmt(rangeEnd)} · ${cooked}/${meals.length} cooked`}>
       {meals.map((meal) => {
         const recipe = recipeFor(meal);
         if (!recipe) return null;
@@ -61,7 +62,7 @@ export default function ScheduleScreen() {
               color="secondary"
               style={{ marginBottom: 4, marginLeft: theme.spacing.xs }}
             >
-              {dayLabel(meal.dayIndex).toUpperCase()}
+              {dateLabel(meal.dayIndex).toUpperCase()}
             </Text>
             <MealCard
               recipe={recipe}

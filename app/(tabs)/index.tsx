@@ -1,6 +1,10 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { ActivityIndicator, View } from 'react-native';
+import { useState } from 'react';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 
+import { PlannedMeal } from '@/domain/models';
+import { dayLabel, todayOffset } from '@/engine/schedule';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, EmptyState, MealCard, Screen, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -14,6 +18,7 @@ export default function ThisWeekScreen() {
   const shoppingList = usePlanStore((s) => s.shoppingList);
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
+  const [showPast, setShowPast] = useState(false);
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -64,28 +69,105 @@ export default function ThisWeekScreen() {
   const hasList = !!shoppingList && shoppingList.planId === plan.id;
   const list = hasList ? shoppingList! : previewShoppingList(plan);
   const totalCost = list.estimatedTotal;
-  const perServing = list.costPerServing;
-
-  const dayLabel = (i: number) => {
-    if (i === 0) return 'Tonight';
-    const d = new Date(plan.weekStartISO);
-    d.setDate(d.getDate() + i);
-    return d.toLocaleDateString(undefined, { weekday: 'long' });
-  };
-
-  const [tonight, ...rest] = meals;
-  const tonightRecipe = tonight ? recipeFor(tonight) : undefined;
   const cookedCount = meals.filter((m) => m.cooked).length;
+
+  const reviewCard = (
+    <Card
+      onPress={() => router.push('/review')}
+      style={{ marginTop: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}
+    >
+      {plan.reviewedAtISO ? (
+        <>
+          <Text variant="headline">⭐ Week rated ✓</Text>
+          <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+            Thanks for the feedback — tap to see what you said.
+          </Text>
+        </>
+      ) : (
+        <>
+          <Text variant="headline">⭐ How did this week go?</Text>
+          <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+            Rate your meals — favorites come back and your weeks keep improving.
+          </Text>
+        </>
+      )}
+    </Card>
+  );
+
+  const offset = todayOffset(plan.weekStartISO);
+
+  // Today is past the last planned day → the week is done.
+  if (offset >= meals.length) {
+    return (
+      <Screen title="This Week" subtitle={today}>
+        <EmptyState
+          emoji="🎉"
+          title="Week complete!"
+          body="You've made it through this week's dinners. Ready to plan the next one?"
+          action={{ label: 'Plan next week', onPress: () => router.push('/plan') }}
+        />
+        {reviewCard}
+      </Screen>
+    );
+  }
+
+  const todayIndex = Math.max(0, offset);
+  const tonight = meals.find((m) => m.dayIndex === todayIndex);
+  const tonightRecipe = tonight ? recipeFor(tonight) : undefined;
+  const past = meals.filter((m) => m.dayIndex < todayIndex);
+  const future = meals.filter((m) => m.dayIndex > todayIndex);
+
+  const renderMeal = (meal: PlannedMeal, label: string) => {
+    const recipe = recipeFor(meal);
+    if (!recipe) return null;
+    return (
+      <MealCard
+        key={meal.dayIndex}
+        recipe={recipe}
+        dayLabel={label}
+        badge={recipe.makesLeftovers ? 'leftovers' : undefined}
+        cooked={meal.cooked}
+        onToggleCooked={() => toggleCooked(meal.dayIndex)}
+        onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+      />
+    );
+  };
 
   return (
     <Screen
       title="This Week"
       subtitle={`${meals.length} dinners · $${totalCost.toFixed(0)} · ${cookedCount}/${meals.length} cooked`}
     >
+      {past.length > 0 ? (
+        <>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => setShowPast((v) => !v)}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: theme.spacing.sm,
+              marginLeft: theme.spacing.xs,
+            }}
+          >
+            <Text variant="footnote" color="secondary">
+              EARLIER THIS WEEK ({past.length})
+            </Text>
+            <Ionicons
+              name={showPast ? 'chevron-down' : 'chevron-forward'}
+              size={16}
+              color={theme.colors.textTertiary}
+            />
+          </Pressable>
+          {showPast ? past.map((meal) => renderMeal(meal, dayLabel(plan.weekStartISO, meal.dayIndex))) : null}
+        </>
+      ) : null}
+
       {tonight && tonightRecipe ? (
         <MealCard
           recipe={tonightRecipe}
-          dayLabel={dayLabel(tonight.dayIndex)}
+          dayLabel="Tonight"
           badge={tonightRecipe.makesLeftovers ? 'leftovers' : undefined}
           cooked={tonight.cooked}
           onToggleCooked={() => toggleCooked(tonight.dayIndex)}
@@ -95,7 +177,7 @@ export default function ThisWeekScreen() {
         />
       ) : null}
 
-      {rest.length > 0 ? (
+      {future.length > 0 ? (
         <Text
           variant="footnote"
           color="secondary"
@@ -105,42 +187,9 @@ export default function ThisWeekScreen() {
         </Text>
       ) : null}
 
-      {rest.map((meal) => {
-        const recipe = recipeFor(meal);
-        if (!recipe) return null;
-        return (
-          <MealCard
-            key={meal.dayIndex}
-            recipe={recipe}
-            dayLabel={dayLabel(meal.dayIndex)}
-            badge={recipe.makesLeftovers ? 'leftovers' : undefined}
-            cooked={meal.cooked}
-            onToggleCooked={() => toggleCooked(meal.dayIndex)}
-            onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-          />
-        );
-      })}
+      {future.map((meal) => renderMeal(meal, dayLabel(plan.weekStartISO, meal.dayIndex)))}
 
-      <Card
-        onPress={() => router.push('/review')}
-        style={{ marginTop: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}
-      >
-        {plan.reviewedAtISO ? (
-          <>
-            <Text variant="headline">⭐ Week rated ✓</Text>
-            <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
-              Thanks for the feedback — tap to see what you said.
-            </Text>
-          </>
-        ) : (
-          <>
-            <Text variant="headline">⭐ How did this week go?</Text>
-            <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
-              Rate your meals — favorites come back and your weeks keep improving.
-            </Text>
-          </>
-        )}
-      </Card>
+      {reviewCard}
 
       <SecondaryButton
         title="Plan a new week"

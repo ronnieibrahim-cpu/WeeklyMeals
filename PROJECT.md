@@ -67,7 +67,8 @@ src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, Shoppin
                      RatingEvent, PreferenceProfile) + constants (12 cuisines, H-E-B dept order, chips)
 src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 12 weighted factors,
                      WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker with shuffle
-                     tie-breaking) · shoppingList.ts · cost.ts (rough heuristic) · learning.ts · season.ts
+                     tie-breaking) · shoppingList.ts · cost.ts (rough heuristic, scoring-only) ·
+                     learning.ts · season.ts · schedule.ts (local-date math: todayOffset/dayLabel)
 src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipeImported.ts
                      (311 TheMealDB imports, GENERATED — never hand-edit; re-run
                      scripts/importRecipes.ts via normalize.ts). 541 recipes total.
@@ -75,7 +76,7 @@ src/data/grocery/heb HebProvider: curated price table, per-lb conversion (g/ml/k
 src/data/repositories/local  kvStore (AsyncStorage JSON) + one repo per aggregate
 src/data/sync/       config.ts (URL/key/SYNC_ENABLED kill-switch) · householdApi.ts (get/upsert row by 6-char code)
 src/stores/          planStore (orchestrator) · profileStore · pantryStore · learningStore ·
-                     settingsStore (in-memory only) · syncStore (poll 20s, debounced push 600ms, last-write-wins)
+                     settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms, last-write-wins)
 src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji-tile fallback
 ```
 
@@ -87,9 +88,13 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 2. **Review** (`plan/review`): lock/swap/regenerate → `approve()` → status
    `approved`, shopping list built (scaled by servings, deduped by
    `lowercase(name)|unit`, pantry-staples + on-hand pantry excluded, priced) and persisted.
-3. **During the week**: home + schedule show meals by `dayIndex`
-   (0 = "Tonight" — never advances with the calendar; known bug), cooked
-   toggles, shopping check-offs.
+3. **During the week**: home computes `todayOffset(plan.weekStartISO)`
+   (`src/engine/schedule.ts`) to find which `dayIndex` is actually today —
+   that meal is the "Tonight" hero card, earlier days collapse under
+   "Earlier this week", later days show "Tomorrow"/weekday names, and past
+   the last day the screen shows a "Week complete!" state. Schedule shows
+   every day's real calendar date the same way. Cooked toggles, shopping
+   check-offs as before.
 4. **Weekly review** (`review/index`): per-meal ratings → `applyRatings()` →
    cuisine/protein/technique/vegetable affinities nudged (clamped ±1), four
    dials updated (spice/complexity/budget/leftovers), strong dislikes appended
@@ -131,8 +136,12 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    two phones checking items in-store clobber each other. Needs per-item merge.
 
 **P1**
-5. **"Tonight" never advances** — `dayIndex 0` is always "Tonight";
-   `weekStartISO` is the generation timestamp. Meals need real dates.
+5. ~~"Tonight" never advances~~ — **fixed (M1.4)**: `weekStartISO` is now
+   normalized to local midnight of the generation day (`localMidnight()` in
+   `src/engine/schedule.ts`); home and schedule compute today's real offset
+   (`todayOffset()`) instead of hardcoding `dayIndex 0`. Past days collapse
+   under "Earlier this week", future days show "Tomorrow"/weekday names
+   (`dayLabel()`), and a plan past its last day shows a "Week complete!" state.
 6. ~~Two disagreeing cost numbers~~ — **fixed (M1.2)**: review and home now
    call `usePlanStore().previewShoppingList(plan)` (a thin wrapper around
    `buildShoppingList()`), so every screen shows the same H-E-B-priced total;
@@ -177,7 +186,7 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 - **Milestone 1 — Trust & safety:** P0-1/2 allergen + kosher fixes + seed
   validator + imports-guard · P0-3 draft-plan protection (new plan is a pending
   draft; replace only on approve) · remove/wire dead questions · real dates +
-  correct "Tonight" · single cost source (HebProvider everywhere, done) ·
+  correct "Tonight" (done) · single cost source (HebProvider everywhere, done) ·
   persist theme (done) · one-review-per-plan guard (done) · unblock/reset UI.
 - **Milestone 2 — Reduce Sunday friction:** "Same as last week?" one-tap fast
   path + cross-week recency penalty so the engine rotates on its own.

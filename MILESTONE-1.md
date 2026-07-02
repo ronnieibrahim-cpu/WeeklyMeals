@@ -39,7 +39,7 @@ resubmit). Old persisted plans without the field must load fine.
 **Accept when:** submitting a review twice is impossible through the UI, and
 existing saved data still loads.
 
-## [ ] M1.4 — Real dates ("Tonight" means tonight)
+## [x] M1.4 — Real dates ("Tonight" means tonight) — done: `weekStartISO` normalized to local midnight at generation (`localMidnight()`); new `src/engine/schedule.ts` (`todayOffset`/`dayLabel`/`dateForDayIndex`) drives home (hero "Tonight" card, collapsed past section, "Week complete!" state) and schedule (real dates). Verified with a mocked system clock at day 0, day+3, and day+10.
 **Problem:** `dayIndex 0` is labeled "Tonight" forever; `weekStartISO` is just
 the generation timestamp. Mid-week, the home screen highlights the wrong meal.
 **✅ DECIDED (default, confirm if unclear):** the plan starts the day it is

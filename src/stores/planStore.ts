@@ -9,6 +9,7 @@ import { IntakeAnswers, PlannedMeal, Profile, Recipe, ShoppingList, WeeklyPlan }
 import { passesHardFilters, scoreRecipe } from '@/engine/recommendation';
 import { localRecommendationEngine } from '@/engine/recommendation';
 import { GenerateContext } from '@/engine/recommendation';
+import { localMidnight } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
 import { buildShoppingList } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
@@ -115,7 +116,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const meals = localRecommendationEngine.generate(context(intake, profile, []), RECIPES);
     const plan: WeeklyPlan = {
       id: createId(),
-      weekStartISO: new Date().toISOString(),
+      weekStartISO: localMidnight(new Date()).toISOString(),
       intake,
       meals,
       status: 'draft',
