@@ -124,9 +124,17 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    allergy; (b) for the 311 imported recipes, allergens were inferred by
    keyword matching (`inferAllergens` in `normalize.ts`) that misses
    derivatives (whey, casein, malt, sauces), and 65 imports have empty
-   allergen arrays. Fix: canonical allergen list + normalized comparison + CI
-   seed-validation script + a "curated-only when allergies present" guard for
-   imports. Same caution applies to inferred diet tags (halal/kosher/vegan).
+   allergen arrays. ~~Fix: ... a "curated-only when allergies present" guard
+   for imports.~~ **Partially fixed (M1.5):** `passesHardFilters` now rejects
+   any `estimated: true` (imported) recipe whenever `profile.allergies.length
+   > 0` — generate/regenerate/swap all funnel through this one function, so
+   imports are excluded from all three at once; with no allergies set,
+   imports still appear normally. The detail screen shows "Imported recipe —
+   allergen info estimated, check labels." on every imported recipe
+   regardless of profile. Still open: the `'Tree Nuts'`/`'TreeNuts'` mismatch
+   in curated seed data, and a canonical allergen list + CI seed-validation
+   script. Same caution still applies to inferred diet tags
+   (halal/kosher/vegan).
 2. **Kosher filter no-op:** `(tags.includes('kosher') || true)` in
    `filters.ts` — only the pork/shellfish check actually runs.
 3. **"Plan a new week" destroys the current week before approval.**

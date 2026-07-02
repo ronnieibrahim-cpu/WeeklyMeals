@@ -129,6 +129,11 @@ export default function MealDetailScreen() {
       <Text variant="footnote" color="tertiary" style={{ marginBottom: theme.spacing.sm }}>
         For {recipe.baseServings} servings
       </Text>
+      {recipe.estimated ? (
+        <Text variant="footnote" color="tertiary" style={{ marginBottom: theme.spacing.sm }}>
+          ⚠️ Imported recipe — allergen info estimated, check labels.
+        </Text>
+      ) : null}
       <Card>
         {recipe.ingredients.map((ing, i) => (
           <View

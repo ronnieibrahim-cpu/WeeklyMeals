@@ -47,6 +47,11 @@ export function passesHardFilters(recipe: Recipe, intake: IntakeAnswers, profile
   const allergies = profile.allergies.map(lower);
   if (recipe.allergens.some((a) => allergies.includes(lower(a)))) return false;
 
+  // Imported recipes have keyword-guessed allergen data (see normalize.ts's
+  // inferAllergens), which can miss real allergens. Once any allergy is set,
+  // only hand-curated recipes are trusted enough to serve.
+  if (allergies.length > 0 && recipe.estimated) return false;
+
   // Dietary restrictions for this week
   for (const diet of intake.dietaryRestrictions) {
     if (!satisfiesDiet(recipe, diet)) return false;

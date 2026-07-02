@@ -58,7 +58,7 @@ use local dates, never UTC parsing of the ISO string for day math).
 meal as Tonight; day labels match the calendar; no timezone off-by-one at
 midnight boundaries.
 
-## [ ] M1.5 — Allergy guard for imported recipes
+## [x] M1.5 — Allergy guard for imported recipes — done: `passesHardFilters` (src/engine/recommendation/filters.ts) now rejects any recipe with `estimated: true` whenever `profile.allergies.length > 0`; since generate/regenerate/swap all funnel through this one function, imports drop out of all three the moment an allergy is set, and reappear once it's cleared. Added the "Imported recipe — allergen info estimated, check labels." note to `app/meal/[id].tsx`, shown whenever `recipe.estimated` is true regardless of profile. No test runner exists yet in this repo (noted in PROJECT.md P0-1/#11) — flagging per CLAUDE.md's safety-critical rule rather than installing one as a drive-by; Milestone 4 is scoped to add the engine test suite.
 **Problem:** The 311 imported recipes (`recipeImported.ts`, ids starting
 `mealdb-`) have keyword-guessed `allergens`/`dietTags`. The hard allergy filter
 trusts them, which can produce false "safe" results.
