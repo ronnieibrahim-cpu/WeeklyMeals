@@ -19,6 +19,8 @@ interface Props {
   rating?: number;
   /** Presence enables the star row (This Week / Schedule); omit elsewhere (e.g. draft review). */
   onRate?: (rating: 1 | 2 | 3 | 4 | 5) => void;
+  /** Presence shows a "Re-roll" action (This Week, today/future + not-yet-cooked meals only, M2.2). */
+  onReroll?: () => void;
   onPress?: () => void;
   onToggleLock?: () => void;
   onSwap?: () => void;
@@ -34,6 +36,7 @@ export function MealCard({
   cooked,
   rating,
   onRate,
+  onReroll,
   onPress,
   onToggleLock,
   onSwap,
@@ -66,8 +69,29 @@ export function MealCard({
             {badge ? `  ·  ${badge}` : ''}
           </Text>
           {onRate ? (
-            <View style={{ marginTop: 4 }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: 4,
+              }}
+            >
               <StarRating value={rating ?? 0} onChange={(v) => onRate(v as 1 | 2 | 3 | 4 | 5)} size={16} />
+              {onReroll ? (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Re-roll this meal"
+                  hitSlop={6}
+                  onPress={onReroll}
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}
+                >
+                  <Ionicons name="refresh" size={14} color={theme.colors.accent} />
+                  <Text variant="caption" color="accent">
+                    Re-roll
+                  </Text>
+                </Pressable>
+              ) : null}
             </View>
           ) : null}
         </View>

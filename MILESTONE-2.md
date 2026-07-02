@@ -55,7 +55,7 @@ confirm the derived profile equals a fresh fold of the corrected history);
 the merge assertion script passes including the new rating cases; the wizard
 only ever shows unrated meals; typecheck green.
 
-## [ ] M2.2 — Mid-week re-roll from what we have (TOP PRIORITY)
+## [x] M2.2 — Mid-week re-roll from what we have (TOP PRIORITY) — done: pure `rerollCandidates()` in `src/engine/reroll.ts` (strict-mode: pantry + this week's shopping list + the outgoing meal's own ingredients, minus that meal itself, must fully cover a candidate's non-staple ingredients; falls back to up to 3 near-misses missing 1-2 ingredients); `planStore.previewReroll`/`rerollMeal` wire it up (reroll never rebuilds or touches the shopping list, and clears any cooked/rating on that day since it's now a different recipe); entry point is a single "↻ Re-roll" link on This Week's meal cards, shown only for today-or-future not-yet-cooked meals, opening a new `/reroll/[dayIndex]` modal (top pick + "Try another" cycling, or the near-miss list with "you'll need: X, Y"). Manually verified in the web preview: swapping in a candidate leaves the shopping-list total byte-for-byte unchanged, a cooked day shows no Re-roll link, and forcing a sparse week correctly surfaces the near-miss fallback with the right missing ingredients labeled.
 **User problem:** It's Wednesday, the family doesn't want the planned meal, and
 nobody is going back to H-E-B. They want one tap: "give me something else I can
 make with what we already bought."

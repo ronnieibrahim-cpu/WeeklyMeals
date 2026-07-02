@@ -125,6 +125,7 @@ export default function ThisWeekScreen() {
   const renderMeal = (meal: PlannedMeal, label: string) => {
     const recipe = recipeFor(meal);
     if (!recipe) return null;
+    const canReroll = meal.dayIndex >= todayIndex && !meal.cooked;
     return (
       <MealCard
         key={meal.dayIndex}
@@ -134,6 +135,11 @@ export default function ThisWeekScreen() {
         cooked={meal.cooked}
         rating={meal.rating}
         onRate={(rating) => rateMeal(meal.dayIndex, rating)}
+        onReroll={
+          canReroll
+            ? () => router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(meal.dayIndex) } })
+            : undefined
+        }
         onToggleCooked={() => toggleCooked(meal.dayIndex)}
         onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
       />
@@ -179,6 +185,12 @@ export default function ThisWeekScreen() {
           cooked={tonight.cooked}
           rating={tonight.rating}
           onRate={(rating) => rateMeal(tonight.dayIndex, rating)}
+          onReroll={
+            !tonight.cooked
+              ? () =>
+                  router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(tonight.dayIndex) } })
+              : undefined
+          }
           onToggleCooked={() => toggleCooked(tonight.dayIndex)}
           onPress={() =>
             router.push({ pathname: '/meal/[id]', params: { id: tonightRecipe.id } })

@@ -62,6 +62,7 @@ Rules that must hold:
 app/(tabs)/          index (This Week) · schedule · shopping · profile  + custom tab bar
 app/plan/            14-step Sunday intake wizard → review.tsx (lock/swap/regenerate/approve)
 app/review/          Optional catch-up wizard for unrated meals (M2.1) — see §5.4
+app/reroll/[dayIndex].tsx  Mid-week re-roll modal (M2.2) — see §5.6
 app/meal/[id].tsx    Recipe detail · app/household.tsx sync setup · app/settings.tsx theme
 src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
                      RatingEvent, PreferenceProfile) + constants (12 cuisines, H-E-B dept order, chips)
@@ -69,7 +70,8 @@ src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 12 w
                      WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker with shuffle
                      tie-breaking) · shoppingList.ts · cost.ts (rough heuristic, scoring-only) ·
                      learning.ts (pure fold, RatingEvents -> PreferenceProfile) ·
-                     rating.ts (isMealRated/unratedMeals/allMealsRated, M2.1) · season.ts ·
+                     rating.ts (isMealRated/unratedMeals/allMealsRated, M2.1) ·
+                     reroll.ts (rerollCandidates, strict-mode candidate selection, M2.2) · season.ts ·
                      schedule.ts (local-date math: todayOffset/dayLabel) · syncMerge.ts (pure,
                      commutative/idempotent household-sync merge, M1.6; per-meal rating merge M2.1)
 src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipeImported.ts
@@ -143,6 +145,21 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    `npx tsx --tsconfig ./tsconfig.json scripts/checkSyncMerge.ts`, 11
    assertions including two M2.1 rating-merge cases); those assertions
    should migrate into the real test suite once a runner exists (M2.5).
+6. **Mid-week re-roll (M2.2), STRICT mode:** every not-yet-cooked meal for
+   today or a future day gets a "↻ Re-roll" link on its This Week card,
+   opening `/reroll/[dayIndex]`. `rerollCandidates()` (`src/engine/reroll.ts`,
+   pure) only offers recipes whose every non-staple ingredient is covered by
+   pantry + this week's shopping list (assumed purchased) + the outgoing
+   meal's own ingredients — a re-roll can never imply a store trip, and the
+   outgoing recipe itself is excluded from its own candidate pool (swapping a
+   meal for itself isn't a re-roll). Candidates are ranked by the existing
+   scoring function; the screen offers the top pick with "Try another"
+   (cycles up to 5). If nothing fully qualifies, up to 3 near-misses are
+   shown instead, each labeled with exactly what's missing ("you'll need: X,
+   Y") — picking one is allowed but never edits the shopping list.
+   `planStore.rerollMeal()` only ever replaces that one meal's `recipeId`
+   (clearing any `cooked`/`rating` on that day, since it's now a different
+   recipe) and never touches the shopping list.
 
 ## 6. Coding conventions
 
@@ -274,9 +291,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
   removed rather than fixed (2026-07-02, see §7 #2).
 - **Milestone 2 — Finish what's started (in progress, see `MILESTONE-2.md`):**
   rate-as-you-go (M2.1, done — see §5.4) · mid-week re-roll from pantry +
-  this week's shopping list (M2.2) · "same as last week" fast intake (M2.3) ·
-  curated-first scoring weight (M2.4) · engine test suite (M2.5) · wire
-  learned dials into scoring (M2.6).
+  this week's shopping list (M2.2, done — see §5.6) · "same as last week" fast
+  intake (M2.3) · curated-first scoring weight (M2.4) · engine test suite
+  (M2.5) · wire learned dials into scoring (M2.6).
 - Later: day-aware planning/reorder · recipe browser + manual picks ·
   leftovers-aware planning (new design — the original `desiredLeftovers`/
   `specialOccasions` fields this was scoped around were removed in M1.8) ·

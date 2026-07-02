@@ -8,6 +8,7 @@ import { localShoppingListRepository } from '@/data/repositories/local/LocalShop
 import { createDefaultProfile } from '@/domain/defaults';
 import { IntakeAnswers, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 import { GenerateContext, localRecommendationEngine, passesHardFilters, selectReplacement } from '@/engine/recommendation';
+import { availableIngredients, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localMidnight } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
 import { buildShoppingList } from '@/engine/shoppingList';
@@ -71,6 +72,21 @@ interface PlanState {
       >
     >,
   ) => void;
+  /**
+   * Mid-week re-roll (M2.2), STRICT mode: candidates for replacing one
+   * meal, restricted to recipes fully coverable by pantry + this week's
+   * shopping list + the outgoing meal's own ingredients — a re-roll never
+   * implies a store trip. Read-only; call `rerollMeal` to actually commit
+   * one of the returned candidates (or a near-miss).
+   */
+  previewReroll: (dayIndex: number) => RerollOutcome;
+  /**
+   * Commit a re-roll: replace one meal's recipe on the active plan. Clears
+   * `cooked`/`rating` on that day (a different recipe means any prior
+   * progress/rating no longer describes it) and never touches the shopping
+   * list.
+   */
+  rerollMeal: (dayIndex: number, recipeId: string) => void;
   /** Promote the draft to the active plan and build its shopping list. */
   approve: () => void;
   /** Discard the pending draft without approving it (e.g. closing review). */
@@ -258,6 +274,31 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       enjoyment: rating,
       ratedAtISO: now,
     });
+  },
+
+  previewReroll: (dayIndex) => {
+    const plan = get().plan;
+    if (!plan) return { candidates: [], nearMisses: [] };
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    const pantry = usePantryStore.getState().items;
+    const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    const outgoingRecipe = outgoingMeal ? getRecipe(outgoingMeal.recipeId) : undefined;
+    const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe);
+    const ctx = context(plan.intake, profile, []);
+    return rerollCandidates(plan, dayIndex, RECIPES, getRecipe, available, ctx);
+  },
+
+  rerollMeal: (dayIndex, recipeId) => {
+    const plan = get().plan;
+    if (!plan) return;
+    const meals = plan.meals.map((m) =>
+      m.dayIndex === dayIndex
+        ? { ...m, recipeId, locked: false, cooked: false, cookedAtISO: null, rating: undefined, ratedAtISO: null }
+        : m,
+    );
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
   },
 
   approve: () => {

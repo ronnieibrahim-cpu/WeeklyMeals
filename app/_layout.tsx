@@ -41,6 +41,7 @@ function RootNavigator() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="plan" options={{ presentation: 'modal' }} />
         <Stack.Screen name="review" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="reroll" options={{ presentation: 'modal' }} />
         <Stack.Screen name="meal/[id]" />
         <Stack.Screen name="household" />
         <Stack.Screen name="settings" options={{ headerShown: false }} />
