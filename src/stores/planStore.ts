@@ -63,6 +63,12 @@ interface PlanState {
   hydrateFromSync: (plan: WeeklyPlan | null, shoppingList: ShoppingList | null) => void;
   clear: () => void;
   recipeFor: (meal: PlannedMeal) => Recipe | undefined;
+  /**
+   * Compute what the shopping list (and its totals) would be for a plan without
+   * persisting anything — the single source of truth for "what will this cost"
+   * shown before approval, so it always matches the real list built on approve.
+   */
+  previewShoppingList: (plan: WeeklyPlan) => ShoppingList;
 }
 
 function persist(plan: WeeklyPlan) {
@@ -225,4 +231,6 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   },
 
   recipeFor: (meal) => getRecipe(meal.recipeId),
+
+  previewShoppingList: (plan) => listFor(plan),
 }));

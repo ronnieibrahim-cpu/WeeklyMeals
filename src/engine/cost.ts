@@ -1,10 +1,9 @@
 import { Protein, Recipe } from '@/domain/models';
 
 /**
- * Rough per-serving cost heuristic used by the engine's budget scoring.
- * Intentionally simple for now; replaced by real H-E-B pricing when the
- * shopping-list step lands (it will combine the curated price table with this
- * as a fallback). Returns USD.
+ * Rough per-serving cost heuristic used ONLY for internal budget scoring
+ * (picking recipes). Any cost shown to the user must come from
+ * `buildShoppingList()` / `HebProvider` instead, so every screen agrees.
  */
 const PROTEIN_COST: Record<Protein, number> = {
   Beef: 3.2,

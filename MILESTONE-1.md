@@ -16,7 +16,7 @@ existing pattern (`kvStore` key like `wm:settings:v1`), hydrate in `init()`
 called from `app/_layout.tsx` like the other stores.
 **Accept when:** choose Dark, force-quit/reload, app reopens in Dark. Typecheck green.
 
-## [ ] M1.2 — One source of truth for cost
+## [x] M1.2 — One source of truth for cost — done: added `previewShoppingList(plan)` to `planStore` (wraps `buildShoppingList()`); review and home screens use it instead of `roughCostPerServing()`, which is now engine-scoring-only.
 **Problem:** Plan review (`app/plan/review.tsx`) and the home screen use
 `roughCostPerServing()` while the shopping tab uses curated H-E-B pricing —
 the totals visibly disagree.

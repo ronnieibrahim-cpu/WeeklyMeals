@@ -130,8 +130,10 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 **P1**
 5. **"Tonight" never advances** — `dayIndex 0` is always "Tonight";
    `weekStartISO` is the generation timestamp. Meals need real dates.
-6. **Two disagreeing cost numbers** — review/home use `roughCostPerServing()`;
-   shopping uses the H-E-B table.
+6. ~~Two disagreeing cost numbers~~ — **fixed (M1.2)**: review and home now
+   call `usePlanStore().previewShoppingList(plan)` (a thin wrapper around
+   `buildShoppingList()`), so every screen shows the same H-E-B-priced total;
+   `roughCostPerServing()` is scoped to engine scoring only.
 7. **Dead intake questions** — `desiredLeftovers` and `specialOccasions` are
    asked every Sunday and never read; no leftover-day logic exists
    (`isLeftoverDay` never set) despite README/PRD promises.
@@ -171,8 +173,8 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 - **Milestone 1 — Trust & safety:** P0-1/2 allergen + kosher fixes + seed
   validator + imports-guard · P0-3 draft-plan protection (new plan is a pending
   draft; replace only on approve) · remove/wire dead questions · real dates +
-  correct "Tonight" · single cost source (HebProvider everywhere) · persist
-  theme (done) · one-review-per-plan guard · unblock/reset UI.
+  correct "Tonight" · single cost source (HebProvider everywhere, done) ·
+  persist theme (done) · one-review-per-plan guard · unblock/reset UI.
 - **Milestone 2 — Reduce Sunday friction:** "Same as last week?" one-tap fast
   path + cross-week recency penalty so the engine rotates on its own.
 - **Milestone 3 — Family list:** manual shopping items · per-item sync merge

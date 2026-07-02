@@ -3,7 +3,6 @@ import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { roughCostPerServing } from '@/engine/cost';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, MealCard, PrimaryButton, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -18,6 +17,7 @@ export default function ReviewPlanScreen() {
   const toggleLock = usePlanStore((s) => s.toggleLock);
   const swapMeal = usePlanStore((s) => s.swapMeal);
   const approve = usePlanStore((s) => s.approve);
+  const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
 
   const close = () => router.dismissAll();
 
@@ -35,12 +35,9 @@ export default function ReviewPlanScreen() {
   }
 
   const meals = [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex);
-  const totalCost = meals.reduce((sum, m) => {
-    const r = recipeFor(m);
-    return r ? sum + roughCostPerServing(r) * m.servings : sum;
-  }, 0);
-  const totalServings = meals.reduce((s, m) => s + m.servings, 0);
-  const perServing = totalServings ? totalCost / totalServings : 0;
+  const preview = previewShoppingList(plan);
+  const totalCost = preview.estimatedTotal;
+  const perServing = preview.costPerServing;
   const shortfall = plan.intake.dinners - meals.length;
 
   const onApprove = () => {

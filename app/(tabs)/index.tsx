@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 
-import { roughCostPerServing } from '@/engine/cost';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, EmptyState, MealCard, Screen, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -13,6 +12,7 @@ export default function ThisWeekScreen() {
   const hydrated = usePlanStore((s) => s.hydrated);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const shoppingList = usePlanStore((s) => s.shoppingList);
+  const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
 
   const today = new Date().toLocaleDateString(undefined, {
@@ -62,17 +62,9 @@ export default function ThisWeekScreen() {
 
   const meals = [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex);
   const hasList = !!shoppingList && shoppingList.planId === plan.id;
-  const totalServings = meals.reduce((s, m) => s + m.servings, 0);
-  const roughTotal = meals.reduce((sum, m) => {
-    const r = recipeFor(m);
-    return r ? sum + roughCostPerServing(r) * m.servings : sum;
-  }, 0);
-  const totalCost = hasList ? shoppingList!.estimatedTotal : roughTotal;
-  const perServing = hasList
-    ? shoppingList!.costPerServing
-    : totalServings
-      ? roughTotal / totalServings
-      : 0;
+  const list = hasList ? shoppingList! : previewShoppingList(plan);
+  const totalCost = list.estimatedTotal;
+  const perServing = list.costPerServing;
 
   const dayLabel = (i: number) => {
     if (i === 0) return 'Tonight';
