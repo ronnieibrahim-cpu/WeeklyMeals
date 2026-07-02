@@ -49,7 +49,6 @@ export const COMMON_DIETS: string[] = [
   'Keto',
   'Low-Carb',
   'Halal',
-  'Kosher',
 ];
 
 /** Preset choices for quick single-tap selection. */

@@ -151,10 +151,17 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    allergen info estimated, check labels." on every imported recipe
    regardless of profile. Still open: the `'Tree Nuts'`/`'TreeNuts'` mismatch
    in curated seed data, and a canonical allergen list + CI seed-validation
-   script. Same caution still applies to inferred diet tags
-   (halal/kosher/vegan).
-2. **Kosher filter no-op:** `(tags.includes('kosher') || true)` in
-   `filters.ts` — only the pork/shellfish check actually runs.
+   script. Same caution still applies to inferred diet tags (halal/vegan).
+2. ~~Kosher filter no-op~~ — **Removed (2026-07-02):** per Ronnie, dropped
+   "Kosher" as a dietary-restriction option entirely rather than fixing the
+   logic (`(tags.includes('kosher') || true)` in `filters.ts` was a no-op
+   beyond the pork/shellfish check, and no recipe in the library — curated
+   or imported — ever carried a genuine `'kosher'` dietTag, so a correct
+   filter would have had nothing reliable to check against anyway). Removed
+   from `COMMON_DIETS` and the `satisfiesDiet` switch; any old saved profile
+   still carrying "Kosher" harmlessly falls through to `default: return
+   true` — same practical behavior as before, just no longer pretending to
+   filter on it.
 3. ~~"Plan a new week" destroys the current week before approval.~~ **Fixed
    (M1.8):** `planStore` now has a separate `draftPlan` slot
    (`LocalDraftPlanRepository`, kvStore key `wm:draftPlan:v1`). `generate()`/
@@ -238,8 +245,8 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
   P0-3 draft-plan protection (M1.8) · dead questions removed (M1.8) · real
   dates + correct "Tonight" (M1.4) · single cost source (M1.2) · persist theme
   (M1.1) · one-review-per-plan guard (M1.3) · sync per-item merge (M1.6) ·
-  unblock UI (M1.8) · small correctness cleanups (M1.7). Kosher filter no-op
-  (P0-2) remains open — not yet scheduled to a milestone task.
+  unblock UI (M1.8) · small correctness cleanups (M1.7) · Kosher option
+  removed rather than fixed (2026-07-02, see §7 #2).
 - **Milestone 2 — Reduce Sunday friction:** "Same as last week?" one-tap fast
   path + cross-week recency penalty so the engine rotates on its own.
 - **Milestone 3 — Family list:** manual shopping items · ~~per-item sync merge

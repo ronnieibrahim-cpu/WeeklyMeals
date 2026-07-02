@@ -30,12 +30,6 @@ function satisfiesDiet(recipe: Recipe, diet: string): boolean {
       return recipe.nutrition.carbs <= 15 || tags.includes('keto');
     case 'halal':
       return recipe.primaryProtein !== 'Pork' && (tags.includes('halal') || !tags.includes('pork'));
-    case 'kosher':
-      return (
-        recipe.primaryProtein !== 'Pork' &&
-        recipe.primaryProtein !== 'Shellfish' &&
-        (tags.includes('kosher') || true)
-      );
     default:
       return true;
   }
