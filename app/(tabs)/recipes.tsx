@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 
 import { CATEGORIES, CUISINES, MAX_PREP_OPTIONS, PROTEINS } from '@/domain/constants';
@@ -32,12 +32,20 @@ export default function RecipesScreen() {
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
 
+  // Drive the heavy list work off a deferred copy of the query so a fast
+  // typist doesn't re-filter/re-render the whole (up to 541-item) list on
+  // every keystroke — the input stays responsive, the list catches up.
+  const deferredQuery = useDeferredValue(query);
+
   const favoriteIds = useMemo(() => new Set(favorites), [favorites]);
   const activeFilters = useMemo<RecipeFilters>(() => ({ ...filters, favoriteIds }), [filters, favoriteIds]);
   const filtered = useMemo(() => filterRecipes(RECIPES, activeFilters), [activeFilters]);
 
   const suggestions = useMemo(() => autocompleteSuggestions(RECIPES, query), [query]);
-  const results = useMemo(() => (query.trim() ? searchRecipes(filtered, query) : filtered), [filtered, query]);
+  const results = useMemo(
+    () => (deferredQuery.trim() ? searchRecipes(filtered, deferredQuery) : filtered),
+    [filtered, deferredQuery],
+  );
 
   const openDetail = (id: string) => router.push({ pathname: '/meal/[id]', params: { id, pinTarget } });
   const openPin = (id: string) => router.push({ pathname: '/pin/[recipeId]', params: { recipeId: id, target: pinTarget } });
@@ -60,9 +68,18 @@ export default function RecipesScreen() {
   // No active search text: lead with Favorites (still respecting whatever
   // filters are on), then everything else. Typing collapses this into one
   // ranked list — Favorites is a starting view, not a separate mode.
-  const showingFavoritesSection = !query.trim();
+  const showingFavoritesSection = !deferredQuery.trim();
   const favoritesInView = showingFavoritesSection ? filtered.filter((r) => favoriteIds.has(r.id)) : [];
   const restInView = showingFavoritesSection ? filtered.filter((r) => !favoriteIds.has(r.id)) : results;
+
+  // Hard cap on how many result cards mount at once. Each card can load a
+  // remote photo, and mobile Safari OOM-crashes ("a problem repeatedly
+  // occurred") if we render all 541 — this is a plain ScrollView, not a
+  // virtualized list. The cap keeps memory bounded; the count line tells the
+  // user to narrow down rather than silently hiding matches.
+  const MAX_VISIBLE_RESULTS = 40;
+  const visibleRest = restInView.slice(0, MAX_VISIBLE_RESULTS);
+  const hiddenCount = restInView.length - visibleRest.length;
 
   return (
     <Screen title="Recipes" subtitle={`${RECIPES.length} recipes to search, filter, and pin`}>
@@ -216,7 +233,14 @@ export default function RecipesScreen() {
 
       <SectionHeader title={showingFavoritesSection ? 'All Recipes' : 'Results'} />
       {restInView.length > 0 ? (
-        restInView.map((r) => renderCard(r.id))
+        <>
+          {visibleRest.map((r) => renderCard(r.id))}
+          {hiddenCount > 0 ? (
+            <Text variant="footnote" color="tertiary" style={{ marginTop: theme.spacing.md, textAlign: 'center' }}>
+              +{hiddenCount} more — search or add filters to narrow down.
+            </Text>
+          ) : null}
+        </>
       ) : (
         <EmptyState emoji="🔍" title="No recipes match" body="Try a different search or fewer filters." />
       )}
