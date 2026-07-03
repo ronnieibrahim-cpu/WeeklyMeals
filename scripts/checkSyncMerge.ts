@@ -242,6 +242,69 @@ check('(h) newer rating edit beats an older rating', () => {
 });
 
 // ---------------------------------------------------------------------------
+// (i) M2.2: device A re-rolls a day (new recipeId + recipeChangedAtISO),
+//     device B is unchanged -> both merge orders converge to A's new recipe,
+//     not a field-by-field mix of the two.
+// ---------------------------------------------------------------------------
+check('(i) a re-roll on one device beats an unchanged meal on the other, order-independent', () => {
+  const a = plan('plan-1', [meal(0, { recipeId: 'new-recipe', recipeChangedAtISO: t2 })]);
+  const b = plan('plan-1', [meal(0)]); // unchanged: recipeId 'r0', no recipeChangedAtISO (epoch 0)
+
+  const mergedAB = mergePlanMeals(a, b);
+  const mergedBA = mergePlanMeals(b, a);
+
+  assert.equal(mergedAB.meals[0].recipeId, 'new-recipe', 'the re-rolled recipe must win');
+  assert.equal(stableStringify(mergedAB), stableStringify(mergedBA), 'merge(A,B) must equal merge(B,A)');
+});
+
+// ---------------------------------------------------------------------------
+// (j) M2.2 + M2.1 interaction: device B rates the OLD dish, then device A
+//     re-rolls that day to a new dish -> the converged meal must have A's
+//     new recipe and NO rating (B's rating described a dish that no longer
+//     exists in the plan; it must never attach to the new one).
+// ---------------------------------------------------------------------------
+check('(j) a re-roll discards a rating that belonged to the outgoing recipe', () => {
+  const b = plan('plan-1', [meal(0, { rating: 5, ratedAtISO: t1 })]); // rated the original dish
+  const a = plan('plan-1', [meal(0, { recipeId: 'new-recipe', recipeChangedAtISO: t2 })]); // re-rolled after B's rating
+
+  const merged = mergePlanMeals(a, b);
+  assert.equal(merged.meals[0].recipeId, 'new-recipe', 'the re-rolled recipe must win');
+  assert.equal(merged.meals[0].rating, undefined, "the old dish's rating must not survive onto the new dish");
+  assert.equal(merged.meals[0].ratedAtISO, null);
+
+  const mergedFlipped = mergePlanMeals(b, a);
+  assert.equal(stableStringify(merged), stableStringify(mergedFlipped), 'merge(A,B) must equal merge(B,A)');
+});
+
+// ---------------------------------------------------------------------------
+// (k) M2.2: both devices re-roll the same day to DIFFERENT recipes -> the
+//     newer recipeChangedAtISO wins outright on both merge orders.
+// ---------------------------------------------------------------------------
+check('(k) two different re-rolls of the same day: the newer one wins, order-independent', () => {
+  const a = plan('plan-1', [meal(0, { recipeId: 'recipe-A', recipeChangedAtISO: t1 })]);
+  const b = plan('plan-1', [meal(0, { recipeId: 'recipe-B', recipeChangedAtISO: t2 })]);
+
+  const mergedAB = mergePlanMeals(a, b);
+  const mergedBA = mergePlanMeals(b, a);
+
+  assert.equal(mergedAB.meals[0].recipeId, 'recipe-B', 'the later re-roll must win');
+  assert.equal(stableStringify(mergedAB), stableStringify(mergedBA), 'merge(A,B) must equal merge(B,A)');
+});
+
+// ---------------------------------------------------------------------------
+// (l) M2.2: idempotence holds for the diverged-recipe path too:
+//     merge(merge(A,B), B) === merge(A,B).
+// ---------------------------------------------------------------------------
+check('(l) merge(merge(A,B), B) === merge(A,B) [diverged recipe]', () => {
+  const a = plan('plan-1', [meal(0, { recipeId: 'recipe-A', recipeChangedAtISO: t1 })]);
+  const b = plan('plan-1', [meal(0, { recipeId: 'recipe-B', recipeChangedAtISO: t2 })]);
+
+  const merged = mergePlanMeals(a, b);
+  const mergedAgain = mergePlanMeals(merged, b);
+  assert.equal(stableStringify(mergedAgain), stableStringify(merged));
+});
+
+// ---------------------------------------------------------------------------
 // Extra: commutativity of the full payload merge on the common (same-planId) path.
 // ---------------------------------------------------------------------------
 check('commutativity: mergeSyncPayload(A,B) === mergeSyncPayload(B,A)', () => {

@@ -9,6 +9,12 @@ export interface PlannedMeal {
   cookedAtISO?: string | null; // when this device last toggled `cooked` (sync merge key)
   rating?: 1 | 2 | 3 | 4 | 5; // set any time, not gated on `cooked` (M2.1)
   ratedAtISO?: string | null; // when this device last set/edited `rating` (sync merge key)
+  /** When this device last changed `recipeId` (M2.2 re-roll). Undefined at
+   * generation/approval (epoch 0) — only `rerollMeal` stamps it. Sync merge
+   * key: when two devices disagree on `recipeId` for the same day, this
+   * decides whose whole meal body (cooked/rating included) wins, so a
+   * rating for the outgoing dish can never attach to the new one. */
+  recipeChangedAtISO?: string;
   isLeftoverDay?: boolean; // reuses a prior meal instead of cooking
   leftoverFromRecipeId?: string;
 }

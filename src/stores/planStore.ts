@@ -83,8 +83,9 @@ interface PlanState {
   /**
    * Commit a re-roll: replace one meal's recipe on the active plan. Clears
    * `cooked`/`rating` on that day (a different recipe means any prior
-   * progress/rating no longer describes it) and never touches the shopping
-   * list.
+   * progress/rating no longer describes it) and stamps `recipeChangedAtISO`
+   * so sync knows this meal's whole body — not just individual fields —
+   * changed (see `mergePlanMeals`). Never touches the shopping list.
    */
   rerollMeal: (dayIndex: number, recipeId: string) => void;
   /** Promote the draft to the active plan and build its shopping list. */
@@ -291,9 +292,19 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   rerollMeal: (dayIndex, recipeId) => {
     const plan = get().plan;
     if (!plan) return;
+    const now = new Date().toISOString();
     const meals = plan.meals.map((m) =>
       m.dayIndex === dayIndex
-        ? { ...m, recipeId, locked: false, cooked: false, cookedAtISO: null, rating: undefined, ratedAtISO: null }
+        ? {
+            ...m,
+            recipeId,
+            recipeChangedAtISO: now,
+            locked: false,
+            cooked: false,
+            cookedAtISO: null,
+            rating: undefined,
+            ratedAtISO: null,
+          }
         : m,
     );
     const next = { ...plan, meals };

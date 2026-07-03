@@ -60,8 +60,8 @@ export interface RerollOutcome {
  * week and anything failing the existing hard filters (allergies, diet,
  * time limits, dislikes) or blocked by learning. Ranked with the same
  * scoring function used elsewhere, against the rest of the week's picks, so
- * variety/preference still apply; shuffled first so repeated re-rolls of
- * the same day don't always land on the same tie-break.
+ * variety/preference still apply; ties break by stable-sort array order
+ * (deterministic — not shuffled/randomized).
  */
 export function rerollCandidates(
   plan: WeeklyPlan,

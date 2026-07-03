@@ -144,24 +144,31 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    needed.
 5. **Sync (optional)**: `{plan, shoppingList}` synced against the household
    row. **M1.6:** no longer whole-payload last-write-wins. `src/engine/syncMerge.ts`
-   (pure, commutative, idempotent) merges per-item `checked`/`checkedAtISO`,
-   per-meal `cooked`/`cookedAtISO`, and (M2.1) per-meal `rating`/`ratedAtISO`
-   — whichever device toggled/rated an item or meal more recently wins just
-   that item/meal, not the whole list/plan; a missing timestamp (legacy
-   data) is never treated as newer than a real one, and equal timestamps
-   resolve to true/checked (or a deterministic tie-break for ratings, since
-   there's no "true" to prefer) so a toggle or rating is never silently
-   lost. If the two sides are looking at different plan ids, the plan with
-   the newer `createdAtISO` wins outright (a freshly generated week can't be
-   raced away by a stale poll). `syncStore.pull()` only pushes the merged
-   result back when it actually adds something the server doesn't have yet
-   (compared via a stable, sorted-key stringify — never raw
-   `JSON.stringify` — to avoid ping-ponging). Profile, pantry, and learning
-   stay per-device (still out of scope). Verified in
-   `scripts/checkSyncMerge.ts` (run via
-   `npx tsx --tsconfig ./tsconfig.json scripts/checkSyncMerge.ts`, 11
-   assertions including two M2.1 rating-merge cases); those assertions
-   should migrate into the real test suite once a runner exists (M2.5).
+   (pure, commutative, idempotent) merges per-item `checked`/`checkedAtISO`
+   and, per meal, either `cooked`/`cookedAtISO` + (M2.1) `rating`/`ratedAtISO`
+   independently — if both sides agree on that meal's `recipeId` — or, if
+   they disagree (M2.2: one side re-rolled that day to a different dish),
+   the whole meal body atomically, keyed on `recipeChangedAtISO`. That
+   split matters: two devices can legitimately toggle `checked`/`cooked`/
+   `rating` on the *same* dish independently and it's correct to merge those
+   fields piecewise, but a `rating` or `cooked` flag describing a dish that
+   got re-rolled away must never survive onto whatever replaced it — see bug
+   fix below. Whichever side changed a field more recently wins it; a
+   missing timestamp (legacy data) is never treated as newer than a real
+   one, and equal timestamps resolve to true/checked (or a deterministic
+   tie-break otherwise, since there's no "true" to prefer) so a toggle,
+   rating, or re-roll is never silently lost. If the two sides are looking
+   at different plan ids, the plan with the newer `createdAtISO` wins
+   outright (a freshly generated week can't be raced away by a stale poll).
+   `syncStore.pull()` only pushes the merged result back when it actually
+   adds something the server doesn't have yet (compared via a stable,
+   sorted-key stringify — never raw `JSON.stringify` — to avoid
+   ping-ponging). Profile, pantry, and learning stay per-device (still out
+   of scope). Verified in `scripts/checkSyncMerge.ts` (run via
+   `npx tsx --tsconfig ./tsconfig.json scripts/checkSyncMerge.ts`, 15
+   assertions including two M2.1 rating-merge cases and four M2.2
+   diverged-recipe cases); those assertions should migrate into the real
+   test suite once a runner exists (M2.5).
 6. **Mid-week re-roll (M2.2), STRICT mode:** every not-yet-cooked meal for
    today or a future day gets a "↻ Re-roll" link on its This Week card,
    opening `/reroll/[dayIndex]`. `rerollCandidates()` (`src/engine/reroll.ts`,
@@ -176,7 +183,16 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    Y") — picking one is allowed but never edits the shopping list.
    `planStore.rerollMeal()` only ever replaces that one meal's `recipeId`
    (clearing any `cooked`/`rating` on that day, since it's now a different
-   recipe) and never touches the shopping list.
+   recipe) and never touches the shopping list. It also stamps a new
+   `recipeChangedAtISO` on that meal — **bug fixed post-M2.2:** the initial
+   version changed `recipeId` without any way for sync to know the meal's
+   *identity* had changed, so `mergePlanMeals` kept treating it as ordinary
+   progress on the same dish and could merge a stale rating/cooked-flag for
+   the *outgoing* recipe onto the *new* one (e.g. device B rates the
+   original dish, then device A re-rolls it — B's rating must not survive
+   onto A's replacement). `recipeChangedAtISO` gives the merge a signal to
+   pick one side's meal body atomically whenever `recipeId` diverges,
+   instead of merging fields piecewise (see §5.5).
 
 ## 6. Coding conventions
 

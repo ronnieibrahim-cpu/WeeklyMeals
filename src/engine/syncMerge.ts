@@ -170,15 +170,33 @@ function resolveRating(a: PlannedMeal, b: PlannedMeal): Pick<PlannedMeal, 'ratin
   return chooseBase(aVal, bVal, stableStringify);
 }
 
+/** Resolve two meal bodies that disagree on `recipeId` (M2.2: one side
+ * re-rolled that day to a different dish). These are NOT merged
+ * field-by-field — a `cooked`/`rating` describing the outgoing dish must
+ * never attach to the new one — so whichever side has the newer
+ * `recipeChangedAtISO` wins the ENTIRE meal body. A tie (including both
+ * missing) falls back to the same deterministic, commutative tie-break used
+ * everywhere else, comparing the full meal object (not the reduced
+ * `mealBaseKey`) since nothing here gets merged piecewise. */
+function resolveDivergedRecipe(a: PlannedMeal, b: PlannedMeal): PlannedMeal {
+  const aTs = tsOf(a.recipeChangedAtISO);
+  const bTs = tsOf(b.recipeChangedAtISO);
+  if (aTs !== bTs) return aTs > bTs ? a : b;
+  return chooseBase(a, b, stableStringify);
+}
+
 /**
  * Merge two copies of the SAME plan (caller must check `a.id === b.id`).
- * Meals are matched by dayIndex; per meal, whichever side toggled `cooked`
- * or set/edited `rating` more recently wins that piece of that meal's
- * state. weekStartISO/intake/createdAtISO are set once at generation and
- * never mutated afterwards by any store action, so they're identical
- * between two copies of the same plan id by construction — status is the
- * only other field that can legitimately diverge, merged as a one-way
- * ratchet.
+ * Meals are matched by dayIndex. If both sides agree on `recipeId`, they're
+ * progress on the same dish: whichever side toggled `cooked` or set/edited
+ * `rating` more recently wins that piece of that meal's state,
+ * independently (see `resolveCooked`/`resolveRating`). If the sides
+ * disagree on `recipeId` (M2.2 re-roll), the two meal bodies are resolved
+ * atomically instead — see `resolveDivergedRecipe`. weekStartISO/intake/
+ * createdAtISO are set once at generation and never mutated afterwards by
+ * any store action, so they're identical between two copies of the same
+ * plan id by construction — status is the only other WeeklyPlan-level
+ * field that can legitimately diverge, merged as a one-way ratchet.
  */
 export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
   const aByDay = new Map(a.meals.map((m) => [m.dayIndex, m]));
@@ -189,6 +207,7 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
     const am = aByDay.get(day);
     const bm = bByDay.get(day);
     if (am && bm) {
+      if (am.recipeId !== bm.recipeId) return resolveDivergedRecipe(am, bm);
       const base = chooseBase(am, bm, mealBaseKey);
       return { ...base, ...resolveCooked(am, bm), ...resolveRating(am, bm) };
     }
