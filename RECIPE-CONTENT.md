@@ -178,24 +178,24 @@ on the full curated library with zero exceptions.
 - [x] jp-chicken-curry-rice
 
 ## Batch 9 — recipeBatch5.ts part B (18)
-- [ ] cn-cashew-chicken
-- [ ] cn-dan-dan-noodles
-- [ ] cn-veg-fried-rice
-- [ ] fr-herb-roast-chicken
-- [ ] fr-cassoulet
-- [ ] fr-onion-soup
-- [ ] md-chicken-kabobs
-- [ ] md-shrimp-saganaki
-- [ ] md-quinoa-bowl
-- [ ] am-philly-cheesesteak
-- [ ] am-tomato-soup-grilled-cheese
-- [ ] am-fried-chicken-sandwich
-- [ ] me-chicken-kabsa
-- [ ] me-freekeh-bowl
-- [ ] me-lamb-tagine
-- [ ] bq-smoked-wings
-- [ ] bq-portobello-burgers
-- [ ] bq-bbq-brisket
+- [x] cn-cashew-chicken
+- [x] cn-dan-dan-noodles
+- [x] cn-veg-fried-rice
+- [x] fr-herb-roast-chicken
+- [x] fr-cassoulet
+- [x] fr-onion-soup
+- [x] md-chicken-kabobs
+- [x] md-shrimp-saganaki
+- [x] md-quinoa-bowl
+- [x] am-philly-cheesesteak
+- [x] am-tomato-soup-grilled-cheese
+- [x] am-fried-chicken-sandwich
+- [x] me-chicken-kabsa
+- [x] me-freekeh-bowl
+- [x] me-lamb-tagine
+- [x] bq-smoked-wings
+- [x] bq-portobello-burgers
+- [x] bq-bbq-brisket
 
 ## Batch 10 — recipeBatch6.ts (6) + recipeBatch7.ts part A (14)
 - [ ] it-lentil-bolognese
