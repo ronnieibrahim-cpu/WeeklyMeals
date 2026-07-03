@@ -198,26 +198,26 @@ on the full curated library with zero exceptions.
 - [x] bq-bbq-brisket
 
 ## Batch 10 — recipeBatch6.ts (6) + recipeBatch7.ts part A (14)
-- [ ] it-lentil-bolognese
-- [ ] mx-lentil-tacos
-- [ ] in-coconut-lentil-curry
-- [ ] am-lentil-shepherds-pie
-- [ ] md-lentil-herb-salad
-- [ ] fr-lentil-goat-cheese-salad
-- [ ] it-penne-vodka
-- [ ] it-chicken-marsala
-- [ ] it-seafood-linguine
-- [ ] mx-enchiladas-suizas
-- [ ] mx-bean-tostadas
-- [ ] mx-shrimp-ceviche
-- [ ] gr-briam
-- [ ] gr-baked-feta-pasta
-- [ ] gr-grilled-swordfish
-- [ ] in-palak-paneer
-- [ ] in-chicken-biryani
-- [ ] in-egg-curry
-- [ ] th-tom-yum-shrimp
-- [ ] th-pad-krapow
+- [x] it-lentil-bolognese
+- [x] mx-lentil-tacos
+- [x] in-coconut-lentil-curry
+- [x] am-lentil-shepherds-pie
+- [x] md-lentil-herb-salad
+- [x] fr-lentil-goat-cheese-salad
+- [x] it-penne-vodka
+- [x] it-chicken-marsala
+- [x] it-seafood-linguine
+- [x] mx-enchiladas-suizas
+- [x] mx-bean-tostadas
+- [x] mx-shrimp-ceviche
+- [x] gr-briam
+- [x] gr-baked-feta-pasta
+- [x] gr-grilled-swordfish
+- [x] in-palak-paneer
+- [x] in-chicken-biryani
+- [x] in-egg-curry
+- [x] th-tom-yum-shrimp
+- [x] th-pad-krapow
 
 ## Batch 11 — recipeBatch7.ts part B (22)
 - [ ] th-yellow-curry
