@@ -11,6 +11,9 @@ batch, run `npm run typecheck` and
 **Done when:** every box below is checked AND `validateRecipes.ts` passes
 on the full curated library with zero exceptions.
 
+**STATUS: DONE.** All 230 recipes checked off; `validateRecipes.ts` passes
+with zero exceptions as of this commit.
+
 ## Batch 1 — recipes.ts (24)
 - [x] it-tuscan-chicken
 - [x] it-caprese-pasta
@@ -244,23 +247,23 @@ on the full curated library with zero exceptions.
 - [x] bq-elote-bowl
 
 ## Batch 12 — recipeBatch8.ts (20)
-- [ ] in-palak-tofu
-- [ ] in-tofu-tikka-masala
-- [ ] cn-kung-pao-tofu
-- [ ] th-tofu-pad-see-ew
-- [ ] jp-teriyaki-tofu-donburi
-- [ ] mx-tofu-sofritas-bowls
-- [ ] me-tofu-shawarma-bowls
-- [ ] am-crispy-tofu-buddha-bowl
-- [ ] am-sheet-pan-salmon
-- [ ] in-coconut-salmon-curry
-- [ ] th-salmon-red-curry
-- [ ] mx-chipotle-salmon-tacos
-- [ ] it-creamy-salmon-pasta
-- [ ] me-harissa-salmon
-- [ ] gr-fish-plaki
-- [ ] it-tuna-puttanesca
-- [ ] am-blackened-tilapia
-- [ ] cn-steamed-ginger-fish
-- [ ] fr-trout-amandine
-- [ ] md-herb-branzino
+- [x] in-palak-tofu
+- [x] in-tofu-tikka-masala
+- [x] cn-kung-pao-tofu
+- [x] th-tofu-pad-see-ew
+- [x] jp-teriyaki-tofu-donburi
+- [x] mx-tofu-sofritas-bowls
+- [x] me-tofu-shawarma-bowls
+- [x] am-crispy-tofu-buddha-bowl
+- [x] am-sheet-pan-salmon
+- [x] in-coconut-salmon-curry
+- [x] th-salmon-red-curry
+- [x] mx-chipotle-salmon-tacos
+- [x] it-creamy-salmon-pasta
+- [x] me-harissa-salmon
+- [x] gr-fish-plaki
+- [x] it-tuna-puttanesca
+- [x] am-blackened-tilapia
+- [x] cn-steamed-ginger-fish
+- [x] fr-trout-amandine
+- [x] md-herb-branzino
