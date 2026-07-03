@@ -60,13 +60,17 @@ Rules that must hold:
 ## 4. Repository map & key modules
 
 ```
-app/(tabs)/          index (This Week) · schedule · shopping · profile  + custom tab bar
+app/(tabs)/          index (This Week) · recipes (search/browse, M3.1, see §5.8) ·
+                     schedule · shopping · profile  + custom tab bar
 app/plan/            12-step Sunday intake wizard (M2.3: skipped by a 2-button
                      choice screen + 3-step fast path when a previous week's
-                     intake exists) → review.tsx (lock/swap/regenerate/approve)
+                     intake exists) → review.tsx (lock/swap/regenerate/approve/
+                     "Swap in a favorite", M3.1)
 app/review/          Optional catch-up wizard for unrated meals (M2.1) — see §5.4
 app/reroll/[dayIndex].tsx  Mid-week re-roll modal (M2.2) — see §5.6
-app/meal/[id].tsx    Recipe detail · app/household.tsx sync setup · app/settings.tsx theme
+app/pin/[recipeId].tsx     Pin-to-week day picker (M3.1) — see §5.8
+app/meal/[id].tsx    Recipe detail (+ "Pin to this week", M3.1) · app/household.tsx
+                     sync setup · app/settings.tsx theme
 src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
                      RatingEvent, PreferenceProfile) + constants (12 cuisines, H-E-B dept order, chips)
 src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 14 weighted factors incl.
@@ -77,9 +81,12 @@ src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 14 w
                      tie-breaking) · shoppingList.ts · cost.ts (rough heuristic, scoring-only) ·
                      learning.ts (pure fold, RatingEvents -> PreferenceProfile) ·
                      rating.ts (isMealRated/unratedMeals/allMealsRated, M2.1) ·
-                     reroll.ts (rerollCandidates, strict-mode candidate selection, M2.2) · season.ts ·
+                     reroll.ts (rerollCandidates, strict-mode candidate selection, M2.2;
+                     pinnableDays, M3.1) · season.ts · recipeSearch.ts (search/autocomplete/
+                     filter over the 541-recipe library, client-side, M3.1) ·
                      schedule.ts (local-date math: todayOffset/dayLabel) · syncMerge.ts (pure,
-                     commutative/idempotent household-sync merge, M1.6; per-meal rating merge M2.1)
+                     commutative/idempotent household-sync merge, M1.6; per-meal rating merge
+                     M2.1; mergeTimestampedFlagMap for favorites, M3.1)
 src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipeImported.ts
                      (311 TheMealDB imports, GENERATED — never hand-edit; re-run
                      scripts/importRecipes.ts via normalize.ts). 541 recipes total.
@@ -98,7 +105,9 @@ src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipe
 src/data/grocery/heb HebProvider: curated price table, per-lb conversion (g/ml/kg/l), dept fallbacks
 src/data/repositories/local  kvStore (AsyncStorage JSON) + one repo per aggregate
 src/data/sync/       config.ts (URL/key/SYNC_ENABLED kill-switch) · householdApi.ts (get/upsert row by 6-char code)
-src/stores/          planStore (orchestrator) · profileStore · pantryStore · learningStore ·
+src/stores/          planStore (orchestrator; pinRecipeToWeek/pinRecipeToDraft/
+                     addMissingIngredients, M3.1) · profileStore · pantryStore ·
+                     learningStore (favoritesMap household-synced as of M3.1, see §5.8) ·
                      settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms,
                      per-item/per-meal merge via src/engine/syncMerge.ts as of M1.6)
 src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recipes as of
@@ -161,8 +170,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
    recap instead of a wizard once every meal already has a rating; the home
    card shows "Week rated ✓" the moment that's true, no separate flag
    needed.
-5. **Sync (optional)**: `{plan, shoppingList}` synced against the household
-   row. **M1.6:** no longer whole-payload last-write-wins. `src/engine/syncMerge.ts`
+5. **Sync (optional)**: `{plan, shoppingList, favorites}` synced against the
+   household row (`favorites` added M3.1, see §5.8). **M1.6:** no longer
+   whole-payload last-write-wins. `src/engine/syncMerge.ts`
    (pure, commutative, idempotent) merges per-item `checked`/`checkedAtISO`
    and, per meal, either `cooked`/`cookedAtISO` + (M2.1) `rating`/`ratedAtISO`
    independently — if both sides agree on that meal's `recipeId` — or, if
@@ -182,8 +192,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
    `syncStore.pull()` only pushes the merged result back when it actually
    adds something the server doesn't have yet (compared via a stable,
    sorted-key stringify — never raw `JSON.stringify` — to avoid
-   ping-ponging). Profile, pantry, and learning stay per-device (still out
-   of scope). Verified by `src/engine/syncMerge.test.ts` (run via
+   ping-ponging). Profile, pantry, and the rest of learning (preferences,
+   ratings) stay per-device (still out of scope); favorites is the one
+   exception as of M3.1 (see §5.8). Verified by `src/engine/syncMerge.test.ts` (run via
    `npm test`, 15 assertions including two M2.1 rating-merge cases and four
    M2.2 diverged-recipe cases) — migrated from the standalone
    `scripts/checkSyncMerge.ts` once M2.5 set up a real test runner.
@@ -236,6 +247,53 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
    than gated on a text-based pre-review, since photo URLs aren't practical
    to eyeball from a markdown list — he reviews them live in the app and
    flags any bad ones for removal.
+8. **Recipe browser, favorites, and pin-to-week (M3.1):** a 5th tab,
+   **Recipes**, searches all 541 recipes client-side (`src/engine/
+   recipeSearch.ts`: name/cuisine/protein/ingredient match, ranked, plus
+   autocomplete suggestions) with filter chips (cuisine, protein,
+   difficulty, max time, categories, curated-only). The tab opens with a
+   **Favorites** section up top (still respecting active filters); typing a
+   search or picking a filter collapses that into one ranked results list —
+   Favorites is a starting view, not a separate mode. Favorites are now
+   **household-synced**, not per-device: `learningStore`'s `favoritesMap`
+   (recipeId → `{flag, atISO}`) is part of the sync payload, merged by
+   `mergeTimestampedFlagMap()` (same newer-wins/tie-true pattern as
+   `checked`/`cooked`, reused by M3.2's `kidApproved`); a device's old
+   plain-array favorites migrate into the map once, locally, the first time
+   `learningStore` loads after this change (`migrateFavoritesToMap()` in
+   `src/engine/learning.ts`) — by the time that device first syncs, its
+   migrated favorites are already in the payload.
+
+   **Pin to this week**, from a result card's quick-pin icon or the detail
+   screen, opens `app/pin/[recipeId].tsx`: a day picker restricted to
+   today-or-future, not-yet-cooked days (`pinnableDays()` in
+   `src/engine/reroll.ts`, same rule the re-roll link uses), refusing to
+   offer a day at all if the recipe is already elsewhere in the week
+   (mirrors reroll's duplicate exclusion). Committing a pin onto the
+   approved plan calls `planStore.rerollMeal()` **verbatim** — identical
+   `recipeChangedAtISO` stamp, cooked/rating clear, and sync behavior to a
+   mid-week re-roll — so pinning and re-rolling are indistinguishable to
+   every other part of the app once committed; pinning into a draft
+   (`pinRecipeToDraft`, reachable via the review screen's **"Swap in a
+   favorite"** button) is the analogous operation on `draftPlan`. Every pin
+   entry point (quick-pin, detail screen, draft) re-checks two things itself
+   before committing, never just trusting the screen that offered the
+   action: **(a) allergy safety** — `passesAllergySafety()`
+   (`src/engine/recommendation/filters.ts`, extracted out of
+   `passesHardFilters` so pinning can bypass *soft* mismatches like
+   dislikes/time/diet on an explicit user choice, but never allergy safety)
+   blocks a recipe whose allergens match a set allergy, or (with any allergy
+   set) an imported/estimated recipe, with a plain explanation; **(b) day
+   validity** per `pinnableDays()`. If the pinned recipe needs ingredients
+   beyond pantry + this week's list, the day picker shows "You'll need: X,
+   Y" with the pin committing either way — adding those ingredients to the
+   shopping list is a **separate, explicit** button
+   (`addIngredientsToShoppingList()` in `src/engine/shoppingList.ts`, the
+   only way the list is ever edited outside a full rebuild), never
+   automatic. **Explicit decision:** if that same day is later re-rolled or
+   re-pinned again, ingredients added by an earlier pin are **not** removed
+   — silently deleting them would violate "never silently edit the shopping
+   list" exactly as much as silently adding them would have.
 
 ## 6. Coding conventions
 
@@ -326,16 +384,19 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
     `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
     `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
-11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0):** `jest-expo` installed
-    as the sanctioned dev dependency; `npm test` runs the engine test suite
-    (`src/engine/**/*.test.ts`, 96 assertions covering hard filters incl. the
-    imported-allergy guard, recommendation-engine invariants (incl. M2.6's
-    learned-dials scoring and hard-filters-always-win case, and M3.0's
-    structural assertion that `WEIGHTS.learnedDials` stays below
-    `WEIGHTS.preference`/`WEIGHTS.affinity` and that its score contribution
-    is bounded even at maximally extreme learned dials), shopping-list
-    consolidation, sync merge, learning math, and the M2.2/M3.0 reroll candidate
-    function). Screens
+11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1):** `jest-expo`
+    installed as the sanctioned dev dependency; `npm test` runs the engine test
+    suite (`src/engine/**/*.test.ts`, 127 assertions covering hard filters incl.
+    the imported-allergy guard and M3.1's extracted `passesAllergySafety`,
+    recommendation-engine invariants (incl. M2.6's learned-dials scoring and
+    hard-filters-always-win case, and M3.0's structural assertion that
+    `WEIGHTS.learnedDials` stays below `WEIGHTS.preference`/`WEIGHTS.affinity`
+    and that its score contribution is bounded even at maximally extreme
+    learned dials), shopping-list consolidation (incl. M3.1's
+    `addIngredientsToShoppingList`), sync merge (incl. M3.1's favorites map
+    merge), learning math (incl. M3.1's favorites migration), recipe
+    search/filter/autocomplete (M3.1), and the M2.2/M3.0/M3.1 reroll candidate/
+    pinnable-days functions). Screens
     still have zero coverage — out of scope per the milestone (`docs/ARCHITECTURE.md`'s
     references to `__tests__/`, `units.ts`, `reviewStore`, `RatingRepository`
     remain aspirational/stale).
@@ -393,11 +454,15 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
   learned dials into scoring (M2.6, done — spice/complexity/budget/leftover/
   vegetableAffinity nudge picks via `learnedDialsFit()`, capped below the
   explicit profile factors; see §4 and §7 #8).
-- Later: day-aware planning/reorder · recipe browser + manual picks ·
+- **Milestone 3 — The Family's Daily App (in progress, see `MILESTONE-3.md`):**
+  carry-over cleanups (M3.0, done) · real photos for curated recipes (M3.0b,
+  done — see §5.7) · recipe browser with search, favorites (now
+  household-synced), and pin-to-week (M3.1, done — see §5.8).
+- Later: day-aware planning/reorder · manual shopping-list items (M3.3) ·
   leftovers-aware planning (new design — the original `desiredLeftovers`/
   `specialOccasions` fields this was scoped around were removed in M1.8) ·
-  pantry auto-deduction after shopping · sync pantry/profile/learning ·
-  notifications · other stores.
+  pantry auto-deduction after shopping · sync pantry/profile/(the rest of)
+  learning · notifications · other stores.
 - Future: Claude-powered natural-language intake mapped onto the deterministic
   engine as constraints — **allergy filtering stays deterministic; never
   delegate safety to a model.**

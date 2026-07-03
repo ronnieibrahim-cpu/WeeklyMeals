@@ -68,7 +68,29 @@ RULES:
 recipes show real photos on cards/detail/browser, unmatched recipes still
 show clean tiles, licenses/attribution are stored, typecheck + tests green.
 
-## [ ] M3.1 — Recipe browser with search, autocomplete, and pin-to-week (TOP PRIORITY)
+## [x] M3.1 — Recipe browser with search, autocomplete, and pin-to-week (TOP PRIORITY) — done:
+new Recipes tab (`app/(tabs)/recipes.tsx`) with client-side search/autocomplete/
+filters (`src/engine/recipeSearch.ts`) and a Favorites section up top that
+collapses into ranked results the moment you search/filter; favorites are now
+household-synced (`favoritesMap`, `mergeTimestampedFlagMap()` in
+`syncMerge.ts`, migrated from the old per-device array); pin-to-week
+(`app/pin/[recipeId].tsx`, quick-pin on cards + a button on the detail
+screen + "Swap in a favorite" on the draft review screen) reuses
+`rerollMeal()` verbatim on the approved plan and a new `pinRecipeToDraft()`
+on the draft, both re-checking the extracted `passesAllergySafety()` guard
+and `pinnableDays()`/`pinnableDraftDaysFor()` day validity themselves before
+committing (never just trusting the screen); missing ingredients get an
+explicit, separate "add to shopping list" button
+(`addIngredientsToShoppingList()`), never automatic, and items added that
+way survive a later re-roll/re-pin of the same day (documented in
+PROJECT.md §5.8 as intended, not a bug). `npm run typecheck`, `npx jest`
+(127/127), and `validateRecipes.ts` (230/230) all green; confirmed via
+`expo start --web` that the Recipes tab and pin screen bundle and load
+without errors. Two-device sync convergence for favorites could not be
+manually verified in this sandbox (no way to run two live clients against
+Supabase here) — verified at the unit level instead
+(`syncMerge.test.ts`'s favorites cases) and should get a quick real-device
+check when convenient.
 **User problem:** 541 recipes exist but the family can only meet them through
 generation. A cooking family needs to FIND a dish ("what can I make with
 cabbage?", "that shakshuka from last month") and ACT on it.
