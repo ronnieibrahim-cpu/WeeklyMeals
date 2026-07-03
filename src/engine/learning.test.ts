@@ -1,6 +1,6 @@
 import { Recipe, RatingEvent } from '@/domain/models';
 
-import { applyRatings, createDefaultPreferences } from './learning';
+import { applyRatings, createDefaultPreferences, migrateFavoritesToMap } from './learning';
 import { makeRecipe } from './testFixtures';
 
 function event(overrides: Partial<RatingEvent> & Pick<RatingEvent, 'recipeId'>): RatingEvent {
@@ -144,5 +144,20 @@ describe('applyRatings', () => {
     );
     expect(next.mealsRated).toBe(2);
     expect(next.avgEnjoyment).toBe(3);
+  });
+});
+
+describe('migrateFavoritesToMap (M3.1)', () => {
+  it('converts every id into a favorited entry stamped with the given timestamp', () => {
+    const now = '2026-07-03T12:00:00.000Z';
+    const map = migrateFavoritesToMap(['recipe-a', 'recipe-b'], now);
+    expect(map).toEqual({
+      'recipe-a': { flag: true, atISO: now },
+      'recipe-b': { flag: true, atISO: now },
+    });
+  });
+
+  it('an empty array migrates to an empty map', () => {
+    expect(migrateFavoritesToMap([], '2026-07-03T12:00:00.000Z')).toEqual({});
   });
 });

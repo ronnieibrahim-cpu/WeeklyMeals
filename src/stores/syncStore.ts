@@ -5,6 +5,7 @@ import { SYNC_ENABLED } from '@/data/sync/config';
 import { getHousehold, SyncPayload, upsertHousehold } from '@/data/sync/householdApi';
 import { mergeSyncPayload, stableStringify, SyncMergePayload } from '@/engine/syncMerge';
 
+import { useLearningStore } from './learningStore';
 import { usePlanStore } from './planStore';
 
 const CODE_KEY = 'wm:household:v1';
@@ -18,7 +19,7 @@ function makeCode(): string {
 
 function currentPayload(): SyncPayload {
   const p = usePlanStore.getState();
-  return { plan: p.plan, shoppingList: p.shoppingList };
+  return { plan: p.plan, shoppingList: p.shoppingList, favorites: useLearningStore.getState().favoritesMap };
 }
 
 type SyncStatus = 'idle' | 'syncing' | 'synced' | 'error';
@@ -30,6 +31,7 @@ let lastSyncedTs = 0;
 let pollTimer: ReturnType<typeof setInterval> | null = null;
 let pushTimer: ReturnType<typeof setTimeout> | null = null;
 let unsubscribePlan: (() => void) | null = null;
+let unsubscribeLearning: (() => void) | null = null;
 
 interface SyncState {
   code: string | null;
@@ -75,8 +77,12 @@ export const useSyncStore = create<SyncState>((set, get) => {
     const remoteTs = Date.parse(row.updated_at) || 0;
     if (remoteTs <= lastSyncedTs) return; // already caught up with this server state
 
-    const remote: SyncMergePayload = { plan: row.data?.plan ?? null, shoppingList: row.data?.shoppingList ?? null };
-    const local: SyncMergePayload = currentPayload();
+    const remote: SyncMergePayload = {
+      plan: row.data?.plan ?? null,
+      shoppingList: row.data?.shoppingList ?? null,
+      favorites: row.data?.favorites ?? {},
+    };
+    const local: SyncMergePayload = { ...currentPayload(), favorites: currentPayload().favorites ?? {} };
     const merged = mergeSyncPayload(local, remote);
     const mergedKey = stableStringify(merged);
 
@@ -86,6 +92,7 @@ export const useSyncStore = create<SyncState>((set, get) => {
       const snapshot = merged;
       applying = true;
       usePlanStore.getState().hydrateFromSync(snapshot.plan, snapshot.shoppingList);
+      useLearningStore.getState().hydrateFavoritesFromSync(snapshot.favorites);
       applying = false;
     }
 
@@ -134,15 +141,22 @@ export const useSyncStore = create<SyncState>((set, get) => {
       if (state.plan === prev.plan && state.shoppingList === prev.shoppingList) return;
       schedulePush();
     });
+    unsubscribeLearning = useLearningStore.subscribe((state, prev) => {
+      if (applying) return;
+      if (state.favoritesMap === prev.favoritesMap) return;
+      schedulePush();
+    });
   }
 
   function stopPolling() {
     if (pollTimer) clearInterval(pollTimer);
     if (pushTimer) clearTimeout(pushTimer);
     if (unsubscribePlan) unsubscribePlan();
+    if (unsubscribeLearning) unsubscribeLearning();
     pollTimer = null;
     pushTimer = null;
     unsubscribePlan = null;
+    unsubscribeLearning = null;
   }
 
   function resetMarkers() {

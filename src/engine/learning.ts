@@ -1,6 +1,19 @@
-import { PreferenceProfile, RatingEvent, Recipe } from '@/domain/models';
+import { FavoritesMap, PreferenceProfile, RatingEvent, Recipe } from '@/domain/models';
 
 const clamp = (n: number, lo = -1, hi = 1) => Math.max(lo, Math.min(hi, n));
+
+/**
+ * M3.1: one-time migration from the old per-device `favorites: string[]`
+ * shape into the timestamped map household sync needs. The original toggle
+ * time was never recorded, so every migrated entry is stamped `nowISO` —
+ * whatever's in the map by the time this device first syncs is what seeds
+ * the household's synced favorites.
+ */
+export function migrateFavoritesToMap(favorites: string[], nowISO: string): FavoritesMap {
+  const map: FavoritesMap = {};
+  for (const id of favorites) map[id] = { flag: true, atISO: nowISO };
+  return map;
+}
 
 export function createDefaultPreferences(): PreferenceProfile {
   return {

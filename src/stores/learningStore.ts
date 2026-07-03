@@ -2,18 +2,33 @@ import { create } from 'zustand';
 
 import { recipesById } from '@/data/seed/recipes';
 import { localLearningRepository } from '@/data/repositories/local/LocalLearningRepository';
-import { PreferenceProfile, RatingEvent } from '@/domain/models';
-import { applyRatings, createDefaultPreferences } from '@/engine/learning';
+import { FavoritesMap, PreferenceProfile, RatingEvent } from '@/domain/models';
+import { applyRatings, createDefaultPreferences, migrateFavoritesToMap } from '@/engine/learning';
 import { createId } from '@/utils/id';
+
+function favoritedIds(map: FavoritesMap): string[] {
+  return Object.entries(map)
+    .filter(([, entry]) => entry.flag)
+    .map(([id]) => id);
+}
 
 interface LearningState {
   preferences: PreferenceProfile;
+  /** Source of truth (M3.1, household-synced). */
+  favoritesMap: FavoritesMap;
+  /** Derived favorited ids, kept in sync with favoritesMap on every change —
+   * existing consumers (meal detail heart, profile count, scoring's
+   * favoriteRecipeIds) read this and need no changes. */
   favorites: string[];
   ratings: RatingEvent[];
   hydrated: boolean;
   init: () => Promise<void>;
   isFavorite: (recipeId: string) => boolean;
   toggleFavorite: (recipeId: string) => void;
+  /** Adopt a synced favorites map after a household sync merge (mirrors
+   * planStore.hydrateFromSync) — replaces local state without re-stamping
+   * timestamps, since the merge already resolved them. */
+  hydrateFavoritesFromSync: (map: FavoritesMap) => void;
   /**
    * Record or edit the rating for one (planId, recipeId) meal and recompute
    * the whole PreferenceProfile from scratch by re-folding the full rating
@@ -28,16 +43,17 @@ interface LearningState {
   reset: () => void;
 }
 
-function persist(state: { preferences: PreferenceProfile; favorites: string[]; ratings: RatingEvent[] }) {
+function persist(state: { preferences: PreferenceProfile; favoritesMap: FavoritesMap; ratings: RatingEvent[] }) {
   void localLearningRepository.save({
     preferences: state.preferences,
-    favorites: state.favorites,
+    favoritesMap: state.favoritesMap,
     ratings: state.ratings,
   });
 }
 
 export const useLearningStore = create<LearningState>((set, get) => ({
   preferences: createDefaultPreferences(),
+  favoritesMap: {},
   favorites: [],
   ratings: [],
   hydrated: false,
@@ -45,22 +61,33 @@ export const useLearningStore = create<LearningState>((set, get) => ({
   init: async () => {
     if (get().hydrated) return;
     const data = await localLearningRepository.load();
+    // M3.1 migration: old persisted data only has the plain-array shape.
+    const favoritesMap =
+      data?.favoritesMap ?? migrateFavoritesToMap(data?.favorites ?? [], new Date().toISOString());
     set({
       preferences: data?.preferences ?? createDefaultPreferences(),
-      favorites: data?.favorites ?? [],
+      favoritesMap,
+      favorites: favoritedIds(favoritesMap),
       ratings: data?.ratings ?? [],
       hydrated: true,
     });
   },
 
-  isFavorite: (recipeId) => get().favorites.includes(recipeId),
+  isFavorite: (recipeId) => !!get().favoritesMap[recipeId]?.flag,
 
   toggleFavorite: (recipeId) => {
-    const favorites = get().favorites.includes(recipeId)
-      ? get().favorites.filter((id) => id !== recipeId)
-      : [...get().favorites, recipeId];
-    set({ favorites });
-    persist({ ...get(), favorites });
+    const prev = get().favoritesMap;
+    const favoritesMap: FavoritesMap = {
+      ...prev,
+      [recipeId]: { flag: !prev[recipeId]?.flag, atISO: new Date().toISOString() },
+    };
+    set({ favoritesMap, favorites: favoritedIds(favoritesMap) });
+    persist({ ...get(), favoritesMap });
+  },
+
+  hydrateFavoritesFromSync: (map) => {
+    set({ favoritesMap: map, favorites: favoritedIds(map) });
+    persist({ ...get(), favoritesMap: map });
   },
 
   rateRecipe: (event) => {
@@ -86,7 +113,7 @@ export const useLearningStore = create<LearningState>((set, get) => ({
 
   reset: () => {
     const preferences = createDefaultPreferences();
-    set({ preferences, favorites: [], ratings: [] });
-    persist({ preferences, favorites: [], ratings: [] });
+    set({ preferences, favoritesMap: {}, favorites: [], ratings: [] });
+    persist({ preferences, favoritesMap: {}, ratings: [] });
   },
 }));

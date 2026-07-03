@@ -6,3 +6,4 @@ export * from './plan';
 export * from './shopping';
 export * from './rating';
 export * from './preferences';
+export * from './sync';

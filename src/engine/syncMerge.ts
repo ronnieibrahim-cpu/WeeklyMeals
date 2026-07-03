@@ -1,4 +1,4 @@
-import { PlannedMeal, PlanStatus, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { FavoritesMap, PlannedMeal, PlanStatus, ShoppingItem, ShoppingList, TimestampedFlag, WeeklyPlan } from '@/domain/models';
 
 /**
  * Merges plan + shopping-list state pulled from a household sync partner
@@ -11,11 +11,14 @@ import { PlannedMeal, PlanStatus, ShoppingItem, ShoppingList, WeeklyPlan } from 
  * server-side merge step.
  */
 
-/** The two pieces of state a household syncs, decoupled from the Supabase
- * row shape so this module never has to import the sync/data edge. */
+/** The pieces of state a household syncs, decoupled from the Supabase row
+ * shape so this module never has to import the sync/data edge. `favorites`
+ * defaults to `{}` rather than being nullable — an empty map is already its
+ * natural "nothing synced yet" state (M3.1). */
 export interface SyncMergePayload {
   plan: WeeklyPlan | null;
   shoppingList: ShoppingList | null;
+  favorites: FavoritesMap;
 }
 
 /** Canonical JSON: object keys sorted recursively, `undefined` values
@@ -70,6 +73,31 @@ function resolveFlag(
     return { flag: later.flag, atISO: new Date(Math.max(aTs, bTs)).toISOString() };
   }
   return { flag: a.flag || b.flag, atISO: aTs ? new Date(aTs).toISOString() : null };
+}
+
+/**
+ * Merge two id -> TimestampedFlag maps (favorites M3.1, kidApproved M3.2):
+ * union of keys, each resolved independently via `resolveFlag`. Not
+ * plan-scoped, so unlike `mergePlanMeals` there's no id to gate on — every
+ * key from either side is present in the result. `atISO` is only ever null
+ * from `resolveFlag` when both timestamps are missing, which can't happen
+ * here since every entry is stamped when created; the fallback exists purely
+ * to satisfy the type.
+ */
+export function mergeTimestampedFlagMap(a: Record<string, TimestampedFlag>, b: Record<string, TimestampedFlag>): Record<string, TimestampedFlag> {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  const out: Record<string, TimestampedFlag> = {};
+  for (const key of keys) {
+    const av = a[key];
+    const bv = b[key];
+    if (av && bv) {
+      const resolved = resolveFlag(av, bv);
+      out[key] = { flag: resolved.flag, atISO: resolved.atISO ?? av.atISO ?? bv.atISO };
+    } else {
+      out[key] = av ?? bv;
+    }
+  }
+  return out;
 }
 
 function itemKey(i: Pick<ShoppingItem, 'ingredientName' | 'unit'>): string {
@@ -225,21 +253,26 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
 }
 
 /**
- * Top-level merge for a full sync payload. If the two sides are looking at
- * different plans (different id), the newer plan (by createdAtISO) wins
- * outright — a freshly generated week is never silently deleted, but it
- * also never resurrects a plan that's genuinely been superseded. If both
- * sides share a plan id, per-item/per-meal merging takes over.
+ * Top-level merge for a full sync payload. `favorites` is independent of the
+ * plan (not plan-scoped, M3.1), so it's merged unconditionally regardless of
+ * which plan branch below fires. For plan/shoppingList: if the two sides are
+ * looking at different plans (different id), the newer plan (by
+ * createdAtISO) wins outright — a freshly generated week is never silently
+ * deleted, but it also never resurrects a plan that's genuinely been
+ * superseded. If both sides share a plan id, per-item/per-meal merging
+ * takes over.
  */
 export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePayload): SyncMergePayload {
-  if (!local.plan) return remote;
-  if (!remote.plan) return local;
+  const favorites = mergeTimestampedFlagMap(local.favorites, remote.favorites);
+
+  if (!local.plan) return { ...remote, favorites };
+  if (!remote.plan) return { ...local, favorites };
 
   if (local.plan.id !== remote.plan.id) {
     const localTs = tsOf(local.plan.createdAtISO);
     const remoteTs = tsOf(remote.plan.createdAtISO);
-    if (localTs !== remoteTs) return localTs > remoteTs ? local : remote;
-    return chooseBase(local, remote, stableStringify);
+    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites };
+    return { ...chooseBase(local, remote, stableStringify), favorites };
   }
 
   const plan = mergePlanMeals(local.plan, remote.plan);
@@ -253,5 +286,5 @@ export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePaylo
     shoppingList = remote.shoppingList;
   }
 
-  return { plan, shoppingList };
+  return { plan, shoppingList, favorites };
 }

@@ -1,11 +1,14 @@
-import { ShoppingList, WeeklyPlan } from '@/domain/models';
+import { FavoritesMap, ShoppingList, WeeklyPlan } from '@/domain/models';
 
 import { HOUSEHOLD_TABLE, SUPABASE_KEY, SUPABASE_URL } from './config';
 
-/** The shared state synced across a household's devices. */
+/** The shared state synced across a household's devices. `favorites` is
+ * optional on the wire (M3.1) since existing rows written before this field
+ * existed won't have it — treat a missing map the same as an empty one. */
 export interface SyncPayload {
   plan: WeeklyPlan | null;
   shoppingList: ShoppingList | null;
+  favorites?: FavoritesMap;
 }
 
 export interface HouseholdRow {

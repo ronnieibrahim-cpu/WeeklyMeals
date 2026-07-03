@@ -115,14 +115,47 @@ cabbage?", "that shakshuka from last month") and ACT on it.
   plain `string[]`) seed the synced map the first time that device syncs,
   rather than being discarded.
 
+**Addition 3 — Pin safety guard (required, safety-critical):** pinning lets
+the user bypass the hard filters a generated/reroll candidate would normally
+pass through, so the pin action itself — quick-pin on the card AND the
+detail-screen pin, on both the approved plan and the draft — must enforce:
+(a) if any profile allergy is set, block pinning a recipe whose allergens
+include it, with a plain explanation; (b) if any profile allergy is set,
+block pinning an imported (`mealdb-`) recipe per the existing M1.5 guard,
+with the "allergen info estimated" explanation. Soft mismatches (dislikes,
+time limits, diet preferences) do NOT block an explicit user choice — at
+most a one-line note. Add filter tests for both blocks (allergy in the
+recipe, and imported-recipe-with-any-allergy-set).
+
+**Addition 4 — Day picker constraints:** only today-or-future, not-yet-cooked
+days are pinnable targets (same rule reroll already uses). Pinning a recipe
+that's already in this week's plan on a different day is blocked with a
+brief explanation, mirroring reroll's duplicate exclusion.
+
+**Addition 5 — Quick-pin caveat:** the card-level quick-pin is a shortcut to
+the day picker, not a shortcut past any check — it must still show the
+"You'll need: X, Y" missing-ingredients confirmation when applicable. Speed
+never skips that step.
+
+**Addition 6 — Orphaned shopping-list items (explicit decision):** if a user
+pins a recipe, explicitly adds its missing ingredients to the shopping list,
+and later re-rolls or re-pins that same day again, the already-added items
+STAY on the list rather than being silently removed — removing them without
+being asked would violate the "never silently edit the shopping list" law
+just as much as adding them without being asked would. Document this as
+intended behavior in PROJECT.md once built.
+
 **Accept when:** typing "shak" surfaces Shakshuka in <2 keystrokes of feeling
 instant; ingredient search "cabbage" returns every recipe using it; pinning
 replaces the chosen day, propagates across two devices via existing merge
 rules, and provably never mutates the shopping list without the explicit add
 button; favorites are visible as the top section of the Recipes tab;
 favoriting a recipe on one device appears on the other within a poll cycle;
-a favorite can go from search result → pinned into the week in ≤3 taps;
-typecheck + merge script green.
+a favorite can go from search result → pinned into the week in ≤3 taps; an
+allergy-unsafe or (with any allergy set) imported recipe cannot be pinned
+from any entry point; a recipe already in this week's plan, an already-cooked
+day, or a past day cannot be picked as a pin target; typecheck + merge script
++ filter tests green.
 
 ## [ ] M3.2 — Kids-approved flag
 **✅ DECIDED:** one family rating (existing stars) PLUS a per-recipe

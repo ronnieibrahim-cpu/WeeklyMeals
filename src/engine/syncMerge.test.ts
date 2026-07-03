@@ -4,8 +4,8 @@
  * should move here once a runner existed. Same fixtures and cases, translated
  * to jest's describe/it/expect.
  */
-import { IntakeAnswers, PlannedMeal, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
-import { mergePlanMeals, mergeShoppingLists, mergeSyncPayload, stableStringify } from './syncMerge';
+import { FavoritesMap, IntakeAnswers, PlannedMeal, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { mergePlanMeals, mergeShoppingLists, mergeSyncPayload, mergeTimestampedFlagMap, stableStringify } from './syncMerge';
 
 const INTAKE = {} as IntakeAnswers; // opaque payload the merge never inspects
 
@@ -49,6 +49,10 @@ function plan(id: string, meals: PlannedMeal[], over: Partial<WeeklyPlan> = {}):
     createdAtISO: '2026-06-29T00:00:00.000Z',
     ...over,
   };
+}
+
+function favMap(entries: Record<string, { flag: boolean; atISO: string }> = {}): FavoritesMap {
+  return entries;
 }
 
 const t1 = '2026-07-01T10:00:00.000Z';
@@ -134,8 +138,8 @@ describe('mergeShoppingLists', () => {
 
 describe('mergeSyncPayload — cross-plan (differing id)', () => {
   it('(e) differing planId keeps the newer plan either direction', () => {
-    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null };
-    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null };
+    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap() };
+    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap() };
 
     // Newer plan is "local", older is "remote": local must NOT be clobbered.
     const keepLocal = mergeSyncPayload(newer, older);
@@ -233,10 +237,12 @@ describe('mergeSyncPayload — full payload', () => {
     const a = {
       plan: plan('plan-1', [meal(0, { cooked: true, cookedAtISO: t1 })]),
       shoppingList: list('plan-1', [item({ ingredientName: 'milk', unit: 'piece', checked: true, checkedAtISO: t1 })]),
+      favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
     };
     const b = {
       plan: plan('plan-1', [meal(0)]),
       shoppingList: list('plan-1', [item({ ingredientName: 'eggs', unit: 'piece', checked: true, checkedAtISO: t2 })]),
+      favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
     };
 
     const merged = mergeSyncPayload(a, b);
@@ -248,6 +254,7 @@ describe('mergeSyncPayload — full payload', () => {
     const a = {
       plan: plan('plan-1', [meal(0, { cooked: true, cookedAtISO: t1 }), meal(1)]),
       shoppingList: list('plan-1', [item({ ingredientName: 'milk', unit: 'piece', checked: true, checkedAtISO: t1 })]),
+      favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
     };
     const b = {
       plan: plan('plan-1', [meal(0), meal(1, { cooked: true, cookedAtISO: t2 })]),
@@ -255,8 +262,60 @@ describe('mergeSyncPayload — full payload', () => {
         item({ ingredientName: 'milk', unit: 'piece' }),
         item({ ingredientName: 'eggs', unit: 'piece' }),
       ]),
+      favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
     };
 
     expect(stableStringify(mergeSyncPayload(a, b))).toBe(stableStringify(mergeSyncPayload(b, a)));
+  });
+
+  it('(m) favorites merge independently of plan state, including when one side has no plan', () => {
+    const withPlan = {
+      plan: plan('plan-1', [meal(0)]),
+      shoppingList: null,
+      favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
+    };
+    const noPlan = { plan: null, shoppingList: null, favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }) };
+
+    const merged = mergeSyncPayload(withPlan, noPlan);
+    expect(merged.plan?.id).toBe('plan-1');
+    expect(Object.keys(merged.favorites).sort()).toEqual(['recipe-a', 'recipe-b']);
+
+    const flipped = mergeSyncPayload(noPlan, withPlan);
+    expect(stableStringify(merged)).toBe(stableStringify(flipped));
+  });
+});
+
+describe('mergeTimestampedFlagMap (M3.1 favorites, reused by M3.2 kidApproved)', () => {
+  it('two devices favoriting different recipes converge to the union', () => {
+    const a = favMap({ 'recipe-a': { flag: true, atISO: t1 } });
+    const b = favMap({ 'recipe-b': { flag: true, atISO: t1 } });
+
+    const mergedAB = mergeTimestampedFlagMap(a, b);
+    const mergedBA = mergeTimestampedFlagMap(b, a);
+
+    expect(mergedAB['recipe-a'].flag).toBe(true);
+    expect(mergedAB['recipe-b'].flag).toBe(true);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('an unfavorite with a newer timestamp beats an older favorite', () => {
+    const favorited = favMap({ 'recipe-a': { flag: true, atISO: t1 } });
+    const unfavorited = favMap({ 'recipe-a': { flag: false, atISO: t2 } });
+
+    const merged = mergeTimestampedFlagMap(favorited, unfavorited);
+    expect(merged['recipe-a'].flag).toBe(false);
+    expect(merged['recipe-a'].atISO).toBe(t2);
+
+    const flipped = mergeTimestampedFlagMap(unfavorited, favorited);
+    expect(flipped['recipe-a'].flag).toBe(false);
+  });
+
+  it('merge(merge(A,B), B) === merge(A,B) [favorites]', () => {
+    const a = favMap({ 'recipe-a': { flag: true, atISO: t1 } });
+    const b = favMap({ 'recipe-b': { flag: true, atISO: t2 } });
+
+    const merged = mergeTimestampedFlagMap(a, b);
+    const mergedAgain = mergeTimestampedFlagMap(merged, b);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
   });
 });
