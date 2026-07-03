@@ -1,7 +1,7 @@
 import { GroceryProvider } from '@/data/grocery/GroceryProvider';
 import { Recipe } from '@/domain/models';
 
-import { buildShoppingList } from './shoppingList';
+import { addIngredientsToShoppingList, buildShoppingList } from './shoppingList';
 import { makeMeal, makeRecipe } from './testFixtures';
 
 /** $1 per unit of quantity — makes totals trivial to assert on. */
@@ -127,5 +127,68 @@ describe('buildShoppingList', () => {
 
     expect(list.items).toEqual([]);
     expect(list.estimatedTotal).toBe(0);
+  });
+});
+
+describe('addIngredientsToShoppingList (M3.1 — explicit "Add these to shopping list" button on pin-to-week)', () => {
+  const baseList = () =>
+    buildShoppingList(
+      'plan-1',
+      [makeMeal({ recipeId: 'r1', dayIndex: 0, servings: 4 })],
+      () => makeRecipe({ id: 'r1', ingredients: [{ name: 'onion', quantity: 1, unit: 'piece', department: 'Produce' }] }),
+      [],
+      fakeGrocery,
+    );
+
+  it('adds a brand-new ingredient as its own line, priced and attributed to the pinned recipe', () => {
+    const list = addIngredientsToShoppingList(
+      baseList(),
+      [{ name: 'garlic', quantity: 3, unit: 'clove', department: 'Produce' }],
+      'pinned-recipe',
+      fakeGrocery,
+    );
+
+    expect(list.items).toHaveLength(2);
+    const garlic = list.items.find((i) => i.ingredientName === 'garlic');
+    expect(garlic?.quantity).toBe(3);
+    expect(garlic?.fromRecipeIds).toEqual(['pinned-recipe']);
+    expect(list.estimatedTotal).toBe(4); // 1 (onion) + 3 (garlic) at $1/unit
+  });
+
+  it('bumps quantity and adds the source recipe when the ingredient is already on the list', () => {
+    const list = addIngredientsToShoppingList(
+      baseList(),
+      [{ name: 'onion', quantity: 2, unit: 'piece', department: 'Produce' }],
+      'pinned-recipe',
+      fakeGrocery,
+    );
+
+    expect(list.items).toHaveLength(1);
+    expect(list.items[0].quantity).toBe(3); // 1 existing + 2 added
+    expect(list.items[0].fromRecipeIds.sort()).toEqual(['pinned-recipe', 'r1']);
+  });
+
+  it('skips pantry-staple ingredients', () => {
+    const list = addIngredientsToShoppingList(
+      baseList(),
+      [{ name: 'salt', quantity: 1, unit: 'tsp', department: 'Spices', pantryStaple: true }],
+      'pinned-recipe',
+      fakeGrocery,
+    );
+    expect(list.items).toHaveLength(1); // only the original onion line
+  });
+
+  it('never mutates the original list object or its items (immutability)', () => {
+    const original = baseList();
+    const originalItemsSnapshot = original.items.map((i) => ({ ...i }));
+
+    addIngredientsToShoppingList(
+      original,
+      [{ name: 'garlic', quantity: 1, unit: 'clove', department: 'Produce' }],
+      'pinned-recipe',
+      fakeGrocery,
+    );
+
+    expect(original.items).toEqual(originalItemsSnapshot);
   });
 });

@@ -1,5 +1,5 @@
 import { GroceryProvider } from '@/data/grocery/GroceryProvider';
-import { PlannedMeal, Recipe, ShoppingItem, ShoppingList } from '@/domain/models';
+import { PlannedMeal, Recipe, RecipeIngredient, ShoppingItem, ShoppingList } from '@/domain/models';
 
 const lower = (s: string) => s.trim().toLowerCase();
 const round2 = (n: number) => Math.round(n * 100) / 100;
@@ -67,4 +67,62 @@ export function buildShoppingList(
   const costPerServing = totalServings ? round2(estimatedTotal / totalServings) : 0;
 
   return { planId, items, estimatedTotal, costPerServing, generatedAtISO: new Date().toISOString() };
+}
+
+/**
+ * M3.1: append specific ingredients (already known to be missing from
+ * pantry + this week's list) onto an existing shopping list. This is the
+ * ONLY way the shopping list is ever edited outside of a plan rebuild —
+ * it's wired to an explicit "Add these to shopping list" button on
+ * pin-to-week, never called automatically. Dedupes by name+unit exactly
+ * like `buildShoppingList`: re-adding an ingredient already on the list
+ * bumps its quantity and records the new recipe as a source rather than
+ * duplicating the line. Existing items untouched by this call keep their
+ * exact object identity; `costPerServing` is left as-is (it's derived from
+ * planned meals' servings, not meaningful for a manually-added line).
+ */
+export function addIngredientsToShoppingList(
+  list: ShoppingList,
+  ingredients: RecipeIngredient[],
+  recipeId: string,
+  grocery: GroceryProvider,
+): ShoppingList {
+  const map = new Map<string, ShoppingItem>(list.items.map((i) => [`${lower(i.ingredientName)}|${i.unit}`, i]));
+
+  for (const ing of ingredients) {
+    if (ing.pantryStaple) continue;
+    const key = `${lower(ing.name)}|${ing.unit}`;
+    const existing = map.get(key);
+
+    if (existing) {
+      const quantity = round2(existing.quantity + ing.quantity);
+      const priced = grocery.priceFor(existing.ingredientName, quantity, existing.unit, existing.department);
+      map.set(key, {
+        ...existing,
+        quantity,
+        estimatedPrice: priced.price,
+        hebProductName: priced.productName,
+        fromRecipeIds: existing.fromRecipeIds.includes(recipeId)
+          ? existing.fromRecipeIds
+          : [...existing.fromRecipeIds, recipeId],
+      });
+    } else {
+      const quantity = round2(ing.quantity);
+      const priced = grocery.priceFor(ing.name, quantity, ing.unit, ing.department);
+      map.set(key, {
+        ingredientName: ing.name,
+        quantity,
+        unit: ing.unit,
+        department: ing.department,
+        estimatedPrice: priced.price,
+        hebProductName: priced.productName,
+        checked: false,
+        fromRecipeIds: [recipeId],
+      });
+    }
+  }
+
+  const items = Array.from(map.values());
+  const estimatedTotal = round2(items.reduce((sum, i) => sum + i.estimatedPrice, 0));
+  return { ...list, items, estimatedTotal };
 }

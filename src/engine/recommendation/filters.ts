@@ -35,8 +35,15 @@ function satisfiesDiet(recipe: Recipe, diet: string): boolean {
   }
 }
 
-/** Hard constraints: a recipe failing any of these is dropped from the pool. */
-export function passesHardFilters(recipe: Recipe, intake: IntakeAnswers, profile: Profile): boolean {
+/**
+ * The two safety-critical, non-negotiable allergy rules — extracted from
+ * `passesHardFilters` so an explicit user action that bypasses the rest of
+ * the hard filters (M3.1 pin-to-week: soft mismatches like dislikes, time
+ * limits, and diet preferences don't block an explicit pick) still can't
+ * bypass allergy safety. One implementation, shared by generation/reroll
+ * (via `passesHardFilters`) and pinning.
+ */
+export function passesAllergySafety(recipe: Recipe, profile: Profile): boolean {
   // Allergies (profile-level, non-negotiable)
   const allergies = profile.allergies.map(lower);
   if (recipe.allergens.some((a) => allergies.includes(lower(a)))) return false;
@@ -45,6 +52,13 @@ export function passesHardFilters(recipe: Recipe, intake: IntakeAnswers, profile
   // inferAllergens), which can miss real allergens. Once any allergy is set,
   // only hand-curated recipes are trusted enough to serve.
   if (allergies.length > 0 && recipe.estimated) return false;
+
+  return true;
+}
+
+/** Hard constraints: a recipe failing any of these is dropped from the pool. */
+export function passesHardFilters(recipe: Recipe, intake: IntakeAnswers, profile: Profile): boolean {
+  if (!passesAllergySafety(recipe, profile)) return false;
 
   // Dietary restrictions for this week
   for (const diet of intake.dietaryRestrictions) {

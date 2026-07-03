@@ -2,6 +2,7 @@ import { Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 
 import { passesHardFilters, scoreRecipe } from './recommendation';
 import { GenerateContext } from './recommendation/types';
+import { todayOffset } from './schedule';
 
 const lower = (s: string) => s.trim().toLowerCase();
 
@@ -122,4 +123,20 @@ export function rerollCandidates(
     .slice(0, 3);
 
   return { candidates: [], nearMisses };
+}
+
+/**
+ * M3.1: which day indices in `plan` are valid pin-to-week targets for
+ * `recipeId` — today-or-future, not-yet-cooked days (the same rule reroll's
+ * "↻ Re-roll" link already uses on This Week), and only if the recipe isn't
+ * already sitting on some OTHER day of the same week (mirrors reroll's
+ * duplicate exclusion — a recipe can't occupy two days at once). An empty
+ * result means "can't be pinned right now" (already in the plan, or every
+ * remaining day is cooked) and the caller should show why rather than a
+ * silently-empty day picker.
+ */
+export function pinnableDays(plan: WeeklyPlan, recipeId: string, today: Date = new Date()): number[] {
+  if (plan.meals.some((m) => m.recipeId === recipeId)) return [];
+  const todayIndex = todayOffset(plan.weekStartISO, today);
+  return plan.meals.filter((m) => m.dayIndex >= todayIndex && !m.cooked).map((m) => m.dayIndex);
 }

@@ -1,5 +1,5 @@
 import { makeIntake, makeProfile, makeRecipe } from '../testFixtures';
-import { passesHardFilters } from './filters';
+import { passesAllergySafety, passesHardFilters } from './filters';
 
 describe('passesHardFilters', () => {
   it('rejects a recipe whose allergens intersect the profile allergies', () => {
@@ -121,5 +121,47 @@ describe('passesHardFilters', () => {
     const profile = makeProfile();
     const intake = makeIntake(profile);
     expect(passesHardFilters(recipe, intake, profile)).toBe(true);
+  });
+});
+
+describe('passesAllergySafety (M3.1 — extracted for pin-to-week, which bypasses soft filters but not this)', () => {
+  it('rejects a recipe whose allergens intersect the profile allergies', () => {
+    const recipe = makeRecipe({ allergens: ['Peanuts'] });
+    const profile = makeProfile({ allergies: ['Peanuts'] });
+    expect(passesAllergySafety(recipe, profile)).toBe(false);
+  });
+
+  it('rejects an imported (estimated) recipe once any allergy is set, even with no listed allergens', () => {
+    const recipe = makeRecipe({ allergens: [], estimated: true });
+    const profile = makeProfile({ allergies: ['Peanuts'] });
+    expect(passesAllergySafety(recipe, profile)).toBe(false);
+  });
+
+  it('allows an imported recipe when no allergy is set', () => {
+    const recipe = makeRecipe({ allergens: [], estimated: true });
+    const profile = makeProfile({ allergies: [] });
+    expect(passesAllergySafety(recipe, profile)).toBe(true);
+  });
+
+  it('allows a curated recipe with no overlapping allergens even with an allergy set', () => {
+    const recipe = makeRecipe({ allergens: ['Gluten'], estimated: false });
+    const profile = makeProfile({ allergies: ['Peanuts'] });
+    expect(passesAllergySafety(recipe, profile)).toBe(true);
+  });
+
+  it('does NOT block on soft mismatches — only passesHardFilters, not passesAllergySafety, considers them', () => {
+    // A recipe that would fail passesHardFilters on time/dislikes/diet must
+    // still pass the narrower allergy-only safety check (M3.1: an explicit
+    // pin bypasses soft filters but never allergy safety).
+    const recipe = makeRecipe({
+      prepMinutes: 999,
+      cookMinutes: 999,
+      ingredients: [{ name: 'cilantro', quantity: 1, unit: 'bunch', department: 'Produce' }],
+    });
+    const profile = makeProfile({ dislikedIngredients: ['cilantro'] });
+    const intake = makeIntake(profile, { maxPrepMinutes: 10, maxCookMinutes: 10 });
+
+    expect(passesHardFilters(recipe, intake, profile)).toBe(false);
+    expect(passesAllergySafety(recipe, profile)).toBe(true);
   });
 });

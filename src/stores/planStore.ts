@@ -7,11 +7,11 @@ import { localPlanRepository } from '@/data/repositories/local/LocalPlanReposito
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
 import { IntakeAnswers, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
-import { GenerateContext, localRecommendationEngine, passesHardFilters, selectReplacement } from '@/engine/recommendation';
-import { availableIngredients, RerollOutcome, rerollCandidates } from '@/engine/reroll';
+import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, selectReplacement } from '@/engine/recommendation';
+import { availableIngredients, missingIngredients, pinnableDays, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localMidnight } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
-import { buildShoppingList } from '@/engine/shoppingList';
+import { addIngredientsToShoppingList, buildShoppingList } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
 
 import { useLearningStore } from './learningStore';
@@ -88,6 +88,46 @@ interface PlanState {
    * changed (see `mergePlanMeals`). Never touches the shopping list.
    */
   rerollMeal: (dayIndex: number, recipeId: string) => void;
+  /**
+   * M3.1: today-or-future, not-yet-cooked days `recipeId` could be pinned
+   * into on the active plan — empty means "can't be pinned right now"
+   * (already used elsewhere this week, or every remaining day is cooked).
+   */
+  pinnableDaysFor: (recipeId: string) => number[];
+  /** Which of `recipeId`'s non-staple ingredients aren't covered by pantry +
+   * this week's shopping list + the day's outgoing recipe (same "available"
+   * set reroll uses) — for the "You'll need: X, Y" confirm before pinning. */
+  missingIngredientsForPin: (dayIndex: number, recipeId: string) => string[];
+  /**
+   * Pin `recipeId` into `dayIndex` of the active plan — reuses `rerollMeal`
+   * exactly (same recipeChangedAtISO stamp, cooked/rating clear, sync
+   * behavior) so pinning and re-rolling are indistinguishable to every
+   * other part of the app once committed. Never touches the shopping list
+   * on its own — see `addMissingIngredients` for the explicit opt-in.
+   * No-ops if the recipe fails the allergy safety guard or `dayIndex` isn't
+   * in `pinnableDaysFor` (defense in depth: the UI is expected to have
+   * already checked both before offering this action, including for the
+   * card-level quick-pin, which must not skip the missing-ingredients
+   * confirm just because it's a shortcut).
+   */
+  pinRecipeToWeek: (dayIndex: number, recipeId: string) => void;
+  /** Draft equivalent of `pinnableDaysFor` — a draft has no "today" or
+   * "cooked" concept yet, so every day is eligible except one already
+   * holding `recipeId`. */
+  pinnableDraftDaysFor: (recipeId: string) => number[];
+  /** Draft equivalent of `pinRecipeToWeek` (same allergy-safety guard). */
+  pinRecipeToDraft: (dayIndex: number, recipeId: string) => void;
+  /**
+   * Explicit-only: append `recipeId`'s ingredients missing from pantry +
+   * this week's list (recomputed fresh, not trusting a possibly-stale UI
+   * snapshot) onto the active shopping list. Never called automatically —
+   * this is the "Add these to shopping list" button and nothing else. If a
+   * later re-roll/re-pin of the same day replaces `recipeId` again, these
+   * added items are NOT removed (M3.1 addition 6): silently deleting them
+   * would violate the same "never silently edit the shopping list" law as
+   * silently adding them would have.
+   */
+  addMissingIngredients: (dayIndex: number, recipeId: string) => void;
   /** Promote the draft to the active plan and build its shopping list. */
   approve: () => void;
   /** Discard the pending draft without approving it (e.g. closing review). */
@@ -310,6 +350,70 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const next = { ...plan, meals };
     set({ plan: next });
     persist(next);
+  },
+
+  pinnableDaysFor: (recipeId) => {
+    const plan = get().plan;
+    if (!plan) return [];
+    return pinnableDays(plan, recipeId);
+  },
+
+  missingIngredientsForPin: (dayIndex, recipeId) => {
+    const plan = get().plan;
+    const recipe = getRecipe(recipeId);
+    if (!plan || !recipe) return [];
+    const pantry = usePantryStore.getState().items;
+    const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    const outgoingRecipe = outgoingMeal ? getRecipe(outgoingMeal.recipeId) : undefined;
+    const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe);
+    return missingIngredients(recipe, available);
+  },
+
+  pinRecipeToWeek: (dayIndex, recipeId) => {
+    const plan = get().plan;
+    const recipe = getRecipe(recipeId);
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    if (!plan || !recipe) return;
+    if (!passesAllergySafety(recipe, profile)) return;
+    if (!pinnableDays(plan, recipeId).includes(dayIndex)) return;
+    get().rerollMeal(dayIndex, recipeId);
+  },
+
+  pinnableDraftDaysFor: (recipeId) => {
+    const draftPlan = get().draftPlan;
+    if (!draftPlan) return [];
+    if (draftPlan.meals.some((m) => m.recipeId === recipeId)) return [];
+    return draftPlan.meals.map((m) => m.dayIndex);
+  },
+
+  pinRecipeToDraft: (dayIndex, recipeId) => {
+    const draftPlan = get().draftPlan;
+    const recipe = getRecipe(recipeId);
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    if (!draftPlan || !recipe) return;
+    if (!passesAllergySafety(recipe, profile)) return;
+    if (!get().pinnableDraftDaysFor(recipeId).includes(dayIndex)) return;
+    const meals = draftPlan.meals.map((m) => (m.dayIndex === dayIndex ? { ...m, recipeId, locked: false } : m));
+    const next = { ...draftPlan, meals };
+    set({ draftPlan: next });
+    persistDraft(next);
+  },
+
+  addMissingIngredients: (dayIndex, recipeId) => {
+    const plan = get().plan;
+    const list = get().shoppingList;
+    const recipe = getRecipe(recipeId);
+    if (!plan || !list || !recipe) return;
+    const pantry = usePantryStore.getState().items;
+    const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    const outgoingRecipe = outgoingMeal ? getRecipe(outgoingMeal.recipeId) : undefined;
+    const available = availableIngredients(pantry, list, outgoingRecipe);
+    const missingNames = new Set(missingIngredients(recipe, available));
+    const ingredientsToAdd = recipe.ingredients.filter((ing) => missingNames.has(ing.name));
+    if (ingredientsToAdd.length === 0) return;
+    const next = addIngredientsToShoppingList(list, ingredientsToAdd, recipeId, hebProvider);
+    set({ shoppingList: next });
+    persistList(next);
   },
 
   approve: () => {

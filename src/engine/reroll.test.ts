@@ -1,5 +1,5 @@
 import { GenerateContext } from './recommendation/types';
-import { availableIngredients, missingIngredients, rerollCandidates } from './reroll';
+import { availableIngredients, missingIngredients, pinnableDays, rerollCandidates } from './reroll';
 import { makeIntake, makeMeal, makePlan, makeProfile, makeRecipe } from './testFixtures';
 
 function ctxFor(overrides: Partial<GenerateContext> = {}): GenerateContext {
@@ -209,5 +209,38 @@ describe('rerollCandidates', () => {
     expect(candidateIds).not.toContain('allergic');
     expect(candidateIds).not.toContain('blocked');
     expect(candidateIds).toContain('fine');
+  });
+});
+
+describe('pinnableDays (M3.1)', () => {
+  // weekStartISO is 2026-07-05 (day 0); "today" fixed to day 2 for determinism.
+  const today = new Date('2026-07-07T09:00:00.000Z');
+
+  it('excludes days before today and cooked days, keeps today-or-future uncooked days', () => {
+    const plan = makePlan({
+      meals: [
+        makeMeal({ recipeId: 'r0', dayIndex: 0 }), // past
+        makeMeal({ recipeId: 'r1', dayIndex: 1 }), // past
+        makeMeal({ recipeId: 'r2', dayIndex: 2, cooked: true }), // today, but cooked
+        makeMeal({ recipeId: 'r3', dayIndex: 3 }), // future, uncooked
+        makeMeal({ recipeId: 'r4', dayIndex: 4 }), // future, uncooked
+      ],
+    });
+
+    expect(pinnableDays(plan, 'new-recipe', today)).toEqual([3, 4]);
+  });
+
+  it('returns every eligible day for a brand-new recipe not yet in the plan', () => {
+    const plan = makePlan({
+      meals: [makeMeal({ recipeId: 'r2', dayIndex: 2 }), makeMeal({ recipeId: 'r3', dayIndex: 3 })],
+    });
+    expect(pinnableDays(plan, 'new-recipe', today)).toEqual([2, 3]);
+  });
+
+  it('returns empty when the recipe is already in the plan on another day, even if that day is eligible', () => {
+    const plan = makePlan({
+      meals: [makeMeal({ recipeId: 'already-planned', dayIndex: 3 }), makeMeal({ recipeId: 'r4', dayIndex: 4 })],
+    });
+    expect(pinnableDays(plan, 'already-planned', today)).toEqual([]);
   });
 });
