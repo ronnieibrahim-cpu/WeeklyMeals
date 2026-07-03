@@ -90,6 +90,11 @@ export default function MealDetailScreen() {
         {recipe.cuisine} · {recipe.difficulty}
         {recipe.spiceLevel !== 'None' ? ` · ${recipe.spiceLevel} spice` : ''}
       </Text>
+      {recipe.description ? (
+        <Text variant="body" color="secondary" style={{ marginTop: theme.spacing.md }}>
+          {recipe.description}
+        </Text>
+      ) : null}
 
       <Card padded={false} style={{ marginTop: theme.spacing.lg }}>
         <View style={{ flexDirection: 'row' }}>
@@ -183,6 +188,22 @@ export default function MealDetailScreen() {
           </Text>
         </View>
       ))}
+
+      {recipe.tips && recipe.tips.length > 0 ? (
+        <Card style={{ marginTop: theme.spacing.md }}>
+          <Text variant="headline">💡 Tips</Text>
+          {recipe.tips.map((tip, i) => (
+            <Text
+              key={i}
+              variant="body"
+              color="secondary"
+              style={{ marginTop: i === 0 ? theme.spacing.xs : theme.spacing.sm }}
+            >
+              {tip}
+            </Text>
+          ))}
+        </Card>
+      ) : null}
 
       {recipe.leftoverNotes ? (
         <Card style={{ marginTop: theme.spacing.md }}>

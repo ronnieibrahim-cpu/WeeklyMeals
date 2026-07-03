@@ -33,6 +33,8 @@ export interface Recipe {
   nutrition: Nutrition; // per serving
   ingredients: RecipeIngredient[];
   steps: string[];
+  description?: string; // 1-2 appetizing sentences shown on the detail screen
+  tips?: string[]; // 0-3 practical notes: substitutions, make-ahead, kid adjustments
   leftoverNotes?: string;
   freezingNotes?: string;
   makesLeftovers: boolean;
