@@ -118,24 +118,24 @@ on the full curated library with zero exceptions.
 - [x] bq-bbq-tofu-bowls
 
 ## Batch 6 — recipeBatch4.ts part A (18)
-- [ ] it-chicken-piccata
-- [ ] it-pesto-gnocchi
-- [ ] it-wedding-soup
-- [ ] mx-chicken-quesadillas
-- [ ] mx-beef-picadillo
-- [ ] mx-sweet-potato-tacos
-- [ ] gr-lamb-gyros
-- [ ] gr-spanakopita
-- [ ] gr-salmon-tzatziki
-- [ ] in-chicken-korma
-- [ ] in-palak-dal
-- [ ] in-veg-biryani
-- [ ] th-panang-beef
-- [ ] th-thai-fried-rice
-- [ ] th-massaman-chicken
-- [ ] jp-oyakodon
-- [ ] jp-yaki-udon
-- [ ] jp-pork-tonkatsu
+- [x] it-chicken-piccata
+- [x] it-pesto-gnocchi
+- [x] it-wedding-soup
+- [x] mx-chicken-quesadillas
+- [x] mx-beef-picadillo
+- [x] mx-sweet-potato-tacos
+- [x] gr-lamb-gyros
+- [x] gr-spanakopita
+- [x] gr-salmon-tzatziki
+- [x] in-chicken-korma
+- [x] in-palak-dal
+- [x] in-veg-biryani
+- [x] th-panang-beef
+- [x] th-thai-fried-rice
+- [x] th-massaman-chicken
+- [x] jp-oyakodon
+- [x] jp-yaki-udon
+- [x] jp-pork-tonkatsu
 
 ## Batch 7 — recipeBatch4.ts part B (18)
 - [ ] cn-general-tso
