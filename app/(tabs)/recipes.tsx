@@ -6,7 +6,7 @@ import { Pressable, TextInput, View } from 'react-native';
 import { CATEGORIES, CUISINES, MAX_PREP_OPTIONS, PROTEINS } from '@/domain/constants';
 import { Category, Cuisine, Difficulty, Protein } from '@/domain/models';
 import { RECIPES } from '@/data/seed/recipes';
-import { autocompleteSuggestions, filterRecipes, RecipeFilters, searchRecipes } from '@/engine/recipeSearch';
+import { autocompleteSuggestions, filterRecipes, findByExactName, RecipeFilters, searchRecipes } from '@/engine/recipeSearch';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { ChipMultiSelect, ChipSingleSelect, EmptyState, RecipeResultCard, Screen, SectionHeader, Text } from '@/ui/components';
@@ -50,16 +50,20 @@ export default function RecipesScreen() {
   const openDetail = (id: string) => router.push({ pathname: '/meal/[id]', params: { id, pinTarget } });
   const openPin = (id: string) => router.push({ pathname: '/pin/[recipeId]', params: { recipeId: id, target: pinTarget } });
 
-  // Tapping a suggestion that narrows to exactly one recipe (typically its
-  // own name) should go straight there, not make the user tap again on a
-  // one-item list. Anything less specific (a cuisine, an ingredient shared
-  // by several dishes) still just fills the search box as before.
+  // Tapping a suggestion that IS one recipe's own exact name should go
+  // straight there, not make the user tap again. This has to check exact
+  // name equality, not "does searchRecipes return exactly one result" — the
+  // search is deliberately broad substring matching, so e.g. "Shakshuka"
+  // legitimately also matches "Vegetarian Shakshuka" and "Shakshuka Feta
+  // Cheese" (3 results), even though "Shakshuka" unambiguously names one
+  // specific recipe. Anything that isn't a recipe's exact name (a cuisine,
+  // an ingredient shared by several dishes) still just fills the search box.
   const onPickSuggestion = (s: string) => {
-    const matches = searchRecipes(filtered, s);
-    if (matches.length === 1) {
+    const exact = findByExactName(filtered, s);
+    if (exact.length === 1) {
       setQuery('');
       setFocused(false);
-      openDetail(matches[0].id);
+      openDetail(exact[0].id);
       return;
     }
     setQuery(s);

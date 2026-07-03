@@ -36,8 +36,9 @@ function matchScore(recipe: Recipe, q: string): number {
  * As-you-type suggestion strings (recipe names, cuisines, ingredient names)
  * for the search box's autocomplete dropdown. Shorter matches first (a
  * closer match to what's likely being typed), deduplicated, capped at
- * `limit`. Purely string suggestions — selecting one just fills the search
- * box, it doesn't jump straight to a recipe.
+ * `limit`. Purely string suggestions, pooled from names/cuisines/ingredient
+ * names alike — use `findByExactName` to tell whether a selected suggestion
+ * happens to be one specific recipe's own name.
  */
 export function autocompleteSuggestions(recipes: Recipe[], query: string, limit = 8): string[] {
   const q = norm(query);
@@ -55,6 +56,22 @@ export function autocompleteSuggestions(recipes: Recipe[], query: string, limit 
   return Array.from(suggestions)
     .sort((a, b) => a.length - b.length || a.localeCompare(b))
     .slice(0, limit);
+}
+
+/**
+ * Recipes whose name exactly equals `name` (case/whitespace-insensitive).
+ * Used to decide whether tapping an autocomplete suggestion can jump
+ * straight to a recipe: `searchRecipes(recipes, name).length === 1` is NOT
+ * the right check for that, because search is deliberately broad substring
+ * matching — e.g. "Shakshuka" also substring-matches "Vegetarian
+ * Shakshuka" and "Shakshuka Feta Cheese", so the search for it genuinely
+ * returns 3 results even though "Shakshuka" unambiguously names one
+ * specific recipe. This checks name equality instead, which is what the
+ * suggestion actually promised.
+ */
+export function findByExactName(recipes: Recipe[], name: string): Recipe[] {
+  const target = norm(name);
+  return recipes.filter((r) => norm(r.name) === target);
 }
 
 export interface RecipeFilters {

@@ -1,4 +1,4 @@
-import { autocompleteSuggestions, filterRecipes, searchRecipes } from './recipeSearch';
+import { autocompleteSuggestions, filterRecipes, findByExactName, searchRecipes } from './recipeSearch';
 import { makeRecipe } from './testFixtures';
 
 describe('searchRecipes', () => {
@@ -126,5 +126,37 @@ describe('filterRecipes', () => {
   it('no filters set returns every recipe untouched', () => {
     const recipes = [makeRecipe({ id: 'a' }), makeRecipe({ id: 'b' })];
     expect(filterRecipes(recipes, {})).toEqual(recipes);
+  });
+});
+
+describe('findByExactName', () => {
+  it('finds the single recipe whose name matches exactly, case/whitespace-insensitive', () => {
+    const target = makeRecipe({ id: 'target', name: 'Shakshuka' });
+    const other = makeRecipe({ id: 'other', name: 'Tacos' });
+
+    expect(findByExactName([target, other], 'shakshuka')).toEqual([target]);
+    expect(findByExactName([target, other], '  Shakshuka  ')).toEqual([target]);
+  });
+
+  it('does NOT match a longer name that merely contains the target as a substring', () => {
+    // This is exactly the bug this function exists to avoid: searchRecipes
+    // legitimately returns "Vegetarian Shakshuka" and "Shakshuka Feta
+    // Cheese" for the query "Shakshuka" too (broad substring search), but
+    // tapping the "Shakshuka" suggestion should resolve to ONLY the recipe
+    // actually named that.
+    const exact = makeRecipe({ id: 'exact', name: 'Shakshuka' });
+    const superset1 = makeRecipe({ id: 'superset1', name: 'Vegetarian Shakshuka' });
+    const superset2 = makeRecipe({ id: 'superset2', name: 'Shakshuka Feta Cheese' });
+
+    const bySearch = searchRecipes([exact, superset1, superset2], 'Shakshuka');
+    expect(bySearch.length).toBe(3); // the broad search is supposed to find all three
+
+    const byExactName = findByExactName([exact, superset1, superset2], 'Shakshuka');
+    expect(byExactName).toEqual([exact]); // but exact-name lookup finds only one
+  });
+
+  it('returns an empty array when nothing matches exactly', () => {
+    const recipes = [makeRecipe({ name: 'Vegetarian Shakshuka' })];
+    expect(findByExactName(recipes, 'Shakshuka')).toEqual([]);
   });
 });
