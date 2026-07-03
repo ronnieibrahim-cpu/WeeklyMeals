@@ -101,7 +101,10 @@ src/data/sync/       config.ts (URL/key/SYNC_ENABLED kill-switch) · householdAp
 src/stores/          planStore (orchestrator) · profileStore · pantryStore · learningStore ·
                      settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms,
                      per-item/per-meal merge via src/engine/syncMerge.ts as of M1.6)
-src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji-tile fallback
+src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recipes as of
+                     M3.0b) with per-cuisine emoji-tile fallback for the rest; per-photo
+                     source/license/attribution recorded, credited on the meal detail
+                     screen where the license requires it (see §5.7)
 ```
 
 ## 5. Key data flow (the weekly loop)
@@ -212,6 +215,27 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    onto A's replacement). `recipeChangedAtISO` gives the merge a signal to
    pick one side's meal body atomically whenever `recipeId` diverges,
    instead of merging fields piecewise (see §5.5).
+7. **Recipe photos (M3.0b):** `RECIPE_IMAGE_URLS` (`src/data/recipeImages.ts`)
+   maps recipe id → photo URL; `imageForRecipe()` (`src/data/images.ts`) falls
+   back to the per-cuisine emoji tile for anything unmapped, so the map can
+   stay partial forever without looking broken. Stage 1 was hand-matched
+   TheMealDB artwork (30 recipes); Stage 2 (`scripts/importPhotos.ts`) added
+   80 more by matching TheMealDB first, then Wikimedia Commons via the
+   Openverse API, filtered to licenses that only require attribution (CC0,
+   Public Domain, CC BY/BY-SA/BY-ND — never NC) — 110/230 curated recipes
+   have a real photo now, the rest keep the tile. A candidate is only
+   proposed on an exact or near-exact dish-name match, plus a protein-keyword
+   sanity check (if the recipe's own name says "chicken"/"lamb"/etc., the
+   matched photo's name/ingredients must mention it too) to catch the
+   same-family-wrong-protein trap a hand-matched Stage 1 batch had to dodge
+   manually. Wikimedia entries carry per-photo license/attribution metadata
+   in `RECIPE_IMAGE_ATTRIBUTION`, rendered as a small credit line under the
+   photo on the meal detail screen (`app/meal/[id].tsx`) since their license
+   requires it; TheMealDB photos rely on the existing blanket note in
+   Settings. Per Ronnie (2026-07-03): matches were wired in directly rather
+   than gated on a text-based pre-review, since photo URLs aren't practical
+   to eyeball from a markdown list — he reviews them live in the app and
+   flags any bad ones for removal.
 
 ## 6. Coding conventions
 

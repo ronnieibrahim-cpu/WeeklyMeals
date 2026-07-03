@@ -3,16 +3,24 @@
  * runtime (the user's device is not behind the dev network policy), so these
  * can point at any public, appropriately-licensed source.
  *
- * Populated in stages, matched by hand against the dish (not just cuisine).
+ * Populated in stages, matched by hand (Stage 1) or by
+ * `scripts/importPhotos.ts` (Stage 2) against the dish, not just cuisine.
  * Anything without an entry here falls back to its clean per-cuisine tile, so
  * this map can stay partial indefinitely without looking broken.
  *
- * Stage 1 (this batch): TheMealDB custom artwork for well-known classics that
- * are a genuine, protein-accurate match — free tier, personal/web use, credit
- * given in Settings. Deliberately excluded a bunch of same-family candidates
- * (e.g. lamb/tofu/cauliflower "shawarma" or "mapo tofu" variants) where the
- * only available photo showed a different protein than the recipe calls for.
- * Stage 2 will fill remaining gaps from Wikimedia Commons (CC/PD).
+ * Stage 1: TheMealDB custom artwork for well-known classics that are a
+ * genuine, protein-accurate match — free tier, personal/web use, credit given
+ * in Settings. Deliberately excluded a bunch of same-family candidates (e.g.
+ * lamb/tofu/cauliflower "shawarma" or "mapo tofu" variants) where the only
+ * available photo showed a different protein than the recipe calls for.
+ *
+ * Stage 2 (M3.0b): the rest of the 230 curated recipes, matched by
+ * `scripts/importPhotos.ts` against TheMealDB first, then Wikimedia Commons
+ * via Openverse (only proposed on an exact/near-exact dish-name match, plus
+ * the same protein sanity check). See `RECIPE_IMAGE_ATTRIBUTION` below for
+ * the Wikimedia entries' required credit — rendered on the meal detail
+ * screen. Recipes with no confident match keep the tile fallback rather than
+ * risk a wrong photo.
  */
 export const RECIPE_IMAGE_URLS: Record<string, string> = {
   'cn-kung-pao-chicken': 'https://www.themealdb.com/images/media/meals/1525872624.jpg',
@@ -45,4 +53,183 @@ export const RECIPE_IMAGE_URLS: Record<string, string> = {
   'cn-general-tso': 'https://www.themealdb.com/images/media/meals/1529444113.jpg',
   'me-chicken-shawarma': 'https://www.themealdb.com/images/media/meals/hcg6l91763596970.jpg',
   'me-beef-shawarma-plate': 'https://www.themealdb.com/images/media/meals/swo87v1763595282.jpg',
+
+  // Stage 2 (M3.0b, scripts/importPhotos.ts): TheMealDB matches.
+  'jp-chicken-katsu': 'https://www.themealdb.com/images/media/meals/vwrpps1503068729.jpg',
+  'me-falafel-bowls': 'https://www.themealdb.com/images/media/meals/u5e9qq1763795441.jpg',
+  'md-vegetable-paella': 'https://www.themealdb.com/images/media/meals/9bl20p1763248192.jpg',
+
+  // Stage 2 (M3.0b): Wikimedia Commons matches via Openverse — see
+  // RECIPE_IMAGE_ATTRIBUTION for the required per-photo credit.
+  'in-tikka-masala': 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Chicken_Tikka_Masala.jpg',
+  'in-chana-masala': 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Chana_masala.jpg',
+  'am-turkey-chili': 'https://upload.wikimedia.org/wikipedia/commons/4/41/Turkey_Chili.jpg',
+  'it-sausage-peppers': 'https://upload.wikimedia.org/wikipedia/commons/5/54/Sausage_and_peppers.jpg',
+  'it-minestrone': 'https://upload.wikimedia.org/wikipedia/commons/3/32/Minestrone_soup.jpg',
+  'mx-shrimp-fajitas': 'https://upload.wikimedia.org/wikipedia/commons/8/89/2019_Shrimp_Fajita_2.jpg',
+  'gr-stuffed-peppers': 'https://upload.wikimedia.org/wikipedia/commons/0/09/Stuffed_peppers_-_a_Greek_recipe.jpg',
+  'in-saag-paneer': 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Saag_paneer.jpg',
+  'in-dal-tadka': 'https://upload.wikimedia.org/wikipedia/commons/2/20/Dal_Tadka_01_%2836779549481%29.jpg',
+  'jp-chicken-yakitori': 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Yakitori_-_Chicken_thigh_and_negi.jpg',
+  'jp-miso-salmon': 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Roasted_Miso-Glazed_Salmon.png',
+  'cn-mapo-tofu': 'https://upload.wikimedia.org/wikipedia/commons/5/58/Mapo_Tofu_with_rice_%28vegetarian%29.png',
+  'fr-croque-monsieur': 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Croque_Monsieur.JPG',
+  'fr-lentil-soup': 'https://upload.wikimedia.org/wikipedia/commons/e/e3/French_lentil_soup_%2842460826544%29.jpg',
+  'am-cobb-salad': 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Cobb_salad_ingredients.png',
+  'it-eggplant-parmesan': 'https://upload.wikimedia.org/wikipedia/commons/1/15/Eggplant_parmesan_%283849722245%29.jpg',
+  'it-shrimp-scampi': 'https://upload.wikimedia.org/wikipedia/commons/d/db/Shrimp_Scampi_Linguine_%2818893300233%29.jpg',
+  'mx-carne-asada': 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Carne_asada_chorizo.jpg',
+  'mx-tortilla-soup': 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Chicken_Tortilla_Soup.jpg',
+  'mx-huevos-rancheros': 'https://upload.wikimedia.org/wikipedia/commons/3/32/Ela_huevos_rancheros.jpg',
+  'in-butter-chicken': 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Butter_Chicken_0000x0000_0.jpg',
+  'in-aloo-gobi': 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Aloo_gobi.jpg',
+  'in-lamb-curry': 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Lamb_Curry_Pot.JPG',
+  'fr-quiche-lorraine': 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Quiche_Lorraine.jpg',
+  'md-halloumi-salad': 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Fruit_Salad_with_Grilled_Halloumi_Cheese.jpg',
+  'am-black-bean-burgers': 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Black_bean_burger_with_home_fries.jpg',
+  'me-fattoush-chicken': 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Grilled_Chicken_Fattoush_Salad.jpg',
+  'bq-grilled-shrimp-skewers': 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Grilled_Shrimp_Skewers.jpg',
+  'it-chicken-piccata': 'https://upload.wikimedia.org/wikipedia/commons/1/16/Chicken_piccata.jpg',
+  'mx-sweet-potato-tacos': 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Roasted_sweet_potato_%2B_black_bean_tacos_%287784822910%29.jpg',
+  'gr-lamb-gyros': 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Lamb_Gyros_Sydney.jpg',
+  'gr-spanakopita': 'https://upload.wikimedia.org/wikipedia/commons/3/37/Spanakopita.jpg',
+  'in-chicken-korma': 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Chicken_Korma_1.jpg',
+  'in-palak-dal': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Dal_Palak_Spinach_and_lentil_curry_%2815914333462%29.jpg',
+  'in-veg-biryani': 'https://upload.wikimedia.org/wikipedia/commons/3/30/Vegetable_Biryani.JPG',
+  'th-massaman-chicken': 'https://upload.wikimedia.org/wikipedia/commons/4/40/Making_chicken_massaman_curry_%282%29.jpg',
+  'cn-black-pepper-beef': 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Black_pepper_beef_tenderloin_pasta.jpg',
+  'fr-mushroom-risotto': 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Mushroom_risotto_%283990739885%29.jpg',
+  'fr-steak-frites': 'https://upload.wikimedia.org/wikipedia/commons/6/62/Steak_frites.jpg',
+  'md-stuffed-eggplant': 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Stuffed_Eggplant_curry.jpg',
+  'md-lamb-chops': 'https://upload.wikimedia.org/wikipedia/commons/5/54/Grilled_lamb_chops.jpg',
+  'am-meatloaf': 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Classic_Meatloaf_recipe.JPG',
+  'am-chicken-pot-pie': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Mmm..._chicken_pot_pie.jpg',
+  'me-chicken-tagine': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chicken_tagine_%283328334581%29.jpg',
+  'it-chicken-parmesan': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Chicken_parmesan.jpg',
+  'it-baked-ziti': 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Baked_Ziti_%28cropped%29.jpg',
+  'in-chicken-vindaloo': 'https://upload.wikimedia.org/wikipedia/commons/4/43/Chicken_Vindaloo_%2814971587940%29.jpg',
+  'in-fish-curry': 'https://upload.wikimedia.org/wikipedia/commons/4/40/South_Indian_Fish_Curry.JPG',
+  'th-khao-soi': 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Chicken_khao_soi_in_Bangkok.jpg',
+  'jp-beef-teriyaki': 'https://upload.wikimedia.org/wikipedia/commons/3/33/Bowl_of_Teriyaki_chicken_and_beef_YakinikuCNE.jpg',
+  'jp-chicken-curry-rice': 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Japanese_Style_Curry_with_Chicken_%28Taiwan%29.jpg',
+  'cn-cashew-chicken': 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Cashew_Chicken_Springfield.jpg',
+  'cn-dan-dan-noodles': 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Dan-dan_noodles%2C_Shanghai.jpg',
+  'cn-veg-fried-rice': 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Malapascua%2C_Vegetable_fried_rice%2C_Philippines.jpg',
+  'am-philly-cheesesteak': 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Philly_cheesesteak.jpg',
+  'am-tomato-soup-grilled-cheese': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Tomato_soup_and_grilled_cheese.JPG',
+  'me-chicken-kabsa': 'https://upload.wikimedia.org/wikipedia/commons/0/05/Chicken_Kabsa.jpg',
+  'it-penne-vodka': 'https://upload.wikimedia.org/wikipedia/commons/0/04/Penne_alla_Vodka_%284707916799%29.jpg',
+  'it-chicken-marsala': 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Chicken_marsala_04.jpg',
+  'it-seafood-linguine': 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Seafood_linguine.jpg',
+  'mx-enchiladas-suizas': 'https://upload.wikimedia.org/wikipedia/commons/2/23/Enchiladas_suizas.jpg',
+  'mx-bean-tostadas': 'https://upload.wikimedia.org/wikipedia/commons/7/76/Aioli_%26_Black_Bean_Tostada_%2845603103162%29.jpg',
+  'mx-shrimp-ceviche': 'https://upload.wikimedia.org/wikipedia/commons/f/f2/Lobster_and_shrimp_ceviche.jpg',
+  'gr-baked-feta-pasta': 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Baked_feta_pasta.jpg',
+  'in-palak-paneer': 'https://upload.wikimedia.org/wikipedia/commons/d/da/Yummy_Palak_Paneer.jpg',
+  'in-chicken-biryani': 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Chicken_Biryani.jpg',
+  'in-egg-curry': 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Indian_egg_curry.jpg',
+  'th-yellow-curry': 'https://upload.wikimedia.org/wikipedia/commons/9/94/Yellow_curry_chicken_thighs_%289_of_9%29.jpg',
+  'cn-mongolian-beef': 'https://upload.wikimedia.org/wikipedia/commons/8/83/Mongolian_Beef_with_rice_and_noodles.jpg',
+  'cn-chicken-chow-mein': 'https://upload.wikimedia.org/wikipedia/commons/2/21/Chicken_Chow_mein.jpg',
+  'fr-sole-meuniere': 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Sole_meuni%C3%A8re.jpg',
+  'fr-chicken-fricassee': 'https://upload.wikimedia.org/wikipedia/commons/6/65/Chicken_Fricass%C3%A9e_with_Red_Cabbage.jpg',
+  'fr-potato-leek-soup': 'https://upload.wikimedia.org/wikipedia/commons/2/26/Potato_Leek_Soup_%284258747258%29.jpg',
+  'am-meatball-sub': 'https://upload.wikimedia.org/wikipedia/commons/6/64/Mmm...meatball_sub_%285183008075%29.jpg',
+  'am-chili-mac': 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Chili_Mac_2_%2838242238092%29.jpg',
+  'me-lamb-shawarma-plate': 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Lamb_Shawarma_Plate_%2817179708416%29.jpg',
+  'in-palak-tofu': 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Chakra_Palak_Tofu.jpg',
+};
+
+export interface PhotoAttribution {
+  source: 'themealdb' | 'wikimedia';
+  license: string;
+  attribution: string;
+  attributionUrl?: string;
+}
+
+/**
+ * Per-photo attribution for images whose license requires an explicit
+ * in-app credit (Wikimedia Commons CC BY / CC BY-SA / CC BY-ND — TheMealDB
+ * photos are already covered by the blanket note in Settings). Rendered as a
+ * small credit line on the meal detail screen (RecipeImage doesn't render
+ * it directly since it's also used on compact cards).
+ */
+export const RECIPE_IMAGE_ATTRIBUTION: Record<string, PhotoAttribution> = {
+  'in-tikka-masala': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Chicken Tikka Masala" by Quadell is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=66790' },
+  'in-chana-masala': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Chana masala" by Simon Law (sfllaw) from Montréal, QC, Canada is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=1235151' },
+  'am-turkey-chili': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Turkey Chili" by Nolabob is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=114174511' },
+  'it-sausage-peppers': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Sausage and peppers" by Chuck Falzone is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=35226612' },
+  'it-minestrone': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Minestrone soup" by Katrin Morenz from Aachen, Deutschland is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=34968975' },
+  'mx-shrimp-fajitas': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"2019 Shrimp Fajita 2" by anoldent is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=149570500' },
+  'gr-stuffed-peppers': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Stuffed peppers - a Greek recipe" by G-Lignum is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=127301194' },
+  'in-saag-paneer': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Saag paneer" by Jeff Warren is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=47164083' },
+  'in-dal-tadka': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Dal Tadka 01 (36779549481)" by Bharat Mirchandani from Mumbai, India is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=91717442' },
+  'jp-chicken-yakitori': { source: 'wikimedia', license: 'CC BY 3.0', attribution: '"Yakitori - Chicken thigh and negi" by Schellack is licensed under CC BY 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=60919781' },
+  'jp-miso-salmon': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Roasted Miso-Glazed Salmon" by Kittycataclysm is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=125670287' },
+  'cn-mapo-tofu': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Mapo Tofu with rice (vegetarian)" by NeoBatfreak is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=136336538' },
+  'fr-croque-monsieur': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Croque Monsieur" by Traumrune is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=470376' },
+  'fr-lentil-soup': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"French lentil soup (42460826544)" by Joey Doll is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=102853680' },
+  'am-cobb-salad': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Cobb salad ingredients" by GeoO is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=131070785' },
+  'it-eggplant-parmesan': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Eggplant parmesan (3849722245)" by Karen and Brad Emerson is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=103534492' },
+  'it-shrimp-scampi': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Shrimp Scampi Linguine (18893300233)" by Prayitno / Thank you for (12 millions +) view from Los Angeles, USA is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=75421010' },
+  'mx-carne-asada': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Carne asada chorizo" by Carlos Lopez is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=70773178' },
+  'mx-tortilla-soup': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Chicken Tortilla Soup" by TheCulinaryGeek is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=83079620' },
+  'mx-huevos-rancheros': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Ela huevos rancheros" by Elchavobeer is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=4612668' },
+  'in-butter-chicken': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Butter Chicken 0000x0000 0" by Joe mon bkk is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=38879212' },
+  'in-aloo-gobi': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Aloo gobi" is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=1455961' },
+  'in-lamb-curry': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Lamb Curry Pot" by CoralBrowne is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=36925031' },
+  'fr-quiche-lorraine': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Quiche Lorraine" is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=569781' },
+  'md-halloumi-salad': { source: 'wikimedia', license: 'CC BY 4.0', attribution: '"Fruit Salad with Grilled Halloumi Cheese" by روتانا is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=152130581' },
+  'am-black-bean-burgers': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Black bean burger with home fries" by Bing from Boston, United States is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=34105327' },
+  'me-fattoush-chicken': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Grilled Chicken Fattoush Salad" by TheCulinaryGeek is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=83079672' },
+  'bq-grilled-shrimp-skewers': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Grilled Shrimp Skewers" by Eximiousincorp is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=126781534' },
+  'it-chicken-piccata': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Chicken piccata" by Parkerman & Christie from San Diego, USA is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=3762935' },
+  'mx-sweet-potato-tacos': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Roasted sweet potato + black bean tacos (7784822910)" by Karen and Brad Emerson is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=103533947' },
+  'gr-lamb-gyros': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Lamb Gyros Sydney" by insatiablemunch is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=55114189' },
+  'gr-spanakopita': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Spanakopita" by Alpha is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=15532090' },
+  'in-chicken-korma': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Chicken Korma 1" by TheCulinaryGeek is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=83079651' },
+  'in-palak-dal': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Dal Palak Spinach and lentil curry (15914333462)" by Yummy O Yummy is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=99907830' },
+  'in-veg-biryani': { source: 'wikimedia', license: 'CC0 1.0', attribution: '"Vegetable Biryani" by Miansari66 is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/deed.en/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=29951842' },
+  'th-massaman-chicken': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Making chicken massaman curry (2)" by Roozitaa is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=44520733' },
+  'cn-black-pepper-beef': { source: 'wikimedia', license: 'CC BY 4.0', attribution: '"Black pepper beef tenderloin pasta" by Jamnojam is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=164499718' },
+  'fr-mushroom-risotto': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Mushroom risotto (3990739885)" by Karen and Brad Emerson is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=103534442' },
+  'fr-steak-frites': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Steak frites" by LWY is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=12785974' },
+  'md-stuffed-eggplant': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Stuffed Eggplant curry" by Tanyadesigan is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=40023899' },
+  'md-lamb-chops': { source: 'wikimedia', license: 'CC0 1.0', attribution: '"Grilled lamb chops" by Fumikas Sagisavas is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/deed.en/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=155230639' },
+  'am-meatloaf': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Classic Meatloaf recipe" by Robert Loescher is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=45990448' },
+  'am-chicken-pot-pie': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Mmm... chicken pot pie" by jeffreyw is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=94945134' },
+  'me-chicken-tagine': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Chicken tagine (3328334581)" by Karen and Brad Emerson is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=103534685' },
+  'it-chicken-parmesan': { source: 'wikimedia', license: 'CC BY-SA 2.5', attribution: '"Chicken parmesan" by Raul654 is licensed under CC BY-SA 2.5. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.5/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=2896342' },
+  'it-baked-ziti': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Baked Ziti (cropped)" by Lili from NY, United States is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=24919488' },
+  'in-chicken-vindaloo': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Chicken Vindaloo (14971587940)" by Jens Ohlig from Bonn, Germany is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=87474921' },
+  'in-fish-curry': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"South Indian Fish Curry" by Shreya Shetty is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=40661306' },
+  'th-khao-soi': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Chicken khao soi in Bangkok" by Dennis Wong from Hong Kong, Hong Kong is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=43748961' },
+  'jp-beef-teriyaki': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Bowl of Teriyaki chicken and beef YakinikuCNE" by CNEcija12345 is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=159674411' },
+  'jp-chicken-curry-rice': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Japanese Style Curry with Chicken (Taiwan)" by Ralff Nestor Nacor is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=157112558' },
+  'cn-cashew-chicken': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Cashew Chicken Springfield" by Nathan Borror from Lawrence, Kansas, USA is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=2555667' },
+  'cn-dan-dan-noodles': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Dan-dan noodles, Shanghai" by Steven G. Johnson is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=4381140' },
+  'cn-veg-fried-rice': { source: 'wikimedia', license: 'CC BY 4.0', attribution: '"Malapascua, Vegetable fried rice, Philippines" by Vyacheslav Argenberg is licensed under CC BY 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=117966809' },
+  'am-philly-cheesesteak': { source: 'wikimedia', license: 'CC BY-SA 1.0', attribution: '"Philly cheesesteak" by hendrik Scholz is licensed under CC BY-SA 1.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/1.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=22905864' },
+  'am-tomato-soup-grilled-cheese': { source: 'wikimedia', license: 'CC BY 3.0', attribution: '"Tomato soup and grilled cheese" by William Stadtwald Demchick is licensed under CC BY 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=34787180' },
+  'me-chicken-kabsa': { source: 'wikimedia', license: 'CC0 1.0', attribution: '"Chicken Kabsa" by Bhj028 is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/deed.en/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=146264006' },
+  'it-penne-vodka': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Penne alla Vodka (4707916799)" by Vegan Feast Catering is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=35602676' },
+  'it-chicken-marsala': { source: 'wikimedia', license: 'CC BY-SA 2.5', attribution: '"Chicken marsala 04" by Mark Pellegrini (Raul654) is licensed under CC BY-SA 2.5. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.5/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=4483890' },
+  'it-seafood-linguine': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Seafood linguine" by chomjong is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=88756748' },
+  'mx-enchiladas-suizas': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Enchiladas suizas" by Steve Dunham is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=20082729' },
+  'mx-bean-tostadas': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Aioli & Black Bean Tostada (45603103162)" by Ella Olsson from Stockholm, Sweden is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=83080825' },
+  'mx-shrimp-ceviche': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Lobster and shrimp ceviche" by karol m from arizona, USA is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=1706173' },
+  'gr-baked-feta-pasta': { source: 'wikimedia', license: 'CC BY 3.0', attribution: '"Baked feta pasta" by Delicious Adventures is licensed under CC BY 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=144821144' },
+  'in-palak-paneer': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Yummy Palak Paneer" by Akash128 is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=40916397' },
+  'in-chicken-biryani': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Chicken Biryani" by Shehal Joseph (Shehal at en.wikipedia).Later version was uploaded by Jbarta at en.wikipedia. is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=10799400' },
+  'in-egg-curry': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Indian egg curry" by Swapnil.Karambelkar is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=64443641' },
+  'th-yellow-curry': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Yellow curry chicken thighs (9 of 9)" by Wheeler Cowperthwaite is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=105143966' },
+  'cn-mongolian-beef': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Mongolian Beef with rice and noodles" by Craig Dugas from Bozeman, Montana, USA is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=13363484' },
+  'cn-chicken-chow-mein': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Chicken Chow mein" by Gaurav Dhwaj Khadka is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=126119875' },
+  'fr-sole-meuniere': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Sole meunière" by Jj saezdeo is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=87152648' },
+  'fr-chicken-fricassee': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Chicken Fricassée with Red Cabbage" by kochtopf is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=4628600' },
+  'fr-potato-leek-soup': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Potato Leek Soup (4258747258)" by Vegan Feast Catering is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=35619499' },
+  'am-meatball-sub': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Mmm...meatball sub (5183008075)" by jeffreyw is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=23098893' },
+  'am-chili-mac': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Chili Mac 2 (38242238092)" by John Freeman is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=102923513' },
+  'me-lamb-shawarma-plate': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Lamb Shawarma Plate (17179708416)" by Arnold Gatilao from Oakland, CA, USA is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=40530079' },
+  'in-palak-tofu': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Chakra Palak Tofu" by JIP is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=145176664' },
 };

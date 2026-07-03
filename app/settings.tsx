@@ -146,7 +146,8 @@ export default function SettingsScreen() {
         center
         style={{ marginTop: theme.spacing.xs }}
       >
-        Some recipe photos courtesy of TheMealDB.com
+        Some recipe photos courtesy of TheMealDB.com. Others from Wikimedia
+        Commons contributors, credited on the recipe's page.
       </Text>
     </Screen>
   );

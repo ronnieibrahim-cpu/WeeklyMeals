@@ -206,6 +206,12 @@ interface OpenverseResult {
 // (or nothing, for CC0/public domain) is fine for unmodified display.
 const ALLOWED_LICENSES = new Set(['cc0', 'pdm', 'by', 'by-sa', 'by-nd']);
 
+function formatLicense(license: string, version: string): string {
+  if (license === 'cc0') return `CC0 ${version}`.trim();
+  if (license === 'pdm') return 'Public Domain';
+  return `CC ${license.toUpperCase()} ${version}`.trim();
+}
+
 async function matchOpenverse(recipe: Recipe): Promise<PhotoCandidate | null> {
   const query = encodeURIComponent(recipe.name);
   let data: { results: OpenverseResult[] };
@@ -236,7 +242,7 @@ async function matchOpenverse(recipe: Recipe): Promise<PhotoCandidate | null> {
       recipeName: recipe.name,
       imageUrl: result.url,
       source: 'wikimedia',
-      license: `CC ${result.license.toUpperCase()} ${result.license_version}`.trim(),
+      license: formatLicense(result.license, result.license_version),
       attribution: result.attribution,
       attributionUrl: result.foreign_landing_url,
       confidence,

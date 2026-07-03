@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Linking, Pressable, View } from 'react-native';
 
+import { RECIPE_IMAGE_ATTRIBUTION } from '@/data/recipeImages';
 import { getRecipe } from '@/data/seed/recipes';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
@@ -19,6 +20,7 @@ export default function MealDetailScreen() {
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
 
+  const photoAttribution = recipe ? RECIPE_IMAGE_ATTRIBUTION[recipe.id] : undefined;
   const isFavorite = recipe ? favorites.includes(recipe.id) : false;
   const plannedMeal =
     recipe && plan?.status === 'approved'
@@ -83,6 +85,20 @@ export default function MealDetailScreen() {
 
       <View style={{ marginBottom: theme.spacing.lg }}>
         <RecipeImage recipe={recipe} height={180} emojiSize={64} radius={theme.radius.xl} />
+        {photoAttribution ? (
+          <Pressable
+            disabled={!photoAttribution.attributionUrl}
+            onPress={() => photoAttribution.attributionUrl && Linking.openURL(photoAttribution.attributionUrl)}
+          >
+            <Text
+              variant="caption"
+              color="tertiary"
+              style={{ marginTop: theme.spacing.xs }}
+            >
+              Photo: {photoAttribution.attribution}
+            </Text>
+          </Pressable>
+        ) : null}
       </View>
 
       <Text variant="largeTitle">{recipe.name}</Text>

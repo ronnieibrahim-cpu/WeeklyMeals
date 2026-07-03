@@ -29,7 +29,21 @@ bounded by `WEIGHTS.learnedDials` even at maximally extreme learned dials.
 all green; sanity-checked the web bundle still builds clean via `expo start
 --web`.
 
-## [ ] M3.0b — Real photos for curated recipes (licensed sources only)
+## [x] M3.0b — Real photos for curated recipes (licensed sources only) — done:
+`scripts/importPhotos.ts` matched 80 more curated recipes (TheMealDB first,
+then Wikimedia Commons via Openverse, licensed CC0/PDM/BY/BY-SA/BY-ND only,
+with a protein-keyword sanity check) on top of the 30 already hand-matched in
+Stage 1 — 110/230 curated recipes now show a real photo, the rest keep the
+tile fallback. Per Ronnie (photo URLs aren't practical to eyeball from a
+markdown list), skipped the text-based pre-review gate and wired matches
+directly into `RECIPE_IMAGE_URLS`/new `RECIPE_IMAGE_ATTRIBUTION`
+(`src/data/recipeImages.ts`); Wikimedia photos get a small credit line on the
+meal detail screen (license requires it), TheMealDB photos rely on the
+existing Settings note. `PHOTO-REVIEW.md` and `scripts/photoCandidates.json`
+are still in the repo as a record of every match and its confidence — Ronnie
+reviews live in the app and will flag specific recipes to revert if a photo
+looks wrong. Typecheck, `npx jest` (96/96), and `validateRecipes.ts`
+(230/230) all green.
 GOAL: photo-realistic, ACCURATE images for as many of the 230 curated recipes
 as possible. A wrong photo is worse than no photo.
 RULES:
