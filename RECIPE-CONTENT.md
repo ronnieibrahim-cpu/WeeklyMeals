@@ -98,24 +98,24 @@ on the full curated library with zero exceptions.
 - [x] jp-shrimp-udon
 
 ## Batch 5 — recipeBatch3.ts part B (18)
-- [ ] cn-sweet-sour-pork
-- [ ] cn-veg-lo-mein
-- [ ] cn-orange-chicken
-- [ ] fr-coq-au-vin
-- [ ] fr-quiche-lorraine
-- [ ] fr-nicoise-salad
-- [ ] md-halloumi-salad
-- [ ] md-tuna-white-bean
-- [ ] md-spiced-lamb-pita
-- [ ] am-sloppy-joes
-- [ ] am-buffalo-chicken-wraps
-- [ ] am-black-bean-burgers
-- [ ] me-harira
-- [ ] me-baked-kafta
-- [ ] me-fattoush-chicken
-- [ ] bq-sausage-beans
-- [ ] bq-grilled-shrimp-skewers
-- [ ] bq-bbq-tofu-bowls
+- [x] cn-sweet-sour-pork
+- [x] cn-veg-lo-mein
+- [x] cn-orange-chicken
+- [x] fr-coq-au-vin
+- [x] fr-quiche-lorraine
+- [x] fr-nicoise-salad
+- [x] md-halloumi-salad
+- [x] md-tuna-white-bean
+- [x] md-spiced-lamb-pita
+- [x] am-sloppy-joes
+- [x] am-buffalo-chicken-wraps
+- [x] am-black-bean-burgers
+- [x] me-harira
+- [x] me-baked-kafta
+- [x] me-fattoush-chicken
+- [x] bq-sausage-beans
+- [x] bq-grilled-shrimp-skewers
+- [x] bq-bbq-tofu-bowls
 
 ## Batch 6 — recipeBatch4.ts part A (18)
 - [ ] it-chicken-piccata
