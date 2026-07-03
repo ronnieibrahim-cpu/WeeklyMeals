@@ -1,4 +1,4 @@
-import { GenerateContext } from './types';
+import { GenerateContext, WEIGHTS } from './types';
 import { LocalRecommendationEngine, selectReplacement } from './LocalRecommendationEngine';
 import { scoreRecipe } from './scoring';
 import { makeIntake, makePreferences, makeProfile, makeRecipe } from '../testFixtures';
@@ -142,6 +142,45 @@ describe('scoreRecipe learned dials (M2.6)', () => {
     const disliked = makeRecipe({ id: 'disliked-veg', vegetables: ['kale'] });
 
     expect(scoreRecipe(liked, ctx, [])).toBeGreaterThan(scoreRecipe(disliked, ctx, []));
+  });
+
+  it('caps learnedDials weight structurally below preference and affinity (M3.0)', () => {
+    // The whole point of M2.6 is that learning nudges picks but never
+    // dominates the explicit profile/questionnaire factors. That guarantee
+    // rests on this weight ordering staying true — assert it directly so a
+    // future retune can't silently break it.
+    expect(WEIGHTS.learnedDials).toBeLessThan(WEIGHTS.preference);
+    expect(WEIGHTS.learnedDials).toBeLessThan(WEIGHTS.affinity);
+  });
+
+  it('bounds the learned-dials score contribution to WEIGHTS.learnedDials even at maximally extreme dials', () => {
+    // Every learned dial (spice/complexity/budget/leftover/vegetable) is
+    // clamped to -1..1 in learning.ts, and learnedDialsFit averages them
+    // into a single -1..1 nudge — so no matter how extreme the learner's
+    // history, its contribution to any one recipe's score can't exceed
+    // WEIGHTS.learnedDials. Cuisine/protein/technique affinities are left at
+    // their neutral default so affinityBonus/ratingsPenalty (which also read
+    // ctx.preferences) contribute nothing — isolating the learned-dials term.
+    const recipe = makeRecipe({
+      spiceLevel: 'Hot',
+      difficulty: 'Hard',
+      makesLeftovers: true,
+      vegetables: ['broccoli'],
+    });
+    const extremePrefs = makePreferences({
+      spiceTolerance: 1,
+      complexityPreference: 1,
+      budgetSensitivity: 1,
+      leftoverTolerance: 1,
+      vegetableAffinity: { broccoli: 1 },
+    });
+    const ctxNoPrefs = ctxFor();
+    const ctxExtremePrefs = ctxFor({ preferences: extremePrefs });
+
+    const diff = scoreRecipe(recipe, ctxExtremePrefs, []) - scoreRecipe(recipe, ctxNoPrefs, []);
+
+    expect(diff).toBeLessThanOrEqual(WEIGHTS.learnedDials);
+    expect(diff).toBeGreaterThan(0); // sanity check the dials actually moved the score
   });
 
   it('never lets learned dials override a profile hard filter (allergy)', () => {

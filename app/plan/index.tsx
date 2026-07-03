@@ -48,6 +48,7 @@ const numOptions = (values: number[], suffix: string): ChipOption[] =>
   values.map((n) => ({ value: String(n), label: `${suffix === '$' ? '$' : ''}${n}${suffix === '$' ? '' : suffix}` }));
 
 interface StepDef {
+  key: string;
   title: string;
   subtitle?: string;
   control: ReactNode;
@@ -105,14 +106,17 @@ export default function PlanIntakeScreen() {
 
   const steps: StepDef[] = [
     {
+      key: 'dinners',
       title: 'How many dinners this week?',
       control: centeredStepper(answers.dinners, 'dinners', (dinners) => patch({ dinners }), 1, 7),
     },
     {
+      key: 'people',
       title: 'How many people are you cooking for?',
       control: centeredStepper(answers.people, 'people', (people) => patch({ people }), 1, 12),
     },
     {
+      key: 'budget',
       title: "What's your budget this week?",
       subtitle: "I'll keep the shopping list under this.",
       control: (
@@ -124,6 +128,7 @@ export default function PlanIntakeScreen() {
       ),
     },
     {
+      key: 'maxPrep',
       title: 'Max hands-on prep time?',
       subtitle: 'Per dinner.',
       control: (
@@ -135,6 +140,7 @@ export default function PlanIntakeScreen() {
       ),
     },
     {
+      key: 'maxCook',
       title: 'Max cook time?',
       subtitle: 'Per dinner.',
       control: (
@@ -146,6 +152,7 @@ export default function PlanIntakeScreen() {
       ),
     },
     {
+      key: 'proteins',
       title: 'Which proteins this week?',
       subtitle:
         'This is often the biggest week-to-week change — pick any that sound good (or none for “anything”). Just for this week; your saved profile stays as-is.',
@@ -159,6 +166,7 @@ export default function PlanIntakeScreen() {
       canSkip: true,
     },
     {
+      key: 'cuisines',
       title: 'Any cuisines you’re craving?',
       subtitle: 'Leave all unselected for no preference — I’ll rotate for variety.',
       control: (
@@ -171,6 +179,7 @@ export default function PlanIntakeScreen() {
       canSkip: true,
     },
     {
+      key: 'healthyVsComfort',
       title: 'Healthy or comfort food?',
       control: (
         <ChipSingleSelect
@@ -181,6 +190,7 @@ export default function PlanIntakeScreen() {
       ),
     },
     {
+      key: 'adventurousness',
       title: 'How adventurous this week?',
       control: (
         <ChipSingleSelect
@@ -191,6 +201,7 @@ export default function PlanIntakeScreen() {
       ),
     },
     {
+      key: 'diets',
       title: 'Any dietary restrictions?',
       subtitle: 'Pre-filled from your profile — adjust just for this week if you like.',
       control: (
@@ -203,6 +214,7 @@ export default function PlanIntakeScreen() {
       canSkip: true,
     },
     {
+      key: 'pantry',
       title: 'Anything already at home?',
       subtitle: "I'll strongly build the week around these. Saved to your pantry for next time.",
       control: (
@@ -217,6 +229,7 @@ export default function PlanIntakeScreen() {
       canSkip: true,
     },
     {
+      key: 'summary',
       title: 'You’re all set 🎉',
       subtitle: 'Here’s what I’ll plan around this week.',
       continueLabel: 'Build my week 🍳',
@@ -225,8 +238,11 @@ export default function PlanIntakeScreen() {
   ];
 
   // M2.3 fast path: dinners, proteins, ingredients-on-hand only — everything
-  // else carries over from last week's answers untouched.
-  const fastSteps = [steps[0], steps[5], steps[10]];
+  // else carries over from last week's answers untouched. Selected by stable
+  // key rather than array index so reordering/inserting a question above
+  // can't silently change which steps the fast path shows.
+  const FAST_STEP_KEYS = ['dinners', 'proteins', 'pantry'];
+  const fastSteps = FAST_STEP_KEYS.map((key) => steps.find((s) => s.key === key)!);
 
   const finish = () => {
     const pantry = usePantryStore.getState().items;

@@ -12,24 +12,22 @@ Product decisions below are ✅ DECIDED by Ronnie (ranked by him).
 
 ---
 
-## [ ] M3.0 — Carry-over cleanups (one small commit)
-- Fast-intake path (`app/plan/index.tsx`) selects wizard steps by hardcoded
-  array index (`steps[0], steps[5], steps[10]`) — brittle. Give steps stable
-  `key` names and select by key.
-- Tighten re-roll ingredient matching: exact normalized-name match first,
-  substring only as fallback, and never let a shorter available name match a
-  longer required name in the reverse direction ("cream" must not satisfy
-  "coconut cream"). Extend the reroll cases in the assertion scripts.
-- Housekeeping: `scripts/checkSyncMerge.ts` was dead code (assertions already
-  migrated to `src/engine/syncMerge.test.ts` at M2.5) — confirmed already
-  deleted, and `MILESTONE-2.md`'s references to it are accurate historical
-  record of when it existed, so nothing further to change there.
-- Add a test asserting each learned dial's contribution to scoring
-  (`learnedDialsFit()` in `scoring.ts`) is bounded/clamped to ±1 and that
-  `WEIGHTS.learnedDials`'s maximum possible contribution stays below
-  `WEIGHTS.preference` and `WEIGHTS.affinity`, so learning can nudge picks but
-  structurally can never dominate the explicit profile.
-**Accept when:** behavior identical except stricter matching; scripts green.
+## [x] M3.0 — Carry-over cleanups (one small commit) — done: `app/plan/index.tsx`
+steps now carry a stable `key` and the M2.3 fast path (`FAST_STEP_KEYS =
+['dinners', 'proteins', 'pantry']`) selects by key instead of hardcoded array
+index; `reroll.ts`'s `loosely()` now matches exact-normalized first, then
+substring only when the available name is as long or longer than the
+required name (blocks "cream" satisfying "coconut cream"), with
+`reroll.test.ts` updated to the correct match direction plus a new case for
+the blocked reverse direction; confirmed `scripts/checkSyncMerge.ts` was
+already deleted at M2.5 with `MILESTONE-2.md` already accurate, so no further
+change needed there; added two tests in `LocalRecommendationEngine.test.ts`
+asserting `WEIGHTS.learnedDials` is structurally below
+`WEIGHTS.preference`/`WEIGHTS.affinity` and that its score contribution is
+bounded by `WEIGHTS.learnedDials` even at maximally extreme learned dials.
+`npm run typecheck`, `npx jest` (96/96), and `validateRecipes.ts` (230/230)
+all green; sanity-checked the web bundle still builds clean via `expo start
+--web`.
 
 ## [ ] M3.0b — Real photos for curated recipes (licensed sources only)
 GOAL: photo-realistic, ACCURATE images for as many of the 230 curated recipes

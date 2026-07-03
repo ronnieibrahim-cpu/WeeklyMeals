@@ -63,11 +63,18 @@ describe('missingIngredients', () => {
     expect(missingIngredients(recipe, new Set(['shrimp']))).toEqual(['Lime']);
   });
 
-  it('matches loosely (substring) so minor naming differences still count as available', () => {
+  it('matches loosely (substring) when the available name is longer and contains the required name', () => {
     const recipe = makeRecipe({
-      ingredients: [{ name: 'chicken breasts', quantity: 1, unit: 'lb', department: 'Meat' }],
+      ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
     });
-    expect(missingIngredients(recipe, new Set(['chicken']))).toEqual([]);
+    expect(missingIngredients(recipe, new Set(['chicken breasts']))).toEqual([]);
+  });
+
+  it('never lets a shorter available name satisfy a longer required name (M3.0)', () => {
+    const recipe = makeRecipe({
+      ingredients: [{ name: 'coconut cream', quantity: 1, unit: 'can', department: 'DryGoods' }],
+    });
+    expect(missingIngredients(recipe, new Set(['cream']))).toEqual(['coconut cream']);
   });
 });
 

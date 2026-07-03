@@ -191,7 +191,11 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    pantry + this week's shopping list (assumed purchased) + the outgoing
    meal's own ingredients — a re-roll can never imply a store trip, and the
    outgoing recipe itself is excluded from its own candidate pool (swapping a
-   meal for itself isn't a re-roll). Candidates are ranked by the existing
+   meal for itself isn't a re-roll). Coverage matching (**M3.0**) is exact
+   normalized-name match first, substring match only as a fallback, and only
+   in the safe direction — an available name must be as long as or longer
+   than the required name to satisfy it (having "cream" no longer wrongly
+   satisfies a recipe that needs "coconut cream"). Candidates are ranked by the existing
    scoring function; the screen offers the top pick with "Try another"
    (cycles up to 5). If nothing fully qualifies, up to 3 near-misses are
    shown instead, each labeled with exactly what's missing ("you'll need: X,
@@ -298,12 +302,15 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
     `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
     `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
-11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6):** `jest-expo` installed
+11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0):** `jest-expo` installed
     as the sanctioned dev dependency; `npm test` runs the engine test suite
-    (`src/engine/**/*.test.ts`, 93 assertions covering hard filters incl. the
+    (`src/engine/**/*.test.ts`, 96 assertions covering hard filters incl. the
     imported-allergy guard, recommendation-engine invariants (incl. M2.6's
-    learned-dials scoring and hard-filters-always-win case), shopping-list
-    consolidation, sync merge, learning math, and the M2.2 reroll candidate
+    learned-dials scoring and hard-filters-always-win case, and M3.0's
+    structural assertion that `WEIGHTS.learnedDials` stays below
+    `WEIGHTS.preference`/`WEIGHTS.affinity` and that its score contribution
+    is bounded even at maximally extreme learned dials), shopping-list
+    consolidation, sync merge, learning math, and the M2.2/M3.0 reroll candidate
     function). Screens
     still have zero coverage — out of scope per the milestone (`docs/ARCHITECTURE.md`'s
     references to `__tests__/`, `units.ts`, `reviewStore`, `RatingRepository`

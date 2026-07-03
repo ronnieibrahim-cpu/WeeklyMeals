@@ -5,10 +5,18 @@ import { GenerateContext } from './recommendation/types';
 
 const lower = (s: string) => s.trim().toLowerCase();
 
+/**
+ * M3.0: exact normalized match first; substring only as a fallback, and only
+ * in the safe direction (an available name that's as long or longer than the
+ * required name, containing it in full) — a shorter available name can never
+ * satisfy a longer required one. Without this guard, having "cream" on hand
+ * would wrongly satisfy a recipe that needs "coconut cream".
+ */
 function loosely(name: string, available: Set<string>): boolean {
   const n = lower(name);
+  if (available.has(n)) return true;
   for (const a of available) {
-    if (n.includes(a) || a.includes(n)) return true;
+    if (a.length >= n.length && a.includes(n)) return true;
   }
   return false;
 }
