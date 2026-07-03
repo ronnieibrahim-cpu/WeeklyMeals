@@ -138,24 +138,24 @@ on the full curated library with zero exceptions.
 - [x] jp-pork-tonkatsu
 
 ## Batch 7 — recipeBatch4.ts part B (18)
-- [ ] cn-general-tso
-- [ ] cn-egg-foo-young
-- [ ] cn-black-pepper-beef
-- [ ] fr-beef-bourguignon
-- [ ] fr-mushroom-risotto
-- [ ] fr-steak-frites
-- [ ] md-stuffed-eggplant
-- [ ] md-lamb-chops
-- [ ] md-lemon-garlic-salmon
-- [ ] am-meatloaf
-- [ ] am-chicken-pot-pie
-- [ ] am-potato-soup
-- [ ] me-chicken-tagine
-- [ ] me-beef-shawarma-plate
-- [ ] me-cauliflower-shawarma
-- [ ] bq-steak-chimichurri
-- [ ] bq-memphis-pork-chops
-- [ ] bq-corn-bean-salad
+- [x] cn-general-tso
+- [x] cn-egg-foo-young
+- [x] cn-black-pepper-beef
+- [x] fr-beef-bourguignon
+- [x] fr-mushroom-risotto
+- [x] fr-steak-frites
+- [x] md-stuffed-eggplant
+- [x] md-lamb-chops
+- [x] md-lemon-garlic-salmon
+- [x] am-meatloaf
+- [x] am-chicken-pot-pie
+- [x] am-potato-soup
+- [x] me-chicken-tagine
+- [x] me-beef-shawarma-plate
+- [x] me-cauliflower-shawarma
+- [x] bq-steak-chimichurri
+- [x] bq-memphis-pork-chops
+- [x] bq-corn-bean-salad
 
 ## Batch 8 — recipeBatch5.ts part A (18)
 - [ ] it-chicken-parmesan
