@@ -58,24 +58,24 @@ on the full curated library with zero exceptions.
 - [x] jp-veg-ramen
 
 ## Batch 3 — recipeBatch2.ts part B (18)
-- [ ] cn-chicken-fried-rice
-- [ ] cn-mapo-tofu
-- [ ] cn-honey-garlic-shrimp
-- [ ] fr-salmon-papillote
-- [ ] fr-croque-monsieur
-- [ ] fr-lentil-soup
-- [ ] md-baked-cod
-- [ ] md-chickpea-stew
-- [ ] md-chicken-shawarma-bowl
-- [ ] am-cobb-salad
-- [ ] am-mac-and-cheese
-- [ ] am-sheet-pan-sausage
-- [ ] me-shakshuka
-- [ ] me-chicken-shawarma
-- [ ] me-mujadara
-- [ ] bq-bbq-chicken-sandwiches
-- [ ] bq-veggie-skewers
-- [ ] bq-baby-back-ribs
+- [x] cn-chicken-fried-rice
+- [x] cn-mapo-tofu
+- [x] cn-honey-garlic-shrimp
+- [x] fr-salmon-papillote
+- [x] fr-croque-monsieur
+- [x] fr-lentil-soup
+- [x] md-baked-cod
+- [x] md-chickpea-stew
+- [x] md-chicken-shawarma-bowl
+- [x] am-cobb-salad
+- [x] am-mac-and-cheese
+- [x] am-sheet-pan-sausage
+- [x] me-shakshuka
+- [x] me-chicken-shawarma
+- [x] me-mujadara
+- [x] bq-bbq-chicken-sandwiches
+- [x] bq-veggie-skewers
+- [x] bq-baby-back-ribs
 
 ## Batch 4 — recipeBatch3.ts part A (18)
 - [ ] it-spaghetti-bolognese
