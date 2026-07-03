@@ -220,28 +220,28 @@ on the full curated library with zero exceptions.
 - [x] th-pad-krapow
 
 ## Batch 11 — recipeBatch7.ts part B (22)
-- [ ] th-yellow-curry
-- [ ] jp-chicken-karaage
-- [ ] jp-soba-salad
-- [ ] jp-tuna-poke-bowl
-- [ ] cn-mongolian-beef
-- [ ] cn-chicken-chow-mein
-- [ ] cn-hot-sour-soup
-- [ ] fr-sole-meuniere
-- [ ] fr-chicken-fricassee
-- [ ] fr-potato-leek-soup
-- [ ] md-garlic-butter-shrimp
-- [ ] md-vegetable-paella
-- [ ] md-lamb-meatballs
-- [ ] am-meatball-sub
-- [ ] am-chili-mac
-- [ ] am-breakfast-burrito
-- [ ] me-chicken-kofta
-- [ ] me-lamb-shawarma-plate
-- [ ] me-batata-harra-bowl
-- [ ] bq-grilled-salmon
-- [ ] bq-beer-brats
-- [ ] bq-elote-bowl
+- [x] th-yellow-curry
+- [x] jp-chicken-karaage
+- [x] jp-soba-salad
+- [x] jp-tuna-poke-bowl
+- [x] cn-mongolian-beef
+- [x] cn-chicken-chow-mein
+- [x] cn-hot-sour-soup
+- [x] fr-sole-meuniere
+- [x] fr-chicken-fricassee
+- [x] fr-potato-leek-soup
+- [x] md-garlic-butter-shrimp
+- [x] md-vegetable-paella
+- [x] md-lamb-meatballs
+- [x] am-meatball-sub
+- [x] am-chili-mac
+- [x] am-breakfast-burrito
+- [x] me-chicken-kofta
+- [x] me-lamb-shawarma-plate
+- [x] me-batata-harra-bowl
+- [x] bq-grilled-salmon
+- [x] bq-beer-brats
+- [x] bq-elote-bowl
 
 ## Batch 12 — recipeBatch8.ts (20)
 - [ ] in-palak-tofu
