@@ -9,9 +9,9 @@
  * offending recipe id, rather than stopping at the first problem, so a
  * whole batch's gaps show up in one run.
  *
- * There's no test runner installed in this repo yet (PROJECT.md #11), so —
- * same as scripts/checkSyncMerge.ts — this lives here until M2.5 sets one
- * up, at which point it should migrate into the real test suite.
+ * This intentionally stays a standalone script rather than a jest test
+ * (M2.5 added `npm test` for the engine folder): it's a one-shot content/data
+ * gate over the static seed library, not a unit test over varied inputs.
  */
 import { Recipe } from '@/domain/models';
 import { RECIPES } from '@/data/seed/recipes';

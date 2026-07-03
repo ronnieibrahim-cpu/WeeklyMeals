@@ -61,7 +61,7 @@ button; typecheck + merge script green.
   "Kids approved ✓". Stored per recipeId with a toggledAtISO timestamp.
 - SYNC: include a `kidApproved` map in the household sync payload, merged
   per recipeId by newer timestamp (same deterministic pattern as M1.6;
-  extend checkSyncMerge assertions).
+  extend the sync-merge tests in `src/engine/syncMerge.test.ts`, M2.5).
 - Recommendation: modest scoring bonus for kid-approved recipes — enough to
   break ties, never enough to override profile settings or variety. Add to
   the browser as a filter (M3.1).

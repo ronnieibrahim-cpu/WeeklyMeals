@@ -114,7 +114,27 @@ match. Tune so a typical generated week is majority-curated.
 **Accept when:** across ~10 generated test weeks, curated recipes make up a
 clear majority of picks while imported recipes still appear.
 
-## [ ] M2.5 — Engine test suite (protects everything after this)
+## [x] M2.5 — Engine test suite (protects everything after this) — done:
+installed `jest-expo` (+ `jest`, `@types/jest`) via `npx expo install --dev`
+for SDK-56-compatible versions (a plain `npm install` hit a peer-dependency
+conflict); added `babel.config.js` (`babel-preset-expo`) and `jest.config.js`
+(preset `jest-expo`, `testMatch` scoped to `src/engine/**/*.test.ts`,
+`moduleNameMapper` for the `@/` alias) and `"types": ["jest"]` in
+`tsconfig.json` so jest globals typecheck. 10 test files, 86 assertions:
+`recommendation/filters.test.ts` (17, every hard-filter rule incl. the
+imported-recipe allergy guard), `recommendation/LocalRecommendationEngine.test.ts`
+(8, locked recipes always kept / no duplicate recipe in a week / dinners-count
+cap / blocked-recipe exclusion / M2.4's curated-bonus ordering),
+`shoppingList.test.ts` (7, pantry + pantryStaple exclusion, serving-scaled
+quantities, cross-meal consolidation by ingredient+unit, cost totals),
+`learning.test.ts` (13, pure-fold immutability, affinity direction, the
+1-star/≤2-star-cookAgain-false blocking rules, and the M2.1 no-double-count
+edit-vs-recompute check), `reroll.test.ts` (10, strict-mode coverage, near-miss
+fallback, exclusion of used/blocked/filtered recipes), `syncMerge.test.ts` (15
+— migrated verbatim from `scripts/checkSyncMerge.ts`, which is now deleted),
+plus small suites for `rating.ts`, `schedule.ts`, `season.ts`, `cost.ts`.
+`npm test` is documented in `CLAUDE.md` as required alongside typecheck before
+every commit.
 **Approach:** Add the standard Expo/Jest setup (`jest-expo`) — this is the one
 sanctioned new dev dependency. Write tests for: hard filters (each rule),
 allergy guard incl. imported exclusion, scoring invariants (locked recipes

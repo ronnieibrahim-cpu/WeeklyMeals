@@ -36,7 +36,8 @@ decision fatigue for a busy family? Remove clicks rather than add settings.
   publishable key committed by design, access must be governed by RLS
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`
   (fires on every push to `claude/weekly-meals-app-eyowlr`; `app.config.js` injects `EXPO_BASE_URL`)
-- **No test framework installed. There are currently zero tests.**
+- **jest-expo (M2.5)** — `npm test` runs the engine test suite
+  (`src/engine/**/*.test.ts`); screens/stores have no coverage yet.
 
 ## 3. Layered architecture (actual, verified)
 
@@ -177,11 +178,10 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    adds something the server doesn't have yet (compared via a stable,
    sorted-key stringify — never raw `JSON.stringify` — to avoid
    ping-ponging). Profile, pantry, and learning stay per-device (still out
-   of scope). Verified in `scripts/checkSyncMerge.ts` (run via
-   `npx tsx --tsconfig ./tsconfig.json scripts/checkSyncMerge.ts`, 15
-   assertions including two M2.1 rating-merge cases and four M2.2
-   diverged-recipe cases); those assertions should migrate into the real
-   test suite once a runner exists (M2.5).
+   of scope). Verified by `src/engine/syncMerge.test.ts` (run via
+   `npm test`, 15 assertions including two M2.1 rating-merge cases and four
+   M2.2 diverged-recipe cases) — migrated from the standalone
+   `scripts/checkSyncMerge.ts` once M2.5 set up a real test runner.
 6. **Mid-week re-roll (M2.2), STRICT mode:** every not-yet-cooked meal for
    today or a future day gets a "↻ Re-roll" link on its This Week card,
    opening `/reroll/[dayIndex]`. `rerollCandidates()` (`src/engine/reroll.ts`,
@@ -294,9 +294,14 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
     `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
     `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
-11. **Zero tests** despite a deliberately pure engine; `docs/ARCHITECTURE.md`
-    references `__tests__/`, `schedule.ts`, `units.ts`, `reviewStore`,
-    `RatingRepository` — none exist. Docs are aspirational.
+11. ~~Zero tests~~ — **fixed (M2.5):** `jest-expo` installed as the sanctioned
+    dev dependency; `npm test` runs the engine test suite (`src/engine/**/*.test.ts`,
+    ~80 assertions covering hard filters incl. the imported-allergy guard,
+    recommendation-engine invariants, shopping-list consolidation, sync
+    merge, learning math, and the M2.2 reroll candidate function). Screens
+    still have zero coverage — out of scope per the milestone (`docs/ARCHITECTURE.md`'s
+    references to `__tests__/`, `units.ts`, `reviewStore`, `RatingRepository`
+    remain aspirational/stale).
 
 **P2**
 12. ~~Duplicate `shuffle()` + inline re-implementation of engine selection in
@@ -308,7 +313,10 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 13. Imported-recipe quality dilutes picks: cuisine mapping lumps British/Irish/
     Russian/Kenyan → "American", Vietnamese/Filipino/Malaysian → "Thai"; all
     imports claim 4 servings / ~15+30 min; nutrition is formula-guessed; odd
-    units ("1 piece" salt cod). No scoring distinction curated vs estimated.
+    units ("1 piece" salt cod). ~~No scoring distinction curated vs
+    estimated.~~ **Partially fixed (M2.4):** curated recipes now get a flat
+    scoring bonus (`WEIGHTS.curated`) over imported ones; the cuisine-mapping/
+    servings/nutrition/units issues themselves are unchanged.
 14. ~~`joinHousehold` with a short code silently no-ops (button appears dead);
     create doesn't check code collisions.~~ **Partially fixed (M1.7):**
     joining a code with no matching household row no longer silently creates
@@ -344,7 +352,8 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
   `WEIGHTS.curated = 0.1` bonus in `scoring.ts` for non-`mealdb-` recipes,
   tuned via `scripts/checkCuratedWeighting.ts` so curated recipes are a clear
   majority of picks without fully burying imported ones) · engine test suite
-  (M2.5) · wire learned dials into scoring (M2.6).
+  (M2.5, done — `npm test`, 86 assertions over `src/engine/`, see §9) · wire
+  learned dials into scoring (M2.6).
 - Later: day-aware planning/reorder · recipe browser + manual picks ·
   leftovers-aware planning (new design — the original `desiredLeftovers`/
   `specialOccasions` fields this was scoped around were removed in M1.8) ·
@@ -356,8 +365,15 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 
 ## 9. Operational notes for future AI sessions
 
-- `npm install` then `npm run typecheck` first; keep it green; update this
-  file (bugs fixed, features added) in the same change.
+- `npm install` then `npm run typecheck` and `npm test` first; keep both
+  green; update this file (bugs fixed, features added) in the same change.
+- **Test suite (M2.5):** `jest-expo` + `jest.config.js` (`testMatch` scoped to
+  `src/engine/**/*.test.ts`, `@/` alias mapped via `moduleNameMapper`) +
+  `babel.config.js` (`babel-preset-expo`). Only the engine folder is covered
+  — screens/stores are explicitly out of scope for now. Shared fixtures live
+  in `src/engine/testFixtures.ts` (not matched by `testMatch`, so it's never
+  itself run as a test file). Add or update a test alongside any new/changed
+  pure function in `src/engine/`.
 - `recipeImported.ts` is **generated** — never hand-edit; change
   `normalize.ts` / `scripts/importRecipes.ts` and re-run instead.
 - Every push to `claude/weekly-meals-app-eyowlr` deploys the web build.

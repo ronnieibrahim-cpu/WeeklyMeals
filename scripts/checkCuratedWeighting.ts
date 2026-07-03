@@ -7,9 +7,10 @@
  *
  * Accept criterion (MILESTONE-2.md M2.4): across ~10 generated test weeks,
  * curated recipes make up a clear majority of picks while imported recipes
- * still appear. There's no test runner installed in this repo yet
- * (PROJECT.md #11), so this lives here for now, same convention as
- * scripts/checkSyncMerge.ts and scripts/validateRecipes.ts.
+ * still appear. This intentionally stays a standalone script rather than a
+ * jest test (M2.5 added `npm test` for the engine folder): it's a tuning/
+ * distribution report over randomized synthetic scenarios, not a
+ * deterministic pass/fail unit test.
  */
 import { createDefaultProfile, createIntakeFromProfile } from '@/domain/defaults';
 import { Cuisine, Protein } from '@/domain/models';

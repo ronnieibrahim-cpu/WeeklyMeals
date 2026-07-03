@@ -18,6 +18,7 @@ Ronnie says otherwise.
 ```bash
 npm install          # first run only
 npm run typecheck    # MUST pass before every commit
+npm test             # MUST pass before every commit (engine test suite, M2.5)
 npm run web          # local browser preview for manual testing
 ```
 Pushing to branch `claude/weekly-meals-app-eyowlr` auto-deploys the web build
@@ -25,6 +26,8 @@ to GitHub Pages — treat every push as a deploy.
 
 ## Hard rules
 - `npm run typecheck` must be green before any commit.
+- `npm test` must be green before any commit (jest-expo; engine test suite
+  covering `src/engine/**/*.test.ts` — screens are out of scope for now).
 - One milestone task per commit (or a small coherent group). Clear commit messages.
 - NEVER hand-edit `src/data/seed/recipeImported.ts` — it is generated. Change
   `src/data/import/normalize.ts` / `scripts/importRecipes.ts` and regenerate instead.
@@ -35,8 +38,8 @@ to GitHub Pages — treat every push as a deploy.
 - Do not add dependencies without asking Ronnie first (explain why in plain English).
 - Prefer the simplest maintainable solution. No clever code, no premature
   optimization, no drive-by refactors outside the task at hand.
-- When you write new engine logic, add or update unit tests for it if a test
-  runner exists; if none exists yet, note it (test setup is a Milestone 2 task).
+- When you write new engine logic, add or update unit tests for it in
+  `src/engine/**/*.test.ts` (jest-expo is installed as of M2.5).
 
 ## Communicating with Ronnie
 - Plain English. No unnecessary jargon.
@@ -48,7 +51,7 @@ to GitHub Pages — treat every push as a deploy.
 
 ## Definition of done for any task
 1. Acceptance criteria in the milestone file are met.
-2. Typecheck passes.
+2. Typecheck and `npm test` both pass.
 3. You've manually reasoned through (or tested via `npm run web`) the affected flow.
 4. `PROJECT.md` updated if behavior/architecture changed.
 5. Task checked off in the milestone file with a one-line note.
