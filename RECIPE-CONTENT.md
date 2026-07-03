@@ -158,24 +158,24 @@ on the full curated library with zero exceptions.
 - [x] bq-corn-bean-salad
 
 ## Batch 8 — recipeBatch5.ts part A (18)
-- [ ] it-chicken-parmesan
-- [ ] it-baked-ziti
-- [ ] it-shrimp-risotto
-- [ ] mx-fish-tacos
-- [ ] mx-chile-relleno
-- [ ] mx-beef-barbacoa
-- [ ] gr-lamb-moussaka
-- [ ] gr-chicken-souvlaki-skewers
-- [ ] gr-fasolada
-- [ ] in-chicken-vindaloo
-- [ ] in-rajma
-- [ ] in-fish-curry
-- [ ] th-shrimp-pineapple-rice
-- [ ] th-khao-soi
-- [ ] th-pad-see-ew
-- [ ] jp-beef-teriyaki
-- [ ] jp-agedashi-tofu-rice
-- [ ] jp-chicken-curry-rice
+- [x] it-chicken-parmesan
+- [x] it-baked-ziti
+- [x] it-shrimp-risotto
+- [x] mx-fish-tacos
+- [x] mx-chile-relleno
+- [x] mx-beef-barbacoa
+- [x] gr-lamb-moussaka
+- [x] gr-chicken-souvlaki-skewers
+- [x] gr-fasolada
+- [x] in-chicken-vindaloo
+- [x] in-rajma
+- [x] in-fish-curry
+- [x] th-shrimp-pineapple-rice
+- [x] th-khao-soi
+- [x] th-pad-see-ew
+- [x] jp-beef-teriyaki
+- [x] jp-agedashi-tofu-rice
+- [x] jp-chicken-curry-rice
 
 ## Batch 9 — recipeBatch5.ts part B (18)
 - [ ] cn-cashew-chicken
