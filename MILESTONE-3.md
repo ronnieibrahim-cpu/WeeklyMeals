@@ -20,7 +20,41 @@ Product decisions below are ✅ DECIDED by Ronnie (ranked by him).
   substring only as fallback, and never let a shorter available name match a
   longer required name in the reverse direction ("cream" must not satisfy
   "coconut cream"). Extend the reroll cases in the assertion scripts.
+- Housekeeping: `scripts/checkSyncMerge.ts` was dead code (assertions already
+  migrated to `src/engine/syncMerge.test.ts` at M2.5) — confirmed already
+  deleted, and `MILESTONE-2.md`'s references to it are accurate historical
+  record of when it existed, so nothing further to change there.
+- Add a test asserting each learned dial's contribution to scoring
+  (`learnedDialsFit()` in `scoring.ts`) is bounded/clamped to ±1 and that
+  `WEIGHTS.learnedDials`'s maximum possible contribution stays below
+  `WEIGHTS.preference` and `WEIGHTS.affinity`, so learning can nudge picks but
+  structurally can never dominate the explicit profile.
 **Accept when:** behavior identical except stricter matching; scripts green.
+
+## [ ] M3.0b — Real photos for curated recipes (licensed sources only)
+GOAL: photo-realistic, ACCURATE images for as many of the 230 curated recipes
+as possible. A wrong photo is worse than no photo.
+RULES:
+- Licensed/open sources ONLY: (1) TheMealDB API name/dish matching first; (2)
+  Wikimedia Commons via the Openverse API (capture license + attribution per
+  image). NEVER scrape food blogs, Google Images, or any source without clear
+  licensing.
+- Build it as a script (`scripts/importPhotos.ts`) in the style of
+  `importRecipes.ts`, writing results to the existing recipeImages/images
+  mapping with source, license, and attribution fields recorded.
+- Confidence gating: only auto-assign a photo on a strong name/dish match.
+  Everything uncertain goes UNASSIGNED (keeps the existing tile fallback).
+- Human review gate: generate `PHOTO-REVIEW.md` listing every proposed match
+  (recipe id, recipe name, image URL, source, license, match confidence).
+  STOP and wait for the Product Owner to review it before wiring any photos
+  into the app. He will reply with rejections; apply them, then commit.
+- Attribution must be viewable in-app where required by the license (a small
+  credit line on the meal detail screen is acceptable).
+- If the sandbox blocks these API domains, stop and tell the Product Owner
+  exactly which domains to allow rather than working around it.
+**Accept when:** the review file exists and was approved, matched curated
+recipes show real photos on cards/detail/browser, unmatched recipes still
+show clean tiles, licenses/attribution are stored, typecheck + tests green.
 
 ## [ ] M3.1 — Recipe browser with search, autocomplete, and pin-to-week (TOP PRIORITY)
 **User problem:** 541 recipes exist but the family can only meet them through
@@ -127,9 +161,6 @@ planned, shopped, cooked in cook mode, rated, and kid-approved.
 ---
 
 ## Parked / future (v4 candidates — do NOT start)
-- **Photos for curated recipes** — approach still undecided (real / AI /
-  hybrid). NOTE: the M3.1 browser makes this decision more valuable; raise it
-  with Ronnie at the M3 review gate.
 - Calendar-aware planning — Ronnie says NOT YET (privacy shift; revisit v4).
   A manual "busy night" toggle remains an acceptable interim if requested.
 - Leftovers-aware planning (`desiredLeftovers` is wired-ready; leftoverNotes
