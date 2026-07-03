@@ -79,6 +79,18 @@ src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 12 w
 src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipeImported.ts
                      (311 TheMealDB imports, GENERATED — never hand-edit; re-run
                      scripts/importRecipes.ts via normalize.ts). 541 recipes total.
+                     All 230 curated recipes passed a cookbook-quality content pass
+                     (M2.2b, July 2026): every recipe has a complete ingredient list
+                     (nothing referenced in steps is missing, pantryStaple: true on
+                     salt/pepper/oil/butter-type items so the shopping list doesn't
+                     bloat), 5-10 concrete steps with pan/heat/time/doneness detail,
+                     and the two new optional Recipe fields `description` (1-2
+                     sentences, shown on the meal detail screen) and `tips` (0-3
+                     practical notes). Enforced by scripts/validateRecipes.ts (run via
+                     `npx tsx --tsconfig ./tsconfig.json scripts/validateRecipes.ts`),
+                     which fails loudly listing any curated recipe missing these bars.
+                     The 311 mealdb- imports are intentionally out of scope — their
+                     source text is their fidelity anchor.
 src/data/grocery/heb HebProvider: curated price table, per-lb conversion (g/ml/kg/l), dept fallbacks
 src/data/repositories/local  kvStore (AsyncStorage JSON) + one repo per aggregate
 src/data/sync/       config.ts (URL/key/SYNC_ENABLED kill-switch) · householdApi.ts (get/upsert row by 6-char code)
