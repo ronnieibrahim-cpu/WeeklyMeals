@@ -50,6 +50,21 @@ export default function RecipesScreen() {
   const openDetail = (id: string) => router.push({ pathname: '/meal/[id]', params: { id, pinTarget } });
   const openPin = (id: string) => router.push({ pathname: '/pin/[recipeId]', params: { recipeId: id, target: pinTarget } });
 
+  // Tapping a suggestion that narrows to exactly one recipe (typically its
+  // own name) should go straight there, not make the user tap again on a
+  // one-item list. Anything less specific (a cuisine, an ingredient shared
+  // by several dishes) still just fills the search box as before.
+  const onPickSuggestion = (s: string) => {
+    const matches = searchRecipes(filtered, s);
+    if (matches.length === 1) {
+      setQuery('');
+      setFocused(false);
+      openDetail(matches[0].id);
+      return;
+    }
+    setQuery(s);
+  };
+
   const renderCard = (id: string) => {
     const recipe = RECIPES.find((r) => r.id === id);
     if (!recipe) return null;
@@ -133,7 +148,7 @@ export default function RecipesScreen() {
           {suggestions.map((s, i) => (
             <Pressable
               key={s}
-              onPress={() => setQuery(s)}
+              onPress={() => onPickSuggestion(s)}
               style={{
                 paddingVertical: theme.spacing.md,
                 paddingHorizontal: theme.spacing.md,
