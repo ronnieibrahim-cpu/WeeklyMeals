@@ -16,3 +16,4 @@ export { AutocompleteTagInput } from './AutocompleteTagInput';
 export { StarRating } from './StarRating';
 export { YesNoToggle } from './YesNoToggle';
 export { RecipeImage } from './RecipeImage';
+export { RecipeResultCard } from './RecipeResultCard';

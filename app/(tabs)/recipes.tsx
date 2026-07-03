@@ -1,0 +1,237 @@
+import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useMemo, useState } from 'react';
+import { Pressable, TextInput, View } from 'react-native';
+
+import { CATEGORIES, CUISINES, MAX_PREP_OPTIONS, PROTEINS } from '@/domain/constants';
+import { Category, Cuisine, Difficulty, Protein } from '@/domain/models';
+import { RECIPES } from '@/data/seed/recipes';
+import { autocompleteSuggestions, filterRecipes, RecipeFilters, searchRecipes } from '@/engine/recipeSearch';
+import { useLearningStore } from '@/stores/learningStore';
+import { usePlanStore } from '@/stores/planStore';
+import { ChipMultiSelect, ChipSingleSelect, EmptyState, RecipeResultCard, Screen, SectionHeader, Text } from '@/ui/components';
+import { useTheme } from '@/ui/theme/useTheme';
+
+const DIFFICULTIES: Difficulty[] = ['Easy', 'Medium', 'Hard'];
+
+export default function RecipesScreen() {
+  const theme = useTheme();
+  const router = useRouter();
+  const params = useLocalSearchParams<{ favoritesOnly?: string; pinTarget?: string }>();
+  const pinTarget = params.pinTarget === 'draft' ? 'draft' : 'plan';
+
+  const [query, setQuery] = useState('');
+  const [focused, setFocused] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState<RecipeFilters>({ favoritesOnly: params.favoritesOnly === '1' });
+
+  const favorites = useLearningStore((s) => s.favorites);
+  const isFavorite = useLearningStore((s) => s.isFavorite);
+  const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
+  const plan = usePlanStore((s) => s.plan);
+  const draftPlan = usePlanStore((s) => s.draftPlan);
+  const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
+
+  const favoriteIds = useMemo(() => new Set(favorites), [favorites]);
+  const activeFilters = useMemo<RecipeFilters>(() => ({ ...filters, favoriteIds }), [filters, favoriteIds]);
+  const filtered = useMemo(() => filterRecipes(RECIPES, activeFilters), [activeFilters]);
+
+  const suggestions = useMemo(() => autocompleteSuggestions(RECIPES, query), [query]);
+  const results = useMemo(() => (query.trim() ? searchRecipes(filtered, query) : filtered), [filtered, query]);
+
+  const openDetail = (id: string) => router.push({ pathname: '/meal/[id]', params: { id, pinTarget } });
+  const openPin = (id: string) => router.push({ pathname: '/pin/[recipeId]', params: { recipeId: id, target: pinTarget } });
+
+  const renderCard = (id: string) => {
+    const recipe = RECIPES.find((r) => r.id === id);
+    if (!recipe) return null;
+    return (
+      <RecipeResultCard
+        key={recipe.id}
+        recipe={recipe}
+        favorite={isFavorite(recipe.id)}
+        onToggleFavorite={() => toggleFavorite(recipe.id)}
+        onPress={() => openDetail(recipe.id)}
+        onQuickPin={canPin ? () => openPin(recipe.id) : undefined}
+      />
+    );
+  };
+
+  // No active search text: lead with Favorites (still respecting whatever
+  // filters are on), then everything else. Typing collapses this into one
+  // ranked list — Favorites is a starting view, not a separate mode.
+  const showingFavoritesSection = !query.trim();
+  const favoritesInView = showingFavoritesSection ? filtered.filter((r) => favoriteIds.has(r.id)) : [];
+  const restInView = showingFavoritesSection ? filtered.filter((r) => !favoriteIds.has(r.id)) : results;
+
+  return (
+    <Screen title="Recipes" subtitle={`${RECIPES.length} recipes to search, filter, and pin`}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          borderWidth: 1,
+          borderColor: theme.colors.border,
+          borderRadius: theme.radius.md,
+          paddingHorizontal: theme.spacing.md,
+          backgroundColor: theme.colors.card,
+        }}
+      >
+        <Ionicons name="search" size={18} color={theme.colors.textTertiary} />
+        <TextInput
+          value={query}
+          onChangeText={setQuery}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          placeholder="Search by name, cuisine, or ingredient…"
+          placeholderTextColor={theme.colors.textTertiary}
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="search"
+          style={{
+            flex: 1,
+            paddingVertical: theme.spacing.md,
+            paddingHorizontal: theme.spacing.sm,
+            fontSize: 17,
+            color: theme.colors.text,
+          }}
+        />
+        {query.length > 0 ? (
+          <Pressable accessibilityLabel="Clear search" hitSlop={8} onPress={() => setQuery('')}>
+            <Ionicons name="close-circle" size={18} color={theme.colors.textTertiary} />
+          </Pressable>
+        ) : null}
+      </View>
+
+      {focused && suggestions.length > 0 ? (
+        <View
+          style={{
+            marginTop: theme.spacing.sm,
+            borderRadius: theme.radius.md,
+            borderWidth: 1,
+            borderColor: theme.colors.border,
+            overflow: 'hidden',
+          }}
+        >
+          {suggestions.map((s, i) => (
+            <Pressable
+              key={s}
+              onPress={() => setQuery(s)}
+              style={{
+                paddingVertical: theme.spacing.md,
+                paddingHorizontal: theme.spacing.md,
+                borderTopWidth: i === 0 ? 0 : 1,
+                borderTopColor: theme.colors.separator,
+              }}
+            >
+              <Text variant="body">{s}</Text>
+            </Pressable>
+          ))}
+        </View>
+      ) : null}
+
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => setShowFilters((v) => !v)}
+        style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: theme.spacing.md }}
+      >
+        <Ionicons name={showFilters ? 'chevron-up' : 'chevron-down'} size={16} color={theme.colors.accent} />
+        <Text variant="subhead" color="accent">
+          Filters{filtersActiveCount(filters) > 0 ? ` (${filtersActiveCount(filters)})` : ''}
+        </Text>
+      </Pressable>
+
+      {showFilters ? (
+        <View style={{ marginTop: theme.spacing.md, gap: theme.spacing.lg }}>
+          <View>
+            <SectionHeader title="Cuisine" />
+            <ChipSingleSelect
+              options={[{ value: '', label: 'Any' }, ...CUISINES]}
+              value={filters.cuisine ?? ''}
+              onChange={(v) => setFilters((f) => ({ ...f, cuisine: (v || undefined) as Cuisine | undefined }))}
+            />
+          </View>
+          <View>
+            <SectionHeader title="Protein" />
+            <ChipSingleSelect
+              options={[{ value: '', label: 'Any' }, ...PROTEINS]}
+              value={filters.protein ?? ''}
+              onChange={(v) => setFilters((f) => ({ ...f, protein: (v || undefined) as Protein | undefined }))}
+            />
+          </View>
+          <View>
+            <SectionHeader title="Difficulty" />
+            <ChipSingleSelect
+              options={[{ value: '', label: 'Any' }, ...DIFFICULTIES.map((d) => ({ value: d, label: d }))]}
+              value={filters.difficulty ?? ''}
+              onChange={(v) => setFilters((f) => ({ ...f, difficulty: (v || undefined) as Difficulty | undefined }))}
+            />
+          </View>
+          <View>
+            <SectionHeader title="Max total time" />
+            <ChipSingleSelect
+              options={[
+                { value: '', label: 'Any' },
+                ...MAX_PREP_OPTIONS.map((m) => ({ value: String(m * 2), label: `${m * 2} min` })),
+              ]}
+              value={filters.maxTotalMinutes ? String(filters.maxTotalMinutes) : ''}
+              onChange={(v) => setFilters((f) => ({ ...f, maxTotalMinutes: v ? Number(v) : undefined }))}
+            />
+          </View>
+          <View>
+            <SectionHeader title="Categories" />
+            <ChipMultiSelect
+              options={CATEGORIES}
+              values={filters.categories ?? []}
+              onToggle={(v) =>
+                setFilters((f) => {
+                  const current = f.categories ?? [];
+                  const categories = current.includes(v as Category)
+                    ? current.filter((c) => c !== v)
+                    : [...current, v as Category];
+                  return { ...f, categories };
+                })
+              }
+            />
+          </View>
+          <View>
+            <SectionHeader title="Other" />
+            <ChipMultiSelect
+              options={[
+                { value: 'curatedOnly', label: 'Curated only' },
+              ]}
+              values={filters.curatedOnly ? ['curatedOnly'] : []}
+              onToggle={() => setFilters((f) => ({ ...f, curatedOnly: !f.curatedOnly }))}
+            />
+          </View>
+        </View>
+      ) : null}
+
+      {showingFavoritesSection && favoritesInView.length > 0 ? (
+        <>
+          <SectionHeader title="Favorites" />
+          {favoritesInView.map((r) => renderCard(r.id))}
+        </>
+      ) : null}
+
+      <SectionHeader title={showingFavoritesSection ? 'All Recipes' : 'Results'} />
+      {restInView.length > 0 ? (
+        restInView.map((r) => renderCard(r.id))
+      ) : (
+        <EmptyState emoji="🔍" title="No recipes match" body="Try a different search or fewer filters." />
+      )}
+    </Screen>
+  );
+}
+
+function filtersActiveCount(filters: RecipeFilters): number {
+  let n = 0;
+  if (filters.cuisine) n += 1;
+  if (filters.protein) n += 1;
+  if (filters.difficulty) n += 1;
+  if (filters.maxTotalMinutes) n += 1;
+  if (filters.categories && filters.categories.length > 0) n += 1;
+  if (filters.curatedOnly) n += 1;
+  if (filters.favoritesOnly) n += 1;
+  return n;
+}

@@ -6,19 +6,22 @@ import { RECIPE_IMAGE_ATTRIBUTION } from '@/data/recipeImages';
 import { getRecipe } from '@/data/seed/recipes';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
-import { Card, EmptyState, RecipeImage, Screen, SecondaryButton, StarRating, Text } from '@/ui/components';
+import { Card, EmptyState, PrimaryButton, RecipeImage, Screen, SecondaryButton, StarRating, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function MealDetailScreen() {
   const router = useRouter();
   const theme = useTheme();
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id, pinTarget: pinTargetParam } = useLocalSearchParams<{ id: string; pinTarget?: string }>();
+  const pinTarget = pinTargetParam === 'draft' ? 'draft' : 'plan';
   const recipe = id ? getRecipe(id) : undefined;
   const favorites = useLearningStore((s) => s.favorites);
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
   const plan = usePlanStore((s) => s.plan);
+  const draftPlan = usePlanStore((s) => s.draftPlan);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
+  const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
 
   const photoAttribution = recipe ? RECIPE_IMAGE_ATTRIBUTION[recipe.id] : undefined;
   const isFavorite = recipe ? favorites.includes(recipe.id) : false;
@@ -141,6 +144,14 @@ export default function MealDetailScreen() {
         <SecondaryButton
           title={plannedMeal.cooked ? '✓ Cooked' : 'Mark as cooked'}
           onPress={() => toggleCooked(plannedMeal.dayIndex)}
+          style={{ marginTop: theme.spacing.lg }}
+        />
+      ) : null}
+
+      {canPin ? (
+        <PrimaryButton
+          title={pinTarget === 'draft' ? 'Pin to this draft' : 'Pin to this week'}
+          onPress={() => router.push({ pathname: '/pin/[recipeId]', params: { recipeId: recipe.id, target: pinTarget } })}
           style={{ marginTop: theme.spacing.lg }}
         />
       ) : null}

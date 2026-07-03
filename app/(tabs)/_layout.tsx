@@ -11,12 +11,14 @@ type IoniconName = ComponentProps<typeof Ionicons>['name'];
 
 const ICONS: Record<string, IoniconName> = {
   index: 'restaurant',
+  recipes: 'search',
   schedule: 'calendar',
   shopping: 'cart',
   profile: 'person',
 };
 const LABELS: Record<string, string> = {
   index: 'This Week',
+  recipes: 'Recipes',
   schedule: 'Schedule',
   shopping: 'Shopping',
   profile: 'Profile',
@@ -95,6 +97,7 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen name="index" options={{ title: 'This Week' }} />
+      <Tabs.Screen name="recipes" options={{ title: 'Recipes' }} />
       <Tabs.Screen name="schedule" options={{ title: 'Schedule' }} />
       <Tabs.Screen name="shopping" options={{ title: 'Shopping' }} />
       <Tabs.Screen name="profile" options={{ title: 'Profile' }} />

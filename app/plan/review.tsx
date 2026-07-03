@@ -117,6 +117,13 @@ export default function ReviewPlanScreen() {
           onPress={regenerate}
           style={{ marginTop: theme.spacing.sm }}
         />
+        <SecondaryButton
+          title="★  Swap in a favorite"
+          onPress={() =>
+            router.push({ pathname: '/(tabs)/recipes', params: { favoritesOnly: '1', pinTarget: 'draft' } })
+          }
+          style={{ marginTop: theme.spacing.sm }}
+        />
       </ScrollView>
 
       <View
