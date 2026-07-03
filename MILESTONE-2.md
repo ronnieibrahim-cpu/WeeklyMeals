@@ -93,7 +93,19 @@ shows the near-miss fallback with missing items labeled.
 
 ## [x] M2.3 — "Same as last week" fast intake — done: `app/plan/index.tsx` now shows a choice screen (recap card + two buttons) whenever a previous approved plan's intake exists; "Same as last week" jumps through exactly 3 steps (dinners, proteins, ingredients-on-hand — reusing the same step definitions as the full wizard, no duplicated UI) then generates immediately; "Adjust everything" runs the unchanged 12-step wizard, pre-filled from last week's actual answers rather than profile defaults. First-ever run (no previous plan) skips straight to the full wizard, no choice screen. Read: "proteins/moods if applicable" in the spec as one step (proteins), sized so the fast path totals exactly 4 interactions per the accept criterion — flagging this reading here since it was the one real ambiguity in an otherwise-DECIDED task. Caught and fixed a real hydration race during testing: reading `previousIntake` in a `useState` initializer captured a stale pre-hydration `null` and permanently locked the screen into the full-wizard path; fixed with a one-time post-hydration effect (same `hydrated`-gated pattern already used on This Week/Schedule). Manually verified in the web preview: first run shows the full wizard directly; a second week shows the recap + choice; the fast path lands on `/plan/review` in exactly 4 taps; "Adjust everything" starts pre-filled with last week's real values (not profile defaults).
 
-## [ ] M2.4 — Curated-first recommendation weighting
+## [x] M2.4 — Curated-first recommendation weighting — done: added a new
+`WEIGHTS.curated` factor (`src/engine/recommendation/types.ts`) and
+`curatedBonus()` (`scoring.ts`) giving every non-`mealdb-` recipe a flat +1
+before the weight is applied. Tuned the weight empirically with a new
+verification script, `scripts/checkCuratedWeighting.ts` (generates 10 varied
+weeks — sweeping cuisines, proteins, budget, cook-time limit, adventurousness,
+season — and reports the curated/imported split): weight 0.6 fully buried
+imported (100% curated, 0 weeks with any import), so tuned down to **0.1**,
+which lifts curated share from an 87.1% baseline (no bonus) to a consistent
+93–94% while imported recipes still appear in about half of generated weeks.
+Verified `npm run typecheck`, `scripts/checkSyncMerge.ts` (15/15, no
+regression from the scoring change), and a clean web bundle with no runtime
+errors.
 **Problem:** 311 imported recipes (estimated quality) outnumber 230 curated
 ones and win picks too often.
 **Approach:** Add a modest scoring bonus for curated (non-`mealdb-`) recipes —

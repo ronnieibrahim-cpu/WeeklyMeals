@@ -110,6 +110,11 @@ function favoriteBonus(recipe: Recipe, ctx: GenerateContext): number {
   return ctx.favoriteRecipeIds?.includes(recipe.id) ? 1 : 0;
 }
 
+/** M2.4: flat bonus for hand-curated recipes (id not prefixed `mealdb-`). */
+function curatedBonus(recipe: Recipe): number {
+  return recipe.id.startsWith('mealdb-') ? 0 : 1;
+}
+
 function ratingsPenalty(recipe: Recipe, ctx: GenerateContext): number {
   const prefs = ctx.preferences;
   if (!prefs) return 0;
@@ -128,6 +133,7 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
     WEIGHTS.preference * preferenceMatch(recipe, ctx) +
     WEIGHTS.affinity * affinityBonus(recipe, ctx) +
     WEIGHTS.favorite * favoriteBonus(recipe, ctx) +
+    WEIGHTS.curated * curatedBonus(recipe) +
     WEIGHTS.variety * varietyBonus(recipe, selected) +
     WEIGHTS.budget * budgetFit(recipe, ctx) +
     WEIGHTS.time * timeFit(recipe, ctx) +

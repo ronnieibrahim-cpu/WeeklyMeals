@@ -68,7 +68,8 @@ app/reroll/[dayIndex].tsx  Mid-week re-roll modal (M2.2) — see §5.6
 app/meal/[id].tsx    Recipe detail · app/household.tsx sync setup · app/settings.tsx theme
 src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
                      RatingEvent, PreferenceProfile) + constants (12 cuisines, H-E-B dept order, chips)
-src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 12 weighted factors,
+src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 13 weighted factors incl.
+                     a flat curated-recipe bonus (M2.4, tuned via scripts/checkCuratedWeighting.ts) ·
                      WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker with shuffle
                      tie-breaking) · shoppingList.ts · cost.ts (rough heuristic, scoring-only) ·
                      learning.ts (pure fold, RatingEvents -> PreferenceProfile) ·
@@ -337,8 +338,13 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 - **Milestone 2 — Finish what's started (in progress, see `MILESTONE-2.md`):**
   rate-as-you-go (M2.1, done — see §5.4) · mid-week re-roll from pantry +
   this week's shopping list (M2.2, done — see §5.6) · "same as last week" fast
-  intake (M2.3, done — see §5.1) · curated-first scoring weight (M2.4) ·
-  engine test suite (M2.5) · wire learned dials into scoring (M2.6).
+  intake (M2.3, done — see §5.1) · recipe content quality pass to
+  cookbook-detail on all 230 curated recipes (M2.2b, done — see
+  `RECIPE-CONTENT.md`) · curated-first scoring weight (M2.4, done — a flat
+  `WEIGHTS.curated = 0.1` bonus in `scoring.ts` for non-`mealdb-` recipes,
+  tuned via `scripts/checkCuratedWeighting.ts` so curated recipes are a clear
+  majority of picks without fully burying imported ones) · engine test suite
+  (M2.5) · wire learned dials into scoring (M2.6).
 - Later: day-aware planning/reorder · recipe browser + manual picks ·
   leftovers-aware planning (new design — the original `desiredLeftovers`/
   `specialOccasions` fields this was scoped around were removed in M1.8) ·

@@ -42,5 +42,10 @@ export const WEIGHTS = {
   healthyComfort: 1.1,
   adventurous: 0.8,
   season: 0.4,
+  // M2.4: hand-curated recipes (cookbook-quality steps/ingredients, verified
+  // allergen data) get a modest flat bonus over the 311 imported ones, whose
+  // content quality is estimated. Enough to win ties/near-ties, not enough to
+  // bury a clearly better imported match on the other factors.
+  curated: 0.1,
   ratingsPenalty: 2.0,
 } as const;
