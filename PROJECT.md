@@ -60,7 +60,9 @@ Rules that must hold:
 
 ```
 app/(tabs)/          index (This Week) · schedule · shopping · profile  + custom tab bar
-app/plan/            14-step Sunday intake wizard → review.tsx (lock/swap/regenerate/approve)
+app/plan/            12-step Sunday intake wizard (M2.3: skipped by a 2-button
+                     choice screen + 3-step fast path when a previous week's
+                     intake exists) → review.tsx (lock/swap/regenerate/approve)
 app/review/          Optional catch-up wizard for unrated meals (M2.1) — see §5.4
 app/reroll/[dayIndex].tsx  Mid-week re-roll modal (M2.2) — see §5.6
 app/meal/[id].tsx    Recipe detail · app/household.tsx sync setup · app/settings.tsx theme
@@ -88,9 +90,24 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 
 ## 5. Key data flow (the weekly loop)
 
-1. **Sunday intake** (`plan/index`): 14-step wizard pre-filled from Profile →
+1. **Sunday intake** (`plan/index`): 12-step wizard pre-filled from Profile
+   (or, once a previous week exists, from that week's actual answers) →
    `setIntake()` → `generate()` → draft `WeeklyPlan` persisted. ⚠️ `generate()`
    currently **replaces the live approved plan immediately** (see bug P0-3).
+   **M2.3 fast intake:** if `plan.intake` from a previously-approved week
+   exists, the screen opens with a recap card ("Last week: 5 dinners for 4,
+   ~$150, 15+30 min prep+cook.") and two buttons — "Same as last week" runs
+   only 3 of the 12 steps (dinners, proteins, ingredients-on-hand, reusing
+   the exact same step definitions as the full wizard) then generates
+   immediately (4 taps total, open to draft); "Adjust everything" runs the
+   full 12-step wizard pre-filled with last week's real answers rather than
+   Profile defaults. First-ever run (no previous plan) skips the choice
+   screen and opens straight into the full wizard. Picking which mode/prefill
+   to start with can't happen in a `useState` initializer — that runs before
+   `planStore` finishes hydrating from storage and would randomly lock onto
+   "no previous intake" depending on load timing — so it's decided once in a
+   `hydrated`-gated effect, same pattern as the loading gates already used on
+   This Week/Schedule.
 2. **Review** (`plan/review`): lock/swap/regenerate → `approve()` → status
    `approved`, shopping list built (scaled by servings, deduped by
    `lowercase(name)|unit`, pantry-staples + on-hand pantry excluded, priced) and persisted.
@@ -292,8 +309,8 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 - **Milestone 2 — Finish what's started (in progress, see `MILESTONE-2.md`):**
   rate-as-you-go (M2.1, done — see §5.4) · mid-week re-roll from pantry +
   this week's shopping list (M2.2, done — see §5.6) · "same as last week" fast
-  intake (M2.3) · curated-first scoring weight (M2.4) · engine test suite
-  (M2.5) · wire learned dials into scoring (M2.6).
+  intake (M2.3, done — see §5.1) · curated-first scoring weight (M2.4) ·
+  engine test suite (M2.5) · wire learned dials into scoring (M2.6).
 - Later: day-aware planning/reorder · recipe browser + manual picks ·
   leftovers-aware planning (new design — the original `desiredLeftovers`/
   `specialOccasions` fields this was scoped around were removed in M1.8) ·

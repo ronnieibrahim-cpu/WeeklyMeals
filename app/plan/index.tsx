@@ -1,6 +1,8 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { ReactNode, useState } from 'react';
-import { View } from 'react-native';
+import { ReactNode, useEffect, useState } from 'react';
+import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
 import {
@@ -21,14 +23,22 @@ import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
 import {
   AutocompleteTagInput,
+  Card,
   ChipMultiSelect,
   ChipOption,
   ChipSingleSelect,
+  PrimaryButton,
   QuestionScaffold,
+  SecondaryButton,
   Stepper,
   Text,
 } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
+
+/** One-line recap shown on the fast-intake choice screen (M2.3). */
+function lastWeekSummary(intake: IntakeAnswers): string {
+  return `Last week: ${intake.dinners} dinner${intake.dinners === 1 ? '' : 's'} for ${intake.people}, ~$${intake.budget}, ${intake.maxPrepMinutes}+${intake.maxCookMinutes} min prep+cook.`;
+}
 
 function toggle<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((x) => x !== value) : [...arr, value];
@@ -52,11 +62,29 @@ export default function PlanIntakeScreen() {
   const pantryItems = usePantryStore((s) => s.items);
   const addPantry = usePantryStore((s) => s.add);
   const removePantry = usePantryStore((s) => s.remove);
+  const planHydrated = usePlanStore((s) => s.hydrated);
+  const previousIntake = usePlanStore((s) => s.plan)?.intake ?? null;
 
+  // M2.3: whether a previous week's intake exists isn't known until
+  // planStore finishes hydrating from storage, so picking the starting
+  // mode/answers can't happen in a useState initializer (that runs before
+  // hydration and would race it, locking onto "no previous intake"
+  // whenever this screen is the first thing mounted — e.g. a cold app
+  // launch straight into /plan). `initialized` flips once, right after
+  // hydration, to make that pick exactly once.
+  const [initialized, setInitialized] = useState(false);
+  const [mode, setMode] = useState<'choice' | 'fast' | 'full'>('full');
   const [answers, setAnswers] = useState<IntakeAnswers>(() =>
     createIntakeFromProfile(profile ?? createDefaultProfile()),
   );
   const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!planHydrated || initialized) return;
+    setMode(previousIntake ? 'choice' : 'full');
+    if (previousIntake) setAnswers(previousIntake);
+    setInitialized(true);
+  }, [planHydrated, initialized, previousIntake]);
 
   const patch = (p: Partial<IntakeAnswers>) => setAnswers((a) => ({ ...a, ...p }));
 
@@ -196,8 +224,9 @@ export default function PlanIntakeScreen() {
     },
   ];
 
-  const current = steps[index];
-  const isLast = index === steps.length - 1;
+  // M2.3 fast path: dinners, proteins, ingredients-on-hand only — everything
+  // else carries over from last week's answers untouched.
+  const fastSteps = [steps[0], steps[5], steps[10]];
 
   const finish = () => {
     const pantry = usePantryStore.getState().items;
@@ -206,16 +235,68 @@ export default function PlanIntakeScreen() {
     router.replace('/plan/review');
   };
 
+  if (!initialized) {
+    return (
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: theme.colors.background, alignItems: 'center', justifyContent: 'center' }}
+      >
+        <ActivityIndicator color={theme.colors.accent} />
+      </SafeAreaView>
+    );
+  }
+
+  if (mode === 'choice' && previousIntake) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['top', 'left', 'right']}>
+        <View style={{ flexDirection: 'row', paddingHorizontal: theme.spacing.xl, paddingTop: theme.spacing.sm }}>
+          <Pressable accessibilityLabel="Close" accessibilityRole="button" hitSlop={8} onPress={() => router.back()}>
+            <Ionicons name="close" size={26} color={theme.colors.text} />
+          </Pressable>
+        </View>
+        <ScrollView contentContainerStyle={{ padding: theme.spacing.xl, paddingTop: theme.spacing.md }}>
+          <Text variant="largeTitle" style={{ marginBottom: theme.spacing.lg }}>
+            Plan this week
+          </Text>
+          <Card style={{ marginBottom: theme.spacing.xl }}>
+            <Text variant="body" color="secondary">
+              {lastWeekSummary(previousIntake)}
+            </Text>
+          </Card>
+          <PrimaryButton
+            title="Same as last week — just update proteins & fridge"
+            onPress={() => {
+              setMode('fast');
+              setIndex(0);
+            }}
+          />
+          <SecondaryButton
+            title="Adjust everything"
+            onPress={() => {
+              setMode('full');
+              setIndex(0);
+            }}
+            style={{ marginTop: theme.spacing.md }}
+          />
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
+  const activeSteps = mode === 'fast' ? fastSteps : steps;
+  const current = activeSteps[index];
+  const isLast = index === activeSteps.length - 1;
+  const canReturnToChoice = !!previousIntake;
+
   return (
     <QuestionScaffold
       step={index + 1}
-      total={steps.length}
+      total={activeSteps.length}
       title={current.title}
       subtitle={current.subtitle}
-      continueLabel={current.continueLabel ?? 'Continue'}
+      continueLabel={isLast ? 'Build my week 🍳' : current.continueLabel ?? 'Continue'}
       onContinue={() => (isLast ? finish() : setIndex(index + 1))}
       onClose={() => router.back()}
-      onBack={index > 0 ? () => setIndex(index - 1) : undefined}
+      onBack={index > 0 ? () => setIndex(index - 1) : canReturnToChoice ? () => setMode('choice') : undefined}
       onSkip={current.canSkip && !isLast ? () => setIndex(index + 1) : undefined}
     >
       {current.control}

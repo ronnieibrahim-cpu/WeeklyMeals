@@ -91,15 +91,7 @@ meals coverable by pantry + this week's list; the shopping list is byte-for-byte
 unchanged after any re-roll; cooked/past days offer no re-roll; empty case
 shows the near-miss fallback with missing items labeled.
 
-## [ ] M2.3 — "Same as last week" fast intake
-**User problem:** 14 steps every Sunday when most answers never change.
-**Behavior:** If a previous intake exists, the wizard opens with a summary card
-("Last week: 5 dinners, ~$150, 45 min max…") and two buttons:
-**"Same as last week — just update proteins & fridge"** (jumps through only:
-number of dinners, proteins/moods if applicable, ingredients on hand → generate)
-and **"Adjust everything"** (full wizard, pre-filled as today).
-**Accept when:** the fast path is ≤4 interactions from open to generated draft;
-full path unchanged; first-ever run (no prior intake) shows the full wizard.
+## [x] M2.3 — "Same as last week" fast intake — done: `app/plan/index.tsx` now shows a choice screen (recap card + two buttons) whenever a previous approved plan's intake exists; "Same as last week" jumps through exactly 3 steps (dinners, proteins, ingredients-on-hand — reusing the same step definitions as the full wizard, no duplicated UI) then generates immediately; "Adjust everything" runs the unchanged 12-step wizard, pre-filled from last week's actual answers rather than profile defaults. First-ever run (no previous plan) skips straight to the full wizard, no choice screen. Read: "proteins/moods if applicable" in the spec as one step (proteins), sized so the fast path totals exactly 4 interactions per the accept criterion — flagging this reading here since it was the one real ambiguity in an otherwise-DECIDED task. Caught and fixed a real hydration race during testing: reading `previousIntake` in a `useState` initializer captured a stale pre-hydration `null` and permanently locked the screen into the full-wizard path; fixed with a one-time post-hydration effect (same `hydrated`-gated pattern already used on This Week/Schedule). Manually verified in the web preview: first run shows the full wizard directly; a second week shows the recap + choice; the fast path lands on `/plan/review` in exactly 4 taps; "Adjust everything" starts pre-filled with last week's real values (not profile defaults).
 
 ## [ ] M2.4 — Curated-first recommendation weighting
 **Problem:** 311 imported recipes (estimated quality) outnumber 230 curated
