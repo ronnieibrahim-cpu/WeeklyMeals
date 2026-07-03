@@ -69,9 +69,11 @@ app/reroll/[dayIndex].tsx  Mid-week re-roll modal (M2.2) — see §5.6
 app/meal/[id].tsx    Recipe detail · app/household.tsx sync setup · app/settings.tsx theme
 src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
                      RatingEvent, PreferenceProfile) + constants (12 cuisines, H-E-B dept order, chips)
-src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 13 weighted factors incl.
-                     a flat curated-recipe bonus (M2.4, tuned via scripts/checkCuratedWeighting.ts) ·
-                     WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker with shuffle
+src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 14 weighted factors incl.
+                     a flat curated-recipe bonus (M2.4, tuned via scripts/checkCuratedWeighting.ts)
+                     and learnedDialsFit (M2.6: spice/complexity/budget/leftover/vegetableAffinity
+                     dials from ratings, small capped weight so they nudge but never override the
+                     explicit profile) · WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker with shuffle
                      tie-breaking) · shoppingList.ts · cost.ts (rough heuristic, scoring-only) ·
                      learning.ts (pure fold, RatingEvents -> PreferenceProfile) ·
                      rating.ts (isMealRated/unratedMeals/allMealsRated, M2.1) ·
@@ -276,10 +278,12 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
    their `IntakeAnswers` fields, and the `SPECIAL_OCCASIONS` constant are
    gone. Real leftovers-aware planning (if wanted) is a Milestone 2+ feature
    design, not a revival of these fields.
-8. **Half-connected learning** — `spiceTolerance`, `complexityPreference`,
+8. ~~**Half-connected learning** — `spiceTolerance`, `complexityPreference`,
    `budgetSensitivity`, `leftoverTolerance`, `vegetableAffinity` are learned
-   but never used in scoring (wiring these into scoring is M2.6); profile
-   `spiceLevel`/`equipment`/`cookingSkill` also unused. ~~Weekly review can be
+   but never used in scoring.~~ **Fixed (M2.6):** all five wired into scoring
+   via `learnedDialsFit()` in `scoring.ts` (`WEIGHTS.learnedDials = 0.8`,
+   below `preference`/`affinity` so it nudges, never overrides). Profile
+   `spiceLevel`/`equipment`/`cookingSkill` still unused. ~~Weekly review can be
    submitted repeatedly for the same plan (double-counts).~~ **Fixed (M1.3)**
    via a `plan.reviewedAtISO` guard, **superseded (M2.1)**: ratings are now
    set per-meal at any time and the whole `PreferenceProfile` is recomputed
@@ -294,11 +298,13 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
     `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
     `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
-11. ~~Zero tests~~ — **fixed (M2.5):** `jest-expo` installed as the sanctioned
-    dev dependency; `npm test` runs the engine test suite (`src/engine/**/*.test.ts`,
-    ~80 assertions covering hard filters incl. the imported-allergy guard,
-    recommendation-engine invariants, shopping-list consolidation, sync
-    merge, learning math, and the M2.2 reroll candidate function). Screens
+11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6):** `jest-expo` installed
+    as the sanctioned dev dependency; `npm test` runs the engine test suite
+    (`src/engine/**/*.test.ts`, 93 assertions covering hard filters incl. the
+    imported-allergy guard, recommendation-engine invariants (incl. M2.6's
+    learned-dials scoring and hard-filters-always-win case), shopping-list
+    consolidation, sync merge, learning math, and the M2.2 reroll candidate
+    function). Screens
     still have zero coverage — out of scope per the milestone (`docs/ARCHITECTURE.md`'s
     references to `__tests__/`, `units.ts`, `reviewStore`, `RatingRepository`
     remain aspirational/stale).
@@ -352,8 +358,10 @@ src/data/images.ts / recipeImages.ts   curated photo URLs with per-cuisine emoji
   `WEIGHTS.curated = 0.1` bonus in `scoring.ts` for non-`mealdb-` recipes,
   tuned via `scripts/checkCuratedWeighting.ts` so curated recipes are a clear
   majority of picks without fully burying imported ones) · engine test suite
-  (M2.5, done — `npm test`, 86 assertions over `src/engine/`, see §9) · wire
-  learned dials into scoring (M2.6).
+  (M2.5, done — `npm test`, 93 assertions over `src/engine/`, see §9) · wire
+  learned dials into scoring (M2.6, done — spice/complexity/budget/leftover/
+  vegetableAffinity nudge picks via `learnedDialsFit()`, capped below the
+  explicit profile factors; see §4 and §7 #8).
 - Later: day-aware planning/reorder · recipe browser + manual picks ·
   leftovers-aware planning (new design — the original `desiredLeftovers`/
   `specialOccasions` fields this was scoped around were removed in M1.8) ·

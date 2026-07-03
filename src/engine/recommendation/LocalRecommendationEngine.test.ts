@@ -1,7 +1,7 @@
 import { GenerateContext } from './types';
 import { LocalRecommendationEngine, selectReplacement } from './LocalRecommendationEngine';
 import { scoreRecipe } from './scoring';
-import { makeIntake, makeProfile, makeRecipe } from '../testFixtures';
+import { makeIntake, makePreferences, makeProfile, makeRecipe } from '../testFixtures';
 
 function ctxFor(overrides: Partial<GenerateContext> = {}): GenerateContext {
   const profile = makeProfile();
@@ -90,6 +90,82 @@ describe('scoreRecipe curated bonus (M2.4)', () => {
     const importedScore = scoreRecipe(imported, ctx, []);
 
     expect(curatedScore).toBeGreaterThan(importedScore);
+  });
+});
+
+describe('scoreRecipe learned dials (M2.6)', () => {
+  it('scores a mild recipe higher once the learner has picked up spice aversion', () => {
+    const ctx = ctxFor({ preferences: makePreferences({ spiceTolerance: -1 }) });
+    const mild = makeRecipe({ id: 'mild', spiceLevel: 'None' });
+    const hot = makeRecipe({ id: 'hot', spiceLevel: 'Hot' });
+
+    expect(scoreRecipe(mild, ctx, [])).toBeGreaterThan(scoreRecipe(hot, ctx, []));
+  });
+
+  it('scores a spicy recipe higher once the learner has picked up a taste for heat', () => {
+    const ctx = ctxFor({ preferences: makePreferences({ spiceTolerance: 1 }) });
+    const mild = makeRecipe({ id: 'mild', spiceLevel: 'None' });
+    const hot = makeRecipe({ id: 'hot', spiceLevel: 'Hot' });
+
+    expect(scoreRecipe(hot, ctx, [])).toBeGreaterThan(scoreRecipe(mild, ctx, []));
+  });
+
+  it('favors easier recipes once the learner has picked up a preference for less effort', () => {
+    const ctx = ctxFor({ preferences: makePreferences({ complexityPreference: -1 }) });
+    const easy = makeRecipe({ id: 'easy', difficulty: 'Easy' });
+    const hard = makeRecipe({ id: 'hard', difficulty: 'Hard' });
+
+    expect(scoreRecipe(easy, ctx, [])).toBeGreaterThan(scoreRecipe(hard, ctx, []));
+  });
+
+  it('favors cheaper recipes once the learner has picked up budget sensitivity', () => {
+    // Neither protein is in the default profile's preferredProteins (Chicken, Beef),
+    // so the only thing distinguishing these two is cost.
+    const ctx = ctxFor({ preferences: makePreferences({ budgetSensitivity: 1 }) });
+    const cheap = makeRecipe({ id: 'cheap', primaryProtein: 'Lentils', ingredients: [] });
+    const pricey = makeRecipe({ id: 'pricey', primaryProtein: 'Lamb', ingredients: [] });
+
+    expect(scoreRecipe(cheap, ctx, [])).toBeGreaterThan(scoreRecipe(pricey, ctx, []));
+  });
+
+  it('favors recipes that make leftovers once the learner has picked up leftover tolerance', () => {
+    const ctx = ctxFor({ preferences: makePreferences({ leftoverTolerance: 1 }) });
+    const withLeftovers = makeRecipe({ id: 'has-leftovers', makesLeftovers: true });
+    const without = makeRecipe({ id: 'no-leftovers', makesLeftovers: false });
+
+    expect(scoreRecipe(withLeftovers, ctx, [])).toBeGreaterThan(scoreRecipe(without, ctx, []));
+  });
+
+  it('favors recipes with a liked vegetable once the learner has picked up vegetableAffinity', () => {
+    const ctx = ctxFor({ preferences: makePreferences({ vegetableAffinity: { broccoli: 1, kale: -1 } }) });
+    const liked = makeRecipe({ id: 'liked-veg', vegetables: ['broccoli'] });
+    const disliked = makeRecipe({ id: 'disliked-veg', vegetables: ['kale'] });
+
+    expect(scoreRecipe(liked, ctx, [])).toBeGreaterThan(scoreRecipe(disliked, ctx, []));
+  });
+
+  it('never lets learned dials override a profile hard filter (allergy)', () => {
+    const engine = new LocalRecommendationEngine();
+    // The learner loves everything about this recipe, but the profile has a peanut allergy.
+    const unsafe = makeRecipe({
+      id: 'unsafe-but-loved',
+      allergens: ['Peanuts'],
+      spiceLevel: 'Hot',
+      makesLeftovers: true,
+      vegetables: ['broccoli'],
+    });
+    const safe = Array.from({ length: 6 }, (_, i) => makeRecipe({ id: `safe-${i}` }));
+    const profile = makeProfile({ allergies: ['Peanuts'] });
+    const preferences = makePreferences({
+      spiceTolerance: 1,
+      leftoverTolerance: 1,
+      vegetableAffinity: { broccoli: 1 },
+    });
+    const ctx = ctxFor({ profile, intake: makeIntake(profile, { dinners: 5 }), preferences });
+
+    const meals = engine.generate(ctx, [unsafe, ...safe]);
+
+    expect(meals.some((m) => m.recipeId === 'unsafe-but-loved')).toBe(false);
   });
 });
 

@@ -145,7 +145,24 @@ screens are not the goal.
 **Accept when:** `npm test` runs green and is documented in CLAUDE.md as a
 required pre-commit check alongside typecheck.
 
-## [ ] M2.6 — Finish the learning loop
+## [x] M2.6 — Finish the learning loop — done: added `learnedDialsFit()` in
+`scoring.ts`, averaging five signed -1…1 nudges — spice vs `spiceTolerance`,
+difficulty vs `complexityPreference`, cost-vs-budget vs `budgetSensitivity`,
+`makesLeftovers` vs `leftoverTolerance`, and `vegetableAffinity` over the
+recipe's vegetable list — each 0 when that dial hasn't drifted from neutral.
+Wired in via one new `WEIGHTS.learnedDials = 0.8`, kept below `preference`
+(1.5) and `affinity` (1.4) so learning nudges picks but never overrides an
+explicit profile/questionnaire answer. (`cuisineAffinity`/`proteinAffinity`/
+`techniqueAffinity` were already wired pre-M2.6 via `affinityBonus`/
+`ratingsPenalty`; this closes the remaining five dials named in the milestone.)
+Hard filters (`passesHardFilters`) run before scoring ever sees a candidate,
+so this can't touch allergy/profile exclusions regardless of weight — added a
+test proving a recipe the learner "loves" on every dial is still excluded by
+an allergy. Added 7 new tests to
+`src/engine/recommendation/LocalRecommendationEngine.test.ts` (one per dial
+plus the hard-filter-always-wins case; 93/93 total green), typecheck green,
+and re-ran `scripts/checkCuratedWeighting.ts` to confirm M2.4's curated/
+imported balance (92.9%/7.1%) is unaffected by the new weight.
 **Problem:** Learned dials (spice, complexity, budget sensitivity, leftover
 tolerance) and `vegetableAffinity` are computed from ratings but never used.
 **Approach:** Wire each into scoring with small, capped weights (learning nudges

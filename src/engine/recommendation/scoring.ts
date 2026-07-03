@@ -115,6 +115,53 @@ function curatedBonus(recipe: Recipe): number {
   return recipe.id.startsWith('mealdb-') ? 0 : 1;
 }
 
+const clampSigned = (n: number) => Math.max(-1, Math.min(1, n));
+
+const SPICE_NUMERIC: Record<Recipe['spiceLevel'], number> = {
+  None: -1,
+  Mild: -0.33,
+  Medium: 0.33,
+  Hot: 1,
+};
+
+const DIFFICULTY_NUMERIC: Record<Recipe['difficulty'], number> = {
+  Easy: -1,
+  Medium: 0,
+  Hard: 1,
+};
+
+/**
+ * M2.6: learned spice/complexity/budget/leftover/vegetable dials from ratings.
+ * Each part is a signed -1…1 nudge (0 for a dial that hasn't drifted from
+ * neutral); averaged together so no single learned dial can dominate the
+ * explicit profile/questionnaire factors above. Hard filters run before
+ * scoring ever sees a recipe, so this never overrides an allergy or other
+ * profile hard-filter — it only reorders what's already allowed.
+ */
+function learnedDialsFit(recipe: Recipe, ctx: GenerateContext): number {
+  const prefs = ctx.preferences;
+  if (!prefs) return 0;
+
+  const parts: number[] = [];
+  parts.push(prefs.spiceTolerance * SPICE_NUMERIC[recipe.spiceLevel]);
+  parts.push(prefs.complexityPreference * DIFFICULTY_NUMERIC[recipe.difficulty]);
+
+  const perMealBudget = ctx.intake.budget / Math.max(1, ctx.intake.dinners) / Math.max(1, ctx.intake.people);
+  if (perMealBudget > 0) {
+    const cheapness = clampSigned((perMealBudget - roughCostPerServing(recipe)) / perMealBudget);
+    parts.push(prefs.budgetSensitivity * cheapness);
+  }
+
+  parts.push(prefs.leftoverTolerance * (recipe.makesLeftovers ? 1 : -1));
+
+  if (recipe.vegetables.length > 0) {
+    const vegScores = recipe.vegetables.map((v) => prefs.vegetableAffinity[v] ?? 0);
+    parts.push(vegScores.reduce((a, b) => a + b, 0) / vegScores.length);
+  }
+
+  return clampSigned(parts.reduce((a, b) => a + b, 0) / parts.length);
+}
+
 function ratingsPenalty(recipe: Recipe, ctx: GenerateContext): number {
   const prefs = ctx.preferences;
   if (!prefs) return 0;
@@ -134,6 +181,7 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
     WEIGHTS.affinity * affinityBonus(recipe, ctx) +
     WEIGHTS.favorite * favoriteBonus(recipe, ctx) +
     WEIGHTS.curated * curatedBonus(recipe) +
+    WEIGHTS.learnedDials * learnedDialsFit(recipe, ctx) +
     WEIGHTS.variety * varietyBonus(recipe, selected) +
     WEIGHTS.budget * budgetFit(recipe, ctx) +
     WEIGHTS.time * timeFit(recipe, ctx) +

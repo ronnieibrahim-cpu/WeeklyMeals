@@ -47,5 +47,10 @@ export const WEIGHTS = {
   // content quality is estimated. Enough to win ties/near-ties, not enough to
   // bury a clearly better imported match on the other factors.
   curated: 0.1,
+  // M2.6: learned spice/complexity/budget/leftover/vegetable dials, averaged
+  // into one -1…1 nudge in scoring.ts. Kept well below preference (1.5) and
+  // affinity (1.4) so learning-from-ratings can shift picks but never
+  // override the profile/questionnaire the user explicitly set.
+  learnedDials: 0.8,
   ratingsPenalty: 2.0,
 } as const;

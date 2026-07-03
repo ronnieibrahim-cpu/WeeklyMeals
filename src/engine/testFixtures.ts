@@ -1,5 +1,7 @@
 import { createDefaultProfile, createIntakeFromProfile } from '@/domain/defaults';
-import { IntakeAnswers, PlannedMeal, Profile, Recipe, WeeklyPlan } from '@/domain/models';
+import { IntakeAnswers, PlannedMeal, PreferenceProfile, Profile, Recipe, WeeklyPlan } from '@/domain/models';
+
+import { createDefaultPreferences } from './learning';
 
 /** Not a *.test.ts file, so jest's testMatch (src/engine/**\/*.test.ts) skips it. */
 
@@ -45,6 +47,10 @@ export function makeProfile(overrides: Partial<Profile> = {}): Profile {
 
 export function makeIntake(profile: Profile, overrides: Partial<IntakeAnswers> = {}): IntakeAnswers {
   return { ...createIntakeFromProfile(profile), ...overrides };
+}
+
+export function makePreferences(overrides: Partial<PreferenceProfile> = {}): PreferenceProfile {
+  return { ...createDefaultPreferences(), ...overrides };
 }
 
 export function makeMeal(overrides: Partial<PlannedMeal> & Pick<PlannedMeal, 'recipeId' | 'dayIndex'>): PlannedMeal {
