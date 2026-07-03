@@ -78,24 +78,24 @@ on the full curated library with zero exceptions.
 - [x] bq-baby-back-ribs
 
 ## Batch 4 — recipeBatch3.ts part A (18)
-- [ ] it-spaghetti-bolognese
-- [ ] it-eggplant-parmesan
-- [ ] it-shrimp-scampi
-- [ ] mx-carne-asada
-- [ ] mx-tortilla-soup
-- [ ] mx-huevos-rancheros
-- [ ] gr-chicken-gyros
-- [ ] gr-branzino
-- [ ] gr-gigantes
-- [ ] in-butter-chicken
-- [ ] in-aloo-gobi
-- [ ] in-lamb-curry
-- [ ] th-tom-kha-gai
-- [ ] th-drunken-noodles
-- [ ] th-peanut-tofu-bowls
-- [ ] jp-gyudon
-- [ ] jp-tofu-stirfry
-- [ ] jp-shrimp-udon
+- [x] it-spaghetti-bolognese
+- [x] it-eggplant-parmesan
+- [x] it-shrimp-scampi
+- [x] mx-carne-asada
+- [x] mx-tortilla-soup
+- [x] mx-huevos-rancheros
+- [x] gr-chicken-gyros
+- [x] gr-branzino
+- [x] gr-gigantes
+- [x] in-butter-chicken
+- [x] in-aloo-gobi
+- [x] in-lamb-curry
+- [x] th-tom-kha-gai
+- [x] th-drunken-noodles
+- [x] th-peanut-tofu-bowls
+- [x] jp-gyudon
+- [x] jp-tofu-stirfry
+- [x] jp-shrimp-udon
 
 ## Batch 5 — recipeBatch3.ts part B (18)
 - [ ] cn-sweet-sour-pork
