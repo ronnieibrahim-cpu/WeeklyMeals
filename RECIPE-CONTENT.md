@@ -38,24 +38,24 @@ on the full curated library with zero exceptions.
 - [x] bq-grilled-chicken
 
 ## Batch 2 — recipeBatch2.ts part A (18)
-- [ ] it-sausage-peppers
-- [ ] it-minestrone
-- [ ] it-margherita-flatbread
-- [ ] mx-shrimp-fajitas
-- [ ] mx-veggie-enchiladas
-- [ ] mx-pork-carnitas
-- [ ] gr-pork-souvlaki
-- [ ] gr-lemon-chicken-soup
-- [ ] gr-stuffed-peppers
-- [ ] in-saag-paneer
-- [ ] in-tandoori-chicken
-- [ ] in-dal-tadka
-- [ ] th-pad-thai-shrimp
-- [ ] th-green-curry-chicken
-- [ ] th-larb-chicken
-- [ ] jp-chicken-yakitori
-- [ ] jp-miso-salmon
-- [ ] jp-veg-ramen
+- [x] it-sausage-peppers
+- [x] it-minestrone
+- [x] it-margherita-flatbread
+- [x] mx-shrimp-fajitas
+- [x] mx-veggie-enchiladas
+- [x] mx-pork-carnitas
+- [x] gr-pork-souvlaki
+- [x] gr-lemon-chicken-soup
+- [x] gr-stuffed-peppers
+- [x] in-saag-paneer
+- [x] in-tandoori-chicken
+- [x] in-dal-tadka
+- [x] th-pad-thai-shrimp
+- [x] th-green-curry-chicken
+- [x] th-larb-chicken
+- [x] jp-chicken-yakitori
+- [x] jp-miso-salmon
+- [x] jp-veg-ramen
 
 ## Batch 3 — recipeBatch2.ts part B (18)
 - [ ] cn-chicken-fried-rice
