@@ -93,11 +93,36 @@ cabbage?", "that shakshuka from last month") and ACT on it.
   (mealdb-) recipes are excluded from pinning with a brief explanation, per
   M1.5. They may still appear in browse results with their "allergen info
   estimated" note.
+
+**Addition 1 — Favorites as a first-class surface:**
+- The Recipes tab opens with a **Favorites** section at the top (before/
+  alongside search), so family standbys are one tap away without typing
+  anything. The same search + autocomplete applies within it (i.e. Favorites
+  is a starting view, not a separate mode you have to leave to search).
+- New entry point on the plan review (draft) screen: **"Swap in a favorite"**
+  opens the Recipes browser pre-filtered to Favorites, feeding the same
+  pin/replace flow described above.
+
+**Addition 2 — Synced family favorites:**
+- Favorites become household-synced instead of per-device. Add a `favorites`
+  map to the household sync payload, keyed by `recipeId` with a
+  `toggledAtISO` timestamp per entry, merged with the same deterministic
+  newer-timestamp-wins pattern as `kidApproved` (M3.2) — extend
+  `src/engine/syncMerge.test.ts` accordingly: two devices favoriting
+  different recipes converge to the union; an unfavorite with a newer
+  timestamp beats an older favorite.
+- **Migration:** a device's existing per-device favorites (`learningStore`'s
+  plain `string[]`) seed the synced map the first time that device syncs,
+  rather than being discarded.
+
 **Accept when:** typing "shak" surfaces Shakshuka in <2 keystrokes of feeling
 instant; ingredient search "cabbage" returns every recipe using it; pinning
 replaces the chosen day, propagates across two devices via existing merge
 rules, and provably never mutates the shopping list without the explicit add
-button; typecheck + merge script green.
+button; favorites are visible as the top section of the Recipes tab;
+favoriting a recipe on one device appears on the other within a poll cycle;
+a favorite can go from search result → pinned into the week in ≤3 taps;
+typecheck + merge script green.
 
 ## [ ] M3.2 — Kids-approved flag
 **✅ DECIDED:** one family rating (existing stars) PLUS a per-recipe
