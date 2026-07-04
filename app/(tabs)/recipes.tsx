@@ -21,7 +21,6 @@ export default function RecipesScreen() {
   const pinTarget = params.pinTarget === 'draft' ? 'draft' : 'plan';
 
   const [query, setQuery] = useState('');
-  const [focused, setFocused] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<RecipeFilters>({ favoritesOnly: params.favoritesOnly === '1' });
 
@@ -62,7 +61,6 @@ export default function RecipesScreen() {
     const exact = findByExactName(filtered, s);
     if (exact.length === 1) {
       setQuery('');
-      setFocused(false);
       openDetail(exact[0].id);
       return;
     }
@@ -117,8 +115,6 @@ export default function RecipesScreen() {
         <TextInput
           value={query}
           onChangeText={setQuery}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
           placeholder="Search by name, cuisine, or ingredient…"
           placeholderTextColor={theme.colors.textTertiary}
           autoCapitalize="none"
@@ -139,7 +135,13 @@ export default function RecipesScreen() {
         ) : null}
       </View>
 
-      {focused && suggestions.length > 0 ? (
+      {/* Gated on the query, NOT on input focus. The dropdown used to
+          unmount on blur — but tapping a suggestion blurs the input first,
+          so the row disappeared mid-tap and the press never landed
+          (verified in a real browser: pointerdown reached the row, the
+          click event never fired at all). Keeping it mounted while a query
+          exists makes taps reliable; it clears when the query does. */}
+      {query.trim().length > 0 && suggestions.length > 0 ? (
         <View
           style={{
             marginTop: theme.spacing.sm,
