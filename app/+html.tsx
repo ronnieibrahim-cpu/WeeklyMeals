@@ -23,6 +23,27 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="apple-mobile-web-app-title" content="Weekly Meals" />
         <meta name="theme-color" content="#FFFFFF" />
         <ScrollViewStyleReset />
+        {/*
+          iOS "Add to Home Screen" apps report the wrong window.innerHeight at
+          launch (a known WebKit bug in standalone display mode), so the
+          `height: 100%` chain from ScrollViewStyleReset renders with blank
+          margins top/bottom until something forces a relayout (e.g. focusing
+          a text input pops the keyboard, which happens to trigger it). This
+          measures the real viewport with visualViewport and feeds it back in
+          as a CSS var so every tab is sized correctly from the first paint.
+        */}
+        <style
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `html,body,#root{height:100%;height:var(--app-height,100%)}`,
+          }}
+        />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `(function(){function setAppHeight(){var h=(window.visualViewport&&window.visualViewport.height)||window.innerHeight;document.documentElement.style.setProperty('--app-height',h+'px');}setAppHeight();window.addEventListener('resize',setAppHeight);window.addEventListener('orientationchange',setAppHeight);if(window.visualViewport){window.visualViewport.addEventListener('resize',setAppHeight);}})();`,
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>

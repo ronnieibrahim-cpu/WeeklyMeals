@@ -95,8 +95,13 @@ export default function RecipesScreen() {
   // filters are on), then everything else. Typing collapses this into one
   // ranked list — Favorites is a starting view, not a separate mode.
   const showingFavoritesSection = !deferredQuery.trim();
-  const favoritesInView = showingFavoritesSection ? filtered.filter((r) => favoriteIds.has(r.id)) : [];
-  const restInView = showingFavoritesSection ? filtered.filter((r) => !favoriteIds.has(r.id)) : results;
+  const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name);
+  const favoritesInView = showingFavoritesSection
+    ? filtered.filter((r) => favoriteIds.has(r.id)).sort(byName)
+    : [];
+  const restInView = showingFavoritesSection
+    ? filtered.filter((r) => !favoriteIds.has(r.id)).sort(byName)
+    : results;
 
   // Hard cap on how many result cards mount at once. Each card can load a
   // remote photo, and mobile Safari OOM-crashes ("a problem repeatedly
