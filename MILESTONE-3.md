@@ -179,21 +179,29 @@ from any entry point; a recipe already in this week's plan, an already-cooked
 day, or a past day cannot be picked as a pin target; typecheck + merge script
 + filter tests green.
 
-## [ ] M3.2 — Kids-approved flag
-**✅ DECIDED:** one family rating (existing stars) PLUS a per-recipe
-"Kids approved" badge. No per-person ratings.
-**Behavior:**
-- Toggleable badge on meal detail (and long-press or affordance on cards):
-  "Kids approved ✓". Stored per recipeId with a toggledAtISO timestamp.
-- SYNC: include a `kidApproved` map in the household sync payload, merged
-  per recipeId by newer timestamp (same deterministic pattern as M1.6;
-  extend the sync-merge tests in `src/engine/syncMerge.test.ts`, M2.5).
-- Recommendation: modest scoring bonus for kid-approved recipes — enough to
-  break ties, never enough to override profile settings or variety. Add to
-  the browser as a filter (M3.1).
-**Accept when:** badge toggles, persists, displays in browser + week cards,
-syncs between devices, and measurably nudges (not dominates) generation in a
-quick 10-week simulation.
+## [x] M3.2 — Kids-approved flag — done: one family rating (existing stars)
+PLUS a per-recipe "Kids approved 😊" toggle, single-tap (matching the
+favorite heart's gesture, per Ronnie), no per-person ratings. Reused M3.1's
+favorites machinery wholesale: `learningStore.kidApprovedMap` is the same
+household-synced `TimestampedFlagMap` shape as `favoritesMap`, merged by the
+same generic `mergeTimestampedFlagMap()` (extended `syncMerge.test.ts` with
+the union/newer-wins/idempotence cases, same as favorites). Toggleable from
+the meal detail screen (icon in the header + a "Kids approved" line under
+the title), This Week/Schedule/draft-review meal cards (icon next to the
+dish name), and the Recipes tab's result cards, which also gained a
+"Kid-approved" filter chip. New flat `WEIGHTS.kidApproved = 0.15` scoring
+bonus (`kidApprovedBonus()` in `scoring.ts`, same pattern/guarantee as the
+M2.4 curated bonus and M2.6/M3.0's learned dials — structurally capped below
+`preference`/`affinity`). Tuned via a new `scripts/checkKidApprovedWeighting.ts`
+(mirrors `checkCuratedWeighting.ts`): marking ~30 recipes kid-approved and
+generating 10 varied weeks shows a ~2.2x pick-rate lift over their base
+rate, with every week still including non-approved picks. `npm run
+typecheck`, `npx jest` (135/135), and `validateRecipes.ts` (230/230) all
+green; the full toggle→badge→persistence→filter flow was browser-verified
+end-to-end (Playwright + Chromium against the dev server, not just read
+over). Two-device sync convergence verified at the unit level only, same
+caveat as M3.1's favorites — no way to run two live clients against
+Supabase in this sandbox.
 
 ## [ ] M3.3 — Manual items: one true grocery list
 **User problem:** milk, bananas, and dish soap live on some other list. The

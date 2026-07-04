@@ -27,6 +27,9 @@ export default function RecipesScreen() {
   const favorites = useLearningStore((s) => s.favorites);
   const isFavorite = useLearningStore((s) => s.isFavorite);
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
+  const kidApprovedList = useLearningStore((s) => s.kidApproved);
+  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
@@ -37,7 +40,11 @@ export default function RecipesScreen() {
   const deferredQuery = useDeferredValue(query);
 
   const favoriteIds = useMemo(() => new Set(favorites), [favorites]);
-  const activeFilters = useMemo<RecipeFilters>(() => ({ ...filters, favoriteIds }), [filters, favoriteIds]);
+  const kidApprovedIds = useMemo(() => new Set(kidApprovedList), [kidApprovedList]);
+  const activeFilters = useMemo<RecipeFilters>(
+    () => ({ ...filters, favoriteIds, kidApprovedIds }),
+    [filters, favoriteIds, kidApprovedIds],
+  );
   const filtered = useMemo(() => filterRecipes(RECIPES, activeFilters), [activeFilters]);
 
   const suggestions = useMemo(() => autocompleteSuggestions(RECIPES, query), [query]);
@@ -78,6 +85,8 @@ export default function RecipesScreen() {
         onToggleFavorite={() => toggleFavorite(recipe.id)}
         onPress={() => openDetail(recipe.id)}
         onQuickPin={canPin ? () => openPin(recipe.id) : undefined}
+        kidApproved={isKidApproved(recipe.id)}
+        onToggleKidApproved={() => toggleKidApproved(recipe.id)}
       />
     );
   };
@@ -237,9 +246,17 @@ export default function RecipesScreen() {
             <ChipMultiSelect
               options={[
                 { value: 'curatedOnly', label: 'Curated only' },
+                { value: 'kidApprovedOnly', label: 'Kid-approved' },
               ]}
-              values={filters.curatedOnly ? ['curatedOnly'] : []}
-              onToggle={() => setFilters((f) => ({ ...f, curatedOnly: !f.curatedOnly }))}
+              values={[
+                ...(filters.curatedOnly ? ['curatedOnly'] : []),
+                ...(filters.kidApprovedOnly ? ['kidApprovedOnly'] : []),
+              ]}
+              onToggle={(v) =>
+                setFilters((f) =>
+                  v === 'curatedOnly' ? { ...f, curatedOnly: !f.curatedOnly } : { ...f, kidApprovedOnly: !f.kidApprovedOnly },
+                )
+              }
             />
           </View>
         </View>
@@ -278,5 +295,6 @@ function filtersActiveCount(filters: RecipeFilters): number {
   if (filters.categories && filters.categories.length > 0) n += 1;
   if (filters.curatedOnly) n += 1;
   if (filters.favoritesOnly) n += 1;
+  if (filters.kidApprovedOnly) n += 1;
   return n;
 }

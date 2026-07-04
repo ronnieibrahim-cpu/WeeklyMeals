@@ -25,6 +25,10 @@ interface Props {
   onToggleLock?: () => void;
   onSwap?: () => void;
   onToggleCooked?: () => void;
+  /** M3.2: whether this recipe is marked "Kids approved". Presence of
+   * `onToggleKidApproved` shows a tappable badge next to the dish name. */
+  kidApproved?: boolean;
+  onToggleKidApproved?: () => void;
 }
 
 /** Compact meal card used on This Week and the Review screen. */
@@ -41,6 +45,8 @@ export function MealCard({
   onToggleLock,
   onSwap,
   onToggleCooked,
+  kidApproved,
+  onToggleKidApproved,
 }: Props) {
   const theme = useTheme();
   const showActions = !!(onToggleLock || onSwap);
@@ -58,9 +64,24 @@ export function MealCard({
               {dayLabel.toUpperCase()}
             </Text>
           ) : null}
-          <Text variant="headline" numberOfLines={1}>
-            {recipe.name}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <Text variant="headline" numberOfLines={1} style={{ flex: 1 }}>
+              {recipe.name}
+            </Text>
+            {onToggleKidApproved ? (
+              <Pressable
+                accessibilityLabel={kidApproved ? 'Remove Kids approved' : 'Mark Kids approved'}
+                hitSlop={6}
+                onPress={onToggleKidApproved}
+              >
+                <Ionicons
+                  name={kidApproved ? 'happy' : 'happy-outline'}
+                  size={18}
+                  color={kidApproved ? theme.colors.success : theme.colors.textTertiary}
+                />
+              </Pressable>
+            ) : null}
+          </View>
           <Text variant="footnote" color="secondary" style={{ marginTop: 2 }}>
             {recipe.cuisine} · {recipe.difficulty} · {recipe.prepMinutes + recipe.cookMinutes}m
           </Text>

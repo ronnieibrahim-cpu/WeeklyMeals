@@ -138,8 +138,8 @@ describe('mergeShoppingLists', () => {
 
 describe('mergeSyncPayload — cross-plan (differing id)', () => {
   it('(e) differing planId keeps the newer plan either direction', () => {
-    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap() };
-    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap() };
+    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap(), kidApproved: favMap() };
+    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap(), kidApproved: favMap() };
 
     // Newer plan is "local", older is "remote": local must NOT be clobbered.
     const keepLocal = mergeSyncPayload(newer, older);
@@ -238,11 +238,13 @@ describe('mergeSyncPayload — full payload', () => {
       plan: plan('plan-1', [meal(0, { cooked: true, cookedAtISO: t1 })]),
       shoppingList: list('plan-1', [item({ ingredientName: 'milk', unit: 'piece', checked: true, checkedAtISO: t1 })]),
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
+      kidApproved: favMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0)]),
       shoppingList: list('plan-1', [item({ ingredientName: 'eggs', unit: 'piece', checked: true, checkedAtISO: t2 })]),
       favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
+      kidApproved: favMap(),
     };
 
     const merged = mergeSyncPayload(a, b);
@@ -255,6 +257,7 @@ describe('mergeSyncPayload — full payload', () => {
       plan: plan('plan-1', [meal(0, { cooked: true, cookedAtISO: t1 }), meal(1)]),
       shoppingList: list('plan-1', [item({ ingredientName: 'milk', unit: 'piece', checked: true, checkedAtISO: t1 })]),
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
+      kidApproved: favMap({ 'recipe-x': { flag: true, atISO: t1 } }),
     };
     const b = {
       plan: plan('plan-1', [meal(0), meal(1, { cooked: true, cookedAtISO: t2 })]),
@@ -263,6 +266,7 @@ describe('mergeSyncPayload — full payload', () => {
         item({ ingredientName: 'eggs', unit: 'piece' }),
       ]),
       favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
+      kidApproved: favMap({ 'recipe-y': { flag: true, atISO: t2 } }),
     };
 
     expect(stableStringify(mergeSyncPayload(a, b))).toBe(stableStringify(mergeSyncPayload(b, a)));
@@ -273,14 +277,43 @@ describe('mergeSyncPayload — full payload', () => {
       plan: plan('plan-1', [meal(0)]),
       shoppingList: null,
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
+      kidApproved: favMap(),
     };
-    const noPlan = { plan: null, shoppingList: null, favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }) };
+    const noPlan = {
+      plan: null,
+      shoppingList: null,
+      favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
+      kidApproved: favMap(),
+    };
 
     const merged = mergeSyncPayload(withPlan, noPlan);
     expect(merged.plan?.id).toBe('plan-1');
     expect(Object.keys(merged.favorites).sort()).toEqual(['recipe-a', 'recipe-b']);
 
     const flipped = mergeSyncPayload(noPlan, withPlan);
+    expect(stableStringify(merged)).toBe(stableStringify(flipped));
+  });
+
+  it('(n) kidApproved merges independently too, and a newer un-approve beats an older approve (M3.2)', () => {
+    const a = {
+      plan: plan('plan-1', [meal(0)]),
+      shoppingList: null,
+      favorites: favMap(),
+      kidApproved: favMap({ 'recipe-a': { flag: true, atISO: t1 }, 'recipe-shared': { flag: true, atISO: t1 } }),
+    };
+    const b = {
+      plan: plan('plan-1', [meal(0)]),
+      shoppingList: null,
+      favorites: favMap(),
+      kidApproved: favMap({ 'recipe-b': { flag: true, atISO: t1 }, 'recipe-shared': { flag: false, atISO: t2 } }),
+    };
+
+    const merged = mergeSyncPayload(a, b);
+    expect(merged.kidApproved['recipe-a'].flag).toBe(true);
+    expect(merged.kidApproved['recipe-b'].flag).toBe(true);
+    expect(merged.kidApproved['recipe-shared'].flag).toBe(false); // newer un-approve wins
+
+    const flipped = mergeSyncPayload(b, a);
     expect(stableStringify(merged)).toBe(stableStringify(flipped));
   });
 });

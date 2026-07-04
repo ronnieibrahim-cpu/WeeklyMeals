@@ -93,6 +93,37 @@ describe('scoreRecipe curated bonus (M2.4)', () => {
   });
 });
 
+describe('scoreRecipe kid-approved bonus (M3.2)', () => {
+  it('scores an otherwise-identical kid-approved recipe higher than a non-approved one', () => {
+    const approved = makeRecipe({ id: 'approved-recipe' });
+    const notApproved = makeRecipe({ id: 'not-approved-recipe' });
+    const ctx = ctxFor({ kidApprovedRecipeIds: ['approved-recipe'] });
+
+    expect(scoreRecipe(approved, ctx, [])).toBeGreaterThan(scoreRecipe(notApproved, ctx, []));
+  });
+
+  it('caps kidApproved weight structurally below preference and affinity, same guarantee as learnedDials (M3.0)', () => {
+    expect(WEIGHTS.kidApproved).toBeLessThan(WEIGHTS.preference);
+    expect(WEIGHTS.kidApproved).toBeLessThan(WEIGHTS.affinity);
+  });
+
+  it('never lets the kid-approved bonus override a profile hard filter (allergy)', () => {
+    const engine = new LocalRecommendationEngine();
+    const unsafe = makeRecipe({ id: 'unsafe-but-kid-approved', allergens: ['Peanuts'] });
+    const safe = Array.from({ length: 6 }, (_, i) => makeRecipe({ id: `safe-${i}` }));
+    const profile = makeProfile({ allergies: ['Peanuts'] });
+    const ctx = ctxFor({
+      profile,
+      intake: makeIntake(profile, { dinners: 5 }),
+      kidApprovedRecipeIds: ['unsafe-but-kid-approved'],
+    });
+
+    const meals = engine.generate(ctx, [unsafe, ...safe]);
+
+    expect(meals.some((m) => m.recipeId === 'unsafe-but-kid-approved')).toBe(false);
+  });
+});
+
 describe('scoreRecipe learned dials (M2.6)', () => {
   it('scores a mild recipe higher once the learner has picked up spice aversion', () => {
     const ctx = ctxFor({ preferences: makePreferences({ spiceTolerance: -1 }) });

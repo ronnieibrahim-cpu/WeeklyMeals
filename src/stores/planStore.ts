@@ -25,6 +25,7 @@ function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: strin
     profile,
     preferences: learning.preferences,
     favoriteRecipeIds: learning.favorites,
+    kidApprovedRecipeIds: learning.kidApproved,
     pantry: intake.ingredientsAtHome,
     season: seasonForDate(new Date()),
     lockedRecipeIds,

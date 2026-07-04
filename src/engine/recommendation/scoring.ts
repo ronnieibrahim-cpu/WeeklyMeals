@@ -115,6 +115,11 @@ function curatedBonus(recipe: Recipe): number {
   return recipe.id.startsWith('mealdb-') ? 0 : 1;
 }
 
+/** M3.2: flat bonus for recipes the family has marked "Kids approved". */
+function kidApprovedBonus(recipe: Recipe, ctx: GenerateContext): number {
+  return ctx.kidApprovedRecipeIds?.includes(recipe.id) ? 1 : 0;
+}
+
 const clampSigned = (n: number) => Math.max(-1, Math.min(1, n));
 
 const SPICE_NUMERIC: Record<Recipe['spiceLevel'], number> = {
@@ -181,6 +186,7 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
     WEIGHTS.affinity * affinityBonus(recipe, ctx) +
     WEIGHTS.favorite * favoriteBonus(recipe, ctx) +
     WEIGHTS.curated * curatedBonus(recipe) +
+    WEIGHTS.kidApproved * kidApprovedBonus(recipe, ctx) +
     WEIGHTS.learnedDials * learnedDialsFit(recipe, ctx) +
     WEIGHTS.variety * varietyBonus(recipe, selected) +
     WEIGHTS.budget * budgetFit(recipe, ctx) +

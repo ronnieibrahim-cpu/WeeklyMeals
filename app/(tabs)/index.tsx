@@ -6,6 +6,7 @@ import { ActivityIndicator, Pressable, View } from 'react-native';
 import { PlannedMeal } from '@/domain/models';
 import { allMealsRated } from '@/engine/rating';
 import { dayLabel, todayOffset } from '@/engine/schedule';
+import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, EmptyState, MealCard, Screen, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -21,6 +22,8 @@ export default function ThisWeekScreen() {
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
+  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const [showPast, setShowPast] = useState(false);
 
   const today = new Date().toLocaleDateString(undefined, {
@@ -142,6 +145,8 @@ export default function ThisWeekScreen() {
         }
         onToggleCooked={() => toggleCooked(meal.dayIndex)}
         onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+        kidApproved={isKidApproved(recipe.id)}
+        onToggleKidApproved={() => toggleKidApproved(recipe.id)}
       />
     );
   };
@@ -195,6 +200,8 @@ export default function ThisWeekScreen() {
           onPress={() =>
             router.push({ pathname: '/meal/[id]', params: { id: tonightRecipe.id } })
           }
+          kidApproved={isKidApproved(tonightRecipe.id)}
+          onToggleKidApproved={() => toggleKidApproved(tonightRecipe.id)}
         />
       ) : null}
 

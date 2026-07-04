@@ -17,6 +17,8 @@ export default function MealDetailScreen() {
   const recipe = id ? getRecipe(id) : undefined;
   const favorites = useLearningStore((s) => s.favorites);
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
+  const kidApproved = useLearningStore((s) => s.kidApproved);
+  const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
@@ -25,6 +27,7 @@ export default function MealDetailScreen() {
 
   const photoAttribution = recipe ? RECIPE_IMAGE_ATTRIBUTION[recipe.id] : undefined;
   const isFavorite = recipe ? favorites.includes(recipe.id) : false;
+  const isKidApproved = recipe ? kidApproved.includes(recipe.id) : false;
   const plannedMeal =
     recipe && plan?.status === 'approved'
       ? plan.meals.find((m) => m.recipeId === recipe.id)
@@ -51,17 +54,30 @@ export default function MealDetailScreen() {
         </Text>
       </Pressable>
       {recipe ? (
-        <Pressable
-          accessibilityLabel={isFavorite ? 'Remove favorite' : 'Add favorite'}
-          hitSlop={8}
-          onPress={() => toggleFavorite(recipe.id)}
-        >
-          <Ionicons
-            name={isFavorite ? 'heart' : 'heart-outline'}
-            size={26}
-            color={isFavorite ? theme.colors.danger : theme.colors.textTertiary}
-          />
-        </Pressable>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.lg }}>
+          <Pressable
+            accessibilityLabel={isKidApproved ? 'Remove Kids approved' : 'Mark Kids approved'}
+            hitSlop={8}
+            onPress={() => toggleKidApproved(recipe.id)}
+          >
+            <Ionicons
+              name={isKidApproved ? 'happy' : 'happy-outline'}
+              size={26}
+              color={isKidApproved ? theme.colors.success : theme.colors.textTertiary}
+            />
+          </Pressable>
+          <Pressable
+            accessibilityLabel={isFavorite ? 'Remove favorite' : 'Add favorite'}
+            hitSlop={8}
+            onPress={() => toggleFavorite(recipe.id)}
+          >
+            <Ionicons
+              name={isFavorite ? 'heart' : 'heart-outline'}
+              size={26}
+              color={isFavorite ? theme.colors.danger : theme.colors.textTertiary}
+            />
+          </Pressable>
+        </View>
       ) : null}
     </View>
   );
@@ -109,6 +125,11 @@ export default function MealDetailScreen() {
         {recipe.cuisine} · {recipe.difficulty}
         {recipe.spiceLevel !== 'None' ? ` · ${recipe.spiceLevel} spice` : ''}
       </Text>
+      {isKidApproved ? (
+        <Text variant="footnote" color="success" style={{ marginTop: theme.spacing.xs }}>
+          😊 Kids approved
+        </Text>
+      ) : null}
       {recipe.description ? (
         <Text variant="body" color="secondary" style={{ marginTop: theme.spacing.md }}>
           {recipe.description}

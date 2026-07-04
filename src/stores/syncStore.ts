@@ -19,7 +19,8 @@ function makeCode(): string {
 
 function currentPayload(): SyncPayload {
   const p = usePlanStore.getState();
-  return { plan: p.plan, shoppingList: p.shoppingList, favorites: useLearningStore.getState().favoritesMap };
+  const learning = useLearningStore.getState();
+  return { plan: p.plan, shoppingList: p.shoppingList, favorites: learning.favoritesMap, kidApproved: learning.kidApprovedMap };
 }
 
 type SyncStatus = 'idle' | 'syncing' | 'synced' | 'error';
@@ -81,8 +82,14 @@ export const useSyncStore = create<SyncState>((set, get) => {
       plan: row.data?.plan ?? null,
       shoppingList: row.data?.shoppingList ?? null,
       favorites: row.data?.favorites ?? {},
+      kidApproved: row.data?.kidApproved ?? {},
     };
-    const local: SyncMergePayload = { ...currentPayload(), favorites: currentPayload().favorites ?? {} };
+    const localRaw = currentPayload();
+    const local: SyncMergePayload = {
+      ...localRaw,
+      favorites: localRaw.favorites ?? {},
+      kidApproved: localRaw.kidApproved ?? {},
+    };
     const merged = mergeSyncPayload(local, remote);
     const mergedKey = stableStringify(merged);
 
@@ -93,6 +100,7 @@ export const useSyncStore = create<SyncState>((set, get) => {
       applying = true;
       usePlanStore.getState().hydrateFromSync(snapshot.plan, snapshot.shoppingList);
       useLearningStore.getState().hydrateFavoritesFromSync(snapshot.favorites);
+      useLearningStore.getState().hydrateKidApprovedFromSync(snapshot.kidApproved);
       applying = false;
     }
 
@@ -143,7 +151,7 @@ export const useSyncStore = create<SyncState>((set, get) => {
     });
     unsubscribeLearning = useLearningStore.subscribe((state, prev) => {
       if (applying) return;
-      if (state.favoritesMap === prev.favoritesMap) return;
+      if (state.favoritesMap === prev.favoritesMap && state.kidApprovedMap === prev.kidApprovedMap) return;
       schedulePush();
     });
   }

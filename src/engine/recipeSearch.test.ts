@@ -114,6 +114,18 @@ describe('filterRecipes', () => {
     expect(results.map((r) => r.id)).toEqual(['fav']);
   });
 
+  it('kidApprovedOnly keeps only recipes whose id is in kidApprovedIds (M3.2)', () => {
+    const approved = makeRecipe({ id: 'approved' });
+    const notApproved = makeRecipe({ id: 'not-approved' });
+
+    const results = filterRecipes([approved, notApproved], {
+      kidApprovedOnly: true,
+      kidApprovedIds: new Set(['approved']),
+    });
+
+    expect(results.map((r) => r.id)).toEqual(['approved']);
+  });
+
   it('curatedOnly excludes mealdb- ids', () => {
     const curated = makeRecipe({ id: 'curated-recipe' });
     const imported = makeRecipe({ id: 'mealdb-imported' });

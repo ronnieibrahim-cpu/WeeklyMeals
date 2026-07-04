@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 
 import { dateForDayIndex } from '@/engine/schedule';
+import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, EmptyState, MealCard, Screen, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -14,6 +15,8 @@ export default function ScheduleScreen() {
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
+  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
 
   if (!hydrated) {
     return (
@@ -73,6 +76,8 @@ export default function ScheduleScreen() {
               onRate={(rating) => rateMeal(meal.dayIndex, rating)}
               onToggleCooked={() => toggleCooked(meal.dayIndex)}
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+              kidApproved={isKidApproved(recipe.id)}
+              onToggleKidApproved={() => toggleKidApproved(recipe.id)}
             />
           </View>
         );

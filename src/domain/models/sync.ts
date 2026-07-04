@@ -14,3 +14,6 @@ export type TimestampedFlagMap = Record<string, TimestampedFlag>;
 
 /** recipeId -> { flag: favorited, atISO: toggledAtISO } */
 export type FavoritesMap = TimestampedFlagMap;
+
+/** recipeId -> { flag: kid-approved, atISO: toggledAtISO } (M3.2) */
+export type KidApprovedMap = TimestampedFlagMap;

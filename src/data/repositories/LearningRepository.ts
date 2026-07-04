@@ -1,4 +1,4 @@
-import { FavoritesMap, PreferenceProfile, RatingEvent } from '@/domain/models';
+import { FavoritesMap, KidApprovedMap, PreferenceProfile, RatingEvent } from '@/domain/models';
 
 /** Everything the learning loop persists. */
 export interface LearningData {
@@ -7,6 +7,8 @@ export interface LearningData {
    * superseded this with `favoritesMap`, household-synced). Never written. */
   favorites?: string[];
   favoritesMap: FavoritesMap;
+  /** M3.2, household-synced (no legacy shape — this is a new feature). */
+  kidApprovedMap: KidApprovedMap;
   ratings: RatingEvent[]; // full rating history
 }
 

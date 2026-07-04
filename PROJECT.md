@@ -73,8 +73,10 @@ app/meal/[id].tsx    Recipe detail (+ "Pin to this week", M3.1) · app/household
                      sync setup · app/settings.tsx theme
 src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
                      RatingEvent, PreferenceProfile) + constants (12 cuisines, H-E-B dept order, chips)
-src/engine/          recommendation/ (filters.ts hard filters · scoring.ts 14 weighted factors incl.
-                     a flat curated-recipe bonus (M2.4, tuned via scripts/checkCuratedWeighting.ts)
+src/engine/          recommendation/ (filters.ts hard filters, incl. passesAllergySafety extracted
+                     for pin-to-week (M3.1) · scoring.ts 15 weighted factors incl.
+                     a flat curated-recipe bonus (M2.4, tuned via scripts/checkCuratedWeighting.ts),
+                     a flat kid-approved bonus (M3.2, tuned via scripts/checkKidApprovedWeighting.ts),
                      and learnedDialsFit (M2.6: spice/complexity/budget/leftover/vegetableAffinity
                      dials from ratings, small capped weight so they nudge but never override the
                      explicit profile) · WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker with shuffle
@@ -107,7 +109,8 @@ src/data/repositories/local  kvStore (AsyncStorage JSON) + one repo per aggregat
 src/data/sync/       config.ts (URL/key/SYNC_ENABLED kill-switch) · householdApi.ts (get/upsert row by 6-char code)
 src/stores/          planStore (orchestrator; pinRecipeToWeek/pinRecipeToDraft/
                      addMissingIngredients, M3.1) · profileStore · pantryStore ·
-                     learningStore (favoritesMap household-synced as of M3.1, see §5.8) ·
+                     learningStore (favoritesMap/kidApprovedMap household-synced as of
+                     M3.1/M3.2, see §5.8-9) ·
                      settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms,
                      per-item/per-meal merge via src/engine/syncMerge.ts as of M1.6)
 src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recipes as of
@@ -294,6 +297,27 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
    re-pinned again, ingredients added by an earlier pin are **not** removed
    — silently deleting them would violate "never silently edit the shopping
    list" exactly as much as silently adding them would have.
+9. **Kids-approved flag (M3.2):** a per-recipe "Kids approved 😊" toggle,
+   separate from the existing family star rating (no per-person ratings —
+   Ronnie decided one family rating plus this one flag is enough). Reuses
+   M3.1's favorites machinery wholesale rather than inventing anything new:
+   `learningStore.kidApprovedMap` is the same `TimestampedFlagMap` shape as
+   `favoritesMap`, merged by the same generic `mergeTimestampedFlagMap()`,
+   synced the same way (part of the household sync payload, migrated
+   nowhere since it's a new field with no legacy shape to read). Toggleable
+   from the meal detail screen (a smiley icon next to the favorite heart,
+   plus a "😊 Kids approved" line under the title), every meal card (This
+   Week, Schedule, the draft review screen) via a small icon next to the
+   dish name, and the Recipes tab's result cards — all single-tap, same
+   gesture as favoriting. The Recipes tab also gained a "Kid-approved"
+   filter chip. Recommendation scoring gets a new flat `WEIGHTS.kidApproved
+   = 0.15` bonus (`kidApprovedBonus()` in `scoring.ts`, same pattern as the
+   M2.4 curated bonus and same structural guarantee as M2.6/M3.0's learned
+   dials: kept well below `preference`/`affinity` so it nudges, never
+   overrides). Tuned via `scripts/checkKidApprovedWeighting.ts` (mirrors
+   `checkCuratedWeighting.ts`): marking ~30 recipes kid-approved and
+   generating 10 varied weeks shows a ~2x pick-rate lift over their base
+   rate in the pool, with every week still including non-approved picks.
 
 ## 6. Coding conventions
 
@@ -384,19 +408,20 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
     `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
     `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
-11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1):** `jest-expo`
-    installed as the sanctioned dev dependency; `npm test` runs the engine test
-    suite (`src/engine/**/*.test.ts`, 127 assertions covering hard filters incl.
-    the imported-allergy guard and M3.1's extracted `passesAllergySafety`,
-    recommendation-engine invariants (incl. M2.6's learned-dials scoring and
-    hard-filters-always-win case, and M3.0's structural assertion that
-    `WEIGHTS.learnedDials` stays below `WEIGHTS.preference`/`WEIGHTS.affinity`
-    and that its score contribution is bounded even at maximally extreme
-    learned dials), shopping-list consolidation (incl. M3.1's
-    `addIngredientsToShoppingList`), sync merge (incl. M3.1's favorites map
-    merge), learning math (incl. M3.1's favorites migration), recipe
-    search/filter/autocomplete (M3.1), and the M2.2/M3.0/M3.1 reroll candidate/
-    pinnable-days functions). Screens
+11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1, M3.2):**
+    `jest-expo` installed as the sanctioned dev dependency; `npm test` runs the
+    engine test suite (`src/engine/**/*.test.ts`, 135 assertions covering hard
+    filters incl. the imported-allergy guard and M3.1's extracted
+    `passesAllergySafety`, recommendation-engine invariants (incl. M2.6's
+    learned-dials scoring and hard-filters-always-win case; M3.0's structural
+    assertion that `WEIGHTS.learnedDials` stays below
+    `WEIGHTS.preference`/`WEIGHTS.affinity`; and M3.2's equivalent assertion
+    plus tie-break/hard-filter cases for `WEIGHTS.kidApproved`), shopping-list
+    consolidation (incl. M3.1's `addIngredientsToShoppingList`), sync merge
+    (incl. M3.1/M3.2's favorites/kidApproved map merges), learning math (incl.
+    M3.1's favorites migration), recipe search/filter/autocomplete (M3.1,
+    extended M3.2 for `kidApprovedOnly`), and the M2.2/M3.0/M3.1 reroll
+    candidate/pinnable-days functions). Screens
     still have zero coverage — out of scope per the milestone (`docs/ARCHITECTURE.md`'s
     references to `__tests__/`, `units.ts`, `reviewStore`, `RatingRepository`
     remain aspirational/stale).
@@ -457,7 +482,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 - **Milestone 3 — The Family's Daily App (in progress, see `MILESTONE-3.md`):**
   carry-over cleanups (M3.0, done) · real photos for curated recipes (M3.0b,
   done — see §5.7) · recipe browser with search, favorites (now
-  household-synced), and pin-to-week (M3.1, done — see §5.8).
+  household-synced), and pin-to-week (M3.1, done — see §5.8) · Kids-approved
+  flag, synced the same way, with a modest scoring nudge (M3.2, done — see
+  §5.9).
 - Later: day-aware planning/reorder · manual shopping-list items (M3.3) ·
   leftovers-aware planning (new design — the original `desiredLeftovers`/
   `specialOccasions` fields this was scoped around were removed in M1.8) ·

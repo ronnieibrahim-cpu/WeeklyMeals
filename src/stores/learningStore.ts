@@ -2,11 +2,11 @@ import { create } from 'zustand';
 
 import { recipesById } from '@/data/seed/recipes';
 import { localLearningRepository } from '@/data/repositories/local/LocalLearningRepository';
-import { FavoritesMap, PreferenceProfile, RatingEvent } from '@/domain/models';
+import { FavoritesMap, KidApprovedMap, PreferenceProfile, RatingEvent } from '@/domain/models';
 import { applyRatings, createDefaultPreferences, migrateFavoritesToMap } from '@/engine/learning';
 import { createId } from '@/utils/id';
 
-function favoritedIds(map: FavoritesMap): string[] {
+function flaggedIds(map: FavoritesMap | KidApprovedMap): string[] {
   return Object.entries(map)
     .filter(([, entry]) => entry.flag)
     .map(([id]) => id);
@@ -29,6 +29,14 @@ interface LearningState {
    * planStore.hydrateFromSync) — replaces local state without re-stamping
    * timestamps, since the merge already resolved them. */
   hydrateFavoritesFromSync: (map: FavoritesMap) => void;
+  /** Source of truth for the M3.2 "Kids approved" badge, household-synced
+   * exactly like favoritesMap (same TimestampedFlagMap shape, same merge). */
+  kidApprovedMap: KidApprovedMap;
+  /** Derived kid-approved ids, kept in sync with kidApprovedMap. */
+  kidApproved: string[];
+  isKidApproved: (recipeId: string) => boolean;
+  toggleKidApproved: (recipeId: string) => void;
+  hydrateKidApprovedFromSync: (map: KidApprovedMap) => void;
   /**
    * Record or edit the rating for one (planId, recipeId) meal and recompute
    * the whole PreferenceProfile from scratch by re-folding the full rating
@@ -43,10 +51,16 @@ interface LearningState {
   reset: () => void;
 }
 
-function persist(state: { preferences: PreferenceProfile; favoritesMap: FavoritesMap; ratings: RatingEvent[] }) {
+function persist(state: {
+  preferences: PreferenceProfile;
+  favoritesMap: FavoritesMap;
+  kidApprovedMap: KidApprovedMap;
+  ratings: RatingEvent[];
+}) {
   void localLearningRepository.save({
     preferences: state.preferences,
     favoritesMap: state.favoritesMap,
+    kidApprovedMap: state.kidApprovedMap,
     ratings: state.ratings,
   });
 }
@@ -55,6 +69,8 @@ export const useLearningStore = create<LearningState>((set, get) => ({
   preferences: createDefaultPreferences(),
   favoritesMap: {},
   favorites: [],
+  kidApprovedMap: {},
+  kidApproved: [],
   ratings: [],
   hydrated: false,
 
@@ -64,10 +80,13 @@ export const useLearningStore = create<LearningState>((set, get) => ({
     // M3.1 migration: old persisted data only has the plain-array shape.
     const favoritesMap =
       data?.favoritesMap ?? migrateFavoritesToMap(data?.favorites ?? [], new Date().toISOString());
+    const kidApprovedMap = data?.kidApprovedMap ?? {};
     set({
       preferences: data?.preferences ?? createDefaultPreferences(),
       favoritesMap,
-      favorites: favoritedIds(favoritesMap),
+      favorites: flaggedIds(favoritesMap),
+      kidApprovedMap,
+      kidApproved: flaggedIds(kidApprovedMap),
       ratings: data?.ratings ?? [],
       hydrated: true,
     });
@@ -81,13 +100,30 @@ export const useLearningStore = create<LearningState>((set, get) => ({
       ...prev,
       [recipeId]: { flag: !prev[recipeId]?.flag, atISO: new Date().toISOString() },
     };
-    set({ favoritesMap, favorites: favoritedIds(favoritesMap) });
+    set({ favoritesMap, favorites: flaggedIds(favoritesMap) });
     persist({ ...get(), favoritesMap });
   },
 
   hydrateFavoritesFromSync: (map) => {
-    set({ favoritesMap: map, favorites: favoritedIds(map) });
+    set({ favoritesMap: map, favorites: flaggedIds(map) });
     persist({ ...get(), favoritesMap: map });
+  },
+
+  isKidApproved: (recipeId) => !!get().kidApprovedMap[recipeId]?.flag,
+
+  toggleKidApproved: (recipeId) => {
+    const prev = get().kidApprovedMap;
+    const kidApprovedMap: KidApprovedMap = {
+      ...prev,
+      [recipeId]: { flag: !prev[recipeId]?.flag, atISO: new Date().toISOString() },
+    };
+    set({ kidApprovedMap, kidApproved: flaggedIds(kidApprovedMap) });
+    persist({ ...get(), kidApprovedMap });
+  },
+
+  hydrateKidApprovedFromSync: (map) => {
+    set({ kidApprovedMap: map, kidApproved: flaggedIds(map) });
+    persist({ ...get(), kidApprovedMap: map });
   },
 
   rateRecipe: (event) => {
@@ -113,7 +149,7 @@ export const useLearningStore = create<LearningState>((set, get) => ({
 
   reset: () => {
     const preferences = createDefaultPreferences();
-    set({ preferences, favoritesMap: {}, favorites: [], ratings: [] });
-    persist({ preferences, favoritesMap: {}, ratings: [] });
+    set({ preferences, favoritesMap: {}, favorites: [], kidApprovedMap: {}, kidApproved: [], ratings: [] });
+    persist({ preferences, favoritesMap: {}, kidApprovedMap: {}, ratings: [] });
   },
 }));

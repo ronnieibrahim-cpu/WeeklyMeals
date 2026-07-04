@@ -21,10 +21,21 @@ interface Props {
    * still applies exactly as it would from the detail screen.
    */
   onQuickPin?: () => void;
+  /** M3.2 "Kids approved" badge. */
+  kidApproved: boolean;
+  onToggleKidApproved: () => void;
 }
 
 /** Result card for the Recipes tab (search results and the Favorites section). */
-export function RecipeResultCard({ recipe, favorite, onToggleFavorite, onPress, onQuickPin }: Props) {
+export function RecipeResultCard({
+  recipe,
+  favorite,
+  onToggleFavorite,
+  onPress,
+  onQuickPin,
+  kidApproved,
+  onToggleKidApproved,
+}: Props) {
   const theme = useTheme();
 
   return (
@@ -54,6 +65,17 @@ export function RecipeResultCard({ recipe, favorite, onToggleFavorite, onPress, 
               <Ionicons name="pin-outline" size={22} color={theme.colors.accent} />
             </Pressable>
           ) : null}
+          <Pressable
+            accessibilityLabel={kidApproved ? 'Remove Kids approved' : 'Mark Kids approved'}
+            hitSlop={8}
+            onPress={onToggleKidApproved}
+          >
+            <Ionicons
+              name={kidApproved ? 'happy' : 'happy-outline'}
+              size={22}
+              color={kidApproved ? theme.colors.success : theme.colors.textTertiary}
+            />
+          </Pressable>
           <Pressable
             accessibilityLabel={favorite ? 'Remove favorite' : 'Add favorite'}
             hitSlop={8}

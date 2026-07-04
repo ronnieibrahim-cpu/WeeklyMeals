@@ -19,6 +19,8 @@ export interface GenerateContext {
   lockedRecipeIds?: string[];
   /** Favorited recipes get a reintroduction bonus. */
   favoriteRecipeIds?: string[];
+  /** Kid-approved recipes (M3.2) get a modest tie-breaking bonus. */
+  kidApprovedRecipeIds?: string[];
 }
 
 export interface RecommendationProvider {
@@ -47,6 +49,11 @@ export const WEIGHTS = {
   // content quality is estimated. Enough to win ties/near-ties, not enough to
   // bury a clearly better imported match on the other factors.
   curated: 0.1,
+  // M3.2: "Kids approved" recipes get a flat bonus, same order of magnitude
+  // as `curated` — enough to win ties/near-ties for a family with picky
+  // kids, never enough to override the explicit profile/questionnaire or
+  // bury a clearly better match on the other factors.
+  kidApproved: 0.15,
   // M2.6: learned spice/complexity/budget/leftover/vegetable dials, averaged
   // into one -1…1 nudge in scoring.ts. Kept well below preference (1.5) and
   // affinity (1.4) so learning-from-ratings can shift picks but never

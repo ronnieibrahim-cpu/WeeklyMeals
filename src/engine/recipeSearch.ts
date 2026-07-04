@@ -85,6 +85,9 @@ export interface RecipeFilters {
   /** recipeIds currently favorited — only used when `favoritesOnly` is set. */
   favoriteIds?: Set<string>;
   favoritesOnly?: boolean;
+  /** recipeIds currently kid-approved (M3.2) — only used when `kidApprovedOnly` is set. */
+  kidApprovedIds?: Set<string>;
+  kidApprovedOnly?: boolean;
   /** Excludes estimated (`mealdb-`) imports, keeping only hand-curated recipes. */
   curatedOnly?: boolean;
 }
@@ -107,6 +110,7 @@ export function filterRecipes(recipes: Recipe[], filters: RecipeFilters): Recipe
       if (!filters.categories.every((c) => recipe.categories.includes(c))) return false;
     }
     if (filters.favoritesOnly && !filters.favoriteIds?.has(recipe.id)) return false;
+    if (filters.kidApprovedOnly && !filters.kidApprovedIds?.has(recipe.id)) return false;
     if (filters.curatedOnly && recipe.id.startsWith('mealdb-')) return false;
     return true;
   });

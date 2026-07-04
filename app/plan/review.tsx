@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { Card, MealCard, PrimaryButton, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -19,6 +20,8 @@ export default function ReviewPlanScreen() {
   const approve = usePlanStore((s) => s.approve);
   const discardDraft = usePlanStore((s) => s.discardDraft);
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
+  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
 
   // Closing without approving discards the draft rather than leaving it
   // sitting around half-reviewed — whatever plan was already active (if
@@ -108,6 +111,8 @@ export default function ReviewPlanScreen() {
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
               onToggleLock={() => toggleLock(meal.recipeId)}
               onSwap={() => swapMeal(meal.dayIndex)}
+              kidApproved={isKidApproved(recipe.id)}
+              onToggleKidApproved={() => toggleKidApproved(recipe.id)}
             />
           );
         })}

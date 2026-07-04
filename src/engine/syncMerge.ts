@@ -1,4 +1,13 @@
-import { FavoritesMap, PlannedMeal, PlanStatus, ShoppingItem, ShoppingList, TimestampedFlag, WeeklyPlan } from '@/domain/models';
+import {
+  FavoritesMap,
+  KidApprovedMap,
+  PlannedMeal,
+  PlanStatus,
+  ShoppingItem,
+  ShoppingList,
+  TimestampedFlag,
+  WeeklyPlan,
+} from '@/domain/models';
 
 /**
  * Merges plan + shopping-list state pulled from a household sync partner
@@ -12,13 +21,14 @@ import { FavoritesMap, PlannedMeal, PlanStatus, ShoppingItem, ShoppingList, Time
  */
 
 /** The pieces of state a household syncs, decoupled from the Supabase row
- * shape so this module never has to import the sync/data edge. `favorites`
- * defaults to `{}` rather than being nullable — an empty map is already its
- * natural "nothing synced yet" state (M3.1). */
+ * shape so this module never has to import the sync/data edge. `favorites`/
+ * `kidApproved` default to `{}` rather than being nullable — an empty map is
+ * already their natural "nothing synced yet" state (M3.1, M3.2). */
 export interface SyncMergePayload {
   plan: WeeklyPlan | null;
   shoppingList: ShoppingList | null;
   favorites: FavoritesMap;
+  kidApproved: KidApprovedMap;
 }
 
 /** Canonical JSON: object keys sorted recursively, `undefined` values
@@ -253,26 +263,27 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
 }
 
 /**
- * Top-level merge for a full sync payload. `favorites` is independent of the
- * plan (not plan-scoped, M3.1), so it's merged unconditionally regardless of
- * which plan branch below fires. For plan/shoppingList: if the two sides are
- * looking at different plans (different id), the newer plan (by
- * createdAtISO) wins outright — a freshly generated week is never silently
- * deleted, but it also never resurrects a plan that's genuinely been
- * superseded. If both sides share a plan id, per-item/per-meal merging
- * takes over.
+ * Top-level merge for a full sync payload. `favorites`/`kidApproved` are
+ * independent of the plan (not plan-scoped, M3.1/M3.2), so they're merged
+ * unconditionally regardless of which plan branch below fires. For plan/
+ * shoppingList: if the two sides are looking at different plans (different
+ * id), the newer plan (by createdAtISO) wins outright — a freshly generated
+ * week is never silently deleted, but it also never resurrects a plan
+ * that's genuinely been superseded. If both sides share a plan id,
+ * per-item/per-meal merging takes over.
  */
 export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePayload): SyncMergePayload {
   const favorites = mergeTimestampedFlagMap(local.favorites, remote.favorites);
+  const kidApproved = mergeTimestampedFlagMap(local.kidApproved, remote.kidApproved);
 
-  if (!local.plan) return { ...remote, favorites };
-  if (!remote.plan) return { ...local, favorites };
+  if (!local.plan) return { ...remote, favorites, kidApproved };
+  if (!remote.plan) return { ...local, favorites, kidApproved };
 
   if (local.plan.id !== remote.plan.id) {
     const localTs = tsOf(local.plan.createdAtISO);
     const remoteTs = tsOf(remote.plan.createdAtISO);
-    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites };
-    return { ...chooseBase(local, remote, stableStringify), favorites };
+    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites, kidApproved };
+    return { ...chooseBase(local, remote, stableStringify), favorites, kidApproved };
   }
 
   const plan = mergePlanMeals(local.plan, remote.plan);
@@ -286,5 +297,5 @@ export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePaylo
     shoppingList = remote.shoppingList;
   }
 
-  return { plan, shoppingList, favorites };
+  return { plan, shoppingList, favorites, kidApproved };
 }
