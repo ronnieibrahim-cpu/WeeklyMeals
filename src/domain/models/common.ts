@@ -12,7 +12,12 @@ export type Cuisine =
   | 'Mediterranean'
   | 'American'
   | 'MiddleEastern'
-  | 'BBQ';
+  | 'BBQ'
+  /** Catch-all for imported dishes whose real cuisine (Polish, Norwegian,
+   * Russian, etc.) doesn't fit any bucket above — honest labeling instead of
+   * silently folding them into American, which was skewing swap/variety
+   * toward an artificially large "American" pool (see normalize.ts). */
+  | 'Other';
 
 export type Category =
   | 'ComfortFood'

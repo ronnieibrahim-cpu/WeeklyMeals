@@ -1,15 +1,199 @@
 import { Recipe } from '@/domain/models';
 
 /**
- * Recipes imported from the web (TheMealDB) via src/data/import/normalize.ts.
+ * Recipes imported from the web (TheMealDB) via scripts/importRecipes.ts.
  * GENERATED FILE — do not edit by hand; re-run the importer to refresh.
  * Every entry carries a citation (sourceName/sourceUrl) and is marked
  * `estimated` because times/nutrition are inferred, not hand-authored.
  */
 export const recipeImported: Recipe[] = [
   {
-    "id": "mealdb-53440",
-    "name": "Balchi di Pisca",
+    "id": "mealdb-53099",
+    "name": "Aussie Burgers",
+    "cuisine": "American",
+    "categories": [
+      "Sandwiches",
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "cooked beetroot"
+    ],
+    "techniques": [
+      "grill"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "lean minced steak",
+        "quantity": 500,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "cooked beetroot",
+        "quantity": 100,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "naan bread",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "rocket",
+        "quantity": 50,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "soured cream and chive dip",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "Make the burgers: Tip the meat into a bowl and sprinkle over 1 tsp salt and a good grinding of black pepper.Work with wet hands to mix in the seasoning. Divide into four with your hands and shape into burgers. (It can be frozen at this stage.)",
+      "Sort out your ingredients: Slice the beetroot and split the naan breads.",
+      "Toast the naans: Heat a griddle pan or barbecue. Griddle the naans on both sides until lightly toasted and set aside. Add the burgers to the grill or barbecue and cook for 2-3 minutes, then turn and cook the other side for a further 2-3 minutes.",
+      "Assemble the dish: Set half a toasted naan on each serving plate and put a pile of rocket on each. Top with a burger, then a few slices of beetroot and a dollop of soured cream. Sprinkle with salt and freshly ground black pepper and serve immediately with a big green salad and chips. A glass of red wine wouldn’t go amiss, either."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/44bzep1761848278.jpg",
+    "origin": "Australian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/aussie-burgers",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53107",
+    "name": "Avocado dip with new potatoes",
+    "cuisine": "American",
+    "categories": [
+      "Vegetarian"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "avocado",
+      "lime",
+      "lemon",
+      "baby new potatoes"
+    ],
+    "techniques": [
+      "bake",
+      "roast",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 12,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "avocado",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "natural yoghurt",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "baby new potatoes",
+        "quantity": 1.25,
+        "unit": "kg",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "hot chilli powder",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "tortillas",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Bakery"
+      }
+    ],
+    "steps": [
+      "Whizz half the avocado flesh with the yogurt, lime and lemon juice and seasoning. Dice the remaining avocado, then gently stir into the whizzed mix with most of the lime zest. Cover, then chill until ready to serve.",
+      "Boil potatoes for 6 mins, then drain well and toss with olive oil, chilli powder and cumin seeds. Now set aside until half an hour before your guests arrive.",
+      "Heat oven to 200C/180C fan/gas 6, then roast potatoes for about 30 mins, shaking the tray halfway, until golden and tender. Transfer the dip to one or two bowls, scatter with the remaining lime zest and serve with the hot potatoes, and tortilla chips for dipping."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/flrajf1762341295.jpg",
+    "origin": "Australian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/avocado-citrus-dip-spicy-spuds-tortilla-chips",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52959",
+    "name": "Baked salmon with fennel & tomatoes",
     "cuisine": "American",
     "categories": [
       "Seafood",
@@ -17,124 +201,268 @@ export const recipeImported: Recipe[] = [
     ],
     "primaryProtein": "Fish",
     "vegetables": [
-      "potatoes",
-      "tomato",
-      "onion",
-      "garlic"
+      "fennel",
+      "parsley",
+      "lemon",
+      "cherry tomatoes"
     ],
     "techniques": [
-      "fry",
+      "bake",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
+      "calories": 480,
       "protein": 34,
-      "carbs": 48,
-      "fat": 18
+      "carbs": 18,
+      "fat": 30
     },
     "ingredients": [
       {
-        "name": "salt cod",
+        "name": "fennel",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "lemon",
         "quantity": 1,
         "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cherry tomatoes",
+        "quantity": 175,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "salmon",
+        "quantity": 350,
+        "unit": "g",
         "department": "Seafood"
       },
       {
-        "name": "potatoes",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "tomato",
+        "name": "black olives",
         "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green pepper",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "tobasco sauce",
-        "quantity": 0.5,
-        "unit": "tsp",
+        "unit": "pinch",
         "department": "DryGoods"
-      },
-      {
-        "name": "nutmeg",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
       }
     ],
     "steps": [
-      "These delectable fish balls can also be made with salmon or fish fillets. Substitute one large can of salmon or one pound of any white fish for the cod.",
-      "Soak for twenty-four hours:",
-      "1 salted cod, or bakijow Discard the water.",
-      "Place cod in saucepan with fresh water to cover. Simmer gently until the fish flakes easily when tested with the tines of a fork. Strain, reserving a bit of the broth. De bone the cod and set it aside for later use. In a saucepan, bring to boil in water to cover: 3 medium potatoes, peeled and diced When the potatoes are tender, drain them well. Add the cod and mash the two ingredients thoroughly together.",
-      "Place in the container of an electric blender:",
-      "1 tomato, peeled and chopped",
-      "1/2 green pepper, chopped",
-      "1 medium onion, peeled and chopped",
-      "1 clove garlic, slivered",
-      "1/2 tsp. Tabasco sauce, or minced hot pepper",
-      "Dash of nutmeg",
-      "Salt and pepper to taste",
-      "Blend for a few seconds and pour the sauce over the mashed fish mixture. Combine these ingredients well and add 1 egg, beaten Mixture should be stiff enough to mold into balls about one and a half inches in diameter, If it's too dry, add the fish stock a tablespoon at a time. Fry the balls in hot, deep fat until golden brown."
+      "Heat oven to 180C/fan 160C/gas 4. Trim the fronds from the fennel and set aside. Cut the fennel bulbs in half, then cut each half into 3 wedges. Cook in boiling salted water for 10 mins, then drain well. Chop the fennel fronds roughly, then mix with the parsley and lemon zest.",
+      "Spread the drained fennel over a shallow ovenproof dish, then add the tomatoes. Drizzle with olive oil, then bake for 10 mins. Nestle the salmon among the veg, sprinkle with lemon juice, then bake 15 mins more until the fish is just cooked. Scatter over the parsley and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Fish",
-      "Eggs"
+      "Fish"
     ],
     "dietTags": [
       "gluten-free",
       "dairy-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/qqwhw51780093126.jpg",
+    "image": "https://www.themealdb.com/images/media/meals/1548772327.jpg",
+    "origin": "British",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.visitaruba.com/aruba-recipes/balchi-di-pisca/",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/7745/baked-salmon-with-fennel-and-tomatoes",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53103",
+    "name": "Barramundi with Moroccan spices",
+    "cuisine": "American",
+    "categories": [
+      "Seafood",
+      "HighProtein"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "coriander",
+      "lemon",
+      "coriander"
+    ],
+    "techniques": [
+      "bake",
+      "roast",
+      "grill",
+      "steam"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 34,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "barramundi",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "ground cumin",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "coriander",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "chili powder",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 5,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "coriander",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Tip all the dressing ingredients into a food processor with a pinch of salt and blitz to a dressing. Slash the fish three times on each side, coat with half of the dressing, then set aside to marinate for about 30 mins.",
+      "Heat oven to 220C/fan 200C/gas 7. Place the fish on a roasting tray, then cook in the oven for 20 mins until the flesh is firm and the eyes have turned white. Serve the fish with the rest of the dressing and steamed couscous or rice.",
+      "KNOW HOW: HOW TO COOK IT: Cooking barramundi on the bone, as we have done here, has its advantages – it will stay more moist during cooking, and some would say that the flavour is enhanced, too. If you want to take out the bones they are easy to locate and less likely to be lodged in the fillet if the fish is cooked whole. Fillets can be simply pan-fried or grilled. If you like trout, you will really enjoy the flavour of barramundi, which lends itself to similar ingredients and cooking methods – citrus flavours are particularly good, as are garlic and wild mushrooms. Simply roasting the fish with some fresh herbs, olive oil and seasoning is delicious, and in the summer months you could barbecue it, too. One thing that you mustn’t miss are the cheeks or ‘pearls’ of the fish, these are simply lovely, moist and really sweet – well worth leaving the head on for!"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/4o4wh11761848573.jpg",
+    "origin": "Australian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/barramundi-moroccan-spices",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52848",
+    "name": "Bean & Sausage Hotpot",
+    "cuisine": "American",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 34,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "sausages",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "tomato sauce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "butter beans",
+        "quantity": 1200,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "black treacle",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "english mustard",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "In a large casserole, fry the sausages until brown all over – about 10 mins.",
+      "Add the tomato sauce, stirring well, then stir in the beans, treacle or sugar and mustard. Bring to the simmer, cover and cook for 30 mins. Great served with crusty bread or rice."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/vxuyrx1511302687.jpg",
+    "origin": "British",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/339607/bean-and-sausage-hotpot",
     "estimated": true
   },
   {
@@ -437,26 +765,27 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53463",
-    "name": "Belgian Meatballs in Liège Syrup Sauce",
+    "id": "mealdb-52824",
+    "name": "Beef Sunday Roast",
     "cuisine": "American",
     "categories": [
       "HighProtein"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
-      "onion",
-      "garlic",
-      "parsley",
-      "onion"
+      "broccoli",
+      "potatoes",
+      "carrots"
     ],
     "techniques": [
+      "bake",
+      "roast",
       "simmer"
     ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
+    "difficulty": "Medium",
+    "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -466,144 +795,62 @@ export const recipeImported: Recipe[] = [
     },
     "ingredients": [
       {
-        "name": "minced beef",
-        "quantity": 300,
-        "unit": "g",
+        "name": "beef",
+        "quantity": 8,
+        "unit": "piece",
         "department": "Meat"
       },
       {
-        "name": "minced pork",
-        "quantity": 300,
-        "unit": "g",
-        "department": "Meat"
+        "name": "broccoli",
+        "quantity": 12,
+        "unit": "piece",
+        "department": "Produce"
       },
       {
-        "name": "onion",
+        "name": "potatoes",
         "quantity": 1,
         "unit": "piece",
         "department": "Produce"
       },
       {
-        "name": "garlic",
+        "name": "carrots",
         "quantity": 1,
-        "unit": "clove",
+        "unit": "piece",
         "department": "Produce"
       },
       {
-        "name": "egg",
-        "quantity": 1,
+        "name": "plain flour",
+        "quantity": 140,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "eggs",
+        "quantity": 4,
         "unit": "piece",
         "department": "Dairy"
       },
       {
-        "name": "breadcrumbs",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "Bakery"
+        "name": "milk",
+        "quantity": 200,
+        "unit": "ml",
+        "department": "Dairy"
       },
       {
-        "name": "mustard",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "oil",
+        "name": "sunflower oil",
         "quantity": 1,
         "unit": "piece",
         "department": "DryGoods",
         "pantryStaple": true
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "butter",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "brown sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "white wine vinegar",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "mustard",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "sirop de liège",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "beef stock",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "bay leaf",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "beer",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Make the meatballs",
-      "Mix the minced meat with the onion, garlic, egg, breadcrumbs, mustard, parsley, salt, and pepper.",
-      "Shape into meatballs. Traditionally, Liège restaurants serve **one or two very large meatballs**, depending on appetite.",
-      "For weeknight cooking, I keep mine smaller so they brown faster and cook through quickly.",
-      "Brown the meatballs",
-      "Heat butter or oil in a large pan.",
-      "Brown the meatballs on all sides until they have a nice crust.",
-      "Remove them from the pan and set aside.",
-      "Start the sauce",
-      "In the same pan, melt 1 tbsp butter.",
-      "Add the sliced onions and cook until soft and lightly caramelised.",
-      "Sprinkle in the brown sugar and let it melt into the onions.",
-      "Deglaze and add the stock",
-      "Add the vinegar and scrape up all the browned bits from the pan."
+      "Cook the Broccoli and Carrots in a pan of boiling water until tender.",
+      "Roast the Beef and Potatoes in the oven for 45mins, the potatoes may need to be checked regularly to not overcook.",
+      "To make the Yorkshire puddings:",
+      "Heat oven to 230C/fan 210C/gas 8. Drizzle a little sunflower oil evenly into 2 x 4-hole Yorkshire pudding tins or a 12-hole non-stick muffin tin and place in the oven to heat through",
+      "To make the batter, tip 140g plain flour into a bowl and beat in four eggs until smooth. Gradually add 200ml milk and carry on beating until the mix is completely lump-free. Season with salt and pepper. Pour the batter into a jug, then remove the hot tins from the oven. Carefully and evenly pour the batter into the holes. Place the tins back in the oven and leave undisturbed for 20-25 mins until the puddings have puffed up and browned. Serve immediately.",
+      "Plate up and add the Gravy as desired."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -613,281 +860,110 @@ export const recipeImported: Recipe[] = [
       "Eggs"
     ],
     "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/gjjlzc1782496055.jpg",
+    "image": "https://www.themealdb.com/images/media/meals/ssrrrs1503664277.jpg",
+    "origin": "British",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://junedarville.com/belgian-meatballs.html",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/9020/best-yorkshire-puddings",
     "estimated": true
   },
   {
-    "id": "mealdb-53468",
-    "name": "Belgian Stoemp",
+    "id": "mealdb-52803",
+    "name": "Beef Wellington",
     "cuisine": "American",
     "categories": [
       "HighProtein"
     ],
-    "primaryProtein": "Pork",
+    "primaryProtein": "Beef",
     "vegetables": [
-      "potatoes",
-      "savoy cabbage",
-      "garlic",
-      "parsley",
-      "onion"
+      "mushrooms"
     ],
     "techniques": [
-      "fry",
-      "stir-fry",
-      "simmer"
+      "bake",
+      "fry"
     ],
     "difficulty": "Medium",
-    "spiceLevel": "None",
+    "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 15,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 34,
+      "protein": 36,
       "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
-        "name": "sausages",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 450,
+        "name": "mushrooms",
+        "quantity": 400,
         "unit": "g",
         "department": "Produce"
       },
       {
-        "name": "savoy cabbage",
-        "quantity": 200,
-        "unit": "g",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 3,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "parsley",
+        "name": "english mustard",
         "quantity": 1,
         "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "unsalted butter",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "beer",
-        "quantity": 1,
-        "unit": "cup",
         "department": "DryGoods"
       },
       {
-        "name": "whole milk",
-        "quantity": 60,
-        "unit": "ml",
-        "department": "Dairy"
-      },
-      {
-        "name": "nutmeg",
+        "name": "olive oil",
         "quantity": 1,
         "unit": "pinch",
-        "department": "Spices"
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
+        "department": "DryGoods",
         "pantryStaple": true
       },
       {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Add the chopped potatoes and garlic to a high pan and fill it with tap water until the potatoes are fully submerged.",
-      "Add some salt. Then place the pan over high heat and bring the potatoes to a boil. Cook them until tender. In the meantime rinse and drain the savoy cabbage. Slice it up finely.",
-      "Add a tablespoon of butter to a large non-stick pan. Place it over medium-high heat. Once melted, add the savoy cabbage. Season with a pinch of pepper and salt.",
-      "Stir fry the cabbage for 15 to 20 minutes or until the cabbage is soft and tender. Then turn the heat off and take the cabbage off the heat. In the meantime, pan fry the sausages (or sliced bacon if you are using both) in a non-stick pan in a tablespoon of butter or oil until golden brown and cooked through.",
-      "Transfer the sausages (and bacon) to a plate and cover with a lid or tinfoil to keep the meat warm. In the same greasy pan, add the sliced onion and extra butter and cook it gently over medium heat for 10 minutes until softened. (I often add diced bacon as well, if I only serve the stoemp with sausages.)",
-      "Then add the beer and turn the heat up. Let the beer reduce until you get a nice beer and onion sauce (you can add a little flour or sauce thickener if you like). Add the pan fried meat back to the pan and cover to keep warm.",
-      "Drain the cooked potatoes and garlic, add them back to the pan you cooked them in together with the pan fried cabbage and chopped parsley. Sprinkle with some pepper, salt and nutmeg. Also add the milk and the rest of the unsalted butter.",
-      "Mash the potatoes, parsley and cabbage up. Add extra butter or milk if necessary. Also check the seasoning and add extra pepper, nutmeg or salt to taste if necessary. Scoop the cabbage mash onto plates and top with the pan fried sausages (and bacon). Drizzle with the beer and onion sauce. Serve hot."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Dairy"
-    ],
-    "dietTags": [
-      "gluten-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/byolko1782500400.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://junedarville.com/stoemp.html#wprm-recipe-container-131911",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53466",
-    "name": "Belgian Waterzooi Chicken",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "primaryProtein": "Chicken",
-    "vegetables": [
-      "carrots",
-      "leek",
-      "celery",
-      "potatoes",
-      "garlic"
-    ],
-    "techniques": [
-      "simmer",
-      "braise"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 38,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "chicken legs",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "chicken breast",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "carrots",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "leek",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "celery",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 100,
+        "name": "beef fillet",
+        "quantity": 750,
         "unit": "g",
-        "department": "Produce"
+        "department": "Meat"
       },
       {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "rosemary",
+        "name": "parma ham",
         "quantity": 1,
         "unit": "piece",
-        "department": "Spices"
+        "department": "Meat"
       },
       {
-        "name": "cream",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "Dairy"
+        "name": "puff pastry",
+        "quantity": 500,
+        "unit": "g",
+        "department": "Bakery"
       },
       {
-        "name": "bay leaf",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "unsalted butter",
+        "name": "flour",
         "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices"
+        "unit": "piece",
+        "department": "DryGoods"
       },
       {
         "name": "egg yolks",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "piece",
         "department": "Dairy"
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
       }
     ],
     "steps": [
-      "Put the chicken, water and one garlic clove in a large saucepan. Place it over medium-high heat until boiling. Then turn the heat low, cover the pan and simmer the chicken for 10 minutes. Remove the chicken leg and breast. Keep the fresh chicken stock for later.",
-      "Let the chicken cool. Then dice the chicken breast up. Pick the meat off the leg. Discard any bones and skin. Slice the leek, celery and carrot finely (julienne). Add the butter, rosemary and bay leaves to a large pan and place it over medium heat until melted.",
-      "Then add the sliced vegetables. Season with pepper and salt.",
-      "Stir and cook the vegetables for 3 minutes. Then add the shredded and diced chicken.",
-      "Cover the pan and cook the chicken and vegetables for 5 minutes. Then add the cream and ½ cup (120 ml) of the fresh chicken stock.",
-      "Look at this delicious waterzooi recipe! Do try out my chunky chicken stew with fresh leeks, celery, carrots and lots of cream... This is Belgian comfort food!",
-      "Cover the pan and cook the stew for 20 minutes until the potatoes are tender. Add the egg yolk and 2 tablespoons of the warm cream from the pan to a cup. Whisk and add it back to the pan to thicken the sauce.",
-      "Stir all the ingredients and then turn the heat very low. Check the seasoning and add extra pepper or salt to taste. Remove the rosemary and bay leaves. Divide the stew over deep plates and drizzle with the remaining cream sauce. Serve hot."
+      "Put the mushrooms into a food processor with some seasoning and pulse to a rough paste. Scrape the paste into a pan and cook over a high heat for about 10 mins, tossing frequently, to cook out the moisture from the mushrooms. Spread out on a plate to cool.",
+      "Heat in a frying pan and add a little olive oil. Season the beef and sear in the hot pan for 30 secs only on each side. (You don't want to cook it at this stage, just colour it). Remove the beef from the pan and leave to cool, then brush all over with the mustard.",
+      "Lay a sheet of cling film on a work surface and arrange the Parma ham slices on it, in slightly overlapping rows. With a palette knife, spread the mushroom paste over the ham, then place the seared beef fillet in the middle. Keeping a tight hold of the cling film from the edge, neatly roll the Parma ham and mushrooms around the beef to form a tight barrel shape. Twist the ends of the cling film to secure. Chill for 15-20 mins to allow the beef to set and keep its shape.",
+      "Roll out the puff pastry on a floured surface to a large rectangle, the thickness of a £1 coin. Remove the cling film from the beef, then lay in the centre. Brush the surrounding pastry with egg yolk. Fold the ends over, the wrap the pastry around the beef, cutting off any excess. Turn over, so the seam is underneath, and place on a baking sheet. Brush over all the pastry with egg and chill for about 15 mins to let the pastry rest.",
+      "Heat the oven to 200C, 400F, gas 6.",
+      "Lightly score the pastry at 1cm intervals and glaze again with beaten egg yolk. Bake for 20 minutes, then lower the oven setting to 180C, 350F, gas 4 and cook for another 15 mins. Allow to rest for 10-15 mins before slicing and serving with the side dishes of your choice. The beef should still be pink in the centre when you serve it."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy",
+      "Gluten",
       "Eggs"
     ],
     "dietTags": [
-      "gluten-free"
+      "dairy-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/nmxec11782498644.jpg",
+    "image": "https://www.themealdb.com/images/media/meals/vvpprx1487325699.jpg",
+    "origin": "British",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://junedarville.com/waterzooi.html",
+    "sourceUrl": "http://www.goodtoknow.co.uk/recipes/164868/Gordon-Ramsay-s-beef-Wellington",
     "estimated": true
   },
   {
@@ -1028,326 +1104,28 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53018",
-    "name": "Bigos (Hunters Stew)",
+    "id": "mealdb-53036",
+    "name": "Boxty Breakfast",
     "cuisine": "American",
     "categories": [
-      "Stews",
       "HighProtein"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
-      "garlic",
-      "onion",
-      "mushrooms",
-      "cabbage",
-      "basil",
-      "diced tomatoes"
+      "potatoes",
+      "spring onions",
+      "cherry tomatoes"
     ],
     "techniques": [
       "bake",
+      "grill",
       "fry",
       "simmer"
     ],
     "difficulty": "Medium",
-    "spiceLevel": "Mild",
+    "spiceLevel": "None",
     "prepMinutes": 15,
     "cookMinutes": 45,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 520,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "bacon",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "kielbasa",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "pork",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "flour",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "garlic",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "mushrooms",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "cabbage",
-        "quantity": 4,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "sauerkraut",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "red wine",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "bay leaf",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "basil",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "marjoram",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "paprika",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "caraway seed",
-        "quantity": 0.13,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "hotsauce",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      },
-      {
-        "name": "beef stock",
-        "quantity": 5,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "diced tomatoes",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "worcestershire sauce",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Preheat the oven to 350 degrees F (175 degrees C).",
-      "Heat a large pot over medium heat. Add the bacon and kielbasa; cook and stir until the bacon has rendered its fat and sausage is lightly browned. Use a slotted spoon to remove the meat and transfer to a large casserole or Dutch oven.",
-      "Coat the cubes of pork lightly with flour and fry them in the bacon drippings over medium-high heat until golden brown. Use a slotted spoon to transfer the pork to the casserole. Add the garlic, onion, carrots, fresh mushrooms, cabbage and sauerkraut. Reduce heat to medium; cook and stir until the carrots are soft, about 10 minutes. Do not let the vegetables brown.",
-      "Deglaze the pan by pouring in the red wine and stirring to loosen all of the bits of food and flour that are stuck to the bottom. Season with the bay leaf, basil, marjoram, paprika, salt, pepper, caraway seeds and cayenne pepper; cook for 1 minute.",
-      "Mix in the dried mushrooms, hot pepper sauce, Worcestershire sauce, beef stock, tomato paste and tomatoes. Heat through just until boiling. Pour the vegetables and all of the liquid into the casserole dish with the meat. Cover with a lid.",
-      "Bake in the preheated oven for 2 1/2 to 3 hours, until meat is very tender."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [
-      "Gluten"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/md8w601593348504.jpg",
-    "origin": "Polish",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.allrecipes.com/recipe/138131/bigos-hunters-stew/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53126",
-    "name": "Brun Lapskaus (Norwegian Beef Vegetable Stew)",
-    "cuisine": "American",
-    "categories": [
-      "Stews",
-      "HighProtein"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "celery",
-      "carrots",
-      "parsley",
-      "potatoes",
-      "leek"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "olive oil",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "beef",
-        "quantity": 2,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "beef stock",
-        "quantity": 3,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "swede",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "celery",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "parsley",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Produce"
-      },
-      {
-        "name": "leek",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "▢",
-      "Heat olive oil in a large pot. Cut beef into 1 inch (2.5 cm) cubes and brown in oil.",
-      "▢",
-      "Dice the onion and add to browning beef. Add the stock and bring to a boil, then lower the heat, cover, and let simmer for about 30 minutes.",
-      "▢",
-      "Peel and cut the rutabaga and celery root into 1 inch (2.5 cm) cubes. Add to the pot, cover, and continue simmering for another 30 minutes.",
-      "▢",
-      "Peel and chop the rest of the vegetables into 1 inch (2.5 cm) cubes and add to the pot. Slice the leek into rings. Cover and continue simmering for about 20 minutes. Stir as little as possible.",
-      "▢",
-      "Top with fresh parsley."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/6vi2cv1763075785.jpg",
-    "origin": "Norway",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://scandinaviancookbook.com/brun-lapskaus-norwegian-beef-vegetable-root-stew/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53190",
-    "name": "Bryndzové Halušky",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "potatoes"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -1358,58 +1136,77 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "spring onions",
+        "quantity": 1,
+        "unit": "bunch",
         "department": "Produce"
       },
       {
         "name": "plain flour",
-        "quantity": 200,
+        "quantity": 100,
         "unit": "g",
         "department": "DryGoods"
       },
       {
-        "name": "egg",
+        "name": "egg white",
         "quantity": 1,
         "unit": "piece",
         "department": "Dairy"
       },
       {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "bryndza cheese",
-        "quantity": 250,
-        "unit": "g",
+        "name": "milk",
+        "quantity": 150,
+        "unit": "ml",
         "department": "Dairy"
       },
       {
+        "name": "bicarbonate of soda",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "butter",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "cherry tomatoes",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
         "name": "bacon",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 12,
+        "unit": "piece",
         "department": "Meat"
       },
       {
-        "name": "chives",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
+        "name": "egg",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Dairy"
       }
     ],
     "steps": [
-      "Prepare the Dough",
-      "Grate the potatoes finely using a hand grater or food processor. Place the grated potatoes in a bowl and mix them with flour, egg, and salt until a sticky dough forms. The consistency should be thick but pliable.",
-      "Cook the Dumplings",
-      "Bring a large pot of salted water to a boil. Using a halušky maker (similar to a spaetzle maker), press the dough directly into the boiling water. If you don’t have one, use a tilted cutting board and a knife to scrape small pieces of dough into the water.",
-      "Let the dumplings cook until they float to the surface, usually within 2-3 minutes. Scoop them out with a slotted spoon and set aside in a large bowl.",
-      "Prepare the Toppings",
-      "Chop the bacon into small pieces and fry in a skillet over medium heat until crispy. If using a bryndza substitute, mix crumbled feta with a dollop of sour cream to mimic the tangy flavour of traditional Slovak sheep cheese.",
-      "Assemble the Dish",
-      "Toss the cooked dumplings with the bryndza cheese (or substitute) until they’re well-coated and creamy. Top with the crispy bacon and its drippings. Garnish with chopped chives or parsley for an extra touch of colour and flavour."
+      "Before you start, put your oven on its lowest setting, ready to keep things warm. Peel the potatoes, grate 2 of them, then set aside. Cut the other 2 into large chunks, then boil for 10-15 mins or until tender. Meanwhile, squeeze as much of the liquid from the grated potatoes as you can using a clean tea towel. Mash the boiled potatoes, then mix with the grated potato, spring onions and flour.",
+      "Whisk the egg white in a large bowl until it holds soft peaks. Fold in the buttermilk, then add the bicarbonate of soda. Fold into the potato mix.",
+      "Heat a large non-stick frying pan over a medium heat, then add 1 tbsp butter and some of the oil. Drop 3-4 spoonfuls of the potato mixture into the pan, then gently cook for 3-5 mins on each side until golden and crusty. Keep warm on a plate in the oven while you cook the next batch, adding more butter and oil to the pan before you do so. You will get 16 crumpet-size boxty from the mix. Can be made the day ahead, drained on kitchen paper, then reheated in a low oven for 20 mins.",
+      "Heat the grill to medium and put the tomatoes in a heavy-based pan. Add a good knob of butter and a little oil, then fry for about 5 mins until softened. Grill the bacon, then pile onto a plate and keep warm. Stack up the boxty, bacon and egg, and serve the tomatoes on the side."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -1419,282 +1216,10 @@ export const recipeImported: Recipe[] = [
       "Eggs"
     ],
     "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/g33c901763365484.jpg",
-    "origin": "Slovakia",
+    "image": "https://www.themealdb.com/images/media/meals/naqyel1608588563.jpg",
+    "origin": "Irish",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.slovakia-foods.co.uk/blog/post/bryndzove-halusky-recipe-a-taste-of-slovakia-national-dish.html",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53077",
-    "name": "Cabbage Soup (Shchi)",
-    "cuisine": "American",
-    "categories": [
-      "Vegetarian",
-      "Soups"
-    ],
-    "primaryProtein": "None",
-    "vegetables": [
-      "onion",
-      "cabbage",
-      "carrots",
-      "celery",
-      "potatoes",
-      "tomatoes"
-    ],
-    "techniques": [
-      "bake",
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 580,
-      "protein": 12,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "unsalted butter",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cabbage",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "celery",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "bay leaf",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "vegetable stock",
-        "quantity": 8,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "tomatoes",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "sour cream",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Dairy"
-      },
-      {
-        "name": "dill",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Add the butter to a large Dutch oven or other heavy-duty pot over medium heat. When the butter has melted, add the onion and sauté until translucent.",
-      "Add the cabbage, carrot, and celery. Sauté until the vegetables begin to soften, stirring frequently, about 3 minutes.",
-      "Add the bay leaf and vegetable stock and bring to a boil over high heat. Reduce the heat to low and simmer, covered, until the vegetables are crisp-tender, about 15 minutes.",
-      "Add the potatoes and bring it back to a boil over high heat. Reduce the heat to low and simmer, covered, until the potatoes are tender, about 10 minutes.",
-      "Add the tomatoes (or undrained canned tomatoes) and bring the soup back to a boil over high heat. Reduce the heat to low and simmer, uncovered, for 5 minutes. Season to taste with salt and pepper.",
-      "emove and discard the bay leaf from the pot.",
-      "Serve topped with fresh sour cream and fresh dill."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [
-      "Dairy"
-    ],
-    "dietTags": [
-      "vegetarian",
-      "gluten-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/60oc3k1699009846.jpg",
-    "origin": "Russian",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.thespruceeats.com/traditional-russian-cabbage-soup-shchi-recipe-1135534",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53488",
-    "name": "Cabbage with Ground Beef",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "carrots",
-      "garlic",
-      "cabbage",
-      "apple cider vinegar",
-      "parsley"
-    ],
-    "techniques": [
-      "braise"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "olive oil",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "ground beef",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 0.5,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 0.5,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "smoked paprika",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "ground cumin",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Meat"
-      },
-      {
-        "name": "cabbage",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "apple cider vinegar",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "parsley",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Heat a large skillet or braiser over medium heat on the stovetop. Add the olive oil.",
-      "A braiser with cooked ground beef",
-      "Cook the Meat:",
-      "Add the ground meat to the pan. Use a potato masher or wooden spoon to break it into small pieces. Cook for 3–4 minutes until browned.",
-      "Add Vegetables and Seasoning:",
-      "Stir in the onion, carrots, red pepper, garlic, and tomato paste. Season with salt, black pepper, smoked paprika, ground cumin, and Italian seasoning (if using). Cook for 2–3 minutes, stirring frequently.",
-      "A braiser with cooked ground beef, carrots, onions, peppers, garlic and seasoning.",
-      "Add Cabbage and Liquid:",
-      "Add the chopped cabbage, apple cider vinegar or lemon juice (if using), and water. Stir well to combine. Reduce the heat to medium-low, cover, and cook for 30 minutes. Stir occasionally to prevent the cabbage from sticking to the bottom of the pan.",
-      "A pot with cooked ground beef, vegetables and cabbage on a stove top",
-      "Check for Doneness:",
-      "Uncover and check the texture of the cabbage. If necessary, increase the heat to medium-high and cook for an additional 5–7 minutes to evaporate excess liquid and finish cooking.",
-      "A braiser with cooked ground meat and cabbage dish on a stove top",
-      "Garnish and Serve:"
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/brmxra1782681940.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://cookinglsl.com/ground-beef-cabbage-recipe/#wprm-recipe-container-59951",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/boxty-bacon-eggs-tomatoes",
     "estimated": true
   },
   {
@@ -1954,195 +1479,167 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53459",
-    "name": "Chicken and Potato Roti",
+    "id": "mealdb-52818",
+    "name": "Chicken Fajita Mac and Cheese",
     "cuisine": "American",
     "categories": [
+      "Pasta",
       "HighProtein"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
-      "parsley",
       "onion",
       "garlic",
-      "potatoes"
+      "parsley"
     ],
     "techniques": [
-      "simmer"
+      "roast",
+      "fry"
     ],
-    "difficulty": "Hard",
-    "spiceLevel": "Hot",
+    "difficulty": "Medium",
+    "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
+      "calories": 480,
       "protein": 38,
-      "carbs": 48,
-      "fat": 18
+      "carbs": 18,
+      "fat": 30
     },
     "ingredients": [
       {
-        "name": "flour",
-        "quantity": 1,
-        "unit": "lb",
+        "name": "macaroni",
+        "quantity": 500,
+        "unit": "g",
         "department": "DryGoods"
       },
       {
-        "name": "shortening",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "DryGoods"
+        "name": "chicken stock",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "heavy cream",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "fajita seasoning",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
       },
       {
         "name": "salt",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "tsp",
         "department": "Spices",
         "pantryStaple": true
       },
       {
         "name": "chicken breast",
-        "quantity": 6,
+        "quantity": 3,
         "unit": "piece",
         "department": "Meat"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red pepper",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "cheddar cheese",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Dairy"
       },
       {
         "name": "parsley",
         "quantity": 1,
         "unit": "pinch",
         "department": "Produce"
-      },
-      {
-        "name": "thyme",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices"
-      },
-      {
-        "name": "jerk",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "sugar",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 4,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "scotch bonnet",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "Produce"
       }
     ],
     "steps": [
-      "Add a pint of chicken stock to the simmer and put three tablespoons of sugar into a large saucepan on high; cook until the sugar caramelizes, then add the cubed chicken breasts and stir until the chicken browns.",
-      "Add chopped onions, garlic, parsley, thyme, jerk seasoning, salt, and the whole scotch bonnet pepper – do not cut up the pepper! Reduce the heat to low and let this simmer for 25 minutes.",
-      "In a large mixing bowl, sift the flour, and add a pinch of salt to taste.",
-      "Now add the first tablespoon of shortening, and with your fingers, rub the flour into the shortening until it forms a breadcrumb-like consistency.",
-      "Then add the second tablespoon of shortening and rub against the flour until it looks like breadcrumbs.",
-      "Now add the third tablespoon of shortening and repeat the process.",
-      "You should by now have used all the flour. Your bowl should be all breadcrumb-like; if you still have fresh flour, use another tablespoon of shortening until your fresh flour is all used up.",
-      "Add a small amount of water and mix with a butter knife; keep adding small amounts until your mixture forms a soft dough.",
-      "Now dust your surface with flour and roll out your pastry; you want to roll wafer-thin rounds – this mixture should make at least 12 roti skins.",
-      "Cover with a tea towel while returning to the pot.",
-      "Now peel the potatoes and cube them into small bite-size pieces.",
-      "After 25 minutes of simmering, add 1/2 pint of water and the potatoes to the pool.",
-      "Now cover and cook for 30 minutes on low heat.",
-      "Turn a flat baking tray upside down, lightly cover with foil, and place on the stovetop on high; cook each roti skin for 1 minute on each side until brown but not crisp."
+      "Fry your onion, peppers and garlic in olive oil until nicely translucent. Make a well in your veg and add your chicken. Add your seasoning and salt. Allow to colour slightly.",
+      "Add your cream, stock and macaroni.",
+      "Cook on low for 20 minutes. Add your cheeses, stir to combine.",
+      "Top with roasted peppers and parsley."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Gluten"
+      "Dairy"
     ],
     "dietTags": [
-      "dairy-free"
+      "gluten-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/mp9z0i1782238092.jpg",
+    "image": "https://www.themealdb.com/images/media/meals/qrqywr1503066605.jpg",
+    "origin": "United States",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.totallybarbados.com/articles/barbados-recipes/chicken-potato-roti-recipe/",
+    "sourceUrl": "http://twistedfood.co.uk/chicken-fajita-mac-n-cheese/",
     "estimated": true
   },
   {
-    "id": "mealdb-53455",
-    "name": "Chicken Liver Pate Recipe",
+    "id": "mealdb-53343",
+    "name": "Classic Tourtière",
     "cuisine": "American",
     "categories": [
       "HighProtein"
     ],
-    "primaryProtein": "Chicken",
+    "primaryProtein": "Beef",
     "vegetables": [
+      "onion",
       "garlic",
-      "onion"
+      "russet potato"
     ],
     "techniques": [
-      "bake"
+      "bake",
+      "fry",
+      "simmer",
+      "steam"
     ],
     "difficulty": "Medium",
-    "spiceLevel": "Mild",
+    "spiceLevel": "None",
     "prepMinutes": 15,
     "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
-      "calories": 420,
-      "protein": 38,
-      "carbs": 18,
-      "fat": 18
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
     },
     "ingredients": [
       {
-        "name": "chicken liver",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "bacon",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
+        "name": "canola oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
       },
       {
         "name": "onion",
@@ -2151,10 +1648,28 @@ export const recipeImported: Recipe[] = [
         "department": "Produce"
       },
       {
-        "name": "ground mustard",
+        "name": "garlic",
         "quantity": 2,
-        "unit": "tsp",
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "ground beef",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
+      },
+      {
+        "name": "ground pork",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "dried leaves of summer savoury",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
       },
       {
         "name": "salt",
@@ -2171,60 +1686,91 @@ export const recipeImported: Recipe[] = [
         "pantryStaple": true
       },
       {
-        "name": "milk",
+        "name": "ground clove",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "ground nutmeg",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "beef stock",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "russet potato",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "shortcrust pastry",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "egg",
         "quantity": 1,
         "unit": "piece",
         "department": "Dairy"
-      },
-      {
-        "name": "sherry",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Clean livers of sinews and gall.",
-      "Put into a fireproof casserole with all other ingredients roughly chopped.",
-      "Season and cover with milk.",
-      "Put the lid on the casserole and cook in a slow oven (300ºF) for 2 hours.",
-      "Liquidize in a blender.",
-      "Adjust seasoning.",
-      "Add sherry or brandy.",
-      "Put in a dish and cover with melted butte"
+      "Heat oil on medium-high heat in a large sauté pan or skillet, then sauté the onion and garlic until softened, about 5 minutes. Add the ground beef, pork, and spices and cook until the meat is browned.",
+      "Add the beef broth and bring it up to a simmer then reduce heat to medium low. Add the grated potato and stir it in. Cook until liquid is almost absorbed, about 15 min. Remove the bay leaves and add salt to taste. Remove the pan from the heat and let the mixture cool completely — it bakes best if the filling is chilled.",
+      "Preheat the oven to 375 °F (190 °C). On a lightly floured surface, roll out one disc of the pie dough to less than the 1/4-inch thickness and line the 9-inch pie plate. Fill this with the cooled tourtière mixture and spread out evenly. Roll out the remaining dough to the same thickness, cut a hole in the centre (for steam to escape) and place on top of the filling. Trim the dough to 1/2-inch beyond the edge of the pie plate and pinch the edges of the crust together. Brush the crust with the egg wash.",
+      "Bake tourtière for about 45 minutes or until the pastry is a rich golden brown. Let cool for 15 minutes before slicing to serve.",
+      "Serves: 8-10 (makes 2 9-inch pies)"
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy"
+      "Eggs"
     ],
     "dietTags": [
-      "gluten-free"
+      "gluten-free",
+      "dairy-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/hob03q1780264260.jpg",
+    "image": "https://www.themealdb.com/images/media/meals/0sd7ac1764787957.jpg",
+    "origin": "Canadian",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.totallybarbados.com/articles/barbados-recipes/chicken-liver-pate/",
+    "sourceUrl": "https://canadianfoodfocus.org/recipes/classic-canadian-dish-classic-tourtiere/",
     "estimated": true
   },
   {
-    "id": "mealdb-53514",
-    "name": "Chilean Empanada",
+    "id": "mealdb-53037",
+    "name": "Coddled pork with cider",
     "cuisine": "American",
     "categories": [
       "HighProtein"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
-      "onion",
-      "garlic"
+      "potatoes",
+      "carrots",
+      "cabbage"
     ],
     "techniques": [
-      "bake"
+      "fry",
+      "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -2236,116 +1782,82 @@ export const recipeImported: Recipe[] = [
       {
         "name": "butter",
         "quantity": 1,
-        "unit": "tbsp",
+        "unit": "piece",
         "department": "Dairy"
       },
       {
-        "name": "onion",
-        "quantity": 1,
+        "name": "pork chops",
+        "quantity": 2,
         "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "dried oregano",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "cumin",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "salt",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "ground pork",
-        "quantity": 1,
-        "unit": "lb",
         "department": "Meat"
       },
       {
-        "name": "raisins",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "black olives",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "eggs",
-        "quantity": 3,
+        "name": "bacon",
+        "quantity": 4,
         "unit": "piece",
-        "department": "Dairy"
+        "department": "Meat"
       },
       {
-        "name": "shortening",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "all purpose flour",
-        "quantity": 5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "eggs",
+        "name": "potatoes",
         "quantity": 2,
         "unit": "piece",
-        "department": "Dairy"
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "swede",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "cider",
+        "quantity": 100,
+        "unit": "ml",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chicken stock",
+        "quantity": 100,
+        "unit": "g",
+        "department": "Meat"
       }
     ],
     "steps": [
-      "Make the filling: Melt butter in a large skillet over medium heat. Add onion, garlic, oregano, cumin, salt, and pepper; cook and stir until onion is golden brown, 5 to 7 minutes. Add pork and cook until completely browned and crumbly, 7 to 10 minutes more. Drain fat from the skillet. Stir in raisins, olives, and hard-cooked eggs.",
-      "Whisk water and cornstarch together in a small bowl; pour into the skillet and stir until liquid thickens. Remove from the heat and set aside.",
-      "Make the dough: Whisk milk and melted shortening together in a bowl until evenly blended. Stir flour and salt together in a separate large bowl. Pour milk mixture into flour mixture; whisk until well combined and a dough forms. Let rest for 10 minutes.",
-      "Preheat the oven to 400 degrees F (200 degrees C). Line a baking sheet with parchment paper.",
-      "Roll dough on a lightly floured surface to a thickness of 1/8 inch. Cut into 12 circles with a round cookie cutter or glass. Spoon filling into the center of each circle. Fold each circle in half and press the edges with a fork to seal. Brush the tops with beaten egg. Place empanadas onto the prepared baking sheet.",
-      "Bake in the preheated oven until golden brown, about 25 minutes."
+      "Heat the butter in a casserole dish until sizzling, then fry the pork for 2-3 mins on each side until browned. Remove from the pan.",
+      "Tip the bacon, carrot, potatoes and swede into the pan, then gently fry until slightly coloured. Stir in the cabbage, sit the chops back on top, add the bay leaf, then pour over the cider and stock. Cover the pan, then leave everything to gently simmer for 20 mins until the pork is cooked through and the vegetables are tender.",
+      "Serve at the table spooned straight from the dish."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Gluten",
       "Dairy",
-      "Eggs"
+      "Fish"
     ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/q4xgij1782851193.jpg",
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/7vpsfp1608588991.jpg",
+    "origin": "Irish",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.allrecipes.com/recipe/185584/chilean-empanada/",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/irish-coddled-pork-cider",
     "estimated": true
   },
   {
@@ -2448,455 +1960,58 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53419",
-    "name": "Crispy fried fish with ginger and fermented soybeans (trey chien chuon)",
-    "cuisine": "American",
-    "categories": [
-      "Seafood",
-      "HighProtein"
-    ],
-    "primaryProtein": "Fish",
-    "vegetables": [
-      "ginger",
-      "garlic",
-      "spring onions"
-    ],
-    "techniques": [
-      "fry",
-      "stir-fry",
-      "steam"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 15,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "ginger",
-        "quantity": 2,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "fish fillet",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Seafood"
-      },
-      {
-        "name": "tempura flour",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "oil",
-        "quantity": 2,
-        "unit": "cup",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "garlic",
-        "quantity": 4,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "soya bean",
-        "quantity": 800,
-        "unit": "g",
-        "department": "DryGoods"
-      },
-      {
-        "name": "sugar",
-        "quantity": 0.5,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "spring onions",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Fry the ginger in plenty of oil until golden and slightly crispy. Set aside for later.",
-      "Cut the fish into strips. Dredge the fish in a very thin layer of tempura flour.",
-      "Fry the fish in plenty of oil until golden brown and crispy. You can use the same oil as you were using to fry the ginger.",
-      "Crush the garlic and chop it into small pieces. Chop the spring onion.",
-      "Drain the fermented soybeans using a colander. If you are using salted beans (soybeans in a very salty brine), you need to wash the beans in water before you add them to the dish.",
-      "Add a tablespoon of oil to a deep pan or a large pot, and sauté the garlic until slightly golden.",
-      "Add the soybeans and stir fry for a few minutes. If the soybeans are very salty, add ¼- ½ tablespoon sugar to balance the flavor.",
-      "Add water and fry for a minute.",
-      "Just before serving, stir in the fried ginger, the spring onion, and the crispy fish. Serve with steamed rice."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/9q1ci41779735714.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://mitziemee.com/recipe-cambodian-fried-fish-ginger-fermented-soybeans/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53188",
-    "name": "Fašírky",
+    "id": "mealdb-52999",
+    "name": "Crispy Sausages and Greens",
     "cuisine": "American",
     "categories": [
       "HighProtein"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
+      "kale",
+      "cabbage",
       "onion",
-      "garlic",
-      "parsley"
+      "shiitake mushrooms"
     ],
     "techniques": [
+      "bake",
       "fry"
     ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "ground pork",
-        "quantity": 500,
-        "unit": "g",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "bread",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Bakery"
-      },
-      {
-        "name": "milk",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "marjoram",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "mustard",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "flour",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "breadcrumbs",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Bakery"
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Prepare the Bread Mixture",
-      "Soak the bread slices in milk or water until soft.",
-      "Squeeze out excess liquid and mash into small crumbs.",
-      "Mix the Ingredients",
-      "In a large bowl, combine ground meat, chopped onions, garlic, soaked bread, egg, and seasonings.",
-      "Mix well until evenly combined.",
-      "Shape the Meat Patties",
-      "Take portions of the mixture and shape them into palm-sized patties.",
-      "Flatten slightly to help with even cooking.",
-      "Coat the Patties",
-      "Lightly dust each patty with flour.",
-      "Dip into beaten egg, then coat with breadcrumbs for a crispy finish.",
-      "Fry the Fašírky",
-      "Heat vegetable oil in a pan over medium heat."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/gtpvwp1763363947.jpg",
-    "origin": "Slovakia",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.slovakia-foods.co.uk/blog/post/fasirky-recipe-how-to-make-authentic-slovak-meat-patties.html",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53122",
-    "name": "Fiskesuppe (Creamy Norwegian Fish Soup)",
-    "cuisine": "American",
-    "categories": [
-      "Seafood",
-      "Soups"
-    ],
-    "primaryProtein": "Shellfish",
-    "vegetables": [
-      "garlic",
-      "potatoes",
-      "carrots",
-      "leek"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 580,
-      "protein": 30,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "fish fillet",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Seafood"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "leek",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "butter",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "flour",
-        "quantity": 5,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "fish stock",
-        "quantity": 4,
-        "unit": "cup",
-        "department": "Seafood"
-      },
-      {
-        "name": "milk",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Dairy"
-      },
-      {
-        "name": "creme fraiche",
-        "quantity": 1.25,
-        "unit": "cup",
-        "department": "Dairy"
-      },
-      {
-        "name": "shrimp",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Seafood"
-      },
-      {
-        "name": "chives",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "▢",
-      "Cut the fish fillets in cubes or strips. Crush or chop the garlic. Rinse the vegetables and cut into thin strips.",
-      "▢",
-      "Heat the butter in a pot and add the garlic. Once the garlic starts to turn golden add the flour, whisking well.",
-      "▢",
-      "Add the fish stock and continue to whisk until there are no lumps.",
-      "▢",
-      "Add the vegetables and milk and bring to a boil. Cook for about 10 minutes.",
-      "▢",
-      "Add the crème fraîche (or sour cream). Bring the soup back to a simmer and once the soup begins to bubble again turn off the heat. Keep the soup on the burner and add the fish. Let the fish cook in the hot soup for 5 minutes. If using shrimp, add right before serving.",
-      "▢",
-      "Sprinkle with chives (or dill or parsley) before serving."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Shellfish",
-      "Fish"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/raqjbj1762773035.jpg",
-    "origin": "Norway",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://scandinaviancookbook.com/fiskesuppe-creamy-norwegian-fish-soup/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53464",
-    "name": "Flemish Hutsepot",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "floury potatoes",
-      "carrots",
-      "leek",
-      "onion",
-      "garlic"
-    ],
-    "techniques": [
-      "fry",
-      "braise"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
-      "calories": 580,
+      "calories": 420,
       "protein": 34,
-      "carbs": 48,
-      "fat": 30
+      "carbs": 18,
+      "fat": 18
     },
     "ingredients": [
       {
-        "name": "floury potatoes",
-        "quantity": 600,
-        "unit": "g",
+        "name": "kale",
+        "quantity": 1,
+        "unit": "bunch",
         "department": "Produce"
       },
       {
-        "name": "carrots",
-        "quantity": 200,
-        "unit": "g",
-        "department": "Produce"
-      },
-      {
-        "name": "turnips",
-        "quantity": 200,
-        "unit": "g",
-        "department": "DryGoods"
-      },
-      {
-        "name": "leek",
-        "quantity": 250,
-        "unit": "g",
-        "department": "Produce"
-      },
-      {
-        "name": "sausages",
-        "quantity": 4,
+        "name": "italian fennel sausages",
+        "quantity": 8,
         "unit": "piece",
         "department": "Meat"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Spices"
       },
       {
         "name": "onion",
@@ -2905,40 +2020,16 @@ export const recipeImported: Recipe[] = [
         "department": "Produce"
       },
       {
-        "name": "garlic",
-        "quantity": 3,
-        "unit": "clove",
+        "name": "shiitake mushrooms",
+        "quantity": 1,
+        "unit": "piece",
         "department": "Produce"
-      },
-      {
-        "name": "bay leaf",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "thyme",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Spices"
       },
       {
         "name": "chicken stock",
-        "quantity": 600,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "Meat"
-      },
-      {
-        "name": "mustard",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "unsalted butter",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices"
       },
       {
         "name": "salt",
@@ -2956,139 +2047,20 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Peel and chop the onion and garlic. Add both to a large pan with the butter and place it over medium heat.",
-      "Let the onion and garlic sweat for 5 minutes. Then add the chopped potatoes, bay leaves and thyme and stir well. Cook for another 5 minutes.",
-      "In the meantime peel and slice the carrots. Peel the turnip. Dice it into bite-size pieces. Slice the leek in half lengthwise. Rinse it well to remove any sand. Add the vegetables to the potatoes and onion. Also add the mustard and chicken stock and season with pepper and salt.",
-      "Stir all the ingredients well and cover the pan with a lid. Cook the hutsepot for about 20 to 25 minutes or until all the vegetables and potatoes are tender. Stir regularly. Add extra water if necessary. In the meantime pan fry the sausages in a little oil or butter until golden brown and cooked through. Keep warm.",
-      "Once the potatoes start to fall apart, stir and turn it all into a mushy and chunky vegetable stew. Check the seasoning and add extra pepper, salt or mustard to taste.",
-      "Scoop the hutsepot onto deep plates and top with the sausage. Serve hot with an extra dollop of mustard if you like."
+      "Preheat the oven to 350°. Remove the stems from one bunch of Tuscan kale and tear the leaves into 1\" pieces (mustard greens, collards, spinach, and chard are great, too). Coarsely chop half a head of green cabbage. Combine the greens in a large baking dish and add 4 cloves of thinly sliced garlic. Adding some sliced onions and shiitake mushrooms at this point is optional, but highly recommended (I'll sauté the onions and mushrooms in a cast iron baking dish right on the stove before adding to the greens). Coat the greens with some olive oil and pour ½ cup chicken stock or broth over everything. Cover the dish with foil and bake until the greens are wilted, about 15 minutes. Remove foil and season with salt and pepper. Continue to bake until cabbage is tender, about 20-25 minutes more.",
+      "Meanwhile, heat a little olive oil in a large skillet over medium-high. Prick four sweet Italian sausages with a fork and cook until browned on all sides and cooked through, 10 to 12 minutes. When the greens are done, slice the sausage and toss into the greens with a splash of your favorite vinegar (I like sherry or red wine)."
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/2lywl71782496853.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://junedarville.com/hutsepot.html",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53021",
-    "name": "Golabki (cabbage roll)",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "cabbage",
-      "onion",
-      "garlic"
-    ],
-    "techniques": [
-      "bake",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "cabbage",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "butter",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "ground beef",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "ground pork",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 3,
-        "unit": "can",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Bring a large pot of lightly salted water to a boil. Place cabbage head into water, cover pot, and cook until cabbage leaves are slightly softened enough to remove from head, 3 minutes. Remove cabbage from pot and let cabbage sit until leaves are cool enough to handle, about 10 minutes.",
-      "Remove 18 whole leaves from the cabbage head, cutting out any thick tough center ribs. Set whole leaves aside. Chop the remainder of the cabbage head and spread it in the bottom of a casserole dish.",
-      "Melt butter in a large skillet over medium-high heat. Cook and stir onion in hot butter until tender, 5 to 10 minutes. Cool.",
-      "Stir onion, beef, pork, rice, garlic, 1 teaspoon salt, and 1/4 teaspoon pepper together in a large bowl.",
-      "Preheat oven to 350 degrees F (175 degrees C).",
-      "Place about 1/2 cup beef mixture on a cabbage leaf. Roll cabbage around beef mixture, tucking in sides to create an envelope around the meat. Repeat with remaining leaves and meat mixture. Place cabbage rolls in a layer atop the chopped cabbage in the casserole dish; season rolls with salt and black pepper.",
-      "Whisk tomato soup, tomato juice, and ketchup together in a bowl. Pour tomato soup mixture over cabbage rolls and cover dish wish aluminum foil.",
-      "Bake in the preheated oven until cabbage is tender and meat is cooked through, about 1 hour."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Dairy"
-    ],
+    "allergens": [],
     "dietTags": [
-      "gluten-free"
+      "gluten-free",
+      "dairy-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/q8sp3j1593349686.jpg",
-    "origin": "Polish",
+    "image": "https://www.themealdb.com/images/media/meals/st1ifa1583267248.jpg",
+    "origin": "Irish",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.allrecipes.com/recipe/234975/golabki-stuffed-cabbage-rolls/",
+    "sourceUrl": "https://www.bonappetit.com/columns/cooking-without-recipes/article/kale-cabbage-sausage-weeknight-dinner",
     "estimated": true
   },
   {
@@ -3251,6 +2223,231 @@ export const recipeImported: Recipe[] = [
     "origin": "United States",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://leitesculinaria.com/103647/recipes-grilled-mac-and-cheese-sandwich.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53035",
+    "name": "Ham hock colcannon",
+    "cuisine": "American",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "floury potatoes",
+      "cabbage",
+      "spring onions"
+    ],
+    "techniques": [
+      "fry",
+      "simmer",
+      "steam"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "floury potatoes",
+        "quantity": 800,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 50,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "spring onions",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "double cream",
+        "quantity": 100,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "mustard",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "ham",
+        "quantity": 180,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "eggs",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "Peel and cut the potatoes into even, medium-sized chunks. Put in a large pan filled with cold salted water, bring to the boil and cook for 10-15 mins until a knife can be inserted into the potatoes easily.",
+      "Meanwhile, melt the butter in a large sauté pan over a medium heat. Add the garlic, cabbage, spring onions and some seasoning. Stir occasionally until the cabbage is wilted but still retains a little bite, then set aside.",
+      "Drain the potatoes, leave to steam-dry for a couple of mins, then mash with the cream, mustard and seasoning in the same saucepan. Stir in the cabbage and ham hock. Keep warm over a low heat.",
+      "Reheat the pan you used to cook the cabbage (no need to wash first), add a splash of oil, crack in the eggs and fry to your liking. To serve, divide the colcannon between bowls and top each with a fried egg."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/n41ny81608588066.jpg",
+    "origin": "Irish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/ham-hock-colcannon",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53340",
+    "name": "Hodge Podge",
+    "cuisine": "American",
+    "categories": [
+      "Vegetarian"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "new potatoes",
+      "carrots",
+      "green beans",
+      "peas"
+    ],
+    "techniques": [
+      "bake",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 12,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "new potatoes",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "green beans",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "peas",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "dill",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chives",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "milk",
+        "quantity": 3,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "heavy cream",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "butter",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "First, cook your vegetables. Bring a large pot of salted water to boil. Par-cook carrots and potatoes for five minutes until carrots and potatoes are fork tender, then blanch the peas and beans for about a minute in the same pot. Strain vegetables and set aside.",
+      "In a heavy-bottomed pot or Dutch oven, melt butter over medium heat, add vegetables, and cook to warm through.",
+      "Add milk and cream and bring the soup to a boil. Turn the heat down to low and season with salt and pepper.",
+      "Add dill and chives and let simmer for at least 10 minutes. Serve warm."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/xihv0c1764447887.jpg",
+    "origin": "Canadian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://canadianfoodfocus.org/recipes/classic-canadian-dish-hodge-podge/",
     "estimated": true
   },
   {
@@ -3490,106 +2687,123 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53125",
-    "name": "Karbonader (Lean Beef Patties) with Caramelized Onions",
+    "id": "mealdb-52887",
+    "name": "Kedgeree",
     "cuisine": "American",
     "categories": [
+      "Seafood",
       "HighProtein"
     ],
-    "primaryProtein": "Beef",
+    "primaryProtein": "Fish",
     "vegetables": [
-      "onion"
+      "parsley",
+      "coriander",
+      "onion",
+      "coriander"
     ],
     "techniques": [
       "fry",
-      "braise"
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 15,
+    "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
-      "protein": 36,
-      "carbs": 18,
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
-        "name": "onion",
+        "name": "smoked haddock",
+        "quantity": 300,
+        "unit": "g",
+        "department": "Seafood"
+      },
+      {
+        "name": "bay leaves",
         "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "milk",
+        "quantity": 300,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "eggs",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "coriander",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
         "unit": "piece",
         "department": "Produce"
       },
       {
-        "name": "butter",
+        "name": "coriander",
         "quantity": 1,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "ground beef",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "salt",
-        "quantity": 0.5,
         "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
+        "department": "Produce"
       },
       {
-        "name": "pepper",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "nutmeg",
-        "quantity": 0.5,
+        "name": "curry powder",
+        "quantity": 2,
         "unit": "tsp",
         "department": "Spices"
       },
       {
-        "name": "cornstarch",
-        "quantity": 0.5,
-        "unit": "tbsp",
+        "name": "rice",
+        "quantity": 300,
+        "unit": "g",
         "department": "DryGoods"
-      },
-      {
-        "name": "butter",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Dairy"
       }
     ],
     "steps": [
-      "Grate half an onion and set aside. Slice the rest of the onions and fry in butter on low/medium heat until caramelized.",
-      "▢",
-      "In a bowl, mix together ground beef, grated onion, salt, pepper, nutmeg, potato/corn starch, and water.",
-      "▢",
-      "Form into a sausage and cut 6 patties. Using a knife make a light grid pattern in each patty.",
-      "▢",
-      "Brown both sides of the karbonader in butter on high heat, then turn down to low heat and fry for another 2 – 3 minutes.",
-      "▢",
-      "Serve the karbonader and onions with potatoes, stewed peas, and brown sauce for dinner, or on a slice of bread for lunch or a snack."
+      "For the rice, heat the oil in a large, lidded pan, add the onion, then gently fry for 5 mins until softened but not coloured. Add the spices, season with salt, then continue to fry until the mix start to go brown and fragrant; about 3 mins.",
+      "Add the rice and stir in well. Add 600ml water, stir, then bring to the boil. Reduce to a simmer, then cover for 10 mins. Take off the heat and leave to stand, covered, for 10-15 mins more. The rice will be perfectly cooked if you do not lift the lid before the end of the cooking.",
+      "Meanwhile, put the haddock and bay leaves in a frying pan, cover with the milk, then poach for 10 mins until the flesh flakes. Remove from the milk, peel away the skin, then flake the flesh into thumbsize pieces. Place the eggs in a pan, cover with water, bring to the boil, then reduce to a simmer. Leave for 4½-5 mins, plunge into cold water, then peel and cut the eggs into quarters. Gently mix the fish, eggs, parsley, coriander and rice together in the pan. Serve hot, sprinkled with a few extra herbs."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy"
+      "Dairy",
+      "Fish",
+      "Eggs"
     ],
     "dietTags": [
       "gluten-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/0bpjb11763075817.jpg",
-    "origin": "Norway",
+    "image": "https://www.themealdb.com/images/media/meals/utxqpt1511639216.jpg",
+    "origin": "British",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://scandinaviancookbook.com/karbonader/",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/10421/kedgeree",
     "estimated": true
   },
   {
@@ -3750,292 +2964,28 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53112",
-    "name": "Kenyan Beef Curry",
-    "cuisine": "American",
-    "categories": [
-      "Stews",
-      "HighProtein"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "red onions",
-      "tomato",
-      "chilli",
-      "cilantro"
-    ],
-    "techniques": [
-      "bake",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 480,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "sirloin steak tips",
-        "quantity": 2,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "garlic clove",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "ground ginger",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Meat"
-      },
-      {
-        "name": "oil",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "red onions",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "tomato",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "paprika",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "black pepper",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "curry powder",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "chilli",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Bring the 4 cups of water to a boil in a Dutch oven or soup pot. Add the beef, garlic, and ginger, and stir well. Bring to a gentle simmer, cover, and cook, stirring occasionally, for 20 minutes. If you get any foamy scum on the top, not to worry, simply spoon it away or stir it back in.",
-      "Remove from the heat, and drain, but reserve the excess water for later.",
-      "Return the pot or Dutch oven to medium heat with the 2 tablespoons of cooking oil. Once the oil is shimmering, add the onions and cook, stirring occasionally, until softened, 5 to 7 minutes.",
-      "Add the tomatoes to the onions, and continue cooking, stirring occasionally, until the tomatoes are falling apart, 3 to 5 minutes.",
-      "Add the drained beef to the tomato and onion mixture, and stir well. Continue cooking over medium heat for 5 minutes, stirring occasionally.",
-      "Add the paprika, pepper, curry powder, tomato paste, and salt to taste, and stir well.",
-      "Add back the excess water that was used for cooking the beef, along with enough extra water to cover. Bring to a boil, reduce heat, and simmer, uncovered, stirring occasionally, for about 1 hour, or until the meat is tender and the sauce is thickened. Add additional water if your beef curry begins to dry and stick, or if would like your curry to have more of a soupy consistency.",
-      "When the beef curry is ready, remove from the heat, give it a taste, and adjust the seasonings as desired. Garnish with fresh chilis and cilantro."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/lqampv1762325397.jpg",
-    "origin": "Kenyan",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://tasteoftheplace.com/kenyan-beef-curry/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53412",
-    "name": "Lakra me Mish Cabbage and Meat Stew",
-    "cuisine": "American",
-    "categories": [
-      "Stews",
-      "HighProtein"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "cabbage",
-      "onion",
-      "chilli flakes"
-    ],
-    "techniques": [
-      "fry",
-      "simmer",
-      "braise"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Medium",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 480,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "beef",
-        "quantity": 500,
-        "unit": "g",
-        "department": "Meat"
-      },
-      {
-        "name": "cabbage",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "paprika",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 3,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "red pepper",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "chilli flakes",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "olive oil",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "boiling water",
-        "quantity": 1,
-        "unit": "l",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "1",
-      "Cooking",
-      "Add some olive oil to a saute pan or saucepan (one with a lid). One heated add in the onions, diced beef, red peppers and fry for 5 minutes stirring occasionally. The meat should be fully browned.",
-      "2",
-      "Add the paprika, tomato puree, chilli flakes and season with salt and pepper. Mix together and continue to fry for 2 minutes.",
-      "3",
-      "Add the cabbage and stir the mixture together. Fry the mixture while stirring occasionally for 3-5 minutes. Most of the oil should have burned away.",
-      "4",
-      "Pour the boiling water into the pan, ensuring that the water level completely covers the cabbage, plus about 1 inch above it. Put on the lid and bring to the boil.",
-      "5",
-      "Leave to simmer for 2.5 hours. The stew is ready when the cabbage is soft and meat tender.",
-      "6",
-      "Serving",
-      "Serve into wide bowls and leave to cool for 5 minutes."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/mobh1l1779648766.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.myalbanianfood.com/recipe/lakra-me-mish/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53083",
-    "name": "Lamb Pilaf (Plov)",
+    "id": "mealdb-52884",
+    "name": "Lancashire hotpot",
     "cuisine": "American",
     "categories": [
       "HighProtein"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
-      "lemon juice",
-      "onion",
-      "garlic",
-      "parsley"
+      "onions",
+      "carrots",
+      "potatoes"
     ],
     "techniques": [
+      "bake",
+      "grill",
       "fry",
       "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -4045,91 +2995,82 @@ export const recipeImported: Recipe[] = [
     },
     "ingredients": [
       {
+        "name": "butter",
+        "quantity": 100,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
         "name": "lamb",
-        "quantity": 50,
+        "quantity": 900,
         "unit": "g",
         "department": "Meat"
       },
       {
-        "name": "prunes",
-        "quantity": 120,
-        "unit": "g",
-        "department": "DryGoods"
+        "name": "lamb kidney",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Meat"
       },
       {
-        "name": "lemon juice",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "butter",
+        "name": "onions",
         "quantity": 2,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
         "unit": "piece",
         "department": "Produce"
       },
       {
-        "name": "lamb",
-        "quantity": 450,
-        "unit": "g",
-        "department": "Meat"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
+        "name": "carrots",
+        "quantity": 4,
+        "unit": "piece",
         "department": "Produce"
       },
       {
-        "name": "vegetable stock",
-        "quantity": 600,
-        "unit": "ml",
+        "name": "plain flour",
+        "quantity": 25,
+        "unit": "g",
         "department": "DryGoods"
       },
       {
-        "name": "rice",
+        "name": "worcestershire sauce",
         "quantity": 2,
-        "unit": "cup",
+        "unit": "tsp",
         "department": "DryGoods"
       },
       {
-        "name": "saffron",
-        "quantity": 1,
-        "unit": "pinch",
+        "name": "chicken stock",
+        "quantity": 500,
+        "unit": "ml",
+        "department": "Meat"
+      },
+      {
+        "name": "bay leaves",
+        "quantity": 2,
+        "unit": "piece",
         "department": "Spices"
       },
       {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "pinch",
+        "name": "potatoes",
+        "quantity": 900,
+        "unit": "g",
         "department": "Produce"
       }
     ],
     "steps": [
-      "Place the raisins and prunes into a small bowl and pour over enough water to cover. Add lemon juice and let soak for at least 1 hour. Drain. Roughly chop the prunes.",
-      "Meanwhile, heat the butter in a large pan, add the onion, and cook for 5 minutes. Add cubed lamb, ground lamb, and crushed garlic cloves. Fry for 5 minutes, stirring constantly until browned.",
-      "Pour 2/3 cup (150 milliliters) of stock into the pan. Bring to a boil, then lower the heat, cover, and simmer for 1 hour, or until the lamb is tender.",
-      "Add the remaining stock and bring to a boil. Add rinsed long-grain white rice and a large pinch of saffron. Stir, then cover, and simmer for 15 minutes, or until the rice is tender.",
-      "Add the drained raisins, drained chopped prunes, and salt and pepper to taste. Heat through for a few minutes, then turn out onto a warmed serving dish and garnish with sprigs of flat-leaf parsley."
+      "Heat oven to 160C/fan 140C/gas 3. Heat some dripping or butter in a large shallow casserole dish, brown the lamb in batches, lift to a plate, then repeat with the kidneys.",
+      "Fry the onions and carrots in the pan with a little more dripping until golden. Sprinkle over the flour, allow to cook for a couple of mins, shake over the Worcestershire sauce, pour in the stock, then bring to the boil. Stir in the meat and bay leaves, then turn off the heat. Arrange the sliced potatoes on top of the meat, then drizzle with a little more dripping. Cover, then place in the oven for about 1½ hrs until the potatoes are cooked.",
+      "Remove the lid, brush the potatoes with a little more dripping, then turn the oven up to brown the potatoes, or finish under the grill for 5-8 mins until brown."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/kos9av1699014767.jpg",
-    "origin": "Russian",
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/uttrxw1511637813.jpg",
+    "origin": "British",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.thespruceeats.com/russian-lamb-pilaf-plov-recipe-1137309",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/9099/lancashire-hotpot",
     "estimated": true
   },
   {
@@ -4520,298 +3461,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53117",
-    "name": "Nordic smørrebrød with asparagus and horseradish cream",
-    "cuisine": "American",
-    "categories": [
-      "Vegetarian"
-    ],
-    "primaryProtein": "None",
-    "vegetables": [
-      "horseradish",
-      "lemon juice",
-      "shallots",
-      "white asparagus",
-      "asparagus"
-    ],
-    "techniques": [
-      "grill",
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 12,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "creme fraiche",
-        "quantity": 150,
-        "unit": "ml",
-        "department": "Dairy"
-      },
-      {
-        "name": "horseradish",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "lemon juice",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "shallots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "white asparagus",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "asparagus",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "rye bread",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Bakery"
-      },
-      {
-        "name": "butter",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "västerbottensost cheese",
-        "quantity": 100,
-        "unit": "g",
-        "department": "Dairy"
-      },
-      {
-        "name": "dill",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "To make the horseradish cream, mix the crème fraîche, grated horseradish, lemon juice, salt and white pepper in a bowl. Refrigerate until serving.",
-      "To make the crispy shallots, heat some vegetable oil in a frying pan over a medium heat. Add the sliced shallots and fry until golden brown and crispy.",
-      "Remove with a slotted spoon and drain on a plate lined with kitchen paper. Season with a pinch of salt.",
-      "To make the open sandwich, bring a large saucepan of salted water to the boil, then blanch half of the asparagus (four white and four green) until tender-crisp, about 2–3 minutes.",
-      "Add ice to a bowl of cold water. Use a slotted spoon to remove the asparagus from the boiling water and immediately transfer to the iced water to stop cooking. Thinly slice the remaining asparagus lengthwise to serve raw.",
-      "Pre-heat the grill until hot. Spread the rye bread with butter and grill until golden and crisp.",
-      "To serve, place the grilled bread slices on serving plates. Arrange both the blanched and raw asparagus on the bread. Drizzle with horseradish cream, then sprinkle grated cheese over the top. Garnish with the crispy shallots and some fresh dill to finish."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy"
-    ],
-    "dietTags": [
-      "vegetarian"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/8a8fu01762772651.jpg",
-    "origin": "Norway",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbc.co.uk/food/recipes/nordic_smorrebrod_69435",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53017",
-    "name": "Paszteciki (Polish Pasties)",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion"
-    ],
-    "techniques": [
-      "bake",
-      "fry"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "flour",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "butter",
-        "quantity": 5,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "butter",
-        "quantity": 6,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "onion",
-        "quantity": 0.33,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "swede",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "beef brisket",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "eggs",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Sift flour and salt into a large mixing bowl.",
-      "Use a spoon to push the egg yolk through a fine sieve into the flour.",
-      "Add the raw egg and mix well.",
-      "Beat in butter 1 tablespoon at a time.",
-      "Place dough on a floured surface and knead until smooth and elastic, then wrap in waxed paper and refrigerate until firm (at least 30 minutes).",
-      "In a heavy skillet, melt 2 tablespoons butter over medium heat; saute the onion and rutabaga until the onion is soft and transparent (5 minutes).",
-      "Put the onions, rutabaga, and beef through a meat grinder twice if you have one, if not just chop them up as fine as possible.",
-      "Melt the remaining 4 tablespoons butter over medium heat, and add the meat mixture.",
-      "Cook over low heat, stirring occasionally, until all of the liquid has evaporated and the mixture is thick enough to hold its shape.",
-      "Remove from heat and let cool, then stir in 1 egg, and season with salt and pepper.",
-      "Preheat oven to 350°F.",
-      "On a lightly floured surface, roll the dough out into a 13x8\" rectangle (1/8\" thick).",
-      "Spoon the filling down the center of the rectangle lengthwise, leaving about an inch of space on each end.",
-      "Lightly brush the long sides with cold water, then fold one of the long sides over the filling and the other side over the top of that."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/c9a3l31593261890.jpg",
-    "origin": "Polish",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.food.com/recipe/paszteciki-polish-pasties-117909",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52930",
     "name": "Pate Chinois",
     "cuisine": "American",
@@ -4926,163 +3575,216 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53081",
-    "name": "Potato Salad (Olivier Salad)",
+    "id": "mealdb-52804",
+    "name": "Poutine",
     "cuisine": "American",
     "categories": [
-      "Salads",
       "HighProtein"
     ],
-    "primaryProtein": "Pork",
+    "primaryProtein": "Beef",
     "vegetables": [
-      "potatoes",
-      "carrots",
-      "peas",
-      "onions"
+      "potatoes"
     ],
     "techniques": [
-      "simmer"
+      "fry"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "potatoes",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "white wine vinegar",
-        "quantity": 0.5,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "eggs",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "sausages",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "dill",
-        "quantity": 4,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "peas",
-        "quantity": 1,
-        "unit": "can",
-        "department": "Produce"
-      },
-      {
-        "name": "onions",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "mayonnaise",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Cut the potatoes and carrots into small uniform cubes.",
-      "Place them in a large pot and fill with water.",
-      "Add salt and vinegar. Bring it to a boil over medium high heat, and then reduce the heat to medium and continue to cook until the potatoes are cooked through, about 15 minutes. Drain the potatoes and let it cool to room temperature.",
-      "Meanwhile, cut the sausage and pickles into small cubes, and chop the green onions.",
-      "Cut the hard-boiled eggs into small cubes as well.",
-      "If using fresh dill, chop them as well.",
-      "In a large bowl, combine potatoes, carrots, sausage, pickles, peas and green onions.",
-      "Add mayo and dill and mix until well combined.",
-      "Salt and pepper to taste. Cover with a plastic wrap and refrigerate for at least 1 hour before serving."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Eggs"
-    ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/ebvuir1699013665.jpg",
-    "origin": "Russian",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.sweetandsavorybyshinee.com/russian-potato-salad/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53410",
-    "name": "Presh me Oriz Leek and Rice Bake",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "primaryProtein": "Lamb",
-    "vegetables": [
-      "leek",
-      "onion"
-    ],
-    "techniques": [
-      "bake",
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
       "calories": 580,
-      "protein": 34,
+      "protein": 36,
       "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
-        "name": "leek",
-        "quantity": 500,
-        "unit": "g",
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "beef gravy",
+        "quantity": 1,
+        "unit": "can",
+        "department": "Meat"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 5,
+        "unit": "piece",
         "department": "Produce"
       },
       {
-        "name": "lamb mince",
+        "name": "cheese curds",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "Heat oil in a deep fryer or deep heavy skillet to 365°F (185°C).",
+      "Warm gravy in saucepan or microwave.",
+      "Place the fries into the hot oil, and cook until light brown, about 5 minutes.",
+      "Remove to a paper towel lined plate to drain.",
+      "Place the fries on a serving platter, and sprinkle the cheese over them.",
+      "Ladle gravy over the fries and cheese, and serve immediately."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/uuyrrx1487327597.jpg",
+    "origin": "Canadian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "http://www.food.com/recipe/real-canadian-poutine-113388",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53108",
+    "name": "Quick salt & pepper squid",
+    "cuisine": "American",
+    "categories": [
+      "Seafood"
+    ],
+    "primaryProtein": "Shellfish",
+    "vegetables": [
+      "coriander",
+      "sweet chilli sauce"
+    ],
+    "techniques": [
+      "grill"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 30,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "squid",
         "quantity": 400,
         "unit": "g",
-        "department": "Meat"
+        "department": "Seafood"
+      },
+      {
+        "name": "oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "chinese five spice powder",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "sesame seed oil",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "International"
+      },
+      {
+        "name": "coriander",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "sweet chilli sauce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Ask the fishmonger to clean the squid; little ones often come ready-cleaned. Using kitchen scissors, cut open the body and open out. Wash well, then pat dry. If you have a large squid, cut the body into four portions, roughly square. Small squid can just be opened up.",
+      "Using the tip of a very sharp knife, score the top in a neat criss-cross. Brush with oil and set aside while you heat the barbecue or griddle until ready to cook.",
+      "Mix together 2 tsp sea salt, Chinese five-spice and 1 tsp freshly ground black pepper. Sprinkle on both sides of the squid just before cooking, according to taste. You may not need it all. Heat the griddle pan to hot and cook about 1 min each side, until it starts to curl. Remove with tongs to a serving plate and drizzle with a little sesame oil. To serve, garnish with coriander leaves and serve with small bowls of sweet chilli sauce to dip into."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Shellfish",
+      "Sesame"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/cp74zo1762341241.jpg",
+    "origin": "Australian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/salt-pepper-squid-0",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52816",
+    "name": "Roasted Eggplant With Tahini, Pine Nuts, and Lentils",
+    "cuisine": "American",
+    "categories": [
+      "Vegetarian"
+    ],
+    "primaryProtein": "Lentils",
+    "vegetables": [
+      "carrots",
+      "celery",
+      "onion",
+      "garlic",
+      "apple cider vinegar",
+      "parsley"
+    ],
+    "techniques": [
+      "bake",
+      "roast",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 18,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "celery",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
       },
       {
         "name": "onion",
@@ -5091,16 +3793,22 @@ export const recipeImported: Recipe[] = [
         "department": "Produce"
       },
       {
-        "name": "rice",
-        "quantity": 200,
-        "unit": "g",
+        "name": "garlic",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "brown lentils",
+        "quantity": 12,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
-        "name": "lamb stock",
-        "quantity": 1,
-        "unit": "l",
-        "department": "Meat"
+        "name": "bay leaves",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
       },
       {
         "name": "salt",
@@ -5110,6 +3818,12 @@ export const recipeImported: Recipe[] = [
         "pantryStaple": true
       },
       {
+        "name": "apple cider vinegar",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
         "name": "pepper",
         "quantity": 1,
         "unit": "pinch",
@@ -5117,323 +3831,151 @@ export const recipeImported: Recipe[] = [
         "pantryStaple": true
       },
       {
-        "name": "olive oil",
-        "quantity": 1,
+        "name": "egg plants",
+        "quantity": 2,
         "unit": "piece",
-        "department": "DryGoods",
-        "pantryStaple": true
+        "department": "Dairy"
+      },
+      {
+        "name": "rosemary",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "pine nuts",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "1",
-      "Cooking",
-      "Fry the leeks in a small dash of olive oil for a few minutes until they start to brown.",
-      "2",
-      "Add the onions and mince and fry until everything is browned. Ensure you keep stirring to prevent the leeks catching and burning.",
-      "3",
-      "Add the rice and stir together for a few minutes ensuring the rice is well blended and coated in any juices.",
-      "4",
-      "Add the lamb stock, salt and pepper. Give it a good stir and leave it to come to the boil. Leave to boil for 2 minutes.",
-      "5",
-      "Baking",
-      "Pour the mixture into a large baking tray, place on the bottom self of a preheated oven at 180 degrees. Leave to bake for up to 1 hour. The dish is ready when all the liquid is evaporated and the rice is soft.",
-      "6",
-      "Serving"
+      "For the Lentils: Adjust oven rack to center position and preheat oven to 450°F to prepare for roasting eggplant. Meanwhile, heat 2 tablespoons olive oil in a medium saucepan over medium heat until shimmering. Add carrots, celery, and onion and cook, stirring, until softened but not browned, about 4 minutes. Add garlic and cook, stirring, until fragrant, about 30 seconds. Add lentils, bay leaves, stock or water, and a pinch of salt. Bring to a simmer, cover with the lid partially ajar, and cook until lentils are tender, about 30 minutes. (Top up with water if lentils are at any point not fully submerged.) Remove lid, stir in vinegar, and reduce until lentils are moist but not soupy. Season to taste with salt and pepper, cover, and keep warm until ready to serve.",
+      "For the Eggplant: While lentils cook, cut each eggplant in half. Score flesh with the tip of a paring knife in a cross-hatch pattern at 1-inch intervals. Transfer to a foil-lined rimmed baking sheet, cut side up, and brush each eggplant half with 1 tablespoon oil, letting each brushstroke be fully absorbed before brushing with more. Season with salt and pepper. Place a rosemary sprig on top of each one. Transfer to oven and roast until completely tender and well charred, 25 to 35 minutes. Remove from oven and discard rosemary.",
+      "To Serve: Heat 2 tablespoons olive oil and pine nuts in a medium skillet set over medium heat. Cook, tossing nuts frequently, until golden brown and aromatic, about 4 minutes. Transfer to a bowl to halt cooking. Stir half of parsley and rosemary into lentils and transfer to a serving platter. Arrange eggplant halves on top. Spread a few tablespoons of tahini sauce over each eggplant half and sprinkle with pine nuts. Sprinkle with remaining parsley and rosemary, drizzle with additional olive oil, and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Eggs",
+      "Sesame"
+    ],
     "dietTags": [
+      "vegetarian",
       "gluten-free",
       "dairy-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/sjfgbc1779647169.jpg",
+    "image": "https://www.themealdb.com/images/media/meals/ysqrus1487425681.jpg",
+    "origin": "United States",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.myalbanianfood.com/recipe/albanian-leek-and-rice-bake/#google_vignette",
+    "sourceUrl": "http://www.seriouseats.com/recipes/2016/03/roasted-eggplant-tahini-pine-nut-lentil-vegan-experience-recipe.html",
     "estimated": true
   },
   {
-    "id": "mealdb-53124",
-    "name": "Raspeballer (Norwegian Potato Dumplings)",
+    "id": "mealdb-52960",
+    "name": "Salmon Avocado Salad",
     "cuisine": "American",
     "categories": [
+      "Seafood",
+      "Salads",
       "HighProtein"
     ],
-    "primaryProtein": "Pork",
+    "primaryProtein": "Fish",
     "vegetables": [
-      "potatoes",
-      "red potatoes",
-      "freshly chopped parsley",
-      "carrots"
+      "avocado",
+      "cucumber",
+      "spinach",
+      "mint",
+      "lime"
     ],
     "techniques": [
-      "simmer"
+      "fry"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
-      "calories": 580,
+      "calories": 480,
       "protein": 34,
-      "carbs": 48,
+      "carbs": 18,
       "fat": 30
     },
     "ingredients": [
       {
-        "name": "pork knuckle",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Meat"
+        "name": "salmon",
+        "quantity": 400,
+        "unit": "g",
+        "department": "Seafood"
       },
       {
-        "name": "sausages",
-        "quantity": 1,
+        "name": "avocado",
+        "quantity": 3,
         "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 1,
-        "unit": "lb",
         "department": "Produce"
       },
       {
-        "name": "red potatoes",
-        "quantity": 2,
-        "unit": "lb",
+        "name": "cucumber",
+        "quantity": 1,
+        "unit": "piece",
         "department": "Produce"
       },
       {
-        "name": "flour",
-        "quantity": 1.25,
-        "unit": "cup",
-        "department": "DryGoods"
+        "name": "spinach",
+        "quantity": 400,
+        "unit": "g",
+        "department": "Produce"
       },
       {
-        "name": "all purpose flour",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "bouillon cubes",
+        "name": "mint",
         "quantity": 4,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "freshly chopped parsley",
-        "quantity": 1,
-        "unit": "pinch",
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
-        "name": "swede",
+        "name": "lime",
         "quantity": 1,
         "unit": "piece",
-        "department": "DryGoods"
+        "department": "Produce"
       },
       {
-        "name": "carrots",
+        "name": "honey",
         "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cream",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "Dairy"
-      },
-      {
-        "name": "butter",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "nutmeg",
-        "quantity": 1,
         "unit": "tsp",
-        "department": "Spices"
+        "department": "DryGoods"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Raspeballer & (Optional) Salted Meat",
-      "▢",
-      "If you're making pork knuckle, cook it in simmering water for about 3 hours, until the meat falls from the bone. Remove the pork and save the broth to cook the raspeballer.",
-      "▢",
-      "Boil the boiled potatoes and peel once cooled. Also peel the raw potatoes, and then grate them or run them through a food processor. Use a paper towel to remove some of the moisture from the grated potatoes.",
-      "▢",
-      "Mash the boiled potatoes in a potato ricer or with a masher. Make sure there are no lumps. Add the grated raw potatoes to the mashed potatoes in a large mixing bowl and stir together. Add the barley flour, all purpose flour, and salt and mix together with your hands until the mixture is fully blended.",
-      "▢",
-      "You can cook the raspeballer in either vegetable or beef broth, or if you're making pork knuckle, cook them in the broth from the pork knuckle. Bring the broth to a very light simmer – you don't want it to fully boil because then the raspeballer might break apart.",
-      "▢",
-      "Use a tablespoon dipped in cold water to shape each raspeball in your hand. Try to make them as smooth as possible and then gently drop them into the simmering broth. Dip the tablespoon in a bowl of cold water between each raspeball.",
-      "▢",
-      "Let the raspeballer simmer for about 30 minutes. If you're making smoked sausage, you can heat the sausage in the same pot with the raspeballer. Top with fresh chopped parsley.",
-      "Mashed Rutabaga"
+      "Season the salmon, then rub with oil. Mix the dressing ingredients together. Halve, stone, peel and slice the avocados. Halve and quarter the cucumber lengthways, then cut into slices. Divide salad, avocado and cucumber between four plates, then drizzle with half the dressing.",
+      "Heat a non-stick pan. Add the salmon and fry for 3-4 mins on each side until crisp but still moist inside. Put a salmon fillet on top of each salad and drizzle over the remaining dressing. Serve warm."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Gluten",
-      "Dairy"
+      "Fish"
     ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/hhm7xy1763075871.jpg",
-    "origin": "Norway",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://scandinaviancookbook.com/raspeballer-norwegian-potato-dumplings/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53020",
-    "name": "Rosol (Polish Chicken Soup)",
-    "cuisine": "American",
-    "categories": [
-      "Soups",
-      "HighProtein"
-    ],
-    "primaryProtein": "Chicken",
-    "vegetables": [
-      "onions",
-      "carrots",
-      "leek",
-      "celery",
-      "cabbage",
-      "parsley"
-    ],
-    "techniques": [
-      "bake",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 420,
-      "protein": 38,
-      "carbs": 18,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "chicken legs",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "onions",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 5,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "leek",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "celery",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cabbage",
-        "quantity": 0.25,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cloves",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "allspice",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "bay leaf",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "parsley",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "dill",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Add chicken to a large Dutch oven or stock pot",
-      "Cover with water",
-      "Bring to a boil and simmer for 2 to 2 1/2 hours, skimming any impurities off the top to insure a clear broth",
-      "If your pot is big enough, add the vegetables and spices for the last hour of the cooking time",
-      "My Dutch oven wasn’t big enough to hold everything, just the chicken and other bones filled the pot, so I cooked the meat/bones for the full cooking time, then removed them, and cooked the vegetables and spices separately",
-      "Strain everything out of the broth",
-      "Bone the chicken, pulling the meat into large chunks",
-      "Slice the carrots",
-      "Return the chicken and carrots to the broth",
-      "Cook noodles according to package instructions if you’re using them",
-      "Add noodles to bowl and then top with hot soup"
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [],
     "dietTags": [
       "gluten-free",
       "dairy-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/lx1kkj1593349302.jpg",
-    "origin": "Polish",
+    "image": "https://www.themealdb.com/images/media/meals/1549542994.jpg",
+    "origin": "British",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://polishhousewife.com/rosol-polish-chicken-soup/",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/4521/salmon-avocado-and-cucumber-salad",
     "estimated": true
   },
   {
@@ -5614,139 +4156,424 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-52980",
-    "name": "Stamppot",
+    "id": "mealdb-53105",
+    "name": "Spiced smoky barbecued chicken",
+    "cuisine": "American",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [
+      "garlic",
+      "lemon",
+      "chilli flakes"
+    ],
+    "techniques": [
+      "grill"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 38,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "curry powder",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "chilli flakes",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "chicken thighs",
+        "quantity": 12,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "rosemary",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Spices"
+      },
+      {
+        "name": "rosemary",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Spices"
+      },
+      {
+        "name": "thyme",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Spices"
+      },
+      {
+        "name": "thyme",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Spices"
+      },
+      {
+        "name": "bay leaves",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      }
+    ],
+    "steps": [
+      "Make the marinade. Smash the garlic with a little salt using a pestle and mortar. Add the lemon zest and juice, the spice mix, chilli, oil and a good grinding of black pepper. Mix to a paste. This can be done in a mini food processor.",
+      "Toss the chicken in the marinade and set aside while you light the barbecue. When the barbecue’s hot, lay the bunches of herbs on the grid and put the chicken, skin side up, on top. Close the lid, if your barbecue has one, and cook the chicken on the smouldering herbs for about 10 minutes until the meat starts to colour. Turn the chicken and continue to cook for a further 20-30 minutes, turning as necessary, until it is slightly charred from the burnt herbs and cooked through to the bone."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/a08uqk1761848682.jpg",
+    "origin": "Australian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/spiced-smoky-barbecued-chicken",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53102",
+    "name": "Squid, chickpea & chorizo salad",
+    "cuisine": "American",
+    "categories": [
+      "Seafood",
+      "Salads"
+    ],
+    "primaryProtein": "Shellfish",
+    "vegetables": [
+      "can of chickpeas",
+      "parsley",
+      "red chilli",
+      "lemon"
+    ],
+    "techniques": [
+      "grill",
+      "fry",
+      "stir-fry"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 30,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "red pepper",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "can of chickpeas",
+        "quantity": 402,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "red chilli",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 100,
+        "unit": "ml",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "squid",
+        "quantity": 600,
+        "unit": "g",
+        "department": "Seafood"
+      },
+      {
+        "name": "chorizo",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Cook the peppers whole under a grill, on a barbecue or griddle, until completely charred. Place the peppers in a bowl, cover with a plate until cool enough to handle, then peel, deseed and finely slice. In a large bowl mix the peppers and any juices with the chickpeas, parsley, chilli and garlic. Set aside.",
+      "Heat a large frying pan until smoking. Working quickly and carefully, add a splash of oil to the pan, then the squid. Stir-fry for about 30 secs. Scatter the chorizo over the squid, continue to cook for 30 secs more, then tip into the bowl with the peppers. Season everything with salt and pepper, then dress with the remaining oil, lemon juice and lemon zest. Mix together, pile onto a platter and let everyone help themselves."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Shellfish"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/wsu0rc1761848482.jpg",
+    "origin": "Australian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/squid-chickpea-chorizo-salad",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53110",
+    "name": "Sticky Chicken",
+    "cuisine": "American",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [],
+    "techniques": [
+      "bake",
+      "roast"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 38,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "chicken drumsticks",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "International"
+      },
+      {
+        "name": "honey",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "dijon mustard",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Make 3 slashes on each of the drumsticks. Mix together the soy, honey, oil, tomato purée and mustard. Pour this mixture over the chicken and coat thoroughly. Leave to marinate for 30 mins at room temperature or overnight in the fridge. Heat oven to 200C/fan 180C/gas 6.",
+      "Tip the chicken into a shallow roasting tray and cook for 35 mins, turning occasionally, until the chicken is tender and glistening with the marinade."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Soy"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/cj56fs1762340001.jpg",
+    "origin": "Australian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/sticky-chicken",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52817",
+    "name": "Stovetop Eggplant With Harissa, Chickpeas, and Cumin Yogurt",
+    "cuisine": "American",
+    "categories": [
+      "Vegetarian"
+    ],
+    "primaryProtein": "Beans",
+    "vegetables": [
+      "chickpeas",
+      "cherry tomatoes",
+      "parsley"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 18,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "egg plants",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "harissa spice",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "chickpeas",
+        "quantity": 1,
+        "unit": "can",
+        "department": "Produce"
+      },
+      {
+        "name": "cherry tomatoes",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "greek yogurt",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "ground cumin",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Meat"
+      },
+      {
+        "name": "parsley",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Heat the oil in a 12-inch skillet over high heat until shimmering. Add the eggplants and lower the heat to medium. Season with salt and pepper as you rotate the eggplants, browning them on all sides. Continue to cook, turning regularly, until a fork inserted into the eggplant meets no resistance (you may have to stand them up on their fat end to finish cooking the thickest parts), about 20 minutes, lowering the heat and sprinkling water into the pan as necessary if the eggplants threaten to burn or smoke excessively.",
+      "Mix the harissa, chickpeas and tomatoes together, then add to the eggplants. Cook until the tomatoes have blistered and broken down, about 5 minutes more. Season with salt and pepper and add water as necessary to thin to a saucy consistency. Meanwhile, combine the yogurt and cumin in a serving bowl. Season with salt and pepper.",
+      "Top the eggplant mixture with the parsley, drizzle with more extra virgin olive oil, and serve with the yogurt on the side."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/yqwtvu1487426027.jpg",
+    "origin": "United States",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "http://www.seriouseats.com/2014/09/one-pot-wonders-stovetop-eggplant-harissa-chickpeas-cumin.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52822",
+    "name": "Toad In The Hole",
     "cuisine": "American",
     "categories": [
       "HighProtein"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
-      "potatoes",
-      "shallots",
-      "kale"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "potatoes",
-        "quantity": 1.5,
-        "unit": "kg",
-        "department": "Produce"
-      },
-      {
-        "name": "bay leaf",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "shallots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "butter",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "kale",
-        "quantity": 750,
-        "unit": "g",
-        "department": "Produce"
-      },
-      {
-        "name": "sausages",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "milk",
-        "quantity": 500,
-        "unit": "ml",
-        "department": "Dairy"
-      },
-      {
-        "name": "nutmeg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Wash and peel the potatoes and cut into similarly sized pieces for even cooking.",
-      "In a large soup pot, boil the potatoes and the bay leaves in salted water for 20 minutes. Discard the bay leaves.",
-      "If you're not using a bag of ready-cut curly kale, wash the bunches thoroughly under cool running water to get rid of all soil—you wouldn't want that gritty texture in your finished dish. Trim any coarse stems and discard any brown leaves. With a sharp knife, cut the curly kale into thin strips.",
-      "Peel and chop the shallots.",
-      "In a frying pan or skillet, melt 1 tbsp. of butter and saute the shallots for a few minutes before adding the curly kale and 2 tbsp. of water. Season and cook for about 10 minutes, or until tender.",
-      "Warm the milk on the stove or in the microwave.",
-      "Drain, shake and dry the potatoes with kitchen towels before mashing with a potato masher or ricer. Working quickly, add the warm milk and the remaining butter. Season to taste with nutmeg, salt, and pepper.",
-      "Mix the cooked curly kale through the cooked mashed potato mixture.",
-      "Top with slices of the smoked sausage and serve hot with your favorite mustard or gravy.",
-      "Serve and enjoy!"
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Dairy"
-    ],
-    "dietTags": [
-      "gluten-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/hyarod1565090529.jpg",
-    "origin": "Netherlands",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.thespruceeats.com/stamppot-with-curly-kale-and-rookworst-1128837",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53404",
-    "name": "Tavë Kosi Baked Lamb and Yogurt",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "primaryProtein": "Lamb",
-    "vegetables": [
-      "garlic"
+      "horseradish",
+      "cherry tomatoes"
     ],
     "techniques": [
       "bake",
-      "simmer"
+      "roast",
+      "fry"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
     "cookMinutes": 45,
@@ -5759,116 +4586,54 @@ export const recipeImported: Recipe[] = [
     },
     "ingredients": [
       {
-        "name": "lamb",
-        "quantity": 600,
-        "unit": "g",
+        "name": "sausages",
+        "quantity": 8,
+        "unit": "piece",
         "department": "Meat"
       },
       {
-        "name": "butter",
-        "quantity": 20,
-        "unit": "g",
-        "department": "Dairy"
-      },
-      {
-        "name": "olive oil",
-        "quantity": 2,
+        "name": "vegetable oil",
+        "quantity": 3,
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
-        "name": "rice",
-        "quantity": 70,
+        "name": "plain flour",
+        "quantity": 100,
         "unit": "g",
         "department": "DryGoods"
-      },
-      {
-        "name": "oregano",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "boiling water",
-        "quantity": 450,
-        "unit": "ml",
-        "department": "DryGoods"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "butter",
-        "quantity": 50,
-        "unit": "g",
-        "department": "Dairy"
-      },
-      {
-        "name": "flour",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "greek yogurt",
-        "quantity": 750,
-        "unit": "g",
-        "department": "Dairy"
       },
       {
         "name": "eggs",
-        "quantity": 6,
+        "quantity": 2,
         "unit": "piece",
         "department": "Dairy"
       },
       {
-        "name": "salt",
+        "name": "horseradish",
         "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
+        "unit": "tbsp",
+        "department": "Produce"
       },
       {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
+        "name": "milk",
+        "quantity": 225,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "cherry tomatoes",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "1",
-      "Baking the Lamb",
-      "In a large pan (with a lid) melt the butter and olive oil together then add the diced lamb. Brown the lamb on a medium heat, this will take around 5 minutes.",
-      "2",
-      "Add the garlic, oregano, 300ml of water and season with salt and pepper. Mix well before covering with the lid. Leave to simmer for 50 minutes mixing a couple of times ensuring the lamb doesn’t start to burn.",
-      "3",
-      "The juices should have nearly all boiled away so another 150ml of water should be added along with the rice. Mix altogether, bring to the boil, place the lid on and leave for just 10 minutes. It’s advised to check at around 8 minutes – you want the liquid to be evaporated with just moist coating of oily water left over the lamb and rice.",
-      "4",
-      "Place the lamb and rice into a casserole dish, the mixture should fully cover the base and have at least 2 inches spare for the yogurt. Alternatively you can split into four ceramic bowls.",
-      "5",
-      "Making a Roux",
-      "In a small saucepan melt the butter over a medium heat and then add two tablespoons of flour while continuously stirring for two minutes (add a little extra flour if needed). The roux should not be thick but not too runny, the colour will darken slightly. Pour the roux into a bowl and keep to one side.",
-      "6",
-      "Making the Yogurt Mixture"
+      "Preheat the oven to 200°C/fan180°C/gas 6. fry sausages in a non-stick pan until browned.",
+      "Drizzle vegetable oil in a 30cm x 25cm x 6cm deep roasting tray and heat in the oven for 5 minutes.",
+      "Put the plain flour in a bowl, crack in the medium free-range eggs, then stir in the grated horseradish. Gradually beat in the semi-skimmed milk. Season.",
+      "Put the sausages into the hot roasting tray and pour over the batter. Top with cherry tomatoes on the vine and cook for 30 minutes until puffed and golden."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -5878,100 +4643,561 @@ export const recipeImported: Recipe[] = [
       "Eggs"
     ],
     "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/a1mi7t1779643816.jpg",
+    "image": "https://www.themealdb.com/images/media/meals/ytuvwr1503070420.jpg",
+    "origin": "British",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.myalbanianfood.com/recipe/albanian-tave-kosi/",
+    "sourceUrl": "http://www.deliciousmagazine.co.uk/recipes/georgina-fuggles-horseradish-and-vine-tomato-toad-in-the-hole/",
     "estimated": true
   },
   {
-    "id": "mealdb-53416",
-    "name": "Trinxat (Potato, Cabbage and Bacon Hash)",
+    "id": "mealdb-52926",
+    "name": "Tourtiere",
     "cuisine": "American",
     "categories": [
       "HighProtein"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
-      "cabbage",
-      "russet potato",
-      "garlic",
-      "parsley"
+      "potatoes",
+      "onion"
     ],
     "techniques": [
+      "bake",
       "fry",
       "simmer",
       "steam"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
+      "calories": 580,
       "protein": 34,
       "carbs": 48,
-      "fat": 18
+      "fat": 30
     },
     "ingredients": [
       {
-        "name": "cabbage",
-        "quantity": 0.5,
+        "name": "potatoes",
+        "quantity": 1,
         "unit": "piece",
         "department": "Produce"
       },
       {
-        "name": "russet potato",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
+        "name": "sunflower oil",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods",
+        "pantryStaple": true
       },
       {
-        "name": "bacon",
-        "quantity": 4,
-        "unit": "piece",
+        "name": "minced pork",
+        "quantity": 500,
+        "unit": "g",
         "department": "Meat"
       },
       {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "allspice",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "vegetable stock",
+        "quantity": 100,
+        "unit": "ml",
+        "department": "DryGoods"
+      },
+      {
+        "name": "shortcrust pastry",
+        "quantity": 400,
+        "unit": "g",
+        "department": "Bakery"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "Heat oven to 200C/180C fan/gas 6. Boil the potato until tender, drain and mash, then leave to cool. Heat the oil in a non-stick pan, add the mince and onion and quickly fry until browned. Add the garlic, spices, stock, plenty of pepper and a little salt and mix well. Remove from the heat, stir into the potato and leave to cool.",
+      "Roll out half the pastry and line the base of a 20-23cm pie plate or flan tin. Fill with the pork mixture and brush the edges of the pastry with water. Roll out the remaining dough and cover the pie. Press the edges of the pastry to seal, trimming off the excess. Prick the top of the pastry case to allow steam to escape and glaze the top with the beaten egg.",
+      "Bake for 30 mins until the pastry is crisp and golden. Serve cut into wedges with a crisp green salad. Leftovers are good cold for lunch the next day, served with a selection of pickles."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Eggs"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/ytpstt1511814614.jpg",
+    "origin": "Canadian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/531644/spiced-pork-and-potato-pie",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52845",
+    "name": "Turkey Meatloaf",
+    "cuisine": "American",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Turkey",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "parsley"
+    ],
+    "techniques": [
+      "bake",
+      "roast",
+      "grill",
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
         "name": "garlic",
-        "quantity": 2,
+        "quantity": 1,
         "unit": "clove",
         "department": "Produce"
       },
       {
+        "name": "worcestershire sauce",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 3,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "turkey mince",
+        "quantity": 500,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "eggs",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "breadcrumbs",
+        "quantity": 85,
+        "unit": "g",
+        "department": "Bakery"
+      },
+      {
+        "name": "barbeque sauce",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "cannellini beans",
+        "quantity": 800,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
         "name": "parsley",
-        "quantity": 1,
-        "unit": "tbsp",
+        "quantity": 2,
+        "unit": "piece",
         "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
       }
     ],
     "steps": [
-      "Bring salted water to boil in a large pot.",
-      "Add in the cabbage and potatoes, cook until tender about 30-40 minutes",
-      "When tender, drain, very well.",
-      "Return the vegetables to the pot and turn on the burner to low. Let steam",
-      "Meanwhile cook up the bacon, reserving the fat for frying the hash.",
-      "Chop up the bacon, into small pieces.",
-      "Mash the potatoes and cabbage with a potato masher and add in the minced garlic.",
-      "Add in salt and pepper to taste.",
-      "Using a form for individual servings, press the hash mixture into the form with bacon on top, fry in the reserved bacon fat until golden brown, flip over and repeat on the other side.",
-      "Remove form and garnish with chopped parsley.",
-      "If you want to make one big hash, just use a skillet, pressing the hash into the skillet with the bacon pieces and reserved fat, then flip over once golden brown. Cut into servings.",
-      "Garnish with chopped parsley."
+      "Heat oven to 180C/160C fan/gas 4. Heat the oil in a large frying pan and cook the onion for 8-10 mins until softened. Add the garlic, Worcestershire sauce and 2 tsp tomato purée, and stir until combined. Set aside to cool.",
+      "Put the turkey mince, egg, breadcrumbs and cooled onion mix in a large bowl and season well. Mix everything to combine, then shape into a rectangular loaf and place in a large roasting tin. Spread 2 tbsp barbecue sauce over the meatloaf and bake for 30 mins.",
+      "Meanwhile, drain 1 can of beans only, then pour both cans into a large bowl. Add the remaining barbecue sauce and tomato purée. Season and set aside.",
+      "When the meatloaf has had its initial cooking time, scatter the beans around the outside and bake for 15 mins more until the meatloaf is cooked through and the beans are piping hot. Scatter over the parsley and serve the meatloaf in slices."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Eggs"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/ypuxtw1511297463.jpg",
+    "origin": "British",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/turkey-meatloaf",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52863",
+    "name": "Vegetarian Casserole",
+    "cuisine": "American",
+    "categories": [
+      "Vegetarian"
+    ],
+    "primaryProtein": "Lentils",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "carrots",
+      "celery",
+      "tomato",
+      "courgettes"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 18,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "rapeseed oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cumin",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "thyme",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "carrots",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "celery",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "yellow pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "vegetable stock cube",
+        "quantity": 250,
+        "unit": "ml",
+        "department": "DryGoods"
+      },
+      {
+        "name": "courgettes",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "thyme",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "lentils",
+        "quantity": 250,
+        "unit": "g",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Heat the oil in a large, heavy-based pan. Add the onions and cook gently for 5 – 10 mins until softened.",
+      "Add the garlic, spices, dried thyme, carrots, celery and peppers and cook for 5 minutes.",
+      "Add the tomatoes, stock, courgettes and fresh thyme and cook for 20 - 25 minutes.",
+      "Take out the thyme sprigs. Stir in the lentils and bring back to a simmer. Serve with wild and white basmati rice, mash or quinoa."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/vptwyt1511450962.jpg",
+    "origin": "British",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/1993645/vegetarian-casserole",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52867",
+    "name": "Vegetarian Chilli",
+    "cuisine": "American",
+    "categories": [
+      "Vegetarian",
+      "Stews"
+    ],
+    "primaryProtein": "Beans",
+    "vegetables": [],
+    "techniques": [
+      "bake"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 420,
+      "protein": 18,
+      "carbs": 18,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "roasted vegetables",
+        "quantity": 400,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "kidney beans",
+        "quantity": 1,
+        "unit": "can",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chopped tomatoes",
+        "quantity": 1,
+        "unit": "can",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mixed grain",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Heat oven to 200C/180C fan/ gas 6.",
+      "Cook the vegetables in a casserole dish for 15 mins.",
+      "Tip in the beans and tomatoes, season, and cook for another 10-15 mins until piping hot.",
+      "Heat the pouch in the microwave on High for 1 min and serve with the chilli."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/wqurxy1511453156.jpg",
+    "origin": "British",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/veggie-chilli",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53106",
+    "name": "Warm roast asparagus salad",
+    "cuisine": "American",
+    "categories": [
+      "Salads",
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "asparagus",
+      "tomato",
+      "jersey royal potatoes"
+    ],
+    "techniques": [
+      "bake",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "asparagus",
+        "quantity": 500,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "red wine vinegar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "tomato",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "extra virgin olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "streaky bacon",
+        "quantity": 12,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "clear honey",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "jersey royal potatoes",
+        "quantity": 16,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "extra virgin olive oil",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "dijon mustard",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "rocket",
+        "quantity": 100,
+        "unit": "g",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Preheat the oven to 200C/Gas 6/fan 180C. Snap off the woody ends of the asparagus and discard. Arrange the asparagus in a single layer in a baking tray with sides. Cut the tomatoes in half widthways, nestle them in with the asparagus, season with sea salt and pepper and drizzle with olive oil. Roll each bacon rasher into a tight roll (if large, first cut in half crosswise), and arrange in the tray. Drizzle the bacon rolls with the honey and bake for 20 minutes until the tomatoes are soft and the bacon is crisp.",
+      "In the meantime, boil the potatoes until tender. Whisk the vinegar, olive oil, mustard, some sea salt and pepper in a large bowl until blended. Toss the rocket or spinach leaves in half of the dressing, and arrange on a large serving platter.",
+      "Drain the potatoes and cut in half. Gently toss them in the rest of the dressing, and arrange on the platter with the asparagus. Tuck in the tomatoes and bacon."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -5980,9 +5206,10 @@ export const recipeImported: Recipe[] = [
       "gluten-free",
       "dairy-free"
     ],
-    "image": "https://www.themealdb.com/images/media/meals/khpso71779732715.jpg",
+    "image": "https://www.themealdb.com/images/media/meals/ktsws11761998344.jpg",
+    "origin": "Australian",
     "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.internationalcuisine.com/trinxat/#wprm-recipe-container-12938",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/warm-roast-asparagus-salad",
     "estimated": true
   },
   {
@@ -33347,6 +32574,5798 @@ export const recipeImported: Recipe[] = [
     "origin": "Saudi Arabian",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://cookpad.com/eng/recipes/16275721?ref=search&search_term=saudi+arabia",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53440",
+    "name": "Balchi di Pisca",
+    "cuisine": "Other",
+    "categories": [
+      "Seafood",
+      "HighProtein"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "potatoes",
+      "tomato",
+      "onion",
+      "garlic"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "salt cod",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Seafood"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green pepper",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "tobasco sauce",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "These delectable fish balls can also be made with salmon or fish fillets. Substitute one large can of salmon or one pound of any white fish for the cod.",
+      "Soak for twenty-four hours:",
+      "1 salted cod, or bakijow Discard the water.",
+      "Place cod in saucepan with fresh water to cover. Simmer gently until the fish flakes easily when tested with the tines of a fork. Strain, reserving a bit of the broth. De bone the cod and set it aside for later use. In a saucepan, bring to boil in water to cover: 3 medium potatoes, peeled and diced When the potatoes are tender, drain them well. Add the cod and mash the two ingredients thoroughly together.",
+      "Place in the container of an electric blender:",
+      "1 tomato, peeled and chopped",
+      "1/2 green pepper, chopped",
+      "1 medium onion, peeled and chopped",
+      "1 clove garlic, slivered",
+      "1/2 tsp. Tabasco sauce, or minced hot pepper",
+      "Dash of nutmeg",
+      "Salt and pepper to taste",
+      "Blend for a few seconds and pour the sauce over the mashed fish mixture. Combine these ingredients well and add 1 egg, beaten Mixture should be stiff enough to mold into balls about one and a half inches in diameter, If it's too dry, add the fish stock a tablespoon at a time. Fry the balls in hot, deep fat until golden brown."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Fish",
+      "Eggs"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/qqwhw51780093126.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.visitaruba.com/aruba-recipes/balchi-di-pisca/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53469",
+    "name": "Beef pumpkin Stew",
+    "cuisine": "Other",
+    "categories": [
+      "Stews",
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "pumpkin puree",
+      "potatoes",
+      "carrots"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef",
+        "quantity": 3,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "all purpose flour",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "butter",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "beef stock",
+        "quantity": 4,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "pumpkin puree",
+        "quantity": 3,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "worcestershire sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "kosher salt",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "potatoes",
+        "quantity": 3,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "thyme",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      }
+    ],
+    "steps": [
+      "Cut the beef into 1-inch chunks. Dredge the beef in the flour until all of the beef sides are covered.",
+      "In a large soup pot, melt the butter over medium high-heat. In small quantities, brown the beef on all sides, removing the browned beef and setting it aside in a large bowl as you go. When the beef is browned, add the onion and the garlic to the pot. Sauté the onion and garlic for one minute, scraping the bottom of the pot as you stir.",
+      "Return the browned beef to the pot and add the beef stock, pumpkin puree, Worcestershire sauce, salt, and pepper. Stir well and bring to a boil. Once the liquid is boiling, reduce heat to medium-low and simmer for 3 hours, stirring occasionally.",
+      "Add the potatoes, carrots and thyme sprigs to the pot and increase heat to medium. Cook for an additional 30 minutes. Salt to taste and serve."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/k07k271782502861.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.honeyandbirch.com/pumpkin-beef-stew-recipe/#recipe",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53463",
+    "name": "Belgian Meatballs in Liège Syrup Sauce",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "parsley",
+      "onion"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "minced beef",
+        "quantity": 300,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "minced pork",
+        "quantity": 300,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "breadcrumbs",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "Bakery"
+      },
+      {
+        "name": "mustard",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "brown sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "white wine vinegar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mustard",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "sirop de liège",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "beef stock",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "beer",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Make the meatballs",
+      "Mix the minced meat with the onion, garlic, egg, breadcrumbs, mustard, parsley, salt, and pepper.",
+      "Shape into meatballs. Traditionally, Liège restaurants serve **one or two very large meatballs**, depending on appetite.",
+      "For weeknight cooking, I keep mine smaller so they brown faster and cook through quickly.",
+      "Brown the meatballs",
+      "Heat butter or oil in a large pan.",
+      "Brown the meatballs on all sides until they have a nice crust.",
+      "Remove them from the pan and set aside.",
+      "Start the sauce",
+      "In the same pan, melt 1 tbsp butter.",
+      "Add the sliced onions and cook until soft and lightly caramelised.",
+      "Sprinkle in the brown sugar and let it melt into the onions.",
+      "Deglaze and add the stock",
+      "Add the vinegar and scrape up all the browned bits from the pan."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/gjjlzc1782496055.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://junedarville.com/belgian-meatballs.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53468",
+    "name": "Belgian Stoemp",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "potatoes",
+      "savoy cabbage",
+      "garlic",
+      "parsley",
+      "onion"
+    ],
+    "techniques": [
+      "fry",
+      "stir-fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "sausages",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 450,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "savoy cabbage",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "unsalted butter",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "beer",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "whole milk",
+        "quantity": 60,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Add the chopped potatoes and garlic to a high pan and fill it with tap water until the potatoes are fully submerged.",
+      "Add some salt. Then place the pan over high heat and bring the potatoes to a boil. Cook them until tender. In the meantime rinse and drain the savoy cabbage. Slice it up finely.",
+      "Add a tablespoon of butter to a large non-stick pan. Place it over medium-high heat. Once melted, add the savoy cabbage. Season with a pinch of pepper and salt.",
+      "Stir fry the cabbage for 15 to 20 minutes or until the cabbage is soft and tender. Then turn the heat off and take the cabbage off the heat. In the meantime, pan fry the sausages (or sliced bacon if you are using both) in a non-stick pan in a tablespoon of butter or oil until golden brown and cooked through.",
+      "Transfer the sausages (and bacon) to a plate and cover with a lid or tinfoil to keep the meat warm. In the same greasy pan, add the sliced onion and extra butter and cook it gently over medium heat for 10 minutes until softened. (I often add diced bacon as well, if I only serve the stoemp with sausages.)",
+      "Then add the beer and turn the heat up. Let the beer reduce until you get a nice beer and onion sauce (you can add a little flour or sauce thickener if you like). Add the pan fried meat back to the pan and cover to keep warm.",
+      "Drain the cooked potatoes and garlic, add them back to the pan you cooked them in together with the pan fried cabbage and chopped parsley. Sprinkle with some pepper, salt and nutmeg. Also add the milk and the rest of the unsalted butter.",
+      "Mash the potatoes, parsley and cabbage up. Add extra butter or milk if necessary. Also check the seasoning and add extra pepper, nutmeg or salt to taste if necessary. Scoop the cabbage mash onto plates and top with the pan fried sausages (and bacon). Drizzle with the beer and onion sauce. Serve hot."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/byolko1782500400.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://junedarville.com/stoemp.html#wprm-recipe-container-131911",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53466",
+    "name": "Belgian Waterzooi Chicken",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [
+      "carrots",
+      "leek",
+      "celery",
+      "potatoes",
+      "garlic"
+    ],
+    "techniques": [
+      "simmer",
+      "braise"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 38,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "chicken legs",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "chicken breast",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "leek",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "celery",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 100,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "rosemary",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "cream",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "unsalted butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "egg yolks",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Put the chicken, water and one garlic clove in a large saucepan. Place it over medium-high heat until boiling. Then turn the heat low, cover the pan and simmer the chicken for 10 minutes. Remove the chicken leg and breast. Keep the fresh chicken stock for later.",
+      "Let the chicken cool. Then dice the chicken breast up. Pick the meat off the leg. Discard any bones and skin. Slice the leek, celery and carrot finely (julienne). Add the butter, rosemary and bay leaves to a large pan and place it over medium heat until melted.",
+      "Then add the sliced vegetables. Season with pepper and salt.",
+      "Stir and cook the vegetables for 3 minutes. Then add the shredded and diced chicken.",
+      "Cover the pan and cook the chicken and vegetables for 5 minutes. Then add the cream and ½ cup (120 ml) of the fresh chicken stock.",
+      "Look at this delicious waterzooi recipe! Do try out my chunky chicken stew with fresh leeks, celery, carrots and lots of cream... This is Belgian comfort food!",
+      "Cover the pan and cook the stew for 20 minutes until the potatoes are tender. Add the egg yolk and 2 tablespoons of the warm cream from the pan to a cup. Whisk and add it back to the pan to thicken the sauce.",
+      "Stir all the ingredients and then turn the heat very low. Check the seasoning and add extra pepper or salt to taste. Remove the rosemary and bay leaves. Divide the stew over deep plates and drizzle with the remaining cream sauce. Serve hot."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/nmxec11782498644.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://junedarville.com/waterzooi.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53018",
+    "name": "Bigos (Hunters Stew)",
+    "cuisine": "Other",
+    "categories": [
+      "Stews",
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "garlic",
+      "onion",
+      "mushrooms",
+      "cabbage",
+      "basil",
+      "diced tomatoes"
+    ],
+    "techniques": [
+      "bake",
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 520,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "bacon",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "kielbasa",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "pork",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "flour",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "mushrooms",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 4,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "sauerkraut",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "red wine",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "basil",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "marjoram",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "caraway seed",
+        "quantity": 0.13,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "hotsauce",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods"
+      },
+      {
+        "name": "beef stock",
+        "quantity": 5,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "diced tomatoes",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "worcestershire sauce",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Preheat the oven to 350 degrees F (175 degrees C).",
+      "Heat a large pot over medium heat. Add the bacon and kielbasa; cook and stir until the bacon has rendered its fat and sausage is lightly browned. Use a slotted spoon to remove the meat and transfer to a large casserole or Dutch oven.",
+      "Coat the cubes of pork lightly with flour and fry them in the bacon drippings over medium-high heat until golden brown. Use a slotted spoon to transfer the pork to the casserole. Add the garlic, onion, carrots, fresh mushrooms, cabbage and sauerkraut. Reduce heat to medium; cook and stir until the carrots are soft, about 10 minutes. Do not let the vegetables brown.",
+      "Deglaze the pan by pouring in the red wine and stirring to loosen all of the bits of food and flour that are stuck to the bottom. Season with the bay leaf, basil, marjoram, paprika, salt, pepper, caraway seeds and cayenne pepper; cook for 1 minute.",
+      "Mix in the dried mushrooms, hot pepper sauce, Worcestershire sauce, beef stock, tomato paste and tomatoes. Heat through just until boiling. Pour the vegetables and all of the liquid into the casserole dish with the meat. Cover with a lid.",
+      "Bake in the preheated oven for 2 1/2 to 3 hours, until meat is very tender."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/md8w601593348504.jpg",
+    "origin": "Polish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.allrecipes.com/recipe/138131/bigos-hunters-stew/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52979",
+    "name": "Bitterballen (Dutch meatballs)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "parsley"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "butter",
+        "quantity": 100,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "flour",
+        "quantity": 150,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "beef stock",
+        "quantity": 700,
+        "unit": "ml",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 30,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "beef",
+        "quantity": 400,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "flour",
+        "quantity": 50,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "eggs",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "breadcrumbs",
+        "quantity": 50,
+        "unit": "g",
+        "department": "Bakery"
+      }
+    ],
+    "steps": [
+      "Melt the butter in a skillet or pan. When melted, add the flour little by little and stir into a thick paste. Slowly stir in the stock, making sure the roux absorbs the liquid. Simmer for a couple of minutes on a low heat while you stir in the onion, parsley and the shredded meat. The mixture should thicken and turn into a heavy, thick sauce.",
+      "Pour the mixture into a shallow container, cover and refrigerate for several hours, or until the sauce has solidified.",
+      "Take a heaping tablespoon of the cold, thick sauce and quickly roll it into a small ball. Roll lightly through the flour, then the egg and finally the breadcrumbs. Make sure that the egg covers the whole surface of the bitterbal. When done, refrigerate the snacks while the oil in your fryer heats up to 190C (375F). Fry four bitterballen at a time, until golden.",
+      "Serve on a plate with a nice grainy or spicy mustard."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/lhqev81565090111.jpg",
+    "origin": "Netherlands",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.holland.com/global/tourism/information/traditional-dutch-food/bitterballen.htm",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53311",
+    "name": "Borsch",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "potatoes",
+      "onion",
+      "carrots",
+      "beetroot",
+      "white cabbage"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef shin",
+        "quantity": 1,
+        "unit": "kg",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 2.5,
+        "unit": "kg",
+        "department": "Produce"
+      },
+      {
+        "name": "sunflower oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "beetroot",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "red pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "tinned tomatos",
+        "quantity": 200,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "prunes",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "white cabbage",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "kidney beans",
+        "quantity": 400,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "creme fraiche",
+        "quantity": 100,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "dill",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "DryGoods"
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Bakery"
+      }
+    ],
+    "steps": [
+      "To make the stock, put the meat, whole onion, bay leaf and 2 litres of lightly salted cold water in a large saucepan. Cook over a very low heat for 1 hr 30 mins or until the beef shin is soft and falls apart easily – this can take up to 3 hrs. Skim off the scum with a spoon from time to time. Break up any larger pieces of beef into the broth, remove the whole onion and discard.",
+      "Add the potatoes to the borscht, season well with salt and pepper and cook for 10-15 mins until tender. Meanwhile, heat the sunflower oil in a large, deep frying pan. Add the diced onion and carrot, and cook over a medium heat, stirring, until the carrot is soft and is about to start caramelising.",
+      "Add the beetroot and cook for around 5 mins, stirring occasionally. Add the red pepper, if using, and cook for another 2 mins, then add the tomatoes and prunes, stir, then increase the heat and boil to reduce slightly, before adding everything to the borscht.",
+      "Add the shredded cabbage and the kidney beans, and cook for 7-10 mins or until tender. Serve with a dollop of sour cream or crème fraîche, lots of chopped dill and some crusty bread."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/804v1j1764367088.jpg",
+    "origin": "Ukrainian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/borsch",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53126",
+    "name": "Brun Lapskaus (Norwegian Beef Vegetable Stew)",
+    "cuisine": "Other",
+    "categories": [
+      "Stews",
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "celery",
+      "carrots",
+      "parsley",
+      "potatoes",
+      "leek"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "beef",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "beef stock",
+        "quantity": 3,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "swede",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "celery",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "leek",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "▢",
+      "Heat olive oil in a large pot. Cut beef into 1 inch (2.5 cm) cubes and brown in oil.",
+      "▢",
+      "Dice the onion and add to browning beef. Add the stock and bring to a boil, then lower the heat, cover, and let simmer for about 30 minutes.",
+      "▢",
+      "Peel and cut the rutabaga and celery root into 1 inch (2.5 cm) cubes. Add to the pot, cover, and continue simmering for another 30 minutes.",
+      "▢",
+      "Peel and chop the rest of the vegetables into 1 inch (2.5 cm) cubes and add to the pot. Slice the leek into rings. Cover and continue simmering for about 20 minutes. Stir as little as possible.",
+      "▢",
+      "Top with fresh parsley."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/6vi2cv1763075785.jpg",
+    "origin": "Norway",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://scandinaviancookbook.com/brun-lapskaus-norwegian-beef-vegetable-root-stew/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53190",
+    "name": "Bryndzové Halušky",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "potatoes"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "potatoes",
+        "quantity": 500,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "plain flour",
+        "quantity": 200,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "bryndza cheese",
+        "quantity": 250,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "bacon",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "chives",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Prepare the Dough",
+      "Grate the potatoes finely using a hand grater or food processor. Place the grated potatoes in a bowl and mix them with flour, egg, and salt until a sticky dough forms. The consistency should be thick but pliable.",
+      "Cook the Dumplings",
+      "Bring a large pot of salted water to a boil. Using a halušky maker (similar to a spaetzle maker), press the dough directly into the boiling water. If you don’t have one, use a tilted cutting board and a knife to scrape small pieces of dough into the water.",
+      "Let the dumplings cook until they float to the surface, usually within 2-3 minutes. Scoop them out with a slotted spoon and set aside in a large bowl.",
+      "Prepare the Toppings",
+      "Chop the bacon into small pieces and fry in a skillet over medium heat until crispy. If using a bryndza substitute, mix crumbled feta with a dollop of sour cream to mimic the tangy flavour of traditional Slovak sheep cheese.",
+      "Assemble the Dish",
+      "Toss the cooked dumplings with the bryndza cheese (or substitute) until they’re well-coated and creamy. Top with the crispy bacon and its drippings. Garnish with chopped chives or parsley for an extra touch of colour and flavour."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/g33c901763365484.jpg",
+    "origin": "Slovakia",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.slovakia-foods.co.uk/blog/post/bryndzove-halusky-recipe-a-taste-of-slovakia-national-dish.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53077",
+    "name": "Cabbage Soup (Shchi)",
+    "cuisine": "Other",
+    "categories": [
+      "Vegetarian",
+      "Soups"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "onion",
+      "cabbage",
+      "carrots",
+      "celery",
+      "potatoes",
+      "tomatoes"
+    ],
+    "techniques": [
+      "bake",
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 580,
+      "protein": 12,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "unsalted butter",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "celery",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "vegetable stock",
+        "quantity": 8,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "sour cream",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Dairy"
+      },
+      {
+        "name": "dill",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Add the butter to a large Dutch oven or other heavy-duty pot over medium heat. When the butter has melted, add the onion and sauté until translucent.",
+      "Add the cabbage, carrot, and celery. Sauté until the vegetables begin to soften, stirring frequently, about 3 minutes.",
+      "Add the bay leaf and vegetable stock and bring to a boil over high heat. Reduce the heat to low and simmer, covered, until the vegetables are crisp-tender, about 15 minutes.",
+      "Add the potatoes and bring it back to a boil over high heat. Reduce the heat to low and simmer, covered, until the potatoes are tender, about 10 minutes.",
+      "Add the tomatoes (or undrained canned tomatoes) and bring the soup back to a boil over high heat. Reduce the heat to low and simmer, uncovered, for 5 minutes. Season to taste with salt and pepper.",
+      "emove and discard the bay leaf from the pot.",
+      "Serve topped with fresh sour cream and fresh dill."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/60oc3k1699009846.jpg",
+    "origin": "Russian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.thespruceeats.com/traditional-russian-cabbage-soup-shchi-recipe-1135534",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53488",
+    "name": "Cabbage with Ground Beef",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "carrots",
+      "garlic",
+      "cabbage",
+      "apple cider vinegar",
+      "parsley"
+    ],
+    "techniques": [
+      "braise"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "ground beef",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "smoked paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "ground cumin",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "apple cider vinegar",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Heat a large skillet or braiser over medium heat on the stovetop. Add the olive oil.",
+      "A braiser with cooked ground beef",
+      "Cook the Meat:",
+      "Add the ground meat to the pan. Use a potato masher or wooden spoon to break it into small pieces. Cook for 3–4 minutes until browned.",
+      "Add Vegetables and Seasoning:",
+      "Stir in the onion, carrots, red pepper, garlic, and tomato paste. Season with salt, black pepper, smoked paprika, ground cumin, and Italian seasoning (if using). Cook for 2–3 minutes, stirring frequently.",
+      "A braiser with cooked ground beef, carrots, onions, peppers, garlic and seasoning.",
+      "Add Cabbage and Liquid:",
+      "Add the chopped cabbage, apple cider vinegar or lemon juice (if using), and water. Stir well to combine. Reduce the heat to medium-low, cover, and cook for 30 minutes. Stir occasionally to prevent the cabbage from sticking to the bottom of the pan.",
+      "A pot with cooked ground beef, vegetables and cabbage on a stove top",
+      "Check for Doneness:",
+      "Uncover and check the texture of the cabbage. If necessary, increase the heat to medium-high and cook for an additional 5–7 minutes to evaporate excess liquid and finish cooking.",
+      "A braiser with cooked ground meat and cabbage dish on a stove top",
+      "Garnish and Serve:"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/brmxra1782681940.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://cookinglsl.com/ground-beef-cabbage-recipe/#wprm-recipe-container-59951",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53459",
+    "name": "Chicken and Potato Roti",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [
+      "parsley",
+      "onion",
+      "garlic",
+      "potatoes"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Hot",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 38,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "shortening",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "chicken breast",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      },
+      {
+        "name": "thyme",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "jerk",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "sugar",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 4,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "scotch bonnet",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Add a pint of chicken stock to the simmer and put three tablespoons of sugar into a large saucepan on high; cook until the sugar caramelizes, then add the cubed chicken breasts and stir until the chicken browns.",
+      "Add chopped onions, garlic, parsley, thyme, jerk seasoning, salt, and the whole scotch bonnet pepper – do not cut up the pepper! Reduce the heat to low and let this simmer for 25 minutes.",
+      "In a large mixing bowl, sift the flour, and add a pinch of salt to taste.",
+      "Now add the first tablespoon of shortening, and with your fingers, rub the flour into the shortening until it forms a breadcrumb-like consistency.",
+      "Then add the second tablespoon of shortening and rub against the flour until it looks like breadcrumbs.",
+      "Now add the third tablespoon of shortening and repeat the process.",
+      "You should by now have used all the flour. Your bowl should be all breadcrumb-like; if you still have fresh flour, use another tablespoon of shortening until your fresh flour is all used up.",
+      "Add a small amount of water and mix with a butter knife; keep adding small amounts until your mixture forms a soft dough.",
+      "Now dust your surface with flour and roll out your pastry; you want to roll wafer-thin rounds – this mixture should make at least 12 roti skins.",
+      "Cover with a tea towel while returning to the pot.",
+      "Now peel the potatoes and cube them into small bite-size pieces.",
+      "After 25 minutes of simmering, add 1/2 pint of water and the potatoes to the pool.",
+      "Now cover and cook for 30 minutes on low heat.",
+      "Turn a flat baking tray upside down, lightly cover with foil, and place on the stovetop on high; cook each roti skin for 1 minute on each side until brown but not crisp."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/mp9z0i1782238092.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.totallybarbados.com/articles/barbados-recipes/chicken-potato-roti-recipe/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53455",
+    "name": "Chicken Liver Pate Recipe",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [
+      "garlic",
+      "onion"
+    ],
+    "techniques": [
+      "bake"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 420,
+      "protein": 38,
+      "carbs": 18,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "chicken liver",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "bacon",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "ground mustard",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "milk",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "sherry",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Clean livers of sinews and gall.",
+      "Put into a fireproof casserole with all other ingredients roughly chopped.",
+      "Season and cover with milk.",
+      "Put the lid on the casserole and cook in a slow oven (300ºF) for 2 hours.",
+      "Liquidize in a blender.",
+      "Adjust seasoning.",
+      "Add sherry or brandy.",
+      "Put in a dish and cover with melted butte"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/hob03q1780264260.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.totallybarbados.com/articles/barbados-recipes/chicken-liver-pate/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53514",
+    "name": "Chilean Empanada",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "onion",
+      "garlic"
+    ],
+    "techniques": [
+      "bake"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "dried oregano",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "ground pork",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "raisins",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "black olives",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "eggs",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "shortening",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "all purpose flour",
+        "quantity": 5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "eggs",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "Make the filling: Melt butter in a large skillet over medium heat. Add onion, garlic, oregano, cumin, salt, and pepper; cook and stir until onion is golden brown, 5 to 7 minutes. Add pork and cook until completely browned and crumbly, 7 to 10 minutes more. Drain fat from the skillet. Stir in raisins, olives, and hard-cooked eggs.",
+      "Whisk water and cornstarch together in a small bowl; pour into the skillet and stir until liquid thickens. Remove from the heat and set aside.",
+      "Make the dough: Whisk milk and melted shortening together in a bowl until evenly blended. Stir flour and salt together in a separate large bowl. Pour milk mixture into flour mixture; whisk until well combined and a dough forms. Let rest for 10 minutes.",
+      "Preheat the oven to 400 degrees F (200 degrees C). Line a baking sheet with parchment paper.",
+      "Roll dough on a lightly floured surface to a thickness of 1/8 inch. Cut into 12 circles with a round cookie cutter or glass. Spoon filling into the center of each circle. Fold each circle in half and press the edges with a fork to seal. Brush the tops with beaten egg. Place empanadas onto the prepared baking sheet.",
+      "Bake in the preheated oven until golden brown, about 25 minutes."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/q4xgij1782851193.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.allrecipes.com/recipe/185584/chilean-empanada/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53446",
+    "name": "Clear Soup with Semolina Dumplings",
+    "cuisine": "Other",
+    "categories": [
+      "Soups",
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "parsley"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 480,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "semolina",
+        "quantity": 120,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "butter",
+        "quantity": 60,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "beef stock",
+        "quantity": 1,
+        "unit": "l",
+        "department": "Meat"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Allow butter to come to room temperature before beating in a bowl until creamed. Season with salt and a small, delicate pinch of nutmeg.",
+      "Add in the egg, stirring vigorously. Sprinkle the semolina over this, and mix it in well until the surface is smooth. Cover with saran wrap and leave to rest for 15 – 20 minutes.",
+      "Use two spoons, dipped regularly into hot water throughout, to press or shape dumplings from the paste. You can also place these on a lightly oiled board or plate and again leave them to stand for a short while (this allows the dumplings to rise even more).",
+      "Heat a generous quantity of salted water in a large pan. Place the dumplings into the water and bring them back to a boil before turning down the heat and leaving to simmer gently for 10 – 15 minutes (do not boil). Carefully turn the dumplings occasionally.",
+      "Remove the semolina dumplings carefully and put them in the heated soup. Serve promptly, with a garnish of sprinkled parsley or chives.",
+      "The semolina dumplings can also be cooked in the beef broth, but this causes the soup to take on a slightly dull appearance. The cooked dumplings should never be left standing in the soup for too long, as they will “soak up” the soup and become softened."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/qserum1780156275.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.austria.info/en-gb/recipes/clear-soup-with-semolina-dumplings/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53512",
+    "name": "Conch Stew",
+    "cuisine": "Other",
+    "categories": [
+      "Seafood",
+      "Stews",
+      "HighProtein"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "onion",
+      "scallions",
+      "chilli"
+    ],
+    "techniques": [
+      "simmer",
+      "braise"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Medium",
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "conchs",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green pepper",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "red pepper",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "scallions",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "seasoning",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "coconut",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "flour",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chilli",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      },
+      {
+        "name": "all purpose flour",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Conch Stew Cooking Directions",
+      "Clean conch meat and pound to tenderize. Boil conch for 2 - 3 hours or until tender. Make Sea Pie while conch cooks (instructions below). Once cool, cut conch in bite size pieces and season. Add all ingredients, except flour, to pan and simmer for 10 to 20 minutes. Mix flour with 1 cup water and pour into pan to thicken. Add Sea Pie pieces and continue to cook for an additional 10 minutes.",
+      "Sea Pie Cooking Directions",
+      "Make dough with flour, pinch of salt and water so that you can roll out as thin as possible, then cut into 2 ½” x 2 ½” squares. Let set for 30 minutes then stretch squares to thin them out and add to conch stew mixture.",
+      "Serve with white rice, plantain, breadfruit or your choice of vegetables."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/mlkjeu1782775816.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.ourcayman.ky/en-us/about/more-about-cayman/recipes",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53419",
+    "name": "Crispy fried fish with ginger and fermented soybeans (trey chien chuon)",
+    "cuisine": "Other",
+    "categories": [
+      "Seafood",
+      "HighProtein"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "ginger",
+      "garlic",
+      "spring onions"
+    ],
+    "techniques": [
+      "fry",
+      "stir-fry",
+      "steam"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "ginger",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "fish fillet",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Seafood"
+      },
+      {
+        "name": "tempura flour",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "oil",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "garlic",
+        "quantity": 4,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "soya bean",
+        "quantity": 800,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "sugar",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "spring onions",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Fry the ginger in plenty of oil until golden and slightly crispy. Set aside for later.",
+      "Cut the fish into strips. Dredge the fish in a very thin layer of tempura flour.",
+      "Fry the fish in plenty of oil until golden brown and crispy. You can use the same oil as you were using to fry the ginger.",
+      "Crush the garlic and chop it into small pieces. Chop the spring onion.",
+      "Drain the fermented soybeans using a colander. If you are using salted beans (soybeans in a very salty brine), you need to wash the beans in water before you add them to the dish.",
+      "Add a tablespoon of oil to a deep pan or a large pot, and sauté the garlic until slightly golden.",
+      "Add the soybeans and stir fry for a few minutes. If the soybeans are very salty, add ¼- ½ tablespoon sugar to balance the flavor.",
+      "Add water and fry for a minute.",
+      "Just before serving, stir in the fried ginger, the spring onion, and the crispy fish. Serve with steamed rice."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/9q1ci41779735714.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://mitziemee.com/recipe-cambodian-fried-fish-ginger-fermented-soybeans/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53486",
+    "name": "Easy White Bean Soup",
+    "cuisine": "Other",
+    "categories": [
+      "Vegetarian",
+      "Soups"
+    ],
+    "primaryProtein": "Beans",
+    "vegetables": [
+      "onions",
+      "carrots",
+      "dried mint",
+      "parsley"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 480,
+      "protein": 18,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "cannellini beans",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "onions",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "red pepper",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 0.33,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "dried mint",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "thyme",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "summer savoury",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Place beans in a large pot and cover with cold water. Soak for at least 4 hours or overnight. Drain and rinse, before you use in the soup.",
+      "Chop one of the onions and leave the other one whole. Chop carrots.",
+      "Heat oil on a large pot over medium heat. Add the onion and carrots. Cook for 2 minutes. Add beans, water, peppers, head of onion, salt, pepper, summer savory, mint, thyme, Vegeta and tomato puree. Stir, bring to a boil, then reduce to a simmer and cook for 2 hours, or until the beans are tender.",
+      "Remove the peppers and whole onion. Mash the onion. Peel peppers and chop. Return to the pot.",
+      "Add more salt and pepper, if needed. Garnish with chopped parsley. Serve."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/p5nzbk1782680889.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://cookinglsl.com/bulgarian-white-bean-soup/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53123",
+    "name": "Fårikål (Norwegian National Dish)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Lamb",
+    "vegetables": [
+      "white cabbage"
+    ],
+    "techniques": [
+      "simmer",
+      "braise"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "lamb",
+        "quantity": 3,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "white cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "whole black peppercorns",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 3,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "flour",
+        "quantity": 5,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "▢",
+      "Cut the lamb into large pieces.",
+      "▢",
+      "Slice the cabbage into large wedges, keeping the core attached.",
+      "▢",
+      "Add a layer of lamb pieces to the bottom of a large pot, fatty side down. Sprinkle with peppercorns and salt. Add a layer of cabbage wedges on top. Repeat with more layers of lamb, peppercorns, and cabbage, ending with cabbage on top.",
+      "▢",
+      "Optional: Sprinkle a couple of tablespoons on top of the lamb for a thicker stew.",
+      "▢",
+      "Add water to the pot and bring to a boil. Cover and reduce heat. Cook on low heat for 2 – 3 hours, until the lamb gently falls away from the bone.",
+      "▢",
+      "Serve with boiled potatoes and fresh parsley, covering generously with the fårikål broth."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/ttfxxn1762773067.jpg",
+    "origin": "Norway",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://scandinaviancookbook.com/farikal-national-dish-of-norway/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53188",
+    "name": "Fašírky",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "parsley"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "ground pork",
+        "quantity": 500,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "bread",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "milk",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "marjoram",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mustard",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "flour",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "breadcrumbs",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Bakery"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Prepare the Bread Mixture",
+      "Soak the bread slices in milk or water until soft.",
+      "Squeeze out excess liquid and mash into small crumbs.",
+      "Mix the Ingredients",
+      "In a large bowl, combine ground meat, chopped onions, garlic, soaked bread, egg, and seasonings.",
+      "Mix well until evenly combined.",
+      "Shape the Meat Patties",
+      "Take portions of the mixture and shape them into palm-sized patties.",
+      "Flatten slightly to help with even cooking.",
+      "Coat the Patties",
+      "Lightly dust each patty with flour.",
+      "Dip into beaten egg, then coat with breadcrumbs for a crispy finish.",
+      "Fry the Fašírky",
+      "Heat vegetable oil in a pan over medium heat."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/gtpvwp1763363947.jpg",
+    "origin": "Slovakia",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.slovakia-foods.co.uk/blog/post/fasirky-recipe-how-to-make-authentic-slovak-meat-patties.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53122",
+    "name": "Fiskesuppe (Creamy Norwegian Fish Soup)",
+    "cuisine": "Other",
+    "categories": [
+      "Seafood",
+      "Soups"
+    ],
+    "primaryProtein": "Shellfish",
+    "vegetables": [
+      "garlic",
+      "potatoes",
+      "carrots",
+      "leek"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 580,
+      "protein": 30,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "fish fillet",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Seafood"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "leek",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "flour",
+        "quantity": 5,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "fish stock",
+        "quantity": 4,
+        "unit": "cup",
+        "department": "Seafood"
+      },
+      {
+        "name": "milk",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "creme fraiche",
+        "quantity": 1.25,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "shrimp",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Seafood"
+      },
+      {
+        "name": "chives",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "▢",
+      "Cut the fish fillets in cubes or strips. Crush or chop the garlic. Rinse the vegetables and cut into thin strips.",
+      "▢",
+      "Heat the butter in a pot and add the garlic. Once the garlic starts to turn golden add the flour, whisking well.",
+      "▢",
+      "Add the fish stock and continue to whisk until there are no lumps.",
+      "▢",
+      "Add the vegetables and milk and bring to a boil. Cook for about 10 minutes.",
+      "▢",
+      "Add the crème fraîche (or sour cream). Bring the soup back to a simmer and once the soup begins to bubble again turn off the heat. Keep the soup on the burner and add the fish. Let the fish cook in the hot soup for 5 minutes. If using shrimp, add right before serving.",
+      "▢",
+      "Sprinkle with chives (or dill or parsley) before serving."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Shellfish",
+      "Fish"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/raqjbj1762773035.jpg",
+    "origin": "Norway",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://scandinaviancookbook.com/fiskesuppe-creamy-norwegian-fish-soup/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53464",
+    "name": "Flemish Hutsepot",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "floury potatoes",
+      "carrots",
+      "leek",
+      "onion",
+      "garlic"
+    ],
+    "techniques": [
+      "fry",
+      "braise"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "floury potatoes",
+        "quantity": 600,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "turnips",
+        "quantity": 200,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "leek",
+        "quantity": 250,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "sausages",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "thyme",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "chicken stock",
+        "quantity": 600,
+        "unit": "ml",
+        "department": "Meat"
+      },
+      {
+        "name": "mustard",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "unsalted butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Peel and chop the onion and garlic. Add both to a large pan with the butter and place it over medium heat.",
+      "Let the onion and garlic sweat for 5 minutes. Then add the chopped potatoes, bay leaves and thyme and stir well. Cook for another 5 minutes.",
+      "In the meantime peel and slice the carrots. Peel the turnip. Dice it into bite-size pieces. Slice the leek in half lengthwise. Rinse it well to remove any sand. Add the vegetables to the potatoes and onion. Also add the mustard and chicken stock and season with pepper and salt.",
+      "Stir all the ingredients well and cover the pan with a lid. Cook the hutsepot for about 20 to 25 minutes or until all the vegetables and potatoes are tender. Stir regularly. Add extra water if necessary. In the meantime pan fry the sausages in a little oil or butter until golden brown and cooked through. Keep warm.",
+      "Once the potatoes start to fall apart, stir and turn it all into a mushy and chunky vegetable stew. Check the seasoning and add extra pepper, salt or mustard to taste.",
+      "Scoop the hutsepot onto deep plates and top with the sausage. Serve hot with an extra dollop of mustard if you like."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/2lywl71782496853.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://junedarville.com/hutsepot.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53465",
+    "name": "Frog Legs Recipe in Garlic Butter",
+    "cuisine": "Other",
+    "categories": [
+      "Vegetarian"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "garlic",
+      "parsley"
+    ],
+    "techniques": [
+      "grill",
+      "fry",
+      "stir-fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 12,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "frogs legs",
+        "quantity": 300,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "milk",
+        "quantity": 3,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "garlic",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Let the frog legs soak in the milk in the fridge for an hour (optional).",
+      "Rinse the legs and pat them dry with kitchen paper.",
+      "Add the olive oil and half of the garlic butter to a large wok or frying pan. Place it over high heat until the butter starts to foam. Don't let it burn.",
+      "Add the frog legs to the pan. Pan fry them for about 10 minutes until they are golden brown on both sides. Turn the over regularly.",
+      "Add the rest of the garlic butter right in the end together with the freshly chopped parsley. Season with a pinch of pepper and salt to taste.",
+      "Divide the frog legs over plates. Serve with grilled bread and a green salad."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/qcprt21782497529.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://junedarville.com/frog-legs-recipe.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53021",
+    "name": "Golabki (cabbage roll)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "cabbage",
+      "onion",
+      "garlic"
+    ],
+    "techniques": [
+      "bake",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "ground beef",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "ground pork",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 3,
+        "unit": "can",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Bring a large pot of lightly salted water to a boil. Place cabbage head into water, cover pot, and cook until cabbage leaves are slightly softened enough to remove from head, 3 minutes. Remove cabbage from pot and let cabbage sit until leaves are cool enough to handle, about 10 minutes.",
+      "Remove 18 whole leaves from the cabbage head, cutting out any thick tough center ribs. Set whole leaves aside. Chop the remainder of the cabbage head and spread it in the bottom of a casserole dish.",
+      "Melt butter in a large skillet over medium-high heat. Cook and stir onion in hot butter until tender, 5 to 10 minutes. Cool.",
+      "Stir onion, beef, pork, rice, garlic, 1 teaspoon salt, and 1/4 teaspoon pepper together in a large bowl.",
+      "Preheat oven to 350 degrees F (175 degrees C).",
+      "Place about 1/2 cup beef mixture on a cabbage leaf. Roll cabbage around beef mixture, tucking in sides to create an envelope around the meat. Repeat with remaining leaves and meat mixture. Place cabbage rolls in a layer atop the chopped cabbage in the casserole dish; season rolls with salt and black pepper.",
+      "Whisk tomato soup, tomato juice, and ketchup together in a bowl. Pour tomato soup mixture over cabbage rolls and cover dish wish aluminum foil.",
+      "Bake in the preheated oven until cabbage is tender and meat is cooked through, about 1 hour."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/q8sp3j1593349686.jpg",
+    "origin": "Polish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.allrecipes.com/recipe/234975/golabki-stuffed-cabbage-rolls/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53125",
+    "name": "Karbonader (Lean Beef Patties) with Caramelized Onions",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion"
+    ],
+    "techniques": [
+      "fry",
+      "braise"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "ground beef",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "salt",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cornstarch",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "butter",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "Grate half an onion and set aside. Slice the rest of the onions and fry in butter on low/medium heat until caramelized.",
+      "▢",
+      "In a bowl, mix together ground beef, grated onion, salt, pepper, nutmeg, potato/corn starch, and water.",
+      "▢",
+      "Form into a sausage and cut 6 patties. Using a knife make a light grid pattern in each patty.",
+      "▢",
+      "Brown both sides of the karbonader in butter on high heat, then turn down to low heat and fry for another 2 – 3 minutes.",
+      "▢",
+      "Serve the karbonader and onions with potatoes, stewed peas, and brown sauce for dinner, or on a slice of bread for lunch or a snack."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/0bpjb11763075817.jpg",
+    "origin": "Norway",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://scandinaviancookbook.com/karbonader/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53445",
+    "name": "Kaspressknödel - Cheese Dumplings",
+    "cuisine": "Other",
+    "categories": [
+      "Vegetarian"
+    ],
+    "primaryProtein": "Eggs",
+    "vegetables": [
+      "parsley",
+      "potatoes",
+      "onion"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 20,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": 250,
+        "unit": "g",
+        "department": "Bakery"
+      },
+      {
+        "name": "cheese",
+        "quantity": 250,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "eggs",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "flour",
+        "quantity": 100,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "milk",
+        "quantity": 250,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "Mix the cubed white bread with the milk, season with salt, and let the mixture rest for a while.",
+      "Now add the shredded potatoes, the grated cheese, eggs, and parsley.",
+      "Melt the butter and fry the cubed onions until golden brown in colour and put into the mixture.",
+      "Add the flour and gently knead the dough. Shape it into round dumplings, gently press them flat and fry them on both sides in butter until golden brown.",
+      "Serve in clear broth."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [
+      "vegetarian"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/x26z3y1780155760.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.austria.info/en-gb/recipes/cheese-dumplings/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53112",
+    "name": "Kenyan Beef Curry",
+    "cuisine": "Other",
+    "categories": [
+      "Stews",
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "red onions",
+      "tomato",
+      "chilli",
+      "cilantro"
+    ],
+    "techniques": [
+      "bake",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 480,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "sirloin steak tips",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "ground ginger",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "oil",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "red onions",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "curry powder",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "chilli",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Bring the 4 cups of water to a boil in a Dutch oven or soup pot. Add the beef, garlic, and ginger, and stir well. Bring to a gentle simmer, cover, and cook, stirring occasionally, for 20 minutes. If you get any foamy scum on the top, not to worry, simply spoon it away or stir it back in.",
+      "Remove from the heat, and drain, but reserve the excess water for later.",
+      "Return the pot or Dutch oven to medium heat with the 2 tablespoons of cooking oil. Once the oil is shimmering, add the onions and cook, stirring occasionally, until softened, 5 to 7 minutes.",
+      "Add the tomatoes to the onions, and continue cooking, stirring occasionally, until the tomatoes are falling apart, 3 to 5 minutes.",
+      "Add the drained beef to the tomato and onion mixture, and stir well. Continue cooking over medium heat for 5 minutes, stirring occasionally.",
+      "Add the paprika, pepper, curry powder, tomato paste, and salt to taste, and stir well.",
+      "Add back the excess water that was used for cooking the beef, along with enough extra water to cover. Bring to a boil, reduce heat, and simmer, uncovered, stirring occasionally, for about 1 hour, or until the meat is tender and the sauce is thickened. Add additional water if your beef curry begins to dry and stick, or if would like your curry to have more of a soupy consistency.",
+      "When the beef curry is ready, remove from the heat, give it a taste, and adjust the seasonings as desired. Garnish with fresh chilis and cilantro."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/lqampv1762325397.jpg",
+    "origin": "Kenyan",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://tasteoftheplace.com/kenyan-beef-curry/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53412",
+    "name": "Lakra me Mish Cabbage and Meat Stew",
+    "cuisine": "Other",
+    "categories": [
+      "Stews",
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "cabbage",
+      "onion",
+      "chilli flakes"
+    ],
+    "techniques": [
+      "fry",
+      "simmer",
+      "braise"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Medium",
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 480,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef",
+        "quantity": 500,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 3,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "red pepper",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "chilli flakes",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "boiling water",
+        "quantity": 1,
+        "unit": "l",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "1",
+      "Cooking",
+      "Add some olive oil to a saute pan or saucepan (one with a lid). One heated add in the onions, diced beef, red peppers and fry for 5 minutes stirring occasionally. The meat should be fully browned.",
+      "2",
+      "Add the paprika, tomato puree, chilli flakes and season with salt and pepper. Mix together and continue to fry for 2 minutes.",
+      "3",
+      "Add the cabbage and stir the mixture together. Fry the mixture while stirring occasionally for 3-5 minutes. Most of the oil should have burned away.",
+      "4",
+      "Pour the boiling water into the pan, ensuring that the water level completely covers the cabbage, plus about 1 inch above it. Put on the lid and bring to the boil.",
+      "5",
+      "Leave to simmer for 2.5 hours. The stew is ready when the cabbage is soft and meat tender.",
+      "6",
+      "Serving",
+      "Serve into wide bowls and leave to cool for 5 minutes."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/mobh1l1779648766.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.myalbanianfood.com/recipe/lakra-me-mish/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53083",
+    "name": "Lamb Pilaf (Plov)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Lamb",
+    "vegetables": [
+      "lemon juice",
+      "onion",
+      "garlic",
+      "parsley"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "lamb",
+        "quantity": 50,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "prunes",
+        "quantity": 120,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lamb",
+        "quantity": 450,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "vegetable stock",
+        "quantity": 600,
+        "unit": "ml",
+        "department": "DryGoods"
+      },
+      {
+        "name": "rice",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "saffron",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Place the raisins and prunes into a small bowl and pour over enough water to cover. Add lemon juice and let soak for at least 1 hour. Drain. Roughly chop the prunes.",
+      "Meanwhile, heat the butter in a large pan, add the onion, and cook for 5 minutes. Add cubed lamb, ground lamb, and crushed garlic cloves. Fry for 5 minutes, stirring constantly until browned.",
+      "Pour 2/3 cup (150 milliliters) of stock into the pan. Bring to a boil, then lower the heat, cover, and simmer for 1 hour, or until the lamb is tender.",
+      "Add the remaining stock and bring to a boil. Add rinsed long-grain white rice and a large pinch of saffron. Stir, then cover, and simmer for 15 minutes, or until the rice is tender.",
+      "Add the drained raisins, drained chopped prunes, and salt and pepper to taste. Heat through for a few minutes, then turn out onto a warmed serving dish and garnish with sprigs of flat-leaf parsley."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/kos9av1699014767.jpg",
+    "origin": "Russian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.thespruceeats.com/russian-lamb-pilaf-plov-recipe-1137309",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53467",
+    "name": "Liegeoise Salad",
+    "cuisine": "Other",
+    "categories": [
+      "Salads",
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "potatoes",
+      "green beans",
+      "onion",
+      "parsley"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "potatoes",
+        "quantity": 350,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "green beans",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "eggs",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "bacon",
+        "quantity": 125,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "white wine vinegar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mustard",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Scrub the potatoes well but don't peel them. Cut them into bite-size pieces. Add them to a large pan water and a pinch of salt. Bring it to a good boil. Cook the potatoes until tender and then remove them using a slotted spoon. Keep the potatoes at room temperature.",
+      "Trim and clean the green beans. Add them to the pan of hot water you boiled the potatoes in. Cook the green beans until nearly tender (keep them crunchy). Strain and refresh them immediately under cold running tap water to stop the cooking process.",
+      "Add the bacon to a large non-stick pan and place it over medium heat. Cook the bacon for a couple of minutes until cooked through. Then take the pan off the heat and let the bacon cool down a little.",
+      "Combine the olive oil, vinegar and mustard. Transfer the cooked potatoes, green beans, bacon, chopped onion, parsley and vinaigrette. Season with pepper and salt.",
+      "Stir well. Check the seasoning and add extra vinegar, pepper or salt to taste. Transfer the salad to a large serving bowl or 2 deep plates and garnish with the boiled eggs. Serve lukewarm."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Eggs"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/ji3mho1782499823.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://junedarville.com/salade-liegeoise.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53117",
+    "name": "Nordic smørrebrød with asparagus and horseradish cream",
+    "cuisine": "Other",
+    "categories": [
+      "Vegetarian"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "horseradish",
+      "lemon juice",
+      "shallots",
+      "white asparagus",
+      "asparagus"
+    ],
+    "techniques": [
+      "grill",
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 12,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "creme fraiche",
+        "quantity": 150,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "horseradish",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "shallots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "white asparagus",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "asparagus",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "rye bread",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "västerbottensost cheese",
+        "quantity": 100,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "dill",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "To make the horseradish cream, mix the crème fraîche, grated horseradish, lemon juice, salt and white pepper in a bowl. Refrigerate until serving.",
+      "To make the crispy shallots, heat some vegetable oil in a frying pan over a medium heat. Add the sliced shallots and fry until golden brown and crispy.",
+      "Remove with a slotted spoon and drain on a plate lined with kitchen paper. Season with a pinch of salt.",
+      "To make the open sandwich, bring a large saucepan of salted water to the boil, then blanch half of the asparagus (four white and four green) until tender-crisp, about 2–3 minutes.",
+      "Add ice to a bowl of cold water. Use a slotted spoon to remove the asparagus from the boiling water and immediately transfer to the iced water to stop cooking. Thinly slice the remaining asparagus lengthwise to serve raw.",
+      "Pre-heat the grill until hot. Spread the rye bread with butter and grill until golden and crisp.",
+      "To serve, place the grilled bread slices on serving plates. Arrange both the blanched and raw asparagus on the bread. Drizzle with horseradish cream, then sprinkle grated cheese over the top. Garnish with the crispy shallots and some fresh dill to finish."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [
+      "vegetarian"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/8a8fu01762772651.jpg",
+    "origin": "Norway",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbc.co.uk/food/recipes/nordic_smorrebrod_69435",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53017",
+    "name": "Paszteciki (Polish Pasties)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion"
+    ],
+    "techniques": [
+      "bake",
+      "fry"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "butter",
+        "quantity": 5,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "butter",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 0.33,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "swede",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "beef brisket",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "eggs",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Sift flour and salt into a large mixing bowl.",
+      "Use a spoon to push the egg yolk through a fine sieve into the flour.",
+      "Add the raw egg and mix well.",
+      "Beat in butter 1 tablespoon at a time.",
+      "Place dough on a floured surface and knead until smooth and elastic, then wrap in waxed paper and refrigerate until firm (at least 30 minutes).",
+      "In a heavy skillet, melt 2 tablespoons butter over medium heat; saute the onion and rutabaga until the onion is soft and transparent (5 minutes).",
+      "Put the onions, rutabaga, and beef through a meat grinder twice if you have one, if not just chop them up as fine as possible.",
+      "Melt the remaining 4 tablespoons butter over medium heat, and add the meat mixture.",
+      "Cook over low heat, stirring occasionally, until all of the liquid has evaporated and the mixture is thick enough to hold its shape.",
+      "Remove from heat and let cool, then stir in 1 egg, and season with salt and pepper.",
+      "Preheat oven to 350°F.",
+      "On a lightly floured surface, roll the dough out into a 13x8\" rectangle (1/8\" thick).",
+      "Spoon the filling down the center of the rectangle lengthwise, leaving about an inch of space on each end.",
+      "Lightly brush the long sides with cold water, then fold one of the long sides over the filling and the other side over the top of that."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/c9a3l31593261890.jpg",
+    "origin": "Polish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.food.com/recipe/paszteciki-polish-pasties-117909",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53301",
+    "name": "Pork & sauerkraut goulash",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "onion",
+      "garlic"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "lard",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "onion",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "pork shoulder",
+        "quantity": 800,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 4,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "plain flour",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "paprika",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "beef stock",
+        "quantity": 1.5,
+        "unit": "l",
+        "department": "Meat"
+      },
+      {
+        "name": "bay leaves",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "white sauerkraut",
+        "quantity": 400,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "whipping cream",
+        "quantity": 200,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "sour cream",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "Heat the lard in a saucepan over a medium heat and fry the finely chopped onion until golden, around 5-8 mins. Tip in the cumin and pork, and fry for 10 mins all over until browned. Add the garlic, season well and scatter over the flour. Cook for about a minute, then add the paprika and cook for 1 min more.",
+      "Pour in half of the stock, add the bay leaves, and simmer with the lid on over a low heat for 30 mins.",
+      "Add the sauerkraut, remaining stock and a drizzle of the sauerkraut pickling juices. Simmer with the lid for 30 mins, stirring occasionally, until the meat is tender. Stir in the cream and simmer for 5 mins to combine the flavours. Season to taste, the serve garnished with a spoonful of soured cream.",
+      "This recipe has been provided by Apetit Online and not been re-tested by us."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/cyuhwp1764362103.jpg",
+    "origin": "Polish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/pork-sauerkraut-goulash",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53081",
+    "name": "Potato Salad (Olivier Salad)",
+    "cuisine": "Other",
+    "categories": [
+      "Salads",
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "potatoes",
+      "carrots",
+      "peas",
+      "onions"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "potatoes",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "white wine vinegar",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "eggs",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "sausages",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "dill",
+        "quantity": 4,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "peas",
+        "quantity": 1,
+        "unit": "can",
+        "department": "Produce"
+      },
+      {
+        "name": "onions",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "mayonnaise",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Cut the potatoes and carrots into small uniform cubes.",
+      "Place them in a large pot and fill with water.",
+      "Add salt and vinegar. Bring it to a boil over medium high heat, and then reduce the heat to medium and continue to cook until the potatoes are cooked through, about 15 minutes. Drain the potatoes and let it cool to room temperature.",
+      "Meanwhile, cut the sausage and pickles into small cubes, and chop the green onions.",
+      "Cut the hard-boiled eggs into small cubes as well.",
+      "If using fresh dill, chop them as well.",
+      "In a large bowl, combine potatoes, carrots, sausage, pickles, peas and green onions.",
+      "Add mayo and dill and mix until well combined.",
+      "Salt and pepper to taste. Cover with a plastic wrap and refrigerate for at least 1 hour before serving."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Eggs"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/ebvuir1699013665.jpg",
+    "origin": "Russian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.sweetandsavorybyshinee.com/russian-potato-salad/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53410",
+    "name": "Presh me Oriz Leek and Rice Bake",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Lamb",
+    "vegetables": [
+      "leek",
+      "onion"
+    ],
+    "techniques": [
+      "bake",
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "leek",
+        "quantity": 500,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "lamb mince",
+        "quantity": 400,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "rice",
+        "quantity": 200,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "lamb stock",
+        "quantity": 1,
+        "unit": "l",
+        "department": "Meat"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "1",
+      "Cooking",
+      "Fry the leeks in a small dash of olive oil for a few minutes until they start to brown.",
+      "2",
+      "Add the onions and mince and fry until everything is browned. Ensure you keep stirring to prevent the leeks catching and burning.",
+      "3",
+      "Add the rice and stir together for a few minutes ensuring the rice is well blended and coated in any juices.",
+      "4",
+      "Add the lamb stock, salt and pepper. Give it a good stir and leave it to come to the boil. Leave to boil for 2 minutes.",
+      "5",
+      "Baking",
+      "Pour the mixture into a large baking tray, place on the bottom self of a preheated oven at 180 degrees. Leave to bake for up to 1 hour. The dish is ready when all the liquid is evaporated and the rice is soft.",
+      "6",
+      "Serving"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/sjfgbc1779647169.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.myalbanianfood.com/recipe/albanian-leek-and-rice-bake/#google_vignette",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53124",
+    "name": "Raspeballer (Norwegian Potato Dumplings)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "potatoes",
+      "red potatoes",
+      "freshly chopped parsley",
+      "carrots"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "pork knuckle",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "sausages",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "red potatoes",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "flour",
+        "quantity": 1.25,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "all purpose flour",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "bouillon cubes",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "freshly chopped parsley",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      },
+      {
+        "name": "swede",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cream",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      }
+    ],
+    "steps": [
+      "Raspeballer & (Optional) Salted Meat",
+      "▢",
+      "If you're making pork knuckle, cook it in simmering water for about 3 hours, until the meat falls from the bone. Remove the pork and save the broth to cook the raspeballer.",
+      "▢",
+      "Boil the boiled potatoes and peel once cooled. Also peel the raw potatoes, and then grate them or run them through a food processor. Use a paper towel to remove some of the moisture from the grated potatoes.",
+      "▢",
+      "Mash the boiled potatoes in a potato ricer or with a masher. Make sure there are no lumps. Add the grated raw potatoes to the mashed potatoes in a large mixing bowl and stir together. Add the barley flour, all purpose flour, and salt and mix together with your hands until the mixture is fully blended.",
+      "▢",
+      "You can cook the raspeballer in either vegetable or beef broth, or if you're making pork knuckle, cook them in the broth from the pork knuckle. Bring the broth to a very light simmer – you don't want it to fully boil because then the raspeballer might break apart.",
+      "▢",
+      "Use a tablespoon dipped in cold water to shape each raspeball in your hand. Try to make them as smooth as possible and then gently drop them into the simmering broth. Dip the tablespoon in a bowl of cold water between each raspeball.",
+      "▢",
+      "Let the raspeballer simmer for about 30 minutes. If you're making smoked sausage, you can heat the sausage in the same pot with the raspeballer. Top with fresh chopped parsley.",
+      "Mashed Rutabaga"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/hhm7xy1763075871.jpg",
+    "origin": "Norway",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://scandinaviancookbook.com/raspeballer-norwegian-potato-dumplings/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53020",
+    "name": "Rosol (Polish Chicken Soup)",
+    "cuisine": "Other",
+    "categories": [
+      "Soups",
+      "HighProtein"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [
+      "onions",
+      "carrots",
+      "leek",
+      "celery",
+      "cabbage",
+      "parsley"
+    ],
+    "techniques": [
+      "bake",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 420,
+      "protein": 38,
+      "carbs": 18,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "chicken legs",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "onions",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "leek",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "celery",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 0.25,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cloves",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "allspice",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "parsley",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "dill",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Add chicken to a large Dutch oven or stock pot",
+      "Cover with water",
+      "Bring to a boil and simmer for 2 to 2 1/2 hours, skimming any impurities off the top to insure a clear broth",
+      "If your pot is big enough, add the vegetables and spices for the last hour of the cooking time",
+      "My Dutch oven wasn’t big enough to hold everything, just the chicken and other bones filled the pot, so I cooked the meat/bones for the full cooking time, then removed them, and cooked the vegetables and spices separately",
+      "Strain everything out of the broth",
+      "Bone the chicken, pulling the meat into large chunks",
+      "Slice the carrots",
+      "Return the chicken and carrots to the broth",
+      "Cook noodles according to package instructions if you’re using them",
+      "Add noodles to bowl and then top with hot soup"
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/lx1kkj1593349302.jpg",
+    "origin": "Polish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://polishhousewife.com/rosol-polish-chicken-soup/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53432",
+    "name": "Slow-cooked, Wadadli-spiced Cubano pork belly",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "coriander",
+      "parsley",
+      "mint",
+      "red chilli",
+      "green chilli",
+      "orange"
+    ],
+    "techniques": [
+      "bake",
+      "roast"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 34,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 175,
+        "unit": "ml",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "coriander",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "oregano",
+        "quantity": 6,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "mint",
+        "quantity": 6,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "red chilli",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green chilli",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "orange",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "grapefruit",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "garlic",
+        "quantity": 40,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "ground cumin",
+        "quantity": 3,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "ground allspice",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Meat"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Blitz all the marinade ingredients in a food processor or with a hand blender. Lay the pork in a large dish, pour over the marinade, then turn the meat in the mixture, rubbing in the marinade all over and making sure every bit of the belly is coated. Cover the dish and leave overnight in the fridge.",
+      "The next day, heat the oven to 140C (120C fan)/275F/gas 1. Lift the meat out of its marinade (don’t wipe off any that sticks to the joint, though; just leave most of the marinade behind in the dish) and transfer to a large roasting dish. Cover with foil, slip into the oven and roast for four and a half hours – every now and then (say, three or four times over the whole cooking period), take the dish out of the oven, lift off the foil lid and spoon the juices from the bottom of the dish over the meat. Return the foil lid, then put back in the oven.",
+      "After the time is up, remove the foil, turn up the heat to 180C (160C fan)/350F/gas 4 and give the pork a final blast – after 15-20 minutes, the top will take on a lovely colour and the meat should be yielding and soft enough to cut with a spoon.",
+      "To make crackling shards to serve with the meat, heat the oven to 200C (180C fan)/390F/gas 6 and line a roasting tray with baking paper. Lightly score the skin from the pork belly with a sharp knife, then rub it with a three or four fat pinches of salt – I also like to add a few caraway, cumin or fennel seeds at this point (use anything that takes your fancy). Cut the skin into long strips and lay these fat side down on the lined tray (you can, of course, leave it whole, but I think its pleasing to dress the plate with long, golden shards of crackling). Lay a second sheet of baking paper on top of the skin, then put a second baking tray of the same size on top, and roast for 45 minutes to an hour (if by this point the crackling has not gone crisp, just put it back in the oven and carry on roasting it until it has).",
+      "Cut or pull the pork apart, top with finely chopped coriander and flat-leaf parsley and shards of crackling, if you have made them, and serve at once"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/t1hg8s1780087329.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.theguardian.com/food/2020/jul/04/andi-oliver-antiguan-feast-recipes-slow-cooked-pork-belly-corn-chilli-lime-mango-chow-spiced-bread-butter-pudding",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52980",
+    "name": "Stamppot",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "potatoes",
+      "shallots",
+      "kale"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "potatoes",
+        "quantity": 1.5,
+        "unit": "kg",
+        "department": "Produce"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "shallots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "kale",
+        "quantity": 750,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "sausages",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "milk",
+        "quantity": 500,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Wash and peel the potatoes and cut into similarly sized pieces for even cooking.",
+      "In a large soup pot, boil the potatoes and the bay leaves in salted water for 20 minutes. Discard the bay leaves.",
+      "If you're not using a bag of ready-cut curly kale, wash the bunches thoroughly under cool running water to get rid of all soil—you wouldn't want that gritty texture in your finished dish. Trim any coarse stems and discard any brown leaves. With a sharp knife, cut the curly kale into thin strips.",
+      "Peel and chop the shallots.",
+      "In a frying pan or skillet, melt 1 tbsp. of butter and saute the shallots for a few minutes before adding the curly kale and 2 tbsp. of water. Season and cook for about 10 minutes, or until tender.",
+      "Warm the milk on the stove or in the microwave.",
+      "Drain, shake and dry the potatoes with kitchen towels before mashing with a potato masher or ricer. Working quickly, add the warm milk and the remaining butter. Season to taste with nutmeg, salt, and pepper.",
+      "Mix the cooked curly kale through the cooked mashed potato mixture.",
+      "Top with slices of the smoked sausage and serve hot with your favorite mustard or gravy.",
+      "Serve and enjoy!"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/hyarod1565090529.jpg",
+    "origin": "Netherlands",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.thespruceeats.com/stamppot-with-curly-kale-and-rookworst-1128837",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53447",
+    "name": "Tafelspitz",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "carrots",
+      "parsley",
+      "leek",
+      "onion"
+    ],
+    "techniques": [
+      "roast",
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 420,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "beef brisket",
+        "quantity": 1.5,
+        "unit": "kg",
+        "department": "Meat"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "celeriac",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "parsnips",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "leek",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "peppercorns",
+        "quantity": 5,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Slice the unpeeled onion in half widthways and fry off the cut surfaces without fat until fairly well browned.",
+      "Put around 3 litres of water into a large saucepan. Add the root vegetables, leek, halves of onion, bay leaves, and peppercorns and bring to a boil. Add the washed meat and bones and, depending on the type of meat, allow to cook until softened in gently simmering water, which will take around 2 1⁄2 – 3 hours. Add more water as required and skim off any foam from the surface.",
+      "Season well with salt, but only after a good 2 hours.",
+      "Once the meat has softened, remove it from the pan and keep it warm in some of the liquid from the soup. Season the remainder of the soup again with salt to taste, and strain it (optional). Serve with semolina dumplings or \"Frittaten\" (sliced pancakes - a traditional Austrian soup garnish) and freshly chopped chives as a starter. Afterwards, slice the boiled beef by cutting on the bias and arrange it on pre-heated plates, or serve in the hot soup in a decorative soup tureen.",
+      "Serve with roast potatoes, a bread and horseradish mix, green beans in a dill sauce, or creamed spinach and chive sauce. If the root vegetables are to be served at the same time, cook some of them separately to be served al dente."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/svf3d01780298321.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.austria.info/en-gb/recipes/tafelspitz/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53404",
+    "name": "Tavë Kosi Baked Lamb and Yogurt",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Lamb",
+    "vegetables": [
+      "garlic"
+    ],
+    "techniques": [
+      "bake",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "lamb",
+        "quantity": 600,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "butter",
+        "quantity": 20,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "rice",
+        "quantity": 70,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "oregano",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "boiling water",
+        "quantity": 450,
+        "unit": "ml",
+        "department": "DryGoods"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "butter",
+        "quantity": 50,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "flour",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "greek yogurt",
+        "quantity": 750,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "eggs",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "1",
+      "Baking the Lamb",
+      "In a large pan (with a lid) melt the butter and olive oil together then add the diced lamb. Brown the lamb on a medium heat, this will take around 5 minutes.",
+      "2",
+      "Add the garlic, oregano, 300ml of water and season with salt and pepper. Mix well before covering with the lid. Leave to simmer for 50 minutes mixing a couple of times ensuring the lamb doesn’t start to burn.",
+      "3",
+      "The juices should have nearly all boiled away so another 150ml of water should be added along with the rice. Mix altogether, bring to the boil, place the lid on and leave for just 10 minutes. It’s advised to check at around 8 minutes – you want the liquid to be evaporated with just moist coating of oily water left over the lamb and rice.",
+      "4",
+      "Place the lamb and rice into a casserole dish, the mixture should fully cover the base and have at least 2 inches spare for the yogurt. Alternatively you can split into four ceramic bowls.",
+      "5",
+      "Making a Roux",
+      "In a small saucepan melt the butter over a medium heat and then add two tablespoons of flour while continuously stirring for two minutes (add a little extra flour if needed). The roux should not be thick but not too runny, the colour will darken slightly. Pour the roux into a bowl and keep to one side.",
+      "6",
+      "Making the Yogurt Mixture"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/a1mi7t1779643816.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.myalbanianfood.com/recipe/albanian-tave-kosi/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53444",
+    "name": "Tirolean Dumplings",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "shallots",
+      "parsley",
+      "parsley"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "bread",
+        "quantity": 200,
+        "unit": "g",
+        "department": "Bakery"
+      },
+      {
+        "name": "milk",
+        "quantity": 200,
+        "unit": "ml",
+        "department": "Dairy"
+      },
+      {
+        "name": "smoked ham",
+        "quantity": 100,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "eggs",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "shallots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "flour",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Dairy"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Finely chop the shallots, and dice the smoked ham or sausage into small cubes. Heat some butter or clarified butter in a pan and sweat the onions in it until translucent. Add the meat and the parsley and fry together briefly before removing from the heat.",
+      "Place the bread in a bowl. Beat the milk with the eggs and season well with salt, pepper and nutmeg. Pour over the bread. Stir in the sausage and onion paste and mix in the flour. Mix together to form a relatively firm paste (adding more bread or flour if necessary) and season again according to taste. Smooth the surface of the dough out and leave to stand for approx. 30 minutes.",
+      "Heat up a good quantity of salted water in a large pan. Use the paste to form smaller dumplings (for use as a garnish in soups) or medium-sized dumplings, as required. Moisten the hands regularly with cold water during this stage so that the dumplings take on smooth forms.",
+      "Place in boiling water, bring back to the boil, turn down the heat, and simmer gently for 8-20 minutes, depending on the size.",
+      "Remove from the water, dry off well and serve up garnished with chopped parsley and melted butter (which has been taken on a nut-brown colour)."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/jbw8m11780155348.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.austria.info/en-gb/recipes/tirolean-dumplings/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53416",
+    "name": "Trinxat (Potato, Cabbage and Bacon Hash)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "cabbage",
+      "russet potato",
+      "garlic",
+      "parsley"
+    ],
+    "techniques": [
+      "fry",
+      "simmer",
+      "steam"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "cabbage",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "russet potato",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "bacon",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Bring salted water to boil in a large pot.",
+      "Add in the cabbage and potatoes, cook until tender about 30-40 minutes",
+      "When tender, drain, very well.",
+      "Return the vegetables to the pot and turn on the burner to low. Let steam",
+      "Meanwhile cook up the bacon, reserving the fat for frying the hash.",
+      "Chop up the bacon, into small pieces.",
+      "Mash the potatoes and cabbage with a potato masher and add in the minced garlic.",
+      "Add in salt and pepper to taste.",
+      "Using a form for individual servings, press the hash mixture into the form with bacon on top, fry in the reserved bacon fat until golden brown, flip over and repeat on the other side.",
+      "Remove form and garnish with chopped parsley.",
+      "If you want to make one big hash, just use a skillet, pressing the hash into the skillet with the bacon pieces and reserved fat, then flip over once golden brown. Cut into servings.",
+      "Garnish with chopped parsley."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/khpso71779732715.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.internationalcuisine.com/trinxat/#wprm-recipe-container-12938",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53294",
+    "name": "Zapiekanki",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "onion",
+      "mushrooms",
+      "garlic",
+      "tomato ketchup"
+    ],
+    "techniques": [
+      "bake",
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 34,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "baguette",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "mushrooms",
+        "quantity": 300,
+        "unit": "g",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "mayonnaise",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "cheddar cheese",
+        "quantity": 50,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "ham",
+        "quantity": 75,
+        "unit": "g",
+        "department": "Meat"
+      },
+      {
+        "name": "polish kabanos",
+        "quantity": 75,
+        "unit": "g",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mozzarella",
+        "quantity": 50,
+        "unit": "g",
+        "department": "Dairy"
+      },
+      {
+        "name": "dill",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chives",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "tomato ketchup",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Heat the oven to 200C/180C fan/gas 6. Bake the baguettes on a baking tray for 8-10 mins, then leave to cool.",
+      "Heat 2 tsp of the butter and 1 tsp of the oil in a pan over a low heat and cook the chopped onion for 5 mins until soft. Stir in the mushrooms, turn the heat to medium and cook for 5-10 mins more until the veg is soft and the mushroom liquid has evaporated. Stir in the garlic and cook for 1-2 mins until soft. Season, then stir in the mayonnaise and remove from the heat.",
+      "Halve the baguettes lengthways, then return to the baking tray, cut-side up and spread over the mushroom mixture, then sprinkle over the cheddar, ham, kabanos and mozzarella. Bake for 8-10 mins, or until the cheese has melted and turned golden.",
+      "Meanwhile, heat the remaining butter and oil in a pan over a medium heat and fry the sliced onions for 5 mins until golden and soft. Remove from the heat and set aside. Once the pizzas are cooked, top with the caramelised onions, dill pickles (if using), the chives and a zig-zag drizzle of ketchup."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/72lmpt1764122511.jpg",
+    "origin": "Polish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/zapiekanki",
     "estimated": true
   },
   {

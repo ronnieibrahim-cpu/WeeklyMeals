@@ -19,6 +19,7 @@ export const CUISINES: LabeledOption<Cuisine>[] = [
   { value: 'American', label: 'American' },
   { value: 'MiddleEastern', label: 'Middle Eastern' },
   { value: 'BBQ', label: 'BBQ' },
+  { value: 'Other', label: 'Other' },
 ];
 
 /** Cross-cutting meal styles / dietary angles used for variety and filtering. */

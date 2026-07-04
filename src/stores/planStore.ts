@@ -7,7 +7,7 @@ import { localPlanRepository } from '@/data/repositories/local/LocalPlanReposito
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
 import { IntakeAnswers, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
-import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, selectReplacement } from '@/engine/recommendation';
+import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
 import { availableIngredients, missingIngredients, pinnableDays, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localMidnight } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
@@ -51,8 +51,13 @@ interface PlanState {
   /** Re-pick every unlocked meal in the draft, keeping locked ones. */
   regenerate: () => void;
   toggleLock: (recipeId: string) => void;
-  /** Replace a single meal (by day index) in the draft with a fresh pick. */
-  swapMeal: (dayIndex: number) => void;
+  /** Up to 3 alternative recipes for a single draft day, ranked and
+   * diversified by cuisine (never a whole-list-of-near-duplicates) — a pure
+   * query, doesn't mutate the draft. */
+  swapCandidates: (dayIndex: number) => Recipe[];
+  /** Commit a specific recipe (from `swapCandidates`, or anywhere else) onto
+   * a single draft day. */
+  swapMealTo: (dayIndex: number, recipeId: string) => void;
   /** Mark a meal cooked / not cooked (week progress, on the active plan). */
   toggleCooked: (dayIndex: number) => void;
   /**
@@ -264,10 +269,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     persistDraft(next);
   },
 
-  swapMeal: (dayIndex) => {
+  swapCandidates: (dayIndex) => {
     const { draftPlan, intake } = get();
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
-    if (!draftPlan || !intake) return;
+    if (!draftPlan || !intake) return [];
     const used = new Set(draftPlan.meals.map((m) => m.recipeId));
     const selected = draftPlan.meals
       .filter((m) => m.dayIndex !== dayIndex)
@@ -277,10 +282,14 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const candidates = RECIPES.filter(
       (r) => !used.has(r.id) && passesHardFilters(r, intake, profile),
     );
-    const best = selectReplacement(candidates, ctx, selected);
-    if (!best) return;
+    return rankReplacements(candidates, ctx, selected, 3);
+  },
+
+  swapMealTo: (dayIndex, recipeId) => {
+    const draftPlan = get().draftPlan;
+    if (!draftPlan) return;
     const meals = draftPlan.meals.map((m) =>
-      m.dayIndex === dayIndex ? { ...m, recipeId: best.id, locked: false } : m,
+      m.dayIndex === dayIndex ? { ...m, recipeId, locked: false } : m,
     );
     const next = { ...draftPlan, meals };
     set({ draftPlan: next });

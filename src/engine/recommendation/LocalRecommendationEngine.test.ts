@@ -1,5 +1,5 @@
 import { GenerateContext, WEIGHTS } from './types';
-import { LocalRecommendationEngine, selectReplacement } from './LocalRecommendationEngine';
+import { LocalRecommendationEngine, rankReplacements } from './LocalRecommendationEngine';
 import { scoreRecipe } from './scoring';
 import { makeIntake, makePreferences, makeProfile, makeRecipe } from '../testFixtures';
 
@@ -239,19 +239,56 @@ describe('scoreRecipe learned dials (M2.6)', () => {
   });
 });
 
-describe('selectReplacement', () => {
+describe('rankReplacements', () => {
   it('never returns a recipe outside the given candidate list', () => {
     const ctx = ctxFor();
     const candidates = Array.from({ length: 5 }, (_, i) => makeRecipe({ id: `cand-${i}` }));
 
-    const picked = selectReplacement(candidates, ctx, []);
+    const picks = rankReplacements(candidates, ctx, [], 3);
 
-    expect(picked).not.toBeNull();
-    expect(candidates.map((c) => c.id)).toContain(picked!.id);
+    expect(picks.length).toBe(3);
+    for (const p of picks) expect(candidates.map((c) => c.id)).toContain(p.id);
   });
 
-  it('returns null when given an empty candidate list', () => {
+  it('returns an empty array when given an empty candidate list', () => {
     const ctx = ctxFor();
-    expect(selectReplacement([], ctx, [])).toBeNull();
+    expect(rankReplacements([], ctx, [], 3)).toEqual([]);
+  });
+
+  it('returns fewer than `count` if there are fewer candidates than requested', () => {
+    const ctx = ctxFor();
+    const candidates = [makeRecipe({ id: 'only-one' })];
+    expect(rankReplacements(candidates, ctx, [], 3)).toHaveLength(1);
+  });
+
+  it('prefers one pick per cuisine over the raw top-N, so 3 alternatives are meaningfully different', () => {
+    const ctx = ctxFor();
+    // Three near-identical American recipes would all out-score the sole
+    // Thai one on every factor except variety (irrelevant here — none are
+    // yet `selected`), so a blind top-3 would return all three American
+    // recipes. rankReplacements should surface the Thai one instead of a
+    // third American pick, since it hasn't used that cuisine slot yet.
+    const american1 = makeRecipe({ id: 'am-1', cuisine: 'American', name: 'A' });
+    const american2 = makeRecipe({ id: 'am-2', cuisine: 'American', name: 'B' });
+    const american3 = makeRecipe({ id: 'am-3', cuisine: 'American', name: 'C' });
+    const thai = makeRecipe({ id: 'thai-1', cuisine: 'Thai', name: 'D' });
+
+    const picks = rankReplacements([american1, american2, american3, thai], ctx, [], 3);
+
+    expect(picks).toHaveLength(3);
+    const cuisines = picks.map((p) => p.cuisine);
+    expect(new Set(cuisines).size).toBe(2); // American + Thai, not 3x American
+    expect(picks.some((p) => p.id === 'thai-1')).toBe(true);
+  });
+
+  it('backfills with the next-best remaining candidates when fewer distinct cuisines exist than requested', () => {
+    const ctx = ctxFor();
+    // Only one cuisine available at all — must still return 3 distinct recipes.
+    const candidates = Array.from({ length: 4 }, (_, i) => makeRecipe({ id: `am-${i}`, cuisine: 'American' }));
+
+    const picks = rankReplacements(candidates, ctx, [], 3);
+
+    expect(picks).toHaveLength(3);
+    expect(new Set(picks.map((p) => p.id)).size).toBe(3); // no duplicates
   });
 });

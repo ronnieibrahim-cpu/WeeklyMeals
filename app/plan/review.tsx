@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -17,12 +18,19 @@ export default function ReviewPlanScreen() {
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const regenerate = usePlanStore((s) => s.regenerate);
   const toggleLock = usePlanStore((s) => s.toggleLock);
-  const swapMeal = usePlanStore((s) => s.swapMeal);
+  const swapCandidates = usePlanStore((s) => s.swapCandidates);
+  const swapMealTo = usePlanStore((s) => s.swapMealTo);
   const approve = usePlanStore((s) => s.approve);
   const discardDraft = usePlanStore((s) => s.discardDraft);
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
   const isKidApproved = useLearningStore((s) => s.isKidApproved);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
+
+  // Swap now offers a choice instead of silently committing to the
+  // algorithm's single top pick — see swapCandidates (up to 3, diversified
+  // by cuisine so it isn't just 3 near-identical dishes).
+  const [swapDayIndex, setSwapDayIndex] = useState<number | null>(null);
+  const candidates = swapDayIndex !== null ? swapCandidates(swapDayIndex) : [];
 
   // Closing without approving discards the draft rather than leaving it
   // sitting around half-reviewed — whatever plan was already active (if
@@ -117,7 +125,7 @@ export default function ReviewPlanScreen() {
               badge={recipe.makesLeftovers ? 'leftovers' : undefined}
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
               onToggleLock={() => toggleLock(meal.recipeId)}
-              onSwap={() => swapMeal(meal.dayIndex)}
+              onSwap={() => setSwapDayIndex(meal.dayIndex)}
               kidApproved={isKidApproved(recipe.id)}
               onToggleKidApproved={() => toggleKidApproved(recipe.id)}
             />
@@ -149,6 +157,72 @@ export default function ReviewPlanScreen() {
       >
         <PrimaryButton title="Approve this week" onPress={onApprove} />
       </View>
+
+      {swapDayIndex !== null ? (
+        <Pressable
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            justifyContent: 'flex-end',
+          }}
+          onPress={() => setSwapDayIndex(null)}
+        >
+          <Pressable
+            onPress={() => {}}
+            style={{
+              backgroundColor: theme.colors.card,
+              borderTopLeftRadius: theme.radius.xl,
+              borderTopRightRadius: theme.radius.xl,
+              padding: theme.spacing.xl,
+              paddingBottom: theme.spacing.xl + insets.bottom,
+              maxHeight: '70%',
+            }}
+          >
+            <Text variant="title3" style={{ marginBottom: theme.spacing.md }}>
+              Swap in…
+            </Text>
+            {candidates.length === 0 ? (
+              <Text variant="body" color="secondary">
+                Nothing else fits your filters for this day right now.
+              </Text>
+            ) : (
+              <ScrollView>
+                {candidates.map((r, i) => (
+                  <Pressable
+                    key={r.id}
+                    onPress={() => {
+                      swapMealTo(swapDayIndex, r.id);
+                      setSwapDayIndex(null);
+                    }}
+                    style={{
+                      paddingVertical: theme.spacing.md,
+                      borderTopWidth: i === 0 ? 0 : 1,
+                      borderTopColor: theme.colors.separator,
+                    }}
+                  >
+                    <Text variant="body">{r.name}</Text>
+                    <Text variant="footnote" color="tertiary">
+                      {r.cuisine} · {r.primaryProtein} · {r.prepMinutes + r.cookMinutes}m
+                    </Text>
+                  </Pressable>
+                ))}
+              </ScrollView>
+            )}
+            <Pressable
+              onPress={() => setSwapDayIndex(null)}
+              style={{ marginTop: theme.spacing.md, alignItems: 'center' }}
+            >
+              <Text variant="body" color="secondary">
+                Cancel
+              </Text>
+            </Pressable>
+          </Pressable>
+        </Pressable>
+      ) : null}
     </SafeAreaView>
   );
 }

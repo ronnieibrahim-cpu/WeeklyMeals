@@ -65,24 +65,42 @@ export class LocalRecommendationEngine implements RecommendationProvider {
 export const localRecommendationEngine = new LocalRecommendationEngine();
 
 /**
- * Pick the single best-scoring candidate not yet selected — for a one-off
- * replacement (e.g. swapping a single meal) rather than building a whole
- * week. Shuffled once so repeated swaps of the same day can land on a
- * different tie-break, same as `generate()`.
+ * Rank candidates for a one-off replacement (e.g. swapping a single meal)
+ * and return the top `count` — but prefer at most one pick per cuisine
+ * first, backfilling with the next-best remaining candidates only if there
+ * aren't enough distinct cuisines to fill every slot. Without this, "3
+ * alternatives" can otherwise mean 3 near-identical dishes whenever one
+ * cuisine's pool happens to dominate the raw score (e.g. `American`, the
+ * single largest cuisine in the library) — showing a choice that isn't
+ * actually a choice. Shuffled once so repeated swaps of the same day can
+ * land on different tie-breaks, same as `generate()`.
  */
-export function selectReplacement(
+export function rankReplacements(
   candidates: Recipe[],
   ctx: GenerateContext,
   selected: Recipe[],
-): Recipe | null {
-  let best: Recipe | null = null;
-  let bestScore = -Infinity;
-  for (const r of shuffle(candidates)) {
-    const score = scoreRecipe(r, ctx, selected);
-    if (score > bestScore) {
-      bestScore = score;
-      best = r;
+  count: number,
+): Recipe[] {
+  const scored = shuffle(candidates)
+    .map((r) => ({ r, score: scoreRecipe(r, ctx, selected) }))
+    .sort((a, b) => b.score - a.score);
+
+  const picks: Recipe[] = [];
+  const usedCuisines = new Set<Recipe['cuisine']>();
+  for (const { r } of scored) {
+    if (picks.length >= count) break;
+    if (usedCuisines.has(r.cuisine)) continue;
+    picks.push(r);
+    usedCuisines.add(r.cuisine);
+  }
+  if (picks.length < count) {
+    const pickedIds = new Set(picks.map((r) => r.id));
+    for (const { r } of scored) {
+      if (picks.length >= count) break;
+      if (pickedIds.has(r.id)) continue;
+      picks.push(r);
+      pickedIds.add(r.id);
     }
   }
-  return best;
+  return picks;
 }

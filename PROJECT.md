@@ -76,7 +76,8 @@ app/cook/[dayIndex].tsx    Full-screen guided cook mode (M3.4) — see §5.11
 app/meal/[id].tsx    Recipe detail (+ "Pin to this week", M3.1; "Start cooking",
                      M3.4) · app/household.tsx sync setup · app/settings.tsx theme
 src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
-                     RatingEvent, PreferenceProfile) + constants (12 cuisines, H-E-B dept order, chips)
+                     RatingEvent, PreferenceProfile) + constants (13 cuisines incl. `Other`
+                     since 2026-07-04, see §7 #18, H-E-B dept order, chips)
 src/engine/          recommendation/ (filters.ts hard filters, incl. passesAllergySafety extracted
                      for pin-to-week (M3.1) · scoring.ts 15 weighted factors incl.
                      a flat curated-recipe bonus (M2.4, tuned via scripts/checkCuratedWeighting.ts),
@@ -89,7 +90,7 @@ src/engine/          recommendation/ (filters.ts hard filters, incl. passesAller
                      rating.ts (isMealRated/unratedMeals/allMealsRated, M2.1) ·
                      reroll.ts (rerollCandidates, strict-mode candidate selection, M2.2;
                      pinnableDays, M3.1) · season.ts · recipeSearch.ts (search/autocomplete/
-                     filter over the 541-recipe library, client-side, M3.1) ·
+                     filter over the 586-recipe library, client-side, M3.1) ·
                      manualItems.ts (normalizeItemName, department-guess map, M3.3) ·
                      cookMode.ts (parseDurationMinutes: single/range, minutes/hours,
                      upper-bound-of-range, M3.4) ·
@@ -97,8 +98,10 @@ src/engine/          recommendation/ (filters.ts hard filters, incl. passesAller
                      commutative/idempotent household-sync merge, M1.6; per-meal rating merge
                      M2.1; mergeTimestampedFlagMap for favorites, M3.1; mergeManualItems, M3.3)
 src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipeImported.ts
-                     (311 TheMealDB imports, GENERATED — never hand-edit; re-run
-                     scripts/importRecipes.ts via normalize.ts). 541 recipes total.
+                     (356 TheMealDB imports, GENERATED — never hand-edit; re-run
+                     scripts/importRecipes.ts via normalize.ts). 586 recipes total (see
+                     §7 #18 for the 2026-07-04 cuisine-taxonomy fix that changed this
+                     count from 541/311).
                      All 230 curated recipes passed a cookbook-quality content pass
                      (M2.2b, July 2026): every recipe has a complete ingredient list
                      (nothing referenced in steps is missing, pantryStaple: true on
@@ -109,7 +112,7 @@ src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipe
                      practical notes). Enforced by scripts/validateRecipes.ts (run via
                      `npx tsx --tsconfig ./tsconfig.json scripts/validateRecipes.ts`),
                      which fails loudly listing any curated recipe missing these bars.
-                     The 311 mealdb- imports are intentionally out of scope — their
+                     The 356 mealdb- imports are intentionally out of scope — their
                      source text is their fidelity anchor.
 src/data/grocery/heb HebProvider: curated price table, per-lb conversion (g/ml/kg/l), dept fallbacks
 src/data/repositories/local  kvStore (AsyncStorage JSON) + one repo per aggregate
@@ -262,7 +265,7 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
    to eyeball from a markdown list — he reviews them live in the app and
    flags any bad ones for removal.
 8. **Recipe browser, favorites, and pin-to-week (M3.1):** a 5th tab,
-   **Recipes**, searches all 541 recipes client-side (`src/engine/
+   **Recipes**, searches all 586 recipes client-side (`src/engine/
    recipeSearch.ts`: name/cuisine/protein/ingredient match, ranked, plus
    autocomplete suggestions) with filter chips (cuisine, protein,
    difficulty, max time, categories, curated-only). The tab opens with a
@@ -529,6 +532,38 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     startup) — replace with a plain loop.~~ **Fixed (M1.7):** plain
     `for`-loop assignment in `src/data/seed/recipes.ts`.
 17. A11y gaps: chips/star rating lack accessibilityRole/state.
+18. ~~Cuisine mislabeling skewed swap/rotation toward "American," and swap
+    only ever offered one pick~~ — **fixed (2026-07-04):** `normalize.ts`'s
+    `AREA_TO_CUISINE` table was folding a dozen unrelated regions (British,
+    Irish, Australian, Canadian, Dutch, Norwegian, Polish, Russian,
+    Ukrainian, Slovak, Kenyan) plus an unconditional "anything unrecognized"
+    fallback into `'American'` — making it the single largest cuisine
+    bucket (66/541) and ~2/3 dishonestly labeled (spot-checked: Belgian
+    Waterzooi Chicken, Bryndzové Halušky, Chilean Empanada, etc., all tagged
+    American). Added a 13th `Cuisine` value, `'Other'`, for the genuinely
+    unclassifiable regions (British/Irish/Australian/Canadian stay American
+    — culturally close enough; Dutch/Norwegian/Polish/Russian/Ukrainian/
+    Slovak/Kenyan and true unknowns now go to `Other`); regenerated
+    `recipeImported.ts` (`npx tsx scripts/importRecipes.ts`) — verified
+    zero existing recipe ids dropped (so no stale favorite/rating/pin
+    references break), 30 relabeled, 45 new ones added into the
+    newly-available `Other` bucket that were previously excluded by the
+    per-cuisine import cap (311 → 356 imports, 541 → 586 total). Separately,
+    the plan-review "Swap" action went from silently committing to the
+    single highest-scoring candidate (`selectReplacement`) to offering a
+    picker with up to 3 alternatives (`rankReplacements` in
+    `LocalRecommendationEngine.ts`), diversified to at most one pick per
+    cuisine first — otherwise, since American is still the single largest
+    cuisine even after the relabeling, "3 alternatives" could still mean 3
+    near-identical American dishes. `planStore.swapMeal` replaced by
+    `swapCandidates`(pure query)/`swapMealTo`(commit); UI in
+    `app/plan/review.tsx`. `npm run typecheck`, `npx jest` (151/151, +6
+    new), `validateRecipes.ts` (230/230), and both tuning scripts
+    (`checkCuratedWeighting.ts`/`checkKidApprovedWeighting.ts`) all green;
+    browser-verified end-to-end (seeded a draft plan with Classic Beef
+    Burgers, confirmed swap now offers 3 distinct-cuisine alternatives with
+    zero American duplicates, committed one, re-opened swap again, and
+    confirmed backdrop-tap cancel).
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 

@@ -38,4 +38,5 @@ export const CUISINE_TILE_COLORS: Record<Cuisine, [string, string]> = {
   American: ['#5B8DBE', '#3F6FA0'],
   MiddleEastern: ['#C99A3E', '#A67B27'],
   BBQ: ['#B5533A', '#8E3A26'],
+  Other: ['#8E8E93', '#6E6E73'],
 };

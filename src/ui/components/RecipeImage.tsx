@@ -20,6 +20,7 @@ export const CUISINE_EMOJI: Record<Cuisine, string> = {
   American: '🍔',
   MiddleEastern: '🧆',
   BBQ: '🍖',
+  Other: '🌍',
 };
 
 interface Props {

@@ -38,9 +38,12 @@ const lc = (s: string) => s.toLowerCase();
 const has = (hay: string, ...needles: string[]) => needles.some((n) => hay.includes(n));
 
 // ---------------------------------------------------------------------------
-// Cuisine mapping. Our library is organized around 12 cuisines; external areas
-// are mapped to the nearest one for the variety/rotation engine, while the true
-// origin is preserved on `recipe.origin` for honest display.
+// Cuisine mapping. Our library is organized around 12 named cuisines plus an
+// `Other` catch-all; external areas are mapped to the nearest named cuisine
+// when there's a genuine fit, or `Other` when there isn't (rather than
+// defaulting to American, which used to dishonestly absorb a dozen
+// unrelated regions) — the true origin is preserved on `recipe.origin`
+// either way, for honest display.
 // ---------------------------------------------------------------------------
 const AREA_TO_CUISINE: Record<string, Cuisine> = {
   italian: 'Italian',
@@ -62,14 +65,6 @@ const AREA_TO_CUISINE: Record<string, Cuisine> = {
   british: 'American',
   irish: 'American',
   australian: 'American',
-  dutch: 'American',
-  netherlands: 'American',
-  norway: 'American',
-  polish: 'American',
-  russian: 'American',
-  ukrainian: 'American',
-  slovakia: 'American',
-  kenyan: 'American',
   spanish: 'Mediterranean',
   portuguese: 'Mediterranean',
   croatian: 'Mediterranean',
@@ -85,6 +80,19 @@ const AREA_TO_CUISINE: Record<string, Cuisine> = {
   argentina: 'BBQ',
   uruguayan: 'BBQ',
   venezuela: 'Mexican',
+  // Genuinely distinct cuisines with no close existing bucket — mapping
+  // these to American was inflating that bucket with dishes that don't
+  // taste, look, or cook anything like American food (Belgian stoemp,
+  // Slovak halušky, Norwegian lapskaus, ...), which in turn skewed
+  // recommendation/swap variety toward "American" far more than intended.
+  dutch: 'Other',
+  netherlands: 'Other',
+  norway: 'Other',
+  polish: 'Other',
+  russian: 'Other',
+  ukrainian: 'Other',
+  slovakia: 'Other',
+  kenyan: 'Other',
 };
 
 function mapCuisine(area: string | undefined, ingredientText: string): Cuisine {
@@ -99,7 +107,9 @@ function mapCuisine(area: string | undefined, ingredientText: string): Cuisine {
   if (has(ingredientText, 'fish sauce', 'lemongrass', 'coconut milk', 'curry paste')) return 'Thai';
   if (has(ingredientText, 'feta', 'kalamata', 'tahini')) return 'Mediterranean';
   if (has(ingredientText, 'parmesan', 'mozzarella', 'basil', 'pasta')) return 'Italian';
-  return 'American';
+  // Genuinely unclassifiable (no area match, no flavor cue) — honest
+  // "we don't know" rather than defaulting to American.
+  return 'Other';
 }
 
 // ---------------------------------------------------------------------------
