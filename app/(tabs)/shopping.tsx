@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, TextInput, View } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 
 import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
 import { DEPARTMENT_LABELS, DEPARTMENT_ORDER } from '@/domain/constants';
@@ -175,6 +176,7 @@ export default function ShoppingScreen() {
                     key={item.key}
                     item={item}
                     first={planned.length === 0 && i === 0}
+                    last={i === manual.length - 1}
                     editing={editingKey === item.key}
                     onToggle={() => toggleManualChecked(item.key)}
                     onStartEdit={() => setEditingKey(item.key)}
@@ -342,6 +344,7 @@ function PlannedRow({ item, first, onToggle }: { item: ShoppingItem; first: bool
 function ManualRowView({
   item,
   first,
+  last,
   editing,
   onToggle,
   onStartEdit,
@@ -351,6 +354,7 @@ function ManualRowView({
 }: {
   item: ManualRow;
   first: boolean;
+  last: boolean;
   editing: boolean;
   onToggle: () => void;
   onStartEdit: () => void;
@@ -362,6 +366,7 @@ function ManualRowView({
   const [name, setName] = useState(item.displayName);
   const [quantityLabel, setQuantityLabel] = useState(item.quantityLabel ?? '');
   const [department, setDepartment] = useState<Department>(item.department);
+  const swipeableRef = useRef<Swipeable>(null);
 
   if (editing) {
     return (
@@ -440,40 +445,68 @@ function ManualRowView({
   }
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: theme.spacing.md,
-        paddingHorizontal: theme.spacing.lg,
-        borderTopWidth: first ? 0 : 1,
-        borderTopColor: theme.colors.separator,
-      }}
-    >
-      <Pressable onPress={onToggle} hitSlop={8}>
-        <Ionicons
-          name={item.checked ? 'checkmark-circle' : 'ellipse-outline'}
-          size={24}
-          color={item.checked ? theme.colors.accent : theme.colors.textTertiary}
-        />
-      </Pressable>
-      <Pressable onPress={onToggle} style={{ flex: 1, marginLeft: theme.spacing.md }}>
-        <Text
-          variant="body"
-          color={item.checked ? 'tertiary' : 'primary'}
-          style={item.checked ? { textDecorationLine: 'line-through' } : undefined}
+    <Swipeable
+      ref={swipeableRef}
+      overshootRight={false}
+      renderRightActions={() => (
+        <Pressable
+          accessibilityLabel={`Delete ${item.displayName}`}
+          onPress={() => {
+            swipeableRef.current?.close();
+            onDelete();
+          }}
+          style={{
+            width: 84,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: theme.colors.danger,
+            borderTopRightRadius: first ? theme.radius.xl : 0,
+            borderBottomRightRadius: last ? theme.radius.xl : 0,
+          }}
         >
-          {item.displayName}
-        </Text>
-        {item.quantityLabel ? (
-          <Text variant="footnote" color="tertiary">
-            {item.quantityLabel}
+          <Ionicons name="trash-outline" size={22} color={theme.colors.onAccent} />
+          <Text variant="footnote" color="onAccent" style={{ marginTop: 2 }}>
+            Delete
           </Text>
-        ) : null}
-      </Pressable>
-      <Pressable accessibilityLabel={`Edit ${item.displayName}`} onPress={onStartEdit} hitSlop={8}>
-        <Ionicons name="pencil-outline" size={18} color={theme.colors.textTertiary} />
-      </Pressable>
-    </View>
+        </Pressable>
+      )}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingVertical: theme.spacing.md,
+          paddingHorizontal: theme.spacing.lg,
+          borderTopWidth: first ? 0 : 1,
+          borderTopColor: theme.colors.separator,
+          backgroundColor: theme.colors.card,
+        }}
+      >
+        <Pressable onPress={onToggle} hitSlop={8}>
+          <Ionicons
+            name={item.checked ? 'checkmark-circle' : 'ellipse-outline'}
+            size={24}
+            color={item.checked ? theme.colors.accent : theme.colors.textTertiary}
+          />
+        </Pressable>
+        <Pressable onPress={onToggle} style={{ flex: 1, marginLeft: theme.spacing.md }}>
+          <Text
+            variant="body"
+            color={item.checked ? 'tertiary' : 'primary'}
+            style={item.checked ? { textDecorationLine: 'line-through' } : undefined}
+          >
+            {item.displayName}
+          </Text>
+          {item.quantityLabel ? (
+            <Text variant="footnote" color="tertiary">
+              {item.quantityLabel}
+            </Text>
+          ) : null}
+        </Pressable>
+        <Pressable accessibilityLabel={`Edit ${item.displayName}`} onPress={onStartEdit} hitSlop={8}>
+          <Ionicons name="pencil-outline" size={18} color={theme.colors.textTertiary} />
+        </Pressable>
+      </View>
+    </Swipeable>
   );
 }
