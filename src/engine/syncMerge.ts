@@ -1,6 +1,8 @@
 import {
   FavoritesMap,
   KidApprovedMap,
+  ManualItem,
+  ManualItemMap,
   PlannedMeal,
   PlanStatus,
   ShoppingItem,
@@ -29,6 +31,7 @@ export interface SyncMergePayload {
   shoppingList: ShoppingList | null;
   favorites: FavoritesMap;
   kidApproved: KidApprovedMap;
+  manualItems: ManualItemMap;
 }
 
 /** Canonical JSON: object keys sorted recursively, `undefined` values
@@ -170,6 +173,62 @@ export function mergeShoppingLists(a: ShoppingList, b: ShoppingList): ShoppingLi
   return { ...meta, items };
 }
 
+function manualItemBaseKey(i: ManualItem): string {
+  const { checked: _checked, checkedAtISO: _checkedAtISO, deleted: _deleted, deletedAtISO: _deletedAtISO, ...rest } = i;
+  return stableStringify(rest);
+}
+
+/** Whichever side edited displayName/quantityLabel/department more recently
+ * wins the whole body (M3.3) — mirrors `resolveDivergedRecipe`'s "diverged
+ * bodies replace atomically" pattern, since a stale device's department
+ * guess shouldn't partially clobber a fresher rename. */
+function resolveManualItemBody(a: ManualItem, b: ManualItem): ManualItem {
+  const aTs = tsOf(a.updatedAtISO);
+  const bTs = tsOf(b.updatedAtISO);
+  if (aTs !== bTs) return aTs > bTs ? a : b;
+  return chooseBase(a, b, manualItemBaseKey);
+}
+
+/**
+ * Merge two normalizedName -> ManualItem maps (M3.3). Keyed by normalized
+ * name rather than a generated id, so concurrent adds of the same item on
+ * two devices converge to one row instead of duplicating it — renaming an
+ * item is therefore a tombstone of its old key plus a fresh entry under the
+ * new one, handled entirely by the caller (the store), not here.
+ *
+ * `checked` and `deleted` are each resolved independently via the same
+ * newer-timestamp-wins `resolveFlag` used for checked/cooked elsewhere —
+ * neither is special-cased against the other. That's what makes a
+ * delete-vs-check race (one device clears the item while another checks it
+ * in the same window) and a delete-then-re-add (any device order) both
+ * converge to the same state regardless of which side merges first: a
+ * newer add always beats an older deletion marker, and vice versa. See
+ * syncMerge.test.ts for both scenarios.
+ */
+export function mergeManualItems(a: ManualItemMap, b: ManualItemMap): ManualItemMap {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  const out: ManualItemMap = {};
+  for (const key of keys) {
+    const av = a[key];
+    const bv = b[key];
+    if (av && bv) {
+      const base = resolveManualItemBody(av, bv);
+      const checked = resolveFlag({ flag: av.checked, atISO: av.checkedAtISO }, { flag: bv.checked, atISO: bv.checkedAtISO });
+      const deleted = resolveFlag({ flag: av.deleted, atISO: av.deletedAtISO }, { flag: bv.deleted, atISO: bv.deletedAtISO });
+      out[key] = {
+        ...base,
+        checked: checked.flag,
+        checkedAtISO: checked.atISO,
+        deleted: deleted.flag,
+        deletedAtISO: deleted.atISO,
+      };
+    } else {
+      out[key] = av ?? bv;
+    }
+  }
+  return out;
+}
+
 const STATUS_RANK: Record<PlanStatus, number> = { draft: 0, approved: 1, completed: 2 };
 
 /** Status only ever advances (draft -> approved -> completed); merging
@@ -263,27 +322,28 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
 }
 
 /**
- * Top-level merge for a full sync payload. `favorites`/`kidApproved` are
- * independent of the plan (not plan-scoped, M3.1/M3.2), so they're merged
- * unconditionally regardless of which plan branch below fires. For plan/
- * shoppingList: if the two sides are looking at different plans (different
- * id), the newer plan (by createdAtISO) wins outright — a freshly generated
- * week is never silently deleted, but it also never resurrects a plan
- * that's genuinely been superseded. If both sides share a plan id,
- * per-item/per-meal merging takes over.
+ * Top-level merge for a full sync payload. `favorites`/`kidApproved`/
+ * `manualItems` are independent of the plan (not plan-scoped, M3.1/M3.2/
+ * M3.3), so they're merged unconditionally regardless of which plan branch
+ * below fires. For plan/shoppingList: if the two sides are looking at
+ * different plans (different id), the newer plan (by createdAtISO) wins
+ * outright — a freshly generated week is never silently deleted, but it
+ * also never resurrects a plan that's genuinely been superseded. If both
+ * sides share a plan id, per-item/per-meal merging takes over.
  */
 export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePayload): SyncMergePayload {
   const favorites = mergeTimestampedFlagMap(local.favorites, remote.favorites);
   const kidApproved = mergeTimestampedFlagMap(local.kidApproved, remote.kidApproved);
+  const manualItems = mergeManualItems(local.manualItems, remote.manualItems);
 
-  if (!local.plan) return { ...remote, favorites, kidApproved };
-  if (!remote.plan) return { ...local, favorites, kidApproved };
+  if (!local.plan) return { ...remote, favorites, kidApproved, manualItems };
+  if (!remote.plan) return { ...local, favorites, kidApproved, manualItems };
 
   if (local.plan.id !== remote.plan.id) {
     const localTs = tsOf(local.plan.createdAtISO);
     const remoteTs = tsOf(remote.plan.createdAtISO);
-    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites, kidApproved };
-    return { ...chooseBase(local, remote, stableStringify), favorites, kidApproved };
+    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites, kidApproved, manualItems };
+    return { ...chooseBase(local, remote, stableStringify), favorites, kidApproved, manualItems };
   }
 
   const plan = mergePlanMeals(local.plan, remote.plan);
@@ -297,5 +357,5 @@ export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePaylo
     shoppingList = remote.shoppingList;
   }
 
-  return { plan, shoppingList, favorites, kidApproved };
+  return { plan, shoppingList, favorites, kidApproved, manualItems };
 }

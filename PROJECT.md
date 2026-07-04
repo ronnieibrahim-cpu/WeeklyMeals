@@ -61,11 +61,14 @@ Rules that must hold:
 
 ```
 app/(tabs)/          index (This Week) · recipes (search/browse, M3.1, see §5.8) ·
-                     schedule · shopping · profile  + custom tab bar
+                     schedule · shopping (department-grouped list + manual
+                     items, no longer gated on an approved plan, M3.3, see
+                     §5.10) · profile  + custom tab bar
 app/plan/            12-step Sunday intake wizard (M2.3: skipped by a 2-button
                      choice screen + 3-step fast path when a previous week's
                      intake exists) → review.tsx (lock/swap/regenerate/approve/
-                     "Swap in a favorite", M3.1)
+                     "Swap in a favorite", M3.1; approve syncs before clearing
+                     checked manual items, M3.3, see §5.10)
 app/review/          Optional catch-up wizard for unrated meals (M2.1) — see §5.4
 app/reroll/[dayIndex].tsx  Mid-week re-roll modal (M2.2) — see §5.6
 app/pin/[recipeId].tsx     Pin-to-week day picker (M3.1) — see §5.8
@@ -86,9 +89,10 @@ src/engine/          recommendation/ (filters.ts hard filters, incl. passesAller
                      reroll.ts (rerollCandidates, strict-mode candidate selection, M2.2;
                      pinnableDays, M3.1) · season.ts · recipeSearch.ts (search/autocomplete/
                      filter over the 541-recipe library, client-side, M3.1) ·
+                     manualItems.ts (normalizeItemName, department-guess map, M3.3) ·
                      schedule.ts (local-date math: todayOffset/dayLabel) · syncMerge.ts (pure,
                      commutative/idempotent household-sync merge, M1.6; per-meal rating merge
-                     M2.1; mergeTimestampedFlagMap for favorites, M3.1)
+                     M2.1; mergeTimestampedFlagMap for favorites, M3.1; mergeManualItems, M3.3)
 src/data/seed/       recipes.ts assembles batch1..8 (230 hand-authored) + recipeImported.ts
                      (311 TheMealDB imports, GENERATED — never hand-edit; re-run
                      scripts/importRecipes.ts via normalize.ts). 541 recipes total.
@@ -108,9 +112,11 @@ src/data/grocery/heb HebProvider: curated price table, per-lb conversion (g/ml/k
 src/data/repositories/local  kvStore (AsyncStorage JSON) + one repo per aggregate
 src/data/sync/       config.ts (URL/key/SYNC_ENABLED kill-switch) · householdApi.ts (get/upsert row by 6-char code)
 src/stores/          planStore (orchestrator; pinRecipeToWeek/pinRecipeToDraft/
-                     addMissingIngredients, M3.1) · profileStore · pantryStore ·
+                     addMissingIngredients, M3.1; approve() clears checked manual
+                     items, M3.3) · profileStore · pantryStore ·
                      learningStore (favoritesMap/kidApprovedMap household-synced as of
-                     M3.1/M3.2, see §5.8-9) ·
+                     M3.1/M3.2, see §5.8-9) · manualItemsStore (ManualItemMap
+                     household-synced, keyed by normalized name, M3.3, see §5.10) ·
                      settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms,
                      per-item/per-meal merge via src/engine/syncMerge.ts as of M1.6)
 src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recipes as of
@@ -318,6 +324,40 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
    `checkCuratedWeighting.ts`): marking ~30 recipes kid-approved and
    generating 10 varied weeks shows a ~2x pick-rate lift over their base
    rate in the pool, with every week still including non-approved picks.
+10. **Manual grocery items (M3.3):** a new `manualItemsStore` holds
+    hand-added items ("milk", "dish soap") that are **not plan-scoped** —
+    they live independently of any week's plan, so the Shopping tab no
+    longer needs an approved plan to show anything. `ManualItemMap` is keyed
+    by **normalized name** (trimmed/lowercased), not a generated id — that's
+    what lets two devices independently add "milk" and converge to one row
+    instead of duplicating it. Renaming an item is therefore a tombstone of
+    the old key plus a fresh entry under the new one
+    (`manualItemsStore.edit`), never an in-place name change. Paper-list
+    default: `quantityLabel` is optional free text ("2 lbs"), not a forced
+    "1" with a structured unit. `checked` and `deleted` (soft-delete, never a
+    hard removal) are each resolved independently by the same
+    newer-timestamp-wins `resolveFlag` used for `checked`/`cooked`
+    elsewhere (`mergeManualItems()` in `syncMerge.ts`) — deliberately never
+    special-cased against each other, so a delete-vs-check race and a
+    delete-then-re-add (a newer add always beats an older tombstone) both
+    converge regardless of which device merges first (explicit
+    `syncMerge.test.ts` cases for both). Department is auto-guessed from
+    `INGREDIENT_DEPARTMENT_MAP` (`src/data/ingredientSuggestions.ts`, built
+    from the most common department each ingredient name appears under
+    across the recipe library — `buildDepartmentGuessMap()` in
+    `src/engine/manualItems.ts`), falling back to Dry Goods, and is editable
+    per item via a chip picker. Synced exactly like favorites/kidApproved
+    (part of the household payload, its own polling subscription in
+    `syncStore.ts`). The Shopping tab renders manual items merged into the
+    same department-grouped list as plan-derived items — same checkbox, same
+    row style — with a pencil icon (manual items only) opening an inline
+    edit/delete. Lifecycle: `planStore.approve()` clears (soft-deletes)
+    whatever's checked when a new week is approved; unchecked items carry
+    over untouched since they were never plan-scoped. That clear must act on
+    the **merged** checked-state, not a possibly-stale local one — so
+    `app/plan/review.tsx`'s approve handler calls `syncStore.syncNow()`
+    (reconcile with the household partner) immediately before calling
+    `approve()`, not after.
 
 ## 6. Coding conventions
 
@@ -408,9 +448,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
     `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
     `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
-11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1, M3.2):**
+11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1, M3.2, M3.3):**
     `jest-expo` installed as the sanctioned dev dependency; `npm test` runs the
-    engine test suite (`src/engine/**/*.test.ts`, 135 assertions covering hard
+    engine test suite (`src/engine/**/*.test.ts`, 144 assertions covering hard
     filters incl. the imported-allergy guard and M3.1's extracted
     `passesAllergySafety`, recommendation-engine invariants (incl. M2.6's
     learned-dials scoring and hard-filters-always-win case; M3.0's structural
@@ -418,10 +458,13 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     `WEIGHTS.preference`/`WEIGHTS.affinity`; and M3.2's equivalent assertion
     plus tie-break/hard-filter cases for `WEIGHTS.kidApproved`), shopping-list
     consolidation (incl. M3.1's `addIngredientsToShoppingList`), sync merge
-    (incl. M3.1/M3.2's favorites/kidApproved map merges), learning math (incl.
-    M3.1's favorites migration), recipe search/filter/autocomplete (M3.1,
-    extended M3.2 for `kidApprovedOnly`), and the M2.2/M3.0/M3.1 reroll
-    candidate/pinnable-days functions). Screens
+    (incl. M3.1/M3.2's favorites/kidApproved map merges and M3.3's
+    `mergeManualItems` — normalized-name identity, delete-vs-check race,
+    tombstone-override, and rename cases), learning math (incl. M3.1's
+    favorites migration), recipe search/filter/autocomplete (M3.1, extended
+    M3.2 for `kidApprovedOnly`), M3.3's department-guessing
+    (`buildDepartmentGuessMap`/`guessDepartment`), and the M2.2/M3.0/M3.1
+    reroll candidate/pinnable-days functions). Screens
     still have zero coverage — out of scope per the milestone (`docs/ARCHITECTURE.md`'s
     references to `__tests__/`, `units.ts`, `reviewStore`, `RatingRepository`
     remain aspirational/stale).
@@ -484,12 +527,13 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
   done — see §5.7) · recipe browser with search, favorites (now
   household-synced), and pin-to-week (M3.1, done — see §5.8) · Kids-approved
   flag, synced the same way, with a modest scoring nudge (M3.2, done — see
-  §5.9).
-- Later: day-aware planning/reorder · manual shopping-list items (M3.3) ·
-  leftovers-aware planning (new design — the original `desiredLeftovers`/
-  `specialOccasions` fields this was scoped around were removed in M1.8) ·
-  pantry auto-deduction after shopping · sync pantry/profile/(the rest of)
-  learning · notifications · other stores.
+  §5.9) · manual grocery items, not plan-scoped, household-synced with the
+  same merge rigor as everything else (M3.3, done — see §5.10).
+- Later: day-aware planning/reorder · cook mode (M3.4) · our own family
+  recipes (M3.5, stretch) · leftovers-aware planning (new design — the
+  original `desiredLeftovers`/`specialOccasions` fields this was scoped
+  around were removed in M1.8) · pantry auto-deduction after shopping · sync
+  pantry/profile/(the rest of) learning · notifications · other stores.
 - Future: Claude-powered natural-language intake mapped onto the deterministic
   engine as constraints — **allergy filtering stays deterministic; never
   delegate safety to a model.**

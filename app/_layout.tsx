@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { useLearningStore } from '@/stores/learningStore';
+import { useManualItemsStore } from '@/stores/manualItemsStore';
 import { usePantryStore } from '@/stores/pantryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
@@ -25,6 +26,7 @@ function RootNavigator() {
     void usePlanStore.getState().init();
     void usePantryStore.getState().init();
     void useLearningStore.getState().init();
+    void useManualItemsStore.getState().init();
     void useSyncStore.getState().init();
     SplashScreen.hideAsync();
   }, []);

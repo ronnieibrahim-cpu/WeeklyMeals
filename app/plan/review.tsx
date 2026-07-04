@@ -5,6 +5,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useSyncStore } from '@/stores/syncStore';
 import { Card, MealCard, PrimaryButton, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -50,7 +51,13 @@ export default function ReviewPlanScreen() {
   const perServing = preview.costPerServing;
   const shortfall = draftPlan.intake.dinners - meals.length;
 
-  const onApprove = () => {
+  const onApprove = async () => {
+    // Reconcile with the household sync partner first, so approve()'s
+    // "clear checked manual items" step (M3.3) sees the merged checked
+    // state — otherwise an item checked only on the other phone since our
+    // last poll would survive the clear by mistake. syncNow() no-ops
+    // harmlessly if sync isn't set up or the request fails.
+    await useSyncStore.getState().syncNow();
     approve();
     router.dismissAll();
   };

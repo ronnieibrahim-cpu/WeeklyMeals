@@ -6,6 +6,7 @@ import { getHousehold, SyncPayload, upsertHousehold } from '@/data/sync/househol
 import { mergeSyncPayload, stableStringify, SyncMergePayload } from '@/engine/syncMerge';
 
 import { useLearningStore } from './learningStore';
+import { useManualItemsStore } from './manualItemsStore';
 import { usePlanStore } from './planStore';
 
 const CODE_KEY = 'wm:household:v1';
@@ -20,7 +21,14 @@ function makeCode(): string {
 function currentPayload(): SyncPayload {
   const p = usePlanStore.getState();
   const learning = useLearningStore.getState();
-  return { plan: p.plan, shoppingList: p.shoppingList, favorites: learning.favoritesMap, kidApproved: learning.kidApprovedMap };
+  const manual = useManualItemsStore.getState();
+  return {
+    plan: p.plan,
+    shoppingList: p.shoppingList,
+    favorites: learning.favoritesMap,
+    kidApproved: learning.kidApprovedMap,
+    manualItems: manual.itemsMap,
+  };
 }
 
 type SyncStatus = 'idle' | 'syncing' | 'synced' | 'error';
@@ -33,6 +41,7 @@ let pollTimer: ReturnType<typeof setInterval> | null = null;
 let pushTimer: ReturnType<typeof setTimeout> | null = null;
 let unsubscribePlan: (() => void) | null = null;
 let unsubscribeLearning: (() => void) | null = null;
+let unsubscribeManualItems: (() => void) | null = null;
 
 interface SyncState {
   code: string | null;
@@ -83,12 +92,14 @@ export const useSyncStore = create<SyncState>((set, get) => {
       shoppingList: row.data?.shoppingList ?? null,
       favorites: row.data?.favorites ?? {},
       kidApproved: row.data?.kidApproved ?? {},
+      manualItems: row.data?.manualItems ?? {},
     };
     const localRaw = currentPayload();
     const local: SyncMergePayload = {
       ...localRaw,
       favorites: localRaw.favorites ?? {},
       kidApproved: localRaw.kidApproved ?? {},
+      manualItems: localRaw.manualItems ?? {},
     };
     const merged = mergeSyncPayload(local, remote);
     const mergedKey = stableStringify(merged);
@@ -101,6 +112,7 @@ export const useSyncStore = create<SyncState>((set, get) => {
       usePlanStore.getState().hydrateFromSync(snapshot.plan, snapshot.shoppingList);
       useLearningStore.getState().hydrateFavoritesFromSync(snapshot.favorites);
       useLearningStore.getState().hydrateKidApprovedFromSync(snapshot.kidApproved);
+      useManualItemsStore.getState().hydrateFromSync(snapshot.manualItems);
       applying = false;
     }
 
@@ -154,6 +166,11 @@ export const useSyncStore = create<SyncState>((set, get) => {
       if (state.favoritesMap === prev.favoritesMap && state.kidApprovedMap === prev.kidApprovedMap) return;
       schedulePush();
     });
+    unsubscribeManualItems = useManualItemsStore.subscribe((state, prev) => {
+      if (applying) return;
+      if (state.itemsMap === prev.itemsMap) return;
+      schedulePush();
+    });
   }
 
   function stopPolling() {
@@ -161,10 +178,12 @@ export const useSyncStore = create<SyncState>((set, get) => {
     if (pushTimer) clearTimeout(pushTimer);
     if (unsubscribePlan) unsubscribePlan();
     if (unsubscribeLearning) unsubscribeLearning();
+    if (unsubscribeManualItems) unsubscribeManualItems();
     pollTimer = null;
     pushTimer = null;
     unsubscribePlan = null;
     unsubscribeLearning = null;
+    unsubscribeManualItems = null;
   }
 
   function resetMarkers() {

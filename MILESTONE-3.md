@@ -203,7 +203,7 @@ over). Two-device sync convergence verified at the unit level only, same
 caveat as M3.1's favorites — no way to run two live clients against
 Supabase in this sandbox.
 
-## [ ] M3.3 — Manual items: one true grocery list
+## [x] M3.3 — Manual items: one true grocery list — done: new
 **User problem:** milk, bananas, and dish soap live on some other list. The
 family should have exactly one grocery list, and it's this app's.
 **Behavior:**
@@ -220,6 +220,39 @@ family should have exactly one grocery list, and it's this app's.
 losses; plan replacement preserves unchecked manual items and clears checked
 ones; manual items are visually indistinguishable in flow (same list, same
 grouping) but survive plan changes; merge script extended and green.
+
+**Done:** paper-list default (`ManualItem.quantityLabel` is optional free
+text — "2 lbs", no forced "1") rather than a structured quantity+unit.
+Identity is the normalized (trimmed/lowercased) name itself, not a generated
+id — `ManualItemMap` is keyed that way specifically so two devices adding
+"milk" independently converge to one row instead of duplicating it; renaming
+tombstones the old key and adds a fresh entry under the new one
+(`manualItemsStore.edit`). `checked` and `deleted` are each resolved
+independently by the same newer-timestamp-wins `resolveFlag` used for
+checked/cooked elsewhere (`mergeManualItems` in `syncMerge.ts`) — deliberately
+never special-cased against each other, which is what makes a delete-vs-check
+race and a delete-then-re-add (tombstone override) both converge regardless
+of merge order; all three get explicit `syncMerge.test.ts` cases per Ronnie's
+review. New `manualItemsStore` (household-synced exactly like
+favorites/kidApproved — wired into `syncStore.ts`'s payload/pull/push/polling
+subscription) plus `src/engine/manualItems.ts` (`normalizeItemName`,
+`buildDepartmentGuessMap`/`guessDepartment`, wired to the seed corpus via
+`INGREDIENT_DEPARTMENT_MAP` in `ingredientSuggestions.ts`, fallback
+`DryGoods`). Shopping tab rewritten: an "Add item" bar (reuses the
+Recipes-tab search+suggestions pattern) always visible — the tab no longer
+gates on an approved plan — manual items render merged into the same
+department-grouped `Card` list as plan-derived items, with a pencil icon
+(manual items only) opening an inline edit (name/quantity/department chips +
+delete). `planStore.approve()` clears checked manual items; per Ronnie's
+review, the clear must operate on the *merged* state, so
+`app/plan/review.tsx`'s approve handler calls `syncStore.syncNow()`
+(push-then-pull) immediately before `approve()`, not after. `npm run
+typecheck`, `npx jest` (144/144, +14 new), and `validateRecipes.ts` (230/230)
+all green; add/check/edit-rename/delete/no-op-re-add/tombstone-revival all
+browser-verified end-to-end (Playwright + Chromium against the dev server,
+including a full page reload to confirm persistence). Two-device sync
+convergence verified at the unit level only (same caveat as M3.1/M3.2 — no
+way to run two live clients against Supabase in this sandbox).
 
 ## [ ] M3.4 — Cook mode
 **User problem:** cooking from a phone with wet hands means scrolling a wall

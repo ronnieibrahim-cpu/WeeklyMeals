@@ -4,8 +4,8 @@
  * should move here once a runner existed. Same fixtures and cases, translated
  * to jest's describe/it/expect.
  */
-import { FavoritesMap, IntakeAnswers, PlannedMeal, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
-import { mergePlanMeals, mergeShoppingLists, mergeSyncPayload, mergeTimestampedFlagMap, stableStringify } from './syncMerge';
+import { FavoritesMap, IntakeAnswers, ManualItem, ManualItemMap, PlannedMeal, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { mergeManualItems, mergePlanMeals, mergeShoppingLists, mergeSyncPayload, mergeTimestampedFlagMap, stableStringify } from './syncMerge';
 
 const INTAKE = {} as IntakeAnswers; // opaque payload the merge never inspects
 
@@ -52,6 +52,23 @@ function plan(id: string, meals: PlannedMeal[], over: Partial<WeeklyPlan> = {}):
 }
 
 function favMap(entries: Record<string, { flag: boolean; atISO: string }> = {}): FavoritesMap {
+  return entries;
+}
+
+function manualItem(over: Partial<ManualItem> & Pick<ManualItem, 'displayName'>): ManualItem {
+  return {
+    department: 'DryGoods',
+    checked: false,
+    checkedAtISO: null,
+    deleted: false,
+    deletedAtISO: null,
+    updatedAtISO: '2026-01-01T00:00:00.000Z',
+    createdAtISO: '2026-01-01T00:00:00.000Z',
+    ...over,
+  };
+}
+
+function manualMap(entries: Record<string, ManualItem> = {}): ManualItemMap {
   return entries;
 }
 
@@ -138,8 +155,8 @@ describe('mergeShoppingLists', () => {
 
 describe('mergeSyncPayload — cross-plan (differing id)', () => {
   it('(e) differing planId keeps the newer plan either direction', () => {
-    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap(), kidApproved: favMap() };
-    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap(), kidApproved: favMap() };
+    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap() };
+    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap() };
 
     // Newer plan is "local", older is "remote": local must NOT be clobbered.
     const keepLocal = mergeSyncPayload(newer, older);
@@ -239,12 +256,14 @@ describe('mergeSyncPayload — full payload', () => {
       shoppingList: list('plan-1', [item({ ingredientName: 'milk', unit: 'piece', checked: true, checkedAtISO: t1 })]),
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
       kidApproved: favMap(),
+      manualItems: manualMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0)]),
       shoppingList: list('plan-1', [item({ ingredientName: 'eggs', unit: 'piece', checked: true, checkedAtISO: t2 })]),
       favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
       kidApproved: favMap(),
+      manualItems: manualMap(),
     };
 
     const merged = mergeSyncPayload(a, b);
@@ -258,6 +277,7 @@ describe('mergeSyncPayload — full payload', () => {
       shoppingList: list('plan-1', [item({ ingredientName: 'milk', unit: 'piece', checked: true, checkedAtISO: t1 })]),
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
       kidApproved: favMap({ 'recipe-x': { flag: true, atISO: t1 } }),
+      manualItems: manualMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0), meal(1, { cooked: true, cookedAtISO: t2 })]),
@@ -267,6 +287,7 @@ describe('mergeSyncPayload — full payload', () => {
       ]),
       favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
       kidApproved: favMap({ 'recipe-y': { flag: true, atISO: t2 } }),
+      manualItems: manualMap(),
     };
 
     expect(stableStringify(mergeSyncPayload(a, b))).toBe(stableStringify(mergeSyncPayload(b, a)));
@@ -278,12 +299,14 @@ describe('mergeSyncPayload — full payload', () => {
       shoppingList: null,
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
       kidApproved: favMap(),
+      manualItems: manualMap(),
     };
     const noPlan = {
       plan: null,
       shoppingList: null,
       favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
       kidApproved: favMap(),
+      manualItems: manualMap(),
     };
 
     const merged = mergeSyncPayload(withPlan, noPlan);
@@ -300,12 +323,14 @@ describe('mergeSyncPayload — full payload', () => {
       shoppingList: null,
       favorites: favMap(),
       kidApproved: favMap({ 'recipe-a': { flag: true, atISO: t1 }, 'recipe-shared': { flag: true, atISO: t1 } }),
+      manualItems: manualMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0)]),
       shoppingList: null,
       favorites: favMap(),
       kidApproved: favMap({ 'recipe-b': { flag: true, atISO: t1 }, 'recipe-shared': { flag: false, atISO: t2 } }),
+      manualItems: manualMap(),
     };
 
     const merged = mergeSyncPayload(a, b);
@@ -349,6 +374,93 @@ describe('mergeTimestampedFlagMap (M3.1 favorites, reused by M3.2 kidApproved)',
 
     const merged = mergeTimestampedFlagMap(a, b);
     const mergedAgain = mergeTimestampedFlagMap(merged, b);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
+  });
+});
+
+describe('mergeManualItems (M3.3)', () => {
+  it('concurrent adds of the same name on two devices converge to one row, not a duplicate', () => {
+    const a = manualMap({ milk: manualItem({ displayName: 'Milk', department: 'Dairy', createdAtISO: t1, updatedAtISO: t1 }) });
+    const b = manualMap({ milk: manualItem({ displayName: 'milk', department: 'Dairy', createdAtISO: t1, updatedAtISO: t1 }) });
+
+    const mergedAB = mergeManualItems(a, b);
+    const mergedBA = mergeManualItems(b, a);
+
+    expect(Object.keys(mergedAB)).toEqual(['milk']);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('delete-vs-check race: an approve-clear deleting an item on one device and a check on the other in the same window converge to the same state either direction', () => {
+    // Device A: user checked "eggs" earlier, then approved a new week, which
+    // clears checked manual items — soft-deleting it at t2.
+    const deletedByApprove = manualMap({
+      eggs: manualItem({ displayName: 'eggs', checked: true, checkedAtISO: t1, deleted: true, deletedAtISO: t2 }),
+    });
+    // Device B: hasn't seen the approve yet, and — in that same window —
+    // independently taps the checkbox again (already checked, re-checking
+    // is a no-op in the UI, but a real device could also be checking it for
+    // the first time at a nearby timestamp).
+    const checkedElsewhere = manualMap({
+      eggs: manualItem({ displayName: 'eggs', checked: true, checkedAtISO: t2, deleted: false, deletedAtISO: null }),
+    });
+
+    const mergedAB = mergeManualItems(deletedByApprove, checkedElsewhere);
+    const mergedBA = mergeManualItems(checkedElsewhere, deletedByApprove);
+
+    // deleted/checked are resolved independently by timestamp: deleted has
+    // the only (later-or-equal) real deletedAtISO, so it wins regardless of
+    // which side merges first.
+    expect(mergedAB.eggs.deleted).toBe(true);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('tombstone override: a newer re-add always beats an older delete, in either device order', () => {
+    const deletedOnly = manualMap({
+      butter: manualItem({ displayName: 'butter', deleted: true, deletedAtISO: t1, updatedAtISO: t1 }),
+    });
+    // Re-added later (fresh deletedAtISO stamped false, per the store's
+    // "reviving a tombstoned key" contract — see manualItemsStore.add).
+    const reAdded = manualMap({
+      butter: manualItem({ displayName: 'butter', deleted: false, deletedAtISO: t2, updatedAtISO: t2 }),
+    });
+
+    const mergedAB = mergeManualItems(deletedOnly, reAdded);
+    const mergedBA = mergeManualItems(reAdded, deletedOnly);
+
+    expect(mergedAB.butter.deleted).toBe(false);
+    expect(mergedBA.butter.deleted).toBe(false);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('a rename (tombstone old key + new key) leaves the old key deleted and the new key present, converging either direction', () => {
+    const before = manualMap({ soda: manualItem({ displayName: 'soda', updatedAtISO: t1 }) });
+    // Local device renamed "soda" -> "sparkling water": tombstones "soda",
+    // adds a fresh entry at "sparkling water".
+    const afterRename = manualMap({
+      soda: manualItem({ displayName: 'soda', deleted: true, deletedAtISO: t2, updatedAtISO: t1 }),
+      'sparkling water': manualItem({ displayName: 'sparkling water', createdAtISO: t2, updatedAtISO: t2 }),
+    });
+
+    const mergedAB = mergeManualItems(before, afterRename);
+    const mergedBA = mergeManualItems(afterRename, before);
+
+    expect(mergedAB.soda.deleted).toBe(true);
+    expect(mergedAB['sparkling water'].deleted).toBe(false);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('merge(merge(A,B), B) === merge(A,B) [manual items]', () => {
+    const a = manualMap({
+      milk: manualItem({ displayName: 'Milk', checked: true, checkedAtISO: t1 }),
+      soap: manualItem({ displayName: 'dish soap', department: 'Household' }),
+    });
+    const b = manualMap({
+      milk: manualItem({ displayName: 'Milk' }),
+      eggs: manualItem({ displayName: 'eggs', checked: true, checkedAtISO: t2 }),
+    });
+
+    const merged = mergeManualItems(a, b);
+    const mergedAgain = mergeManualItems(merged, b);
     expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
   });
 });

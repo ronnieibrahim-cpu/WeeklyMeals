@@ -15,6 +15,7 @@ import { addIngredientsToShoppingList, buildShoppingList } from '@/engine/shoppi
 import { createId } from '@/utils/id';
 
 import { useLearningStore } from './learningStore';
+import { useManualItemsStore } from './manualItemsStore';
 import { usePantryStore } from './pantryStore';
 import { useProfileStore } from './profileStore';
 
@@ -426,6 +427,11 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     persist(next);
     persistList(shoppingList);
     void localDraftPlanRepository.clear();
+    // M3.3: a new week means whatever's checked on the manual list was
+    // bought — clear it. The caller (app/plan/review.tsx) reconciles with
+    // the household sync partner just before calling approve(), so this
+    // reads the merged checked-state rather than a possibly-stale local one.
+    useManualItemsStore.getState().clearChecked();
   },
 
   discardDraft: () => {
