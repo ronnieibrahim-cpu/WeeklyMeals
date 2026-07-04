@@ -78,6 +78,43 @@ describe('LocalRecommendationEngine.generate', () => {
 
     expect(meals.some((m) => m.recipeId === 'blocked-1')).toBe(false);
   });
+
+  it('varies which recipe it picks across runs when several are near-equally good, instead of always the same one', () => {
+    // Identical fixtures (bar id) score exactly the same for any context —
+    // without near-tie randomization, "the highest scorer" would
+    // deterministically be whichever one happens first, every single time.
+    const engine = new LocalRecommendationEngine();
+    const pool = Array.from({ length: 10 }, (_, i) => makeRecipe({ id: `tied-${i}` }));
+    const ctx = ctxFor({ intake: makeIntake(makeProfile(), { dinners: 1 }) });
+
+    const firstPicks = new Set<string>();
+    for (let i = 0; i < 30; i++) {
+      firstPicks.add(engine.generate(ctx, pool)[0].recipeId);
+    }
+
+    expect(firstPicks.size).toBeGreaterThan(1);
+  });
+
+  it('still reliably picks the clear best fit even with near-tie randomization in play', () => {
+    // One recipe that scores far ahead of the rest (matches every
+    // preference factor tightly) should win every time — near-tie
+    // randomization must only kick in among genuinely close contenders,
+    // never let a clearly worse recipe substitute for an obviously better one.
+    const engine = new LocalRecommendationEngine();
+    const profile = makeProfile({ favoriteCuisines: ['Thai'], preferredProteins: ['Tofu'] });
+    const intake = makeIntake(profile, { dinners: 1, cuisines: ['Thai'], proteins: ['Tofu'] });
+    const ctx = ctxFor({ profile, intake });
+
+    const clearBest = makeRecipe({ id: 'clear-best', cuisine: 'Thai', primaryProtein: 'Tofu' });
+    const rest = Array.from({ length: 10 }, (_, i) =>
+      makeRecipe({ id: `mediocre-${i}`, cuisine: 'French', primaryProtein: 'Pork' }),
+    );
+
+    for (let i = 0; i < 20; i++) {
+      const meals = engine.generate(ctx, [clearBest, ...rest]);
+      expect(meals[0].recipeId).toBe('clear-best');
+    }
+  });
 });
 
 describe('scoreRecipe curated bonus (M2.4)', () => {

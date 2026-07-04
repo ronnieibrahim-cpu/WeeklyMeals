@@ -14,9 +14,37 @@ function shuffle<T>(items: T[]): T[] {
 }
 
 /**
+ * How close two recipes' scores have to be to count as "basically the same
+ * pick" rather than one strictly beating the other. `scoreRecipe` blends
+ * ~14 continuous-valued factors into one number, so two different recipes
+ * essentially never land on the exact same score — without this band,
+ * picking the single highest scorer every time means a fresh profile (or
+ * one with only a couple of preferences set, e.g. just budget + prep time)
+ * deterministically produces the identical "best" week on every generate,
+ * and "regenerate" silently does nothing, since there's nothing for a
+ * plain tie-break to ever actually catch. `MIN_NEAR_TIE_BAND` is a floor so
+ * the band doesn't collapse to nothing if the top score is ever near zero.
+ */
+const NEAR_TIE_FRACTION = 0.02;
+const MIN_NEAR_TIE_BAND = 0.05;
+
+/** Pick uniformly at random among whichever recipes are within the near-tie
+ * band of the best score — a clear best pick still reliably wins (nothing
+ * else is close enough to be "in the running"), but when several recipes
+ * are basically equally good fits, which one you get is genuinely random
+ * from one generate/regenerate to the next. */
+function pickNearBest(scored: { r: Recipe; score: number }[]): Recipe {
+  const maxScore = Math.max(...scored.map((s) => s.score));
+  const band = Math.max(Math.abs(maxScore) * NEAR_TIE_FRACTION, MIN_NEAR_TIE_BAND);
+  const contenders = scored.filter((s) => s.score >= maxScore - band);
+  return contenders[Math.floor(Math.random() * contenders.length)].r;
+}
+
+/**
  * On-device, deterministic-ish greedy engine: filter to a valid pool, then
- * repeatedly pick the highest-scoring recipe given what's already chosen, so
- * variety/rotation update as the week fills in. Locked recipes are kept up front.
+ * repeatedly pick among the highest-scoring recipes given what's already
+ * chosen (see `pickNearBest`), so variety/rotation update as the week fills
+ * in. Locked recipes are kept up front.
  */
 export class LocalRecommendationEngine implements RecommendationProvider {
   generate(ctx: GenerateContext, recipes: Recipe[]): PlannedMeal[] {
@@ -35,22 +63,12 @@ export class LocalRecommendationEngine implements RecommendationProvider {
     }
 
     const target = Math.min(ctx.intake.dinners, Math.max(pool.length, selected.length));
-    // Shuffle so score ties break differently each run (enables "regenerate").
-    const candidates = shuffle(pool);
 
     while (selected.length < target) {
-      let best: Recipe | null = null;
-      let bestScore = -Infinity;
-      for (const r of candidates) {
-        if (selected.includes(r)) continue;
-        const score = scoreRecipe(r, ctx, selected);
-        if (score > bestScore) {
-          bestScore = score;
-          best = r;
-        }
-      }
-      if (!best) break;
-      selected.push(best);
+      const remaining = pool.filter((r) => !selected.includes(r));
+      if (remaining.length === 0) break;
+      const scored = remaining.map((r) => ({ r, score: scoreRecipe(r, ctx, selected) }));
+      selected.push(pickNearBest(scored));
     }
 
     return selected.slice(0, ctx.intake.dinners).map((r, index) => ({

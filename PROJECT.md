@@ -84,8 +84,9 @@ src/engine/          recommendation/ (filters.ts hard filters, incl. passesAller
                      a flat kid-approved bonus (M3.2, tuned via scripts/checkKidApprovedWeighting.ts),
                      and learnedDialsFit (M2.6: spice/complexity/budget/leftover/vegetableAffinity
                      dials from ratings, small capped weight so they nudge but never override the
-                     explicit profile) · WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker with shuffle
-                     tie-breaking) · shoppingList.ts · cost.ts (rough heuristic, scoring-only) ·
+                     explicit profile) · WEIGHTS in types.ts · LocalRecommendationEngine.ts greedy picker,
+                     random pick among near-equally-scored recipes rather than always the single top
+                     scorer (`pickNearBest`, see §7 #19) · shoppingList.ts · cost.ts (rough heuristic, scoring-only) ·
                      learning.ts (pure fold, RatingEvents -> PreferenceProfile) ·
                      rating.ts (isMealRated/unratedMeals/allMealsRated, M2.1) ·
                      reroll.ts (rerollCandidates, strict-mode candidate selection, M2.2;
@@ -564,6 +565,36 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     Burgers, confirmed swap now offers 3 distinct-cuisine alternatives with
     zero American duplicates, committed one, re-opened swap again, and
     confirmed backdrop-tap cancel).
+19. ~~Generating a fresh week (or tapping "regenerate unlocked") with a
+    new/loosely-specified profile always produced the exact same week,
+    every time~~ — **fixed (2026-07-04):** `scoreRecipe` blends ~14
+    continuous-valued factors into one float, so two different recipes
+    essentially never land on the exact same score — confirmed empirically
+    (generated a fresh default-profile week 8 times, got byte-identical
+    results every time; the top 15 candidates for the first pick all had
+    distinct scores to 10 decimal places). `generate()`'s greedy loop always
+    took the single highest scorer, so with no randomness anywhere in the
+    scoring itself, there was nothing for the existing `shuffle()`
+    tie-break to ever actually catch — it ran every time and never mattered.
+    Fixed in `LocalRecommendationEngine.ts`: `pickNearBest()` now treats
+    recipes within a small band of the best score (2% of the top score,
+    floored at 0.05 so the band can't collapse near zero) as
+    interchangeable, and picks uniformly at random among them — a
+    genuinely clear best fit still always wins (verified: with one recipe
+    scoring far ahead of a "mediocre" pool, it won 20/20 runs), but when
+    several recipes are basically equally good, which one you get is now
+    actually random from one generate/regenerate to the next. Verified with
+    the real recipe library: 15 fresh-default-profile generations produced
+    7 distinct day-1 picks and 15 distinct whole weeks (previously: 1 and
+    1). Applies to both `generate()` and `regenerate()` (the latter calls
+    the former) automatically. `rankReplacements` (swap picker, §7 #18) was
+    left alone — its cuisine diversification already guarantees real
+    variety across the 3 alternatives shown, independent of this issue.
+    `npm run typecheck`, `npx jest` (153/153, +2 new — one asserting real
+    variety across runs, one asserting a clear best fit still always wins),
+    `validateRecipes.ts` (230/230), and both tuning scripts all green;
+    browser-verified end-to-end (5 consecutive "regenerate unlocked" taps
+    on a seeded draft, all 5 produced distinct weeks).
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 
