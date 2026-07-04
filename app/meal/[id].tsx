@@ -162,10 +162,18 @@ export default function MealDetailScreen() {
       </Text>
 
       {plannedMeal ? (
+        <PrimaryButton
+          title="🍳 Start cooking"
+          onPress={() => router.push({ pathname: '/cook/[dayIndex]', params: { dayIndex: String(plannedMeal.dayIndex) } })}
+          style={{ marginTop: theme.spacing.lg }}
+        />
+      ) : null}
+
+      {plannedMeal ? (
         <SecondaryButton
           title={plannedMeal.cooked ? '✓ Cooked' : 'Mark as cooked'}
           onPress={() => toggleCooked(plannedMeal.dayIndex)}
-          style={{ marginTop: theme.spacing.lg }}
+          style={{ marginTop: theme.spacing.md }}
         />
       ) : null}
 

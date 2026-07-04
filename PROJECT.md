@@ -72,8 +72,9 @@ app/plan/            12-step Sunday intake wizard (M2.3: skipped by a 2-button
 app/review/          Optional catch-up wizard for unrated meals (M2.1) — see §5.4
 app/reroll/[dayIndex].tsx  Mid-week re-roll modal (M2.2) — see §5.6
 app/pin/[recipeId].tsx     Pin-to-week day picker (M3.1) — see §5.8
-app/meal/[id].tsx    Recipe detail (+ "Pin to this week", M3.1) · app/household.tsx
-                     sync setup · app/settings.tsx theme
+app/cook/[dayIndex].tsx    Full-screen guided cook mode (M3.4) — see §5.11
+app/meal/[id].tsx    Recipe detail (+ "Pin to this week", M3.1; "Start cooking",
+                     M3.4) · app/household.tsx sync setup · app/settings.tsx theme
 src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
                      RatingEvent, PreferenceProfile) + constants (12 cuisines, H-E-B dept order, chips)
 src/engine/          recommendation/ (filters.ts hard filters, incl. passesAllergySafety extracted
@@ -90,6 +91,8 @@ src/engine/          recommendation/ (filters.ts hard filters, incl. passesAller
                      pinnableDays, M3.1) · season.ts · recipeSearch.ts (search/autocomplete/
                      filter over the 541-recipe library, client-side, M3.1) ·
                      manualItems.ts (normalizeItemName, department-guess map, M3.3) ·
+                     cookMode.ts (parseDurationMinutes: single/range, minutes/hours,
+                     upper-bound-of-range, M3.4) ·
                      schedule.ts (local-date math: todayOffset/dayLabel) · syncMerge.ts (pure,
                      commutative/idempotent household-sync merge, M1.6; per-meal rating merge
                      M2.1; mergeTimestampedFlagMap for favorites, M3.1; mergeManualItems, M3.3)
@@ -117,6 +120,8 @@ src/stores/          planStore (orchestrator; pinRecipeToWeek/pinRecipeToDraft/
                      learningStore (favoritesMap/kidApprovedMap household-synced as of
                      M3.1/M3.2, see §5.8-9) · manualItemsStore (ManualItemMap
                      household-synced, keyed by normalized name, M3.3, see §5.10) ·
+                     cookModeStore (per-device only, NOT synced — current step per
+                     plan+day, M3.4, see §5.11) ·
                      settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms,
                      per-item/per-meal merge via src/engine/syncMerge.ts as of M1.6)
 src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recipes as of
@@ -357,7 +362,31 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     the **merged** checked-state, not a possibly-stale local one — so
     `app/plan/review.tsx`'s approve handler calls `syncStore.syncNow()`
     (reconcile with the household partner) immediately before calling
-    `approve()`, not after.
+    `approve()`, not after. Manual item rows also support swipe-left-to-
+    reveal-delete (react-native-gesture-handler's `Swipeable`, already a
+    dependency), alongside the pencil-icon edit sheet.
+11. **Cook mode (M3.4):** "🍳 Start cooking" on a planned meal's detail
+    screen opens `app/cook/[dayIndex].tsx` — a full-screen, one-step-at-a-
+    time view (large type, tap-anywhere-to-advance plus explicit Back/Next
+    links, a progress bar). `useKeepAwake()` (the sanctioned
+    `expo-keep-awake` dependency) keeps the screen on for as long as it's
+    mounted. If a step mentions a duration, `parseDurationMinutes()`
+    (`src/engine/cookMode.ts`) detects it — single values or ranges, minutes
+    or hours, taking the upper bound of a range — and offers a tappable
+    timer chip; the timer is screen-level state (not tied to the current
+    step), so starting one and moving on keeps it counting down, ending in
+    a vibration (where supported) plus an always-visible "Time's up!"
+    banner rather than a push notification. A quick-access ingredients
+    sheet is a plain conditional overlay `View`, not React Native's core
+    `Modal` — `Modal` on web was found to leave something intercepting
+    touches even after being dismissed, blocking further step navigation,
+    so this follows the same overlay pattern used everywhere else in the
+    app instead. The final step reuses `planStore.toggleCooked`/`rateMeal`
+    verbatim, so marking cooked and rating behave identically to the detail
+    screen. The current step is remembered per (plan id, day index) in a
+    new `cookModeStore`, **deliberately per-device and not household-
+    synced** — cooking is a real-time, one-person activity, unlike
+    checked/cooked/rating state.
 
 ## 6. Coding conventions
 
@@ -448,9 +477,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
     `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
     `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
-11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1, M3.2, M3.3):**
+11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1, M3.2, M3.3, M3.4):**
     `jest-expo` installed as the sanctioned dev dependency; `npm test` runs the
-    engine test suite (`src/engine/**/*.test.ts`, 144 assertions covering hard
+    engine test suite (`src/engine/**/*.test.ts`, 148 assertions covering hard
     filters incl. the imported-allergy guard and M3.1's extracted
     `passesAllergySafety`, recommendation-engine invariants (incl. M2.6's
     learned-dials scoring and hard-filters-always-win case; M3.0's structural
@@ -463,8 +492,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     tombstone-override, and rename cases), learning math (incl. M3.1's
     favorites migration), recipe search/filter/autocomplete (M3.1, extended
     M3.2 for `kidApprovedOnly`), M3.3's department-guessing
-    (`buildDepartmentGuessMap`/`guessDepartment`), and the M2.2/M3.0/M3.1
-    reroll candidate/pinnable-days functions). Screens
+    (`buildDepartmentGuessMap`/`guessDepartment`), M3.4's duration parsing
+    (`parseDurationMinutes`), and the M2.2/M3.0/M3.1 reroll
+    candidate/pinnable-days functions). Screens
     still have zero coverage — out of scope per the milestone (`docs/ARCHITECTURE.md`'s
     references to `__tests__/`, `units.ts`, `reviewStore`, `RatingRepository`
     remain aspirational/stale).
@@ -528,9 +558,11 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
   household-synced), and pin-to-week (M3.1, done — see §5.8) · Kids-approved
   flag, synced the same way, with a modest scoring nudge (M3.2, done — see
   §5.9) · manual grocery items, not plan-scoped, household-synced with the
-  same merge rigor as everything else (M3.3, done — see §5.10).
-- Later: day-aware planning/reorder · cook mode (M3.4) · our own family
-  recipes (M3.5, stretch) · leftovers-aware planning (new design — the
+  same merge rigor as everything else (M3.3, done — see §5.10) · full-screen
+  guided cook mode with timers, per-device step memory (M3.4, done — see
+  §5.11).
+- Later: day-aware planning/reorder · our own family recipes (M3.5, stretch)
+  · leftovers-aware planning (new design — the
   original `desiredLeftovers`/`specialOccasions` fields this was scoped
   around were removed in M1.8) · pantry auto-deduction after shopping · sync
   pantry/profile/(the rest of) learning · notifications · other stores.

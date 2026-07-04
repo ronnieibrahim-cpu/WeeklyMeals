@@ -254,7 +254,7 @@ including a full page reload to confirm persistence). Two-device sync
 convergence verified at the unit level only (same caveat as M3.1/M3.2 — no
 way to run two live clients against Supabase in this sandbox).
 
-## [ ] M3.4 — Cook mode
+## [x] M3.4 — Cook mode — done: new
 **User problem:** cooking from a phone with wet hands means scrolling a wall
 of text. The upgraded cookbook-grade steps deserve a purpose-built mode.
 **Behavior:**
@@ -273,6 +273,43 @@ of text. The upgraded cookbook-grade steps deserve a purpose-built mode.
 any pinch/scroll; timers parse from at least the common patterns in the
 upgraded recipe corpus ("X minutes", "X–Y minutes"); marking cooked + rating
 from the final screen behaves identically to doing it from the detail screen.
+
+**Done:** new `app/cook/[dayIndex].tsx` (modal-presented, mirroring
+`reroll/[dayIndex].tsx`'s route convention), reached via a new "🍳 Start
+cooking" button on the meal detail screen (only when that recipe is on the
+current approved plan). `useKeepAwake()` (the sanctioned `expo-keep-awake`
+dependency) keeps the screen on for as long as the screen is mounted.
+Duration detection (`parseDurationMinutes()` in `src/engine/cookMode.ts`)
+handles both minutes and hours, single values and ranges (either dash style
+or "to"), taking the upper bound of a range — verified against real
+phrasing already in the corpus ("6–7 minutes", "6-8 hours", "1 hour"). The
+timer is screen-level state (not per-step), so starting one and moving to
+the next step keeps it counting down in a small banner; hitting zero
+triggers a vibration (where the platform/browser supports it) plus an
+always-visible "Time's up!" banner — no push notification needed since nothing
+needs to survive the screen closing. Tap-anywhere-to-advance plus explicit
+Back/Next links, rather than a custom swipe gesture (same one-handed
+ergonomics, much less code). Current step is remembered per (plan id, day
+index) in a new small `cookModeStore`/`LocalCookModeRepository`
+(`wm:cookMode:v1`) — **per-device only, not household-synced**, since
+cooking is a real-time, one-person activity unlike checked/cooked/rating
+state. The ingredient quick-access sheet is a plain conditional overlay
+`View` (matching every other overlay in this codebase), not React Native's
+core `Modal` — a real bug surfaced during verification where `Modal` on web
+left something intercepting touches even after dismissal, blocking further
+step navigation. "Mark cooked" and the star row on the final step call the
+exact same `planStore.toggleCooked`/`rateMeal` actions the detail screen
+uses. `npm run typecheck`, `npx jest` (148/148, +4 new), and
+`validateRecipes.ts` (230/230) all green. Full flow browser-verified
+end-to-end (Playwright + Chromium against the dev server, plan seeded
+directly into `localStorage` to skip the intake wizard): opened cook mode,
+started a timer and watched it count down, opened/confirmed the ingredients
+sheet via screenshot, stepped through all 6 steps, rated 5 stars, marked
+cooked, exited, and confirmed reopening resumed on the last step. Caught
+and fixed a real bug along the way: the screen was selecting the store's
+`setStep` action (a stable reference) instead of its `steps` state, so it
+never re-rendered after advancing — steps were persisting correctly but the
+screen appeared frozen on step 1 until fixed.
 
 ## [ ] M3.5 — Our own family recipes (stretch — only after M3.1–M3.4 verified)
 **User problem:** the family's real recipes live outside the app; the library

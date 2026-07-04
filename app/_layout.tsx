@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { useCookModeStore } from '@/stores/cookModeStore';
 import { useLearningStore } from '@/stores/learningStore';
 import { useManualItemsStore } from '@/stores/manualItemsStore';
 import { usePantryStore } from '@/stores/pantryStore';
@@ -27,6 +28,7 @@ function RootNavigator() {
     void usePantryStore.getState().init();
     void useLearningStore.getState().init();
     void useManualItemsStore.getState().init();
+    void useCookModeStore.getState().init();
     void useSyncStore.getState().init();
     SplashScreen.hideAsync();
   }, []);
@@ -44,6 +46,7 @@ function RootNavigator() {
         <Stack.Screen name="plan" options={{ presentation: 'modal' }} />
         <Stack.Screen name="review" options={{ presentation: 'modal' }} />
         <Stack.Screen name="reroll" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="cook" options={{ presentation: 'modal' }} />
         <Stack.Screen name="meal/[id]" />
         <Stack.Screen name="household" />
         <Stack.Screen name="settings" options={{ headerShown: false }} />
