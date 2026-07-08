@@ -1,11 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useState } from 'react';
 import { Linking, Pressable, View } from 'react-native';
 
 import { RECIPE_IMAGE_ATTRIBUTION } from '@/data/recipeImages';
-import { getRecipe } from '@/data/seed/recipes';
+import { isUserRecipe } from '@/engine/userRecipes';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipesById, useUserRecipesStore } from '@/stores/userRecipesStore';
 import { Card, EmptyState, PrimaryButton, RecipeImage, Screen, SecondaryButton, StarRating, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -14,7 +16,9 @@ export default function MealDetailScreen() {
   const theme = useTheme();
   const { id, pinTarget: pinTargetParam } = useLocalSearchParams<{ id: string; pinTarget?: string }>();
   const pinTarget = pinTargetParam === 'draft' ? 'draft' : 'plan';
-  const recipe = id ? getRecipe(id) : undefined;
+  const recipesById = useRecipesById();
+  const recipe = id ? recipesById[id] : undefined;
+  const deleteRecipe = useUserRecipesStore((s) => s.deleteRecipe);
   const favorites = useLearningStore((s) => s.favorites);
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
   const kidApproved = useLearningStore((s) => s.kidApproved);
@@ -32,6 +36,8 @@ export default function MealDetailScreen() {
     recipe && plan?.status === 'approved'
       ? plan.meals.find((m) => m.recipeId === recipe.id)
       : undefined;
+  const isOwnRecipe = recipe ? isUserRecipe(recipe.id) : false;
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   const header = (
     <View
@@ -55,6 +61,15 @@ export default function MealDetailScreen() {
       </Pressable>
       {recipe ? (
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.lg }}>
+          {isOwnRecipe ? (
+            <Pressable
+              accessibilityLabel="Edit recipe"
+              hitSlop={8}
+              onPress={() => router.push({ pathname: '/recipe/edit/[id]', params: { id: recipe.id } })}
+            >
+              <Ionicons name="pencil-outline" size={24} color={theme.colors.textTertiary} />
+            </Pressable>
+          ) : null}
           <Pressable
             accessibilityLabel={isKidApproved ? 'Remove Kids approved' : 'Mark Kids approved'}
             hitSlop={8}
@@ -128,6 +143,11 @@ export default function MealDetailScreen() {
       {isKidApproved ? (
         <Text variant="footnote" color="success" style={{ marginTop: theme.spacing.xs }}>
           😊 Kids approved
+        </Text>
+      ) : null}
+      {isOwnRecipe ? (
+        <Text variant="footnote" color="tertiary" style={{ marginTop: theme.spacing.xs }}>
+          🏠 Your recipe — saved on this device only
         </Text>
       ) : null}
       {recipe.description ? (
@@ -295,6 +315,43 @@ export default function MealDetailScreen() {
               {recipe.sourceUrl ? ' ↗' : ''}
             </Text>
           </Pressable>
+        </View>
+      ) : null}
+
+      {isOwnRecipe ? (
+        <View style={{ marginTop: theme.spacing.xl }}>
+          {confirmingDelete ? (
+            <>
+              <Text variant="body" color="secondary" style={{ marginBottom: theme.spacing.md }}>
+                Delete {recipe.name} for good? This can't be undone.
+              </Text>
+              <SecondaryButton
+                title="Yes, delete this recipe"
+                onPress={() => {
+                  deleteRecipe(recipe.id);
+                  router.back();
+                }}
+              />
+              <Pressable
+                onPress={() => setConfirmingDelete(false)}
+                style={{ marginTop: theme.spacing.md, alignSelf: 'center' }}
+              >
+                <Text variant="footnote" color="secondary">
+                  Cancel
+                </Text>
+              </Pressable>
+            </>
+          ) : (
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => setConfirmingDelete(true)}
+              style={{ alignSelf: 'center' }}
+            >
+              <Text variant="footnote" color="danger">
+                Delete recipe
+              </Text>
+            </Pressable>
+          )}
         </View>
       ) : null}
     </Screen>

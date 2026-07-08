@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Pressable, View } from 'react-native';
 
 import { Recipe } from '@/domain/models';
+import { isUserRecipe } from '@/engine/userRecipes';
 import { useTheme } from '@/ui/theme/useTheme';
 
 import { Card } from './Card';
@@ -55,6 +56,11 @@ export function RecipeResultCard({
           {recipe.estimated ? (
             <Text variant="caption" color="tertiary" style={{ marginTop: 1 }}>
               ⚠️ Allergen info estimated
+            </Text>
+          ) : null}
+          {isUserRecipe(recipe.id) ? (
+            <Text variant="caption" color="tertiary" style={{ marginTop: 1 }}>
+              🏠 Your recipe
             </Text>
           ) : null}
         </View>

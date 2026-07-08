@@ -4,13 +4,13 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { getRecipe } from '@/data/seed/recipes';
 import { Profile, Recipe } from '@/domain/models';
 import { createDefaultProfile } from '@/domain/defaults';
 import { passesAllergySafety } from '@/engine/recommendation';
 import { dayLabel } from '@/engine/schedule';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
+import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, PrimaryButton, RecipeImage, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -33,7 +33,8 @@ export default function PinScreen() {
   const { recipeId, target } = useLocalSearchParams<{ recipeId: string; target?: string }>();
   const isDraft = target === 'draft';
 
-  const recipe = recipeId ? getRecipe(recipeId) : undefined;
+  const recipesById = useRecipesById();
+  const recipe = recipeId ? recipesById[recipeId] : undefined;
   const profile = useProfileStore((s) => s.profile) ?? createDefaultProfile();
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
@@ -166,7 +167,7 @@ export default function PinScreen() {
             </Text>
             {days.map((dayIndex) => {
               const outgoing = targetPlan.meals.find((m) => m.dayIndex === dayIndex);
-              const outgoingRecipe = outgoing ? getRecipe(outgoing.recipeId) : undefined;
+              const outgoingRecipe = outgoing ? recipesById[outgoing.recipeId] : undefined;
               return (
                 <Card key={dayIndex} onPress={() => onPickDay(dayIndex)} style={{ marginBottom: theme.spacing.md }}>
                   <Text variant="headline">{dayLabel(targetPlan.weekStartISO, dayIndex)}</Text>

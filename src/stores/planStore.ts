@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 
 import { hebProvider } from '@/data/grocery/heb/HebProvider';
-import { getRecipe, RECIPES } from '@/data/seed/recipes';
 import { localDraftPlanRepository } from '@/data/repositories/local/LocalDraftPlanRepository';
 import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
@@ -18,6 +17,7 @@ import { useLearningStore } from './learningStore';
 import { useManualItemsStore } from './manualItemsStore';
 import { usePantryStore } from './pantryStore';
 import { useProfileStore } from './profileStore';
+import { allRecipesList, getAnyRecipe } from './userRecipesStore';
 
 function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: string[]): GenerateContext {
   const learning = useLearningStore.getState();
@@ -168,7 +168,7 @@ function persistList(list: ShoppingList) {
 
 function listFor(plan: WeeklyPlan): ShoppingList {
   const pantry = usePantryStore.getState().items;
-  return buildShoppingList(plan.id, plan.meals, getRecipe, pantry, hebProvider);
+  return buildShoppingList(plan.id, plan.meals, getAnyRecipe, pantry, hebProvider);
 }
 
 export const usePlanStore = create<PlanState>((set, get) => ({
@@ -234,7 +234,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const intake = get().intake;
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!intake) return;
-    const meals = localRecommendationEngine.generate(context(intake, profile, []), RECIPES);
+    const meals = localRecommendationEngine.generate(context(intake, profile, []), allRecipesList());
     const draftPlan: WeeklyPlan = {
       id: createId(),
       weekStartISO: localMidnight(new Date()).toISOString(),
@@ -252,7 +252,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!draftPlan || !intake) return;
     const lockedIds = draftPlan.meals.filter((m) => m.locked).map((m) => m.recipeId);
-    const meals = localRecommendationEngine.generate(context(intake, profile, lockedIds), RECIPES);
+    const meals = localRecommendationEngine.generate(context(intake, profile, lockedIds), allRecipesList());
     const next: WeeklyPlan = { ...draftPlan, meals };
     set({ draftPlan: next });
     persistDraft(next);
@@ -276,10 +276,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const used = new Set(draftPlan.meals.map((m) => m.recipeId));
     const selected = draftPlan.meals
       .filter((m) => m.dayIndex !== dayIndex)
-      .map((m) => getRecipe(m.recipeId))
+      .map((m) => getAnyRecipe(m.recipeId))
       .filter((r): r is Recipe => !!r);
     const ctx = context(intake, profile, []);
-    const candidates = RECIPES.filter(
+    const candidates = allRecipesList().filter(
       (r) => !used.has(r.id) && passesHardFilters(r, intake, profile),
     );
     return rankReplacements(candidates, ctx, selected, 3);
@@ -334,10 +334,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     const pantry = usePantryStore.getState().items;
     const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
-    const outgoingRecipe = outgoingMeal ? getRecipe(outgoingMeal.recipeId) : undefined;
+    const outgoingRecipe = outgoingMeal ? getAnyRecipe(outgoingMeal.recipeId) : undefined;
     const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe);
     const ctx = context(plan.intake, profile, []);
-    return rerollCandidates(plan, dayIndex, RECIPES, getRecipe, available, ctx);
+    return rerollCandidates(plan, dayIndex, allRecipesList(), getAnyRecipe, available, ctx);
   },
 
   rerollMeal: (dayIndex, recipeId) => {
@@ -371,18 +371,18 @@ export const usePlanStore = create<PlanState>((set, get) => ({
 
   missingIngredientsForPin: (dayIndex, recipeId) => {
     const plan = get().plan;
-    const recipe = getRecipe(recipeId);
+    const recipe = getAnyRecipe(recipeId);
     if (!plan || !recipe) return [];
     const pantry = usePantryStore.getState().items;
     const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
-    const outgoingRecipe = outgoingMeal ? getRecipe(outgoingMeal.recipeId) : undefined;
+    const outgoingRecipe = outgoingMeal ? getAnyRecipe(outgoingMeal.recipeId) : undefined;
     const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe);
     return missingIngredients(recipe, available);
   },
 
   pinRecipeToWeek: (dayIndex, recipeId) => {
     const plan = get().plan;
-    const recipe = getRecipe(recipeId);
+    const recipe = getAnyRecipe(recipeId);
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!plan || !recipe) return;
     if (!passesAllergySafety(recipe, profile)) return;
@@ -399,7 +399,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
 
   pinRecipeToDraft: (dayIndex, recipeId) => {
     const draftPlan = get().draftPlan;
-    const recipe = getRecipe(recipeId);
+    const recipe = getAnyRecipe(recipeId);
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!draftPlan || !recipe) return;
     if (!passesAllergySafety(recipe, profile)) return;
@@ -413,11 +413,11 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   addMissingIngredients: (dayIndex, recipeId) => {
     const plan = get().plan;
     const list = get().shoppingList;
-    const recipe = getRecipe(recipeId);
+    const recipe = getAnyRecipe(recipeId);
     if (!plan || !list || !recipe) return;
     const pantry = usePantryStore.getState().items;
     const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
-    const outgoingRecipe = outgoingMeal ? getRecipe(outgoingMeal.recipeId) : undefined;
+    const outgoingRecipe = outgoingMeal ? getAnyRecipe(outgoingMeal.recipeId) : undefined;
     const available = availableIngredients(pantry, list, outgoingRecipe);
     const missingNames = new Set(missingIngredients(recipe, available));
     const ingredientsToAdd = recipe.ingredients.filter((ing) => missingNames.has(ing.name));
@@ -486,7 +486,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     void localShoppingListRepository.clear();
   },
 
-  recipeFor: (meal) => getRecipe(meal.recipeId),
+  recipeFor: (meal) => getAnyRecipe(meal.recipeId),
 
   previewShoppingList: (plan) => listFor(plan),
 }));

@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 
-import { recipesById } from '@/data/seed/recipes';
 import { localLearningRepository } from '@/data/repositories/local/LocalLearningRepository';
 import { FavoritesMap, KidApprovedMap, PreferenceProfile, RatingEvent } from '@/domain/models';
 import { applyRatings, createDefaultPreferences, migrateFavoritesToMap } from '@/engine/learning';
 import { createId } from '@/utils/id';
+
+import { allRecipesById } from './userRecipesStore';
 
 function flaggedIds(map: FavoritesMap | KidApprovedMap): string[] {
   return Object.entries(map)
@@ -131,7 +132,7 @@ export const useLearningStore = create<LearningState>((set, get) => ({
     const idx = prevRatings.findIndex((r) => r.planId === event.planId && r.recipeId === event.recipeId);
     const withId: RatingEvent = { id: idx >= 0 ? prevRatings[idx].id : createId(), ...event };
     const ratings = idx >= 0 ? prevRatings.map((r, i) => (i === idx ? withId : r)) : [...prevRatings, withId];
-    const preferences = applyRatings(createDefaultPreferences(), ratings, recipesById);
+    const preferences = applyRatings(createDefaultPreferences(), ratings, allRecipesById());
     set({ ratings, preferences });
     persist({ ...get(), ratings, preferences });
   },

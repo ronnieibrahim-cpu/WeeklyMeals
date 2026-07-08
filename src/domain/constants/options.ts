@@ -1,5 +1,23 @@
-import { Difficulty, Protein, SpiceLevel } from '../models';
+import { Difficulty, Protein, SpiceLevel, Unit } from '../models';
 import { LabeledOption } from './cuisines';
+
+/** Units offered on the "Add recipe" form's ingredient rows (M3.5). */
+export const UNITS: LabeledOption<Unit>[] = [
+  { value: 'piece', label: 'piece' },
+  { value: 'cup', label: 'cup' },
+  { value: 'tbsp', label: 'tbsp' },
+  { value: 'tsp', label: 'tsp' },
+  { value: 'lb', label: 'lb' },
+  { value: 'oz', label: 'oz' },
+  { value: 'g', label: 'g' },
+  { value: 'kg', label: 'kg' },
+  { value: 'ml', label: 'ml' },
+  { value: 'l', label: 'l' },
+  { value: 'clove', label: 'clove' },
+  { value: 'can', label: 'can' },
+  { value: 'bunch', label: 'bunch' },
+  { value: 'pinch', label: 'pinch' },
+];
 
 export const PROTEINS: LabeledOption<Protein>[] = [
   { value: 'Chicken', label: 'Chicken' },

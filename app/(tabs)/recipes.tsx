@@ -5,10 +5,10 @@ import { Pressable, TextInput, View } from 'react-native';
 
 import { CATEGORIES, CUISINES, MAX_PREP_OPTIONS, PROTEINS } from '@/domain/constants';
 import { Category, Cuisine, Difficulty, Protein } from '@/domain/models';
-import { RECIPES } from '@/data/seed/recipes';
 import { autocompleteSuggestions, filterRecipes, findByExactName, RecipeFilters, searchRecipes } from '@/engine/recipeSearch';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useAllRecipes } from '@/stores/userRecipesStore';
 import { ChipMultiSelect, ChipSingleSelect, EmptyState, RecipeResultCard, Screen, SectionHeader, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -33,6 +33,7 @@ export default function RecipesScreen() {
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
+  const allRecipes = useAllRecipes();
 
   // Drive the heavy list work off a deferred copy of the query so a fast
   // typist doesn't re-filter/re-render the whole (up to 541-item) list on
@@ -45,9 +46,9 @@ export default function RecipesScreen() {
     () => ({ ...filters, favoriteIds, kidApprovedIds }),
     [filters, favoriteIds, kidApprovedIds],
   );
-  const filtered = useMemo(() => filterRecipes(RECIPES, activeFilters), [activeFilters]);
+  const filtered = useMemo(() => filterRecipes(allRecipes, activeFilters), [allRecipes, activeFilters]);
 
-  const suggestions = useMemo(() => autocompleteSuggestions(RECIPES, query), [query]);
+  const suggestions = useMemo(() => autocompleteSuggestions(allRecipes, query), [allRecipes, query]);
   const results = useMemo(
     () => (deferredQuery.trim() ? searchRecipes(filtered, deferredQuery) : filtered),
     [filtered, deferredQuery],
@@ -75,7 +76,7 @@ export default function RecipesScreen() {
   };
 
   const renderCard = (id: string) => {
-    const recipe = RECIPES.find((r) => r.id === id);
+    const recipe = allRecipes.find((r) => r.id === id);
     if (!recipe) return null;
     return (
       <RecipeResultCard
@@ -113,7 +114,24 @@ export default function RecipesScreen() {
   const hiddenCount = restInView.length - visibleRest.length;
 
   return (
-    <Screen title="Recipes" subtitle={`${RECIPES.length} recipes to search, filter, and pin`}>
+    <Screen
+      title="Recipes"
+      subtitle={`${allRecipes.length} recipes to search, filter, and pin`}
+      headerRight={
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Add recipe"
+          hitSlop={8}
+          onPress={() => router.push('/recipe/new')}
+          style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
+        >
+          <Ionicons name="add-circle" size={22} color={theme.colors.accent} />
+          <Text variant="subhead" color="accent">
+            Add
+          </Text>
+        </Pressable>
+      }
+    >
       <View
         style={{
           flexDirection: 'row',

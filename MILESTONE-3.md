@@ -311,7 +311,42 @@ and fixed a real bug along the way: the screen was selecting the store's
 never re-rendered after advancing — steps were persisting correctly but the
 screen appeared frozen on step 1 until fixed.
 
-## [ ] M3.5 — Our own family recipes (stretch — only after M3.1–M3.4 verified)
+## [x] M3.5 — Our own family recipes (stretch — only after M3.1–M3.4 verified) — done:
+new "Add" button on the Recipes tab header opens `app/recipe/new.tsx`, a form
+(`src/ui/components/RecipeForm.tsx`, shared with `app/recipe/edit/[id].tsx`)
+collecting name/cuisine/protein/servings/prep+cook minutes/ingredient rows
+(name, qty, unit, department — department auto-guessed via M3.3's
+`guessDepartment`)/reorderable steps/optional description+tips, enforcing the
+milestone's minimums (≥1 ingredient, ≥3 steps). Saved recipes get a `user-`
+id and live in a new per-device-only `userRecipesStore`
+(`LocalUserRecipesRepository`, `wm:userRecipes:v1`) — NOT synced, with a
+"🏠 saved on this device only" note on the detail screen and result cards, per
+spec. New `src/engine/userRecipes.ts` also auto-guesses allergens (shown as
+editable chips, since a family recipe fully bypasses the "imported + any
+allergy set" exclusion — unlike an import, nothing else double-checks its
+data) and diet tags from the ingredients, and estimates nutrition/difficulty
+so a homemade dish doesn't default to 0 carbs and wrongly pass low-carb/keto
+filters. `planStore.ts`/`learningStore.ts` now read recipes through
+`userRecipesStore`'s merged (seed + user) accessors instead of importing the
+seed library directly, so family recipes fully participate in generation,
+swap, re-roll, pinning, and rating with zero special-casing; screens use
+matching reactive hooks so add/edit/delete show up without a reload.
+`favoritesMap`/`kidApprovedMap` needed no changes (keyed purely by recipeId,
+agnostic to which store owns the recipe). `npm run typecheck`, `npx jest`
+(169/169, +16 new), and `validateRecipes.ts` (230/230, correctly unaffected —
+it only ever iterated the seed array) all green. Full flow browser-verified
+end-to-end (Playwright + Chromium against the dev server, plan seeded
+directly into localStorage): added a recipe with 3 ingredients (milk
+auto-suggesting the Dairy allergen) and 3 steps, confirmed the "saved on this
+device" note, found it via search, pinned it into the seeded week (including
+the "You'll need: ..." confirm), saw its ingredients on the shopping list,
+cooked it in cook mode through all 3 custom steps, rated it 5 stars and
+marked cooked (verified the rating actually persisted by reading the stored
+plan directly, not just the screenshot — the star icons render unfilled in a
+screenshot taken immediately after the click even though the underlying data
+is correct, a cosmetic paint-timing quirk in the test harness, not a product
+bug), toggled Kids-approved, edited the name, then deleted it via the
+two-step confirm and confirmed it no longer appears in search.
 **User problem:** the family's real recipes live outside the app; the library
 should become the family cookbook.
 **Behavior (simple v1):**

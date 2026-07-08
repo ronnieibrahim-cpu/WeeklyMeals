@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Vibration, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { getRecipe } from '@/data/seed/recipes';
 import { parseDurationMinutes } from '@/engine/cookMode';
 import { cookModeKey, useCookModeStore } from '@/stores/cookModeStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, EmptyState, PrimaryButton, ProgressBar, StarRating, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -39,8 +39,9 @@ export default function CookModeScreen() {
   const cookModeSteps = useCookModeStore((s) => s.steps);
   const setStep = useCookModeStore((s) => s.setStep);
 
+  const recipesById = useRecipesById();
   const meal = plan?.meals.find((m) => m.dayIndex === dayIndex);
-  const recipe = meal ? getRecipe(meal.recipeId) : undefined;
+  const recipe = meal ? recipesById[meal.recipeId] : undefined;
   const key = plan && meal ? cookModeKey(plan.id, dayIndex) : '';
 
   const savedStep = key ? (cookModeSteps[key] ?? 0) : 0;

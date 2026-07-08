@@ -4,8 +4,8 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { getRecipe } from '@/data/seed/recipes';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, PrimaryButton, RecipeImage, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -19,8 +19,9 @@ export default function RerollScreen() {
   const previewReroll = usePlanStore((s) => s.previewReroll);
   const rerollMeal = usePlanStore((s) => s.rerollMeal);
 
+  const recipesById = useRecipesById();
   const outgoingMeal = plan?.meals.find((m) => m.dayIndex === dayIndex);
-  const outgoingRecipe = outgoingMeal ? getRecipe(outgoingMeal.recipeId) : undefined;
+  const outgoingRecipe = outgoingMeal ? recipesById[outgoingMeal.recipeId] : undefined;
   const outcome = useMemo(() => previewReroll(dayIndex), [dayIndex, previewReroll]);
   const [index, setIndex] = useState(0);
 

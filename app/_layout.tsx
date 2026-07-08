@@ -13,6 +13,7 @@ import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useSyncStore } from '@/stores/syncStore';
+import { useUserRecipesStore } from '@/stores/userRecipesStore';
 import { AppThemeProvider } from '@/ui/theme/ThemeProvider';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -29,6 +30,7 @@ function RootNavigator() {
     void useLearningStore.getState().init();
     void useManualItemsStore.getState().init();
     void useCookModeStore.getState().init();
+    void useUserRecipesStore.getState().init();
     void useSyncStore.getState().init();
     SplashScreen.hideAsync();
   }, []);
@@ -47,6 +49,7 @@ function RootNavigator() {
         <Stack.Screen name="review" options={{ presentation: 'modal' }} />
         <Stack.Screen name="reroll" options={{ presentation: 'modal' }} />
         <Stack.Screen name="cook" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="recipe" options={{ presentation: 'modal' }} />
         <Stack.Screen name="meal/[id]" />
         <Stack.Screen name="household" />
         <Stack.Screen name="settings" options={{ headerShown: false }} />

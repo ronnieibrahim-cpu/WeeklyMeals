@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
-import { getRecipe } from '@/data/seed/recipes';
 import {
   BUDGET_OPTIONS,
   COMMON_ALLERGENS,
@@ -20,6 +19,7 @@ import { Cuisine, Difficulty, Protein, SpiceLevel } from '@/domain/models';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePantryStore } from '@/stores/pantryStore';
 import { useProfileStore } from '@/stores/profileStore';
+import { useRecipesById } from '@/stores/userRecipesStore';
 import {
   AutocompleteTagInput,
   Card,
@@ -51,6 +51,7 @@ export default function ProfileScreen() {
   const preferences = useLearningStore((s) => s.preferences);
   const favorites = useLearningStore((s) => s.favorites);
   const unblockRecipe = useLearningStore((s) => s.unblockRecipe);
+  const recipesById = useRecipesById();
 
   const topAffinity = (record: Record<string, number>) => {
     const entry = Object.entries(record)
@@ -119,7 +120,7 @@ export default function ProfileScreen() {
               rotation.
             </Text>
             {preferences.blockedRecipeIds.map((recipeId, i) => {
-              const recipe = getRecipe(recipeId);
+              const recipe = recipesById[recipeId];
               return (
                 <View
                   key={recipeId}

@@ -74,7 +74,11 @@ app/reroll/[dayIndex].tsx  Mid-week re-roll modal (M2.2) — see §5.6
 app/pin/[recipeId].tsx     Pin-to-week day picker (M3.1) — see §5.8
 app/cook/[dayIndex].tsx    Full-screen guided cook mode (M3.4) — see §5.11
 app/meal/[id].tsx    Recipe detail (+ "Pin to this week", M3.1; "Start cooking",
-                     M3.4) · app/household.tsx sync setup · app/settings.tsx theme
+                     M3.4; edit/delete pencil + "saved on this device" note for
+                     user- recipes, M3.5) · app/household.tsx sync setup ·
+                     app/settings.tsx theme
+app/recipe/new.tsx, app/recipe/edit/[id].tsx  Add/edit a family recipe (M3.5,
+                     modal-presented) — share `RecipeForm` (src/ui/components)
 src/domain/          models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
                      RatingEvent, PreferenceProfile) + constants (13 cuisines incl. `Other`
                      since 2026-07-04, see §7 #18, H-E-B dept order, chips)
@@ -95,6 +99,8 @@ src/engine/          recommendation/ (filters.ts hard filters, incl. passesAller
                      manualItems.ts (normalizeItemName, department-guess map, M3.3) ·
                      cookMode.ts (parseDurationMinutes: single/range, minutes/hours,
                      upper-bound-of-range, M3.4) ·
+                     userRecipes.ts (buildUserRecipe + validation/allergen/diet-tag/
+                     nutrition/difficulty inference for family recipes, M3.5, see §5.12) ·
                      schedule.ts (local-date math: todayOffset/dayLabel) · syncMerge.ts (pure,
                      commutative/idempotent household-sync merge, M1.6; per-meal rating merge
                      M2.1; mergeTimestampedFlagMap for favorites, M3.1; mergeManualItems, M3.3)
@@ -126,6 +132,11 @@ src/stores/          planStore (orchestrator; pinRecipeToWeek/pinRecipeToDraft/
                      household-synced, keyed by normalized name, M3.3, see §5.10) ·
                      cookModeStore (per-device only, NOT synced — current step per
                      plan+day, M3.4, see §5.11) ·
+                     userRecipesStore (per-device only, NOT synced — family recipes,
+                     M3.5, see §5.12; also exports non-hook `getAnyRecipe`/
+                     `allRecipesList`/`allRecipesById` for other stores and reactive
+                     `useRecipesById`/`useAllRecipes` hooks for screens, both merging
+                     the 586-recipe seed library with this store's recipes) ·
                      settingsStore (persisted, wm:settings:v1) · syncStore (poll 20s, debounced push 600ms,
                      per-item/per-meal merge via src/engine/syncMerge.ts as of M1.6)
 src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recipes as of
@@ -391,6 +402,60 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     new `cookModeStore`, **deliberately per-device and not household-
     synced** — cooking is a real-time, one-person activity, unlike
     checked/cooked/rating state.
+12. **Family recipes (M3.5):** an "Add" button on the Recipes tab header opens
+    `app/recipe/new.tsx` — a form (`src/ui/components/RecipeForm.tsx`, shared
+    with `app/recipe/edit/[id].tsx`) collecting name, cuisine, main protein,
+    servings, prep/cook minutes, ingredient rows (name/quantity/unit/
+    department, department auto-guessed via the same
+    `guessDepartment`/`INGREDIENT_DEPARTMENT_MAP` M3.3 already built), and
+    reorderable step rows, plus optional description/tips. The form enforces
+    the milestone's minimums (≥1 ingredient, ≥3 steps) via
+    `validateUserRecipeInput` (`src/engine/userRecipes.ts`). Saved recipes get
+    an id prefixed `user-` and live in a new `userRecipesStore`
+    (`LocalUserRecipesRepository`, `wm:userRecipes:v1`) — **deliberately
+    per-device, like profile, not household-synced**, with a "🏠 saved on this
+    device only" note on the detail screen and result cards.
+
+    A family recipe is a full participant everywhere a curated recipe is:
+    `userRecipesStore` exports plain accessors `getAnyRecipe`/`allRecipesList`/
+    `allRecipesById` (seed library merged with the store's recipes, read via
+    `.getState()` — the same pattern `planStore`/`learningStore` already use
+    for every other cross-store read) that replaced the direct
+    `getRecipe`/`RECIPES`/`recipesById` seed imports inside `planStore.ts` and
+    `learningStore.ts`, so generation, swap, re-roll, pinning, and rating all
+    see family recipes automatically. Screens instead use the reactive
+    `useRecipesById`/`useAllRecipes` hooks (so an edit/delete shows up
+    immediately without a reload) in the Recipes tab, meal detail, pin,
+    re-roll, cook mode, the end-of-week review recap, and the Profile
+    "blocked recipes" list. `favoritesMap`/`kidApprovedMap` needed no changes
+    at all — they're just `Record<recipeId, {flag, atISO}>`, agnostic to which
+    store owns the underlying `Recipe`. `scripts/validateRecipes.ts` is
+    unaffected (it only ever iterated the seed `RECIPES` array, never a merged
+    pool), so user recipes are correctly outside its curated-quality gate.
+
+    Safety-motivated additions beyond the form fields the milestone bullet
+    list named: **allergens** are keyword-guessed from the ingredient list
+    (`inferAllergensFromIngredients`, using the exact `COMMON_ALLERGENS`
+    labels like `'Tree Nuts'` — a fresh implementation, not a copy of
+    `normalize.ts`'s importer-side `inferAllergens`, specifically to avoid
+    reintroducing its known `'TreeNuts'`/`'Tree Nuts'` mismatch, see §7 #1) and
+    shown as **editable** chips on the form with a "re-check ingredients"
+    button, since a family recipe fully bypasses the "imported recipes are
+    excluded once any allergy is set" guard (`estimated` stays unset, so it's
+    trusted like a curated recipe) — unlike an import, nothing else double-checks
+    its allergen data, so getting the default right (and letting the user
+    correct it) matters more here, not less. **Diet tags**
+    (vegetarian/vegan/gluten-free/dairy-free) are inferred the same way
+    (`inferDietTagsFromIngredients`, mirroring `normalize.ts`'s
+    `inferDietTags`) so a homemade vegetarian/vegan dish correctly matches a
+    week's dietary restriction. **Nutrition** and **difficulty** get a rough
+    heuristic estimate from the ingredients/times
+    (`estimateNutritionFromIngredients`/`difficultyFromMinutes`) rather than
+    defaulting to zero — a carb-heavy dish defaulting to 0g carbs would have
+    trivially (and wrongly) satisfied the "low-carb"/"keto" diet filters.
+    `categories`/`vegetables`/`techniques`/`seasons` default to empty and
+    `spiceLevel` to `'Mild'` — none of these are used by hard filters, only by
+    optional browse filter chips or soft scoring nudges.
 
 ## 6. Coding conventions
 
@@ -481,9 +546,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 10. ~~Theme preference resets every launch~~ — **fixed (M1.1)**: persisted via
     `SettingsRepository` / `LocalSettingsRepository` (`kvStore` key
     `wm:settings:v1`), hydrated on app start from `app/_layout.tsx`.
-11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1, M3.2, M3.3, M3.4):**
+11. ~~Zero tests~~ — **fixed (M2.5, extended M2.6, M3.0, M3.1, M3.2, M3.3, M3.4, M3.5):**
     `jest-expo` installed as the sanctioned dev dependency; `npm test` runs the
-    engine test suite (`src/engine/**/*.test.ts`, 148 assertions covering hard
+    engine test suite (`src/engine/**/*.test.ts`, 169 assertions covering hard
     filters incl. the imported-allergy guard and M3.1's extracted
     `passesAllergySafety`, recommendation-engine invariants (incl. M2.6's
     learned-dials scoring and hard-filters-always-win case; M3.0's structural
@@ -497,8 +562,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     favorites migration), recipe search/filter/autocomplete (M3.1, extended
     M3.2 for `kidApprovedOnly`), M3.3's department-guessing
     (`buildDepartmentGuessMap`/`guessDepartment`), M3.4's duration parsing
-    (`parseDurationMinutes`), and the M2.2/M3.0/M3.1 reroll
-    candidate/pinnable-days functions). Screens
+    (`parseDurationMinutes`), M3.5's `userRecipes.ts` (validation, allergen/
+    diet-tag/nutrition inference from ingredients, `buildUserRecipe`), and the
+    M2.2/M3.0/M3.1 reroll candidate/pinnable-days functions). Screens
     still have zero coverage — out of scope per the milestone (`docs/ARCHITECTURE.md`'s
     references to `__tests__/`, `units.ts`, `reviewStore`, `RatingRepository`
     remain aspirational/stale).
@@ -626,9 +692,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
   §5.9) · manual grocery items, not plan-scoped, household-synced with the
   same merge rigor as everything else (M3.3, done — see §5.10) · full-screen
   guided cook mode with timers, per-device step memory (M3.4, done — see
-  §5.11).
-- Later: day-aware planning/reorder · our own family recipes (M3.5, stretch)
-  · leftovers-aware planning (new design — the
+  §5.11) · our own family recipes, per-device, fully participating in
+  generation/search/pinning/shopping/cook mode (M3.5, done — see §5.12).
+- Later: day-aware planning/reorder · leftovers-aware planning (new design — the
   original `desiredLeftovers`/`specialOccasions` fields this was scoped
   around were removed in M1.8) · pantry auto-deduction after shopping · sync
   pantry/profile/(the rest of) learning · notifications · other stores.

@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { getRecipe } from '@/data/seed/recipes';
 import { unratedMeals } from '@/engine/rating';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipesById } from '@/stores/userRecipesStore';
 import {
   Card,
   ChipMultiSelect,
@@ -45,6 +45,7 @@ export default function WeeklyReviewScreen() {
   const plan = usePlanStore((s) => s.plan);
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const rateMeal = usePlanStore((s) => s.rateMeal);
+  const recipesById = useRecipesById();
 
   const allMeals = plan ? [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex) : [];
   const meals = unratedMeals(allMeals);
@@ -109,7 +110,7 @@ export default function WeeklyReviewScreen() {
           </Text>
           <Card padded={false}>
             {allMeals.map((m, i) => {
-              const recipe = getRecipe(m.recipeId);
+              const recipe = recipesById[m.recipeId];
               const stars =
                 typeof m.rating === 'number' ? '★'.repeat(m.rating) + '☆'.repeat(5 - m.rating) : '—';
               return (
