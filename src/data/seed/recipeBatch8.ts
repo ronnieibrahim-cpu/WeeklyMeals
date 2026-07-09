@@ -277,6 +277,7 @@ export const recipeBatch8: Recipe[] = [
       { name: 'rice', quantity: 1, unit: 'cup', department: 'DryGoods' },
       { name: 'vegetable oil', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
       { name: 'salt', quantity: 0.5, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Shawarma-spiced roasted tofu over rice with a cucumber-tomato salad and tahini drizzle — a hearty, fully vegan bowl.',
     tips: [
@@ -317,6 +318,7 @@ export const recipeBatch8: Recipe[] = [
       { name: 'tahini', quantity: 0.25, unit: 'cup', department: 'International' },
       { name: 'olive oil', quantity: 2, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
       { name: 'salt', quantity: 0.5, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Crispy roasted tofu and sweet potato over quinoa and massaged kale, finished with a lemon-tahini drizzle — a hearty vegan bowl.',
     tips: [

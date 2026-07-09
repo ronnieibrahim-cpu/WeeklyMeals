@@ -693,6 +693,7 @@ export const recipeBatch5: Recipe[] = [
       { name: 'jasmine rice', quantity: 1.5, unit: 'cup', department: 'International' },
       { name: 'green onions', quantity: 3, unit: 'piece', department: 'Produce' },
       { name: 'vegetable oil', quantity: 0.5, unit: 'cup', department: 'DryGoods', pantryStaple: true },
+      { name: 'mirin', quantity: 2, unit: 'tbsp', department: 'International' },
     ],
     description: 'Crispy cornstarch-coated fried tofu served over rice in a warm savory dashi-soy broth.',
     tips: [
@@ -1216,6 +1217,8 @@ export const recipeBatch5: Recipe[] = [
       { name: 'burger buns', quantity: 4, unit: 'piece', department: 'Bakery' },
       { name: 'pickles', quantity: 0.5, unit: 'cup', department: 'International' },
       { name: 'lettuce', quantity: 0.5, unit: 'piece', department: 'Produce' },
+      { name: 'paprika', quantity: 1, unit: 'tbsp', department: 'Spices' },
+      { name: 'vegetable oil', quantity: 0.75, unit: 'cup', department: 'DryGoods', pantryStaple: true },
     ],
     description: 'Buttermilk-soaked chicken breaded and deep-fried until deeply crisp, piled onto a toasted bun with lettuce and pickles.',
     tips: [

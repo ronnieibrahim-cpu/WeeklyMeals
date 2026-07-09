@@ -631,6 +631,8 @@ export const recipeBatch7: Recipe[] = [
       { name: 'ginger', quantity: 1, unit: 'tbsp', department: 'Produce' },
       { name: 'cabbage', quantity: 0.5, unit: 'piece', department: 'Produce' },
       { name: 'jasmine rice', quantity: 1.5, unit: 'cup', department: 'International' },
+      { name: 'garlic', quantity: 2, unit: 'clove', department: 'Produce' },
+      { name: 'vegetable oil', quantity: 0.75, unit: 'cup', department: 'DryGoods', pantryStaple: true },
     ],
     description: 'Ginger-soy marinated chicken thighs coated in potato starch and fried until deeply crisp — Japanese-style fried chicken.',
     tips: [
@@ -829,6 +831,9 @@ export const recipeBatch7: Recipe[] = [
       { name: 'rice vinegar', quantity: 0.25, unit: 'cup', department: 'International' },
       { name: 'soy sauce', quantity: 3, unit: 'tbsp', department: 'International' },
       { name: 'eggs', quantity: 2, unit: 'piece', department: 'Dairy' },
+      { name: 'cornstarch', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
+      { name: 'white pepper', quantity: 0.25, unit: 'tsp', department: 'Spices' },
+      { name: 'green onions', quantity: 2, unit: 'piece', department: 'Produce' },
     ],
     description: 'A tangy, peppery Chinese soup with tofu, mushrooms, and silky egg ribbons in a thickened broth.',
     tips: [
@@ -1030,6 +1035,8 @@ export const recipeBatch7: Recipe[] = [
       { name: 'tomato', quantity: 2, unit: 'piece', department: 'Produce' },
       { name: 'saffron', quantity: 1, unit: 'pinch', department: 'Spices' },
       { name: 'olive oil', quantity: 2, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
+      { name: 'vegetable broth', quantity: 3, unit: 'cup', department: 'DryGoods' },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Saffron-scented rice simmered with bell pepper, tomato, and chickpeas until a crisp bottom crust forms — a vegan take on paella.',
     tips: [
@@ -1272,6 +1279,7 @@ export const recipeBatch7: Recipe[] = [
       { name: 'tahini', quantity: 0.25, unit: 'cup', department: 'International' },
       { name: 'vegetable oil', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
       { name: 'salt', quantity: 0.5, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Spice-marinated lamb shoulder seared hot and fast, served over rice with a fresh salad and tahini drizzle.',
     tips: [

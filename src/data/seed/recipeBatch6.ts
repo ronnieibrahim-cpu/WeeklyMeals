@@ -108,6 +108,7 @@ export const recipeBatch6: Recipe[] = [
       { name: 'crushed tomatoes', quantity: 1, unit: 'can', department: 'DryGoods' },
       { name: 'curry powder', quantity: 2, unit: 'tbsp', department: 'Spices' },
       { name: 'basmati rice', quantity: 1.5, unit: 'cup', department: 'International' },
+      { name: 'lime', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Red lentils simmered in a spiced coconut-tomato broth with wilted spinach — a fast, fully vegan curry.',
     tips: [
@@ -149,6 +150,7 @@ export const recipeBatch6: Recipe[] = [
       { name: 'frozen peas', quantity: 1, unit: 'cup', department: 'Frozen' },
       { name: 'vegetable broth', quantity: 2, unit: 'cup', department: 'DryGoods' },
       { name: 'butter', quantity: 3, unit: 'tbsp', department: 'Dairy' },
+      { name: 'milk', quantity: 0.25, unit: 'cup', department: 'Dairy' },
     ],
     description: 'Green lentils simmered with carrots in a savory broth, topped with buttery mashed potato and baked until golden.',
     tips: [

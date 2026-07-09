@@ -773,6 +773,8 @@ export const recipeBatch4: Recipe[] = [
       { name: 'honey', quantity: 3, unit: 'tbsp', department: 'DryGoods' },
       { name: 'jasmine rice', quantity: 1.5, unit: 'cup', department: 'International' },
       { name: 'vegetable oil', quantity: 0.33, unit: 'cup', department: 'DryGoods', pantryStaple: true },
+      { name: 'rice vinegar', quantity: 1, unit: 'tbsp', department: 'International' },
+      { name: 'dried chilies', quantity: 4, unit: 'piece', department: 'Spices' },
     ],
     description: 'Crispy fried chicken glazed in a sweet-spicy sauce with steamed broccoli — the Chinese-American takeout favorite made at home.',
     tips: [
@@ -814,6 +816,8 @@ export const recipeBatch4: Recipe[] = [
       { name: 'jasmine rice', quantity: 1.5, unit: 'cup', department: 'International' },
       { name: 'vegetable oil', quantity: 2, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
       { name: 'salt', quantity: 0.25, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'vegetable broth', quantity: 0.5, unit: 'cup', department: 'DryGoods' },
+      { name: 'cornstarch', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     description: 'Savory egg and bean-sprout patties fried until golden and topped with a light soy gravy over rice.',
     tips: [
@@ -854,6 +858,7 @@ export const recipeBatch4: Recipe[] = [
       { name: 'black pepper', quantity: 1, unit: 'tbsp', department: 'Spices' },
       { name: 'jasmine rice', quantity: 1.5, unit: 'cup', department: 'International' },
       { name: 'vegetable oil', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
+      { name: 'cornstarch', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     description: 'Seared flank steak stir-fried with bell pepper, onion, and plenty of cracked black pepper — bold, fast, and savory.',
     tips: [
@@ -1188,6 +1193,7 @@ export const recipeBatch4: Recipe[] = [
       { name: 'chicken broth', quantity: 2, unit: 'cup', department: 'DryGoods' },
       { name: 'butter', quantity: 4, unit: 'tbsp', department: 'Dairy' },
       { name: 'salt', quantity: 0.5, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'flour', quantity: 3, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
     ],
     description: 'Tender chicken, carrots, and peas in a creamy gravy, baked between two flaky crusts — the ultimate American comfort pie.',
     tips: [
@@ -1315,6 +1321,7 @@ export const recipeBatch4: Recipe[] = [
       { name: 'tahini', quantity: 0.25, unit: 'cup', department: 'International' },
       { name: 'vegetable oil', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
       { name: 'salt', quantity: 0.5, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Spice-marinated beef seared hot and fast, served over rice with a fresh tomato-cucumber salad and tahini drizzle.',
     tips: [
@@ -1357,6 +1364,7 @@ export const recipeBatch4: Recipe[] = [
       { name: 'tahini', quantity: 0.25, unit: 'cup', department: 'International' },
       { name: 'vegetable oil', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
       { name: 'salt', quantity: 0.5, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Charred, shawarma-spiced roasted cauliflower over rice with hummus and a tahini drizzle — a hearty, fully vegan bowl.',
     tips: [
@@ -1397,6 +1405,7 @@ export const recipeBatch4: Recipe[] = [
       { name: 'garlic', quantity: 4, unit: 'clove', department: 'Produce' },
       { name: 'red wine vinegar', quantity: 3, unit: 'tbsp', department: 'International' },
       { name: 'olive oil', quantity: 0.33, unit: 'cup', department: 'DryGoods', pantryStaple: true },
+      { name: 'red pepper flakes', quantity: 0.5, unit: 'tsp', department: 'Spices' },
     ],
     description: 'Grilled sirloin topped with a bright, garlicky parsley chimichurri — a simple Argentine-style steak dinner.',
     tips: [

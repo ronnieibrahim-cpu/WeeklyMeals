@@ -753,6 +753,7 @@ export const recipeBatch3: Recipe[] = [
       { name: 'spinach', quantity: 4, unit: 'oz', department: 'Produce' },
       { name: 'green onions', quantity: 3, unit: 'piece', department: 'Produce' },
       { name: 'soy sauce', quantity: 2, unit: 'tbsp', department: 'International' },
+      { name: 'mirin', quantity: 2, unit: 'tbsp', department: 'International' },
     ],
     description: 'A quick Japanese noodle soup with shrimp, udon, and wilted spinach in a savory dashi broth.',
     tips: [
@@ -964,6 +965,7 @@ export const recipeBatch3: Recipe[] = [
       { name: 'gruyere cheese', quantity: 6, unit: 'oz', department: 'Dairy' },
       { name: 'heavy cream', quantity: 1, unit: 'cup', department: 'Dairy' },
       { name: 'onion', quantity: 1, unit: 'piece', department: 'Produce' },
+      { name: 'nutmeg', quantity: 1, unit: 'pinch', department: 'Spices', optional: true },
     ],
     description: 'A classic French custard tart with bacon and gruyere in a flaky crust — equally good for brunch or a simple dinner.',
     tips: [
@@ -1380,6 +1382,7 @@ export const recipeBatch3: Recipe[] = [
       { name: 'romaine lettuce', quantity: 1, unit: 'piece', department: 'Produce' },
       { name: 'sumac', quantity: 1, unit: 'tbsp', department: 'Spices' },
       { name: 'olive oil', quantity: 3, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'A Lebanese bread salad with crisp fried pita, cucumber, tomato, and grilled chicken, dressed with sumac and lemon.',
     tips: [

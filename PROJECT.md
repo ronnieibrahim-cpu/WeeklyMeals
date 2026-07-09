@@ -748,6 +748,44 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     `LocalShoppingListRepository`'s `load()`. Other `kvStore` consumers
     (settings, pantry, manual items, etc.) are unchanged — out of scope for
     this pass.
+24. ~~Some curated recipes' steps called for an ingredient not in the
+    ingredient list~~ — **fixed (2026-07-09):** a step referencing an
+    ingredient the shopper never bought (mirin, nutmeg, cornstarch, a
+    tahini sauce's lemon, frying oil that was never listed, etc.) is a
+    trust/usability bug — the shopping list silently under-buys. This is
+    the mirror image of `validateRecipes.ts`'s existing ingredient→step
+    check (every listed ingredient must appear in a step); there was no
+    check the other way. A one-off scan (curated-ingredient vocabulary,
+    reduced to each ingredient's head noun to avoid descriptor-word noise
+    like "high" from "high heat cooking oil") flagged ~260 candidates
+    across 141 recipes; the overwhelming majority were correct as-is
+    (serving suggestions — "serve with pasta or rice"; explicitly optional
+    add-ins — "cilantro if you have it"; verbs/doneness words matching an
+    unrelated ingredient — "the salmon flakes" vs. red pepper flakes;
+    synonyms for an already-listed ingredient — "the cheese" for
+    already-listed mozzarella; self-referential technique nouns — "the
+    dressing" made from already-listed oil+vinegar). 20 recipes had a
+    genuine miss and were fixed by adding the missing ingredient(s):
+    `cn-hot-sour-soup` (cornstarch, white pepper, green onions),
+    `jp-shrimp-udon`/`jp-agedashi-tofu-rice` (mirin), `fr-quiche-lorraine`
+    (nutmeg), `me-fattoush-chicken` (lemon), `cn-egg-foo-young` (vegetable
+    broth, cornstarch), `cn-black-pepper-beef` (cornstarch),
+    `cn-general-tso` (rice vinegar, dried chilies), `am-chicken-pot-pie`
+    (flour), `bq-steak-chimichurri` (red pepper flakes),
+    `am-fried-chicken-sandwich` (paprika, vegetable oil — the deep-frying
+    oil itself was never listed), `in-coconut-lentil-curry` (lime),
+    `am-lentil-shepherds-pie` (milk), `jp-chicken-karaage` (garlic,
+    vegetable oil), `md-vegetable-paella` (vegetable broth, lemon), and
+    five tahini-sauce recipes all missing the lemon their own sauce step
+    calls for (`me-beef-shawarma-plate`, `me-cauliflower-shawarma`,
+    `me-lamb-shawarma-plate`, `me-tofu-shawarma-bowls`,
+    `am-crispy-tofu-buddha-bowl`). `validateRecipes.ts`,
+    `npm run typecheck`, and `npm test` all still green — every added
+    ingredient is referenced in its recipe's steps, so the existing
+    forward check keeps passing. The reverse-check script itself was a
+    one-off (too noisy to run unsupervised — see the false-positive
+    categories above) and was not committed as a permanent gate; worth
+    revisiting as a proper CI check if this class of bug recurs.
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 
