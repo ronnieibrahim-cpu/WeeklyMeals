@@ -2,12 +2,13 @@ import { WeeklyPlan } from '@/domain/models';
 
 import { PlanRepository } from '../PlanRepository';
 import { kvStore } from './kvStore';
+import { isWeeklyPlan } from './shapeGuards';
 
 const KEY = 'wm:plan:v1';
 
 export class LocalPlanRepository implements PlanRepository {
   load(): Promise<WeeklyPlan | null> {
-    return kvStore.getJSON<WeeklyPlan>(KEY);
+    return kvStore.getJSON<WeeklyPlan>(KEY, isWeeklyPlan);
   }
 
   save(plan: WeeklyPlan): Promise<void> {

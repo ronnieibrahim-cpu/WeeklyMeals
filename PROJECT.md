@@ -729,6 +729,25 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     bug). `parseWeekStart` still falls back to the old UTC-instant parsing
     for already-persisted plans, so existing plans keep working — no
     migration needed. Covered by `src/engine/schedule.test.ts`.
+23. ~~`kvStore.getJSON` guarded against unparseable JSON but not valid-JSON-
+    wrong-shape data~~ — **fixed (debug-sweep P2-3, 2026-07-09):** corrupt or
+    partially-written storage that fails `JSON.parse` was already handled
+    gracefully (treated as "no data"), but a value that parses fine yet has
+    the wrong shape (e.g. a persisted plan missing `meals`) passed straight
+    through to a screen that assumes the shape (`plan.meals.sort(...)` in
+    the home tab and Schedule) and would throw, white-screening the tab. No
+    migration or new storage format — `kvStore.getJSON<T>` now takes an
+    optional `isValid: (value: unknown) => value is T` guard; when the
+    parsed value fails it, `getJSON` returns `null` exactly like a parse
+    failure, so `hydrated: true` still lands with `plan`/`shoppingList` at
+    their normal "no data" default. Minimal structural checks (right-shaped
+    presence of a few key fields, not full schema validation) live in the
+    new `src/data/repositories/local/shapeGuards.ts`
+    (`isWeeklyPlan`/`isShoppingList`), wired into
+    `LocalPlanRepository`/`LocalDraftPlanRepository`/
+    `LocalShoppingListRepository`'s `load()`. Other `kvStore` consumers
+    (settings, pantry, manual items, etc.) are unchanged — out of scope for
+    this pass.
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 

@@ -2,6 +2,7 @@ import { WeeklyPlan } from '@/domain/models';
 
 import { PlanRepository } from '../PlanRepository';
 import { kvStore } from './kvStore';
+import { isWeeklyPlan } from './shapeGuards';
 
 const KEY = 'wm:draftPlan:v1';
 
@@ -10,7 +11,7 @@ const KEY = 'wm:draftPlan:v1';
  * (with its cooked progress) until the user explicitly approves it. */
 export class LocalDraftPlanRepository implements PlanRepository {
   load(): Promise<WeeklyPlan | null> {
-    return kvStore.getJSON<WeeklyPlan>(KEY);
+    return kvStore.getJSON<WeeklyPlan>(KEY, isWeeklyPlan);
   }
 
   save(plan: WeeklyPlan): Promise<void> {
