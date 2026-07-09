@@ -710,6 +710,25 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     `visibilitychange` listener that re-requests the lock every time the tab
     becomes visible again. See §5 #11 for the older-iOS-Safari caveat (no
     Wake Lock API at all — silent no-op, same posture as the timer note).
+22. ~~`weekStartISO` was a UTC instant, not a local date~~ — **fixed
+    (debug-sweep P2-2, 2026-07-09):** M1.4 (§7 #5) normalized generation to
+    local midnight, but still stored it via
+    `localMidnight(new Date()).toISOString()` — a UTC instant that bakes in
+    the *writer's* timezone offset. A household member's device in a
+    different timezone re-derives the wrong calendar day from that instant
+    (e.g. a plan generated at Tokyo local midnight serializes to
+    `...T15:00:00.000Z`, which a device in Los Angeles reads back as the
+    previous day), shifting "Tonight"/schedule offsets by a day. Latent on a
+    single-device household (same timezone reads its own writes correctly)
+    but real the moment the household syncs across timezones (travel).
+    Fixed: `weekStartISO` is now a plain local `YYYY-MM-DD` string
+    (`localDateString()` in `src/engine/schedule.ts`), which has no instant
+    to misinterpret — `dateForDayIndex`/`todayOffset` parse it via local
+    date components (`parseWeekStart()`), never `new Date(dateOnlyString)`
+    (which the JS spec treats as UTC midnight, reintroducing the exact same
+    bug). `parseWeekStart` still falls back to the old UTC-instant parsing
+    for already-persisted plans, so existing plans keep working — no
+    migration needed. Covered by `src/engine/schedule.test.ts`.
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 

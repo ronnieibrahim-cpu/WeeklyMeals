@@ -23,7 +23,7 @@ export type PlanStatus = 'draft' | 'approved' | 'completed';
 
 export interface WeeklyPlan {
   id: string;
-  weekStartISO: string; // start of the plan week
+  weekStartISO: string; // local calendar date the plan starts, `YYYY-MM-DD` (see localDateString/parseWeekStart in schedule.ts — never a UTC instant, or a reader in another timezone derives the wrong day)
   intake: IntakeAnswers;
   meals: PlannedMeal[];
   status: PlanStatus;

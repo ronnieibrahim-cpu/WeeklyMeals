@@ -64,7 +64,7 @@ export function makeMeal(overrides: Partial<PlannedMeal> & Pick<PlannedMeal, 're
 export function makePlan(overrides: Partial<WeeklyPlan> = {}): WeeklyPlan {
   return {
     id: nextId('plan'),
-    weekStartISO: '2026-07-05T00:00:00.000Z',
+    weekStartISO: '2026-07-05',
     intake: makeIntake(makeProfile()),
     meals: [],
     status: 'approved',

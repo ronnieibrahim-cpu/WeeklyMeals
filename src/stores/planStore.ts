@@ -8,7 +8,7 @@ import { createDefaultProfile } from '@/domain/defaults';
 import { IntakeAnswers, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
 import { availableIngredients, missingIngredients, pinnableDays, RerollOutcome, rerollCandidates } from '@/engine/reroll';
-import { localMidnight } from '@/engine/schedule';
+import { localDateString } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
 import { addIngredientsToShoppingList, buildShoppingList } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
@@ -237,7 +237,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const meals = localRecommendationEngine.generate(context(intake, profile, []), allRecipesList());
     const draftPlan: WeeklyPlan = {
       id: createId(),
-      weekStartISO: localMidnight(new Date()).toISOString(),
+      weekStartISO: localDateString(),
       intake,
       meals,
       status: 'draft',
