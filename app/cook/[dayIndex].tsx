@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useKeepAwake } from 'expo-keep-awake';
+import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Vibration, View } from 'react-native';
@@ -24,8 +24,34 @@ function formatClock(totalSeconds: number): string {
   return `${m}:${String(s).padStart(2, '0')}`;
 }
 
+const KEEP_AWAKE_TAG = 'cook-mode';
+
 export default function CookModeScreen() {
-  useKeepAwake();
+  // useKeepAwake() alone isn't enough on web: the browser's Screen Wake
+  // Lock API auto-releases on tab-switch/dim, and the hook never re-acquires
+  // it. Re-request the lock whenever the tab becomes visible again so the
+  // screen only sleeps once, not for the rest of the cooking session. No-op
+  // (fails silently, same as the hook) on older iOS Safari, which has no
+  // Wake Lock API at all — see PROJECT.md's cook mode section for that
+  // caveat alongside the matching timer/vibration one.
+  useEffect(() => {
+    activateKeepAwakeAsync(KEEP_AWAKE_TAG).catch(() => {});
+    const reacquire = () => {
+      if (document.visibilityState === 'visible') {
+        activateKeepAwakeAsync(KEEP_AWAKE_TAG).catch(() => {});
+      }
+    };
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', reacquire);
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('visibilitychange', reacquire);
+      }
+      deactivateKeepAwake(KEEP_AWAKE_TAG).catch(() => {});
+    };
+  }, []);
+
   const router = useRouter();
   const theme = useTheme();
   const { dayIndex: dayIndexParam } = useLocalSearchParams<{ dayIndex: string }>();

@@ -383,9 +383,18 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 11. **Cook mode (M3.4):** "🍳 Start cooking" on a planned meal's detail
     screen opens `app/cook/[dayIndex].tsx` — a full-screen, one-step-at-a-
     time view (large type, tap-anywhere-to-advance plus explicit Back/Next
-    links, a progress bar). `useKeepAwake()` (the sanctioned
-    `expo-keep-awake` dependency) keeps the screen on for as long as it's
-    mounted. If a step mentions a duration, `parseDurationMinutes()`
+    links, a progress bar). Screen wake lock keeps the screen on for as long
+    as the screen is mounted — direct `activateKeepAwakeAsync`/
+    `deactivateKeepAwake` calls (`expo-keep-awake`) rather than the bare
+    `useKeepAwake()` hook, because on web the browser's Screen Wake Lock API
+    auto-releases the lock on tab-switch/dim and the hook never re-acquires
+    it; a `visibilitychange` listener re-requests the lock whenever the tab
+    becomes visible again (**fixed, debug-sweep P2-1, 2026-07-09** — before
+    this, the screen only stayed awake until the first interruption). On
+    older iOS Safari (pre-16.4, no Wake Lock API at all) the request
+    silently fails and the screen behaves as it always did — no in-app
+    warning, same silent-fallback posture as the timer note below. If a step
+    mentions a duration, `parseDurationMinutes()`
     (`src/engine/cookMode.ts`) detects it — single values or ranges, minutes
     or hours, taking the upper bound of a range — and offers a tappable
     timer chip; the timer is screen-level state (not tied to the current
@@ -690,6 +699,17 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     card is removed outright rather than gated, since there's no per-week
     signal yet to make it real. No leftover-day scheduling was built — still
     a Milestone 2+ feature design if wanted (§7 #7).
+21. ~~Cook mode's keep-awake stopped working after the first interruption on
+    web~~ — **fixed (debug-sweep P2-1, 2026-07-09):** `useKeepAwake()` only
+    acquires the browser's Screen Wake Lock once on mount; the browser
+    auto-releases it on tab-switch/dim, so the screen went back to sleeping
+    normally for the rest of the cooking session after the first
+    interruption — exactly the wet-hands moment cook mode exists to prevent.
+    Fixed in `app/cook/[dayIndex].tsx`: switched to direct
+    `activateKeepAwakeAsync`/`deactivateKeepAwake` calls plus a
+    `visibilitychange` listener that re-requests the lock every time the tab
+    becomes visible again. See §5 #11 for the older-iOS-Safari caveat (no
+    Wake Lock API at all — silent no-op, same posture as the timer note).
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 
