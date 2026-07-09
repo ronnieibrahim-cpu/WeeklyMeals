@@ -680,6 +680,16 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     `validateRecipes.ts` (230/230), and both tuning scripts all green;
     browser-verified end-to-end (5 consecutive "regenerate unlocked" taps
     on a seeded draft, all 5 produced distinct weeks).
+20. ~~Schedule tab overpromised: the empty state advertised "leftover days"
+    (scheduled leftover-eating days — never built, see §7 #7) and a
+    "meal-prep tip" that was really one hardcoded paragraph shown on every
+    plan regardless of its recipes~~ — **fixed (debug-sweep P1-2,
+    2026-07-09):** empty-state copy now only claims what the screen does
+    (day-by-day dinners, with a heads-up on meals that make leftovers — the
+    real, already-working leftovers count callout); the fake per-plan tip
+    card is removed outright rather than gated, since there's no per-week
+    signal yet to make it real. No leftover-day scheduling was built — still
+    a Milestone 2+ feature design if wanted (§7 #7).
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 

@@ -34,7 +34,7 @@ export default function ScheduleScreen() {
         <EmptyState
           emoji="📅"
           title="No schedule yet"
-          body="Once you approve a week, your dinners land here day by day — with leftover days and a meal-prep tip."
+          body="Once you approve a week, your dinners land here day by day, with a heads-up on any meals that make leftovers."
           action={{ label: "Let's plan this week", onPress: () => router.push('/plan') }}
         />
       </Screen>
@@ -91,14 +91,6 @@ export default function ScheduleScreen() {
           </Text>
         </Card>
       ) : null}
-
-      <Card style={{ marginTop: theme.spacing.md }}>
-        <Text variant="headline">🧑‍🍳 Meal-prep tip</Text>
-        <Text variant="subhead" color="secondary" style={{ marginTop: 4 }}>
-          Cook the grains and proteins for your first couple of dinners together on your prep day to
-          save time midweek.
-        </Text>
-      </Card>
     </Screen>
   );
 }
