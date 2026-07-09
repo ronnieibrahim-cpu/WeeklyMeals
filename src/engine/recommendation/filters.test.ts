@@ -1,3 +1,5 @@
+import { recipesById } from '@/data/seed/recipes';
+
 import { makeIntake, makeProfile, makeRecipe } from '../testFixtures';
 import { passesAllergySafety, passesHardFilters } from './filters';
 
@@ -163,5 +165,24 @@ describe('passesAllergySafety (M3.1 — extracted for pin-to-week, which bypasse
 
     expect(passesHardFilters(recipe, intake, profile)).toBe(false);
     expect(passesAllergySafety(recipe, profile)).toBe(true);
+  });
+
+  it('a Tree Nuts allergy excludes every curated tree-nut recipe, including the mislabeled one (P0-1)', () => {
+    // fr-trout-amandine used to be labeled 'TreeNuts' (no space) while the
+    // profile allergy is 'Tree Nuts' — the mismatch let it slip past the
+    // filter. in-chicken-korma and cn-cashew-chicken were always labeled
+    // correctly; all three must be excluded once allergens are normalized.
+    const profile = makeProfile({ allergies: ['Tree Nuts'] });
+    for (const id of ['fr-trout-amandine', 'in-chicken-korma', 'cn-cashew-chicken']) {
+      const recipe = recipesById[id];
+      expect(recipe).toBeDefined();
+      expect(passesAllergySafety(recipe, profile)).toBe(false);
+    }
+  });
+
+  it('normalizes allergen comparison across spacing/case so labels can never silently diverge again', () => {
+    const recipe = makeRecipe({ allergens: ['TreeNuts'] });
+    const profile = makeProfile({ allergies: ['Tree Nuts'] });
+    expect(passesAllergySafety(recipe, profile)).toBe(false);
   });
 });

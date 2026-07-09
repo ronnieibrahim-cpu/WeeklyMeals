@@ -2,6 +2,10 @@ import { IntakeAnswers, Profile, Recipe } from '@/domain/models';
 
 const lower = (s: string) => s.trim().toLowerCase();
 
+/** Canonical form for allergen comparison: strips spaces/case so labels like
+ * 'Tree Nuts' and 'TreeNuts' always compare equal, never silently diverge. */
+const canonicalAllergen = (s: string) => s.replace(/\s+/g, '').toLowerCase();
+
 /** Does the recipe satisfy a single dietary restriction? */
 function satisfiesDiet(recipe: Recipe, diet: string): boolean {
   const tags = recipe.dietTags.map(lower);
@@ -45,8 +49,8 @@ function satisfiesDiet(recipe: Recipe, diet: string): boolean {
  */
 export function passesAllergySafety(recipe: Recipe, profile: Profile): boolean {
   // Allergies (profile-level, non-negotiable)
-  const allergies = profile.allergies.map(lower);
-  if (recipe.allergens.some((a) => allergies.includes(lower(a)))) return false;
+  const allergies = profile.allergies.map(canonicalAllergen);
+  if (recipe.allergens.some((a) => allergies.includes(canonicalAllergen(a)))) return false;
 
   // Imported recipes have keyword-guessed allergen data (see normalize.ts's
   // inferAllergens), which can miss real allergens. Once any allergy is set,

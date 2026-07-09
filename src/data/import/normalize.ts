@@ -310,7 +310,7 @@ function inferAllergens(ingText: string): string[] {
   if (has(ingText, 'egg')) a.add('Eggs');
   if (has(ingText, 'soy sauce', 'tofu', 'edamame', 'miso', 'tempeh')) a.add('Soy');
   if (has(ingText, 'peanut')) a.add('Peanuts');
-  if (has(ingText, 'almond', 'cashew', 'walnut', 'pecan', 'pistachio', 'hazelnut')) a.add('TreeNuts');
+  if (has(ingText, 'almond', 'cashew', 'walnut', 'pecan', 'pistachio', 'hazelnut')) a.add('Tree Nuts');
   if (has(ingText, 'sesame', 'tahini')) a.add('Sesame');
   return [...a];
 }

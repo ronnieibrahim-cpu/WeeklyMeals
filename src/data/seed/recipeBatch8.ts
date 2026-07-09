@@ -783,7 +783,7 @@ export const recipeBatch8: Recipe[] = [
     ],
     makesLeftovers: false,
     seasons: [],
-    allergens: ['Fish', 'Dairy', 'TreeNuts'],
+    allergens: ['Fish', 'Dairy', 'Tree Nuts'],
     dietTags: ['gluten-free'],
   },
   {

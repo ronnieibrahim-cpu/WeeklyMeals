@@ -4141,7 +4141,7 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": true,
     "seasons": [],
     "allergens": [
-      "TreeNuts"
+      "Tree Nuts"
     ],
     "dietTags": [
       "vegetarian",
@@ -15754,7 +15754,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Dairy",
-      "TreeNuts"
+      "Tree Nuts"
     ],
     "dietTags": [
       "gluten-free"
@@ -23167,7 +23167,7 @@ export const recipeImported: Recipe[] = [
     "allergens": [
       "Gluten",
       "Eggs",
-      "TreeNuts"
+      "Tree Nuts"
     ],
     "dietTags": [
       "dairy-free"
@@ -23861,7 +23861,7 @@ export const recipeImported: Recipe[] = [
     "allergens": [
       "Gluten",
       "Shellfish",
-      "TreeNuts"
+      "Tree Nuts"
     ],
     "dietTags": [
       "dairy-free"
@@ -27432,7 +27432,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "TreeNuts"
+      "Tree Nuts"
     ],
     "dietTags": [
       "vegetarian",
@@ -28832,7 +28832,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Dairy",
-      "TreeNuts"
+      "Tree Nuts"
     ],
     "dietTags": [
       "vegetarian",
@@ -30786,7 +30786,7 @@ export const recipeImported: Recipe[] = [
     "allergens": [
       "Gluten",
       "Dairy",
-      "TreeNuts"
+      "Tree Nuts"
     ],
     "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/ro8mzj1763800655.jpg",
@@ -43140,7 +43140,7 @@ export const recipeImported: Recipe[] = [
     "allergens": [
       "Gluten",
       "Soy",
-      "TreeNuts"
+      "Tree Nuts"
     ],
     "dietTags": [
       "vegetarian",
