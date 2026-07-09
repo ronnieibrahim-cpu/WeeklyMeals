@@ -438,7 +438,8 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
     (`inferAllergensFromIngredients`, using the exact `COMMON_ALLERGENS`
     labels like `'Tree Nuts'` — a fresh implementation, not a copy of
     `normalize.ts`'s importer-side `inferAllergens`, specifically to avoid
-    reintroducing its known `'TreeNuts'`/`'Tree Nuts'` mismatch, see §7 #1) and
+    reintroducing its known `'TreeNuts'`/`'Tree Nuts'` mismatch (since fixed
+    at the source in `inferAllergens` too, see §7 #1) and
     shown as **editable** chips on the form with a "re-check ingredients"
     button, since a family recipe fully bypasses the "imported recipes are
     excluded once any allergy is set" guard (`estimated` stays unset, so it's
@@ -470,22 +471,40 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 ## 7. Known bugs & technical debt (verified July 2026 — full detail in AUDIT.md)
 
 **P0**
-1. **Allergy filter is unreliable.** Two failure modes: (a) seed data mixes
-   `'Tree Nuts'` and `'TreeNuts'` — the lowercased exact match in
-   `filters.ts` misses one of them, so tree-nut recipes can pass a tree-nut
-   allergy; (b) for the 311 imported recipes, allergens were inferred by
-   keyword matching (`inferAllergens` in `normalize.ts`) that misses
-   derivatives (whey, casein, malt, sauces), and 65 imports have empty
-   allergen arrays. ~~Fix: ... a "curated-only when allergies present" guard
-   for imports.~~ **Partially fixed (M1.5):** `passesHardFilters` now rejects
-   any `estimated: true` (imported) recipe whenever `profile.allergies.length
-   > 0` — generate/regenerate/swap all funnel through this one function, so
-   imports are excluded from all three at once; with no allergies set,
-   imports still appear normally. The detail screen shows "Imported recipe —
-   allergen info estimated, check labels." on every imported recipe
-   regardless of profile. Still open: the `'Tree Nuts'`/`'TreeNuts'` mismatch
-   in curated seed data, and a canonical allergen list + CI seed-validation
-   script. Same caution still applies to inferred diet tags (halal/vegan).
+1. ~~Allergy filter is unreliable.~~ **Fixed (debug-sweep P0-1/P1-1,
+   2026-07-09).** Two failure modes, both closed: (a) seed data mixed
+   `'Tree Nuts'` and `'TreeNuts'` — the curated `fr-trout-amandine` and 8
+   imported recipes carried the non-canonical `'TreeNuts'`, so a Tree Nuts
+   allergy silently let them through. Fixed at the root: `normalize.ts`'s
+   `inferAllergens` now emits the canonical `'Tree Nuts'` (recipeImported.ts
+   regenerated), the one hand-authored offender was corrected, and
+   `passesAllergySafety` in `filters.ts` now compares allergens/allergies
+   through a `canonicalAllergen()` normalizer (strip spaces + lowercase) so
+   this class of mismatch can't recur regardless of spelling/spacing. (b)
+   `scripts/validateRecipes.ts` had no allergen checks at all — the safety
+   net that would have caught (a). It now runs two checks: every recipe
+   (curated + imported) must use only canonical `COMMON_ALLERGENS` labels,
+   and curated recipes must declare every allergen their ingredients imply
+   (reuses `inferAllergens` as a keyword-coverage check). Running it the
+   first time surfaced real gaps — 13 curated recipes with an undeclared
+   allergen from a present ingredient (parmesan/yogurt→Dairy, fish
+   sauce→Fish, tofu/soy sauce→Soy, flour/soy sauce→Gluten) — now fixed, plus
+   two `inferAllergens` false-positive fixes surfaced along the way
+   (`'coconut milk'`/`'peanut butter'`/`'butter beans'` were tripping the
+   Dairy check, `'eggplant'` was tripping the Eggs check, `'rice noodles'`
+   was tripping the Gluten check). `dietTags` on `fr-beef-bourguignon` and
+   `gr-lamb-moussaka` also lost an incorrect `'gluten-free'` tag now that
+   their required (non-optional) flour is correctly flagged. Imported
+   recipes were left out of the keyword-coverage check (their `allergens`
+   field *is* `inferAllergens`'s output already, so re-running it would only
+   prove the generator agrees with itself) — they still rely on the M1.5
+   guard for safety: `passesHardFilters` rejects any `estimated: true`
+   (imported) recipe whenever `profile.allergies.length > 0`, so imports are
+   excluded from generate/regenerate/swap alike whenever any allergy is set;
+   with no allergies set, imports still appear normally, and the detail
+   screen shows "Imported recipe — allergen info estimated, check labels."
+   on every imported recipe regardless of profile. Same caution still
+   applies to inferred diet tags (halal/vegan).
 2. ~~Kosher filter no-op~~ — **Removed (2026-07-02):** per Ronnie, dropped
    "Kosher" as a dietary-restriction option entirely rather than fixing the
    logic (`(tags.includes('kosher') || true)` in `filters.ts` was a no-op
@@ -664,8 +683,9 @@ src/data/images.ts / recipeImages.ts   curated photo URLs (110/230 curated recip
 
 ## 8. Roadmap (agreed direction — no code changes without owner approval on scope)
 
-- **Milestone 1 — Trust & safety: done.** P0-1 allergen imports-guard (M1.5,
-  seed validator/canonical-list + Tree Nuts mismatch still open, see §7 #1) ·
+- **Milestone 1 — Trust & safety: done.** P0-1 allergen imports-guard (M1.5)
+  · seed validator/canonical-allergen-list + Tree Nuts mismatch fixed
+  (debug-sweep P0-1/P1-1, 2026-07-09, see §7 #1) ·
   P0-3 draft-plan protection (M1.8) · dead questions removed (M1.8) · real
   dates + correct "Tonight" (M1.4) · single cost source (M1.2) · persist theme
   (M1.1) · one-review-per-plan guard (M1.3) · sync per-item merge (M1.6) ·

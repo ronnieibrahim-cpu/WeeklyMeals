@@ -49,7 +49,7 @@ export const recipeBatch3: Recipe[] = [
     freezingNotes: 'Sauce freezes well.',
     makesLeftovers: true,
     seasons: [],
-    allergens: ['Gluten'],
+    allergens: ['Gluten', 'Dairy'],
     dietTags: ['dairy-free'],
   },
   {
@@ -563,7 +563,7 @@ export const recipeBatch3: Recipe[] = [
     ],
     makesLeftovers: true,
     seasons: ['winter'],
-    allergens: [],
+    allergens: ['Fish'],
     dietTags: ['gluten-free', 'dairy-free', 'low-carb'],
   },
   {
@@ -1518,7 +1518,7 @@ export const recipeBatch3: Recipe[] = [
     ],
     makesLeftovers: true,
     seasons: ['summer'],
-    allergens: [],
+    allergens: ['Soy'],
     dietTags: ['vegetarian', 'vegan', 'dairy-free'],
   },
 ];

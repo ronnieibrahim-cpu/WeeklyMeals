@@ -301,13 +301,26 @@ function estimateNutrition(protein: Protein, ingText: string): Nutrition {
   };
 }
 
-function inferAllergens(ingText: string): string[] {
+/** Exported so scripts/validateRecipes.ts can reuse the same keyword rules as
+ * a coverage check over hand-authored allergen lists (P1-1). */
+export function inferAllergens(ingText: string): string[] {
   const a = new Set<string>();
-  if (has(ingText, 'flour', 'bread', 'pasta', 'noodle', 'soy sauce', 'breadcrumb', 'wheat', 'couscous', 'panko', 'barley', 'cracker')) a.add('Gluten');
-  if (has(ingText, 'milk', 'cream', 'butter', 'cheese', 'yogurt', 'yoghurt', 'paneer', 'ghee', 'parmesan', 'mozzarella', 'feta')) a.add('Dairy');
+  // Coconut milk/cream, peanut butter, and butter beans are dairy-free;
+  // strip them before the dairy check so e.g. Thai curries don't get a false
+  // 'Dairy' hit from "milk", and peanut/bean dishes don't from "butter".
+  const dairyText = ingText.replace(/coconut\s+(milk|cream)|peanut\s+butter|butter\s+beans?/g, '');
+  // "eggplant" contains "egg" but isn't the allergen; strip it before the
+  // eggs check so e.g. ratatouille/moussaka don't get a false 'Eggs' hit.
+  const eggText = ingText.replace(/eggplant/g, '');
+  // Rice noodles are the classic gluten-free noodle (100% rice, no wheat);
+  // strip them before the "noodle" check so pad thai etc. don't get a false
+  // 'Gluten' hit. Other noodle types (egg/udon/ramen/wheat/soba) still match.
+  const glutenText = ingText.replace(/(wide\s+)?rice\s+noodles?/g, '');
+  if (has(glutenText, 'flour', 'bread', 'pasta', 'noodle', 'soy sauce', 'breadcrumb', 'wheat', 'couscous', 'panko', 'barley', 'cracker')) a.add('Gluten');
+  if (has(dairyText, 'milk', 'cream', 'butter', 'cheese', 'yogurt', 'yoghurt', 'paneer', 'ghee', 'parmesan', 'mozzarella', 'feta')) a.add('Dairy');
   if (has(ingText, 'shrimp', 'prawn', 'crab', 'lobster', 'mussel', 'clam', 'scallop', 'squid')) a.add('Shellfish');
   if (has(ingText, 'salmon', 'tuna', 'cod', 'fish', 'anchov', 'haddock', 'sardine')) a.add('Fish');
-  if (has(ingText, 'egg')) a.add('Eggs');
+  if (has(eggText, 'egg')) a.add('Eggs');
   if (has(ingText, 'soy sauce', 'tofu', 'edamame', 'miso', 'tempeh')) a.add('Soy');
   if (has(ingText, 'peanut')) a.add('Peanuts');
   if (has(ingText, 'almond', 'cashew', 'walnut', 'pecan', 'pistachio', 'hazelnut')) a.add('Tree Nuts');

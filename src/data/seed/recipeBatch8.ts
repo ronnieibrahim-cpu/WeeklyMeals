@@ -171,7 +171,7 @@ export const recipeBatch8: Recipe[] = [
     ],
     makesLeftovers: false,
     seasons: [],
-    allergens: ['Soy', 'Eggs'],
+    allergens: ['Soy', 'Eggs', 'Gluten'],
     dietTags: ['vegetarian', 'dairy-free'],
   },
   {
@@ -744,7 +744,7 @@ export const recipeBatch8: Recipe[] = [
     ],
     makesLeftovers: false,
     seasons: [],
-    allergens: ['Fish', 'Soy', 'Sesame'],
+    allergens: ['Fish', 'Soy', 'Sesame', 'Gluten'],
     dietTags: ['dairy-free'],
   },
   {

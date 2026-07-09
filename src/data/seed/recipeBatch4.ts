@@ -915,8 +915,8 @@ export const recipeBatch4: Recipe[] = [
     freezingNotes: 'Freezes beautifully.',
     makesLeftovers: true,
     seasons: ['fall', 'winter'],
-    allergens: [],
-    dietTags: ['gluten-free', 'dairy-free'],
+    allergens: ['Gluten'],
+    dietTags: ['dairy-free'],
   },
   {
     id: 'fr-mushroom-risotto',

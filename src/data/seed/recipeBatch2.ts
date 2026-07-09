@@ -96,7 +96,7 @@ export const recipeBatch2: Recipe[] = [
     freezingNotes: 'Freezes well (add pasta fresh).',
     makesLeftovers: true,
     seasons: ['fall', 'winter'],
-    allergens: ['Gluten'],
+    allergens: ['Gluten', 'Dairy'],
     dietTags: ['vegetarian', 'vegan', 'dairy-free'],
   },
   {
@@ -608,7 +608,7 @@ export const recipeBatch2: Recipe[] = [
     ],
     makesLeftovers: true,
     seasons: [],
-    allergens: [],
+    allergens: ['Fish'],
     dietTags: ['gluten-free', 'dairy-free'],
   },
   {
@@ -1421,7 +1421,7 @@ export const recipeBatch2: Recipe[] = [
     leftoverNotes: 'Great cold or warm.',
     makesLeftovers: true,
     seasons: [],
-    allergens: [],
+    allergens: ['Dairy'],
     dietTags: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free'],
   },
 

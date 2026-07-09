@@ -297,8 +297,8 @@ export const recipeBatch5: Recipe[] = [
     leftoverNotes: 'Slices better the next day.',
     makesLeftovers: true,
     seasons: ['fall', 'winter'],
-    allergens: ['Dairy'],
-    dietTags: ['gluten-free'],
+    allergens: ['Dairy', 'Gluten'],
+    dietTags: [],
   },
   {
     id: 'gr-chicken-souvlaki-skewers',
@@ -708,7 +708,7 @@ export const recipeBatch5: Recipe[] = [
     ],
     makesLeftovers: false,
     seasons: [],
-    allergens: ['Soy', 'Fish'],
+    allergens: ['Soy', 'Fish', 'Gluten'],
     dietTags: ['vegetarian', 'dairy-free'],
   },
   {

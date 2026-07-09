@@ -564,7 +564,7 @@ export const recipeBatch7: Recipe[] = [
     ],
     makesLeftovers: false,
     seasons: [],
-    allergens: ['Soy', 'Gluten'],
+    allergens: ['Soy', 'Gluten', 'Fish'],
     dietTags: ['dairy-free'],
   },
   {
@@ -605,7 +605,7 @@ export const recipeBatch7: Recipe[] = [
     leftoverNotes: 'Even better next day.',
     makesLeftovers: true,
     seasons: ['fall'],
-    allergens: [],
+    allergens: ['Fish'],
     dietTags: ['gluten-free', 'dairy-free'],
   },
 
