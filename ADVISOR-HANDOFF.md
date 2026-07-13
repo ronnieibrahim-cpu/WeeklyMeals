@@ -328,16 +328,25 @@ what changed, and let him decide.
    allergy and confirm `fr-trout-amandine` cannot be generated, swapped, re-rolled,
    or pinned.
 
-2. **P0-2 — Supabase has no Row-Level Security.** *This is not a code fix — it is a
-   settings change in Ronnie's Supabase dashboard.* The debug sweep confirmed live
-   that an anonymous client (using the publishable key that ships in the web bundle)
-   can enumerate every household code, which is equivalent to full read/write of
-   every family's plan, shopping list, and dietary data. The 6-character household
-   code is the only intended secret and RLS was always assumed but never configured.
-   **Status: Ronnie was asked whether the app has been shared beyond his and his
-   wife's phones (which determines urgency, not whether to fix). Follow up on this.**
-   The fix: an RLS policy on the `households` table so anonymous select/upsert only
-   match a row whose `code` is supplied as a filter — never a bare `select *`.
+### Accepted risks (not open, not fixed — do not re-list under blocking, do not mark as done)
+
+2. **P0-2 — Supabase `households` has no Row-Level Security.** The debug sweep
+   confirmed live that an anonymous client (using the publishable key that ships in
+   the web bundle) can enumerate every household code, which is equivalent to full
+   read/write of every household's row. **This is not fixed and will not be fixed —
+   it is a risk accepted by the Product Owner (Ronnie), July 2026.** It is not a code
+   fix and never was; it would have been a settings change in Ronnie's Supabase
+   dashboard (an RLS policy so anon select/upsert only match a row whose `code` is
+   supplied as a filter, never a bare `select *`), but Ronnie has decided not to make
+   that change.
+   **Rationale (verbatim):** "the only data in household sync is one family's meal
+   plan, shopping list, manual items, favorites and kid-approved flags; the owner
+   judges the exposure of that data — and the vandalism risk from anonymous write
+   access — to be beneath the cost of acting on it. The app is used by two phones in
+   one household and is not shared."
+   **Reopen trigger:** if profile data (allergies, dietary restrictions, household
+   members' ages or birthdates) is ever added to the sync payload, this decision is
+   void and RLS must be configured before that change ships.
 
 ### Queued fixes from the debug sweep (see `DEBUG-SWEEP.md` for full detail)
 

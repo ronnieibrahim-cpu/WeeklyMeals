@@ -168,21 +168,31 @@ the identical result regardless of order, or they ping-pong forever.
    `'TreeNuts'`, so the comparison in `passesAllergySafety` lets them through. Root-cause
    fix: canonicalize the seed data **and** normalize the comparison **and** add allergen
    validation to `scripts/validateRecipes.ts` so the bug class becomes self-detecting.
-2. **Supabase `households` has no Row-Level Security.** Confirmed live: an anonymous
-   client using the bundled publishable key can enumerate every household code —
-   equivalent to full read/write of every family's plan and dietary data. **Fix is a
-   Supabase dashboard action, not code:** anon select/upsert must only match a row
-   whose `code` is supplied as a filter.
+
+**Accepted risks (not fixes — do not treat as open or as done)**
+1. **P0-2 — Supabase `households` has no Row-Level Security.** Confirmed live: an
+   anonymous client using the bundled publishable key can enumerate every household
+   code, which is equivalent to full read/write of every household's row. **This is
+   not fixed and will not be fixed — it is a risk accepted by the Product Owner, July
+   2026**, not an oversight and not something to re-flag as a bug.
+   **Rationale (verbatim):** "the only data in household sync is one family's meal
+   plan, shopping list, manual items, favorites and kid-approved flags; the owner
+   judges the exposure of that data — and the vandalism risk from anonymous write
+   access — to be beneath the cost of acting on it. The app is used by two phones in
+   one household and is not shared."
+   **Reopen trigger:** if profile data (allergies, dietary restrictions, household
+   members' ages or birthdates) is ever added to the sync payload, this decision is
+   void and RLS must be configured before that change ships.
 
 **P1/P2**
-3. `validateRecipes.ts` has no allergen check (the blind spot that hid #1).
-4. Schedule screen copy promises "leftover days" and a per-plan prep tip that don't
+2. `validateRecipes.ts` has no allergen check (the blind spot that hid #1).
+3. Schedule screen copy promises "leftover days" and a per-plan prep tip that don't
    exist (violates law #3).
-5. Cook mode's keep-awake doesn't re-acquire the wake lock after the browser releases
+4. Cook mode's keep-awake doesn't re-acquire the wake lock after the browser releases
    it (tab switch / dim), so the screen sleeps mid-recipe.
-6. `weekStartISO` is stored as a UTC instant → wrong day offset on a device in another
+5. `weekStartISO` is stored as a UTC instant → wrong day offset on a device in another
    timezone. Store as a plain `YYYY-MM-DD` local date string.
-7. `kvStore.getJSON` guards unparseable JSON but not valid-JSON-wrong-shape → can
+6. `kvStore.getJSON` guards unparseable JSON but not valid-JSON-wrong-shape → can
    white-screen a tab on hydration.
 
 **P3 (parked):** dead `reset`/`clear` store actions with no UI · no keyboard-avoidance
