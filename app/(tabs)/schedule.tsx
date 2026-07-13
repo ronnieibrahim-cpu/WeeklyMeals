@@ -15,7 +15,7 @@ export default function ScheduleScreen() {
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
-  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
 
   if (!hydrated) {
@@ -76,7 +76,7 @@ export default function ScheduleScreen() {
               onRate={(rating) => rateMeal(meal.dayIndex, rating)}
               onToggleCooked={() => toggleCooked(meal.dayIndex)}
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-              kidApproved={isKidApproved(recipe.id)}
+              kidApproved={!!kidApprovedMap[recipe.id]?.flag}
               onToggleKidApproved={() => toggleKidApproved(recipe.id)}
             />
           </View>

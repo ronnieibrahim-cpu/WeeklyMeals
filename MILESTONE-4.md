@@ -27,7 +27,8 @@ without the user pressing an explicit button that says so.
 
 ## [ ] M4.0 — Three fixes and a real browse list (one small commit each)
 
-### M4.0a — Stale Kids-approved / Favorite badges (BUG, reported live)
+### [x] M4.0a — Stale Kids-approved / Favorite badges (BUG, reported live)
+**Done:** the four screens now subscribe to `kidApprovedMap`/the favorite Sets and derive the boolean per-render instead of reading the stable `isKidApproved`/`isFavorite` functions.
 **Problem:** `app/(tabs)/index.tsx`, `app/(tabs)/schedule.tsx`, `app/plan/review.tsx`
 and `app/(tabs)/recipes.tsx` subscribe to the learning store's *functions*
 (`useLearningStore((s) => s.isKidApproved)`, `s.isFavorite`). A Zustand selector

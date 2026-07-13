@@ -22,7 +22,7 @@ export default function ThisWeekScreen() {
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
-  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const [showPast, setShowPast] = useState(false);
 
@@ -145,7 +145,7 @@ export default function ThisWeekScreen() {
         }
         onToggleCooked={() => toggleCooked(meal.dayIndex)}
         onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-        kidApproved={isKidApproved(recipe.id)}
+        kidApproved={!!kidApprovedMap[recipe.id]?.flag}
         onToggleKidApproved={() => toggleKidApproved(recipe.id)}
       />
     );
@@ -200,7 +200,7 @@ export default function ThisWeekScreen() {
           onPress={() =>
             router.push({ pathname: '/meal/[id]', params: { id: tonightRecipe.id } })
           }
-          kidApproved={isKidApproved(tonightRecipe.id)}
+          kidApproved={!!kidApprovedMap[tonightRecipe.id]?.flag}
           onToggleKidApproved={() => toggleKidApproved(tonightRecipe.id)}
         />
       ) : null}

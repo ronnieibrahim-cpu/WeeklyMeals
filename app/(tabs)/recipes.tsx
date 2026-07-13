@@ -25,10 +25,8 @@ export default function RecipesScreen() {
   const [filters, setFilters] = useState<RecipeFilters>({ favoritesOnly: params.favoritesOnly === '1' });
 
   const favorites = useLearningStore((s) => s.favorites);
-  const isFavorite = useLearningStore((s) => s.isFavorite);
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
   const kidApprovedList = useLearningStore((s) => s.kidApproved);
-  const isKidApproved = useLearningStore((s) => s.isKidApproved);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
@@ -82,11 +80,11 @@ export default function RecipesScreen() {
       <RecipeResultCard
         key={recipe.id}
         recipe={recipe}
-        favorite={isFavorite(recipe.id)}
+        favorite={favoriteIds.has(recipe.id)}
         onToggleFavorite={() => toggleFavorite(recipe.id)}
         onPress={() => openDetail(recipe.id)}
         onQuickPin={canPin ? () => openPin(recipe.id) : undefined}
-        kidApproved={isKidApproved(recipe.id)}
+        kidApproved={kidApprovedIds.has(recipe.id)}
         onToggleKidApproved={() => toggleKidApproved(recipe.id)}
       />
     );
