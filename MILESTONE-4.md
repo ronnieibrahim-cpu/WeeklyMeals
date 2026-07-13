@@ -55,7 +55,8 @@ the re-roll screen.
 **Accept when:** you can open, read and back out of any suggested recipe without
 losing your place in the "try another" cycle.
 
-### M4.0c — Actually browse all the recipes
+### [x] M4.0c — Actually browse all the recipes
+**Done:** Recipes tab now renders through a `FlatList` (search/filters/Favorites as its header, main list virtualized, cap removed). Along the way found and fixed a real bug in `Screen.tsx`'s non-scrolling mode: on web, `flexGrow: 1` alone doesn't bound a child's height, so the FlatList kept "growing to fill" its own unbounded box, mounting more cards forever. Added `minHeight: 0` there; verified in a browser that mounted card count now stays flat (~20) all the way through a full scroll of all 586 recipes.
 **Problem:** the Recipes tab caps at `MAX_VISIBLE_RESULTS = 40` because it is a
 plain `ScrollView` and mounting hundreds of photo cards OOM-crashes mobile Safari.
 The comment is honest; the cap is the wrong fix.
