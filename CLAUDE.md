@@ -12,22 +12,21 @@ decision history. You implement; the advisor audits. Keep that separation.
 1. `PROJECT.md` — canonical description of how the app actually works. Trust it over
    `docs/ARCHITECTURE.md`, `docs/PRD.md`, and `docs/WIREFRAMES.md`, which are **stale
    and partly fictional**.
-2. The current work queue — `MILESTONE-3.md` (M1/M2 are complete; see them for history).
+2. The current work queue — `MILESTONE-4.md` (M1/M2/M3 are complete; see them for history).
 3. `DEBUG-SWEEP.md` — the adversarial audit findings at the v3 gate (open fixes).
 4. `ADVISOR-HANDOFF.md` — the decision log and rationale. **Do not silently reverse
    any decision recorded there.**
 5. `AUDIT.md` — the original audit. Historical; many items are now fixed.
 
 ## State
-Milestones 1, 2, and 3 are complete (v3.0). Current work: closing the P0/P1/P2 items
-from `DEBUG-SWEEP.md`. **No new features** until those are closed and verified.
-Milestone 4 is deliberately unplanned — do not propose or start it.
+Milestones 1, 2, and 3 are complete (v3.0). The DEBUG-SWEEP P0/P1/P2 code items are
+closed. Current work: `MILESTONE-4.md`.
 
 ## Commands (all three must be green before every commit)
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine test suite — currently 169 tests
+npx jest                           # engine test suite — currently 178 tests
 npx tsx scripts/validateRecipes.ts # 230/230 curated recipes must pass
 npm run web                        # local browser preview for manual testing
 ```

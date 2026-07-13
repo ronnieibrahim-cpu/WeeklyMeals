@@ -8,7 +8,7 @@
 >
 > **State:** Milestones 1, 2, and 3 complete (v3.0). Post-v3 adversarial debug
 > sweep complete (`DEBUG-SWEEP.md`) — its P0/P1/P2 fixes are in progress.
-> **Last verified:** July 2026 · typecheck clean · 169 tests green ·
+> **Last verified:** July 2026 · typecheck clean · 178 tests green ·
 > 230/230 curated recipes pass content validation.
 >
 > **Advisor context, decision rationale, and current open items live in
@@ -20,7 +20,7 @@
 
 A meal-planning app for one family (2 adults, 2 young kids, Houston TX, shops at
 H-E-B). Each week it asks a short questionnaire (or a one-tap "same as last week"),
-generates a week of dinners from a ~541-recipe library, and produces one
+generates a week of dinners from a ~586-recipe library, and produces one
 consolidated H-E-B shopping list with estimated prices. The family cooks from the
 app, re-rolls meals mid-week from ingredients already bought, rates as they go, and
 those ratings nudge future recommendations.
@@ -45,7 +45,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
 - **Supabase REST (raw fetch, no SDK)** — optional "household sync" between two
   phones; publishable key committed by design, **access must be governed by RLS**
   (see §8 — currently an open security item)
-- **Jest / jest-expo** — engine test suite (**169 tests**); `npx jest` must stay green
+- **Jest / jest-expo** — engine test suite (**178 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**

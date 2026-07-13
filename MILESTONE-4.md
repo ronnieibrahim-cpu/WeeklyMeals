@@ -77,26 +77,37 @@ is no way to say "cook extra tonight" or "cook less."
 - `Profile.members: HouseholdMember[]` already exists in the model and is **dead
   code — never populated, never read**. Make it real.
 - Profile gains an editable "Who are we cooking for?" section: rows of members,
-  each `{ name?: string; ageYears?: number; isChild: boolean }`. Add/remove rows.
+  each `{ name?: string; birthDateISO?: string; ageYears?: number; isChild: boolean;
+  portionOverride?: number }`. Add/remove rows.
+- **✅ DECIDED (Ronnie): store a birthdate, not an age.** The household grows: a
+  3-year-old becomes a 6-year-old and a baby starts eating solids. The portion
+  factor is **derived from the birthdate at read time**, so the app right-sizes
+  itself with no Sunday chore. `ageYears` remains supported as a fallback for a
+  member whose birthdate isn't known (and for old persisted profiles).
 - New pure engine module `src/engine/portions.ts` converting members →
   **adult-equivalent servings**:
 
-  | member | factor |
+  | age | factor |
   |---|---|
-  | adult / 13+ | 1.0 |
-  | child 8–12 | 0.75 |
-  | child 4–7 | 0.5 |
-  | toddler 1–3 | 0.25 |
-  | under 1 | 0 |
+  | under 1 (not on solids) | 0 |
+  | 1–2 | 0.25 |
+  | **3–5** | **0.5** |
+  | 6–9 | 0.75 |
+  | 10+ | 1.0 |
+  | adult | 1.0 |
 
-  Sum, round to the nearest 0.5, floor at 2.0. (2 adults + a 3-year-old = 2.25 →
-  **2.5 servings**, not 3.) Each member row also gets an optional per-person
-  override ("eats like an adult") for the day the 3-year-old starts inhaling food.
+  Sum, round to the nearest 0.5, floor at 2.0. (2 adults + a 3-year-old = 2.5
+  servings, not 3. When the baby turns 1, the household becomes 2.75 → 3.0
+  automatically.) `portionOverride` on a member wins over the derived factor —
+  for the day a 7-year-old starts out-eating his father.
 - `familySize` stays as the plain headcount for display; **`servingsPerMeal` is
   what the engine and shopping list use.** `defaults.ts` maps
   `people: p.familySize` today — that mapping becomes
-  `servingsPerMeal: adultEquivalents(profile.members)` with a safe fallback to
-  `familySize` when `members` is empty (old profiles must keep working).
+  `servingsPerMeal: adultEquivalents(profile.members, new Date())` with a safe
+  fallback to `familySize` when `members` is empty (old profiles must keep working).
+- **The factor must be computed against the current date, never cached at profile
+  save time** — that is the whole point of storing a birthdate. Test it: the same
+  profile evaluated three years later yields a larger `servingsPerMeal`.
 - Intake shows it as one line — "Cooking for: 2 adults + 1 child = 2.5 portions
   (edit)" — not a new wizard step. **Remove clicks, don't add settings.**
 
@@ -118,9 +129,11 @@ is no way to say "cook extra tonight" or "cook less."
   assertions (both merge orders, idempotence).
 
 **Accept when:** a household of 2 adults + a 3-year-old generates a week scaled to
-2.5 portions and the shopping list quantities drop accordingly; a per-meal
-servings change on an approved plan updates the shopping list **only** after an
-explicit tap; old profiles with no `members` still load and behave as before.
+2.5 portions and the shopping list quantities drop accordingly; the same profile
+evaluated with a date three years in the future scales up on its own (birthdate,
+not a cached age); a per-meal servings change on an approved plan updates the
+shopping list **only** after an explicit tap; old profiles with no `members` still
+load and behave exactly as before.
 
 ---
 
@@ -160,12 +173,27 @@ and `recipeImported.ts` is generated and must never be hand-edited anyway.
   `sidesChangedAtISO?: string` (sync stamp, newer-wins per meal, same pattern).
 
 ### Composition rule (new pure engine module `src/engine/mealComposition.ts`)
-For each planned main, add sides until the plate satisfies:
-1. **Hard minimum:** protein **+** (vegetable **or** starch).
-2. **Target:** protein **+** vegetable **+** starch.
-Never add a side that duplicates what the main already provides. Prefer sides
-that fit the main's cuisine, keep total cook time inside the intake's time limit,
-and honor the learned preferences with the usual capped weights. Cap at 2 sides.
+
+**✅ DECIDED by Ronnie:** the test is *"is this a meal, or is this a dish?"* — **not**
+"does this contain a vegetable." A vegetable is a preference, not a gate. **Nothing
+in the existing corpus is removed, rewritten, or downgraded** — sides are purely
+additive.
+
+1. **A main that already provides protein PLUS at least one of vegetable/starch is
+   a complete meal.** (Beef stew with carrots and potatoes; shrimp scampi
+   linguine.) It needs **no side**. One may still be *offered* in the UI; none is
+   added automatically.
+2. **A main that provides protein alone is a dish, not a dinner.** It gets **at
+   least one side, ideally two** — preferring one vegetable and one starch, but a
+   steak with roasted potatoes and no green thing is a legitimate dinner and the
+   app must not nag about it.
+3. **Cap at 2 sides.** Never add a side that duplicates what the main already
+   provides. Prefer sides that fit the main's cuisine, keep the plate's total cook
+   time inside the intake's time limit, and honor learned preferences with the
+   usual capped weights.
+4. Sides are **individually removable**, and "no sides tonight" is always one tap
+   away. Removing a side is an explicit user action; on an approved plan it follows
+   LAW #1 (offer to remove its items from the shopping list — never do it silently).
 
 ### The non-negotiables
 - **Sides pass every hard filter the main does** — allergies, diet tags, dislikes,
@@ -185,11 +213,12 @@ and honor the learned preferences with the usual capped weights. Cap at 2 sides.
   `provides` and includes a protein**, and the sides file is validated to the same
   content standard.
 
-**Accept when:** a generated week has no protein-only dinners; the steak night
-arrives as *Grilled Steak with Chimichurri + garlic green beans + rice pilaf*; the
-shopping list contains the sides' ingredients and the cost total still matches the
-approval screen exactly; with an allergy set, no imported side or main can ever be
-composed onto a plate; re-roll still never requires a store trip.
+**Accept when:** a generated week contains no protein-only dinners; dishes that are
+already complete meals (stews, one-pot pastas) are left alone with no side bolted
+on; the steak night arrives as *Grilled Steak with Chimichurri + garlic green beans
++ rice pilaf*; the shopping list contains the sides' ingredients and the cost total
+still matches the approval screen exactly; with an allergy set, no imported side or
+main can ever be composed onto a plate; re-roll still never requires a store trip.
 
 ---
 
@@ -280,11 +309,18 @@ with the shopping list byte-for-byte unchanged.
 
 **User problem:** plans survive contact with Tuesday about as well as anything else.
 
-**Decision (advisor's recommendation — confirm with Ronnie):** **not** drag-and-drop.
-Long-press drag is fiddly on a phone, poor for accessibility, and fights the
-scroll view. Instead: a **"Move to…" action** on each meal card (swipe-to-reveal,
-matching the existing swipe-to-delete on manual shopping items) opening a day
-picker. Choosing an occupied day **swaps** the two meals.
+**✅ DECIDED by Ronnie: build both.**
+1. **Hold-to-drag** reordering of the week's meal cards (the fast path when it
+   works).
+2. **Swipe-to-reveal → "Move to…"** day picker (the reliable path, matching the
+   existing swipe-to-delete on manual shopping items). Choosing an occupied day
+   **swaps** the two meals.
+
+The swipe path is the guarantee: **it must work perfectly on its own, and it ships
+first in the same commit.** Drag-and-drop on a phone fights the scroll view and is
+weak for accessibility — if it can't be made to feel good on iOS Safari without a
+new dependency, say so in your plan and ship the swipe path alone rather than
+shipping a bad drag. Do not add a drag-and-drop library without asking Ronnie.
 
 **Rules:**
 - Only **not-yet-cooked** days can be moved or swapped into. A cooked day is
