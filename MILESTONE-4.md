@@ -44,7 +44,8 @@ this on every screen that shows either badge.
 everywhere without leaving the screen, and the week card and the recipe detail
 never disagree.
 
-### M4.0b — Open the recipe from a re-roll suggestion
+### [x] M4.0b — Open the recipe from a re-roll suggestion
+**Done:** added a "View recipe" link on the candidate card and each near-miss card that pushes `/meal/[id]`; since it's a stack push (not a replace) the re-roll screen stays mounted and its "try another" index survives the round trip via the meal screen's existing Back button.
 **Problem:** `app/reroll/[dayIndex].tsx` shows a candidate's name, cuisine and
 time, but you cannot read the ingredients or steps before committing to it.
 **Fix:** add a "View recipe" action on the candidate card (and on each near-miss)
