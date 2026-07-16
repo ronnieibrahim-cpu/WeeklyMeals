@@ -69,18 +69,24 @@ export function memberFactor(member: HouseholdMember, now: Date): number {
 }
 
 /**
- * Sum member factors, round to the nearest 0.5, floor at 2.0. Assumes
- * `members` is non-empty and meaningful — callers MUST check
+ * Sum member factors and round to the nearest 0.5. A 2.0 floor applies only
+ * once there are 2+ people in the household — its job is to stop a genuine
+ * couple/family from rounding down to less than 2 servings (e.g. two people
+ * who'd otherwise compute to 1.75), not to inflate a household that's
+ * actually just one person. A single adult reads as 1.0, not 2.0; a single
+ * child reads as their own (possibly small) factor, unfloored.
+ *
+ * Assumes `members` is non-empty and meaningful — callers MUST check
  * `members.length === 0` themselves and fall back to `familySize` (see
  * `servingsPerMeal`); this function does NOT special-case emptiness, so
- * `adultEquivalents([], now)` returns 2.0 (the floor), which is
- * indistinguishable from a real floored household and must never be used as
- * an empty-check sentinel.
+ * `adultEquivalents([], now)` returns 0 (no members to sum, and the floor
+ * doesn't apply below 2 people) — a value that must never reach a shopping
+ * list, which is exactly why callers go through `servingsPerMeal` instead.
  */
 export function adultEquivalents(members: HouseholdMember[], now: Date): number {
   const raw = members.reduce((sum, m) => sum + memberFactor(m, now), 0);
   const roundedToHalf = Math.round(raw * 2) / 2;
-  return Math.max(2.0, roundedToHalf);
+  return members.length >= 2 ? Math.max(2.0, roundedToHalf) : roundedToHalf;
 }
 
 /** THE function every other module should call — centralizes the old-profile

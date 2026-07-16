@@ -117,9 +117,12 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    - **Servings (M4.1):** `IntakeAnswers.servingsPerMeal` (not a flat headcount) drives
      generation — `src/engine/portions.ts`'s `adultEquivalents(members, now)` converts
      `Profile.members` (each `{ birthDateISO, ageYears, isChild, eatsLikeAdult }`) into a
-     fractional adult-equivalent number (rounded to the nearest 0.5, floored at 2.0), with
-     a safe fallback to the plain `familySize` headcount when `members` is empty (old
-     profiles). Age is read from `birthDateISO` at generation time, not stored statically —
+     fractional adult-equivalent number (rounded to the nearest 0.5, floored at 2.0 —
+     but the floor only applies once there are 2+ members, so a genuine single adult
+     reads as 1.0, not 2.0; the floor exists to stop a real couple/family rounding
+     down below 2, not to inflate one person), with a safe fallback to the plain
+     `familySize` headcount when `members` is empty (old profiles). Age is read from
+     `birthDateISO` at generation time, not stored statically —
      a household right-sizes itself as a child ages, with zero manual edits.
      `usePlanStore.generate()` re-reads the live profile immediately before generating
      (never trusts stale wizard state). `PlannedMeal.servings` can also be adjusted

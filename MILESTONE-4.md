@@ -98,9 +98,13 @@ is no way to say "cook extra tonight" or "cook less."
   | 1–2 | 0.25 |
   | under 1 | 0 |
 
-  Sum, round to the nearest 0.5, floor at 2.0. (2 adults + a 3-year-old rounds to
-  **2.5 servings**, not 3.) Each member row also gets an optional per-person
-  override ("eats like an adult") for the day the 3-year-old starts inhaling food.
+  Sum, round to the nearest 0.5. A 2.0 floor applies once there are **2+ people**
+  in the household (2 adults + a 3-year-old rounds to **2.5 servings**, not 3) —
+  but a genuine single-person household is never floored: one adult reads as
+  1.0, not 2.0. The floor exists to stop a real couple/family rounding down
+  below 2, not to inflate someone cooking for one. Each member row also gets an
+  optional per-person override ("eats like an adult") for the day the 3-year-old
+  starts inhaling food.
 - `familySize` stays as the plain headcount for display; **`servingsPerMeal` is
   what the engine and shopping list use.** `defaults.ts` maps
   `people: p.familySize` today — that mapping becomes

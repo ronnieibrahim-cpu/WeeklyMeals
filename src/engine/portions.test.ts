@@ -108,8 +108,18 @@ describe('adultEquivalents — rounding and floor', () => {
     expect(adultEquivalents(members, NOW)).toBe(2.0);
   });
 
-  it('a single-adult household also floors at 2.0', () => {
-    expect(adultEquivalents([adult()], NOW)).toBe(2.0);
+  it('a single-adult household reads as exactly 1.0 — the floor only guards 2+ people', () => {
+    expect(adultEquivalents([adult()], NOW)).toBe(1.0);
+  });
+
+  it('a single-child household is not floored either, for the same reason', () => {
+    expect(adultEquivalents([child(3)], NOW)).toBe(0.5);
+  });
+
+  it('the floor still applies once a second person joins, even a small child', () => {
+    // 1 adult + 1 under-1 = 1.0 raw, which would round to itself with no
+    // floor — the floor is what pushes a real 2-person household up to 2.0.
+    expect(adultEquivalents([adult(), child(0)], NOW)).toBe(2.0);
   });
 });
 
