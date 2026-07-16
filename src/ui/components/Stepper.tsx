@@ -11,10 +11,14 @@ interface Props {
   max?: number;
   step?: number;
   onChange: (value: number) => void;
+  /** Custom display formatting (e.g. "2.5" not "2.5000000001" for a 0.5-step
+   * servings count). Defaults to plain `String(value)`, unchanged for every
+   * existing integer-step caller. */
+  format?: (value: number) => string;
 }
 
 /** Compact – value + control. The screen provides the label alongside it. */
-export function Stepper({ value, min = 0, max = 99, step = 1, onChange }: Props) {
+export function Stepper({ value, min = 0, max = 99, step = 1, onChange, format = String }: Props) {
   const theme = useTheme();
 
   const button = (icon: 'remove' | 'add', onPress: () => void, disabled: boolean) => (
@@ -41,7 +45,7 @@ export function Stepper({ value, min = 0, max = 99, step = 1, onChange }: Props)
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.md }}>
       {button('remove', () => onChange(Math.max(min, value - step)), value <= min)}
       <Text variant="headline" style={{ minWidth: 28, textAlign: 'center' }}>
-        {value}
+        {format(value)}
       </Text>
       {button('add', () => onChange(Math.min(max, value + step)), value >= max)}
     </View>

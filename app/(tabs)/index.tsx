@@ -8,7 +8,7 @@ import { allMealsRated } from '@/engine/rating';
 import { dayLabel, todayOffset } from '@/engine/schedule';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
-import { Card, EmptyState, MealCard, Screen, SecondaryButton, Text } from '@/ui/components';
+import { Card, EmptyState, MealCard, Screen, SecondaryButton, ServingsShoppingListPrompt, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function ThisWeekScreen() {
@@ -22,9 +22,16 @@ export default function ThisWeekScreen() {
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
+  const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
   const isKidApproved = useLearningStore((s) => s.isKidApproved);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const [showPast, setShowPast] = useState(false);
+  // M4.1: which meal (if any) just had its servings changed on the
+  // approved plan, and what it was before — drives the inline "Update
+  // shopping list" confirmation. Local-only, never persisted: navigating
+  // away drops the offer rather than nagging later (see planStore's doc
+  // comment on why "old servings" isn't a synced field).
+  const [pendingServings, setPendingServings] = useState<{ dayIndex: number; oldServings: number } | null>(null);
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -130,24 +137,37 @@ export default function ThisWeekScreen() {
     if (!recipe) return null;
     const canReroll = meal.dayIndex >= todayIndex && !meal.cooked;
     return (
-      <MealCard
-        key={meal.dayIndex}
-        recipe={recipe}
-        dayLabel={label}
-        badge={recipe.makesLeftovers ? 'leftovers' : undefined}
-        cooked={meal.cooked}
-        rating={meal.rating}
-        onRate={(rating) => rateMeal(meal.dayIndex, rating)}
-        onReroll={
-          canReroll
-            ? () => router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(meal.dayIndex) } })
-            : undefined
-        }
-        onToggleCooked={() => toggleCooked(meal.dayIndex)}
-        onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-        kidApproved={isKidApproved(recipe.id)}
-        onToggleKidApproved={() => toggleKidApproved(recipe.id)}
-      />
+      <View key={meal.dayIndex}>
+        <MealCard
+          recipe={recipe}
+          dayLabel={label}
+          badge={recipe.makesLeftovers ? 'leftovers' : undefined}
+          cooked={meal.cooked}
+          rating={meal.rating}
+          onRate={(rating) => rateMeal(meal.dayIndex, rating)}
+          onReroll={
+            canReroll
+              ? () => router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(meal.dayIndex) } })
+              : undefined
+          }
+          onToggleCooked={() => toggleCooked(meal.dayIndex)}
+          onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+          kidApproved={isKidApproved(recipe.id)}
+          onToggleKidApproved={() => toggleKidApproved(recipe.id)}
+          servings={meal.servings}
+          onServingsChange={(servings) => {
+            setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
+            setApprovedMealServings(meal.dayIndex, servings);
+          }}
+        />
+        {pendingServings?.dayIndex === meal.dayIndex ? (
+          <ServingsShoppingListPrompt
+            dayIndex={meal.dayIndex}
+            oldServings={pendingServings.oldServings}
+            onResolved={() => setPendingServings(null)}
+          />
+        ) : null}
+      </View>
     );
   };
 
@@ -182,28 +202,7 @@ export default function ThisWeekScreen() {
         </>
       ) : null}
 
-      {tonight && tonightRecipe ? (
-        <MealCard
-          recipe={tonightRecipe}
-          dayLabel="Tonight"
-          badge={tonightRecipe.makesLeftovers ? 'leftovers' : undefined}
-          cooked={tonight.cooked}
-          rating={tonight.rating}
-          onRate={(rating) => rateMeal(tonight.dayIndex, rating)}
-          onReroll={
-            !tonight.cooked
-              ? () =>
-                  router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(tonight.dayIndex) } })
-              : undefined
-          }
-          onToggleCooked={() => toggleCooked(tonight.dayIndex)}
-          onPress={() =>
-            router.push({ pathname: '/meal/[id]', params: { id: tonightRecipe.id } })
-          }
-          kidApproved={isKidApproved(tonightRecipe.id)}
-          onToggleKidApproved={() => toggleKidApproved(tonightRecipe.id)}
-        />
-      ) : null}
+      {tonight && tonightRecipe ? renderMeal(tonight, 'Tonight') : null}
 
       {future.length > 0 ? (
         <Text

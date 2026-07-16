@@ -73,7 +73,7 @@ export class LocalRecommendationEngine implements RecommendationProvider {
 
     return selected.slice(0, ctx.intake.dinners).map((r, index) => ({
       recipeId: r.id,
-      servings: ctx.intake.people,
+      servings: ctx.intake.servingsPerMeal,
       dayIndex: index,
       locked: lockedIds.has(r.id),
     }));

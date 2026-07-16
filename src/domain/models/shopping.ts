@@ -53,3 +53,30 @@ export interface ManualItem {
 
 /** normalizeItemName(displayName) -> ManualItem */
 export type ManualItemMap = Record<string, ManualItem>;
+
+/**
+ * A transient (never persisted, never synced) description of how one meal's
+ * servings change would move the shopping list, used to show "you'll need
+ * 0.4 lb more chicken thighs" before the user taps an explicit button
+ * (M4.1, Product Law #1). See `computeServingsDelta`/`applyShoppingListDelta`
+ * in `engine/shoppingList.ts`.
+ */
+export interface ShoppingListDeltaLine {
+  ingredientName: string;
+  unit: Unit;
+  department: Department;
+  /** Always a positive magnitude — `direction` says which way it moves. */
+  deltaQuantity: number;
+  /** True when applying this delta would take the item's list quantity to
+   * zero or below, in which case the line is removed entirely rather than
+   * left as a 0-quantity row. Disclosed in the confirmation copy before the
+   * tap ("chicken thighs will be removed"), never a silent removal. */
+  removesItem: boolean;
+}
+
+export interface ShoppingListDelta {
+  direction: 'increase' | 'decrease';
+  /** Empty means nothing on the list actually changes (e.g. every affected
+   * ingredient is a pantry staple) — callers should show no confirmation UI. */
+  lines: ShoppingListDeltaLine[];
+}

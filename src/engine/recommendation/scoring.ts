@@ -44,7 +44,7 @@ function varietyBonus(recipe: Recipe, selected: Recipe[]): number {
 }
 
 function budgetFit(recipe: Recipe, ctx: GenerateContext): number {
-  const perMealBudget = ctx.intake.budget / Math.max(1, ctx.intake.dinners) / Math.max(1, ctx.intake.people);
+  const perMealBudget = ctx.intake.budget / Math.max(1, ctx.intake.dinners) / Math.max(1, ctx.intake.servingsPerMeal);
   const cost = roughCostPerServing(recipe);
   if (cost <= perMealBudget) return 1;
   // Soft falloff once over budget.
@@ -151,7 +151,7 @@ function learnedDialsFit(recipe: Recipe, ctx: GenerateContext): number {
   parts.push(prefs.spiceTolerance * SPICE_NUMERIC[recipe.spiceLevel]);
   parts.push(prefs.complexityPreference * DIFFICULTY_NUMERIC[recipe.difficulty]);
 
-  const perMealBudget = ctx.intake.budget / Math.max(1, ctx.intake.dinners) / Math.max(1, ctx.intake.people);
+  const perMealBudget = ctx.intake.budget / Math.max(1, ctx.intake.dinners) / Math.max(1, ctx.intake.servingsPerMeal);
   if (perMealBudget > 0) {
     const cheapness = clampSigned((perMealBudget - roughCostPerServing(recipe)) / perMealBudget);
     parts.push(prefs.budgetSensitivity * cheapness);

@@ -20,6 +20,7 @@ export default function ReviewPlanScreen() {
   const toggleLock = usePlanStore((s) => s.toggleLock);
   const swapCandidates = usePlanStore((s) => s.swapCandidates);
   const swapMealTo = usePlanStore((s) => s.swapMealTo);
+  const setDraftMealServings = usePlanStore((s) => s.setDraftMealServings);
   const approve = usePlanStore((s) => s.approve);
   const discardDraft = usePlanStore((s) => s.discardDraft);
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
@@ -128,6 +129,8 @@ export default function ReviewPlanScreen() {
               onSwap={() => setSwapDayIndex(meal.dayIndex)}
               kidApproved={isKidApproved(recipe.id)}
               onToggleKidApproved={() => toggleKidApproved(recipe.id)}
+              servings={meal.servings}
+              onServingsChange={(servings) => setDraftMealServings(meal.dayIndex, servings)}
             />
           );
         })}

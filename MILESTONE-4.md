@@ -67,7 +67,12 @@ cards.
 
 ---
 
-## [ ] M4.1 — Portions that match who is actually eating
+## [x] M4.1 — Portions that match who is actually eating
+**Landed:** household composition (birthdate-based, ages automatically with zero
+edits) → adult-equivalent servings via `src/engine/portions.ts`; per-meal servings
+stepper; approved-plan servings changes never touch the shopping list without an
+explicit "Update"/"Reduce shopping list" tap. Age bands below corrected to match
+Ronnie's actual directive (birthdate over static age; see `PROJECT.md` §5).
 
 **User problem:** the family is 2 adults + a 3-year-old (a baby will join later),
 but the app treats "people = 3" as three adult portions and over-buys. And there
@@ -79,17 +84,21 @@ is no way to say "cook extra tonight" or "cook less."
 - Profile gains an editable "Who are we cooking for?" section: rows of members,
   each `{ name?: string; ageYears?: number; isChild: boolean }`. Add/remove rows.
 - New pure engine module `src/engine/portions.ts` converting members →
-  **adult-equivalent servings**:
+  **adult-equivalent servings**. Each member stores a **birthdate**
+  (`birthDateISO`), not a static age — the factor is derived at read time
+  against the current date, so the household right-sizes itself as a child
+  grows with zero manual edits (`ageYears` is a fallback only, for an unknown
+  birthdate or pre-migration data):
 
   | member | factor |
   |---|---|
-  | adult / 13+ | 1.0 |
-  | child 8–12 | 0.75 |
-  | child 4–7 | 0.5 |
-  | toddler 1–3 | 0.25 |
+  | adult / 10+ | 1.0 |
+  | 6–9 | 0.75 |
+  | 3–5 | 0.5 |
+  | 1–2 | 0.25 |
   | under 1 | 0 |
 
-  Sum, round to the nearest 0.5, floor at 2.0. (2 adults + a 3-year-old = 2.25 →
+  Sum, round to the nearest 0.5, floor at 2.0. (2 adults + a 3-year-old rounds to
   **2.5 servings**, not 3.) Each member row also gets an optional per-person
   override ("eats like an adult") for the day the 3-year-old starts inhaling food.
 - `familySize` stays as the plain headcount for display; **`servingsPerMeal` is

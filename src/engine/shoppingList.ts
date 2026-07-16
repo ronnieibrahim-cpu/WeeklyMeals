@@ -1,5 +1,5 @@
 import { GroceryProvider } from '@/data/grocery/GroceryProvider';
-import { PlannedMeal, Recipe, RecipeIngredient, ShoppingItem, ShoppingList } from '@/domain/models';
+import { PlannedMeal, Recipe, RecipeIngredient, ShoppingItem, ShoppingList, ShoppingListDelta, ShoppingListDeltaLine } from '@/domain/models';
 
 const lower = (s: string) => s.trim().toLowerCase();
 const round2 = (n: number) => Math.round(n * 100) / 100;
@@ -124,5 +124,129 @@ export function addIngredientsToShoppingList(
 
   const items = Array.from(map.values());
   const estimatedTotal = round2(items.reduce((sum, i) => sum + i.estimatedPrice, 0));
+  return { ...list, items, estimatedTotal };
+}
+
+/**
+ * M4.1: what one meal's servings change would do to the shopping list — for
+ * showing "you'll need 0.4 lb more chicken thighs" (or "0.4 lb less") BEFORE
+ * the user taps an explicit "Update"/"Reduce shopping list" button (Product
+ * Law #1: never silently modify the shopping list). Pure/read-only; pairs
+ * with `applyShoppingListDelta` below, which actually applies it.
+ *
+ * Filtered to the exact same "counts on the shopping list" rules
+ * `buildShoppingList` uses (pantry staples + on-hand pantry items excluded)
+ * so a delta never shows a line for an ingredient the real list would have
+ * excluded in the first place. Lines whose quantity difference rounds to
+ * zero are dropped — an empty result means nothing actually changes, and
+ * callers should show no confirmation UI at all.
+ *
+ * `removesItem` is always `false` here — this function only sees one
+ * recipe's own ingredients, not the live shopping list, so it can't know
+ * whether a decrease would zero out a shared item. Callers that need the
+ * accurate "will be removed" disclosure (the confirmation copy) fill it in
+ * by comparing `deltaQuantity` against the real current item, exactly as
+ * `applyShoppingListDelta` itself does when actually applying the change.
+ */
+export function computeServingsDelta(
+  recipe: Recipe,
+  oldServings: number,
+  newServings: number,
+  pantry: string[],
+): ShoppingListDelta {
+  const direction: 'increase' | 'decrease' = newServings >= oldServings ? 'increase' : 'decrease';
+  const scaleOld = recipe.baseServings > 0 ? oldServings / recipe.baseServings : 1;
+  const scaleNew = recipe.baseServings > 0 ? newServings / recipe.baseServings : 1;
+
+  const lines: ShoppingListDeltaLine[] = [];
+  for (const ing of recipe.ingredients) {
+    if (ing.pantryStaple) continue;
+    if (pantryHas(pantry, ing.name)) continue;
+
+    const delta = round2(Math.abs(ing.quantity * scaleNew - ing.quantity * scaleOld));
+    if (delta <= 0) continue;
+
+    lines.push({ ingredientName: ing.name, unit: ing.unit, department: ing.department, deltaQuantity: delta, removesItem: false });
+  }
+
+  return { direction, lines };
+}
+
+/**
+ * M4.1: apply a previously-computed `ShoppingListDelta` to an EXISTING
+ * shopping list, in place — never a full `buildShoppingList` rebuild, which
+ * would reset every item's `checked` flag to false and silently un-check
+ * everything the family already crossed off. Every field on an untouched or
+ * partially-adjusted item (crucially `checked`/`checkedAtISO`) is preserved
+ * exactly; only `quantity`/`estimatedPrice`/`hebProductName`/`fromRecipeIds`
+ * change on a touched line.
+ *
+ * A decrease that would take an item's quantity to zero or below removes
+ * that line entirely rather than leaving a dead 0-quantity row — safe to do
+ * because each item's quantity on the list is a running SUM across every
+ * meal that uses it, and `line.deltaQuantity` here is only this one meal's
+ * own reduction (its old contribution minus its new, smaller one).
+ * Subtracting one meal's own shrinkage can only zero an item out if this
+ * meal was that item's sole contributor to begin with — it can never eat
+ * into another meal's share. That invariant is what makes it safe to apply
+ * a per-meal delta to a list that's shared and deduplicated across meals.
+ */
+export function applyShoppingListDelta(
+  list: ShoppingList,
+  delta: ShoppingListDelta,
+  recipeId: string,
+  grocery: GroceryProvider,
+): ShoppingList {
+  const map = new Map<string, ShoppingItem>(list.items.map((i) => [`${lower(i.ingredientName)}|${i.unit}`, i]));
+
+  for (const line of delta.lines) {
+    const key = `${lower(line.ingredientName)}|${line.unit}`;
+    const existing = map.get(key);
+
+    if (!existing) {
+      // Only reachable on `increase` (a `decrease` line always corresponds
+      // to an ingredient already on the list, since it was already scaled
+      // in at the old, larger servings count).
+      if (delta.direction === 'increase') {
+        const quantity = round2(line.deltaQuantity);
+        const priced = grocery.priceFor(line.ingredientName, quantity, line.unit, line.department);
+        map.set(key, {
+          ingredientName: line.ingredientName,
+          quantity,
+          unit: line.unit,
+          department: line.department,
+          estimatedPrice: priced.price,
+          hebProductName: priced.productName,
+          checked: false,
+          fromRecipeIds: [recipeId],
+        });
+      }
+      continue;
+    }
+
+    const signed = delta.direction === 'increase' ? line.deltaQuantity : -line.deltaQuantity;
+    const newQty = round2(existing.quantity + signed);
+    if (newQty <= 0) {
+      map.delete(key);
+      continue;
+    }
+
+    const priced = grocery.priceFor(existing.ingredientName, newQty, existing.unit, existing.department);
+    map.set(key, {
+      ...existing,
+      quantity: newQty,
+      estimatedPrice: priced.price,
+      hebProductName: priced.productName,
+      fromRecipeIds: existing.fromRecipeIds.includes(recipeId)
+        ? existing.fromRecipeIds
+        : [...existing.fromRecipeIds, recipeId],
+    });
+  }
+
+  const items = Array.from(map.values());
+  const estimatedTotal = round2(items.reduce((sum, i) => sum + i.estimatedPrice, 0));
+  // costPerServing is left as-is, same as `addIngredientsToShoppingList` —
+  // the caller (planStore) recomputes it from the plan's total servings,
+  // which this function has no visibility into.
   return { ...list, items, estimatedTotal };
 }

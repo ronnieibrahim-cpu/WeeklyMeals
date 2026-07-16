@@ -7,9 +7,11 @@
 > If reality and this file disagree, **fix this file in the same change.**
 >
 > **State:** Milestones 1, 2, and 3 complete (v3.0). Post-v3 adversarial debug
-> sweep complete (`DEBUG-SWEEP.md`) — its P0/P1/P2 fixes are in progress.
-> **Last verified:** July 2026 · typecheck clean · 169 tests green ·
-> 230/230 curated recipes pass content validation.
+> sweep (`DEBUG-SWEEP.md`) P0/P1/P2 fixes landed. M4.0 landed; M4.1 (household
+> composition → adult-equivalent servings) landed — see §5, §6, §7 below.
+> **Last verified:** July 2026 · typecheck clean · 226 tests green ·
+> 230/230 curated recipes pass content validation, 586/586 recipes use
+> canonical allergen labels.
 >
 > **Advisor context, decision rationale, and current open items live in
 > `ADVISOR-HANDOFF.md`. Read that too.**
@@ -45,7 +47,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
 - **Supabase REST (raw fetch, no SDK)** — optional "household sync" between two
   phones; publishable key committed by design, **access must be governed by RLS**
   (see §8 — currently an open security item)
-- **Jest / jest-expo** — engine test suite (**169 tests**); `npx jest` must stay green
+- **Jest / jest-expo** — engine test suite (**226 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**
@@ -87,7 +89,8 @@ src/domain/       models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingLi
 src/engine/       recommendation/ (filters · scoring · LocalRecommendationEngine)
                   shoppingList · cost · learning · season · schedule · reroll ·
                   rating · syncMerge · manualItems · recipeSearch · cookMode ·
-                  userRecipes    (+ a .test.ts beside almost every module)
+                  userRecipes · portions (M4.1: household → adult-equivalent
+                  servings)    (+ a .test.ts beside almost every module)
 src/data/seed/    230 hand-curated recipes (batches 1–8, cookbook-grade content) +
                   recipeImported.ts (~311 TheMealDB imports, GENERATED — never hand-edit)
 src/data/grocery/heb   curated price table, per-lb conversion, dept fallbacks
@@ -105,15 +108,30 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
 1. **Intake** (`plan/index`): full wizard, or a one-tap **"same as last week"** fast
    path (proteins + what's in the fridge only) → `generate()` → **draft** plan.
    A new draft never destroys the live approved plan until approval.
-2. **Review** (`plan/review`): lock / swap / regenerate / **pin a favorite** →
+2. **Review** (`plan/review`): lock / swap / regenerate / **pin a favorite** / adjust
+   any draft meal's **servings** (a −/+ stepper, no confirmation needed pre-approval) →
    `approve()` → status `approved`; shopping list built (scaled by servings,
    deduped by `lowercase(name)|unit`, pantry staples + on-hand items excluded,
    priced by the H-E-B provider) and persisted. **Cost shown at approval equals the
    shopping tab's total** (single source of truth).
+   - **Servings (M4.1):** `IntakeAnswers.servingsPerMeal` (not a flat headcount) drives
+     generation — `src/engine/portions.ts`'s `adultEquivalents(members, now)` converts
+     `Profile.members` (each `{ birthDateISO, ageYears, isChild, eatsLikeAdult }`) into a
+     fractional adult-equivalent number (rounded to the nearest 0.5, floored at 2.0), with
+     a safe fallback to the plain `familySize` headcount when `members` is empty (old
+     profiles). Age is read from `birthDateISO` at generation time, not stored statically —
+     a household right-sizes itself as a child ages, with zero manual edits.
+     `usePlanStore.generate()` re-reads the live profile immediately before generating
+     (never trusts stale wizard state). `PlannedMeal.servings` can also be adjusted
+     per-meal (a stepper on the meal card / meal detail, plus a "Cook extra for lunches
+     (+2)" shortcut).
 3. **During the week:** meals map to **real calendar dates** ("Tonight" means
    tonight). Cook mode, cooked toggles, shopping check-offs, **rate-as-you-go**
    (stars on any meal any time, visible on cards), **strict mid-week re-roll**,
-   **manual grocery items**, favorites, kids-approved badges.
+   **manual grocery items**, favorites, kids-approved badges. A servings change on an
+   **approved** plan (Law #1) never touches the shopping list by itself — it shows the
+   exact delta ("you'll need 0.4 lb more chicken thighs") behind an explicit "Update
+   shopping list" / "Reduce shopping list" button; declining leaves the list untouched.
 4. **Learning:** ratings are the source of truth and the `PreferenceProfile` is
    **recomputed from the full rating history** on every change (structurally
    immune to double-counting). Cuisine/protein/technique/vegetable affinities and
@@ -131,8 +149,10 @@ the identical result regardless of order, or they ping-pong forever.
 - **Per-field newer-timestamp-wins**; a missing timestamp = epoch 0; ties resolve
   deterministically (a real toggle is never silently lost).
 - **`recipeChangedAtISO` gates meal-body divergence:** if two devices hold different
-  recipes for the same day, the newer stamp wins the **entire meal body** — a rating
-  or cooked flag must never attach to a dish that was replaced by a re-roll or a pin.
+  recipes for the same day, the newer stamp wins the **entire meal body** — a rating,
+  cooked flag, or servings value must never attach to a dish that was replaced by a
+  re-roll or a pin. `servings` (M4.1) merges the same way `rating` does — its own
+  `servingsChangedAtISO` stamp, newer-wins, independent of `cooked`/`rating`.
 - **Manual items** are keyed by **normalized name** (two people adding "milk"
   converge to one row) and deleted via **tombstones** (a delete is never resurrected
   by a phone that hasn't caught up). They are **not plan-scoped**: on approving a new

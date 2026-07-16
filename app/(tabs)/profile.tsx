@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { ReactNode } from 'react';
-import { ActivityIndicator, Pressable, View } from 'react-native';
+import { ActivityIndicator, Pressable, TextInput, View } from 'react-native';
 
 import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
 import {
@@ -15,7 +15,8 @@ import {
   PROTEINS,
   SPICE_LEVELS,
 } from '@/domain/constants';
-import { Cuisine, Difficulty, Protein, SpiceLevel } from '@/domain/models';
+import { Cuisine, Difficulty, HouseholdMember, Protein, SpiceLevel } from '@/domain/models';
+import { describeHouseholdServings } from '@/engine/portions';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePantryStore } from '@/stores/pantryStore';
 import { useProfileStore } from '@/stores/profileStore';
@@ -26,12 +27,25 @@ import {
   ChipMultiSelect,
   ChipOption,
   ChipSingleSelect,
+  SecondaryButton,
   SectionHeader,
   Screen,
   Stepper,
   Text,
+  YesNoToggle,
 } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
+import { createId } from '@/utils/id';
+
+const fieldStyle = (theme: ReturnType<typeof useTheme>) => ({
+  borderWidth: 1,
+  borderColor: theme.colors.border,
+  borderRadius: theme.radius.md,
+  paddingVertical: theme.spacing.sm,
+  paddingHorizontal: theme.spacing.md,
+  fontSize: 17,
+  color: theme.colors.text,
+});
 
 function toggle<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((x) => x !== value) : [...arr, value];
@@ -82,6 +96,17 @@ export default function ProfileScreen() {
       </Screen>
     );
   }
+
+  const addMember = () => {
+    const next: HouseholdMember = { id: createId(), isChild: false };
+    update({ members: [...profile.members, next] });
+  };
+  const updateMember = (id: string, patch: Partial<HouseholdMember>) => {
+    update({ members: profile.members.map((m) => (m.id === id ? { ...m, ...patch } : m)) });
+  };
+  const removeMember = (id: string) => {
+    update({ members: profile.members.filter((m) => m.id !== id) });
+  };
 
   return (
     <Screen title="Profile" subtitle="The more I know, the better your plans" headerRight={settingsButton}>
@@ -155,9 +180,104 @@ export default function ProfileScreen() {
         </>
       ) : null}
 
+      <SectionHeader title="Who are we cooking for?" />
+      <Card padded={false}>
+        <Text
+          variant="subhead"
+          color="secondary"
+          style={{ paddingHorizontal: theme.spacing.lg, paddingTop: theme.spacing.md, marginBottom: theme.spacing.sm }}
+        >
+          Portions scale to who's actually eating, not a flat headcount — a toddler doesn't eat like
+          a third adult.
+        </Text>
+
+        {profile.members.map((member) => (
+          <View
+            key={member.id}
+            style={{
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+              borderRadius: theme.radius.md,
+              padding: theme.spacing.md,
+              marginHorizontal: theme.spacing.lg,
+              marginBottom: theme.spacing.sm,
+              gap: theme.spacing.sm,
+            }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.sm }}>
+              <TextInput
+                value={member.name ?? ''}
+                onChangeText={(v) => updateMember(member.id, { name: v || undefined })}
+                placeholder="Name (optional)"
+                placeholderTextColor={theme.colors.textTertiary}
+                style={[fieldStyle(theme), { flex: 1 }]}
+              />
+              <Pressable accessibilityLabel="Remove person" hitSlop={8} onPress={() => removeMember(member.id)}>
+                <Ionicons name="trash-outline" size={20} color={theme.colors.danger} />
+              </Pressable>
+            </View>
+
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.sm }}>
+              <TextInput
+                value={member.birthDateISO ?? ''}
+                onChangeText={(v) => updateMember(member.id, { birthDateISO: v || undefined })}
+                placeholder="Birthday (YYYY-MM-DD)"
+                placeholderTextColor={theme.colors.textTertiary}
+                style={[fieldStyle(theme), { flexGrow: 1, flexBasis: 160 }]}
+              />
+              {!member.birthDateISO ? (
+                <TextInput
+                  value={member.ageYears !== undefined ? String(member.ageYears) : ''}
+                  onChangeText={(v) => updateMember(member.id, { ageYears: v ? Number(v) : undefined })}
+                  placeholder="Age if unknown"
+                  placeholderTextColor={theme.colors.textTertiary}
+                  keyboardType="numeric"
+                  style={[fieldStyle(theme), { flexGrow: 1, flexBasis: 120 }]}
+                />
+              ) : null}
+            </View>
+
+            <View>
+              <Text variant="footnote" color="secondary" style={{ marginBottom: 4 }}>
+                Child?
+              </Text>
+              <YesNoToggle
+                value={member.isChild}
+                onChange={(isChild) => updateMember(member.id, { isChild, eatsLikeAdult: isChild ? member.eatsLikeAdult : undefined })}
+              />
+            </View>
+
+            {member.isChild ? (
+              <View>
+                <Text variant="footnote" color="secondary" style={{ marginBottom: 4 }}>
+                  Eats like an adult now?
+                </Text>
+                <YesNoToggle
+                  value={member.eatsLikeAdult ?? false}
+                  onChange={(eatsLikeAdult) => updateMember(member.id, { eatsLikeAdult })}
+                />
+              </View>
+            ) : null}
+          </View>
+        ))}
+
+        <View style={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.md }}>
+          <SecondaryButton title="+ Add person" onPress={addMember} />
+        </View>
+
+        <Text
+          variant="footnote"
+          color="tertiary"
+          style={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.md }}
+        >
+          {describeHouseholdServings(profile, new Date())}
+          {profile.members.length > 0 ? " — this is what each week's dinners and shopping list scale to." : ''}
+        </Text>
+      </Card>
+
       <SectionHeader title="Household" />
       <Card padded={false}>
-        <RowField label="Family size">
+        <RowField label="Family size (fallback headcount)">
           <Stepper
             value={profile.familySize}
             min={1}

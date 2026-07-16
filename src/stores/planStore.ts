@@ -5,12 +5,13 @@ import { localDraftPlanRepository } from '@/data/repositories/local/LocalDraftPl
 import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
-import { IntakeAnswers, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { IntakeAnswers, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, ShoppingListDelta, WeeklyPlan } from '@/domain/models';
+import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
 import { availableIngredients, missingIngredients, pinnableDays, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localDateString } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
-import { addIngredientsToShoppingList, buildShoppingList } from '@/engine/shoppingList';
+import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
 
 import { useLearningStore } from './learningStore';
@@ -60,6 +61,48 @@ interface PlanState {
   swapMealTo: (dayIndex: number, recipeId: string) => void;
   /** Mark a meal cooked / not cooked (week progress, on the active plan). */
   toggleCooked: (dayIndex: number) => void;
+  /**
+   * M4.1: set one draft meal's servings (−/+ in 0.5 steps, floored at 1).
+   * Draft-only — the shopping list doesn't exist yet at this stage, it's
+   * built fresh at approval as it always was, so there's nothing to
+   * silently touch (Product Law #1 doesn't apply here — see
+   * `previewShoppingList`, which already recomputes live from the draft's
+   * meals on every call).
+   */
+  setDraftMealServings: (dayIndex: number, servings: number) => void;
+  /**
+   * M4.1: set one meal's servings on the ACTIVE (approved) plan. Stamps
+   * `servingsChangedAtISO` for sync. Updates the meal immediately (so the
+   * stepper, cook mode, and recipe detail all reflect it right away) but
+   * does NOT touch `cooked`/`rating` (unlike `rerollMeal` — changing the
+   * portion size doesn't invalidate whether it was cooked or how it was
+   * rated) and — critically — does NOT touch `shoppingList` (Product Law
+   * #1). Pair with `previewServingsDelta`/`applyServingsDeltaToShoppingList`
+   * for the explicit, separate shopping-list update.
+   */
+  setApprovedMealServings: (dayIndex: number, servings: number) => void;
+  /**
+   * M4.1: read-only preview of what `applyServingsDeltaToShoppingList`
+   * would do for one meal, given its servings BEFORE the most recent
+   * `setApprovedMealServings` call (the caller — the screen — is
+   * responsible for remembering `oldServings` locally at the moment of the
+   * tap; see planStore's own doc comment on why this isn't a second
+   * persisted field). Returns `null` when there's nothing to show (no
+   * plan/recipe, or every affected ingredient is a pantry staple/already on
+   * hand) — callers should render no confirmation UI in that case.
+   */
+  previewServingsDelta: (dayIndex: number, oldServings: number) => ShoppingListDelta | null;
+  /**
+   * M4.1: THE one action behind both "Update shopping list" (increase) and
+   * "Reduce shopping list" (decrease) — direction is always recomputed from
+   * real data (`oldServings` vs. the meal's current live `servings`), never
+   * trusted from UI state, so the UI can never show the wrong button for
+   * what's actually about to happen. Edits the existing `ShoppingList` in
+   * place (via `applyShoppingListDelta`) — never a full rebuild, which
+   * would silently un-check every item. Never called automatically; wired
+   * only to the explicit "Update"/"Reduce shopping list" button.
+   */
+  applyServingsDeltaToShoppingList: (dayIndex: number, oldServings: number) => void;
   /**
    * Set/edit the star rating for one meal on the active plan (M2.1) — any
    * meal, any time, not gated on `cooked`. Persists the rating on the plan
@@ -171,6 +214,13 @@ function listFor(plan: WeeklyPlan): ShoppingList {
   return buildShoppingList(plan.id, plan.meals, getAnyRecipe, pantry, hebProvider);
 }
 
+const round2 = (n: number) => Math.round(n * 100) / 100;
+
+/** −/+ in 0.5 steps, floored at 1 (a meal can't be planned for less than one portion). */
+function clampServings(n: number): number {
+  return Math.max(1, Math.round(n * 2) / 2);
+}
+
 export const usePlanStore = create<PlanState>((set, get) => ({
   intake: null,
   plan: null,
@@ -234,16 +284,24 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const intake = get().intake;
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!intake) return;
-    const meals = localRecommendationEngine.generate(context(intake, profile, []), allRecipesList());
+    // Re-read the live household composition right before generating,
+    // rather than trusting whatever `servingsPerMeal` happened to be seeded
+    // into wizard state — a household change made mid-session (or a stale
+    // "same as last week" recap) must never silently drive stale
+    // shopping-list math (M4.1). This is what makes "a baby will join
+    // later" actually work: no wizard re-visit required, just an edit on
+    // the Profile screen.
+    const liveIntake: IntakeAnswers = { ...intake, servingsPerMeal: computeServingsPerMeal(profile, new Date()) };
+    const meals = localRecommendationEngine.generate(context(liveIntake, profile, []), allRecipesList());
     const draftPlan: WeeklyPlan = {
       id: createId(),
       weekStartISO: localDateString(),
-      intake,
+      intake: liveIntake,
       meals,
       status: 'draft',
       createdAtISO: new Date().toISOString(),
     };
-    set({ draftPlan });
+    set({ draftPlan, intake: liveIntake });
     persistDraft(draftPlan);
   },
 
@@ -306,6 +364,73 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const next = { ...plan, meals };
     set({ plan: next });
     persist(next);
+  },
+
+  setDraftMealServings: (dayIndex, servings) => {
+    const draftPlan = get().draftPlan;
+    if (!draftPlan) return;
+    const clamped = clampServings(servings);
+    const meals = draftPlan.meals.map((m) => (m.dayIndex === dayIndex ? { ...m, servings: clamped } : m));
+    const next = { ...draftPlan, meals };
+    set({ draftPlan: next });
+    persistDraft(next);
+  },
+
+  setApprovedMealServings: (dayIndex, servings) => {
+    const plan = get().plan;
+    if (!plan) return;
+    const clamped = clampServings(servings);
+    const now = new Date().toISOString();
+    const meals = plan.meals.map((m) =>
+      m.dayIndex === dayIndex ? { ...m, servings: clamped, servingsChangedAtISO: now } : m,
+    );
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+  },
+
+  previewServingsDelta: (dayIndex, oldServings) => {
+    const plan = get().plan;
+    const list = get().shoppingList;
+    if (!plan || !list) return null;
+    const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    const recipe = meal ? getAnyRecipe(meal.recipeId) : undefined;
+    if (!meal || !recipe) return null;
+    const pantry = usePantryStore.getState().items;
+    const delta = computeServingsDelta(recipe, oldServings, meal.servings, pantry);
+    if (delta.lines.length === 0) return null;
+    // Fill in `removesItem` for display: computeServingsDelta only sees the
+    // recipe's own ingredients, not the live list, so it can't know whether
+    // a decrease would zero out a shared item — check the real current
+    // quantity here so the confirmation copy can say "will be removed"
+    // truthfully before the tap, never after.
+    const lines = delta.lines.map((line) => {
+      const existing = list.items.find(
+        (i) => i.ingredientName.toLowerCase() === line.ingredientName.toLowerCase() && i.unit === line.unit,
+      );
+      const removesItem =
+        delta.direction === 'decrease' && !!existing && round2(existing.quantity - line.deltaQuantity) <= 0;
+      return { ...line, removesItem };
+    });
+    return { ...delta, lines };
+  },
+
+  applyServingsDeltaToShoppingList: (dayIndex, oldServings) => {
+    const plan = get().plan;
+    const list = get().shoppingList;
+    if (!plan || !list) return;
+    const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    const recipe = meal ? getAnyRecipe(meal.recipeId) : undefined;
+    if (!meal || !recipe) return;
+    const pantry = usePantryStore.getState().items;
+    const delta = computeServingsDelta(recipe, oldServings, meal.servings, pantry);
+    if (delta.lines.length === 0) return;
+    const updatedList = applyShoppingListDelta(list, delta, meal.recipeId, hebProvider);
+    const totalServings = plan.meals.reduce((s, m) => s + m.servings, 0);
+    const costPerServing = totalServings ? round2(updatedList.estimatedTotal / totalServings) : 0;
+    const next = { ...updatedList, costPerServing };
+    set({ shoppingList: next });
+    persistList(next);
   },
 
   rateMeal: (dayIndex, rating, extra) => {

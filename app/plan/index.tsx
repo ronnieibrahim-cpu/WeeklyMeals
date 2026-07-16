@@ -17,7 +17,8 @@ import {
   PROTEINS,
 } from '@/domain/constants';
 import { createDefaultProfile, createIntakeFromProfile } from '@/domain/defaults';
-import { Cuisine, IntakeAnswers, Protein } from '@/domain/models';
+import { Cuisine, IntakeAnswers, Profile, Protein } from '@/domain/models';
+import { describeHouseholdServings, formatServings } from '@/engine/portions';
 import { usePantryStore } from '@/stores/pantryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
@@ -35,9 +36,11 @@ import {
 } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
-/** One-line recap shown on the fast-intake choice screen (M2.3). */
+/** One-line recap shown on the fast-intake choice screen (M2.3). Reads what
+ * was actually used to generate last week's plan — not the live household —
+ * since this is a factual recap of the past, not a preview of what's next. */
 function lastWeekSummary(intake: IntakeAnswers): string {
-  return `Last week: ${intake.dinners} dinner${intake.dinners === 1 ? '' : 's'} for ${intake.people}, ~$${intake.budget}, ${intake.maxPrepMinutes}+${intake.maxCookMinutes} min prep+cook.`;
+  return `Last week: ${intake.dinners} dinner${intake.dinners === 1 ? '' : 's'} for ${formatServings(intake.servingsPerMeal)} portions, ~$${intake.budget}, ${intake.maxPrepMinutes}+${intake.maxCookMinutes} min prep+cook.`;
 }
 
 function toggle<T>(arr: T[], value: T): T[] {
@@ -108,12 +111,23 @@ export default function PlanIntakeScreen() {
     {
       key: 'dinners',
       title: 'How many dinners this week?',
-      control: centeredStepper(answers.dinners, 'dinners', (dinners) => patch({ dinners }), 1, 7),
-    },
-    {
-      key: 'people',
-      title: 'How many people are you cooking for?',
-      control: centeredStepper(answers.people, 'people', (people) => patch({ people }), 1, 12),
+      control: (
+        <View>
+          {centeredStepper(answers.dinners, 'dinners', (dinners) => patch({ dinners }), 1, 7)}
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => router.push('/(tabs)/profile')}
+            style={{ alignItems: 'center', marginTop: theme.spacing.xl }}
+          >
+            <Text variant="subhead" color="secondary">
+              Cooking for: {describeHouseholdServings(profile ?? createDefaultProfile(), new Date())}{' '}
+              <Text variant="subhead" color="accent">
+                (edit)
+              </Text>
+            </Text>
+          </Pressable>
+        </View>
+      ),
     },
     {
       key: 'budget',
@@ -233,7 +247,7 @@ export default function PlanIntakeScreen() {
       title: 'You’re all set 🎉',
       subtitle: 'Here’s what I’ll plan around this week.',
       continueLabel: 'Build my week 🍳',
-      control: <IntakeSummary answers={answers} />,
+      control: <IntakeSummary answers={answers} profile={profile ?? createDefaultProfile()} />,
     },
   ];
 
@@ -320,7 +334,7 @@ export default function PlanIntakeScreen() {
   );
 }
 
-function IntakeSummary({ answers }: { answers: IntakeAnswers }) {
+function IntakeSummary({ answers, profile }: { answers: IntakeAnswers; profile: Profile }) {
   const theme = useTheme();
   const pantryCount = usePantryStore((s) => s.items.length);
   const cuisines =
@@ -330,7 +344,8 @@ function IntakeSummary({ answers }: { answers: IntakeAnswers }) {
   const vibe = ['Healthy', 'Balanced', 'Comfort'][Math.round(answers.healthyVsComfort * 2)] ?? 'Balanced';
 
   const rows: [string, string][] = [
-    ['Dinners', `${answers.dinners} for ${answers.people}`],
+    ['Dinners', `${answers.dinners}`],
+    ['Cooking for', describeHouseholdServings(profile, new Date())],
     ['Budget', `$${answers.budget}`],
     ['Time limit', `${answers.maxPrepMinutes}m prep · ${answers.maxCookMinutes}m cook`],
     ['Cuisines', cuisines],

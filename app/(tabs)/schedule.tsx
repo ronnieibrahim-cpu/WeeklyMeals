@@ -1,10 +1,11 @@
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
 import { dateForDayIndex } from '@/engine/schedule';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
-import { Card, EmptyState, MealCard, Screen, Text } from '@/ui/components';
+import { Card, EmptyState, MealCard, Screen, ServingsShoppingListPrompt, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function ScheduleScreen() {
@@ -15,8 +16,11 @@ export default function ScheduleScreen() {
   const recipeFor = usePlanStore((s) => s.recipeFor);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
+  const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
   const isKidApproved = useLearningStore((s) => s.isKidApproved);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
+  // M4.1: see app/(tabs)/index.tsx for why this is local-only, not persisted.
+  const [pendingServings, setPendingServings] = useState<{ dayIndex: number; oldServings: number } | null>(null);
 
   if (!hydrated) {
     return (
@@ -78,7 +82,19 @@ export default function ScheduleScreen() {
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
               kidApproved={isKidApproved(recipe.id)}
               onToggleKidApproved={() => toggleKidApproved(recipe.id)}
+              servings={meal.servings}
+              onServingsChange={(servings) => {
+                setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
+                setApprovedMealServings(meal.dayIndex, servings);
+              }}
             />
+            {pendingServings?.dayIndex === meal.dayIndex ? (
+              <ServingsShoppingListPrompt
+                dayIndex={meal.dayIndex}
+                oldServings={pendingServings.oldServings}
+                onResolved={() => setPendingServings(null)}
+              />
+            ) : null}
           </View>
         );
       })}

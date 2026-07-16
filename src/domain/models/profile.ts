@@ -1,8 +1,22 @@
 import { Cuisine, Difficulty, Protein, SpiceLevel } from './common';
 
 export interface HouseholdMember {
+  id: string;
+  name?: string;
+  /** Local calendar date, `YYYY-MM-DD` (same format as `weekStartISO` — see
+   * `localDateString`/`parseWeekStart` in `engine/schedule.ts`). The
+   * preferred source for a member's age: since the portion factor is
+   * derived from it at read time (see `engine/portions.ts`), a household
+   * right-sizes itself as a child grows with zero manual edits. */
+  birthDateISO?: string;
+  /** Fallback only, used when `birthDateISO` is unknown (or for
+   * pre-migration rows that predate it). A static age goes stale — prefer
+   * `birthDateISO` whenever it's known. */
   ageYears?: number;
   isChild: boolean;
+  /** Per-person override ("eats like an adult") — always counts as a full
+   * adult-equivalent serving regardless of computed age. */
+  eatsLikeAdult?: boolean;
 }
 
 /** The household's long-lived preferences. Seeds intake defaults and the engine. */

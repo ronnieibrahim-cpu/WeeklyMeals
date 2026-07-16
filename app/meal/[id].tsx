@@ -4,11 +4,23 @@ import { useState } from 'react';
 import { Linking, Pressable, View } from 'react-native';
 
 import { RECIPE_IMAGE_ATTRIBUTION } from '@/data/recipeImages';
+import { formatServings } from '@/engine/portions';
 import { isUserRecipe } from '@/engine/userRecipes';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipesById, useUserRecipesStore } from '@/stores/userRecipesStore';
-import { Card, EmptyState, PrimaryButton, RecipeImage, Screen, SecondaryButton, StarRating, Text } from '@/ui/components';
+import {
+  Card,
+  EmptyState,
+  PrimaryButton,
+  RecipeImage,
+  Screen,
+  SecondaryButton,
+  ServingsShoppingListPrompt,
+  StarRating,
+  Stepper,
+  Text,
+} from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function MealDetailScreen() {
@@ -27,7 +39,14 @@ export default function MealDetailScreen() {
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
+  const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
   const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
+  // M4.1: the servings value just before the most recent change on this
+  // screen — see app/(tabs)/index.tsx for why this is local-only, not
+  // persisted. Every meal shown here is on the approved plan (`plannedMeal`
+  // only resolves from `plan.status === 'approved'`), so a change here
+  // always needs the confirmation, never the no-confirm draft path.
+  const [oldServings, setOldServings] = useState<number | null>(null);
 
   const photoAttribution = recipe ? RECIPE_IMAGE_ATTRIBUTION[recipe.id] : undefined;
   const isFavorite = recipe ? favorites.includes(recipe.id) : false;
@@ -215,6 +234,46 @@ export default function MealDetailScreen() {
             />
           </View>
         </Card>
+      ) : null}
+
+      {plannedMeal ? (
+        <Card style={{ marginTop: theme.spacing.lg }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Text variant="headline">Portions</Text>
+            <Stepper
+              value={plannedMeal.servings}
+              min={1}
+              step={0.5}
+              format={formatServings}
+              onChange={(servings) => {
+                setOldServings(plannedMeal.servings);
+                setApprovedMealServings(plannedMeal.dayIndex, servings);
+              }}
+            />
+          </View>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Cook extra for lunches"
+            hitSlop={6}
+            style={{ marginTop: theme.spacing.sm }}
+            onPress={() => {
+              setOldServings(plannedMeal.servings);
+              setApprovedMealServings(plannedMeal.dayIndex, plannedMeal.servings + 2);
+            }}
+          >
+            <Text variant="caption" color="accent">
+              Cook extra for lunches (+2)
+            </Text>
+          </Pressable>
+        </Card>
+      ) : null}
+
+      {plannedMeal && oldServings !== null ? (
+        <ServingsShoppingListPrompt
+          dayIndex={plannedMeal.dayIndex}
+          oldServings={oldServings}
+          onResolved={() => setOldServings(null)}
+        />
       ) : null}
 
       <Text variant="title3" style={{ marginTop: theme.spacing.xl, marginBottom: theme.spacing.sm }}>

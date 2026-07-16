@@ -29,11 +29,20 @@ export function createDefaultProfile(): Profile {
   };
 }
 
-/** Seed this week's intake from the saved profile (the user can tweak each answer). */
+/**
+ * Seed this week's intake from the saved profile (the user can tweak each
+ * answer). `servingsPerMeal` here is a plain placeholder (`familySize`, the
+ * old flat headcount) — this file is `src/domain/`, which by design depends
+ * on nothing, so it can't reach into `engine/portions.ts` for the real
+ * adult-equivalent math. The authoritative value is computed by
+ * `usePlanStore.generate()` (which already depends on the engine layer)
+ * immediately before generating, overwriting whatever's here — so this
+ * placeholder is never actually used to size a shopping list.
+ */
 export function createIntakeFromProfile(p: Profile): IntakeAnswers {
   return {
     dinners: 7,
-    people: p.familySize,
+    servingsPerMeal: p.familySize,
     budget: p.weeklyBudget,
     maxPrepMinutes: 20,
     maxCookMinutes: p.avgCookMinutes,

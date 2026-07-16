@@ -2,11 +2,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { Pressable, View } from 'react-native';
 
 import { Recipe } from '@/domain/models';
+import { formatServings } from '@/engine/portions';
 import { useTheme } from '@/ui/theme/useTheme';
 
 import { Card } from './Card';
 import { RecipeImage } from './RecipeImage';
 import { StarRating } from './StarRating';
+import { Stepper } from './Stepper';
 import { Text } from './Text';
 
 interface Props {
@@ -29,6 +31,13 @@ interface Props {
    * `onToggleKidApproved` shows a tappable badge next to the dish name. */
   kidApproved?: boolean;
   onToggleKidApproved?: () => void;
+  /** M4.1: this meal's current planned servings. Presence of
+   * `onServingsChange` shows a −/+ stepper (0.5 steps) plus a one-tap "Cook
+   * extra for lunches (+2)" shortcut. Whether that change needs a follow-up
+   * shopping-list confirmation is entirely the caller's concern (draft vs.
+   * approved) — this card only reports the new value. */
+  servings?: number;
+  onServingsChange?: (servings: number) => void;
 }
 
 /** Compact meal card used on This Week and the Review screen. */
@@ -47,6 +56,8 @@ export function MealCard({
   onToggleCooked,
   kidApproved,
   onToggleKidApproved,
+  servings,
+  onServingsChange,
 }: Props) {
   const theme = useTheme();
   const showActions = !!(onToggleLock || onSwap);
@@ -113,6 +124,28 @@ export function MealCard({
                   </Text>
                 </Pressable>
               ) : null}
+            </View>
+          ) : null}
+          {onServingsChange && servings !== undefined ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: theme.spacing.sm,
+              }}
+            >
+              <Stepper value={servings} min={1} step={0.5} format={formatServings} onChange={onServingsChange} />
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Cook extra for lunches"
+                hitSlop={6}
+                onPress={() => onServingsChange(servings + 2)}
+              >
+                <Text variant="caption" color="accent">
+                  Cook extra for lunches (+2)
+                </Text>
+              </Pressable>
             </View>
           ) : null}
         </View>

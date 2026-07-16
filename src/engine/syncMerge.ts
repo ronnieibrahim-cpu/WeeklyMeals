@@ -238,7 +238,15 @@ function mergeStatus(a: PlanStatus, b: PlanStatus): PlanStatus {
 }
 
 function mealBaseKey(m: PlannedMeal): string {
-  const { cooked: _cooked, cookedAtISO: _cookedAtISO, rating: _rating, ratedAtISO: _ratedAtISO, ...rest } = m;
+  const {
+    cooked: _cooked,
+    cookedAtISO: _cookedAtISO,
+    rating: _rating,
+    ratedAtISO: _ratedAtISO,
+    servings: _servings,
+    servingsChangedAtISO: _servingsChangedAtISO,
+    ...rest
+  } = m;
   return stableStringify(rest);
 }
 
@@ -267,6 +275,24 @@ function resolveRating(a: PlannedMeal, b: PlannedMeal): Pick<PlannedMeal, 'ratin
   return chooseBase(aVal, bVal, stableStringify);
 }
 
+/** Resolve `servings`/`servingsChangedAtISO` between two sides of the same
+ * meal (M4.1): structurally identical to `resolveRating` — a numeric value,
+ * not a boolean, so a tie (including both missing) falls back to the same
+ * deterministic, commutative tie-break rather than "true wins". Excluded
+ * from `mealBaseKey` (like `cooked`/`rating`) so a servings-only edit merges
+ * independently instead of looking like a diverged meal body. */
+function resolveServings(a: PlannedMeal, b: PlannedMeal): Pick<PlannedMeal, 'servings' | 'servingsChangedAtISO'> {
+  const aTs = tsOf(a.servingsChangedAtISO);
+  const bTs = tsOf(b.servingsChangedAtISO);
+  if (aTs !== bTs) {
+    const later = aTs > bTs ? a : b;
+    return { servings: later.servings, servingsChangedAtISO: later.servingsChangedAtISO ?? null };
+  }
+  const aVal = { servings: a.servings, servingsChangedAtISO: a.servingsChangedAtISO ?? null };
+  const bVal = { servings: b.servings, servingsChangedAtISO: b.servingsChangedAtISO ?? null };
+  return chooseBase(aVal, bVal, stableStringify);
+}
+
 /** Resolve two meal bodies that disagree on `recipeId` (M2.2: one side
  * re-rolled that day to a different dish). These are NOT merged
  * field-by-field — a `cooked`/`rating` describing the outgoing dish must
@@ -285,11 +311,16 @@ function resolveDivergedRecipe(a: PlannedMeal, b: PlannedMeal): PlannedMeal {
 /**
  * Merge two copies of the SAME plan (caller must check `a.id === b.id`).
  * Meals are matched by dayIndex. If both sides agree on `recipeId`, they're
- * progress on the same dish: whichever side toggled `cooked` or set/edited
- * `rating` more recently wins that piece of that meal's state,
- * independently (see `resolveCooked`/`resolveRating`). If the sides
- * disagree on `recipeId` (M2.2 re-roll), the two meal bodies are resolved
- * atomically instead — see `resolveDivergedRecipe`. weekStartISO/intake/
+ * progress on the same dish: whichever side toggled `cooked`, set/edited
+ * `rating`, or changed `servings` more recently wins that piece of that
+ * meal's state, independently (see `resolveCooked`/`resolveRating`/
+ * `resolveServings`). If the sides disagree on `recipeId` (M2.2 re-roll),
+ * the two meal bodies are resolved atomically instead — see
+ * `resolveDivergedRecipe` — which is what makes a servings edit racing a
+ * re-roll on the same meal come out correctly: `resolveDivergedRecipe`
+ * returns the ENTIRE winning meal object (servings included), gated purely
+ * on `recipeChangedAtISO`, regardless of how fresh the losing side's
+ * `servingsChangedAtISO` happens to be (see syncMerge.test.ts). weekStartISO/intake/
  * createdAtISO are set once at generation and never mutated afterwards by
  * any store action, so they're identical between two copies of the same
  * plan id by construction — status is the only other WeeklyPlan-level
@@ -306,7 +337,7 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
     if (am && bm) {
       if (am.recipeId !== bm.recipeId) return resolveDivergedRecipe(am, bm);
       const base = chooseBase(am, bm, mealBaseKey);
-      return { ...base, ...resolveCooked(am, bm), ...resolveRating(am, bm) };
+      return { ...base, ...resolveCooked(am, bm), ...resolveRating(am, bm), ...resolveServings(am, bm) };
     }
     return (am ?? bm)!;
   });
