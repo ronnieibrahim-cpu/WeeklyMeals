@@ -67,12 +67,14 @@ cards.
 
 ---
 
-## [x] M4.1 — Portions that match who is actually eating
-**Landed:** household composition (birthdate-based, ages automatically with zero
-edits) → adult-equivalent servings via `src/engine/portions.ts`; per-meal servings
-stepper; approved-plan servings changes never touch the shopping list without an
-explicit "Update"/"Reduce shopping list" tap. Age bands below corrected to match
-Ronnie's actual directive (birthdate over static age; see `PROJECT.md` §5).
+## [ ] M4.1 — Portions that match who is actually eating
+**Revision (Product Owner's call, 2026-07-16):** an earlier pass built this with
+birthdate-based aging (`birthDateISO`, computed age-at-read-time, an "ages three
+years automatically" test). Simplified back to a plain per-member `ageYears`
+number — smaller surface, no date parsing, no `now`-threading through
+`portions.ts`, one fewer thing that can go subtly wrong for a household of four.
+The table and bullets below describe the simplified target; the currently-landed
+code still has the birthdate version pending this revision.
 
 **User problem:** the family is 2 adults + a 3-year-old (a baby will join later),
 but the app treats "people = 3" as three adult portions and over-buys. And there
@@ -82,13 +84,13 @@ is no way to say "cook extra tonight" or "cook less."
 - `Profile.members: HouseholdMember[]` already exists in the model and is **dead
   code — never populated, never read**. Make it real.
 - Profile gains an editable "Who are we cooking for?" section: rows of members,
-  each `{ name?: string; ageYears?: number; isChild: boolean }`. Add/remove rows.
+  each `{ name?: string; ageYears?: number; isChild: boolean; eatsLikeAdult?:
+  boolean }`. Add/remove rows. **No birthdate field** — age is a plain number the
+  user types in and updates by hand as their kids grow (accepted tradeoff for
+  simplicity; revisit only if this becomes real friction).
 - New pure engine module `src/engine/portions.ts` converting members →
-  **adult-equivalent servings**. Each member stores a **birthdate**
-  (`birthDateISO`), not a static age — the factor is derived at read time
-  against the current date, so the household right-sizes itself as a child
-  grows with zero manual edits (`ageYears` is a fallback only, for an unknown
-  birthdate or pre-migration data):
+  **adult-equivalent servings**, entirely static (no date/`now` dependency
+  anywhere in this module):
 
   | member | factor |
   |---|---|
@@ -98,18 +100,25 @@ is no way to say "cook extra tonight" or "cook less."
   | 1–2 | 0.25 |
   | under 1 | 0 |
 
-  Sum, round to the nearest 0.5. A 2.0 floor applies once there are **2+ people**
-  in the household (2 adults + a 3-year-old rounds to **2.5 servings**, not 3) —
-  but a genuine single-person household is never floored: one adult reads as
-  1.0, not 2.0. The floor exists to stop a real couple/family rounding down
-  below 2, not to inflate someone cooking for one. Each member row also gets an
-  optional per-person override ("eats like an adult") for the day the 3-year-old
-  starts inhaling food.
-- `familySize` stays as the plain headcount for display; **`servingsPerMeal` is
-  what the engine and shopping list use.** `defaults.ts` maps
-  `people: p.familySize` today — that mapping becomes
-  `servingsPerMeal: adultEquivalents(profile.members)` with a safe fallback to
-  `familySize` when `members` is empty (old profiles must keep working).
+  A member with `isChild: true` and no `ageYears` set defaults to the 0.5 middle
+  bracket. Sum, round to the nearest 0.5. A 2.0 floor applies once there are
+  **2+ people** in the household (2 adults + a 3-year-old rounds to **2.5
+  servings**, not 3) — but a genuine single-person household is never floored:
+  one adult reads as 1.0, not 2.0. The floor exists to stop a real couple/family
+  rounding down below 2, not to inflate someone cooking for one. Each member row
+  also gets an optional per-person override ("eats like an adult") for the day
+  the 3-year-old starts inhaling food.
+- `familySize` becomes an **invisible migration fallback only** — no visible
+  "Family size" control on the Profile screen anymore (the members list is the
+  single source of truth; two competing controls for the same number is worse,
+  not better). It's read in exactly one place, `servingsPerMeal()`, when
+  `members` is empty, so a profile saved before this shipped (which has
+  `familySize` and no members) still computes a sane number the first time it
+  loads post-upgrade. The moment the household has any members, `familySize` is
+  never read again. On first load with an empty members list, the "Who are we
+  cooking for?" section starts empty with an "+ Add person" prompt, and the old
+  `familySize` number is used silently (no popup, no confirmation — Law #1 is
+  about the shopping list, not this) until the user adds people.
 - Intake shows it as one line — "Cooking for: 2 adults + 1 child = 2.5 portions
   (edit)" — not a new wizard step. **Remove clicks, don't add settings.**
 
