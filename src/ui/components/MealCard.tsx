@@ -127,20 +127,14 @@ export function MealCard({
             </View>
           ) : null}
           {onServingsChange && servings !== undefined ? (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginTop: theme.spacing.sm,
-              }}
-            >
+            <View style={{ marginTop: theme.spacing.sm, gap: 4 }}>
               <Stepper value={servings} min={1} step={0.5} format={formatServings} onChange={onServingsChange} />
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Cook extra for lunches"
                 hitSlop={6}
                 onPress={() => onServingsChange(servings + 2)}
+                style={{ alignSelf: 'flex-start' }}
               >
                 <Text variant="caption" color="accent">
                   Cook extra for lunches (+2)
