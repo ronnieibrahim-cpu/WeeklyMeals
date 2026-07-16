@@ -291,7 +291,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     // shopping-list math (M4.1). This is what makes "a baby will join
     // later" actually work: no wizard re-visit required, just an edit on
     // the Profile screen.
-    const liveIntake: IntakeAnswers = { ...intake, servingsPerMeal: computeServingsPerMeal(profile, new Date()) };
+    const liveIntake: IntakeAnswers = { ...intake, servingsPerMeal: computeServingsPerMeal(profile) };
     const meals = localRecommendationEngine.generate(context(liveIntake, profile, []), allRecipesList());
     const draftPlan: WeeklyPlan = {
       id: createId(),

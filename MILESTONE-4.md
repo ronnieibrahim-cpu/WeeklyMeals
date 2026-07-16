@@ -67,14 +67,16 @@ cards.
 
 ---
 
-## [ ] M4.1 — Portions that match who is actually eating
-**Revision (Product Owner's call, 2026-07-16):** an earlier pass built this with
-birthdate-based aging (`birthDateISO`, computed age-at-read-time, an "ages three
-years automatically" test). Simplified back to a plain per-member `ageYears`
-number — smaller surface, no date parsing, no `now`-threading through
-`portions.ts`, one fewer thing that can go subtly wrong for a household of four.
-The table and bullets below describe the simplified target; the currently-landed
-code still has the birthdate version pending this revision.
+## [x] M4.1 — Portions that match who is actually eating
+**Landed** (revised 2026-07-16, Product Owner's call): household composition
+(plain per-member `ageYears`, no birthdate) → adult-equivalent servings via
+`src/engine/portions.ts`; `familySize` is an invisible migration-only fallback
+with no visible Profile control; per-meal servings stepper; approved-plan
+servings changes never touch the shopping list without an explicit
+"Update"/"Reduce shopping list" tap. An earlier pass built this with
+birthdate-based aging (computed age-at-read-time, an "ages three years
+automatically" test) — simplified back to a plain number for a smaller,
+easier-to-reason-about surface.
 
 **User problem:** the family is 2 adults + a 3-year-old (a baby will join later),
 but the app treats "people = 3" as three adult portions and over-buys. And there

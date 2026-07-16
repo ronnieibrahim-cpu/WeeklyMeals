@@ -9,7 +9,7 @@
 > **State:** Milestones 1, 2, and 3 complete (v3.0). Post-v3 adversarial debug
 > sweep (`DEBUG-SWEEP.md`) P0/P1/P2 fixes landed. M4.0 landed; M4.1 (household
 > composition → adult-equivalent servings) landed — see §5, §6, §7 below.
-> **Last verified:** July 2026 · typecheck clean · 226 tests green ·
+> **Last verified:** July 2026 · typecheck clean · 224 tests green ·
 > 230/230 curated recipes pass content validation, 586/586 recipes use
 > canonical allergen labels.
 >
@@ -47,7 +47,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
 - **Supabase REST (raw fetch, no SDK)** — optional "household sync" between two
   phones; publishable key committed by design, **access must be governed by RLS**
   (see §8 — currently an open security item)
-- **Jest / jest-expo** — engine test suite (**226 tests**); `npx jest` must stay green
+- **Jest / jest-expo** — engine test suite (**224 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**
@@ -115,15 +115,18 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    priced by the H-E-B provider) and persisted. **Cost shown at approval equals the
    shopping tab's total** (single source of truth).
    - **Servings (M4.1):** `IntakeAnswers.servingsPerMeal` (not a flat headcount) drives
-     generation — `src/engine/portions.ts`'s `adultEquivalents(members, now)` converts
-     `Profile.members` (each `{ birthDateISO, ageYears, isChild, eatsLikeAdult }`) into a
+     generation — `src/engine/portions.ts`'s `adultEquivalents(members)` converts
+     `Profile.members` (each `{ name?, ageYears?, isChild, eatsLikeAdult? }`) into a
      fractional adult-equivalent number (rounded to the nearest 0.5, floored at 2.0 —
      but the floor only applies once there are 2+ members, so a genuine single adult
      reads as 1.0, not 2.0; the floor exists to stop a real couple/family rounding
-     down below 2, not to inflate one person), with a safe fallback to the plain
-     `familySize` headcount when `members` is empty (old profiles). Age is read from
-     `birthDateISO` at generation time, not stored statically —
-     a household right-sizes itself as a child ages, with zero manual edits.
+     down below 2, not to inflate one person). `ageYears` is a plain number the user
+     types in and updates by hand as a child grows (no birthdate, no date parsing —
+     kept deliberately simple). `familySize` is an **invisible migration-only
+     fallback**: read in exactly one place, `servingsPerMeal()`, when `members` is
+     empty (so a profile saved before M4.1 still computes a sane number on first
+     load) — there is no visible "Family size" control on the Profile screen anymore,
+     and once a household has any members, `familySize` is never read again.
      `usePlanStore.generate()` re-reads the live profile immediately before generating
      (never trusts stale wizard state). `PlannedMeal.servings` can also be adjusted
      per-meal (a stepper on the meal card / meal detail, plus a "Cook extra for lunches

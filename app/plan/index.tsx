@@ -120,7 +120,7 @@ export default function PlanIntakeScreen() {
             style={{ alignItems: 'center', marginTop: theme.spacing.xl }}
           >
             <Text variant="subhead" color="secondary">
-              Cooking for: {describeHouseholdServings(profile ?? createDefaultProfile(), new Date())}{' '}
+              Cooking for: {describeHouseholdServings(profile ?? createDefaultProfile())}{' '}
               <Text variant="subhead" color="accent">
                 (edit)
               </Text>
@@ -345,7 +345,7 @@ function IntakeSummary({ answers, profile }: { answers: IntakeAnswers; profile: 
 
   const rows: [string, string][] = [
     ['Dinners', `${answers.dinners}`],
-    ['Cooking for', describeHouseholdServings(profile, new Date())],
+    ['Cooking for', describeHouseholdServings(profile)],
     ['Budget', `$${answers.budget}`],
     ['Time limit', `${answers.maxPrepMinutes}m prep · ${answers.maxCookMinutes}m cook`],
     ['Cuisines', cuisines],

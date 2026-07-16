@@ -30,7 +30,6 @@ import {
   SecondaryButton,
   SectionHeader,
   Screen,
-  Stepper,
   Text,
   YesNoToggle,
 } from '@/ui/components';
@@ -217,25 +216,14 @@ export default function ProfileScreen() {
               </Pressable>
             </View>
 
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.sm }}>
-              <TextInput
-                value={member.birthDateISO ?? ''}
-                onChangeText={(v) => updateMember(member.id, { birthDateISO: v || undefined })}
-                placeholder="Birthday (YYYY-MM-DD)"
-                placeholderTextColor={theme.colors.textTertiary}
-                style={[fieldStyle(theme), { flexGrow: 1, flexBasis: 160 }]}
-              />
-              {!member.birthDateISO ? (
-                <TextInput
-                  value={member.ageYears !== undefined ? String(member.ageYears) : ''}
-                  onChangeText={(v) => updateMember(member.id, { ageYears: v ? Number(v) : undefined })}
-                  placeholder="Age if unknown"
-                  placeholderTextColor={theme.colors.textTertiary}
-                  keyboardType="numeric"
-                  style={[fieldStyle(theme), { flexGrow: 1, flexBasis: 120 }]}
-                />
-              ) : null}
-            </View>
+            <TextInput
+              value={member.ageYears !== undefined ? String(member.ageYears) : ''}
+              onChangeText={(v) => updateMember(member.id, { ageYears: v ? Number(v) : undefined })}
+              placeholder="Age (years)"
+              placeholderTextColor={theme.colors.textTertiary}
+              keyboardType="numeric"
+              style={[fieldStyle(theme), { width: 120 }]}
+            />
 
             <View>
               <Text variant="footnote" color="secondary" style={{ marginBottom: 4 }}>
@@ -261,30 +249,35 @@ export default function ProfileScreen() {
           </View>
         ))}
 
+        {profile.members.length === 0 ? (
+          <Text
+            variant="footnote"
+            color="tertiary"
+            style={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.sm }}
+          >
+            No one added yet — using your saved household size ({profile.familySize}) until you add
+            people below.
+          </Text>
+        ) : null}
+
         <View style={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.md }}>
           <SecondaryButton title="+ Add person" onPress={addMember} />
         </View>
 
-        <Text
-          variant="footnote"
-          color="tertiary"
-          style={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.md }}
-        >
-          {describeHouseholdServings(profile, new Date())}
-          {profile.members.length > 0 ? " — this is what each week's dinners and shopping list scale to." : ''}
-        </Text>
+        {profile.members.length > 0 ? (
+          <Text
+            variant="footnote"
+            color="tertiary"
+            style={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.md }}
+          >
+            {describeHouseholdServings(profile)} — this is what each week's dinners and shopping list
+            scale to.
+          </Text>
+        ) : null}
       </Card>
 
       <SectionHeader title="Household" />
       <Card padded={false}>
-        <RowField label="Family size (fallback headcount)">
-          <Stepper
-            value={profile.familySize}
-            min={1}
-            max={12}
-            onChange={(familySize) => update({ familySize })}
-          />
-        </RowField>
         <StackField label="Cooking skill" last>
           <ChipSingleSelect
             options={COOKING_SKILLS}
@@ -380,27 +373,6 @@ function LearnRow({ label, value }: { label: string; value: string }) {
         {label}
       </Text>
       <Text variant="body">{value}</Text>
-    </View>
-  );
-}
-
-/** Label and control side by side. */
-function RowField({ label, children, last }: { label: string; children: ReactNode; last?: boolean }) {
-  const theme = useTheme();
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: theme.spacing.lg,
-        paddingVertical: theme.spacing.md,
-        borderBottomWidth: last ? 0 : 1,
-        borderBottomColor: theme.colors.separator,
-      }}
-    >
-      <Text variant="body">{label}</Text>
-      {children}
     </View>
   );
 }
