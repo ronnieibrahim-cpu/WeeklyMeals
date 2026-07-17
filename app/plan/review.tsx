@@ -24,7 +24,7 @@ export default function ReviewPlanScreen() {
   const approve = usePlanStore((s) => s.approve);
   const discardDraft = usePlanStore((s) => s.discardDraft);
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
-  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
 
   // Swap now offers a choice instead of silently committing to the
@@ -127,7 +127,7 @@ export default function ReviewPlanScreen() {
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
               onToggleLock={() => toggleLock(meal.recipeId)}
               onSwap={() => setSwapDayIndex(meal.dayIndex)}
-              kidApproved={isKidApproved(recipe.id)}
+              kidApproved={!!kidApprovedMap[recipe.id]?.flag}
               onToggleKidApproved={() => toggleKidApproved(recipe.id)}
               servings={meal.servings}
               onServingsChange={(servings) => setDraftMealServings(meal.dayIndex, servings)}

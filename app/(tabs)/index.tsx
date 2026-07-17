@@ -23,7 +23,7 @@ export default function ThisWeekScreen() {
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
   const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
-  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const [showPast, setShowPast] = useState(false);
   // M4.1: which meal (if any) just had its servings changed on the
@@ -152,7 +152,7 @@ export default function ThisWeekScreen() {
           }
           onToggleCooked={() => toggleCooked(meal.dayIndex)}
           onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-          kidApproved={isKidApproved(recipe.id)}
+          kidApproved={!!kidApprovedMap[recipe.id]?.flag}
           onToggleKidApproved={() => toggleKidApproved(recipe.id)}
           servings={meal.servings}
           onServingsChange={(servings) => {
@@ -168,6 +168,7 @@ export default function ThisWeekScreen() {
           />
         ) : null}
       </View>
+
     );
   };
 

@@ -63,6 +63,12 @@ export function Screen({
           paddingBottom: theme.spacing.xxl + insets.bottom,
           flexGrow: 1,
         },
+        // Non-scrolling mode hosts a child that needs a real bounded height
+        // (e.g. a FlatList) rather than growing to fit its content. Without
+        // an explicit minHeight, web flexbox lets flexGrow's basis default
+        // to the content's own (unbounded) size, so a FlatList that keeps
+        // rendering more cells to "fill" that ever-growing box never stops.
+        !scroll && { flex: 1, minHeight: 0 },
         contentStyle,
       ]}
     >

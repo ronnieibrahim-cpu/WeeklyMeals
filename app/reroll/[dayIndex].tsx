@@ -88,6 +88,22 @@ export default function RerollScreen() {
                   <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
                     {candidate.cuisine} · {candidate.difficulty} · {candidate.prepMinutes + candidate.cookMinutes}m
                   </Text>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="View recipe"
+                    onPress={() => router.push({ pathname: '/meal/[id]', params: { id: candidate.id } })}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 4,
+                      marginTop: theme.spacing.sm,
+                    }}
+                  >
+                    <Ionicons name="book-outline" size={16} color={theme.colors.accent} />
+                    <Text variant="footnote" color="accent">
+                      View recipe
+                    </Text>
+                  </Pressable>
                 </Card>
 
                 <PrimaryButton
@@ -127,6 +143,22 @@ export default function RerollScreen() {
                 <Text variant="footnote" color="accent" style={{ marginTop: theme.spacing.xs }}>
                   You'll need: {missing.join(', ')}
                 </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="View recipe"
+                  onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 4,
+                    marginTop: theme.spacing.sm,
+                  }}
+                >
+                  <Ionicons name="book-outline" size={16} color={theme.colors.accent} />
+                  <Text variant="footnote" color="accent">
+                    View recipe
+                  </Text>
+                </Pressable>
               </Card>
             ))}
           </>

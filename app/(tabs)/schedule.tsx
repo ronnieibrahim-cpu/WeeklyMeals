@@ -17,7 +17,7 @@ export default function ScheduleScreen() {
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
   const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
-  const isKidApproved = useLearningStore((s) => s.isKidApproved);
+  const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   // M4.1: see app/(tabs)/index.tsx for why this is local-only, not persisted.
   const [pendingServings, setPendingServings] = useState<{ dayIndex: number; oldServings: number } | null>(null);
@@ -80,7 +80,7 @@ export default function ScheduleScreen() {
               onRate={(rating) => rateMeal(meal.dayIndex, rating)}
               onToggleCooked={() => toggleCooked(meal.dayIndex)}
               onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-              kidApproved={isKidApproved(recipe.id)}
+              kidApproved={!!kidApprovedMap[recipe.id]?.flag}
               onToggleKidApproved={() => toggleKidApproved(recipe.id)}
               servings={meal.servings}
               onServingsChange={(servings) => {

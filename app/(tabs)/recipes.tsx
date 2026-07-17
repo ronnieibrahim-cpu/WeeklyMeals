@@ -1,10 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useDeferredValue, useMemo, useState } from 'react';
-import { Pressable, TextInput, View } from 'react-native';
+import { FlatList, Pressable, TextInput, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { CATEGORIES, CUISINES, MAX_PREP_OPTIONS, PROTEINS } from '@/domain/constants';
-import { Category, Cuisine, Difficulty, Protein } from '@/domain/models';
+import { Category, Cuisine, Difficulty, Protein, Recipe } from '@/domain/models';
 import { autocompleteSuggestions, filterRecipes, findByExactName, RecipeFilters, searchRecipes } from '@/engine/recipeSearch';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
@@ -25,10 +26,8 @@ export default function RecipesScreen() {
   const [filters, setFilters] = useState<RecipeFilters>({ favoritesOnly: params.favoritesOnly === '1' });
 
   const favorites = useLearningStore((s) => s.favorites);
-  const isFavorite = useLearningStore((s) => s.isFavorite);
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
   const kidApprovedList = useLearningStore((s) => s.kidApproved);
-  const isKidApproved = useLearningStore((s) => s.isKidApproved);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
@@ -75,22 +74,17 @@ export default function RecipesScreen() {
     setQuery(s);
   };
 
-  const renderCard = (id: string) => {
-    const recipe = allRecipes.find((r) => r.id === id);
-    if (!recipe) return null;
-    return (
-      <RecipeResultCard
-        key={recipe.id}
-        recipe={recipe}
-        favorite={isFavorite(recipe.id)}
-        onToggleFavorite={() => toggleFavorite(recipe.id)}
-        onPress={() => openDetail(recipe.id)}
-        onQuickPin={canPin ? () => openPin(recipe.id) : undefined}
-        kidApproved={isKidApproved(recipe.id)}
-        onToggleKidApproved={() => toggleKidApproved(recipe.id)}
-      />
-    );
-  };
+  const renderCard = (recipe: Recipe) => (
+    <RecipeResultCard
+      recipe={recipe}
+      favorite={favoriteIds.has(recipe.id)}
+      onToggleFavorite={() => toggleFavorite(recipe.id)}
+      onPress={() => openDetail(recipe.id)}
+      onQuickPin={canPin ? () => openPin(recipe.id) : undefined}
+      kidApproved={kidApprovedIds.has(recipe.id)}
+      onToggleKidApproved={() => toggleKidApproved(recipe.id)}
+    />
+  );
 
   // No active search text: lead with Favorites (still respecting whatever
   // filters are on), then everything else. Typing collapses this into one
@@ -104,34 +98,14 @@ export default function RecipesScreen() {
     ? filtered.filter((r) => !favoriteIds.has(r.id)).sort(byName)
     : results;
 
-  // Hard cap on how many result cards mount at once. Each card can load a
-  // remote photo, and mobile Safari OOM-crashes ("a problem repeatedly
-  // occurred") if we render all 541 — this is a plain ScrollView, not a
-  // virtualized list. The cap keeps memory bounded; the count line tells the
-  // user to narrow down rather than silently hiding matches.
-  const MAX_VISIBLE_RESULTS = 40;
-  const visibleRest = restInView.slice(0, MAX_VISIBLE_RESULTS);
-  const hiddenCount = restInView.length - visibleRest.length;
+  const insets = useSafeAreaInsets();
 
-  return (
-    <Screen
-      title="Recipes"
-      subtitle={`${allRecipes.length} recipes to search, filter, and pin`}
-      headerRight={
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Add recipe"
-          hitSlop={8}
-          onPress={() => router.push('/recipe/new')}
-          style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
-        >
-          <Ionicons name="add-circle" size={22} color={theme.colors.accent} />
-          <Text variant="subhead" color="accent">
-            Add
-          </Text>
-        </Pressable>
-      }
-    >
+  // The main list is a FlatList so only on-screen cards mount — each card can
+  // load a remote photo, and mounting all ~586 at once in a plain ScrollView
+  // OOM-crashed mobile Safari. Search bar, suggestions, filters, and the
+  // (always small) Favorites section scroll along as the list header.
+  const listHeader = (
+    <View>
       <View
         style={{
           flexDirection: 'row',
@@ -288,23 +262,53 @@ export default function RecipesScreen() {
       {showingFavoritesSection && favoritesInView.length > 0 ? (
         <>
           <SectionHeader title="Favorites" />
-          {favoritesInView.map((r) => renderCard(r.id))}
+          {favoritesInView.map((r) => (
+            <View key={r.id}>{renderCard(r)}</View>
+          ))}
         </>
       ) : null}
 
       <SectionHeader title={showingFavoritesSection ? 'All Recipes' : 'Results'} />
-      {restInView.length > 0 ? (
-        <>
-          {visibleRest.map((r) => renderCard(r.id))}
-          {hiddenCount > 0 ? (
-            <Text variant="footnote" color="tertiary" style={{ marginTop: theme.spacing.md, textAlign: 'center' }}>
-              +{hiddenCount} more — search or add filters to narrow down.
-            </Text>
-          ) : null}
-        </>
-      ) : (
-        <EmptyState emoji="🔍" title="No recipes match" body="Try a different search or fewer filters." />
-      )}
+    </View>
+  );
+
+  return (
+    <Screen
+      title="Recipes"
+      subtitle={`${allRecipes.length} recipes to search, filter, and pin`}
+      scroll={false}
+      contentStyle={{ paddingBottom: 0 }}
+      headerRight={
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Add recipe"
+          hitSlop={8}
+          onPress={() => router.push('/recipe/new')}
+          style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
+        >
+          <Ionicons name="add-circle" size={22} color={theme.colors.accent} />
+          <Text variant="subhead" color="accent">
+            Add
+          </Text>
+        </Pressable>
+      }
+    >
+      <FlatList
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: theme.spacing.xxl + insets.bottom }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        data={restInView}
+        keyExtractor={(r) => r.id}
+        renderItem={({ item }) => renderCard(item)}
+        ListHeaderComponent={listHeader}
+        ListEmptyComponent={
+          <EmptyState emoji="🔍" title="No recipes match" body="Try a different search or fewer filters." />
+        }
+        initialNumToRender={12}
+        maxToRenderPerBatch={12}
+        windowSize={5}
+      />
     </Screen>
   );
 }

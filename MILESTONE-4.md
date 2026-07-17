@@ -25,9 +25,11 @@ without the user pressing an explicit button that says so.
 
 ---
 
-## [ ] M4.0 — Three fixes and a real browse list (one small commit each)
+## [x] M4.0 — Three fixes and a real browse list (one small commit each)
+**Done:** all three sub-items landed (badge reactivity, view-recipe-from-re-roll, virtualized recipe browse).
 
-### M4.0a — Stale Kids-approved / Favorite badges (BUG, reported live)
+### [x] M4.0a — Stale Kids-approved / Favorite badges (BUG, reported live)
+**Done:** the four screens now subscribe to `kidApprovedMap`/the favorite Sets and derive the boolean per-render instead of reading the stable `isKidApproved`/`isFavorite` functions.
 **Problem:** `app/(tabs)/index.tsx`, `app/(tabs)/schedule.tsx`, `app/plan/review.tsx`
 and `app/(tabs)/recipes.tsx` subscribe to the learning store's *functions*
 (`useLearningStore((s) => s.isKidApproved)`, `s.isFavorite`). A Zustand selector
@@ -43,7 +45,8 @@ this on every screen that shows either badge.
 everywhere without leaving the screen, and the week card and the recipe detail
 never disagree.
 
-### M4.0b — Open the recipe from a re-roll suggestion
+### [x] M4.0b — Open the recipe from a re-roll suggestion
+**Done:** added a "View recipe" link on the candidate card and each near-miss card that pushes `/meal/[id]`; since it's a stack push (not a replace) the re-roll screen stays mounted and its "try another" index survives the round trip via the meal screen's existing Back button.
 **Problem:** `app/reroll/[dayIndex].tsx` shows a candidate's name, cuisine and
 time, but you cannot read the ingredients or steps before committing to it.
 **Fix:** add a "View recipe" action on the candidate card (and on each near-miss)
@@ -53,7 +56,8 @@ the re-roll screen.
 **Accept when:** you can open, read and back out of any suggested recipe without
 losing your place in the "try another" cycle.
 
-### M4.0c — Actually browse all the recipes
+### [x] M4.0c — Actually browse all the recipes
+**Done:** Recipes tab now renders through a `FlatList` (search/filters/Favorites as its header, main list virtualized, cap removed). Along the way found and fixed a real bug in `Screen.tsx`'s non-scrolling mode: on web, `flexGrow: 1` alone doesn't bound a child's height, so the FlatList kept "growing to fill" its own unbounded box, mounting more cards forever. Added `minHeight: 0` there; verified in a browser that mounted card count now stays flat (~20) all the way through a full scroll of all 586 recipes.
 **Problem:** the Recipes tab caps at `MAX_VISIBLE_RESULTS = 40` because it is a
 plain `ScrollView` and mounting hundreds of photo cards OOM-crashes mobile Safari.
 The comment is honest; the cap is the wrong fix.
