@@ -7,8 +7,10 @@
 > If reality and this file disagree, **fix this file in the same change.**
 >
 > **State:** Milestones 1, 2, and 3 complete (v3.0). Post-v3 adversarial debug
-> sweep (`DEBUG-SWEEP.md`) P0/P1/P2 fixes landed. M4.0 landed; M4.1 (household
-> composition → adult-equivalent servings) landed — see §5, §6, §7 below.
+> sweep (`DEBUG-SWEEP.md`) P0/P1/P2 fixes landed. **Milestone 4 is in progress:**
+> M4.0 landed; M4.1 (household composition → adult-equivalent servings) landed,
+> revised to plain editable age (no birthdate) with `familySize` demoted to an
+> invisible fallback — see §5, §6, §7 below. M4.2 (composed dinners) is next.
 > **Last verified:** July 2026 · typecheck clean · 224 tests green ·
 > 230/230 curated recipes pass content validation, 586/586 recipes use
 > canonical allergen labels.
@@ -186,43 +188,57 @@ the identical result regardless of order, or they ping-pong forever.
    the allergy guard. (Reusing a code path silently reuses its assumptions.)
 6. **Bug-free beats feature-rich. Always.**
 
-## 8. Known issues (from `DEBUG-SWEEP.md`, July 2026 — verify status before acting)
+## 8. Known issues
 
-**P0**
-1. **Tree-nut allergy filter fails on a spelling mismatch.** The canonical allergy
-   string is `'Tree Nuts'` (with a space); three curated recipes label the allergen
-   `'TreeNuts'`, so the comparison in `passesAllergySafety` lets them through. Root-cause
-   fix: canonicalize the seed data **and** normalize the comparison **and** add allergen
-   validation to `scripts/validateRecipes.ts` so the bug class becomes self-detecting.
-2. **Supabase `households` has no Row-Level Security.** Confirmed live: an anonymous
+**`DEBUG-SWEEP.md`'s P0-1, P1-1, P1-2, P2-1, P2-2, P2-3 are all closed** (tree-nut
+allergen mismatch, missing allergen validator, stale schedule-screen copy, cook-mode
+wake lock, `weekStartISO` UTC bug, `kvStore` shape guard — see that file for detail
+and `git log` for the fixing commits). P3 items remain parked (dead `reset`/`clear`
+store actions with no UI · no keyboard-avoidance around the inline manual-item editor
+· `docs/ARCHITECTURE.md` drift).
+
+**P0 — accepted risk**
+
+1. **Supabase `households` has no Row-Level Security.** Confirmed live: an anonymous
    client using the bundled publishable key can enumerate every household code —
-   equivalent to full read/write of every family's plan and dietary data. **Fix is a
-   Supabase dashboard action, not code:** anon select/upsert must only match a row
-   whose `code` is supplied as a filter.
+   equivalent to full read/write of every family's plan and dietary data. **Accepted
+   risk today** (family-only usage, low blast radius). **The correct fix is not a bare
+   dashboard toggle:** lock the table down, add a `SECURITY DEFINER` Postgres function
+   that gets/upserts a household row by its 6-character code (so the function — not a
+   client-supplied filter — is what scopes access), and repoint
+   `src/data/sync/householdApi.ts` at that function instead of raw `select`/`upsert`.
+   **Reopen trigger:** syncing household composition (member ages — see below) would
+   put children's ages on the wire under this exposure, which voids the acceptance.
+   RLS must land **before** household composition sync ships.
 
-**P1/P2**
-3. `validateRecipes.ts` has no allergen check (the blind spot that hid #1).
-4. Schedule screen copy promises "leftover days" and a per-plan prep tip that don't
-   exist (violates law #3).
-5. Cook mode's keep-awake doesn't re-acquire the wake lock after the browser releases
-   it (tab switch / dim), so the screen sleeps mid-recipe.
-6. `weekStartISO` is stored as a UTC instant → wrong day offset on a device in another
-   timezone. Store as a plain `YYYY-MM-DD` local date string.
-7. `kvStore.getJSON` guards unparseable JSON but not valid-JSON-wrong-shape → can
-   white-screen a tab on hydration.
+**Live sync issues (M4.1, under M4.2 investigation)**
 
-**P3 (parked):** dead `reset`/`clear` store actions with no UI · no keyboard-avoidance
-around the inline manual-item editor · `docs/ARCHITECTURE.md` drift.
+2. **Household composition does not sync.** `Profile.members` (M4.1) is local-only —
+   `SyncPayload` (`src/data/sync/householdApi.ts`) carries `plan`/`shoppingList`/
+   `favorites`/`kidApproved`/`manualItems` only. By design for now: it's a per-device
+   profile field, and syncing it raises the RLS reopen trigger above. Needs a product
+   decision on whether/how to sync it before it's built.
+3. **A newly-approved plan sometimes doesn't appear on the second phone.** Under
+   investigation — not yet root-caused.
 
 ## 9. Roadmap
 
-- **Now:** close the debug-sweep P0/P1/P2 items above.
+**Milestone 4 — "Real Dinners, Right-Sized"** (`MILESTONE-4.md`), written from the
+Product Owner's friction journal, is the active milestone:
+
+- **M4.0** — three bug fixes + virtualized recipe browse list. ✅ Shipped.
+- **M4.1** — household composition → adult-equivalent servings. ✅ Shipped, revised
+  (plain editable age, no birthdate; `familySize` demoted to invisible fallback).
+- **M4.2** — a dinner is a plate, not a dish (main + sides composition). **Next.**
+- **M4.3** — waste-fit scoring bonus (use the whole cabbage). Not started.
+- **M4.4** — per-recipe notes, household-synced. Not started.
+- **M4.5** — component re-roll (keep a side/sauce, regenerate the rest). Depends on
+  M4.2. Not started.
+- **M4.6** — rearrange the week after approval (swipe "Move to…" + hold-to-drag).
+  Not started.
+
 - **Deferred polish:** photo accuracy QA (`M3.6` — verify every matched photo actually
   depicts its dish; a wrong photo is worse than none).
-- **Milestone 4 — deliberately unplanned.** The app now covers every moment of the
-  family's week. The next milestone is to be written from the Product Owner's
-  **friction journal** (real-world snags observed over several weeks of use), not from
-  a speculative backlog.
 - **Parked candidates (do not start without an explicit go-ahead):** leftovers-aware
   planning · thaw-tonight reminders/notifications · quantity-aware re-roll ·
   household-synced user recipes & learning · H-E-B Curbside / Instacart export ·

@@ -124,16 +124,34 @@ grocery list → ratings feed a learning loop that shifts future recommendations
   pin-to-week, synced family favorites, kids-approved badge, manual grocery items
   (one true list), cook mode with timers, family recipe entry.
 
-**Verified state at last gate:** typecheck clean, **169 tests passing**, 230/230
-curated recipes pass the content validator.
-
 **Then:** a one-time adversarial debug sweep (read-only, separate Fable thread in
-Claude Code) produced `DEBUG-SWEEP.md`. It found two P0s. **Their status is in
-Part 5 — CURRENT OPEN ITEMS. Read that section before doing anything else.**
+Claude Code) produced `DEBUG-SWEEP.md`, finding two P0s plus P1/P2 items. **All are
+now closed except P0-2 (Supabase RLS), which is an accepted risk — see Part 5.**
+
+**Current state: Milestone 4 ("Real Dinners, Right-Sized," `MILESTONE-4.md`) is
+in progress, written from the Product Owner's friction journal, not a speculative
+backlog:**
+- **M4.0** — three bug fixes + virtualized recipe browse list. Shipped.
+- **M4.1** — household composition → adult-equivalent servings. Shipped, then
+  revised (plain editable age, no birthdate; `familySize` demoted to an invisible
+  fallback). See Part 4's decision log for why.
+- **M4.2 through M4.6** — not started. See `MILESTONE-4.md` for the full task specs
+  (composed dinners, waste-fit scoring, recipe notes, component re-roll, week
+  rearrange).
+
+**Verified state at last gate:** typecheck clean, **224 tests passing**, 230/230
+curated recipes pass the content validator, 586/586 recipes carry canonical
+allergen labels.
 
 ---
 
 ## PART 3 — DOCUMENT HIERARCHY: WHAT TO READ, IN WHAT ORDER, AND HOW MUCH TO TRUST IT
+
+**`ADVISOR-START-HERE.md` (repo root) is the cold-start entry point** — a new advisor
+chat reads it first; it orients you and hands off to this file. It exists so a brand
+new advisor has one obvious place to begin instead of guessing at reading order, and
+is deliberately short and slow-changing — this file is still where the real state,
+rationale, and open items live.
 
 Documents can rot. Code cannot lie. The order below is a **trust hierarchy**, not
 just a reading order.
@@ -143,8 +161,8 @@ just a reading order.
 | **0** | **The live repo itself** (clone it, read it, run it) | Ground truth | **Absolute.** Everything else is a claim about this. |
 | **1** | **This file (`ADVISOR-HANDOFF.md`)** | Roles, methodology, decision rationale, open items | High — but verify its "current state" claims against the repo, since it may lag |
 | **2** | **`PROJECT.md`** (repo root) | Canonical description of how the app actually works: architecture, data flow, stores, engine, known debt | High — it is maintained at every gate |
-| **3** | **`MILESTONE-3.md`** (and `-1`, `-2`) | The task specs and their acceptance criteria; what was decided and what's parked | High for *intent*; check checkboxes against the code for *status* |
-| **4** | **`DEBUG-SWEEP.md`** | The adversarial audit findings from the v3 gate | High for findings; **status may be stale — verify each finding is still live** |
+| **3** | **`MILESTONE-4.md`** (and `-1`, `-2`, `-3`) | The task specs and their acceptance criteria; what's shipped, active, and parked. `M4-PROMPTS.md` holds the ready-to-paste worker prompts for it | High for *intent*; check checkboxes against the code for *status* |
+| **4** | **`DEBUG-SWEEP.md`** | The adversarial audit findings from the v3 gate | Historical — closed except P0-2 (accepted risk); see Part 5 |
 | **5** | **`AUDIT.md`** (repo root) | The original full audit (July 2026). Historical: many items are now fixed | Medium — historical context, not current state |
 | **6** | **`CLAUDE.md`** (repo root) | The worker's standing rules (binding on Sonnet, not on you) | High — but it's written *for the worker*, not for you |
 | **7** | `RECIPE-CONTENT.md`, `PHOTO-REVIEW.md`, `scripts/` | Progress checklists and validation tooling | Medium |
@@ -288,6 +306,35 @@ what changed, and let him decide.
     never scraped from food blogs or image search. **A wrong photo is worse than no
     photo** — anything below a confident match keeps the clean cuisine-tile fallback.
     A human review gate (`PHOTO-REVIEW.md`) precedes wiring any photo in.
+19. **Birthdate-based aging, rejected (M4.1).** The first M4.1 pass computed a
+    child's age from a stored birthdate, so the app auto-advanced them into the
+    next portion band. Reverted in favor of a plain number the user types in and
+    updates by hand. *Rationale: a household crosses a portion band roughly once
+    every few years — the "ages automatically" behavior solved a problem that
+    barely exists, at the cost of date-parsing complexity and a birthdate field
+    that itself carries more privacy weight than the number it replaces. Simplicity
+    won.*
+20. **`familySize` is now an invisible migration-only fallback (M4.1).** The
+    Profile screen has no visible "Family size" control anymore. The members list
+    (`Profile.members`) is the single source of truth once populated;
+    `familySize` is read in exactly one place (`servingsPerMeal()`) so pre-M4.1
+    profiles still compute a sane number on first load. *Rationale: two competing
+    controls for the same number (a headcount field and a members list) is worse
+    than one, even during a migration window.*
+21. **A dinner is a composed plate, not a single dish (M4.2 direction).** Rather
+    than hand-editing 586 recipes to force every one to carry a protein + vegetable
+    + starch, dinners are assembled at generation time from a main recipe plus 0–2
+    curated sides/sauces. *Rationale — the test is "meal vs. dish":* the recipe
+    library is honestly a library of dishes, and a vegetable is a **preference**,
+    not a **gate** — sides are purely additive, never a hard requirement that
+    would shrink the candidate pool or break existing recipes. This keeps the 586
+    recipes valid as-is and avoids a content-rewrite project.
+22. **Week rearrange ships both interaction patterns (M4.6 direction), swipe
+    guaranteed.** A "Move to…" swipe action (matching the existing swipe-to-delete
+    on manual shopping items) is the guaranteed baseline; hold-to-drag is added
+    alongside it, not instead of it. *Rationale: swipe is reliable on a phone and
+    accessible; drag is nice-to-have and must not become the only path if it turns
+    out fiddly in practice.*
 
 ### Hard-won lessons (the "how we got burned" list)
 
@@ -315,80 +362,74 @@ what changed, and let him decide.
 > ⚠️ **This is the section most likely to be stale.** Check the repo and ask Ronnie
 > what's landed since. But do not assume an item is done just because it's old.
 
-### Blocking / safety
+### Debug-sweep status
 
-1. **P0-1 — Tree-nut allergy filter failure.** The canonical allergy list uses
-   `'Tree Nuts'` (with a space); three curated recipes label the allergen
-   `'TreeNuts'` (no space), so the string comparison in
-   `src/engine/recommendation/filters.ts` (`passesAllergySafety`) lets them through
-   when a Tree Nuts allergy is set. **A fix prompt was written and handed to Ronnie**
-   (root-cause fix: canonicalize the data *and* normalize the comparison, plus add
-   allergen validation to `scripts/validateRecipes.ts` so the bug class becomes
-   self-detecting). **Verify whether it landed.** Test for it: set a Tree Nuts
-   allergy and confirm `fr-trout-amandine` cannot be generated, swapped, re-rolled,
-   or pinned.
+**P0-1, P1-1, P1-2, P2-1, P2-2, P2-3 are all confirmed closed** (verified against
+the code: allergen comparison is now normalized in
+`src/engine/recommendation/filters.ts`, `scripts/validateRecipes.ts` checks
+canonical allergen labels on all 586 recipes, the schedule screen no longer
+promises leftover days, cook mode re-acquires the wake lock on
+`visibilitychange`, `weekStartISO` is a local date string, `kvStore.getJSON` has a
+shape guard). See `DEBUG-SWEEP.md` for the original findings; treat that file as
+historical.
 
-2. **P0-2 — Supabase has no Row-Level Security.** *This is not a code fix — it is a
-   settings change in Ronnie's Supabase dashboard.* The debug sweep confirmed live
-   that an anonymous client (using the publishable key that ships in the web bundle)
-   can enumerate every household code, which is equivalent to full read/write of
-   every family's plan, shopping list, and dietary data. The 6-character household
-   code is the only intended secret and RLS was always assumed but never configured.
-   **Status: Ronnie was asked whether the app has been shared beyond his and his
-   wife's phones (which determines urgency, not whether to fix). Follow up on this.**
-   The fix: an RLS policy on the `households` table so anonymous select/upsert only
-   match a row whose `code` is supplied as a filter — never a bare `select *`.
+### Blocking / accepted risk
 
-### Queued fixes from the debug sweep (see `DEBUG-SWEEP.md` for full detail)
+1. **P0-2 — Supabase has no Row-Level Security. ACCEPTED RISK, not yet fixed.** An
+   anonymous client (using the publishable key that ships in the web bundle) can
+   enumerate every household code, equivalent to full read/write of every family's
+   plan, shopping list, and dietary data. The 6-character household code is the
+   only intended secret and RLS was always assumed but never configured. Currently
+   accepted because the app is only on Ronnie's and his wife's phones. **Correct
+   fix (not a bare dashboard toggle):** lock the `households` table down, add a
+   `SECURITY DEFINER` Postgres function that gets/upserts a row by its code (the
+   function scopes access, not a client-supplied filter), and repoint
+   `src/data/sync/householdApi.ts` at that function. **Reopen trigger — now
+   imminent:** syncing household composition (open item #2 below) would put
+   children's ages on the wire under this exposure, which voids the acceptance.
+   RLS must land before household composition sync is built.
 
-3. **P1-1** — `scripts/validateRecipes.ts` has no allergen validation (this is the
-   safety net that would have caught P0-1). Bundled with the P0-1 fix prompt.
-4. **P1-2** — `app/(tabs)/schedule.tsx` empty-state copy promises "leftover days and
-   a meal-prep tip" that don't exist, and shows a hardcoded generic "tip" on every
-   plan. Violates law #3. Remove the promises; don't build leftovers now.
-5. **P2-1** — Cook mode's keep-awake doesn't re-acquire the wake lock after the
-   browser releases it (tab switch, screen dim), so the screen sleeps mid-recipe
-   after the first interruption. Needs a `visibilitychange` re-acquire.
-6. **P2-2** — `weekStartISO` is stored as a UTC instant, so a device in another
-   timezone computes the wrong day offset. Store as a plain `YYYY-MM-DD` local date
-   string. (Latent today — both phones are in Houston — real the moment they travel.)
-7. **P2-3** — `kvStore.getJSON` guards against unparseable JSON but not valid-JSON-
-   wrong-shape, which can white-screen a tab on hydration. Needs a light shape guard.
-8. **P3 (parked)** — dead store actions with no UI (`reset`/`clear`), no
-   keyboard-avoidance around the inline manual-item editor, `docs/ARCHITECTURE.md`
-   drift.
+### Live sync issues (surfaced by M4.1, being investigated for/under M4.2)
+
+2. **Household composition does not sync.** `Profile.members` (M4.1: name/age/
+   isChild/eatsLikeAdult) is local-only today — the sync payload
+   (`src/data/sync/householdApi.ts`) has no `members` field. This is by design for
+   now (a per-device profile field), pending a product decision on whether/how to
+   sync it — see the P0-2 reopen trigger above; that decision can't ship until RLS
+   does.
+3. **A newly-approved plan sometimes doesn't appear on the second phone.** Reported
+   live; not yet root-caused. Under investigation.
 
 ### Deferred by decision
 
-9. **M3.6 — Photo accuracy QA.** A model pass to verify every matched photo actually
+4. **M3.6 — Photo accuracy QA.** A model pass to verify every matched photo actually
    depicts its dish (flag mismatches; a wrong photo is worse than none), ending in a
-   flag list for Ronnie's human judgment. **Explicitly deferred as polish** — do
-   after the sweep fixes, not before.
-10. **Milestone 4 — deliberately unplanned.** See Part 6.
+   flag list for Ronnie's human judgment. **Explicitly deferred as polish.**
 
 ---
 
-## PART 6 — WHAT HAPPENS NEXT (and why "nothing" is the right answer for now)
+## PART 6 — WHAT HAPPENS NEXT
 
-At the close of v3, the recommendation was: **stop building and start watching.**
-The app now covers every moment of the family's week (Sunday planning, the store
-trip, mid-week re-rolls, cooking, rating). Everything remaining on the backlog is
-speculative until real use proves it matters.
+At the close of v3, the recommendation was "stop building and start watching," and
+Ronnie kept a friction journal — a note on his phone, one line whenever anyone in
+the family hit a snag. That journal, not the old parked list, became the raw
+material for **Milestone 4 ("Real Dinners, Right-Sized," `MILESTONE-4.md`)**, which
+is now the **active milestone**. The triangle workflow (Ronnie steers and verifies →
+Advisor audits, specs, writes prompts → Sonnet implements) is unchanged.
 
-**Ronnie was asked to keep a friction journal** — a note on his phone, one line
-whenever anyone in the family hits a snag ("wife typed milk, it was already there,"
-"kids fought the cook-mode timer," "wanted to plan around a birthday and couldn't").
-**Three weeks of that is better product input than any feature brainstorm.** When he
-returns with it, that journal — not the parked list — should be the raw material for
-Milestone 4.
+**Where M4 stands:** M4.0 (bug fixes + browse list) and M4.1 (household composition
+→ adult-equivalent servings, revised) are shipped. M4.2 (composed dinners: main +
+sides, "a dinner is a plate, not a dish") is next. M4.3–M4.6 (waste-fit scoring,
+recipe notes, component re-roll, week rearrange) are specced in `MILESTONE-4.md`
+but not started.
 
-**If he asks "what's in M4?" the honest answer is: it should be written by his
-Tuesdays, not by us.** The parked list (leftovers-aware planning, thaw reminders,
-quantity-aware re-roll, H-E-B Curbside export, household-synced user recipes,
-calendar integration) exists as *candidates*, not a plan.
+**The next gate is the M4 milestone audit** — same protocol as every prior gate:
+clone, run the checks, read the code, read `git log` for unspecced commits, verify
+Part 5's open items against the repo before signing off.
 
-The first thing to do when he returns, before any M4 talk: **confirm the P0 items
-from Part 5 are actually closed.**
+The parked list (leftovers-aware planning, thaw reminders, quantity-aware re-roll,
+H-E-B Curbside export, household-synced user recipes, calendar integration) remains
+*candidates*, not a plan — don't start any of it without Ronnie's explicit go-ahead.
 
 ---
 
