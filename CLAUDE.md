@@ -9,15 +9,17 @@ milestone gates, writes the task specs you implement, and holds the product's
 decision history. You implement; the advisor audits. Keep that separation.
 
 ## Read these first, in order
-1. `PROJECT.md` — canonical description of how the app actually works. Trust it over
+1. `ADVISOR-START-HERE.md` — cold-start entry point for a new advisor chat; you (the
+   worker) can skip straight to #2, but keep it in sync if roles/process change.
+2. `PROJECT.md` — canonical description of how the app actually works. Trust it over
    `docs/ARCHITECTURE.md`, `docs/PRD.md`, and `docs/WIREFRAMES.md`, which are **stale
    and partly fictional**.
-2. The current work queue — `MILESTONE-4.md` (M1/M2/M3 are complete; see them for
+3. The current work queue — `MILESTONE-4.md` (M1/M2/M3 are complete; see them for
    history). `M4-PROMPTS.md` holds the advisor's copy-pasteable task prompts for it.
-3. `DEBUG-SWEEP.md` — the adversarial audit findings at the v3 gate. Closed; historical.
-4. `ADVISOR-HANDOFF.md` — the decision log and rationale. **Do not silently reverse
+4. `DEBUG-SWEEP.md` — the adversarial audit findings at the v3 gate. Closed; historical.
+5. `ADVISOR-HANDOFF.md` — the decision log and rationale. **Do not silently reverse
    any decision recorded there.**
-5. `AUDIT.md` — the original audit. Historical; many items are now fixed.
+6. `AUDIT.md` — the original audit. Historical; many items are now fixed.
 
 ## State
 Milestones 1, 2, and 3 are complete (v3.0). `DEBUG-SWEEP.md`'s P0/P1/P2 items are

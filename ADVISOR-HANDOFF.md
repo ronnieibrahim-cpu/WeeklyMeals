@@ -147,6 +147,12 @@ allergen labels.
 
 ## PART 3 — DOCUMENT HIERARCHY: WHAT TO READ, IN WHAT ORDER, AND HOW MUCH TO TRUST IT
 
+**`ADVISOR-START-HERE.md` (repo root) is the cold-start entry point** — a new advisor
+chat reads it first; it orients you and hands off to this file. It exists so a brand
+new advisor has one obvious place to begin instead of guessing at reading order, and
+is deliberately short and slow-changing — this file is still where the real state,
+rationale, and open items live.
+
 Documents can rot. Code cannot lie. The order below is a **trust hierarchy**, not
 just a reading order.
 
