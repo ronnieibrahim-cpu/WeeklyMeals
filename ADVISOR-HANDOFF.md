@@ -373,32 +373,34 @@ promises leftover days, cook mode re-acquires the wake lock on
 shape guard). See `DEBUG-SWEEP.md` for the original findings; treat that file as
 historical.
 
-### Blocking / accepted risk
+### Accepted risk (permanent — not open, not fixed, not to be re-flagged)
 
-1. **P0-2 — Supabase has no Row-Level Security. ACCEPTED RISK, not yet fixed.** An
-   anonymous client (using the publishable key that ships in the web bundle) can
-   enumerate every household code, equivalent to full read/write of every family's
-   plan, shopping list, and dietary data. The 6-character household code is the
-   only intended secret and RLS was always assumed but never configured. Currently
-   accepted because the app is only on Ronnie's and his wife's phones. **Correct
-   fix (not a bare dashboard toggle):** lock the `households` table down, add a
-   `SECURITY DEFINER` Postgres function that gets/upserts a row by its code (the
-   function scopes access, not a client-supplied filter), and repoint
-   `src/data/sync/householdApi.ts` at that function. **Reopen trigger — now
-   imminent:** syncing household composition (open item #2 below) would put
-   children's ages on the wire under this exposure, which voids the acceptance.
-   RLS must land before household composition sync is built.
+1. **P0-2 — Supabase has no Row-Level Security.** An anonymous client (using the
+   publishable key that ships in the web bundle) can enumerate every household
+   code, equivalent to full read/write of every family's plan, shopping list, and
+   dietary data. The 6-character household code is the only intended secret and
+   RLS was always assumed but never configured. **This is declined as a standing,
+   informed choice by the Product Owner (Ronnie, July 2026) — not a bug to be
+   fixed or a risk to be periodically reassessed.**
+   **Rationale (verbatim):** "the only data in household sync is one family's meal
+   plan, shopping list, manual items, favorites and kid-approved flags; the owner
+   judges the exposure of that data — and the vandalism risk from anonymous write
+   access — to be beneath the cost of acting on it. The app is used by two phones
+   in one household and is not shared."
+   **Profile-sync is a planned, knowingly-accepted extension of this same
+   exposure, not a new decision point:** when household composition (members'
+   abbreviated names and ages) starts syncing, that data lands on the same
+   unsecured database under the same rationale. There is no reopen trigger tied to
+   that milestone — this is the standing decision.
 
-### Live sync issues (surfaced by M4.1, being investigated for/under M4.2)
+### Live sync notes (surfaced by M4.1)
 
 2. **Household composition does not sync.** `Profile.members` (M4.1: name/age/
    isChild/eatsLikeAdult) is local-only today — the sync payload
-   (`src/data/sync/householdApi.ts`) has no `members` field. This is by design for
-   now (a per-device profile field), pending a product decision on whether/how to
-   sync it — see the P0-2 reopen trigger above; that decision can't ship until RLS
-   does.
-3. **A newly-approved plan sometimes doesn't appear on the second phone.** Reported
-   live; not yet root-caused. Under investigation.
+   (`src/data/sync/householdApi.ts`) has no `members` field. Profile-sync (see the
+   accepted-risk note above) is the planned next step for this.
+3. **A newly-approved plan sometimes doesn't appear on the second phone** —
+   resolved after the M4.1 updates. If it recurs, investigate as a merge race.
 
 ### Deferred by decision
 

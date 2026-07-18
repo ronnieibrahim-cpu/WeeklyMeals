@@ -24,7 +24,7 @@
 
 A meal-planning app for one family (2 adults, 2 young kids, Houston TX, shops at
 H-E-B). Each week it asks a short questionnaire (or a one-tap "same as last week"),
-generates a week of dinners from a ~541-recipe library, and produces one
+generates a week of dinners from a ~586-recipe library, and produces one
 consolidated H-E-B shopping list with estimated prices. The family cooks from the
 app, re-rolls meals mid-week from ingredients already bought, rates as they go, and
 those ratings nudge future recommendations.
@@ -47,8 +47,8 @@ fatigue for a busy family? Remove clicks rather than add settings.
 - **Zustand** — state management (`src/stores/`)
 - **AsyncStorage** — local persistence (localStorage/IndexedDB on web)
 - **Supabase REST (raw fetch, no SDK)** — optional "household sync" between two
-  phones; publishable key committed by design, **access must be governed by RLS**
-  (see §8 — currently an open security item)
+  phones; publishable key committed by design, **RLS is a permanent, informed
+  accepted risk, not a fix in progress** (see §8)
 - **Jest / jest-expo** — engine test suite (**224 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
@@ -197,29 +197,32 @@ and `git log` for the fixing commits). P3 items remain parked (dead `reset`/`cle
 store actions with no UI · no keyboard-avoidance around the inline manual-item editor
 · `docs/ARCHITECTURE.md` drift).
 
-**P0 — accepted risk**
+**Accepted risk (permanent — not open, not "in progress", not to be re-flagged)**
 
 1. **Supabase `households` has no Row-Level Security.** Confirmed live: an anonymous
    client using the bundled publishable key can enumerate every household code —
-   equivalent to full read/write of every family's plan and dietary data. **Accepted
-   risk today** (family-only usage, low blast radius). **The correct fix is not a bare
-   dashboard toggle:** lock the table down, add a `SECURITY DEFINER` Postgres function
-   that gets/upserts a household row by its 6-character code (so the function — not a
-   client-supplied filter — is what scopes access), and repoint
-   `src/data/sync/householdApi.ts` at that function instead of raw `select`/`upsert`.
-   **Reopen trigger:** syncing household composition (member ages — see below) would
-   put children's ages on the wire under this exposure, which voids the acceptance.
-   RLS must land **before** household composition sync ships.
+   equivalent to full read/write of every family's plan and dietary data. **This is
+   declined as a standing, informed choice by the Product Owner (Ronnie, July 2026),
+   not a bug to be fixed or a risk to be periodically reassessed.**
+   **Rationale (verbatim):** "the only data in household sync is one family's meal
+   plan, shopping list, manual items, favorites and kid-approved flags; the owner
+   judges the exposure of that data — and the vandalism risk from anonymous write
+   access — to be beneath the cost of acting on it. The app is used by two phones in
+   one household and is not shared."
+   **Profile-sync is a planned, knowingly-accepted extension of this same exposure,
+   not a new decision point:** when household composition (members' abbreviated names
+   and ages) starts syncing, that data lands on the same unsecured database under the
+   same rationale. There is no reopen trigger tied to that milestone — this is the
+   standing decision.
 
-**Live sync issues (M4.1, under M4.2 investigation)**
+**Live sync notes (M4.1)**
 
 2. **Household composition does not sync.** `Profile.members` (M4.1) is local-only —
    `SyncPayload` (`src/data/sync/householdApi.ts`) carries `plan`/`shoppingList`/
-   `favorites`/`kidApproved`/`manualItems` only. By design for now: it's a per-device
-   profile field, and syncing it raises the RLS reopen trigger above. Needs a product
-   decision on whether/how to sync it before it's built.
-3. **A newly-approved plan sometimes doesn't appear on the second phone.** Under
-   investigation — not yet root-caused.
+   `favorites`/`kidApproved`/`manualItems` only. Profile-sync (see the accepted-risk
+   note above) is the planned next step for this.
+3. **A newly-approved plan sometimes doesn't appear on the second phone** — resolved
+   after the M4.1 updates. If it recurs, investigate as a merge race.
 
 ## 9. Roadmap
 

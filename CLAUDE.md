@@ -15,7 +15,7 @@ decision history. You implement; the advisor audits. Keep that separation.
    `docs/ARCHITECTURE.md`, `docs/PRD.md`, and `docs/WIREFRAMES.md`, which are **stale
    and partly fictional**.
 3. The current work queue — `MILESTONE-4.md` (M1/M2/M3 are complete; see them for
-   history). `M4-PROMPTS.md` holds the advisor's copy-pasteable task prompts for it.
+   history).
 4. `DEBUG-SWEEP.md` — the adversarial audit findings at the v3 gate. Closed; historical.
 5. `ADVISOR-HANDOFF.md` — the decision log and rationale. **Do not silently reverse
    any decision recorded there.**

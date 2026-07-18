@@ -2,8 +2,9 @@
 
 Prerequisite: the DEBUG-SWEEP P0/P1/P2 items are closed (verified landed at commit
 `c2e8749`: typecheck clean, 178 tests green, 586/586 recipes with canonical
-allergen labels) **and P0-2 (Supabase Row-Level Security) is confirmed done in the
-Supabase dashboard by Ronnie.** Do not start M4 before that confirmation.
+allergen labels). **P0-2 (Supabase Row-Level Security) is a permanent, informed
+accepted risk, not a fix in progress — see `PROJECT.md` §8** — it is not, and will
+not be, "confirmed done."
 
 This milestone comes from real-world friction, not a backlog. Every task below
 traces to something the family actually hit.
