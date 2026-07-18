@@ -30,7 +30,7 @@ unplanned.
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine + data/import test suite — currently 247 tests
+npx jest                           # engine + data/import test suite — currently 282 tests
 npx tsx scripts/validateRecipes.ts # 230/230 curated mains + 50/50 sides (636/636 allergen labels + provides) must pass
 npm run web                        # local browser preview for manual testing
 ```

@@ -7,7 +7,12 @@ interface CookModeState {
   steps: CookModeSteps;
   hydrated: boolean;
   init: () => Promise<void>;
-  setStep: (key: string, index: number) => void;
+  setStep: (key: string, index: number, plateKey: string) => void;
+  /** The saved step for `key`, or 0 if there's no saved progress, it's in
+   * the pre-M4.2 bare-number format, or its `plateKey` doesn't match the
+   * live plate's (M4.2 part 2) — a side removed, swapped, or changed via
+   * sync must never leave cook mode pointing at a different dish's step. */
+  getStep: (key: string, plateKey: string) => number;
 }
 
 /** planId + dayIndex identify one meal-on-a-day; cook mode remembers which
@@ -28,9 +33,15 @@ export const useCookModeStore = create<CookModeState>((set, get) => ({
     set({ steps, hydrated: true });
   },
 
-  setStep: (key, index) => {
-    const steps = { ...get().steps, [key]: index };
+  setStep: (key, index, plateKey) => {
+    const steps = { ...get().steps, [key]: { index, plateKey } };
     set({ steps });
     void localCookModeRepository.save(steps);
+  },
+
+  getStep: (key, plateKey) => {
+    const saved = get().steps[key];
+    if (!saved || typeof saved === 'number') return 0;
+    return saved.plateKey === plateKey ? saved.index : 0;
   },
 }));

@@ -58,10 +58,12 @@ export default function RerollScreen() {
     );
   }
 
-  const commit = (recipeId: string) => {
-    rerollMeal(dayIndex, recipeId);
+  const commit = (recipeId: string, sideRecipeIds: string[]) => {
+    rerollMeal(dayIndex, recipeId, sideRecipeIds);
     router.back();
   };
+
+  const sideNames = (ids: string[]) => ids.map((id) => recipesById[id]?.name).filter(Boolean).join(', ');
 
   const { candidates, nearMisses } = outcome;
 
@@ -77,7 +79,7 @@ export default function RerollScreen() {
 
         {candidates.length > 0 ? (
           (() => {
-            const candidate = candidates[index % candidates.length];
+            const { recipe: candidate, sideRecipeIds } = candidates[index % candidates.length];
             return (
               <>
                 <Card>
@@ -88,6 +90,11 @@ export default function RerollScreen() {
                   <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
                     {candidate.cuisine} · {candidate.difficulty} · {candidate.prepMinutes + candidate.cookMinutes}m
                   </Text>
+                  {sideRecipeIds.length > 0 ? (
+                    <Text variant="footnote" color="secondary" style={{ marginTop: theme.spacing.xs }}>
+                      + {sideNames(sideRecipeIds)}
+                    </Text>
+                  ) : null}
                   <Pressable
                     accessibilityRole="button"
                     accessibilityLabel="View recipe"
@@ -108,7 +115,7 @@ export default function RerollScreen() {
 
                 <PrimaryButton
                   title="Swap it in"
-                  onPress={() => commit(candidate.id)}
+                  onPress={() => commit(candidate.id, sideRecipeIds)}
                   style={{ marginTop: theme.spacing.lg }}
                 />
                 {candidates.length > 1 ? (
@@ -130,16 +137,21 @@ export default function RerollScreen() {
               These are close — pick one and I'll tell you exactly what to grab (it won't touch your shopping
               list automatically).
             </Text>
-            {nearMisses.map(({ recipe, missing }) => (
+            {nearMisses.map(({ recipe, sideRecipeIds, missing }) => (
               <Card
                 key={recipe.id}
-                onPress={() => commit(recipe.id)}
+                onPress={() => commit(recipe.id, sideRecipeIds)}
                 style={{ marginBottom: theme.spacing.md }}
               >
                 <Text variant="headline">{recipe.name}</Text>
                 <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
                   {recipe.cuisine} · {recipe.difficulty}
                 </Text>
+                {sideRecipeIds.length > 0 ? (
+                  <Text variant="footnote" color="secondary" style={{ marginTop: theme.spacing.xs }}>
+                    + {sideNames(sideRecipeIds)}
+                  </Text>
+                ) : null}
                 <Text variant="footnote" color="accent" style={{ marginTop: theme.spacing.xs }}>
                   You'll need: {missing.join(', ')}
                 </Text>

@@ -1,5 +1,6 @@
-import { PlannedMeal, Recipe } from '@/domain/models';
+import { isMain, PlannedMeal, Recipe } from '@/domain/models';
 
+import { composeSides } from '../mealComposition';
 import { passesHardFilters } from './filters';
 import { scoreRecipe } from './scoring';
 import { GenerateContext, RecommendationProvider } from './types';
@@ -45,20 +46,30 @@ function pickNearBest(scored: { r: Recipe; score: number }[]): Recipe {
  * repeatedly pick among the highest-scoring recipes given what's already
  * chosen (see `pickNearBest`), so variety/rotation update as the week fills
  * in. Locked recipes are kept up front.
+ *
+ * `recipes` is the FULL pool (mains, sides, imported — `RECIPES` now
+ * contains all of it, M4.2 part 2). Mains and sides are split once here via
+ * `isMain()`, never assumed by the caller: every candidate this picks as a
+ * day's dish is a main, and a side is composed for it (`composeSides`) from
+ * the same pool's non-main entries. This is also what protects every other
+ * caller of `generate()` (planStore, checkKidApprovedWeighting.ts,
+ * checkCuratedWeighting.ts) — none of them need their own main/side filter.
  */
 export class LocalRecommendationEngine implements RecommendationProvider {
   generate(ctx: GenerateContext, recipes: Recipe[]): PlannedMeal[] {
     const blocked = new Set(ctx.preferences?.blockedRecipeIds ?? []);
     const lockedIds = new Set(ctx.lockedRecipeIds ?? []);
+    const mains = recipes.filter(isMain);
+    const sidesPool = recipes.filter((r) => !isMain(r));
 
-    const pool = recipes.filter(
+    const pool = mains.filter(
       (r) => !blocked.has(r.id) && passesHardFilters(r, ctx.intake, ctx.profile),
     );
 
     const selected: Recipe[] = [];
 
     // Keep locked recipes first.
-    for (const r of recipes) {
+    for (const r of mains) {
       if (lockedIds.has(r.id) && !selected.includes(r)) selected.push(r);
     }
 
@@ -76,6 +87,7 @@ export class LocalRecommendationEngine implements RecommendationProvider {
       servings: ctx.intake.servingsPerMeal,
       dayIndex: index,
       locked: lockedIds.has(r.id),
+      sideRecipeIds: composeSides(r, sidesPool, ctx),
     }));
   }
 }

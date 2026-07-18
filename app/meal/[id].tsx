@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Linking, Pressable, View } from 'react-native';
 
 import { RECIPE_IMAGE_ATTRIBUTION } from '@/data/recipeImages';
+import { isMain } from '@/domain/models';
 import { formatServings } from '@/engine/portions';
 import { isUserRecipe } from '@/engine/userRecipes';
 import { useLearningStore } from '@/stores/learningStore';
@@ -14,6 +15,7 @@ import {
   EmptyState,
   PrimaryButton,
   RecipeImage,
+  RemoveSideShoppingListPrompt,
   Screen,
   SecondaryButton,
   ServingsShoppingListPrompt,
@@ -40,13 +42,20 @@ export default function MealDetailScreen() {
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
   const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
-  const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
+  const removeSideFromMeal = usePlanStore((s) => s.removeSideFromMeal);
+  // Law #5, store-level guard already covers pinning itself — this is just
+  // the UI reflecting the same invariant: a side/sauce opened from a plate
+  // is never independently pinnable as a whole dinner.
+  const canPin = !!(pinTarget === 'draft' ? draftPlan : plan) && (recipe ? isMain(recipe) : true);
   // M4.1: the servings value just before the most recent change on this
   // screen — see app/(tabs)/index.tsx for why this is local-only, not
   // persisted. Every meal shown here is on the approved plan (`plannedMeal`
   // only resolves from `plan.status === 'approved'`), so a change here
   // always needs the confirmation, never the no-confirm draft path.
   const [oldServings, setOldServings] = useState<number | null>(null);
+  // M4.2 part 2: which side (if any) was just removed from the plate,
+  // waiting on the separate, explicit shopping-list confirm.
+  const [removingSideId, setRemovingSideId] = useState<string | null>(null);
 
   const photoAttribution = recipe ? RECIPE_IMAGE_ATTRIBUTION[recipe.id] : undefined;
   const isFavorite = recipe ? favorites.includes(recipe.id) : false;
@@ -273,6 +282,61 @@ export default function MealDetailScreen() {
           dayIndex={plannedMeal.dayIndex}
           oldServings={oldServings}
           onResolved={() => setOldServings(null)}
+        />
+      ) : null}
+
+      {plannedMeal && plannedMeal.sideRecipeIds && plannedMeal.sideRecipeIds.length > 0 ? (
+        <View style={{ marginTop: theme.spacing.lg }}>
+          <Text variant="title3" style={{ marginBottom: theme.spacing.sm }}>
+            On the plate
+          </Text>
+          {plannedMeal.sideRecipeIds.map((sideId) => {
+            const side = recipesById[sideId];
+            if (!side) return null;
+            return (
+              <Card key={sideId} style={{ marginBottom: theme.spacing.sm }}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`View ${side.name}`}
+                  onPress={() => router.push({ pathname: '/meal/[id]', params: { id: sideId } })}
+                  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+                >
+                  <View style={{ flex: 1 }}>
+                    <Text variant="headline">{side.name}</Text>
+                    <Text variant="footnote" color="secondary">
+                      {side.role === 'sauce' ? 'Sauce' : 'Side'} · {side.prepMinutes + side.cookMinutes}m
+                    </Text>
+                  </View>
+                  <Ionicons name="chevron-forward" size={20} color={theme.colors.textTertiary} />
+                </Pressable>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`Remove ${side.name}`}
+                  hitSlop={6}
+                  style={{ marginTop: theme.spacing.sm }}
+                  onPress={() => {
+                    removeSideFromMeal(plannedMeal.dayIndex, sideId);
+                    setRemovingSideId(sideId);
+                  }}
+                >
+                  <Text variant="footnote" color="danger">
+                    Remove
+                  </Text>
+                </Pressable>
+              </Card>
+            );
+          })}
+        </View>
+      ) : null}
+
+      {/* Rendered independent of the map above — removing a side takes it
+          out of `plannedMeal.sideRecipeIds` immediately, so the prompt must
+          not live inside that side's (now-gone) card. */}
+      {plannedMeal && removingSideId !== null ? (
+        <RemoveSideShoppingListPrompt
+          dayIndex={plannedMeal.dayIndex}
+          sideId={removingSideId}
+          onResolved={() => setRemovingSideId(null)}
         />
       ) : null}
 

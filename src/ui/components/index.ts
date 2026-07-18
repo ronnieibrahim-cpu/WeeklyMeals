@@ -19,3 +19,4 @@ export { RecipeImage } from './RecipeImage';
 export { RecipeResultCard } from './RecipeResultCard';
 export { RecipeForm } from './RecipeForm';
 export { ServingsShoppingListPrompt } from './ServingsShoppingListPrompt';
+export { RemoveSideShoppingListPrompt } from './RemoveSideShoppingListPrompt';

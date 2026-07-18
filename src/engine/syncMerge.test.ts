@@ -36,6 +36,8 @@ function meal(dayIndex: number, over: Partial<PlannedMeal> = {}): PlannedMeal {
     rating: undefined,
     ratedAtISO: null,
     servingsChangedAtISO: null,
+    sideRecipeIds: undefined,
+    sidesChangedAtISO: null,
     ...over,
   };
 }
@@ -264,6 +266,76 @@ describe('mergePlanMeals — servings (M4.1)', () => {
     // recipeChangedAtISO, not on any individual field's own timestamp.
     expect(mergedAB.meals[0].recipeId).toBe('new-recipe');
     expect(mergedAB.meals[0].servings).toBe(4); // A's original servings (the meal() default), not B's 8
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+
+    // Idempotence for this case too.
+    const mergedAgain = mergePlanMeals(mergedAB, b);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(mergedAB));
+  });
+});
+
+describe('mergePlanMeals — sides (M4.2 part 2)', () => {
+  it('(t) merge(merge(A,B), B) === merge(A,B) [sides]', () => {
+    const a = plan('plan-1', [meal(0, { sideRecipeIds: ['side-a'], sidesChangedAtISO: t1 }), meal(1)]);
+    const b = plan('plan-1', [meal(0), meal(1, { sideRecipeIds: ['side-b'], sidesChangedAtISO: t2 })]);
+
+    const merged = mergePlanMeals(a, b);
+    const mergedAgain = mergePlanMeals(merged, b);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
+  });
+
+  it('(u) cross-device sides edits of different meals converge, order-independent', () => {
+    const a = plan('plan-1', [meal(0, { sideRecipeIds: ['side-a'], sidesChangedAtISO: t1 }), meal(1)]);
+    const b = plan('plan-1', [meal(0), meal(1, { sideRecipeIds: ['side-b'], sidesChangedAtISO: t1 })]);
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+
+    expect(mergedAB.meals.find((m) => m.dayIndex === 0)?.sideRecipeIds).toEqual(['side-a']);
+    expect(mergedAB.meals.find((m) => m.dayIndex === 1)?.sideRecipeIds).toEqual(['side-b']);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('(v) a newer sides edit on the same meal beats an older one, both merge orders', () => {
+    const older = plan('plan-1', [meal(0, { sideRecipeIds: ['side-old'], sidesChangedAtISO: t1 })]);
+    const newer = plan('plan-1', [meal(0, { sideRecipeIds: ['side-new'], sidesChangedAtISO: t2 })]);
+
+    const merged = mergePlanMeals(older, newer);
+    expect(merged.meals[0].sideRecipeIds).toEqual(['side-new']);
+    expect(merged.meals[0].sidesChangedAtISO).toBe(t2);
+
+    const mergedFlipped = mergePlanMeals(newer, older);
+    expect(mergedFlipped.meals[0].sideRecipeIds).toEqual(['side-new']);
+  });
+
+  it('(w) a tie on sidesChangedAtISO (both null/missing) resolves deterministically either direction', () => {
+    const a = plan('plan-1', [meal(0, { sideRecipeIds: ['side-a'], sidesChangedAtISO: null })]);
+    const b = plan('plan-1', [meal(0, { sideRecipeIds: ['side-b'], sidesChangedAtISO: null })]);
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('(x) the specific race this feature introduces: one phone swaps a side while the other re-rolls the same day — the re-roll wins the whole plate, even against a NEWER sides timestamp on the losing side', () => {
+    // Device A re-rolls day 0 to a whole new plate (main + sides) at t1.
+    const a = plan('plan-1', [
+      meal(0, { recipeId: 'new-recipe', recipeChangedAtISO: t1, sideRecipeIds: ['new-side'], sidesChangedAtISO: t1 }),
+    ]);
+    // Device B, unaware of the re-roll, removes a side from the ORIGINAL
+    // recipe's plate at t2 — chronologically newer than the re-roll, but
+    // it's the wrong dish now.
+    const b = plan('plan-1', [meal(0, { sideRecipeIds: [], sidesChangedAtISO: t2 })]);
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+
+    // The re-roll wins the ENTIRE meal body — including sideRecipeIds — no
+    // matter how fresh B's sidesChangedAtISO is, because recipeId diverged
+    // and `resolveDivergedRecipe` gates the whole thing on
+    // recipeChangedAtISO, not on any individual field's own timestamp.
+    expect(mergedAB.meals[0].recipeId).toBe('new-recipe');
+    expect(mergedAB.meals[0].sideRecipeIds).toEqual(['new-side']);
     expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
 
     // Idempotence for this case too.

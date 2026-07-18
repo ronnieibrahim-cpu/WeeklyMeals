@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 import { recipesById as seedRecipesById, RECIPES as SEED_RECIPES } from '@/data/seed/recipes';
 import { localUserRecipesRepository } from '@/data/repositories/local/LocalUserRecipesRepository';
-import { Recipe } from '@/domain/models';
+import { isMain, Recipe } from '@/domain/models';
 import { buildUserRecipe, UserRecipeInput } from '@/engine/userRecipes';
 
 interface UserRecipesState {
@@ -77,6 +77,15 @@ export function allRecipesById(): Record<string, Recipe> {
   return { ...seedRecipesById, ...useUserRecipesStore.getState().recipesMap };
 }
 
+/** M4.2 part 2: `allRecipesList()` filtered to mains only (`RECIPES` now
+ * also contains sides/sauces). Every consumer that picks or lists "a main"
+ * — generation, re-roll, swap, the Recipes browse tab — uses this, not a
+ * hand-rolled filter, so the main/side split stays defined in one place
+ * (`isMain()`). */
+export function mainRecipesList(): Recipe[] {
+  return allRecipesList().filter(isMain);
+}
+
 /** Reactive hooks for screens — re-render when a family recipe is added,
  * edited, or deleted, unlike the plain accessors above. */
 export function useRecipesById(): Record<string, Recipe> {
@@ -87,4 +96,12 @@ export function useRecipesById(): Record<string, Recipe> {
 export function useAllRecipes(): Recipe[] {
   const userList = useUserRecipesStore((s) => s.list);
   return useMemo(() => [...SEED_RECIPES, ...userList], [userList]);
+}
+
+/** M4.2 part 2: `useAllRecipes()` filtered to mains only — used by the
+ * Recipes browse tab so sides/sauces stay reachable only through a meal's
+ * plate view, not as independently browsable/searchable dishes. */
+export function useMainRecipes(): Recipe[] {
+  const all = useAllRecipes();
+  return useMemo(() => all.filter(isMain), [all]);
 }

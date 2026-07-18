@@ -54,3 +54,10 @@ export interface Recipe {
   sourceUrl?: string; // link back to the original recipe (citation)
   estimated?: boolean; // true when nutrition/times were inferred during import, not authored
 }
+
+/** The main/side split, defined once (M4.2 part 2) — every consumer that
+ * needs to pick or list "a main" (generation, re-roll, swap, the Recipes
+ * browse tab) filters through this, rather than re-deriving the check. */
+export function isMain(recipe: Recipe): boolean {
+  return recipe.role === undefined || recipe.role === 'main';
+}

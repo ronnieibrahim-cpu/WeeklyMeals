@@ -245,6 +245,8 @@ function mealBaseKey(m: PlannedMeal): string {
     ratedAtISO: _ratedAtISO,
     servings: _servings,
     servingsChangedAtISO: _servingsChangedAtISO,
+    sideRecipeIds: _sideRecipeIds,
+    sidesChangedAtISO: _sidesChangedAtISO,
     ...rest
   } = m;
   return stableStringify(rest);
@@ -293,6 +295,25 @@ function resolveServings(a: PlannedMeal, b: PlannedMeal): Pick<PlannedMeal, 'ser
   return chooseBase(aVal, bVal, stableStringify);
 }
 
+/** Resolve `sideRecipeIds`/`sidesChangedAtISO` between two sides of the same
+ * meal (M4.2 part 2): structurally identical to `resolveServings` — an
+ * array value, not a boolean, so a tie (including both missing) falls back
+ * to the same deterministic, commutative tie-break rather than "true wins".
+ * Excluded from `mealBaseKey` (like `servings`/`servingsChangedAtISO`) so a
+ * sides-only edit — composing fresh sides, or removing one — merges
+ * independently instead of looking like a diverged meal body. */
+function resolveSides(a: PlannedMeal, b: PlannedMeal): Pick<PlannedMeal, 'sideRecipeIds' | 'sidesChangedAtISO'> {
+  const aTs = tsOf(a.sidesChangedAtISO);
+  const bTs = tsOf(b.sidesChangedAtISO);
+  if (aTs !== bTs) {
+    const later = aTs > bTs ? a : b;
+    return { sideRecipeIds: later.sideRecipeIds, sidesChangedAtISO: later.sidesChangedAtISO ?? null };
+  }
+  const aVal = { sideRecipeIds: a.sideRecipeIds, sidesChangedAtISO: a.sidesChangedAtISO ?? null };
+  const bVal = { sideRecipeIds: b.sideRecipeIds, sidesChangedAtISO: b.sidesChangedAtISO ?? null };
+  return chooseBase(aVal, bVal, stableStringify);
+}
+
 /** Resolve two meal bodies that disagree on `recipeId` (M2.2: one side
  * re-rolled that day to a different dish). These are NOT merged
  * field-by-field — a `cooked`/`rating` describing the outgoing dish must
@@ -312,15 +333,17 @@ function resolveDivergedRecipe(a: PlannedMeal, b: PlannedMeal): PlannedMeal {
  * Merge two copies of the SAME plan (caller must check `a.id === b.id`).
  * Meals are matched by dayIndex. If both sides agree on `recipeId`, they're
  * progress on the same dish: whichever side toggled `cooked`, set/edited
- * `rating`, or changed `servings` more recently wins that piece of that
- * meal's state, independently (see `resolveCooked`/`resolveRating`/
- * `resolveServings`). If the sides disagree on `recipeId` (M2.2 re-roll),
- * the two meal bodies are resolved atomically instead — see
- * `resolveDivergedRecipe` — which is what makes a servings edit racing a
- * re-roll on the same meal come out correctly: `resolveDivergedRecipe`
- * returns the ENTIRE winning meal object (servings included), gated purely
- * on `recipeChangedAtISO`, regardless of how fresh the losing side's
- * `servingsChangedAtISO` happens to be (see syncMerge.test.ts). weekStartISO/intake/
+ * `rating`, changed `servings`, or changed `sideRecipeIds` (M4.2 part 2)
+ * more recently wins that piece of that meal's state, independently (see
+ * `resolveCooked`/`resolveRating`/`resolveServings`/`resolveSides`). If the
+ * sides disagree on `recipeId` (M2.2 re-roll), the two meal bodies are
+ * resolved atomically instead — see `resolveDivergedRecipe` — which is what
+ * makes a servings (or sides) edit racing a re-roll on the same meal come
+ * out correctly: `resolveDivergedRecipe` returns the ENTIRE winning meal
+ * object (servings and sideRecipeIds included), gated purely on
+ * `recipeChangedAtISO`, regardless of how fresh the losing side's
+ * `servingsChangedAtISO`/`sidesChangedAtISO` happens to be (see
+ * syncMerge.test.ts). weekStartISO/intake/
  * createdAtISO are set once at generation and never mutated afterwards by
  * any store action, so they're identical between two copies of the same
  * plan id by construction — status is the only other WeeklyPlan-level
@@ -337,7 +360,13 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
     if (am && bm) {
       if (am.recipeId !== bm.recipeId) return resolveDivergedRecipe(am, bm);
       const base = chooseBase(am, bm, mealBaseKey);
-      return { ...base, ...resolveCooked(am, bm), ...resolveRating(am, bm), ...resolveServings(am, bm) };
+      return {
+        ...base,
+        ...resolveCooked(am, bm),
+        ...resolveRating(am, bm),
+        ...resolveServings(am, bm),
+        ...resolveSides(am, bm),
+      };
     }
     return (am ?? bm)!;
   });

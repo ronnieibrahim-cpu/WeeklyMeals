@@ -198,3 +198,45 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
     WEIGHTS.ratingsPenalty * ratingsPenalty(recipe, ctx)
   );
 }
+
+function cuisineFitBonus(recipe: Recipe, main: Recipe): number {
+  return recipe.cuisine === main.cuisine ? 1 : 0;
+}
+
+/**
+ * Score a SIDE candidate for a given plate (M4.2 part 2). Reuses every
+ * `scoreRecipe` signal except `varietyBonus` — that function's cuisine/
+ * protein-repeat penalty is calibrated for "don't pick the same cuisine
+ * twice across a week of mains," which is the wrong comparison at plate
+ * scope: it would penalize a side for fitting the main's cuisine (the
+ * opposite of MILESTONE-4.md Rule 3) and penalize a second vegetable side
+ * for sharing `primaryProtein: 'None'` with the first, biasing every plate
+ * toward a single side. In its place: a small, deliberately modest
+ * `cuisineFitBonus` against the main's cuisine specifically (never strong
+ * enough to bury a better-scoring cross-cuisine candidate).
+ *
+ * `budgetFit`/`timeFit`/`nutritionFit` still score the side's own
+ * cost/time/nutrition against the FULL per-meal target, not "what's left
+ * after the main" — a stated, accepted simplification (see MILESTONE-4.md),
+ * not an oversight. The combined main+side time budget is enforced
+ * separately as a hard filter in `mealComposition.ts`, not here.
+ */
+export function scoreSide(side: Recipe, main: Recipe, ctx: GenerateContext): number {
+  return (
+    WEIGHTS.pantry * pantryOverlap(side, ctx.pantry) +
+    WEIGHTS.preference * preferenceMatch(side, ctx) +
+    WEIGHTS.affinity * affinityBonus(side, ctx) +
+    WEIGHTS.favorite * favoriteBonus(side, ctx) +
+    WEIGHTS.curated * curatedBonus(side) +
+    WEIGHTS.kidApproved * kidApprovedBonus(side, ctx) +
+    WEIGHTS.learnedDials * learnedDialsFit(side, ctx) +
+    WEIGHTS.sideCuisineFit * cuisineFitBonus(side, main) +
+    WEIGHTS.budget * budgetFit(side, ctx) +
+    WEIGHTS.time * timeFit(side, ctx) +
+    WEIGHTS.nutrition * nutritionFit(side, ctx) +
+    WEIGHTS.healthyComfort * healthyComfortFit(side, ctx) +
+    WEIGHTS.adventurous * adventurousFit(side, ctx) +
+    WEIGHTS.season * seasonFit(side, ctx) -
+    WEIGHTS.ratingsPenalty * ratingsPenalty(side, ctx)
+  );
+}

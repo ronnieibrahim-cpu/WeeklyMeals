@@ -8,6 +8,7 @@ import { recipeBatch6 } from './recipeBatch6';
 import { recipeBatch7 } from './recipeBatch7';
 import { recipeBatch8 } from './recipeBatch8';
 import { recipeImported } from './recipeImported';
+import { recipeSides } from './recipeSides';
 
 /**
  * Seed recipe library, assembled from incremental batches as it grows toward 200+.
@@ -1106,6 +1107,14 @@ const batch1: Recipe[] = [
   },
 ];
 
+/**
+ * The unified recipe pool (M4.2 part 2): mains, imported dishes, AND sides/
+ * sauces all live here now, so any id — main or side — resolves the same way
+ * everywhere (shopping list, cook mode, meal detail, sync). Anything that
+ * needs to pick or list "a main" (generation, re-roll, swap, the Recipes
+ * browse tab) must filter through `isMain()`, never assume this array is
+ * mains-only.
+ */
 export const RECIPES: Recipe[] = [
   ...batch1,
   ...recipeBatch2,
@@ -1116,6 +1125,7 @@ export const RECIPES: Recipe[] = [
   ...recipeBatch7,
   ...recipeBatch8,
   ...recipeImported,
+  ...recipeSides,
 ];
 
 /** Fast lookup by id. */

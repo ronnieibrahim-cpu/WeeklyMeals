@@ -10,11 +10,11 @@
 > sweep (`DEBUG-SWEEP.md`) P0/P1/P2 fixes landed. **Milestone 4 is in progress:**
 > M4.0 landed; M4.1 (household composition → adult-equivalent servings) landed,
 > revised to plain editable age (no birthdate) with `familySize` demoted to an
-> invisible fallback — see §5, §6, §7 below. M4.2 part 1 (data model:
-> `Recipe.role`/`Recipe.provides` + the `recipeSides.ts` library) landed —
-> see §4, §5. M4.2 part 2 (actually composing plates at generation time) is
-> next; nothing about generation, scoring, or the shopping list has changed yet.
-> **Last verified:** July 2026 · typecheck clean · 247 tests green ·
+> invisible fallback — see §5, §6, §7 below. **M4.2 (a dinner is a plate, not a
+> dish) landed, both parts** — the data model (part 1) and actually composing
+> main + sides at generation time, wired through the shopping list, cost, cook
+> mode, meal detail, and strict re-roll (part 2) — see §4, §5, §6, §7.
+> **Last verified:** July 2026 · typecheck clean · 282 tests green ·
 > 230/230 curated recipes + 50/50 sides/sauces pass content validation,
 > 636/636 recipes use canonical allergen labels and plausible `provides`.
 >
@@ -27,10 +27,12 @@
 
 A meal-planning app for one family (2 adults, 2 young kids, Houston TX, shops at
 H-E-B). Each week it asks a short questionnaire (or a one-tap "same as last week"),
-generates a week of dinners from a ~586-recipe library, and produces one
-consolidated H-E-B shopping list with estimated prices. The family cooks from the
-app, re-rolls meals mid-week from ingredients already bought, rates as they go, and
-those ratings nudge future recommendations.
+generates a week of dinners from a ~586-main library, composes each main with 0–2
+sides/sauces from a 50-recipe sides library (M4.2 — a dinner is a plate, not a
+dish), and produces one consolidated H-E-B shopping list with estimated prices. The
+family cooks from the app, re-rolls meals mid-week from ingredients already bought
+(evaluated on the whole plate, not just the main), rates as they go, and those
+ratings nudge future recommendations.
 
 **Product owner is a non-programmer** (an anesthesiologist, engineer-minded).
 Communicate in plain English; make routine engineering decisions autonomously
@@ -52,7 +54,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
 - **Supabase REST (raw fetch, no SDK)** — optional "household sync" between two
   phones; publishable key committed by design, **RLS is a permanent, informed
   accepted risk, not a fix in progress** (see §8)
-- **Jest / jest-expo** — engine + `src/data/import` test suite (**247 tests**); `npx jest` must stay green
+- **Jest / jest-expo** — engine + `src/data/import` test suite (**282 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**
@@ -88,19 +90,28 @@ app/cook/         full-screen guided cook mode (steps, timers, keep-awake)
 app/meal/ recipe/ pin/ reroll/   detail, pin-to-week, re-roll flows
 app/household.tsx sync setup · app/settings.tsx theme
 
-src/domain/       models (Recipe — now with optional `role`/`provides`, M4.2 —
+src/domain/       models (Recipe — `role`/`provides` + `isMain()`, M4.2;
+                  PlannedMeal — `sideRecipeIds`/`sidesChangedAtISO`, M4.2 part 2 —
                   Profile, IntakeAnswers, WeeklyPlan, ShoppingList, ManualItem,
                   RatingEvent, PreferenceProfile) + constants (cuisines, H-E-B
                   dept order, canonical allergen list, chips)
-src/engine/       recommendation/ (filters · scoring · LocalRecommendationEngine)
-                  shoppingList · cost · learning · season · schedule · reroll ·
-                  rating · syncMerge · manualItems · recipeSearch · cookMode ·
-                  userRecipes · portions (M4.1: household → adult-equivalent
-                  servings)    (+ a .test.ts beside almost every module)
+src/engine/       recommendation/ (filters · scoring [scoreRecipe + M4.2's
+                  scoreSide] · LocalRecommendationEngine) · mealComposition
+                  (M4.2 part 2: composeSides, pure, best-effort) · shoppingList ·
+                  cost · learning · season · schedule · reroll · rating ·
+                  syncMerge · manualItems · recipeSearch · cookMode (M4.2:
+                  composeCookSteps/cookModePlateKey) · userRecipes · portions
+                  (M4.1: household → adult-equivalent servings)    (+ a .test.ts
+                  beside almost every module)
 src/data/seed/    230 hand-curated mains (batches 1–8, cookbook-grade content) +
                   recipeImported.ts (356 TheMealDB imports, GENERATED — never
                   hand-edit) + recipeSides.ts (50 hand-curated sides/sauces,
-                  M4.2 — NOT yet wired into generation; see §5)
+                  M4.2). All three are merged into one `RECIPES` pool
+                  (recipes.ts) — anything picking "a main" (generation, re-roll,
+                  swap, the Recipes browse tab) filters through `isMain()`;
+                  nothing else needs to, since `getAnyRecipe`/shopping
+                  list/cook mode/meal detail resolve a side id exactly like a
+                  main id.
 src/data/import/  normalize.ts (import heuristics incl. M4.2's `inferProvides`/
                   `unsupportedProvides`) + themealdb-raw.json (a frozen
                   snapshot of TheMealDB's raw API response; scripts/
@@ -144,13 +155,39 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
      (never trusts stale wizard state). `PlannedMeal.servings` can also be adjusted
      per-meal (a stepper on the meal card / meal detail, plus a "Cook extra for lunches
      (+2)" shortcut).
+   - **Composed plates (M4.2 part 2):** every main gets 0–2 sides/sauces composed
+     onto it — `LocalRecommendationEngine.generate()` calls `composeSides(main,
+     sidesPool, ctx)` for each selected main, same at a draft `swapMealTo`. Pure,
+     best-effort, capped at 2: fills the hard minimum (protein + vegetable/starch)
+     first, then the full target (protein + vegetable + starch), only considering a
+     sauce once the hard minimum is already met, never adding a side that duplicates
+     what's already on the plate. Every side candidate passes the exact same hard
+     filters a main does (allergies, diet, dislikes, blocked, combined time budget)
+     — a side is food, it can hurt someone just as badly as a main. Scored with
+     `scoreSide` — every `scoreRecipe` signal except `varietyBonus` (which is
+     main-vs-week-scoped and inverts into the wrong signal at plate scope), plus a
+     small cuisine-fit bonus against the main. `sideRecipeIds` flows into
+     `buildShoppingList`/cost through the exact same per-recipe path as the main —
+     one source of truth, unchanged. Some curated mains (a frozen, reviewed
+     allowlist in `scripts/validateRecipes.ts`) are honestly protein-light and stay
+     that way if nothing in the sides pool can close the gap that week — no error
+     state, no nagging copy.
 3. **During the week:** meals map to **real calendar dates** ("Tonight" means
-   tonight). Cook mode, cooked toggles, shopping check-offs, **rate-as-you-go**
-   (stars on any meal any time, visible on cards), **strict mid-week re-roll**,
+   tonight). Cook mode (composed steps: the main's, then each side's, each side's
+   first step carrying a "Side: X"/"Sauce: X" section label; cook-mode progress is
+   keyed by a content-addressed `cookModePlateKey`, so a side removed, swapped, or
+   changed via sync resets progress to the start instead of landing on a different
+   dish's step), cooked toggles, shopping check-offs, **rate-as-you-go** (stars on
+   any meal any time, visible on cards), **strict mid-week re-roll** (evaluated on
+   the WHOLE PLATE, M4.2 part 2 — a candidate main's composed sides are checked
+   against pantry + this week's list + staples too, and the exact plate shown as a
+   candidate is the exact plate committed, never recomposed at commit time),
    **manual grocery items**, favorites, kids-approved badges. A servings change on an
    **approved** plan (Law #1) never touches the shopping list by itself — it shows the
    exact delta ("you'll need 0.4 lb more chicken thighs") behind an explicit "Update
-   shopping list" / "Reduce shopping list" button; declining leaves the list untouched.
+   shopping list" / "Reduce shopping list" button; declining leaves the list untouched
+   — a side can also be removed from the plate ("no sides tonight" is a real, explicit
+   choice) with the same explicit-button pattern before the shopping list is touched.
 4. **Learning:** ratings are the source of truth and the `PreferenceProfile` is
    **recomputed from the full rating history** on every change (structurally
    immune to double-counting). Cuisine/protein/technique/vegetable affinities and
@@ -169,9 +206,14 @@ the identical result regardless of order, or they ping-pong forever.
   deterministically (a real toggle is never silently lost).
 - **`recipeChangedAtISO` gates meal-body divergence:** if two devices hold different
   recipes for the same day, the newer stamp wins the **entire meal body** — a rating,
-  cooked flag, or servings value must never attach to a dish that was replaced by a
-  re-roll or a pin. `servings` (M4.1) merges the same way `rating` does — its own
-  `servingsChangedAtISO` stamp, newer-wins, independent of `cooked`/`rating`.
+  cooked flag, servings value, or `sideRecipeIds` must never attach to a dish that was
+  replaced by a re-roll or a pin. `servings` (M4.1) merges the same way `rating` does
+  — its own `servingsChangedAtISO` stamp, newer-wins, independent of `cooked`/`rating`.
+  `sideRecipeIds` (M4.2 part 2) merges the identical way via its own
+  `sidesChangedAtISO` stamp — one phone swapping a side while the other re-rolls the
+  same day still converges: the re-roll's `recipeChangedAtISO` wins the whole meal
+  body (sides included), regardless of how fresh the losing side's
+  `sidesChangedAtISO` happens to be.
 - **Manual items** are keyed by **normalized name** (two people adding "milk"
   converge to one row) and deleted via **tombstones** (a delete is never resurrected
   by a phone that hasn't caught up). They are **not plan-scoped**: on approving a new
@@ -187,16 +229,27 @@ the identical result regardless of order, or they ping-pong forever.
    to re-roll, pin-to-week, and everything after.)
 2. **Strict re-roll:** a mid-week re-roll only offers meals cookable from pantry +
    this week's list + staples. No surprise store trips. If nothing qualifies, show
-   near-misses labeled with exactly what's missing.
+   near-misses labeled with exactly what's missing. **Since M4.2 part 2, this applies
+   to the WHOLE PLATE** — main and composed sides together, not the main alone; a
+   candidate's sides are checked for coverage too, and the plate offered as a
+   candidate is exactly the plate committed (never recomposed at commit time).
 3. **Never ask a question the code doesn't act on** — and never promise a capability
    in UI copy that doesn't exist.
 4. **Allergy filtering is deterministic and safety-critical.** Never delegate it to a
    model. Any change ships with tests in the same commit. Imported (`mealdb-`)
    recipes are **excluded entirely** whenever any profile allergy is set (their
    allergen data is keyword-guessed), and always carry an "allergen info estimated"
-   note on their detail screen.
+   note on their detail screen. A side is food; it can hurt someone just as badly as
+   a main — every side candidate passes the exact same hard filters a main does
+   (M4.2 part 2, `composeSides`).
 5. **Pinning bypasses candidate generation** — so the pin action itself must enforce
-   the allergy guard. (Reusing a code path silently reuses its assumptions.)
+   the allergy guard. (Reusing a code path silently reuses its assumptions.) **M4.2
+   part 2 extends this to sides:** pinning a main composes fresh sides the same way
+   generation does, then re-checks `passesAllergySafety` on every composed side
+   explicitly — defense in depth, never trusting that `composeSides`' internal
+   filtering alone was enough. Also store-level, not just an absent UI button: a
+   side/sauce is never independently pinnable as a whole dinner (`pinRecipeToWeek`/
+   `pinRecipeToDraft` reject a non-main `recipeId` outright).
 6. **Bug-free beats feature-rich. Always.**
 
 ## 8. Known issues
@@ -243,15 +296,15 @@ Product Owner's friction journal, is the active milestone:
 - **M4.0** — three bug fixes + virtualized recipe browse list. ✅ Shipped.
 - **M4.1** — household composition → adult-equivalent servings. ✅ Shipped, revised
   (plain editable age, no birthdate; `familySize` demoted to invisible fallback).
-- **M4.2** — a dinner is a plate, not a dish (main + sides composition). **Part 1
-  (data model: `Recipe.role`/`Recipe.provides`, curated `provides` authored by
-  hand, `recipeSides.ts`, validator gates) ✅ shipped. Part 2 (actually
-  composing plates at generation time, `mealComposition.ts`, shopping list,
-  cook mode, meal detail UI) is next — none of that is wired up yet.**
+- **M4.2** — a dinner is a plate, not a dish (main + sides composition). ✅ Shipped,
+  both parts: the data model (`Recipe.role`/`Recipe.provides`, curated `provides`,
+  `recipeSides.ts`, validator gates) and actually composing plates at generation
+  time (`mealComposition.ts`, shopping list, cost, cook mode, meal detail UI,
+  whole-plate strict re-roll, sync).
 - **M4.3** — waste-fit scoring bonus (use the whole cabbage). Not started.
 - **M4.4** — per-recipe notes, household-synced. Not started.
 - **M4.5** — component re-roll (keep a side/sauce, regenerate the rest). Depends on
-  M4.2. Not started.
+  M4.2 (now shipped). Not started.
 - **M4.6** — rearrange the week after approval (swipe "Move to…" + hold-to-drag).
   Not started.
 

@@ -15,6 +15,17 @@ export interface PlannedMeal {
    * `mealBaseKey` so a servings-only edit merges independently rather than
    * looking like a diverged meal body. */
   servingsChangedAtISO?: string | null;
+  /** M4.2: 0-2 side/sauce recipe ids composed onto this main's plate, at
+   * generation time or edited after via the meal detail screen. An empty
+   * array is a real, explicit "no sides tonight" choice, not "not decided
+   * yet" — that distinction lives in whether `sidesChangedAtISO` is set. */
+  sideRecipeIds?: string[];
+  /** When this device last changed `sideRecipeIds` (M4.2). Same shape as
+   * `servingsChangedAtISO` — settable repeatedly, newer-wins with a
+   * deterministic tie-break — see `resolveSides` in syncMerge.ts. Excluded
+   * from `mealBaseKey` so a sides-only edit merges independently rather than
+   * looking like a diverged meal body. */
+  sidesChangedAtISO?: string | null;
   /** When this device last changed `recipeId` (M2.2 re-roll). Undefined at
    * generation/approval (epoch 0) — only `rerollMeal` stamps it. Sync merge
    * key: when two devices disagree on `recipeId` for the same day, this

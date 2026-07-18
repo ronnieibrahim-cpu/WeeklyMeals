@@ -1,5 +1,6 @@
-import { Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { isMain, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 
+import { composeSides } from './mealComposition';
 import { passesHardFilters, scoreRecipe } from './recommendation';
 import { GenerateContext } from './recommendation/types';
 import { todayOffset } from './schedule';
@@ -25,21 +26,24 @@ function loosely(name: string, available: Set<string>): boolean {
 /**
  * Normalized set of ingredient names considered "available" for a strict
  * mid-week re-roll (M2.2): pantry items + everything already on this week's
- * shopping list (assume purchased) + the outgoing meal's own ingredients (so
- * a recipe can always re-qualify as its own replacement). Recipe-flagged
- * pantry staples (salt/oil/etc.) aren't included here — they're treated as
- * always on hand, checked separately in `missingIngredients`, same as
- * `buildShoppingList` already excludes them from the list entirely.
+ * shopping list (assume purchased) + the outgoing PLATE's own ingredients —
+ * the main and its sides (M4.2 part 2) — so a plate can always re-qualify as
+ * its own replacement. Recipe-flagged pantry staples (salt/oil/etc.) aren't
+ * included here — they're treated as always on hand, checked separately in
+ * `missingIngredients`, same as `buildShoppingList` already excludes them
+ * from the list entirely.
  */
 export function availableIngredients(
   pantry: string[],
   shoppingList: ShoppingList | null,
   outgoingRecipe: Recipe | undefined,
+  outgoingSides: Recipe[] = [],
 ): Set<string> {
   const set = new Set<string>();
   for (const p of pantry) set.add(lower(p));
   if (shoppingList) for (const item of shoppingList.items) set.add(lower(item.ingredientName));
   if (outgoingRecipe) for (const ing of outgoingRecipe.ingredients) set.add(lower(ing.name));
+  for (const side of outgoingSides) for (const ing of side.ingredients) set.add(lower(ing.name));
   return set;
 }
 
@@ -50,27 +54,49 @@ export function missingIngredients(recipe: Recipe, available: Set<string>): stri
     .map((ing) => ing.name);
 }
 
-export interface RerollNearMiss {
+/** Union of missing ingredients across a whole plate — main + its composed
+ * sides (M4.2 part 2) — deduped. Strict re-roll evaluates the plate as a
+ * whole, not just the main: a candidate whose composed sides need something
+ * not on hand is no more offerable than a main that does. */
+export function missingIngredientsForPlate(main: Recipe, sides: Recipe[], available: Set<string>): string[] {
+  const names = new Set<string>();
+  for (const name of missingIngredients(main, available)) names.add(name);
+  for (const side of sides) for (const name of missingIngredients(side, available)) names.add(name);
+  return Array.from(names);
+}
+
+/** A candidate main plus the sides `composeSides` picked for it — carried
+ * together so a commit (`rerollMeal`) attaches EXACTLY the plate that was
+ * evaluated as coverable, never recomputes sides after the fact (which
+ * could silently pick something not actually on hand). */
+export interface RerollCandidate {
   recipe: Recipe;
-  missing: string[]; // 1-2 ingredient names
+  sideRecipeIds: string[];
+}
+
+export interface RerollNearMiss extends RerollCandidate {
+  missing: string[]; // 1-2 ingredient names, across the whole plate
 }
 
 export interface RerollOutcome {
   /** Fully coverable candidates, ranked best-first (top 5). Empty if none qualify. */
-  candidates: Recipe[];
-  /** Up to 3 near-misses (each missing 1-2 ingredients), only populated when `candidates` is empty. */
+  candidates: RerollCandidate[];
+  /** Up to 3 near-misses (each missing 1-2 ingredients across the whole plate), only populated when `candidates` is empty. */
   nearMisses: RerollNearMiss[];
 }
 
 /**
  * Pure candidate selection for a mid-week re-roll. STRICT mode (✅ decided):
- * only recipes fully coverable by `available` qualify — a re-roll must never
- * imply a new store trip. Excludes recipes already used elsewhere in the
- * week and anything failing the existing hard filters (allergies, diet,
- * time limits, dislikes) or blocked by learning. Ranked with the same
- * scoring function used elsewhere, against the rest of the week's picks, so
- * variety/preference still apply; ties break by stable-sort array order
- * (deterministic — not shuffled/randomized).
+ * only PLATES — main + composed sides (M4.2 part 2) — fully coverable by
+ * `available` qualify, evaluated as a whole; a re-roll must never imply a
+ * new store trip, for the main or for whatever sides get composed onto it.
+ * Excludes mains already used elsewhere in the week and anything failing the
+ * existing hard filters (allergies, diet, time limits, dislikes) or blocked
+ * by learning. Ranked with the same scoring function used elsewhere,
+ * against the rest of the week's picks, so variety/preference still apply;
+ * ties break by stable-sort array order (deterministic — not
+ * shuffled/randomized). `recipes` is the FULL pool (mains + sides +
+ * imported), split once here via `isMain()`.
  */
 export function rerollCandidates(
   plan: WeeklyPlan,
@@ -94,22 +120,28 @@ export function rerollCandidates(
     .map((m) => getRecipe(m.recipeId))
     .filter((r): r is Recipe => !!r);
 
+  const mains = recipes.filter(isMain);
+  const sidesPool = recipes.filter((r) => !isMain(r));
+  const sidesById = new Map(sidesPool.map((s) => [s.id, s]));
+
   const blocked = new Set(ctx.preferences?.blockedRecipeIds ?? []);
-  const pool = recipes.filter(
+  const pool = mains.filter(
     (r) => !usedIds.has(r.id) && !blocked.has(r.id) && passesHardFilters(r, ctx.intake, ctx.profile),
   );
 
-  const coverable: Recipe[] = [];
+  const coverable: RerollCandidate[] = [];
   const shortfalls: RerollNearMiss[] = [];
   for (const r of pool) {
-    const missing = missingIngredients(r, available);
-    if (missing.length === 0) coverable.push(r);
-    else if (missing.length <= 2) shortfalls.push({ recipe: r, missing });
+    const sideRecipeIds = composeSides(r, sidesPool, ctx);
+    const sides = sideRecipeIds.map((id) => sidesById.get(id)).filter((s): s is Recipe => !!s);
+    const missing = missingIngredientsForPlate(r, sides, available);
+    if (missing.length === 0) coverable.push({ recipe: r, sideRecipeIds });
+    else if (missing.length <= 2) shortfalls.push({ recipe: r, sideRecipeIds, missing });
   }
 
   if (coverable.length > 0) {
     const ranked = [...coverable].sort(
-      (a, b) => scoreRecipe(b, ctx, selectedRecipes) - scoreRecipe(a, ctx, selectedRecipes),
+      (a, b) => scoreRecipe(b.recipe, ctx, selectedRecipes) - scoreRecipe(a.recipe, ctx, selectedRecipes),
     );
     return { candidates: ranked.slice(0, 5), nearMisses: [] };
   }

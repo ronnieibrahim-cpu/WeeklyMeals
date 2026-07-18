@@ -128,6 +128,53 @@ describe('buildShoppingList', () => {
     expect(list.items).toEqual([]);
     expect(list.estimatedTotal).toBe(0);
   });
+
+  it('M4.2: folds a meal\'s composed sides\' ingredients into the same list as the main', () => {
+    const main = makeRecipe({
+      id: 'main',
+      baseServings: 4,
+      ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+    });
+    const side = makeRecipe({
+      id: 'side',
+      baseServings: 4,
+      ingredients: [{ name: 'broccoli', quantity: 1, unit: 'lb', department: 'Produce' }],
+    });
+    const recipesById: Record<string, Recipe> = { main, side };
+    const meals = [makeMeal({ recipeId: 'main', dayIndex: 0, servings: 4, sideRecipeIds: ['side'] })];
+
+    const list = buildShoppingList('plan-1', meals, (id) => recipesById[id], [], fakeGrocery);
+
+    expect(list.items.map((i) => i.ingredientName).sort()).toEqual(['broccoli', 'chicken']);
+    const broccoli = list.items.find((i) => i.ingredientName === 'broccoli');
+    expect(broccoli?.fromRecipeIds).toEqual(['side']);
+  });
+
+  it('M4.2: scales a side by the same meal.servings as the main, not the side\'s own baseServings alone', () => {
+    const main = makeRecipe({ id: 'main', baseServings: 4, ingredients: [] });
+    const side = makeRecipe({
+      id: 'side',
+      baseServings: 4,
+      ingredients: [{ name: 'rice', quantity: 1, unit: 'cup', department: 'DryGoods' }],
+    });
+    const recipesById: Record<string, Recipe> = { main, side };
+    // 8 people on a side that serves 4 => double the rice, same as a main would scale.
+    const meals = [makeMeal({ recipeId: 'main', dayIndex: 0, servings: 8, sideRecipeIds: ['side'] })];
+
+    const list = buildShoppingList('plan-1', meals, (id) => recipesById[id], [], fakeGrocery);
+
+    expect(list.items.find((i) => i.ingredientName === 'rice')?.quantity).toBe(2);
+  });
+
+  it('M4.2: a meal with no sides (undefined sideRecipeIds) behaves exactly as before', () => {
+    const main = makeRecipe({ id: 'main', ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }] });
+    const recipesById: Record<string, Recipe> = { main };
+    const meals = [makeMeal({ recipeId: 'main', dayIndex: 0, servings: 4 })];
+
+    const list = buildShoppingList('plan-1', meals, (id) => recipesById[id], [], fakeGrocery);
+
+    expect(list.items.map((i) => i.ingredientName)).toEqual(['chicken']);
+  });
 });
 
 describe('addIngredientsToShoppingList (M3.1 — explicit "Add these to shopping list" button on pin-to-week)', () => {
@@ -329,5 +376,75 @@ describe('applyShoppingListDelta (M4.1)', () => {
     const delta = computeServingsDelta(recipeA, 4, 8, []); // +2 onions
     const next = applyShoppingListDelta(list, delta, 'a', fakeGrocery);
     expect(next.estimatedTotal).toBe(5);
+  });
+});
+
+describe('applyShoppingListDelta — removesSource (M4.2 part 2: removing a side)', () => {
+  // Real seed data marks olive oil pantryStaple; this fixture deliberately
+  // does NOT, specifically to exercise the shared-non-staple-ingredient path.
+  const main = makeRecipe({
+    id: 'main',
+    baseServings: 4,
+    ingredients: [
+      { name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' },
+      { name: 'olive oil', quantity: 2, unit: 'tbsp', department: 'DryGoods' },
+    ],
+  });
+  const side = makeRecipe({
+    id: 'side',
+    baseServings: 4,
+    ingredients: [{ name: 'olive oil', quantity: 1, unit: 'tbsp', department: 'DryGoods' }],
+  });
+
+  function plateList() {
+    return buildShoppingList(
+      'plan-1',
+      [makeMeal({ recipeId: 'main', dayIndex: 0, servings: 4, sideRecipeIds: ['side'] })],
+      (id) => ({ main, side })[id],
+      [],
+      fakeGrocery,
+    );
+  }
+
+  it('removing a side subtracts only its own contribution, leaving the main\'s share of a shared ingredient intact', () => {
+    const list = plateList();
+    const oliveOilBefore = list.items.find((i) => i.ingredientName === 'olive oil');
+    expect(oliveOilBefore?.quantity).toBe(3); // 2 (main) + 1 (side)
+
+    // "Remove this side" = a full-removal delta: side's servings go to 0.
+    const delta = computeServingsDelta(side, 4, 0, []);
+    const next = applyShoppingListDelta(list, delta, 'side', fakeGrocery, /* removesSource */ true);
+
+    const oliveOil = next.items.find((i) => i.ingredientName === 'olive oil');
+    expect(oliveOil?.quantity).toBe(2); // only the main's 2 tbsp remain
+    expect(oliveOil?.fromRecipeIds).toEqual(['main']); // side's attribution is gone too
+  });
+
+  it('leaves fromRecipeIds untouched when removesSource is false (M4.1 servings-scale-down behavior, unchanged)', () => {
+    const list = plateList();
+    const delta = computeServingsDelta(main, 4, 2, []); // main's own scale-down, not a removal
+    const next = applyShoppingListDelta(list, delta, 'main', fakeGrocery); // removesSource defaults false
+    const oliveOil = next.items.find((i) => i.ingredientName === 'olive oil');
+    expect(oliveOil?.fromRecipeIds.sort()).toEqual(['main', 'side']); // main stays a listed source
+  });
+
+  it('removing the side entirely deletes a line it was the sole contributor to', () => {
+    // Side-only ingredient: nothing else on the plate contributes garlic.
+    const plainMain = makeRecipe({ id: 'main', ingredients: [] });
+    const sideWithGarlic = makeRecipe({
+      id: 'side',
+      baseServings: 4,
+      ingredients: [{ name: 'garlic', quantity: 2, unit: 'clove', department: 'Produce' }],
+    });
+    const list = buildShoppingList(
+      'plan-1',
+      [makeMeal({ recipeId: 'main', dayIndex: 0, servings: 4, sideRecipeIds: ['side'] })],
+      (id) => ({ main: plainMain, side: sideWithGarlic })[id],
+      [],
+      fakeGrocery,
+    );
+    const delta = computeServingsDelta(sideWithGarlic, 4, 0, []);
+    const next = applyShoppingListDelta(list, delta, 'side', fakeGrocery, true);
+    expect(next.items.find((i) => i.ingredientName === 'garlic')).toBeUndefined();
   });
 });

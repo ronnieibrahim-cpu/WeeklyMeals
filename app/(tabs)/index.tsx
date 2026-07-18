@@ -8,6 +8,7 @@ import { allMealsRated } from '@/engine/rating';
 import { dayLabel, todayOffset } from '@/engine/schedule';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, EmptyState, MealCard, Screen, SecondaryButton, ServingsShoppingListPrompt, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -25,6 +26,7 @@ export default function ThisWeekScreen() {
   const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
   const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
+  const recipesById = useRecipesById();
   const [showPast, setShowPast] = useState(false);
   // M4.1: which meal (if any) just had its servings changed on the
   // approved plan, and what it was before — drives the inline "Update
@@ -159,6 +161,7 @@ export default function ThisWeekScreen() {
             setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
             setApprovedMealServings(meal.dayIndex, servings);
           }}
+          sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
         />
         {pendingServings?.dayIndex === meal.dayIndex ? (
           <ServingsShoppingListPrompt

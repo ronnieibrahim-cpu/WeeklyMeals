@@ -9,7 +9,7 @@ import { Category, Cuisine, Difficulty, Protein, Recipe } from '@/domain/models'
 import { autocompleteSuggestions, filterRecipes, findByExactName, RecipeFilters, searchRecipes } from '@/engine/recipeSearch';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
-import { useAllRecipes } from '@/stores/userRecipesStore';
+import { useMainRecipes } from '@/stores/userRecipesStore';
 import { ChipMultiSelect, ChipSingleSelect, EmptyState, RecipeResultCard, Screen, SectionHeader, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -32,7 +32,9 @@ export default function RecipesScreen() {
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
-  const allRecipes = useAllRecipes();
+  // Mains only (M4.2 part 2) — sides/sauces stay reachable only through a
+  // meal's plate view, not as independently browsable/searchable dishes.
+  const allRecipes = useMainRecipes();
 
   // Drive the heavy list work off a deferred copy of the query so a fast
   // typist doesn't re-filter/re-render the whole (up to 541-item) list on

@@ -113,7 +113,7 @@ describe('rerollCandidates', () => {
 
     const outcome = rerollCandidates(plan, 0, recipes, (id) => recipes.find((r) => r.id === id), new Set(), ctx);
 
-    const candidateIds = outcome.candidates.map((r) => r.id);
+    const candidateIds = outcome.candidates.map((c) => c.recipe.id);
     expect(candidateIds).not.toContain('outgoing');
     expect(candidateIds).not.toContain('used-elsewhere');
     expect(candidateIds).toContain('fresh');
@@ -142,7 +142,7 @@ describe('rerollCandidates', () => {
       ctx,
     );
 
-    const candidateIds = outcome.candidates.map((r) => r.id);
+    const candidateIds = outcome.candidates.map((c) => c.recipe.id);
     expect(candidateIds).toContain('coverable');
     expect(candidateIds).not.toContain('not-coverable');
   });
@@ -205,10 +205,71 @@ describe('rerollCandidates', () => {
 
     const outcome = rerollCandidates(plan, 0, recipes, (id) => recipes.find((r) => r.id === id), new Set(), ctx);
 
-    const candidateIds = outcome.candidates.map((r) => r.id);
+    const candidateIds = outcome.candidates.map((c) => c.recipe.id);
     expect(candidateIds).not.toContain('allergic');
     expect(candidateIds).not.toContain('blocked');
     expect(candidateIds).toContain('fine');
+  });
+});
+
+describe('rerollCandidates — whole-plate evaluation (M4.2 part 2)', () => {
+  it('carries the composed sides on the candidate itself, not recomputed later', () => {
+    const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+    const main = makeRecipe({
+      id: 'main-candidate',
+      primaryProtein: 'Chicken',
+      provides: ['protein'],
+      ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+    });
+    const side = makeRecipe({
+      id: 'side-candidate',
+      role: 'side',
+      provides: ['vegetable'],
+      primaryProtein: 'None',
+      ingredients: [{ name: 'broccoli', quantity: 1, unit: 'lb', department: 'Produce' }],
+    });
+    const plan = makePlan({ meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0 })] });
+    const recipes = [outgoing, main, side];
+    const ctx = ctxFor();
+    const available = new Set(['chicken', 'broccoli']);
+
+    const outcome = rerollCandidates(plan, 0, recipes, (id) => recipes.find((r) => r.id === id), available, ctx);
+
+    const candidate = outcome.candidates.find((c) => c.recipe.id === 'main-candidate');
+    expect(candidate?.sideRecipeIds).toEqual(['side-candidate']);
+  });
+
+  it('excludes a candidate whose composed side needs an ingredient not on hand — the plate is evaluated as a whole', () => {
+    const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+    const main = makeRecipe({
+      id: 'main-candidate',
+      primaryProtein: 'Chicken',
+      provides: ['protein'],
+      ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+    });
+    // Only one side candidate exists, and it needs an ingredient that isn't
+    // available — composeSides will still pick it (best-effort), so the
+    // WHOLE PLATE isn't coverable even though the main alone would be.
+    const unavailableSide = makeRecipe({
+      id: 'side-candidate',
+      role: 'side',
+      provides: ['vegetable'],
+      primaryProtein: 'None',
+      ingredients: [{ name: 'asparagus', quantity: 1, unit: 'lb', department: 'Produce' }],
+    });
+    const plan = makePlan({ meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0 })] });
+    const recipes = [outgoing, main, unavailableSide];
+    const ctx = ctxFor();
+    const available = new Set(['chicken']); // no asparagus on hand
+
+    const outcome = rerollCandidates(plan, 0, recipes, (id) => recipes.find((r) => r.id === id), available, ctx);
+
+    expect(outcome.candidates.map((c) => c.recipe.id)).not.toContain('main-candidate');
+    // Missing only one ingredient (asparagus) across the whole plate, so it
+    // should show up as a near-miss instead, carrying the same composed side.
+    const nearMiss = outcome.nearMisses.find((n) => n.recipe.id === 'main-candidate');
+    expect(nearMiss?.sideRecipeIds).toEqual(['side-candidate']);
+    expect(nearMiss?.missing).toEqual(['asparagus']);
   });
 });
 

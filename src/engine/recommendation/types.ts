@@ -60,4 +60,15 @@ export const WEIGHTS = {
   // override the profile/questionnaire the user explicitly set.
   learnedDials: 0.8,
   ratingsPenalty: 2.0,
+  // M4.2 part 2: a small nudge for a side sharing the main's cuisine
+  // (MILESTONE-4.md Rule 3 — "prefer sides that fit the main's cuisine").
+  // Deliberately modest: strong enough to break ties toward a cuisine-fitting
+  // side, never strong enough to exclude a better-scoring cross-cuisine one.
+  // `scoreSide` uses this INSTEAD OF `variety` (see scoring.ts) —
+  // `varietyBonus`'s cuisine/protein-repeat penalty is calibrated for "don't
+  // pick the same cuisine twice across a week of mains," which inverts into
+  // exactly the wrong signal at plate scope (it would penalize a
+  // cuisine-fitting side, and penalize a second vegetable side for sharing
+  // primaryProtein: 'None' with the first).
+  sideCuisineFit: 0.4,
 } as const;

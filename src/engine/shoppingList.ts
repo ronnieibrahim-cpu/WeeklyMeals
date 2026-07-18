@@ -12,10 +12,51 @@ function pantryHas(pantry: string[], name: string): boolean {
   });
 }
 
+/** Fold one recipe's ingredients (main or side, M4.2 part 2 — the caller
+ * decides which) into the running shopping-list map, scaled by the same
+ * `meal.servings` every recipe on that plate is scaled by. Shared by
+ * `buildShoppingList`'s per-meal loop for both the main and each side. */
+function addRecipeToMap(
+  map: Map<string, ShoppingItem>,
+  recipe: Recipe,
+  servings: number,
+  pantry: string[],
+): void {
+  const scale = recipe.baseServings > 0 ? servings / recipe.baseServings : 1;
+
+  for (const ing of recipe.ingredients) {
+    if (ing.pantryStaple) continue;
+    if (pantryHas(pantry, ing.name)) continue;
+
+    const key = `${lower(ing.name)}|${ing.unit}`;
+    const qty = round2(ing.quantity * scale);
+    const existing = map.get(key);
+    if (existing) {
+      existing.quantity = round2(existing.quantity + qty);
+      if (!existing.fromRecipeIds.includes(recipe.id)) existing.fromRecipeIds.push(recipe.id);
+    } else {
+      map.set(key, {
+        ingredientName: ing.name,
+        quantity: qty,
+        unit: ing.unit,
+        department: ing.department,
+        estimatedPrice: 0,
+        checked: false,
+        fromRecipeIds: [recipe.id],
+      });
+    }
+  }
+}
+
 /**
  * Consolidate every meal's ingredients into one shopping list: scale by servings,
  * combine duplicates, drop pantry staples + items the user already has, price each
  * line via the grocery provider, and total it up (with cost per serving).
+ *
+ * M4.2 part 2: a meal's composed sides (`sideRecipeIds`) flow in through the
+ * exact same map/dedup/scale/price path as the main — one source of truth,
+ * so the shopping list and the cost total the approval screen shows can
+ * never drift from each other.
  */
 export function buildShoppingList(
   planId: string,
@@ -28,30 +69,11 @@ export function buildShoppingList(
 
   for (const meal of meals) {
     const recipe = getRecipe(meal.recipeId);
-    if (!recipe) continue;
-    const scale = recipe.baseServings > 0 ? meal.servings / recipe.baseServings : 1;
+    if (recipe) addRecipeToMap(map, recipe, meal.servings, pantry);
 
-    for (const ing of recipe.ingredients) {
-      if (ing.pantryStaple) continue;
-      if (pantryHas(pantry, ing.name)) continue;
-
-      const key = `${lower(ing.name)}|${ing.unit}`;
-      const qty = round2(ing.quantity * scale);
-      const existing = map.get(key);
-      if (existing) {
-        existing.quantity = round2(existing.quantity + qty);
-        if (!existing.fromRecipeIds.includes(recipe.id)) existing.fromRecipeIds.push(recipe.id);
-      } else {
-        map.set(key, {
-          ingredientName: ing.name,
-          quantity: qty,
-          unit: ing.unit,
-          department: ing.department,
-          estimatedPrice: 0,
-          checked: false,
-          fromRecipeIds: [recipe.id],
-        });
-      }
+    for (const sideId of meal.sideRecipeIds ?? []) {
+      const side = getRecipe(sideId);
+      if (side) addRecipeToMap(map, side, meal.servings, pantry);
     }
   }
 
@@ -190,12 +212,25 @@ export function computeServingsDelta(
  * meal was that item's sole contributor to begin with — it can never eat
  * into another meal's share. That invariant is what makes it safe to apply
  * a per-meal delta to a list that's shared and deduplicated across meals.
+ *
+ * `removesSource` (M4.2 part 2, default `false` — every M4.1 call site is
+ * unaffected): set `true` only when `recipeId` is being removed from the
+ * plate ENTIRELY (e.g. "remove this side"), as opposed to M4.1's normal
+ * servings-scale-down where `recipeId` stays a source, just a smaller one.
+ * When `true`, `recipeId` is also stripped from `fromRecipeIds` on every
+ * touched line — otherwise a removed side would stay listed as a source of
+ * an ingredient it no longer contributes to, even though the quantity math
+ * is already correct (a full-removal delta, from `computeServingsDelta(recipe,
+ * servings, 0, pantry)`, only ever reflects `recipeId`'s own scaled
+ * contribution, so subtracting it can never strip an ingredient another
+ * recipe on the plate — the main, or another side — still needs).
  */
 export function applyShoppingListDelta(
   list: ShoppingList,
   delta: ShoppingListDelta,
   recipeId: string,
   grocery: GroceryProvider,
+  removesSource: boolean = false,
 ): ShoppingList {
   const map = new Map<string, ShoppingItem>(list.items.map((i) => [`${lower(i.ingredientName)}|${i.unit}`, i]));
 
@@ -232,14 +267,17 @@ export function applyShoppingListDelta(
     }
 
     const priced = grocery.priceFor(existing.ingredientName, newQty, existing.unit, existing.department);
+    const fromRecipeIds = removesSource
+      ? existing.fromRecipeIds.filter((id) => id !== recipeId)
+      : existing.fromRecipeIds.includes(recipeId)
+        ? existing.fromRecipeIds
+        : [...existing.fromRecipeIds, recipeId];
     map.set(key, {
       ...existing,
       quantity: newQty,
       estimatedPrice: priced.price,
       hebProductName: priced.productName,
-      fromRecipeIds: existing.fromRecipeIds.includes(recipeId)
-        ? existing.fromRecipeIds
-        : [...existing.fromRecipeIds, recipeId],
+      fromRecipeIds,
     });
   }
 

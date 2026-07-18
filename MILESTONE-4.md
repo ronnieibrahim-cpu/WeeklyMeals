@@ -153,17 +153,40 @@ explicit tap; old profiles with no `members` still load and behave as before.
 
 ---
 
-## [ ] M4.2 — A dinner is a plate, not a dish (THE BIG ONE)
+## [x] M4.2 — A dinner is a plate, not a dish (THE BIG ONE)
 
-**Part 1 landed (data + validation only):** `Recipe.role`/`Recipe.provides` added
-to the model; `provides` authored by hand for all 230 curated mains and derived
-in `normalize.ts` for the 356 imported recipes (regenerated from a frozen
+**Done:** Part 1 (data + validation): `Recipe.role`/`Recipe.provides` added to the
+model; `provides` authored by hand for all 230 curated mains and derived in
+`normalize.ts` for the 356 imported recipes (regenerated from a frozen
 `themealdb-raw.json` fixture, not a live re-fetch); new `src/data/seed/recipeSides.ts`
-(50 hand-curated sides/sauces, incl. 5 protein-capable ones for future gap-filling);
+(50 hand-curated sides/sauces, incl. 5 protein-capable ones for gap-filling);
 `scripts/validateRecipes.ts` gained a frozen protein-less-main allowlist and a
-hard ingredient-plausibility gate on every declared `provides`. Nothing about
-generation, scoring, the shopping list, or the UI changed — part 2 (actually
-composing plates) is next.
+hard ingredient-plausibility gate on every declared `provides`.
+
+Part 2 (actually composing plates): new pure `src/engine/mealComposition.ts`
+(`composeSides`, best-effort, capped at 2, every candidate passing the exact same
+hard filters — allergy/diet/dislikes/blocked/combined time budget — a main does);
+`scoreSide` in `scoring.ts` reuses every `scoreRecipe` signal except `varietyBonus`
+(main-vs-week-scoped, inverts into the wrong signal at plate scope) plus a small
+cuisine-fit bonus; `RECIPES` now merges curated + imported + sides into one pool,
+split by the new `isMain()` wherever "a main" is picked (generation, re-roll, swap,
+the Recipes browse tab — sides stay out of browse, as approved); `PlannedMeal`
+gains `sideRecipeIds`/`sidesChangedAtISO`, synced the same deterministic
+newer-wins pattern as `servings`; shopping list/cost fold sides in through the
+existing per-recipe path; `applyShoppingListDelta` gained `removesSource` so
+removing a side never strips an ingredient the main still needs; cook mode
+composes the main's steps then each side's, sectioned, with content-addressed
+progress invalidation (`cookModePlateKey`, sorted ids) so a side change never
+leaves cook mode pointing at stale content; meal detail shows the plate (main +
+removable, openable sides — a side opened this way is read-only, no pin, no
+independent cook-start); strict re-roll evaluates the whole plate and a candidate
+carries its composed sides verbatim through to commit, never recomposed; pinning
+composes sides through the identical path and re-checks allergy safety on each one
+explicitly, with a store-level (not just UI) guard that a side/sauce is never
+independently pinnable. Verified live in a browser end to end (generation through
+review, approval, This Week/Schedule cards, meal detail plate view, side removal
+with the shopping-list prompt, cook mode section labels, and re-roll) — see
+PROJECT.md §5–§7 for the full contract.
 
 **User problem, in his words:** *"supposed to be a meal planner app, not a protein
 or single-dish app. Grilled steak with chimichurri had zero sides listed."*

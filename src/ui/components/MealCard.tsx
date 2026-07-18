@@ -38,6 +38,10 @@ interface Props {
    * approved) — this card only reports the new value. */
   servings?: number;
   onServingsChange?: (servings: number) => void;
+  /** M4.2 part 2: names of this meal's composed sides/sauces, resolved by
+   * the caller. Undefined/empty renders nothing extra — "no sides tonight"
+   * is a normal, explicit state, not a gap in the card. */
+  sideNames?: string[];
 }
 
 /** Compact meal card used on This Week and the Review screen. */
@@ -58,6 +62,7 @@ export function MealCard({
   onToggleKidApproved,
   servings,
   onServingsChange,
+  sideNames,
 }: Props) {
   const theme = useTheme();
   const showActions = !!(onToggleLock || onSwap);
@@ -96,6 +101,11 @@ export function MealCard({
           <Text variant="footnote" color="secondary" style={{ marginTop: 2 }}>
             {recipe.cuisine} · {recipe.difficulty} · {recipe.prepMinutes + recipe.cookMinutes}m
           </Text>
+          {sideNames && sideNames.length > 0 ? (
+            <Text variant="footnote" color="secondary" numberOfLines={1} style={{ marginTop: 1 }}>
+              + {sideNames.join(', ')}
+            </Text>
+          ) : null}
           <Text variant="footnote" color="tertiary" style={{ marginTop: 1 }}>
             {recipe.nutrition.calories} cal · {recipe.nutrition.protein}g protein
             {badge ? `  ·  ${badge}` : ''}

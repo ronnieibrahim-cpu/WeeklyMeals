@@ -20,9 +20,8 @@
  * (M2.5 added `npm test` for the engine folder): it's a one-shot content/data
  * gate over the static seed library, not a unit test over varied inputs.
  */
-import { Recipe } from '@/domain/models';
+import { isMain, Recipe } from '@/domain/models';
 import { RECIPES } from '@/data/seed/recipes';
-import { recipeSides } from '@/data/seed/recipeSides';
 import { COMMON_ALLERGENS } from '@/domain/constants/options';
 import { inferAllergens, unsupportedProvides } from '@/data/import/normalize';
 
@@ -197,11 +196,17 @@ function validateProvidesPlausibility(recipe: Recipe, violations: Violation[]) {
   }
 }
 
-const curated = RECIPES.filter((r) => !r.id.startsWith('mealdb-'));
-const handAuthored = [...curated, ...recipeSides];
-const allRecipes = [...RECIPES, ...recipeSides];
+// M4.2 part 2: `RECIPES` now contains sides/sauces too (merged so
+// `getAnyRecipe` et al. resolve a side id the same way they resolve a main
+// id everywhere else). Scoped by role here, not by id prefix — sides don't
+// start with `mealdb-` either, so a prefix-only check would wrongly treat
+// them as "curated mains" and run the protein gate on every vegetable side.
+const handAuthored = RECIPES.filter((r) => !r.id.startsWith('mealdb-')); // curated mains + sides, both hand-authored
+const curatedMains = handAuthored.filter(isMain);
+const sides = handAuthored.filter((r) => !isMain(r));
+const allRecipes = RECIPES; // already the full pool — mains, sides, imported
 console.log(
-  `Validating ${curated.length} curated recipes + ${recipeSides.length} sides/sauces ` +
+  `Validating ${curatedMains.length} curated recipes + ${sides.length} sides/sauces ` +
     `(plus allergen labels and provides plausibility on all ${allRecipes.length} recipes)...\n`,
 );
 
@@ -210,7 +215,7 @@ for (const recipe of handAuthored) {
   validateRecipe(recipe, violations);
   validateAllergenCoverage(recipe, violations);
 }
-for (const recipe of curated) validateMainProvides(recipe, violations);
+for (const recipe of curatedMains) validateMainProvides(recipe, violations);
 for (const recipe of allRecipes) {
   validateAllergenLabels(recipe, violations);
   validateProvidesPlausibility(recipe, violations);
@@ -220,7 +225,7 @@ const failedIds = Array.from(new Set(violations.map((v) => v.recipeId)));
 
 if (violations.length === 0) {
   console.log(
-    `All ${curated.length} curated recipes + ${recipeSides.length} sides/sauces pass, and all ` +
+    `All ${curatedMains.length} curated recipes + ${sides.length} sides/sauces pass, and all ` +
       `${allRecipes.length} recipes use canonical allergen labels with plausible \`provides\`. ✅`,
   );
   process.exit(0);
@@ -234,7 +239,7 @@ for (const id of failedIds) {
 }
 
 console.log(
-  `\n${allRecipes.length} recipes checked (${curated.length} curated + ${recipeSides.length} sides/sauces), ` +
+  `\n${allRecipes.length} recipes checked (${curatedMains.length} curated + ${sides.length} sides/sauces), ` +
     `${failedIds.length} recipe(s) failed (${violations.length} total violations).`,
 );
 process.exit(1);

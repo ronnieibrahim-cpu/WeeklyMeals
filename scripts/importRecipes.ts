@@ -21,7 +21,7 @@ import fs from 'fs';
 
 import { fromMealDb, normalize } from '@/data/import/normalize';
 import { RECIPES } from '@/data/seed/recipes';
-import { Recipe } from '@/domain/models';
+import { isMain, Recipe } from '@/domain/models';
 
 const CAP_PER_CUISINE = 45;
 const RAW_FIXTURE_PATH = 'src/data/import/themealdb-raw.json';
@@ -32,9 +32,12 @@ function loadMealDbFixture(): Record<string, string>[] {
 }
 
 async function main() {
-  // Dedupe only against hand-authored recipes (no sourceName), so re-running
-  // regenerates the imported set cleanly rather than skipping itself.
-  const curated = new Set(RECIPES.filter((r) => !r.sourceName).map((r) => norm(r.name)));
+  // Dedupe only against hand-authored MAINS (no sourceName), same as before
+  // `RECIPES` gained sides (M4.2 part 2) — deliberately NOT extended to also
+  // dedupe against side/sauce names in this commit, so regenerating
+  // recipeImported.ts still produces byte-identical corpus membership. See
+  // MILESTONE-4.md for the follow-up to dedupe against sides too.
+  const curated = new Set(RECIPES.filter((r) => !r.sourceName && isMain(r)).map((r) => norm(r.name)));
 
   const meals = loadMealDbFixture();
   console.log('loaded', meals.length, 'meals from', RAW_FIXTURE_PATH);

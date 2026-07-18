@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Vibration, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { parseDurationMinutes } from '@/engine/cookMode';
+import { Recipe } from '@/domain/models';
+import { composeCookSteps, cookModePlateKey, parseDurationMinutes } from '@/engine/cookMode';
 import { cookModeKey, useCookModeStore } from '@/stores/cookModeStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
@@ -60,18 +61,27 @@ export default function CookModeScreen() {
   const plan = usePlanStore((s) => s.plan);
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
-  // Select the actual `steps` state (not the `setStep` action, which is a
-  // stable reference and wouldn't re-render this screen when it changes).
-  const cookModeSteps = useCookModeStore((s) => s.steps);
+  // Subscribing to `steps` (not just the `setStep`/`getStep` actions, which
+  // are stable references) is what makes this screen re-render when
+  // progress changes — `getStep` below always reads the current state
+  // either way, this just triggers the re-render.
+  useCookModeStore((s) => s.steps);
   const setStep = useCookModeStore((s) => s.setStep);
+  const getStep = useCookModeStore((s) => s.getStep);
 
   const recipesById = useRecipesById();
   const meal = plan?.meals.find((m) => m.dayIndex === dayIndex);
   const recipe = meal ? recipesById[meal.recipeId] : undefined;
+  const sides = (meal?.sideRecipeIds ?? []).map((id) => recipesById[id]).filter((r): r is Recipe => !!r);
+  const composedSteps = recipe ? composeCookSteps(recipe, sides) : [];
   const key = plan && meal ? cookModeKey(plan.id, dayIndex) : '';
+  // Content-addressed, not timestamp-addressed (M4.2 part 2): a side
+  // removed, swapped, or changed via sync resets progress to the start
+  // rather than silently landing on a different dish's step.
+  const plateKey = meal ? cookModePlateKey(meal.recipeId, meal.sideRecipeIds ?? []) : '';
 
-  const savedStep = key ? (cookModeSteps[key] ?? 0) : 0;
-  const stepIndex = recipe ? Math.max(0, Math.min(savedStep, recipe.steps.length - 1)) : 0;
+  const savedStep = key && plateKey ? getStep(key, plateKey) : 0;
+  const stepIndex = composedSteps.length > 0 ? Math.max(0, Math.min(savedStep, composedSteps.length - 1)) : 0;
 
   const [showIngredients, setShowIngredients] = useState(false);
   const [timer, setTimer] = useState<TimerState | null>(null);
@@ -99,12 +109,13 @@ export default function CookModeScreen() {
     );
   }
 
-  const isLastStep = stepIndex === recipe.steps.length - 1;
-  const goToStep = (index: number) => setStep(key, Math.max(0, Math.min(index, recipe.steps.length - 1)));
+  const isLastStep = stepIndex === composedSteps.length - 1;
+  const goToStep = (index: number) => setStep(key, Math.max(0, Math.min(index, composedSteps.length - 1)), plateKey);
   const next = () => goToStep(stepIndex + 1);
   const back = () => goToStep(stepIndex - 1);
 
-  const parsedMinutes = parseDurationMinutes(recipe.steps[stepIndex]);
+  const currentStep = composedSteps[stepIndex];
+  const parsedMinutes = parseDurationMinutes(currentStep.text);
   const startTimer = (minutes: number) =>
     setTimer({ minutes, remainingSeconds: minutes * 60, status: 'running' });
 
@@ -132,7 +143,7 @@ export default function CookModeScreen() {
           </Text>
         </Pressable>
         <Text variant="subhead" color="secondary">
-          Step {stepIndex + 1} of {recipe.steps.length}
+          Step {stepIndex + 1} of {composedSteps.length}
         </Text>
         <Pressable
           accessibilityLabel="Show ingredients"
@@ -147,7 +158,7 @@ export default function CookModeScreen() {
       </View>
 
       <View style={{ paddingHorizontal: theme.spacing.xl }}>
-        <ProgressBar progress={(stepIndex + 1) / recipe.steps.length} />
+        <ProgressBar progress={(stepIndex + 1) / composedSteps.length} />
       </View>
 
       {timer ? (
@@ -173,7 +184,12 @@ export default function CookModeScreen() {
       ) : null}
 
       <Pressable onPress={next} style={{ flex: 1, justifyContent: 'center', padding: theme.spacing.xl }}>
-        <Text variant="title2">{recipe.steps[stepIndex]}</Text>
+        {currentStep.sectionLabel ? (
+          <Text variant="subhead" color="accent" style={{ marginBottom: theme.spacing.sm }}>
+            {currentStep.sectionLabel}
+          </Text>
+        ) : null}
+        <Text variant="title2">{currentStep.text}</Text>
 
         {parsedMinutes ? (
           <Pressable
@@ -262,24 +278,37 @@ export default function CookModeScreen() {
               Ingredients
             </Text>
             <ScrollView>
-              {recipe.ingredients.map((ing, i) => (
-                <View
-                  key={`${ing.name}-${i}`}
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    paddingVertical: theme.spacing.sm,
-                    borderTopWidth: i === 0 ? 0 : 1,
-                    borderTopColor: theme.colors.separator,
-                  }}
-                >
-                  <Text variant="body" style={{ flex: 1 }}>
-                    {ing.name}
-                    {ing.optional ? ' (optional)' : ''}
-                  </Text>
-                  <Text variant="body" color="secondary">
-                    {ing.quantity} {ing.unit}
-                  </Text>
+              {[recipe, ...sides].map((r, ri) => (
+                <View key={r.id}>
+                  {sides.length > 0 ? (
+                    <Text
+                      variant="subhead"
+                      color="secondary"
+                      style={{ marginTop: ri === 0 ? 0 : theme.spacing.md, marginBottom: theme.spacing.xs }}
+                    >
+                      {ri === 0 ? recipe.name : r.role === 'sauce' ? `Sauce: ${r.name}` : `Side: ${r.name}`}
+                    </Text>
+                  ) : null}
+                  {r.ingredients.map((ing, i) => (
+                    <View
+                      key={`${ing.name}-${i}`}
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        paddingVertical: theme.spacing.sm,
+                        borderTopWidth: i === 0 ? 0 : 1,
+                        borderTopColor: theme.colors.separator,
+                      }}
+                    >
+                      <Text variant="body" style={{ flex: 1 }}>
+                        {ing.name}
+                        {ing.optional ? ' (optional)' : ''}
+                      </Text>
+                      <Text variant="body" color="secondary">
+                        {ing.quantity} {ing.unit}
+                      </Text>
+                    </View>
+                  ))}
                 </View>
               ))}
             </ScrollView>

@@ -5,10 +5,11 @@ import { localDraftPlanRepository } from '@/data/repositories/local/LocalDraftPl
 import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
-import { IntakeAnswers, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, ShoppingListDelta, WeeklyPlan } from '@/domain/models';
+import { IntakeAnswers, isMain, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, ShoppingListDelta, ShoppingListDeltaLine, WeeklyPlan } from '@/domain/models';
+import { composeSides } from '@/engine/mealComposition';
 import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
-import { availableIngredients, missingIngredients, pinnableDays, RerollOutcome, rerollCandidates } from '@/engine/reroll';
+import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinnableDays, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localDateString } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
 import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta } from '@/engine/shoppingList';
@@ -18,7 +19,18 @@ import { useLearningStore } from './learningStore';
 import { useManualItemsStore } from './manualItemsStore';
 import { usePantryStore } from './pantryStore';
 import { useProfileStore } from './profileStore';
-import { allRecipesList, getAnyRecipe } from './userRecipesStore';
+import { allRecipesList, getAnyRecipe, mainRecipesList } from './userRecipesStore';
+
+/** The non-main slice of `allRecipesList()` — the candidate pool
+ * `composeSides` picks from. Small helper so every call site that composes
+ * sides derives it the same way. */
+function sidesPool(): Recipe[] {
+  return allRecipesList().filter((r) => !isMain(r));
+}
+
+function resolveRecipes(ids: string[]): Recipe[] {
+  return ids.map(getAnyRecipe).filter((r): r is Recipe => !!r);
+}
 
 function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: string[]): GenerateContext {
   const learning = useLearningStore.getState();
@@ -57,7 +69,9 @@ interface PlanState {
    * query, doesn't mutate the draft. */
   swapCandidates: (dayIndex: number) => Recipe[];
   /** Commit a specific recipe (from `swapCandidates`, or anywhere else) onto
-   * a single draft day. */
+   * a single draft day. Composes fresh sides for it (M4.2 part 2) — a
+   * manually swapped day gets a plate the same way `generate()` does, not a
+   * bare main. */
   swapMealTo: (dayIndex: number, recipeId: string) => void;
   /** Mark a meal cooked / not cooked (week progress, on the active plan). */
   toggleCooked: (dayIndex: number) => void;
@@ -104,6 +118,28 @@ interface PlanState {
    */
   applyServingsDeltaToShoppingList: (dayIndex: number, oldServings: number) => void;
   /**
+   * M4.2 part 2: read-only preview of what removing `sideId` from
+   * `dayIndex`'s meal would do to the shopping list — same pattern as
+   * `previewServingsDelta`, computed as a full removal (that side's
+   * contribution going to zero), so subtracting it can never strip an
+   * ingredient the main or another side on the same plate still needs.
+   */
+  previewRemoveSideDelta: (dayIndex: number, sideId: string) => ShoppingListDelta | null;
+  /**
+   * M4.2 part 2: remove `sideId` from `dayIndex`'s plate immediately — "no
+   * sides tonight" is a real, explicit choice, not silently missing data.
+   * Stamps `sidesChangedAtISO`. Never touches the shopping list on its own;
+   * pair with `applyRemoveSideDeltaToShoppingList` for the explicit,
+   * separate list update (Law #1, same two-step pattern as servings).
+   */
+  removeSideFromMeal: (dayIndex: number, sideId: string) => void;
+  /** Apply a previously-previewed side removal to the shopping list, with
+   * per-source attribution (`removesSource: true`) so the removed side's id
+   * comes off `fromRecipeIds` too, not just its quantity. Never called
+   * automatically — wired only to an explicit "Remove from shopping list"
+   * button. */
+  applyRemoveSideDeltaToShoppingList: (dayIndex: number, sideId: string) => void;
+  /**
    * Set/edit the star rating for one meal on the active plan (M2.1) — any
    * meal, any time, not gated on `cooked`. Persists the rating on the plan
    * (so it displays on the cards) and records the corresponding
@@ -124,29 +160,36 @@ interface PlanState {
   ) => void;
   /**
    * Mid-week re-roll (M2.2), STRICT mode: candidates for replacing one
-   * meal, restricted to recipes fully coverable by pantry + this week's
-   * shopping list + the outgoing meal's own ingredients — a re-roll never
-   * implies a store trip. Read-only; call `rerollMeal` to actually commit
-   * one of the returned candidates (or a near-miss).
+   * meal, restricted to WHOLE PLATES — main + composed sides (M4.2 part 2)
+   * — fully coverable by pantry + this week's shopping list + the outgoing
+   * plate's own ingredients (main and its sides) — a re-roll never implies
+   * a store trip, for the main or for whatever sides get composed onto it.
+   * Read-only; call `rerollMeal` to actually commit one of the returned
+   * candidates (or a near-miss), passing its `sideRecipeIds` through
+   * unchanged — never recompose at commit time (the plate that was
+   * evaluated as coverable must be exactly the plate that gets attached).
    */
   previewReroll: (dayIndex: number) => RerollOutcome;
   /**
-   * Commit a re-roll: replace one meal's recipe on the active plan. Clears
-   * `cooked`/`rating` on that day (a different recipe means any prior
-   * progress/rating no longer describes it) and stamps `recipeChangedAtISO`
-   * so sync knows this meal's whole body — not just individual fields —
-   * changed (see `mergePlanMeals`). Never touches the shopping list.
+   * Commit a re-roll: replace one meal's recipe (and its sides, M4.2 part 2
+   * — pass whatever `previewReroll`'s candidate carried, never recomputed
+   * here) on the active plan. Clears `cooked`/`rating` on that day (a
+   * different recipe means any prior progress/rating no longer describes
+   * it) and stamps `recipeChangedAtISO`/`sidesChangedAtISO` so sync knows
+   * this meal's whole body — not just individual fields — changed (see
+   * `mergePlanMeals`). Never touches the shopping list.
    */
-  rerollMeal: (dayIndex: number, recipeId: string) => void;
+  rerollMeal: (dayIndex: number, recipeId: string, sideRecipeIds?: string[]) => void;
   /**
    * M3.1: today-or-future, not-yet-cooked days `recipeId` could be pinned
    * into on the active plan — empty means "can't be pinned right now"
    * (already used elsewhere this week, or every remaining day is cooked).
    */
   pinnableDaysFor: (recipeId: string) => number[];
-  /** Which of `recipeId`'s non-staple ingredients aren't covered by pantry +
-   * this week's shopping list + the day's outgoing recipe (same "available"
-   * set reroll uses) — for the "You'll need: X, Y" confirm before pinning. */
+  /** Which of `recipeId`'s (and, M4.2 part 2, its freshly-composed sides')
+   * non-staple ingredients aren't covered by pantry + this week's shopping
+   * list + the day's outgoing plate (same "available" set reroll uses) —
+   * for the "You'll need: X, Y" confirm before pinning. */
   missingIngredientsForPin: (dayIndex: number, recipeId: string) => string[];
   /**
    * Pin `recipeId` into `dayIndex` of the active plan — reuses `rerollMeal`
@@ -154,18 +197,25 @@ interface PlanState {
    * behavior) so pinning and re-rolling are indistinguishable to every
    * other part of the app once committed. Never touches the shopping list
    * on its own — see `addMissingIngredients` for the explicit opt-in.
-   * No-ops if the recipe fails the allergy safety guard or `dayIndex` isn't
-   * in `pinnableDaysFor` (defense in depth: the UI is expected to have
-   * already checked both before offering this action, including for the
-   * card-level quick-pin, which must not skip the missing-ingredients
-   * confirm just because it's a shortcut).
+   * No-ops if the recipe fails `isMain` (Law #5: a side/sauce is never
+   * independently pinnable as a whole dinner — this is a store-level
+   * invariant, not just an absent UI button) or the allergy safety guard,
+   * or if `dayIndex` isn't in `pinnableDaysFor` (defense in depth: the UI is
+   * expected to have already checked all of this before offering the
+   * action, including for the card-level quick-pin, which must not skip the
+   * missing-ingredients confirm just because it's a shortcut). M4.2 part 2:
+   * composes sides for the pinned main the same way `generate()` does, then
+   * re-checks `passesAllergySafety` on every composed side explicitly —
+   * defense in depth, exactly mirroring the main's own re-check, never
+   * trusting that `composeSides`' internal filtering alone was enough.
    */
   pinRecipeToWeek: (dayIndex: number, recipeId: string) => void;
   /** Draft equivalent of `pinnableDaysFor` — a draft has no "today" or
    * "cooked" concept yet, so every day is eligible except one already
    * holding `recipeId`. */
   pinnableDraftDaysFor: (recipeId: string) => number[];
-  /** Draft equivalent of `pinRecipeToWeek` (same allergy-safety guard). */
+  /** Draft equivalent of `pinRecipeToWeek` (same `isMain`/allergy-safety
+   * guards, same composed-sides re-check). */
   pinRecipeToDraft: (dayIndex: number, recipeId: string) => void;
   /**
    * Explicit-only: append `recipeId`'s ingredients missing from pantry +
@@ -337,7 +387,9 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       .map((m) => getAnyRecipe(m.recipeId))
       .filter((r): r is Recipe => !!r);
     const ctx = context(intake, profile, []);
-    const candidates = allRecipesList().filter(
+    // Mains only (M4.2 part 2) — a swap picks a whole dinner's main; its
+    // sides get composed at commit time in `swapMealTo`.
+    const candidates = mainRecipesList().filter(
       (r) => !used.has(r.id) && passesHardFilters(r, intake, profile),
     );
     return rankReplacements(candidates, ctx, selected, 3);
@@ -346,8 +398,12 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   swapMealTo: (dayIndex, recipeId) => {
     const draftPlan = get().draftPlan;
     if (!draftPlan) return;
+    const recipe = getAnyRecipe(recipeId);
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    const ctx = context(draftPlan.intake, profile, []);
+    const sideRecipeIds = recipe ? composeSides(recipe, sidesPool(), ctx) : [];
     const meals = draftPlan.meals.map((m) =>
-      m.dayIndex === dayIndex ? { ...m, recipeId, locked: false } : m,
+      m.dayIndex === dayIndex ? { ...m, recipeId, sideRecipeIds, locked: false } : m,
     );
     const next = { ...draftPlan, meals };
     set({ draftPlan: next });
@@ -394,25 +450,39 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const list = get().shoppingList;
     if (!plan || !list) return null;
     const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
-    const recipe = meal ? getAnyRecipe(meal.recipeId) : undefined;
-    if (!meal || !recipe) return null;
+    if (!meal) return null;
+    // M4.2 part 2: a servings change scales the WHOLE plate — main and every
+    // side — not just the main. Merged by ingredient+unit for display so the
+    // confirm shows one "+0.75 onion" line, not a separate one per recipe.
+    const recipes = resolveRecipes([meal.recipeId, ...(meal.sideRecipeIds ?? [])]);
+    if (recipes.length === 0) return null;
     const pantry = usePantryStore.getState().items;
-    const delta = computeServingsDelta(recipe, oldServings, meal.servings, pantry);
-    if (delta.lines.length === 0) return null;
-    // Fill in `removesItem` for display: computeServingsDelta only sees the
-    // recipe's own ingredients, not the live list, so it can't know whether
-    // a decrease would zero out a shared item — check the real current
+    const deltas = recipes.map((r) => computeServingsDelta(r, oldServings, meal.servings, pantry));
+    const direction = deltas[0].direction; // identical for every recipe: same oldServings -> meal.servings
+    const mergedByKey = new Map<string, ShoppingListDeltaLine>();
+    for (const delta of deltas) {
+      for (const line of delta.lines) {
+        const key = `${line.ingredientName.toLowerCase()}|${line.unit}`;
+        const existingLine = mergedByKey.get(key);
+        if (existingLine) existingLine.deltaQuantity = round2(existingLine.deltaQuantity + line.deltaQuantity);
+        else mergedByKey.set(key, { ...line });
+      }
+    }
+    if (mergedByKey.size === 0) return null;
+    // Fill in `removesItem` for display: the merged delta only sees the
+    // plate's own ingredients, not the live list, so it can't know whether a
+    // decrease would zero out a shared item — check the real current
     // quantity here so the confirmation copy can say "will be removed"
     // truthfully before the tap, never after.
-    const lines = delta.lines.map((line) => {
+    const lines = Array.from(mergedByKey.values()).map((line) => {
       const existing = list.items.find(
         (i) => i.ingredientName.toLowerCase() === line.ingredientName.toLowerCase() && i.unit === line.unit,
       );
       const removesItem =
-        delta.direction === 'decrease' && !!existing && round2(existing.quantity - line.deltaQuantity) <= 0;
+        direction === 'decrease' && !!existing && round2(existing.quantity - line.deltaQuantity) <= 0;
       return { ...line, removesItem };
     });
-    return { ...delta, lines };
+    return { direction, lines };
   },
 
   applyServingsDeltaToShoppingList: (dayIndex, oldServings) => {
@@ -420,12 +490,73 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const list = get().shoppingList;
     if (!plan || !list) return;
     const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
-    const recipe = meal ? getAnyRecipe(meal.recipeId) : undefined;
-    if (!meal || !recipe) return;
+    if (!meal) return;
+    // Applied per-recipe (not merged, unlike the preview above) so each
+    // recipe's own id stays correctly attributed in `fromRecipeIds`.
+    const recipes = resolveRecipes([meal.recipeId, ...(meal.sideRecipeIds ?? [])]);
+    if (recipes.length === 0) return;
     const pantry = usePantryStore.getState().items;
-    const delta = computeServingsDelta(recipe, oldServings, meal.servings, pantry);
+    let updatedList = list;
+    for (const r of recipes) {
+      const delta = computeServingsDelta(r, oldServings, meal.servings, pantry);
+      if (delta.lines.length === 0) continue;
+      updatedList = applyShoppingListDelta(updatedList, delta, r.id, hebProvider);
+    }
+    if (updatedList === list) return;
+    const totalServings = plan.meals.reduce((s, m) => s + m.servings, 0);
+    const costPerServing = totalServings ? round2(updatedList.estimatedTotal / totalServings) : 0;
+    const next = { ...updatedList, costPerServing };
+    set({ shoppingList: next });
+    persistList(next);
+  },
+
+  previewRemoveSideDelta: (dayIndex, sideId) => {
+    const plan = get().plan;
+    const list = get().shoppingList;
+    if (!plan || !list) return null;
+    const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    const side = getAnyRecipe(sideId);
+    if (!meal || !side) return null;
+    const pantry = usePantryStore.getState().items;
+    // A removal is a full delta: this side's servings going to zero.
+    const delta = computeServingsDelta(side, meal.servings, 0, pantry);
+    if (delta.lines.length === 0) return null;
+    const lines = delta.lines.map((line) => {
+      const existing = list.items.find(
+        (i) => i.ingredientName.toLowerCase() === line.ingredientName.toLowerCase() && i.unit === line.unit,
+      );
+      const removesItem = !!existing && round2(existing.quantity - line.deltaQuantity) <= 0;
+      return { ...line, removesItem };
+    });
+    return { ...delta, lines };
+  },
+
+  removeSideFromMeal: (dayIndex, sideId) => {
+    const plan = get().plan;
+    if (!plan) return;
+    const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    if (!meal || !(meal.sideRecipeIds ?? []).includes(sideId)) return;
+    const now = new Date().toISOString();
+    const sideRecipeIds = (meal.sideRecipeIds ?? []).filter((id) => id !== sideId);
+    const meals = plan.meals.map((m) =>
+      m.dayIndex === dayIndex ? { ...m, sideRecipeIds, sidesChangedAtISO: now } : m,
+    );
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+  },
+
+  applyRemoveSideDeltaToShoppingList: (dayIndex, sideId) => {
+    const plan = get().plan;
+    const list = get().shoppingList;
+    if (!plan || !list) return;
+    const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    const side = getAnyRecipe(sideId);
+    if (!meal || !side) return;
+    const pantry = usePantryStore.getState().items;
+    const delta = computeServingsDelta(side, meal.servings, 0, pantry);
     if (delta.lines.length === 0) return;
-    const updatedList = applyShoppingListDelta(list, delta, meal.recipeId, hebProvider);
+    const updatedList = applyShoppingListDelta(list, delta, sideId, hebProvider, /* removesSource */ true);
     const totalServings = plan.meals.reduce((s, m) => s + m.servings, 0);
     const costPerServing = totalServings ? round2(updatedList.estimatedTotal / totalServings) : 0;
     const next = { ...updatedList, costPerServing };
@@ -460,12 +591,13 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const pantry = usePantryStore.getState().items;
     const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
     const outgoingRecipe = outgoingMeal ? getAnyRecipe(outgoingMeal.recipeId) : undefined;
-    const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe);
+    const outgoingSides = resolveRecipes(outgoingMeal?.sideRecipeIds ?? []);
+    const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe, outgoingSides);
     const ctx = context(plan.intake, profile, []);
     return rerollCandidates(plan, dayIndex, allRecipesList(), getAnyRecipe, available, ctx);
   },
 
-  rerollMeal: (dayIndex, recipeId) => {
+  rerollMeal: (dayIndex, recipeId, sideRecipeIds = []) => {
     const plan = get().plan;
     if (!plan) return;
     const now = new Date().toISOString();
@@ -474,7 +606,9 @@ export const usePlanStore = create<PlanState>((set, get) => ({
         ? {
             ...m,
             recipeId,
+            sideRecipeIds,
             recipeChangedAtISO: now,
+            sidesChangedAtISO: now,
             locked: false,
             cooked: false,
             cookedAtISO: null,
@@ -497,12 +631,17 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   missingIngredientsForPin: (dayIndex, recipeId) => {
     const plan = get().plan;
     const recipe = getAnyRecipe(recipeId);
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!plan || !recipe) return [];
     const pantry = usePantryStore.getState().items;
     const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
     const outgoingRecipe = outgoingMeal ? getAnyRecipe(outgoingMeal.recipeId) : undefined;
-    const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe);
-    return missingIngredients(recipe, available);
+    const outgoingSides = resolveRecipes(outgoingMeal?.sideRecipeIds ?? []);
+    const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe, outgoingSides);
+    if (!isMain(recipe)) return missingIngredients(recipe, available); // defensive; not reachable via UI
+    const ctx = context(plan.intake, profile, []);
+    const sides = resolveRecipes(composeSides(recipe, sidesPool(), ctx));
+    return missingIngredientsForPlate(recipe, sides, available);
   },
 
   pinRecipeToWeek: (dayIndex, recipeId) => {
@@ -510,9 +649,19 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const recipe = getAnyRecipe(recipeId);
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!plan || !recipe) return;
+    if (!isMain(recipe)) return; // Law #5: a side/sauce is never independently pinnable as a whole dinner
     if (!passesAllergySafety(recipe, profile)) return;
     if (!pinnableDays(plan, recipeId).includes(dayIndex)) return;
-    get().rerollMeal(dayIndex, recipeId);
+    const ctx = context(plan.intake, profile, []);
+    const composedSideIds = composeSides(recipe, sidesPool(), ctx);
+    // Defense in depth (Law #5): re-check every composed side explicitly,
+    // exactly like the main above — never trust that `composeSides`'
+    // internal filtering alone was enough.
+    const sideRecipeIds = composedSideIds.filter((id) => {
+      const side = getAnyRecipe(id);
+      return !!side && passesAllergySafety(side, profile);
+    });
+    get().rerollMeal(dayIndex, recipeId, sideRecipeIds);
   },
 
   pinnableDraftDaysFor: (recipeId) => {
@@ -527,9 +676,18 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const recipe = getAnyRecipe(recipeId);
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!draftPlan || !recipe) return;
+    if (!isMain(recipe)) return; // Law #5, same guard as pinRecipeToWeek
     if (!passesAllergySafety(recipe, profile)) return;
     if (!get().pinnableDraftDaysFor(recipeId).includes(dayIndex)) return;
-    const meals = draftPlan.meals.map((m) => (m.dayIndex === dayIndex ? { ...m, recipeId, locked: false } : m));
+    const ctx = context(draftPlan.intake, profile, []);
+    const composedSideIds = composeSides(recipe, sidesPool(), ctx);
+    const sideRecipeIds = composedSideIds.filter((id) => {
+      const side = getAnyRecipe(id);
+      return !!side && passesAllergySafety(side, profile);
+    });
+    const meals = draftPlan.meals.map((m) =>
+      m.dayIndex === dayIndex ? { ...m, recipeId, sideRecipeIds, locked: false } : m,
+    );
     const next = { ...draftPlan, meals };
     set({ draftPlan: next });
     persistDraft(next);
@@ -539,15 +697,27 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const plan = get().plan;
     const list = get().shoppingList;
     const recipe = getAnyRecipe(recipeId);
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!plan || !list || !recipe) return;
     const pantry = usePantryStore.getState().items;
     const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
     const outgoingRecipe = outgoingMeal ? getAnyRecipe(outgoingMeal.recipeId) : undefined;
-    const available = availableIngredients(pantry, list, outgoingRecipe);
-    const missingNames = new Set(missingIngredients(recipe, available));
-    const ingredientsToAdd = recipe.ingredients.filter((ing) => missingNames.has(ing.name));
-    if (ingredientsToAdd.length === 0) return;
-    const next = addIngredientsToShoppingList(list, ingredientsToAdd, recipeId, hebProvider);
+    const outgoingSides = resolveRecipes(outgoingMeal?.sideRecipeIds ?? []);
+    const available = availableIngredients(pantry, list, outgoingRecipe, outgoingSides);
+
+    const ctx = context(plan.intake, profile, []);
+    const sides = isMain(recipe) ? resolveRecipes(composeSides(recipe, sidesPool(), ctx)) : [];
+
+    // Each recipe on the prospective plate adds its own missing ingredients,
+    // attributed to its own id — mirrors `applyServingsDeltaToShoppingList`'s
+    // per-recipe application against the same threaded list.
+    let next = list;
+    for (const r of [recipe, ...sides]) {
+      const missingNames = new Set(missingIngredients(r, available));
+      const ingredientsToAdd = r.ingredients.filter((ing) => missingNames.has(ing.name));
+      if (ingredientsToAdd.length > 0) next = addIngredientsToShoppingList(next, ingredientsToAdd, r.id, hebProvider);
+    }
+    if (next === list) return;
     set({ shoppingList: next });
     persistList(next);
   },
