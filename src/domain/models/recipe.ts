@@ -22,6 +22,13 @@ export interface Recipe {
   name: string;
   cuisine: Cuisine;
   categories: Category[];
+  /** What this dish is on a composed plate. Absent means 'main' — every
+   * recipe authored before M4.2 stays valid. */
+  role?: 'main' | 'side' | 'sauce';
+  /** What this dish actually puts on the plate — the composition engine
+   * (M4.2 part 2) uses this to fill gaps with sides. Absent/omitted means
+   * "not authored yet," not "provides nothing." */
+  provides?: Array<'protein' | 'vegetable' | 'starch'>;
   primaryProtein: Protein;
   vegetables: string[]; // for rotation/variety scoring
   techniques: string[]; // e.g. ['roast', 'sheet-pan'] for learning

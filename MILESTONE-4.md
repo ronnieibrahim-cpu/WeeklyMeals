@@ -155,6 +155,16 @@ explicit tap; old profiles with no `members` still load and behave as before.
 
 ## [ ] M4.2 — A dinner is a plate, not a dish (THE BIG ONE)
 
+**Part 1 landed (data + validation only):** `Recipe.role`/`Recipe.provides` added
+to the model; `provides` authored by hand for all 230 curated mains and derived
+in `normalize.ts` for the 356 imported recipes (regenerated from a frozen
+`themealdb-raw.json` fixture, not a live re-fetch); new `src/data/seed/recipeSides.ts`
+(50 hand-curated sides/sauces, incl. 5 protein-capable ones for future gap-filling);
+`scripts/validateRecipes.ts` gained a frozen protein-less-main allowlist and a
+hard ingredient-plausibility gate on every declared `provides`. Nothing about
+generation, scoring, the shopping list, or the UI changed — part 2 (actually
+composing plates) is next.
+
 **User problem, in his words:** *"supposed to be a meal planner app, not a protein
 or single-dish app. Grilled steak with chimichurri had zero sides listed."*
 

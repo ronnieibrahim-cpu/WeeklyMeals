@@ -1,13 +1,21 @@
 /**
- * Recipe importer — pulls recipes from the web and regenerates
- * src/data/seed/recipeImported.ts. Re-run any time to refresh the library:
+ * Recipe importer — regenerates src/data/seed/recipeImported.ts from a
+ * committed snapshot of TheMealDB's raw API responses:
  *
  *   npx tsx --tsconfig ./tsconfig.json scripts/importRecipes.ts
  *
- * Source: TheMealDB (free, no key). Each recipe is normalized into the app's
- * Recipe shape by src/data/import/normalize.ts, deduped against the
- * hand-authored library, balanced per cuisine, and cited. A blog/URL importer
- * (schema.org/Recipe) can be added alongside this using the same normalizer.
+ * Source data is frozen in src/data/import/themealdb-raw.json (M4.2) rather
+ * than fetched live on every run. This makes regeneration deterministic —
+ * re-running after a normalize.ts change (e.g. adding `provides`) only
+ * changes what the new logic changed, not also whatever happened to shift
+ * upstream on TheMealDB since the last run. Refreshing the library with
+ * genuinely new/changed upstream recipes is a deliberate, separate task:
+ * re-fetch, overwrite themealdb-raw.json, and re-run this script.
+ *
+ * Each recipe is normalized into the app's Recipe shape by
+ * src/data/import/normalize.ts, deduped against the hand-authored library,
+ * balanced per cuisine, and cited. A blog/URL importer (schema.org/Recipe)
+ * can be added alongside this using the same normalizer.
  */
 import fs from 'fs';
 
@@ -16,23 +24,11 @@ import { RECIPES } from '@/data/seed/recipes';
 import { Recipe } from '@/domain/models';
 
 const CAP_PER_CUISINE = 45;
+const RAW_FIXTURE_PATH = 'src/data/import/themealdb-raw.json';
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-async function fetchMealDb(): Promise<Record<string, string>[]> {
-  const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
-  const byId: Record<string, Record<string, string>> = {};
-  for (const letter of letters) {
-    try {
-      const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
-      const data = (await res.json()) as { meals: Record<string, string>[] | null };
-      for (const m of data.meals ?? []) byId[m.idMeal] = m;
-    } catch (e) {
-      console.error('fetch failed for', letter, e);
-    }
-    await sleep(200);
-  }
-  return Object.values(byId);
+function loadMealDbFixture(): Record<string, string>[] {
+  return JSON.parse(fs.readFileSync(RAW_FIXTURE_PATH, 'utf-8'));
 }
 
 async function main() {
@@ -40,8 +36,8 @@ async function main() {
   // regenerates the imported set cleanly rather than skipping itself.
   const curated = new Set(RECIPES.filter((r) => !r.sourceName).map((r) => norm(r.name)));
 
-  const meals = await fetchMealDb();
-  console.log('fetched', meals.length, 'meals from TheMealDB');
+  const meals = loadMealDbFixture();
+  console.log('loaded', meals.length, 'meals from', RAW_FIXTURE_PATH);
 
   const scored: { r: Recipe; score: number }[] = [];
   const seen = new Set<string>();

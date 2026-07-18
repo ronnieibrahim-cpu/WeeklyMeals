@@ -282,8 +282,101 @@ function estimateTimes(techniques: string[]): { prep: number; cook: number } {
   return { prep: 15, cook: 30 };
 }
 
-function hasStarch(ingText: string): boolean {
+/** Exported so scripts/validateRecipes.ts and the sides library can share the
+ * exact same starch check used for nutrition estimation. */
+export function hasStarch(ingText: string): boolean {
   return has(ingText, 'rice', 'pasta', 'noodle', 'potato', 'bread', 'tortilla', 'bun', 'couscous', 'quinoa', 'flour', 'polenta', 'gnocchi');
+}
+
+// ---------------------------------------------------------------------------
+// M4.2 `provides` inference — what a dish actually puts on the plate. Used to
+// derive `provides` for imported recipes here, and reused by
+// scripts/validateRecipes.ts as the ground truth for a hard plausibility
+// check over hand-authored `provides` on curated/side recipes: a *declared*
+// entry must be backed by a real ingredient. The reverse is deliberately not
+// required — not every vegetable a dish happens to contain needs to be
+// declared, or this recreates the "must contain a vegetable" gate the
+// product owner explicitly rejected (ADVISOR-HANDOFF #21).
+// ---------------------------------------------------------------------------
+
+/** Cheese/egg/legume ingredients that carry real protein but don't fit the
+ * `Protein` enum's single "primary protein" slot (e.g. a pasta bake whose
+ * primaryProtein is 'None' because cheese isn't a listed protein, but a
+ * hunk of mozzarella and ricotta is obviously protein on the plate). */
+const PROTEIN_BOOST_KEYWORDS = [
+  'cheese', 'cheddar', 'mozzarella', 'parmesan', 'parmigiano', 'feta', 'paneer',
+  'halloumi', 'ricotta', 'mascarpone', 'gruyere', 'provolone', 'cotija', 'queso',
+  'gouda', 'brie', 'goat cheese', 'monterey jack', 'hummus', 'edamame',
+];
+
+function hasProteinBoost(ingText: string): boolean {
+  // "eggplant" contains "egg" but isn't the allergen/protein — same strip
+  // trick used in inferAllergens.
+  const eggText = ingText.replace(/eggplant/g, '');
+  return has(ingText, ...PROTEIN_BOOST_KEYWORDS) || has(eggText, 'egg');
+}
+
+/** Real vegetables — deliberately excludes aromatics (garlic, ginger,
+ * onion, shallot), fresh herbs (parsley, cilantro, basil, mint, thyme...),
+ * citrus, and fruit. This is the exact distinction the product owner's bug
+ * report was about: "the steak's vegetables field is ['parsley'] — a
+ * garnish," not a real vegetable serving. */
+const VEGETABLE_KEYWORDS = [
+  'broccoli', 'spinach', 'lettuce', 'cucumber', 'zucchini', 'courgette', 'cabbage',
+  'cauliflower', 'asparagus', 'green bean', 'carrot', 'celery', 'eggplant',
+  'aubergine', 'egg plant', 'kale', 'beet', 'radish', 'fennel', 'okra', 'squash', 'pumpkin',
+  'bell pepper', 'poblano', 'tomato', 'brussels sprout', 'artichoke', 'leek',
+  'mushroom', 'arugula', 'sprout', 'bok choy', 'coleslaw', 'marinara',
+];
+
+function hasVegetable(ingText: string): boolean {
+  // "cornstarch"/"corn syrup"/"popcorn"/"corned beef" aren't corn-the-vegetable.
+  const cornText = ingText.replace(/cornstarch|corn syrup|corned beef|popcorn/g, '');
+  // "chickpea(s)" contains "pea" but is a legume, not a pea vegetable.
+  const peaText = ingText.replace(/chick\s*peas?/g, '');
+  return has(ingText, ...VEGETABLE_KEYWORDS) || has(cornText, 'corn') || has(peaText, 'peas', 'snap pea', 'snow pea');
+}
+
+/** Broader than `hasStarch` (which stays untouched — it also drives the
+ * imported-recipe nutrition estimate, and widening it would ripple into
+ * calories/carbs for existing imports, not just add `provides`). This list
+ * adds specific pasta shapes and breads that `hasStarch`'s generic
+ * 'pasta'/'bread' substrings miss (e.g. "linguine", "naan"). */
+const STARCH_INGREDIENT_KEYWORDS = [
+  'rice', 'pasta', 'noodle', 'potato', 'bread', 'tortilla', 'bun', 'couscous',
+  'quinoa', 'flour', 'polenta', 'gnocchi', 'linguine', 'spaghetti', 'fettuccine',
+  'penne', 'macaroni', 'ziti', 'rigatoni', 'fusilli', 'orzo', 'ravioli',
+  'tortellini', 'vermicelli', 'udon', 'soba', 'ramen', 'lasagna', 'lasagne',
+  'farfalle', 'bagel', 'baguette', 'naan', 'pita', 'biscuit',
+];
+
+function hasStarchIngredient(ingText: string): boolean {
+  return has(ingText, ...STARCH_INGREDIENT_KEYWORDS);
+}
+
+export function inferProvides(protein: Protein, ingText: string): Array<'protein' | 'vegetable' | 'starch'> {
+  const provides: Array<'protein' | 'vegetable' | 'starch'> = [];
+  if (protein !== 'None' || hasProteinBoost(ingText)) provides.push('protein');
+  if (hasVegetable(ingText)) provides.push('vegetable');
+  if (hasStarchIngredient(ingText)) provides.push('starch');
+  return provides;
+}
+
+/** The hard plausibility gate scripts/validateRecipes.ts runs over every
+ * recipe's *declared* `provides`: returns whichever declared entries aren't
+ * backed by a real ingredient, using ingredients only (never the recipe
+ * name — see the name-leakage note in `normalize()`). Empty result means
+ * every declared entry is plausible. Deliberately asymmetric — this never
+ * flags an entry that's present in the ingredients but NOT declared. */
+export function unsupportedProvides(
+  provides: Array<'protein' | 'vegetable' | 'starch'> | undefined,
+  protein: Protein,
+  ingredientNames: string[],
+): Array<'protein' | 'vegetable' | 'starch'> {
+  if (!provides || provides.length === 0) return [];
+  const ingText = ' ' + ingredientNames.join(' ') + ' ';
+  const plausible = new Set(inferProvides(protein, ingText.toLowerCase()));
+  return provides.filter((p) => !plausible.has(p));
 }
 
 function estimateNutrition(protein: Protein, ingText: string): Nutrition {
@@ -395,6 +488,12 @@ export function normalize(raw: RawRecipe): Recipe | null {
   if (steps.length < 2) return null;
 
   const ingText = ' ' + ingredients.map((i) => i.name).join(' ') + ' ' + lc(raw.name) + ' ';
+  // `provides` deliberately uses ingredients only, not the dish name — a
+  // title can use a colloquial or regional word ("rice and peas" meaning
+  // kidney beans, not garden peas) that doesn't match what's actually being
+  // bought/cooked. scripts/validateRecipes.ts's plausibility check builds
+  // its ground truth from ingredients the same way, so the two stay in sync.
+  const ingredientOnlyText = ' ' + ingredients.map((i) => i.name).join(' ') + ' ';
   const protein = inferProtein(raw.category, ingText);
   const cuisine = mapCuisine(raw.area, ingText);
   const techniques = inferTechniques(raw.instructions);
@@ -411,6 +510,9 @@ export function normalize(raw: RawRecipe): Recipe | null {
     name: raw.name.trim(),
     cuisine,
     categories,
+    // role omitted — normalize() only ever produces dinner mains (desserts,
+    // sides, starters are filtered out above), so the 'main' default is correct.
+    provides: inferProvides(protein, ingredientOnlyText),
     primaryProtein: protein,
     vegetables: ingredients.filter((i) => i.department === 'Produce').map((i) => i.name).slice(0, 6),
     techniques,

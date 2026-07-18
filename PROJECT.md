@@ -10,10 +10,13 @@
 > sweep (`DEBUG-SWEEP.md`) P0/P1/P2 fixes landed. **Milestone 4 is in progress:**
 > M4.0 landed; M4.1 (household composition → adult-equivalent servings) landed,
 > revised to plain editable age (no birthdate) with `familySize` demoted to an
-> invisible fallback — see §5, §6, §7 below. M4.2 (composed dinners) is next.
-> **Last verified:** July 2026 · typecheck clean · 224 tests green ·
-> 230/230 curated recipes pass content validation, 586/586 recipes use
-> canonical allergen labels.
+> invisible fallback — see §5, §6, §7 below. M4.2 part 1 (data model:
+> `Recipe.role`/`Recipe.provides` + the `recipeSides.ts` library) landed —
+> see §4, §5. M4.2 part 2 (actually composing plates at generation time) is
+> next; nothing about generation, scoring, or the shopping list has changed yet.
+> **Last verified:** July 2026 · typecheck clean · 247 tests green ·
+> 230/230 curated recipes + 50/50 sides/sauces pass content validation,
+> 636/636 recipes use canonical allergen labels and plausible `provides`.
 >
 > **Advisor context, decision rationale, and current open items live in
 > `ADVISOR-HANDOFF.md`. Read that too.**
@@ -49,7 +52,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
 - **Supabase REST (raw fetch, no SDK)** — optional "household sync" between two
   phones; publishable key committed by design, **RLS is a permanent, informed
   accepted risk, not a fix in progress** (see §8)
-- **Jest / jest-expo** — engine test suite (**224 tests**); `npx jest` must stay green
+- **Jest / jest-expo** — engine + `src/data/import` test suite (**247 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**
@@ -85,16 +88,24 @@ app/cook/         full-screen guided cook mode (steps, timers, keep-awake)
 app/meal/ recipe/ pin/ reroll/   detail, pin-to-week, re-roll flows
 app/household.tsx sync setup · app/settings.tsx theme
 
-src/domain/       models (Recipe, Profile, IntakeAnswers, WeeklyPlan, ShoppingList,
-                  ManualItem, RatingEvent, PreferenceProfile) + constants
-                  (cuisines, H-E-B dept order, canonical allergen list, chips)
+src/domain/       models (Recipe — now with optional `role`/`provides`, M4.2 —
+                  Profile, IntakeAnswers, WeeklyPlan, ShoppingList, ManualItem,
+                  RatingEvent, PreferenceProfile) + constants (cuisines, H-E-B
+                  dept order, canonical allergen list, chips)
 src/engine/       recommendation/ (filters · scoring · LocalRecommendationEngine)
                   shoppingList · cost · learning · season · schedule · reroll ·
                   rating · syncMerge · manualItems · recipeSearch · cookMode ·
                   userRecipes · portions (M4.1: household → adult-equivalent
                   servings)    (+ a .test.ts beside almost every module)
-src/data/seed/    230 hand-curated recipes (batches 1–8, cookbook-grade content) +
-                  recipeImported.ts (~311 TheMealDB imports, GENERATED — never hand-edit)
+src/data/seed/    230 hand-curated mains (batches 1–8, cookbook-grade content) +
+                  recipeImported.ts (356 TheMealDB imports, GENERATED — never
+                  hand-edit) + recipeSides.ts (50 hand-curated sides/sauces,
+                  M4.2 — NOT yet wired into generation; see §5)
+src/data/import/  normalize.ts (import heuristics incl. M4.2's `inferProvides`/
+                  `unsupportedProvides`) + themealdb-raw.json (a frozen
+                  snapshot of TheMealDB's raw API response; scripts/
+                  importRecipes.ts regenerates recipeImported.ts from this
+                  fixture, not a live fetch — see §10)
 src/data/grocery/heb   curated price table, per-lb conversion, dept fallbacks
 src/data/repositories/local   kvStore (AsyncStorage JSON) + one repo per aggregate
 src/data/sync/    config.ts (URL/key/kill-switch) · householdApi.ts (row by 6-char code)
@@ -232,7 +243,11 @@ Product Owner's friction journal, is the active milestone:
 - **M4.0** — three bug fixes + virtualized recipe browse list. ✅ Shipped.
 - **M4.1** — household composition → adult-equivalent servings. ✅ Shipped, revised
   (plain editable age, no birthdate; `familySize` demoted to invisible fallback).
-- **M4.2** — a dinner is a plate, not a dish (main + sides composition). **Next.**
+- **M4.2** — a dinner is a plate, not a dish (main + sides composition). **Part 1
+  (data model: `Recipe.role`/`Recipe.provides`, curated `provides` authored by
+  hand, `recipeSides.ts`, validator gates) ✅ shipped. Part 2 (actually
+  composing plates at generation time, `mealComposition.ts`, shopping list,
+  cook mode, meal detail UI) is next — none of that is wired up yet.**
 - **M4.3** — waste-fit scoring bonus (use the whole cabbage). Not started.
 - **M4.4** — per-recipe notes, household-synced. Not started.
 - **M4.5** — component re-roll (keep a side/sauce, regenerate the rest). Depends on
@@ -254,7 +269,13 @@ Product Owner's friction journal, is the active milestone:
   must all be green before any commit.** Update this file in the same change when
   behavior or architecture changes.
 - `src/data/seed/recipeImported.ts` is **generated** — never hand-edit; change
-  `normalize.ts` / `scripts/importRecipes.ts` and re-run.
+  `normalize.ts` / `scripts/importRecipes.ts` and re-run. As of M4.2,
+  `scripts/importRecipes.ts` regenerates from the **committed fixture**
+  `src/data/import/themealdb-raw.json`, not a live fetch — this makes
+  regeneration deterministic (a normalize.ts change only changes what that
+  change actually changed, not also whatever shifted upstream on TheMealDB
+  meanwhile). Refreshing the library with genuinely new upstream recipes is a
+  deliberate, separate task: re-fetch, overwrite the fixture, re-run.
 - Every push to `claude/weekly-meals-app-eyowlr` deploys the web build.
 - Keep changes small and grouped by task; isolate anything touching the plan lifecycle,
   allergy filtering, sync, or seed data.

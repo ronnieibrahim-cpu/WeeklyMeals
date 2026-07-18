@@ -30,8 +30,8 @@ unplanned.
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine test suite — currently 224 tests
-npx tsx scripts/validateRecipes.ts # 230/230 curated recipes (586/586 allergen labels) must pass
+npx jest                           # engine + data/import test suite — currently 247 tests
+npx tsx scripts/validateRecipes.ts # 230/230 curated mains + 50/50 sides (636/636 allergen labels + provides) must pass
 npm run web                        # local browser preview for manual testing
 ```
 Pushing to branch `claude/weekly-meals-app-eyowlr` auto-deploys the web build to

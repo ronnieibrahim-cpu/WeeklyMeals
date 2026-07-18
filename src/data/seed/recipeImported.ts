@@ -15,6 +15,11 @@ export const recipeImported: Recipe[] = [
       "Sandwiches",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "cooked beetroot"
@@ -90,6 +95,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -199,6 +207,10 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "fennel",
@@ -292,6 +304,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -398,6 +413,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [],
     "techniques": [
@@ -470,6 +489,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -600,6 +624,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -770,6 +799,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "broccoli",
@@ -872,6 +906,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "mushrooms"
@@ -971,6 +1010,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -1109,6 +1153,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "potatoes",
@@ -1228,6 +1277,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Sandwiches",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [],
@@ -1368,6 +1422,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -1484,6 +1543,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Pasta",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -1608,6 +1671,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -1756,6 +1823,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "potatoes",
@@ -1866,6 +1938,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion",
@@ -1964,6 +2040,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -2070,6 +2150,10 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Vegetarian",
       "Sandwiches"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [],
@@ -2231,6 +2315,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "floury potatoes",
@@ -2335,6 +2424,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -2456,6 +2549,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -2590,6 +2688,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "yellow split peas",
@@ -2692,6 +2795,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -2811,6 +2918,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -2969,6 +3081,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "onions",
@@ -3079,6 +3196,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "onion"
@@ -3182,6 +3302,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -3338,6 +3462,10 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Vegetarian"
     ],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "mushrooms",
@@ -3466,6 +3594,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "potatoes",
@@ -3580,6 +3713,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "potatoes"
@@ -3653,6 +3790,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -3739,6 +3879,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Lentils",
     "vegetables": [
@@ -3885,6 +4029,10 @@ export const recipeImported: Recipe[] = [
       "Salads",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "avocado",
@@ -3984,6 +4132,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian",
       "Stews"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Lentils",
     "vegetables": [
@@ -4161,6 +4313,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "garlic",
@@ -4275,6 +4430,9 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "Salads"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "can of chickpeas",
@@ -4381,6 +4539,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [],
     "techniques": [
@@ -4462,6 +4624,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beans",
     "vegetables": [
@@ -4562,6 +4728,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "horseradish",
@@ -4654,6 +4825,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -4772,6 +4947,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Turkey",
     "vegetables": [
@@ -4892,6 +5072,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "American",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Lentils",
     "vegetables": [
@@ -5037,6 +5221,10 @@ export const recipeImported: Recipe[] = [
       "Vegetarian",
       "Stews"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beans",
     "vegetables": [],
     "techniques": [
@@ -5107,6 +5295,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Salads",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -5218,6 +5411,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [],
     "techniques": [
@@ -5292,6 +5488,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "BBQ",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -5455,6 +5656,10 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "tomato",
@@ -5587,6 +5792,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "kale",
@@ -5707,6 +5916,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion",
@@ -5817,6 +6031,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Sandwiches",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -5991,6 +6210,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "lettuce",
@@ -6099,6 +6323,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [],
     "techniques": [
@@ -6164,6 +6392,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "BBQ",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -6285,6 +6517,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion"
@@ -6405,6 +6641,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -6565,6 +6805,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "BBQ",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -6729,6 +6974,10 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -6865,6 +7114,10 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "onion",
@@ -6999,6 +7252,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "Stews"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -7138,6 +7395,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beans",
     "vegetables": [
       "onion",
@@ -7266,6 +7527,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "onion",
@@ -7382,6 +7646,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beans",
     "vegetables": [
       "spring onions"
@@ -7487,6 +7755,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "BBQ",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -7667,6 +7939,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "pumpkin",
@@ -7787,6 +8064,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [],
     "techniques": [
@@ -7878,6 +8159,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "BBQ",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -7974,6 +8259,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "BBQ",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -8092,6 +8382,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Soups",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -8227,6 +8522,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -8386,6 +8686,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [],
     "techniques": [
@@ -8491,6 +8795,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -8617,6 +8926,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -8759,6 +9072,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -8921,6 +9239,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "garlic",
@@ -9077,6 +9399,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "ginger cordial",
@@ -9183,6 +9509,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -9366,6 +9696,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "plum tomatoes",
@@ -9487,6 +9822,10 @@ export const recipeImported: Recipe[] = [
       "Soups",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "peas",
@@ -9597,6 +9936,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Soups",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -9740,6 +10083,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "peanuts",
@@ -9865,6 +10213,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -10019,6 +10370,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "napa cabbage",
@@ -10146,6 +10501,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Sandwiches",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -10286,6 +10646,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [
       "chilli sauce",
@@ -10380,6 +10744,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -10509,6 +10876,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -10680,6 +11052,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "peanut oil",
@@ -10813,6 +11189,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -10959,6 +11339,7 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [],
     "primaryProtein": "None",
     "vegetables": [
       "peanut oil",
@@ -11060,6 +11441,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Tofu",
     "vegetables": [
       "scallions"
@@ -11141,6 +11525,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -11320,6 +11709,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "pineapple chunks",
@@ -11464,6 +11857,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "coriander"
@@ -11578,6 +11975,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Chinese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -11758,6 +12159,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "ginger",
@@ -11874,6 +12279,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "French",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -12044,6 +12454,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "mushrooms",
@@ -12133,6 +12547,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "French",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -12290,6 +12709,7 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [],
     "primaryProtein": "None",
     "vegetables": [
       "garlic"
@@ -12378,6 +12798,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "Stews"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -12545,6 +12970,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [
       "leek"
@@ -12668,6 +13098,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Lentils",
     "vegetables": [
       "onion",
@@ -12776,6 +13210,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [
       "parsley"
@@ -12865,6 +13302,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "French",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -13015,6 +13457,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "garlic",
@@ -13161,6 +13607,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beans",
     "vegetables": [
       "leek",
@@ -13271,6 +13721,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "French",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -13397,6 +13852,11 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "potatoes",
@@ -13505,6 +13965,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Salads",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -13623,6 +14087,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "chopped onion",
@@ -13721,6 +14189,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Greek",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "vegetable"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -13833,6 +14304,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "garlic",
@@ -13923,6 +14398,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Sandwiches",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -14041,6 +14521,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "aubergine",
@@ -14138,6 +14623,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Greek",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -14268,6 +14758,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "vegetable"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "aubergine",
@@ -14391,6 +14884,10 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -14528,6 +15025,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion",
@@ -14662,6 +15164,11 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -14781,6 +15288,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Indian",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -14937,6 +15448,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -15079,6 +15594,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Indian",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "vegetable"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -15225,6 +15743,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "vegetable"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "squash",
@@ -15331,6 +15852,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Indian",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -15473,6 +15999,11 @@ export const recipeImported: Recipe[] = [
       "Vegetarian",
       "Stews"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beans",
     "vegetables": [
       "onion",
@@ -15590,6 +16121,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Indian",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -15775,6 +16310,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "onion",
@@ -15911,6 +16450,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "onion",
@@ -16038,6 +16581,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "ginger",
@@ -16164,6 +16712,9 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "red chilli",
@@ -16268,6 +16819,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -16415,6 +16969,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "lime juice",
@@ -16550,6 +17107,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Pasta",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -16733,6 +17295,11 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Stews"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "sugar snap peas",
@@ -16867,6 +17434,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -17007,6 +17578,10 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "parsley"
@@ -17093,6 +17668,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Pasta",
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -17184,6 +17764,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "garlic",
@@ -17268,6 +17852,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Pasta",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -17417,6 +18006,11 @@ export const recipeImported: Recipe[] = [
       "Salads",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "baby plum tomatoes",
@@ -17525,6 +18119,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Italian",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -17696,6 +18295,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onions",
@@ -17849,6 +18452,11 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "onion",
@@ -17951,6 +18559,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Italian",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -18072,6 +18684,10 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -18171,6 +18787,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Italian",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -18286,6 +18907,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Italian",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beans",
     "vegetables": [
@@ -18421,6 +19047,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Italian",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -18579,6 +19210,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "onion",
@@ -18701,6 +19337,10 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [],
     "techniques": [
@@ -18795,6 +19435,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Pasta",
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Eggs",
     "vegetables": [
@@ -18894,6 +19539,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Italian",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beans",
     "vegetables": [
@@ -19038,6 +19687,10 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Vegetarian"
     ],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "garlic"
@@ -19116,6 +19769,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Italian",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -19256,6 +19913,11 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Lentils",
     "vegetables": [
       "carrots",
@@ -19383,6 +20045,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Pasta",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -19522,6 +20189,9 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [],
     "techniques": [
@@ -19599,6 +20269,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Japanese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -19708,6 +20382,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -19863,6 +20542,11 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "cucumber"
@@ -19959,6 +20643,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Japanese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [],
@@ -20057,6 +20745,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Japanese",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -20160,6 +20853,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Japanese",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -20275,6 +20972,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "potatoes",
@@ -20374,6 +21075,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -20516,6 +21222,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "onion"
@@ -20625,6 +21336,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [],
     "techniques": [
@@ -20697,6 +21411,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -20816,6 +21534,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -20938,6 +21661,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "garlic",
@@ -21049,6 +21775,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -21180,6 +21910,11 @@ export const recipeImported: Recipe[] = [
       "Salads",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "baby new potatoes",
@@ -21272,6 +22007,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "potatoes",
@@ -21362,6 +22101,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "Stews"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -21473,6 +22217,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "parsley",
@@ -21564,6 +22311,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -21657,6 +22408,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -21799,6 +22555,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -21921,6 +22681,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -22050,6 +22814,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "garlic",
@@ -22140,6 +22908,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -22263,6 +23036,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "wild garlic leaves"
@@ -22368,6 +23145,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -22508,6 +23290,10 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "garlic",
@@ -22631,6 +23417,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "onion",
@@ -22750,6 +23540,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -22905,6 +23699,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [
       "onion",
@@ -23030,6 +23828,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -23188,6 +23991,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "lemon",
@@ -23295,6 +24102,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "Stews"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -23447,6 +24259,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "garlic",
@@ -23582,6 +24397,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -23762,6 +24582,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "red chilli",
@@ -23881,6 +24706,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -24031,6 +24860,10 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "onion",
@@ -24127,6 +24960,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "Pasta"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -24269,6 +25107,11 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "leek",
@@ -24366,6 +25209,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian",
       "Salads"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -24469,6 +25316,10 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "parsley"
@@ -24553,6 +25404,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -24661,6 +25517,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -24817,6 +25678,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "onion",
@@ -24920,6 +25786,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -25035,6 +25905,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [
       "onion",
@@ -25149,6 +26024,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -25288,6 +26167,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [
       "onion",
@@ -25388,6 +26272,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -25500,6 +26388,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mediterranean",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -25623,6 +26515,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "fried ripe bananas",
@@ -25721,6 +26617,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mexican",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -25842,6 +26741,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -26001,6 +26904,11 @@ export const recipeImported: Recipe[] = [
       "Sandwiches",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "avocado",
@@ -26126,6 +27034,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [],
     "techniques": [
@@ -26221,6 +27133,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [],
     "techniques": [
@@ -26291,6 +27208,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mexican",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beans",
     "vegetables": [
@@ -26425,6 +27347,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Sandwiches",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -26567,6 +27493,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mexican",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beans",
     "vegetables": [
@@ -26715,6 +27646,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -26849,6 +27784,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Mexican",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -27009,6 +27948,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "garlic",
@@ -27157,6 +28100,9 @@ export const recipeImported: Recipe[] = [
       "Vegetarian",
       "Salads"
     ],
+    "provides": [
+      "vegetable"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "red onions",
@@ -27252,6 +28198,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "garlic",
@@ -27344,6 +28294,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -27452,6 +28407,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Eggs",
     "vegetables": [
@@ -27578,6 +28537,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -27686,6 +28649,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -27831,6 +28797,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Soups",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -27991,6 +28962,10 @@ export const recipeImported: Recipe[] = [
       "Vegetarian",
       "Stews"
     ],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "garlic",
@@ -28111,6 +29086,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -28258,6 +29238,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "vegetable"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "tomato",
@@ -28389,6 +29372,10 @@ export const recipeImported: Recipe[] = [
       "Vegetarian",
       "Sandwiches"
     ],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "lemon juice",
@@ -28516,6 +29503,7 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [],
     "primaryProtein": "None",
     "vegetables": [
       "parsley",
@@ -28610,6 +29598,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "vegetable"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -28717,6 +29708,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beans",
     "vegetables": [
@@ -28853,6 +29848,11 @@ export const recipeImported: Recipe[] = [
       "Sandwiches",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "carrots",
@@ -28967,6 +29967,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -29103,6 +30107,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "mushrooms",
@@ -29229,6 +30238,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [
       "potatoes",
@@ -29340,6 +30354,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Sandwiches",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -29457,6 +30476,10 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Lentils",
     "vegetables": [
       "coriander",
@@ -29559,6 +30582,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -29682,6 +30710,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -29823,6 +30856,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -29994,6 +31032,9 @@ export const recipeImported: Recipe[] = [
       "Vegetarian",
       "Soups"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beans",
     "vegetables": [
       "onion",
@@ -30111,6 +31152,9 @@ export const recipeImported: Recipe[] = [
       "Vegetarian",
       "Soups"
     ],
+    "provides": [
+      "vegetable"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "carrots",
@@ -30216,6 +31260,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion"
@@ -30306,6 +31353,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -30457,6 +31508,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onion",
@@ -30560,6 +31614,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -30678,6 +31737,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -30803,6 +31866,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [
       "tomato"
@@ -30902,6 +31969,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Eggs",
     "vegetables": [
@@ -31035,6 +32106,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -31184,6 +32260,9 @@ export const recipeImported: Recipe[] = [
       "Sandwiches",
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "lemon juice"
@@ -31315,6 +32394,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "lemon",
@@ -31411,6 +32494,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [],
@@ -31520,6 +32607,10 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Vegetarian"
     ],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [],
     "techniques": [
@@ -31610,6 +32701,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Lentils",
     "vegetables": [
@@ -31727,6 +32822,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -31892,6 +32992,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "spring onions",
@@ -31998,6 +33101,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -32123,6 +33230,11 @@ export const recipeImported: Recipe[] = [
       "Pasta",
       "Soups",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -32254,6 +33366,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "onion",
@@ -32355,6 +33471,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "mint",
@@ -32455,6 +33576,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "MiddleEastern",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Eggs",
     "vegetables": [
@@ -32584,6 +33709,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -32715,6 +33845,11 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion",
@@ -32844,6 +33979,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -33027,6 +34166,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "potatoes",
@@ -33156,6 +34300,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -33299,6 +34448,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -33476,6 +34630,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion",
@@ -33598,6 +34756,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -33750,6 +34913,11 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion",
@@ -33874,6 +35042,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "potatoes"
@@ -33970,6 +35142,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian",
       "Soups"
+    ],
+    "provides": [
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -34094,6 +35270,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -34242,6 +35422,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "parsley",
@@ -34388,6 +35572,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "garlic",
@@ -34494,6 +35681,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -34638,6 +35829,9 @@ export const recipeImported: Recipe[] = [
       "Soups",
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "parsley"
@@ -34738,6 +35932,10 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -34878,6 +36076,10 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "ginger",
@@ -34983,6 +36185,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian",
       "Soups"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beans",
     "vegetables": [
@@ -35110,6 +36316,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "white cabbage"
@@ -35197,6 +36408,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -35351,6 +36566,11 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "Soups"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "garlic",
@@ -35481,6 +36701,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -35620,6 +36845,7 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [],
     "primaryProtein": "None",
     "vegetables": [
       "garlic",
@@ -35722,6 +36948,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -35839,6 +37070,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion"
@@ -35941,6 +37175,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Eggs",
     "vegetables": [
@@ -36054,6 +37292,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -36191,6 +37433,10 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "cabbage",
@@ -36319,6 +37565,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "lemon juice",
@@ -36437,6 +37687,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Salads",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -36557,6 +37812,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -36717,6 +37977,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion"
@@ -36850,6 +38114,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "onion",
@@ -36971,6 +38239,11 @@ export const recipeImported: Recipe[] = [
       "Salads",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "potatoes",
@@ -37088,6 +38361,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Lamb",
     "vegetables": [
       "leek",
@@ -37196,6 +38474,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -37342,6 +38625,10 @@ export const recipeImported: Recipe[] = [
       "Soups",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "onions",
@@ -37480,6 +38767,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -37626,6 +38916,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "potatoes",
@@ -37744,6 +39039,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "carrots",
@@ -37855,6 +39154,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
@@ -38008,6 +39311,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "shallots",
@@ -38138,6 +39445,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "cabbage",
@@ -38239,6 +39551,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Other",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -38378,6 +39695,9 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "kaffir lime leaves",
@@ -38509,6 +39829,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "ginger",
@@ -38636,6 +39960,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "ginger",
@@ -38746,6 +40075,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -38881,6 +40214,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -39018,6 +40356,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "garlic",
@@ -39139,6 +40482,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -39297,6 +40644,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "lime"
@@ -39413,6 +40763,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "lemon",
@@ -39511,6 +40864,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -39611,6 +40967,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -39728,6 +41089,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "red chilli",
@@ -39838,6 +41203,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -40006,6 +41376,10 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "peanuts",
@@ -40138,6 +41512,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -40280,6 +41658,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -40427,6 +41810,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -40589,6 +41977,11 @@ export const recipeImported: Recipe[] = [
       "Soups",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "garlic",
@@ -40714,6 +42107,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -40850,6 +42248,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -41027,6 +42430,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "garlic",
@@ -41152,6 +42558,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -41305,6 +42716,11 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "purple sprouting broccoli",
@@ -41415,6 +42831,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -41561,6 +42982,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onion",
@@ -41662,6 +43087,9 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -41774,6 +43202,9 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Stews",
       "HighProtein"
+    ],
+    "provides": [
+      "protein"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -41921,6 +43352,10 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "pineapple chunks",
@@ -42052,6 +43487,9 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein"
+    ],
     "primaryProtein": "Fish",
     "vegetables": [
       "ginger",
@@ -42147,6 +43585,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Salads",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -42279,6 +43722,9 @@ export const recipeImported: Recipe[] = [
       "Vegetarian",
       "Salads"
     ],
+    "provides": [
+      "vegetable"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "carrots",
@@ -42394,6 +43840,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Soups",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -42534,6 +43984,11 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "potatoes",
@@ -42662,6 +44117,11 @@ export const recipeImported: Recipe[] = [
       "Stews",
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "spring onions",
@@ -42786,6 +44246,11 @@ export const recipeImported: Recipe[] = [
       "Seafood",
       "Salads",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -42935,6 +44400,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "lime leaves",
@@ -43038,6 +44507,10 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Tofu",
     "vegetables": [
@@ -43161,6 +44634,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "Soups"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -43299,6 +44776,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
     "primaryProtein": "Eggs",
     "vegetables": [],
     "techniques": [
@@ -43376,6 +44857,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -43519,6 +45005,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "HighProtein"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Pork",
     "vegetables": [
       "garlic",
@@ -43655,6 +45146,10 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Salads",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -43821,6 +45316,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood"
     ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "Shellfish",
     "vegetables": [
       "lime",
@@ -43941,6 +45441,11 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Seafood",
       "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -44071,6 +45576,11 @@ export const recipeImported: Recipe[] = [
     "cuisine": "Thai",
     "categories": [
       "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Eggs",
     "vegetables": [
