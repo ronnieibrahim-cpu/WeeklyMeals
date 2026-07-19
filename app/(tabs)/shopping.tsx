@@ -5,7 +5,8 @@ import { Swipeable } from 'react-native-gesture-handler';
 
 import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
 import { DEPARTMENT_LABELS, DEPARTMENT_ORDER } from '@/domain/constants';
-import { Department, ManualItem, ShoppingItem } from '@/domain/models';
+import { Department, ManualItem, PlannedMeal, ShoppingItem } from '@/domain/models';
+import { isWholeUnitShoppingItem, mealsUsingItem } from '@/engine/wasteFit';
 import { useManualItemsStore } from '@/stores/manualItemsStore';
 import { usePlanStore } from '@/stores/planStore';
 import { ChipSingleSelect, Card, EmptyState, Screen, Text } from '@/ui/components';
@@ -169,6 +170,7 @@ export default function ShoppingScreen() {
                     item={item}
                     first={i === 0}
                     onToggle={() => toggleItem(item.ingredientName, item.unit)}
+                    meals={plan?.meals ?? []}
                   />
                 ))}
                 {manual.map((item, i) => (
@@ -302,8 +304,23 @@ function AddItemBar({
   );
 }
 
-function PlannedRow({ item, first, onToggle }: { item: ShoppingItem; first: boolean; onToggle: () => void }) {
+function PlannedRow({
+  item,
+  first,
+  onToggle,
+  meals,
+}: {
+  item: ShoppingItem;
+  first: boolean;
+  onToggle: () => void;
+  meals: PlannedMeal[];
+}) {
   const theme = useTheme();
+  // M4.3: a quiet, display-only "used in N meals" line for a whole-unit
+  // perishable (a head of cabbage, a bunch of cilantro) shared across
+  // multiple nights this week — surfaces the waste-fit scoring bonus's
+  // reasoning without ever touching the list itself (Product Law #1).
+  const sharedMealCount = isWholeUnitShoppingItem(item) ? mealsUsingItem(item.fromRecipeIds, meals) : 0;
   return (
     <Pressable
       onPress={onToggle}
@@ -333,6 +350,11 @@ function PlannedRow({ item, first, onToggle }: { item: ShoppingItem; first: bool
           {item.quantity} {item.unit}
           {item.hebProductName ? ` · ${item.hebProductName}` : ''}
         </Text>
+        {sharedMealCount >= 2 ? (
+          <Text variant="footnote" color="tertiary">
+            used in {sharedMealCount} meals
+          </Text>
+        ) : null}
       </View>
       <Text variant="subhead" color={item.checked ? 'tertiary' : 'secondary'}>
         ${item.estimatedPrice.toFixed(2)}
