@@ -11,8 +11,9 @@ type Provides = 'protein' | 'vegetable' | 'starch';
  * plate is cooked together — the intake's time limit is a promise about the
  * whole dinner, not just the entrée. Checked as two independent budgets
  * (prep, cook), same convention `passesHardFilters` already uses rather than
- * a single summed total. */
-function fitsCombinedTime(main: Recipe, side: Recipe, intake: IntakeAnswers): boolean {
+ * a single summed total. Exported (M4.5) so `reroll.ts`'s component re-roll
+ * can re-apply the exact same pairing gate instead of duplicating it. */
+export function fitsCombinedTime(main: Recipe, side: Recipe, intake: IntakeAnswers): boolean {
   return (
     main.prepMinutes + side.prepMinutes <= intake.maxPrepMinutes &&
     main.cookMinutes + side.cookMinutes <= intake.maxCookMinutes

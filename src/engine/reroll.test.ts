@@ -291,6 +291,483 @@ describe('rerollCandidates — whole-plate evaluation (M4.2 part 2)', () => {
   });
 });
 
+describe('rerollCandidates — M4.5 keep/re-roll a plate component', () => {
+  describe('backward compatibility (no keep)', () => {
+    it('an explicit {keepMain:false, keptSideIds:[]} matches the default (undefined) outcome exactly', () => {
+      const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+      const main = makeRecipe({
+        id: 'main-candidate',
+        primaryProtein: 'Chicken',
+        provides: ['protein'],
+        ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const side = makeRecipe({
+        id: 'side-candidate',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'broccoli', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const plan = makePlan({ meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0 })] });
+      const recipes = [outgoing, main, side];
+      const ctx = ctxFor();
+      const available = new Set(['chicken', 'broccoli']);
+      const getRecipe = (id: string) => recipes.find((r) => r.id === id);
+
+      const withoutKeep = rerollCandidates(plan, 0, recipes, getRecipe, available, ctx);
+      const withEmptyKeep = rerollCandidates(plan, 0, recipes, getRecipe, available, ctx, {
+        keepMain: false,
+        keptSideIds: [],
+      });
+
+      expect(withEmptyKeep).toEqual(withoutKeep);
+      expect(withoutKeep.candidates.length).toBeGreaterThan(0); // sanity: the scenario actually exercises something
+    });
+  });
+
+  describe('keep sides, re-roll the main', () => {
+    it('carries the kept side id verbatim and first on the candidate, and a sauce (empty provides) pairs with any main', () => {
+      const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+      const sauce = makeRecipe({
+        id: 'chimichurri',
+        role: 'sauce',
+        provides: [],
+        cuisine: 'Mexican',
+        primaryProtein: 'None',
+        ingredients: [{ name: 'parsley', quantity: 1, unit: 'bunch', department: 'Produce' }],
+      });
+      const steak = makeRecipe({
+        id: 'steak',
+        primaryProtein: 'Beef',
+        provides: ['protein'],
+        cuisine: 'Mexican',
+        ingredients: [{ name: 'steak', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0, sideRecipeIds: ['chimichurri'] })],
+      });
+      const recipes = [outgoing, sauce, steak];
+      const ctx = ctxFor();
+      const available = new Set(['parsley', 'steak']);
+
+      const outcome = rerollCandidates(
+        plan,
+        0,
+        recipes,
+        (id) => recipes.find((r) => r.id === id),
+        available,
+        ctx,
+        { keepMain: false, keptSideIds: ['chimichurri'] },
+      );
+
+      const candidate = outcome.candidates.find((c) => c.recipe.id === 'steak');
+      expect(candidate).toBeDefined();
+      expect(candidate?.sideRecipeIds).toEqual(['chimichurri']);
+    });
+
+    it('excludes a main whose own provides already cover everything the kept side contributes (clash gate)', () => {
+      const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+      const keptVeg = makeRecipe({
+        id: 'kept-veg',
+        role: 'side',
+        provides: ['vegetable'],
+        cuisine: 'Italian',
+        primaryProtein: 'None',
+        ingredients: [{ name: 'broccoli', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const clashMain = makeRecipe({
+        id: 'clash-main',
+        primaryProtein: 'Chicken',
+        provides: ['protein', 'vegetable'],
+        cuisine: 'Italian',
+        ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const okMain = makeRecipe({
+        id: 'ok-main',
+        primaryProtein: 'Beef',
+        provides: ['protein'],
+        cuisine: 'Italian',
+        ingredients: [{ name: 'beef', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0, sideRecipeIds: ['kept-veg'] })],
+      });
+      const recipes = [outgoing, keptVeg, clashMain, okMain];
+      const ctx = ctxFor();
+      const available = new Set(['broccoli', 'chicken', 'beef']);
+
+      const outcome = rerollCandidates(
+        plan,
+        0,
+        recipes,
+        (id) => recipes.find((r) => r.id === id),
+        available,
+        ctx,
+        { keepMain: false, keptSideIds: ['kept-veg'] },
+      );
+
+      const candidateIds = outcome.candidates.map((c) => c.recipe.id);
+      expect(candidateIds).not.toContain('clash-main');
+      expect(candidateIds).toContain('ok-main');
+    });
+
+    it('excludes a main that breaks the combined time budget with a kept side', () => {
+      const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+      const keptSide = makeRecipe({
+        id: 'kept-side',
+        role: 'side',
+        provides: ['starch'],
+        cuisine: 'Italian',
+        primaryProtein: 'None',
+        prepMinutes: 5,
+        cookMinutes: 35,
+        ingredients: [{ name: 'rice', quantity: 1, unit: 'cup', department: 'DryGoods' }],
+      });
+      const slowMain = makeRecipe({
+        id: 'slow-main',
+        primaryProtein: 'Chicken',
+        provides: ['protein'],
+        cuisine: 'Italian',
+        prepMinutes: 10,
+        cookMinutes: 20, // 20 + 35 = 55 > maxCookMinutes (45)
+        ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const fastMain = makeRecipe({
+        id: 'fast-main',
+        primaryProtein: 'Beef',
+        provides: ['protein'],
+        cuisine: 'Italian',
+        prepMinutes: 5,
+        cookMinutes: 5, // 5 + 35 = 40 <= 45
+        ingredients: [{ name: 'beef', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0, sideRecipeIds: ['kept-side'] })],
+      });
+      const recipes = [outgoing, keptSide, slowMain, fastMain];
+      const ctx = ctxFor();
+      const available = new Set(['rice', 'chicken', 'beef']);
+
+      const outcome = rerollCandidates(
+        plan,
+        0,
+        recipes,
+        (id) => recipes.find((r) => r.id === id),
+        available,
+        ctx,
+        { keepMain: false, keptSideIds: ['kept-side'] },
+      );
+
+      const candidateIds = outcome.candidates.map((c) => c.recipe.id);
+      expect(candidateIds).not.toContain('slow-main');
+      expect(candidateIds).toContain('fast-main');
+    });
+
+    it('demotes an otherwise-eligible main to a labeled near-miss when the whole plate is not fully coverable', () => {
+      const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+      const keptSide = makeRecipe({
+        id: 'kept-side',
+        role: 'side',
+        provides: ['vegetable'],
+        cuisine: 'Italian',
+        primaryProtein: 'None',
+        ingredients: [{ name: 'broccoli', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const main = makeRecipe({
+        id: 'main-candidate',
+        primaryProtein: 'Chicken',
+        provides: ['protein'],
+        cuisine: 'Italian',
+        ingredients: [{ name: 'saffron', quantity: 1, unit: 'pinch', department: 'Spices' }],
+      });
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0, sideRecipeIds: ['kept-side'] })],
+      });
+      const recipes = [outgoing, keptSide, main];
+      const ctx = ctxFor();
+      const available = new Set(['broccoli']); // no saffron
+
+      const outcome = rerollCandidates(
+        plan,
+        0,
+        recipes,
+        (id) => recipes.find((r) => r.id === id),
+        available,
+        ctx,
+        { keepMain: false, keptSideIds: ['kept-side'] },
+      );
+
+      expect(outcome.candidates).toEqual([]);
+      const nearMiss = outcome.nearMisses.find((n) => n.recipe.id === 'main-candidate');
+      expect(nearMiss).toBeDefined();
+      expect(nearMiss?.sideRecipeIds).toEqual(['kept-side']);
+      expect(nearMiss?.missing).toEqual(['saffron']);
+    });
+
+    it('the kept-side cuisine-fit nudge orders a cuisine-matching main above an otherwise-identical non-matching one', () => {
+      const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+      const keptSide = makeRecipe({
+        id: 'kept-side',
+        role: 'sauce',
+        provides: [],
+        cuisine: 'Mexican',
+        primaryProtein: 'None',
+        ingredients: [{ name: 'parsley', quantity: 1, unit: 'bunch', department: 'Produce' }],
+      });
+      const matchingMain = makeRecipe({
+        id: 'matching-main',
+        primaryProtein: 'Beef',
+        provides: ['protein'],
+        cuisine: 'Mexican',
+        ingredients: [{ name: 'beef', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const otherMain = makeRecipe({
+        id: 'other-main',
+        primaryProtein: 'Beef',
+        provides: ['protein'],
+        cuisine: 'Italian',
+        ingredients: [{ name: 'beef', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0, sideRecipeIds: ['kept-side'] })],
+      });
+      const recipes = [outgoing, keptSide, matchingMain, otherMain];
+      const ctx = ctxFor();
+      const available = new Set(['parsley', 'beef']);
+
+      const outcome = rerollCandidates(
+        plan,
+        0,
+        recipes,
+        (id) => recipes.find((r) => r.id === id),
+        available,
+        ctx,
+        { keepMain: false, keptSideIds: ['kept-side'] },
+      );
+
+      const ids = outcome.candidates.map((c) => c.recipe.id);
+      expect(ids).toContain('matching-main');
+      expect(ids).toContain('other-main');
+      // Same score on every other factor (see fixture comment above) — only
+      // the kept-side cuisine-fit nudge should separate them.
+      expect(ids.indexOf('matching-main')).toBeLessThan(ids.indexOf('other-main'));
+    });
+  });
+
+  describe('keep the main, re-roll the sides', () => {
+    function setup() {
+      const main = makeRecipe({
+        id: 'main1',
+        primaryProtein: 'Chicken',
+        provides: ['protein'],
+        cuisine: 'Italian',
+        ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const sideA = makeRecipe({
+        id: 'side-a',
+        role: 'side',
+        provides: ['starch'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'rice', quantity: 1, unit: 'cup', department: 'DryGoods' }],
+      });
+      const sideB = makeRecipe({
+        id: 'side-b',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'broccoli', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const sideC = makeRecipe({
+        id: 'side-c',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'spinach', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const sideD = makeRecipe({
+        id: 'side-d',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'spinach', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const sideE = makeRecipe({
+        id: 'side-e',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'spinach', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'main1', dayIndex: 0, sideRecipeIds: ['side-a', 'side-b'] })],
+      });
+      const recipes = [main, sideA, sideB, sideC, sideD, sideE];
+      const ctx = ctxFor();
+      const available = new Set(['chicken', 'rice', 'spinach']);
+      const getRecipe = (id: string) => recipes.find((r) => r.id === id);
+      return { plan, recipes, ctx, available, getRecipe };
+    }
+
+    it('every candidate carries the outgoing main, preserves the kept side verbatim and first, never re-offers the current non-kept side, and yields up to 3 mutually distinct, coverable alternatives', () => {
+      const { plan, recipes, ctx, available, getRecipe } = setup();
+
+      const outcome = rerollCandidates(plan, 0, recipes, getRecipe, available, ctx, {
+        keepMain: true,
+        keptSideIds: ['side-a'],
+      });
+
+      expect(outcome.nearMisses).toEqual([]);
+      expect(outcome.candidates.length).toBeGreaterThan(0);
+      expect(outcome.candidates.length).toBeLessThanOrEqual(3);
+      for (const c of outcome.candidates) {
+        expect(c.recipe.id).toBe('main1');
+        expect(c.sideRecipeIds[0]).toBe('side-a');
+        expect(c.sideRecipeIds).not.toContain('side-b');
+      }
+      const signatures = outcome.candidates.map((c) => c.sideRecipeIds.join(','));
+      expect(new Set(signatures).size).toBe(signatures.length); // mutually distinct
+    });
+
+    it('cooked day yields an empty outcome for keep-main mode too', () => {
+      const { recipes, ctx, available, getRecipe } = setup();
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'main1', dayIndex: 0, cooked: true, sideRecipeIds: ['side-a', 'side-b'] })],
+      });
+
+      const outcome = rerollCandidates(plan, 0, recipes, getRecipe, available, ctx, {
+        keepMain: true,
+        keptSideIds: ['side-a'],
+      });
+
+      expect(outcome.candidates).toEqual([]);
+      expect(outcome.nearMisses).toEqual([]);
+    });
+  });
+
+  describe('allergy guard holds in every keep mode (LAW #4/#5)', () => {
+    it('never offers a mealdb- recipe (main or side) once a profile allergy is set, in keep-sides mode', () => {
+      const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+      const sauce = makeRecipe({
+        id: 'kept-sauce',
+        role: 'sauce',
+        provides: [],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'parsley', quantity: 1, unit: 'bunch', department: 'Produce' }],
+      });
+      const allergicMain = makeRecipe({
+        id: 'mealdb-allergic',
+        primaryProtein: 'Chicken',
+        provides: ['protein'],
+        allergens: ['Peanuts'],
+        estimated: true,
+        ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const importedSafeMain = makeRecipe({
+        id: 'mealdb-safe',
+        primaryProtein: 'Beef',
+        provides: ['protein'],
+        estimated: true,
+        ingredients: [{ name: 'beef', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const curatedMain = makeRecipe({
+        id: 'curated-main',
+        primaryProtein: 'Pork',
+        provides: ['protein'],
+        ingredients: [{ name: 'pork', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const importedSide = makeRecipe({
+        id: 'mealdb-side',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        estimated: true,
+        ingredients: [{ name: 'carrot', quantity: 1, unit: 'piece', department: 'Produce' }],
+      });
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0, sideRecipeIds: ['kept-sauce'] })],
+      });
+      const recipes = [outgoing, sauce, allergicMain, importedSafeMain, curatedMain, importedSide];
+      const profile = makeProfile({ allergies: ['Peanuts'] });
+      const ctx = ctxFor({ profile, intake: makeIntake(profile) });
+      const available = new Set(['parsley', 'chicken', 'beef', 'pork', 'carrot']);
+
+      const outcome = rerollCandidates(
+        plan,
+        0,
+        recipes,
+        (id) => recipes.find((r) => r.id === id),
+        available,
+        ctx,
+        { keepMain: false, keptSideIds: ['kept-sauce'] },
+      );
+
+      const allPlateRecipeIds = [
+        ...outcome.candidates.flatMap((c) => [c.recipe.id, ...c.sideRecipeIds]),
+        ...outcome.nearMisses.flatMap((n) => [n.recipe.id, ...n.sideRecipeIds]),
+      ];
+      expect(allPlateRecipeIds.some((id) => id.startsWith('mealdb-'))).toBe(false);
+      expect(outcome.candidates.map((c) => c.recipe.id)).toContain('curated-main');
+    });
+
+    it('never offers a mealdb- side once a profile allergy is set, in keep-main mode', () => {
+      const main = makeRecipe({
+        id: 'curated-main2',
+        primaryProtein: 'Chicken',
+        provides: ['protein'],
+        ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+      });
+      const keptSide = makeRecipe({
+        id: 'kept-starch',
+        role: 'side',
+        provides: ['starch'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'rice', quantity: 1, unit: 'cup', department: 'DryGoods' }],
+      });
+      const currentNonKept = makeRecipe({
+        id: 'current-veg',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'broccoli', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const importedSide = makeRecipe({
+        id: 'mealdb-veg',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        estimated: true,
+        ingredients: [{ name: 'carrot', quantity: 1, unit: 'piece', department: 'Produce' }],
+      });
+      const curatedAltSide = makeRecipe({
+        id: 'curated-veg-alt',
+        role: 'side',
+        provides: ['vegetable'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'spinach', quantity: 1, unit: 'lb', department: 'Produce' }],
+      });
+      const plan = makePlan({
+        meals: [makeMeal({ recipeId: 'curated-main2', dayIndex: 0, sideRecipeIds: ['kept-starch', 'current-veg'] })],
+      });
+      const recipes = [main, keptSide, currentNonKept, importedSide, curatedAltSide];
+      const profile = makeProfile({ allergies: ['Peanuts'] });
+      const ctx = ctxFor({ profile, intake: makeIntake(profile) });
+      const available = new Set(['chicken', 'rice', 'spinach']);
+      const getRecipe = (id: string) => recipes.find((r) => r.id === id);
+
+      const outcome = rerollCandidates(plan, 0, recipes, getRecipe, available, ctx, {
+        keepMain: true,
+        keptSideIds: ['kept-starch'],
+      });
+
+      const allSideIds = [
+        ...outcome.candidates.flatMap((c) => c.sideRecipeIds),
+        ...outcome.nearMisses.flatMap((n) => n.sideRecipeIds),
+      ];
+      expect(allSideIds.some((id) => id.startsWith('mealdb-'))).toBe(false);
+    });
+  });
+});
+
 describe('pinnableDays (M3.1)', () => {
   // weekStartISO is 2026-07-05 (day 0); "today" fixed to day 2 for determinism.
   const today = new Date('2026-07-07T09:00:00.000Z');
