@@ -487,6 +487,27 @@ what changed, and let him decide.
     fixable by hand, and determinism, not cross-day atomicity, is what the
     merge guarantees).
 
+31. **Photo gate amended for the M5.1 bulk round (Ronnie, July 2026 — amends
+    decision 18's PROCESS, not its substance).** Vision-screened EXACT matches
+    (dish + protein visually confirmed, clean license) wire in directly;
+    everything below that tier stays review-first in `PHOTO-REVIEW-2.md`.
+    Non-negotiable condition Ronnie attached: **every auto-wired photo must be
+    listed and one-line revertible** ("this didn't work" → reject by number →
+    tile fallback returns). Licensed sources only and
+    wrong-photo-worse-than-none remain fully in force.
+32. **Production origin stays on GitHub Pages; Vercel is previews-only
+    (Ronnie, July 2026).** Browser storage is origin-bound and the PWA is
+    installed from the Pages URL — moving production would strand un-synced
+    per-phone data (profile, pantry, ratings, cook progress) and force
+    re-installs. `vercel.json` exists solely so branch pushes get
+    phone-viewable preview URLs (e.g. for rethemes). Revisit only with a
+    deliberate data-migration plan.
+33. **M5 next confirmed feature: household-synced user recipes (Ronnie's
+    pick, July 2026).** Leftovers-aware planning, quantity-aware re-roll, and
+    thaw reminders were offered and NOT selected this round — they stay
+    candidates, not commitments. User-recipe sync lands on the same unsecured
+    household row under the standing RLS acceptance (decision on P0-2).
+
 ### Hard-won lessons (the "how we got burned" list)
 
 - **A pure engine plus a well-specced task is why Sonnet works here.** Vague specs
