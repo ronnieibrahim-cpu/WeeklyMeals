@@ -46,19 +46,19 @@ sub-branch (e.g. `claude/m4-1-...`) not yet merged to the working branch; check 
 
 ## Where we are (dated snapshot — VERIFY against the repo, do not quote as fact)
 
-- **As of the last advisor session:** v3.0 shipped; **Milestone 4 in progress.**
-  M4.0, M4.1 (household portions → adult-equivalent servings, revised to plain
-  editable age), and **M4.2 (sides / composition — "a dinner is a plate, not a
-  dish," both parts) are shipped and merged to `claude/weekly-meals-app-eyowlr`
-  (deployed).** **M4.3 (waste-fit scoring) is next.** Household composition
-  (`Profile.members`) still does not sync — that remains local-only by design,
-  not an open bug. The earlier "plan sometimes doesn't appear on the second
-  phone" issue was resolved after the M4.1 updates; treat any recurrence as a
-  fresh merge-race investigation, not a known issue. **Supabase RLS is a
-  permanent, informed accepted risk (Ronnie's call, July 2026) — not a
-  reopen-pending item; do not re-flag it without new evidence.** See
-  `ADVISOR-HANDOFF.md` Part 5 for the exact current wording of all of this —
-  it is the source of truth, this bullet is only a pointer to it.
+- **As of July 2026: Milestone 4 is COMPLETE and deployed** — M4.0 through
+  M4.6 plus M4.7 (two live bugfixes: manual items not clearing across weeks,
+  duplicate shopping-list lines). Implemented in a single orchestrated session
+  (a Fable architect steering Sonnet subagent workers) at Ronnie's explicit
+  direction, WITHOUT per-task advisor gates — **the auditor-independence step
+  was knowingly deferred, so the next advisor action is a full M4.3–M4.7
+  close-out audit** (see `ADVISOR-HANDOFF.md` Parts 4 item 25 and 6).
+  Household composition (`Profile.members`) still does not sync — local-only
+  by design, not an open bug. **Supabase RLS is a permanent, informed
+  accepted risk (Ronnie's call, July 2026) — not a reopen-pending item; do
+  not re-flag it without new evidence.** See `ADVISOR-HANDOFF.md` Part 5 for
+  the exact current wording of all of this — it is the source of truth, this
+  bullet is only a pointer to it.
 - **This bullet rots the fastest.** The moment you clone and read `ADVISOR-HANDOFF.md`
   Part 5 + `git log`, believe *those* over this paragraph.
 

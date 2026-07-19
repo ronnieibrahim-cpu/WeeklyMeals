@@ -6,20 +6,24 @@
 > with reality, **this file wins** (that file is stale and partly fictional).
 > If reality and this file disagree, **fix this file in the same change.**
 >
-> **State:** Milestones 1, 2, and 3 complete (v3.0). Post-v3 adversarial debug
-> sweep (`DEBUG-SWEEP.md`) P0/P1/P2 fixes landed. **Milestone 4 is in progress:**
-> M4.0 landed; M4.1 (household composition → adult-equivalent servings) landed,
-> revised to plain editable age (no birthdate) with `familySize` demoted to an
-> invisible fallback — see §5, §6, §7 below. **M4.2 (a dinner is a plate, not a
-> dish) landed, both parts** — the data model (part 1) and actually composing
-> main + sides at generation time, wired through the shopping list, cost, cook
-> mode, meal detail, and strict re-roll (part 2) — see §4, §5, §6, §7.
-> **M4.3 (waste-fit scoring — use the whole cabbage) landed:** scoring bonus,
-> `checkWasteFit.ts` harness, shopping-list "used in N meals" caption — see
-> §5, §9.
-> **Last verified:** July 2026 · typecheck clean · 305 tests green ·
+> **State: Milestone 4 COMPLETE** ("Real Dinners, Right-Sized" — see
+> `MILESTONE-4.md` for per-task notes). M4.0 (fixes + virtualized browse),
+> M4.1 (household composition → adult-equivalent servings, plain editable age,
+> `familySize` an invisible fallback), M4.2 (a dinner is a plate, not a dish —
+> composed main + sides end to end), M4.3 (waste-fit scoring bonus +
+> `checkWasteFit.ts` harness + "used in N meals" caption), M4.4 (per-recipe
+> family notes, household-synced), M4.5 (component re-roll — keep a plate
+> part, re-roll the rest), M4.6 (rearrange the approved week — swipe
+> "Move to…" swap; hold-to-drag deferred by Product Owner decision), and
+> M4.7 (bugfixes: syncNow pull-before-push so checked manual items clear on
+> approval, and shopping-list dedup by ingredient identity — plural fold +
+> unit-family conversion) are ALL shipped and deployed. See §5, §6, §7, §9.
+> Milestones 1, 2, 3 (v3.0) and the `DEBUG-SWEEP.md` P0/P1/P2 fixes precede it.
+> **Last verified:** July 2026 · typecheck clean · 377 tests green ·
 > 230/230 curated recipes + 50/50 sides/sauces pass content validation,
-> 636/636 recipes use canonical allergen labels and plausible `provides`.
+> 636/636 recipes use canonical allergen labels and plausible `provides` ·
+> `checkWasteFit`/`checkIngredientConsistency`/`checkCuratedWeighting`/
+> `checkKidApprovedWeighting` all PASS.
 >
 > **Advisor context, decision rationale, and current open items live in
 > `ADVISOR-HANDOFF.md`. Read that too.**
@@ -57,7 +61,9 @@ fatigue for a busy family? Remove clicks rather than add settings.
 - **Supabase REST (raw fetch, no SDK)** — optional "household sync" between two
   phones; publishable key committed by design, **RLS is a permanent, informed
   accepted risk, not a fix in progress** (see §8)
-- **Jest / jest-expo** — engine + `src/data/import` test suite (**282 tests**); `npx jest` must stay green
+- **Jest / jest-expo** — engine + `src/data/import` test suite, plus one deliberate
+  store-level exception (`src/stores/syncStore.test.ts`, M4.7 — see `jest.config.js`)
+  (**377 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**

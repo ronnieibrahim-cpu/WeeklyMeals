@@ -22,15 +22,17 @@ decision history. You implement; the advisor audits. Keep that separation.
 6. `AUDIT.md` — the original audit. Historical; many items are now fixed.
 
 ## State
-Milestones 1, 2, and 3 are complete (v3.0). `DEBUG-SWEEP.md`'s P0/P1/P2 items are
-closed. Current work queue is `MILESTONE-4.md` — Milestone 4 is active, not
-unplanned.
+Milestones 1, 2, 3 (v3.0) AND Milestone 4 are complete; `DEBUG-SWEEP.md`'s
+P0/P1/P2 items are closed. `MILESTONE-4.md` is finished history (M4.0–M4.7 all
+shipped and deployed, July 2026). There is no active work queue: the next step
+is the advisor's full M4 close-out audit (see `ADVISOR-HANDOFF.md` Part 6) —
+do not start parked items without an explicit go-ahead from Ronnie.
 
 ## Commands (all three must be green before every commit)
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine + data/import test suite — currently 282 tests
+npx jest                           # engine + data/import (+ syncStore) test suite — currently 377 tests
 npx tsx scripts/validateRecipes.ts # 230/230 curated mains + 50/50 sides (636/636 allergen labels + provides) must pass
 npm run web                        # local browser preview for manual testing
 ```

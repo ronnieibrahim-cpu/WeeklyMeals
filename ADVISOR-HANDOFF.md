@@ -9,8 +9,11 @@
 > long: fidelity beats brevity here. If you are that new instance — read this file
 > completely before responding to the Product Owner about anything substantive.
 >
-> **Last updated:** July 2026, after M4.2 (both parts — data model and actual
-> plate composition) shipped and was deployed to production.
+> **Last updated:** July 2026, after the FULL Milestone 4 (M4.3–M4.6 plus the
+> M4.7 bugfix task) shipped and deployed. **This update was written by the
+> implementing session's architect, not by an independent advisor — see Part 4
+> item 25 and Part 6: the next advisor's first job is the M4.3–M4.7 close-out
+> audit, and this file's claims are among the things to verify.**
 
 ---
 
@@ -129,8 +132,8 @@ Claude Code) produced `DEBUG-SWEEP.md`, finding two P0s plus P1/P2 items. **All 
 now closed except P0-2 (Supabase RLS), which is an accepted risk — see Part 5.**
 
 **Current state: Milestone 4 ("Real Dinners, Right-Sized," `MILESTONE-4.md`) is
-in progress, written from the Product Owner's friction journal, not a speculative
-backlog:**
+COMPLETE — all of M4.0–M4.7 shipped and deployed (July 2026). It was written
+from the Product Owner's friction journal, not a speculative backlog:**
 - **M4.0** — three bug fixes + virtualized recipe browse list. Shipped.
 - **M4.1** — household composition → adult-equivalent servings. Shipped, then
   revised (plain editable age, no birthdate; `familySize` demoted to an invisible
@@ -144,12 +147,44 @@ backlog:**
   through the shopping list/cost/cook mode/meal detail/strict re-roll/pin, and
   sync merge for `sideRecipeIds`. See Part 4 items 21 and 23 for the design and
   the corrections the advisor required before approving part 2.
-- **M4.3 through M4.6** — not started. See `MILESTONE-4.md` for the full task specs
-  (waste-fit scoring, recipe notes, component re-roll, week rearrange).
+- **M4.3 — waste-fit scoring ("use the whole cabbage").** Shipped: pure
+  `src/engine/wasteFit.ts`, `WEIGHTS.wasteFit = 0.5` (evidence-swept, see Part 4
+  item 27), wired into `scoreRecipe` AND `scoreSide`, `scripts/checkWasteFit.ts`
+  harness (seeded/deterministic A/B, ~2.6% fewer single-use perishables),
+  shopping-list "used in N meals" caption (display-only).
+- **M4.4 — per-recipe family notes.** Shipped: `recipeNotesStore` + repository,
+  synced per-recipeId newer-wins with empty-text-as-tombstone clears, editor
+  under the steps on meal detail, quiet glyph on cards. Display-only, never
+  feeds scoring.
+- **M4.5 — component re-roll.** Shipped: `rerollCandidates(..., keep?)` with
+  keep-sides→re-roll-main and keep-main→re-roll-sides modes, kept parts carried
+  verbatim, strict whole-plate coverage both modes, store commit paths
+  (`commitComponentReroll`/`rerollSidesOnly`) re-applying the allergy guard at
+  the point of replacement (Law #5), Keep lock toggles on the re-roll screen.
+- **M4.6 — rearrange the approved week.** Shipped SWIPE-ONLY (see Part 4 item
+  26): pure `src/engine/rearrange.ts` `moveMeal` swaps whole meal bodies
+  between uncooked days stamping `recipeChangedAtISO` on BOTH, swipe
+  "Move to…" + day-picker sheet on This Week/Schedule, per-device cook-mode
+  progress travels via `cookModeStore.swapProgress`. Race semantics: Part 4
+  item 30.
+- **M4.7 — two live bugfixes (from Ronnie's reports, mid-milestone).**
+  (a) `syncNow()` reordered pull-before-push — the old push-first order made
+  the approve-time reconcile a structural no-op, so manual items checked on
+  the other phone survived `clearChecked()` week after week; plus revived
+  items now stamp `checkedAtISO` so a stale remote check can't resurrect
+  them pre-checked. (b) Shopping-list dedup by ingredient IDENTITY:
+  `src/engine/ingredientKey.ts` (plural fold + mass/volume unit-family
+  conversion), threaded through build/add/delta paths and re-roll coverage
+  matching; 12 curated cross-family unit conflicts hand-aligned;
+  `scripts/checkIngredientConsistency.ts` guards regressions. See Part 4
+  items 28–29.
 
-**Verified state at last gate:** typecheck clean, **282 tests passing**, 230/230
-curated mains + 50/50 sides pass the content validator, 636/636 recipes carry
-canonical allergen labels and plausible `provides`.
+**Verified state at last push (by the implementing session, pending advisor
+audit):** typecheck clean, **377 tests passing**, 230/230 curated mains +
+50/50 sides pass the content validator, 636/636 recipes carry canonical
+allergen labels and plausible `provides`, and all four harness scripts
+(`checkWasteFit`, `checkIngredientConsistency`, `checkCuratedWeighting`,
+`checkKidApprovedWeighting`) PASS.
 
 ---
 
@@ -405,6 +440,53 @@ what changed, and let him decide.
     hand-curated), so this has no live impact today; revisit if/when imported
     sides are ever added.
 
+25. **M4.3–M4.7 were implemented in one orchestrated session WITHOUT per-task
+    advisor gates (Ronnie's explicit call, July 2026).** Ronnie directed a
+    Fable architect session to plan the remainder of M4, delegate
+    implementation to Sonnet subagent workers, act as its own review gate,
+    and deploy per finished task. The triangle's auditor-independence step
+    was knowingly deferred, not forgotten — *rationale: speed, with the
+    audit batched at the end instead of per task.* **Consequence for the
+    next advisor: the M4.3–M4.7 range has had NO independent audit. That
+    audit is the next gate, and the session's own docs (this file included)
+    are claims to verify, not findings.**
+26. **M4.6 ships swipe "Move to…" only; hold-to-drag deferred (Ronnie,
+    July 2026 — amends decision 22).** Drag remains a possible follow-up if
+    the family misses it. *Rationale: drag on iPhone-Safari-as-web-app is
+    meaningfully more code and fiddlier; bug-free beats feature-rich.*
+27. **`WEIGHTS.wasteFit = 0.5`, chosen by evidence sweep, hard-capped by the
+    weight-discipline test.** Swept 0.35/0.5/0.7/1.0 on the seeded harness:
+    0.5 roughly doubled 0.35's effect (consistent across 8 seed bases);
+    0.7/1.0 reduced waste further but FAIL the untouched test asserting
+    `wasteFit < variety/2`. *Rationale: the bonus exists to break ties, never
+    to bury variety — the test is the contract, tuning happens under it.*
+28. **Shopping-list identity: canonical name (plural fold) + unit-family
+    conversion; never merge across families (M4.7).** "2 pieces" vs "1 lb"
+    of chicken stay separate lines — merging them would require guessing a
+    piece's weight, and a wrong guess corrupts the list silently. Imported
+    recipes' 224 messy internal unit groups are a deferred CONTENT cleanup
+    (reported info-only by `checkIngredientConsistency.ts`), not a bug.
+    *Rationale: fix identity where it's provable; refuse to guess where it
+    isn't.*
+29. **`syncNow()` is pull-before-push, and that ordering is load-bearing.**
+    Push-first stamps our own write as last-synced, making the following
+    pull early-return — which silently defeated the approve-time reconcile
+    `clearChecked()` depends on (the M4.7 bug). One narrow store-level test
+    (`src/stores/syncStore.test.ts`, a documented `jest.config.js`
+    exception) guards the ordering. *Rationale: the merge functions were
+    always correct; the bug lived in the call order, so the regression test
+    must too.*
+30. **Week-rearrange race semantics (M4.6).** A swap stamps
+    `recipeChangedAtISO` on BOTH affected meals so a remote device adopts
+    both whole bodies together. Accepted deterministic outcomes, asserted in
+    `syncMerge.test.ts`: a rating racing a swap of that day is dropped (same
+    class as the re-roll-vs-rate race — the merge resolves per dayIndex and
+    never migrates fields across days); two phones swapping overlapping days
+    in the same window converge deterministically but NOT atomically (a
+    "torn" week with one dish duplicated is possible — rare for two phones,
+    fixable by hand, and determinism, not cross-day atomicity, is what the
+    merge guarantees).
+
 ### Hard-won lessons (the "how we got burned" list)
 
 - **A pure engine plus a well-specced task is why Sonnet works here.** Vague specs
@@ -480,6 +562,14 @@ historical.
    decision 24 in Part 4. No live impact today (the sides library is entirely
    hand-curated, no imported sides exist yet) — revisit only if imported sides
    are ever added.
+6. **Imported-recipe ingredient-unit cleanup (M4.7 follow-up).** The 356
+   `mealdb-` recipes carry ~224 same-ingredient cross-family unit groups
+   internally (e.g. "onion" as piece/mass/volume across recipes) —
+   `scripts/checkIngredientConsistency.ts` reports them info-only. Editorial
+   content work via `normalize.ts` + regeneration, not a bug; see Part 4
+   item 28.
+7. **M4.6 hold-to-drag (deferred by decision 26).** Only if the family
+   actually misses it.
 
 ---
 
@@ -487,24 +577,27 @@ historical.
 
 At the close of v3, the recommendation was "stop building and start watching," and
 Ronnie kept a friction journal — a note on his phone, one line whenever anyone in
-the family hit a snag. That journal, not the old parked list, became the raw
-material for **Milestone 4 ("Real Dinners, Right-Sized," `MILESTONE-4.md`)**, which
-is now the **active milestone**. The triangle workflow (Ronnie steers and verifies →
-Advisor audits, specs, writes prompts → Sonnet implements) is unchanged.
+the family hit a snag. That journal became **Milestone 4 ("Real Dinners,
+Right-Sized," `MILESTONE-4.md`)**, which is now **complete — M4.0 through M4.7
+all shipped and deployed** (see Part 2). The last stretch (M4.3–M4.7) was
+implemented in one orchestrated session without per-task advisor gates, at
+Ronnie's explicit direction (Part 4 item 25). The triangle workflow (Ronnie
+steers and verifies → Advisor audits, specs, writes prompts → worker implements)
+resumes from here.
 
-**Where M4 stands:** M4.0 (bug fixes + browse list), M4.1 (household composition →
-adult-equivalent servings, revised), and M4.2 (composed dinners: main + sides, "a
-dinner is a plate, not a dish," both parts) are shipped and merged to
-`claude/weekly-meals-app-eyowlr` (deployed to production). **M4.3 (waste-fit
-scoring — "use the whole cabbage") is next.** M4.4–M4.6 (recipe notes, component
-re-roll, week rearrange) are specced in `MILESTONE-4.md` but not started. Note
-M4.5 explicitly depends on M4.2's composition model, which is now in place.
-
-**The next gate is the M4.2 close-out audit** (or the full M4 milestone audit, if
-Ronnie prefers to batch it with M4.3) — same protocol as every prior gate: clone,
-run the checks, read the code — especially `src/engine/mealComposition.ts`,
-`scoreSide`, the `isMain()` split, and the sync/removal/pin/cook-mode changes
-listed in decision 23 — read `git log` for unspecced commits, verify Part 5's open
+**The next gate is the FULL M4.3–M4.7 close-out audit, and it is not optional
+housekeeping — that whole range shipped with no independent review.** Same
+protocol as every prior gate: clone, run the checks and all four harness
+scripts, read the code, read `git log`. Priority reading order for the auditor:
+(1) `src/engine/ingredientKey.ts` + the M4.7 changes to `shoppingList.ts`'s
+delta paths (Law #1 territory — cross-unit merged lines must never corrupt an
+explicit-button delta); (2) `syncStore.ts`'s pull-before-push and the
+`clearChecked` reconcile path; (3) `planStore.ts`'s M4.5 commit actions
+(`commitComponentReroll`/`rerollSidesOnly` — Law #5 re-checks) and the M4.5
+additions to `reroll.ts`; (4) `rearrange.ts` + the three swap-race assertions
+in `syncMerge.test.ts` (verify the "torn week" and dropped-rating outcomes
+really are acceptable to Ronnie, not just documented); (5) `wasteFit.ts` and
+whether 0.5 shows any variety regression in real weeks. Verify Part 5's open
 items against the repo before signing off.
 
 The parked list (leftovers-aware planning, thaw reminders, quantity-aware re-roll,
