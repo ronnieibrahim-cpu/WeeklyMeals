@@ -255,7 +255,13 @@ composed onto a plate; re-roll still never requires a store trip.
 
 ---
 
-## [ ] M4.3 — Use the whole cabbage (waste-aware planning)
+## [x] M4.3 — Use the whole cabbage (waste-aware planning)
+**Done:** engine bonus (`src/engine/wasteFit.ts`, `WEIGHTS.wasteFit`), the
+`scripts/checkWasteFit.ts` harness (100 seeded-random weeks, bonus vs.
+`weightOverrides: { wasteFit: 0 }`, reliably shows fewer single-use whole-unit
+perishables — no regression in `checkCuratedWeighting.ts`/
+`checkKidApprovedWeighting.ts`), and the shopping list's quiet "used in N
+meals" caption on shared whole-unit planned items (display only, Law #1).
 
 **User problem:** *"told to buy a whole cabbage this week, used half in one recipe,
 no other use — half the cabbage is wasted."*

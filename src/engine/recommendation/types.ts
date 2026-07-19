@@ -84,9 +84,13 @@ export const WEIGHTS = {
   sideCuisineFit: 0.4,
   // M4.3: a modest tie/near-tie breaker for reusing a whole-unit perishable
   // another meal this week already forces you to buy (the "half a cabbage"
-  // problem — see wasteFit.ts). Same order of magnitude as `curated`/
-  // `kidApproved`: enough to nudge a pick when things are close, never
-  // strong enough to bury a better dish or beat variety (kept well under
-  // half of `variety`'s 1.3).
-  wasteFit: 0.35,
+  // problem — see wasteFit.ts). Picked by an evidence-based sweep
+  // (scripts/checkWasteFit.ts, 100 seeded weeks per candidate) against 0,
+  // 0.35, 0.5, 0.7, 1.0: 0.5 gives a clearly better reduction in single-use
+  // perishables than 0.35 (consistently ~1.5-2x across 8 independent random
+  // seed bases) while 0.7/1.0 give a bigger reduction still but fail the
+  // weight-discipline test below outright. Stays under half of `variety`'s
+  // 1.3 (0.65) — enough to nudge a pick when things are close, never strong
+  // enough to bury a better dish or beat variety.
+  wasteFit: 0.5,
 } as const;
