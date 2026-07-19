@@ -216,7 +216,19 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    any meal any time, visible on cards), **strict mid-week re-roll** (evaluated on
    the WHOLE PLATE, M4.2 part 2 — a candidate main's composed sides are checked
    against pantry + this week's list + staples too, and the exact plate shown as a
-   candidate is the exact plate committed, never recomposed at commit time),
+   candidate is the exact plate committed, never recomposed at commit time; **M4.5
+   component re-roll** adds a Keep lock toggle per plate part on the re-roll screen —
+   keep nothing for the unchanged whole-plate re-roll just described; keep the main to
+   re-roll only the sides (commits via `rerollSidesOnly`: sides + `sidesChangedAtISO`
+   only, `cooked`/`rating` untouched since the dish itself didn't change); or keep a
+   side/sauce to re-roll only the main (commits via `commitComponentReroll`: a new
+   dish, full body stamp, `cooked`/`rating` cleared). Both M4.5 commit paths
+   **re-apply the allergy guard at the point of replacement** (Law #5) rather than
+   trusting the screen's held candidate is still safe, rejecting the whole commit —
+   never a partial substitution — if anything fails; coverage still applies to the
+   WHOLE PLATE either way. Cook-mode progress invalidates automatically with no
+   special-casing: `cookModePlateKey` is content-addressed over the main id + sorted
+   side ids, so any sides change already yields a different key),
    **manual grocery items**, favorites, kids-approved badges. A servings change on an
    **approved** plan (Law #1) never touches the shopping list by itself — it shows the
    exact delta ("you'll need 0.4 lb more chicken thighs") behind an explicit "Update
@@ -256,7 +268,11 @@ the identical result regardless of order, or they ping-pong forever.
   `sidesChangedAtISO` stamp — one phone swapping a side while the other re-rolls the
   same day still converges: the re-roll's `recipeChangedAtISO` wins the whole meal
   body (sides included), regardless of how fresh the losing side's
-  `sidesChangedAtISO` happens to be.
+  `sidesChangedAtISO` happens to be. **M4.5's `rerollSidesOnly`** (the keep-the-main
+  commit path) never touches `recipeId`/`recipeChangedAtISO`, so a sides-only change
+  from it merges as an ordinary field edit — independent of `rating`/`servings`,
+  both survive a race against either — and loses cleanly to a real re-roll on the
+  other phone via the same `recipeChangedAtISO` gate as any other sides edit.
 - **Shopping-list sync merging (`mergeShoppingLists`'s `itemKey`) is still exact
   `ingredientName|unit`, unchanged by M4.7's build-time dedup.** That's fine, not a
   gap: both phones build a list from the identical `buildShoppingList` code against
@@ -303,6 +319,10 @@ the identical result regardless of order, or they ping-pong forever.
    to the WHOLE PLATE** — main and composed sides together, not the main alone; a
    candidate's sides are checked for coverage too, and the plate offered as a
    candidate is exactly the plate committed (never recomposed at commit time).
+   **M4.5 component re-roll (keep a plate part) is still whole-plate coverage** — only
+   the part(s) not kept are re-rolled, but the kept part(s) plus every candidate are
+   still checked against pantry + this week's list + staples exactly as before; keeping
+   something never loosens the strictness.
 3. **Never ask a question the code doesn't act on** — and never promise a capability
    in UI copy that doesn't exist.
 4. **Allergy filtering is deterministic and safety-critical.** Never delegate it to a
@@ -319,7 +339,17 @@ the identical result regardless of order, or they ping-pong forever.
    explicitly — defense in depth, never trusting that `composeSides`' internal
    filtering alone was enough. Also store-level, not just an absent UI button: a
    side/sauce is never independently pinnable as a whole dinner (`pinRecipeToWeek`/
-   `pinRecipeToDraft` reject a non-main `recipeId` outright).
+   `pinRecipeToDraft` reject a non-main `recipeId` outright). **M4.5 extends this to
+   component re-roll:** reusing `rerollMeal`'s commit path for a candidate the screen
+   has been holding since preview taught us the same lesson again. `commitComponentReroll`
+   (keep-the-sides, or no-keep, commit path) re-checks `passesAllergySafety` + `isMain`
+   on the candidate's main and `passesAllergySafety` + `!isMain` on every one of its
+   sides, and rejects the WHOLE commit — never a partial substitution — if anything
+   fails, so the plate committed is always exactly the plate the screen showed.
+   `rerollSidesOnly` (keep-the-main commit path) does the identical
+   `passesAllergySafety`/`!isMain` re-check on every incoming side id, but drops any
+   failing or unresolvable id instead (the main isn't changing, so there's no "whole
+   plate" to reject — only the ids arriving are ever suspect).
 6. **Bug-free beats feature-rich. Always.**
 
 ## 8. Known issues
@@ -376,8 +406,11 @@ Product Owner's friction journal, is the active milestone:
 - **M4.4** — per-recipe notes, household-synced. ✅ Shipped: data + sync layer,
   the "Family notes" editor on meal detail, and the card glyph on This
   Week/Schedule/Recipes/plan review.
-- **M4.5** — component re-roll (keep a side/sauce, regenerate the rest). Depends on
-  M4.2 (now shipped). Not started.
+- **M4.5** — component re-roll (keep a side/sauce, regenerate the rest). ✅ Shipped:
+  `rerollCandidates`' `keep?: RerollKeepOptions` engine mode, `previewComponentReroll`/
+  `rerollSidesOnly`/`commitComponentReroll` store actions (both commit paths re-apply
+  the allergy guard, Law #5), Keep lock toggles on the re-roll screen, and sync
+  assertions for the sides-vs-rating and sides-vs-full-re-roll races.
 - **M4.6** — rearrange the week after approval (swipe "Move to…" + hold-to-drag).
   Not started.
 

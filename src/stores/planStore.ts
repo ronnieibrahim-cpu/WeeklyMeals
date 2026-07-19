@@ -9,7 +9,7 @@ import { IntakeAnswers, isMain, PlannedMeal, Profile, RatingEvent, Recipe, Shopp
 import { composeSides } from '@/engine/mealComposition';
 import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
-import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinnableDays, RerollOutcome, rerollCandidates } from '@/engine/reroll';
+import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinnableDays, RerollKeepOptions, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localDateString } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
 import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta } from '@/engine/shoppingList';
@@ -182,15 +182,58 @@ interface PlanState {
    */
   previewReroll: (dayIndex: number) => RerollOutcome;
   /**
+   * M4.5 ("keep the chimichurri, change the meal"): identical plumbing to
+   * `previewReroll` (same `availableIngredients` construction from pantry +
+   * this week's list + the outgoing plate's own main and sides) but passes
+   * `keep` through to `rerollCandidates`, restricting candidates to
+   * whichever plate part the screen hasn't locked. Read-only; commit via
+   * `rerollSidesOnly` (kept the main — only the sides are changing) or
+   * `commitComponentReroll` (kept the sides/sauce, or no keep at all — the
+   * main is changing).
+   */
+  previewComponentReroll: (dayIndex: number, keep: RerollKeepOptions) => RerollOutcome;
+  /**
    * Commit a re-roll: replace one meal's recipe (and its sides, M4.2 part 2
    * — pass whatever `previewReroll`'s candidate carried, never recomputed
    * here) on the active plan. Clears `cooked`/`rating` on that day (a
    * different recipe means any prior progress/rating no longer describes
    * it) and stamps `recipeChangedAtISO`/`sidesChangedAtISO` so sync knows
    * this meal's whole body — not just individual fields — changed (see
-   * `mergePlanMeals`). Never touches the shopping list.
+   * `mergePlanMeals`). Never touches the shopping list. M4.5: also the
+   * shared tail end of `commitComponentReroll`, once that action's own
+   * allergy re-check has passed.
    */
   rerollMeal: (dayIndex: number, recipeId: string, sideRecipeIds?: string[]) => void;
+  /**
+   * M4.5 commit path for "keep the main, re-roll the sides": sets
+   * `sideRecipeIds` and stamps `sidesChangedAtISO` ONLY. The main didn't
+   * change, so `recipeId`/`recipeChangedAtISO` are left untouched, and so
+   * are `cooked`/`rating` — the dish being cooked tonight is the same dish,
+   * its rating (if any) still describes it. Never touches the shopping
+   * list. LAW #5: before applying, re-checks `passesAllergySafety` and
+   * `!isMain` on every id in `sideRecipeIds` (resolved via `getAnyRecipe`);
+   * any failing or unresolvable id is dropped rather than trusted from the
+   * screen — a main can never be smuggled onto the plate as a "side" this
+   * way, mirroring `pinRecipeToWeek`'s defense-in-depth comment.
+   */
+  rerollSidesOnly: (dayIndex: number, sideRecipeIds: string[]) => void;
+  /**
+   * M4.5 commit path for "keep the sides/sauce, re-roll the main" — and,
+   * routed here for uniformity, the ordinary no-keep whole-plate re-roll
+   * too, since both replace the main and therefore need the identical
+   * guard. LAW #5: pinning taught us a reused path silently reuses its
+   * caller's already-skipped checks, so this re-applies the guard itself
+   * rather than trusting that `previewReroll`/`previewComponentReroll`'s
+   * filtering is still valid by the time the user taps — re-checks
+   * `passesAllergySafety` + `isMain` on `candidate.recipeId` and
+   * `passesAllergySafety` + `!isMain` on every one of `candidate.sideRecipeIds`.
+   * If every check passes, calls `rerollMeal` with those ids VERBATIM —
+   * never recomposed, so the plate committed is exactly the plate the
+   * screen showed. If anything fails, the whole commit is rejected (a
+   * no-op) rather than silently substituting a different-shaped plate than
+   * what the user saw.
+   */
+  commitComponentReroll: (dayIndex: number, candidate: { recipeId: string; sideRecipeIds: string[] }) => void;
   /**
    * M3.1: today-or-future, not-yet-cooked days `recipeId` could be pinned
    * into on the active plan — empty means "can't be pinned right now"
@@ -610,6 +653,19 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     return rerollCandidates(plan, dayIndex, allRecipesList(), getAnyRecipe, available, ctx);
   },
 
+  previewComponentReroll: (dayIndex, keep) => {
+    const plan = get().plan;
+    if (!plan) return { candidates: [], nearMisses: [] };
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    const pantry = usePantryStore.getState().items;
+    const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    const outgoingRecipe = outgoingMeal ? getAnyRecipe(outgoingMeal.recipeId) : undefined;
+    const outgoingSides = resolveRecipes(outgoingMeal?.sideRecipeIds ?? []);
+    const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe, outgoingSides);
+    const ctx = context(plan.intake, profile, []);
+    return rerollCandidates(plan, dayIndex, allRecipesList(), getAnyRecipe, available, ctx, keep);
+  },
+
   rerollMeal: (dayIndex, recipeId, sideRecipeIds = []) => {
     const plan = get().plan;
     if (!plan) return;
@@ -633,6 +689,48 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const next = { ...plan, meals };
     set({ plan: next });
     persist(next);
+  },
+
+  rerollSidesOnly: (dayIndex, sideRecipeIds) => {
+    const plan = get().plan;
+    if (!plan) return;
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
+    if (!meal) return;
+    // LAW #5 defense in depth — never trust the screen's ids as-is: drop
+    // anything unresolvable, anything failing the allergy guard, and
+    // anything that's actually a main (a main can never be smuggled onto
+    // the plate as a "side").
+    const safeSideIds = sideRecipeIds.filter((id) => {
+      const side = getAnyRecipe(id);
+      return !!side && !isMain(side) && passesAllergySafety(side, profile);
+    });
+    const now = new Date().toISOString();
+    const meals = plan.meals.map((m) =>
+      m.dayIndex === dayIndex ? { ...m, sideRecipeIds: safeSideIds, sidesChangedAtISO: now } : m,
+    );
+    const next = { ...plan, meals };
+    set({ plan: next });
+    persist(next);
+  },
+
+  commitComponentReroll: (dayIndex, candidate) => {
+    const plan = get().plan;
+    const recipe = getAnyRecipe(candidate.recipeId);
+    const profile = useProfileStore.getState().profile ?? createDefaultProfile();
+    if (!plan || !recipe) return;
+    // LAW #5: re-apply the guard at the point of replacement rather than
+    // trusting that the candidate the screen has been holding since preview
+    // is still safe. A partial commit (dropping just the offending id)
+    // would silently hand the user a different plate than the one they
+    // looked at, so any failure rejects the whole commit instead.
+    if (!isMain(recipe) || !passesAllergySafety(recipe, profile)) return;
+    const sidesOk = candidate.sideRecipeIds.every((id) => {
+      const side = getAnyRecipe(id);
+      return !!side && !isMain(side) && passesAllergySafety(side, profile);
+    });
+    if (!sidesOk) return;
+    get().rerollMeal(dayIndex, candidate.recipeId, candidate.sideRecipeIds);
   },
 
   pinnableDaysFor: (recipeId) => {

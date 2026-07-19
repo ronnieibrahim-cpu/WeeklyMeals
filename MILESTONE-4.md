@@ -338,7 +338,29 @@ plan); merge assertions extended and green.
 
 ---
 
-## [ ] M4.5 — Keep the chimichurri, change the meal (component re-roll)
+## [x] M4.5 — Keep the chimichurri, change the meal (component re-roll)
+**Done:** engine (`rerollCandidates`' `keep?: RerollKeepOptions`) landed first;
+this pass adds the store/UI/sync half. `previewComponentReroll` (same
+`availableIngredients` plumbing as `previewReroll`, passes `keep` through);
+two commit paths — `rerollSidesOnly` (keep the main: sides + `sidesChangedAtISO`
+only, cooked/rating untouched, LAW #5 re-check drops any failing/unresolvable/
+non-side id) and `commitComponentReroll` (keep the sides, or no keep: re-checks
+`passesAllergySafety`+`isMain` on the candidate main and `passesAllergySafety`+
+`!isMain` on every side, then calls `rerollMeal` with the ids verbatim, or
+rejects the whole commit — never a silent partial substitution). The re-roll
+screen shows the outgoing plate with a Keep lock toggle per part (same glyph
+idiom as the review screen's lock), reruns the right preview per toggle state,
+disables the candidate list with a plain explanation when keeping the main
+and both existing sides leaves nothing to re-roll (mirrors `rerollKeepMain`'s
+own room<=0 guard — no spinner over a search doomed to return empty), and
+marks kept parts with a small lock glyph on the candidate cards. Cook-mode
+progress invalidation needed no store change — `cookModePlateKey` is
+content-addressed over `recipeId` + sorted `sideRecipeIds`, so a sides-only
+change already produces a different key. Sync assertions added in
+`syncMerge.test.ts`: a `rerollSidesOnly` sides change racing a same-day rating
+merges the two fields independently (both survive, both orders, idempotent);
+the existing "swap a side vs. re-roll the whole day" race test's comment now
+names it as covering the `rerollSidesOnly`-vs-full-re-roll case too.
 
 **Depends on M4.2.** Do not attempt before the composition model exists.
 

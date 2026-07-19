@@ -333,7 +333,10 @@ describe('mergePlanMeals — sides (M4.2 part 2)', () => {
     ]);
     // Device B, unaware of the re-roll, removes a side from the ORIGINAL
     // recipe's plate at t2 — chronologically newer than the re-roll, but
-    // it's the wrong dish now.
+    // it's the wrong dish now. This is also M4.5's race (b): B's edit here
+    // is exactly the shape `rerollSidesOnly` produces (sideRecipeIds +
+    // sidesChangedAtISO only, recipeId untouched) — same assertion, no
+    // separate test needed for the component-reroll commit path.
     const b = plan('plan-1', [meal(0, { sideRecipeIds: [], sidesChangedAtISO: t2 })]);
 
     const mergedAB = mergePlanMeals(a, b);
@@ -350,6 +353,27 @@ describe('mergePlanMeals — sides (M4.2 part 2)', () => {
     // Idempotence for this case too.
     const mergedAgain = mergePlanMeals(mergedAB, b);
     expect(stableStringify(mergedAgain)).toBe(stableStringify(mergedAB));
+  });
+
+  it('(y) M4.5 race (a): phone A keeps the main and rerollSidesOnly-s the sides while phone B rates the same day — recipeId agrees on both sides, so this merges field-by-field (not via resolveDivergedRecipe) and BOTH the rating and the new sides survive, both merge orders, idempotent', () => {
+    // Device A: `rerollSidesOnly` — same recipeId as always, only
+    // sideRecipeIds/sidesChangedAtISO stamped.
+    const a = plan('plan-1', [meal(0, { sideRecipeIds: ['side-new'], sidesChangedAtISO: t2 })]);
+    // Device B, unaware of the sides change, rates the same dish (same
+    // recipeId — a rating never touches recipeId) at t1.
+    const b = plan('plan-1', [meal(0, { rating: 5, ratedAtISO: t1 })]);
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+
+    expect(mergedAB.meals[0].sideRecipeIds).toEqual(['side-new']);
+    expect(mergedAB.meals[0].rating).toBe(5);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+
+    // Idempotence.
+    const merged = mergePlanMeals(a, b);
+    const mergedAgain = mergePlanMeals(merged, b);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
   });
 });
 

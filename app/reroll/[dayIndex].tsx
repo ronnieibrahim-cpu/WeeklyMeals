@@ -4,10 +4,60 @@ import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Recipe } from '@/domain/models';
+import { RerollCandidate } from '@/engine/reroll';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, PrimaryButton, RecipeImage, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
+
+/**
+ * M4.5: one row of the outgoing plate (the main, or one side/sauce) with a
+ * Keep toggle — same lock glyph/color idiom as the review screen's
+ * lock-to-keep (`MealCard`'s `onToggleLock`: `lock-closed`/accent when on,
+ * `lock-open-outline`/tertiary when off), plus a short label since this
+ * isn't sitting inside a card that already gives the row context.
+ */
+function KeepRow({
+  theme,
+  label,
+  kept,
+  onToggle,
+}: {
+  theme: ReturnType<typeof useTheme>;
+  label: string;
+  kept: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={kept ? `Unlock ${label}` : `Keep ${label}`}
+      hitSlop={6}
+      onPress={onToggle}
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: theme.spacing.xs,
+      }}
+    >
+      <Text variant="subhead" style={{ flexShrink: 1 }}>
+        {label}
+      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginLeft: theme.spacing.sm }}>
+        <Ionicons
+          name={kept ? 'lock-closed' : 'lock-open-outline'}
+          size={18}
+          color={kept ? theme.colors.accent : theme.colors.textTertiary}
+        />
+        <Text variant="footnote" color={kept ? 'accent' : 'tertiary'}>
+          {kept ? 'Kept' : 'Keep'}
+        </Text>
+      </View>
+    </Pressable>
+  );
+}
 
 export default function RerollScreen() {
   const router = useRouter();
@@ -17,13 +67,48 @@ export default function RerollScreen() {
 
   const plan = usePlanStore((s) => s.plan);
   const previewReroll = usePlanStore((s) => s.previewReroll);
-  const rerollMeal = usePlanStore((s) => s.rerollMeal);
+  const previewComponentReroll = usePlanStore((s) => s.previewComponentReroll);
+  const rerollSidesOnly = usePlanStore((s) => s.rerollSidesOnly);
+  const commitComponentReroll = usePlanStore((s) => s.commitComponentReroll);
 
   const recipesById = useRecipesById();
   const outgoingMeal = plan?.meals.find((m) => m.dayIndex === dayIndex);
   const outgoingRecipe = outgoingMeal ? recipesById[outgoingMeal.recipeId] : undefined;
-  const outcome = useMemo(() => previewReroll(dayIndex), [dayIndex, previewReroll]);
+  const outgoingSides = (outgoingMeal?.sideRecipeIds ?? [])
+    .map((id) => recipesById[id])
+    .filter((r): r is Recipe => !!r);
+
+  // M4.5: which plate part(s) the user has locked before re-rolling.
+  // Default: nothing kept (today's whole-plate behavior, unchanged).
+  const [keepMain, setKeepMain] = useState(false);
+  const [keptSideIds, setKeptSideIds] = useState<string[]>([]);
   const [index, setIndex] = useState(0);
+
+  const toggleKeepMain = () => {
+    setKeepMain((v) => !v);
+    setIndex(0);
+  };
+  const toggleKeptSide = (id: string) => {
+    setKeptSideIds((ids) => (ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id]));
+    setIndex(0);
+  };
+
+  // Mirrors `rerollKeepMain`'s own guard in src/engine/reroll.ts: the plate
+  // caps at 2 sides total, so keeping the main plus both of the outgoing
+  // plate's sides leaves no room to add anything and nothing droppable
+  // either — there is no possible alternative plate to offer. Checked here
+  // so the screen can show a plain one-line explanation instead of running
+  // a search that's guaranteed to come back empty (Law #3: no spinner
+  // pretending to search).
+  const nothingToReroll = keepMain && keptSideIds.length >= 2;
+  const hasKeep = keepMain || keptSideIds.length > 0;
+
+  const outcome = useMemo(() => {
+    if (!outgoingMeal || nothingToReroll) return { candidates: [], nearMisses: [] };
+    return hasKeep
+      ? previewComponentReroll(dayIndex, { keepMain, keptSideIds })
+      : previewReroll(dayIndex);
+  }, [dayIndex, outgoingMeal, nothingToReroll, hasKeep, keepMain, keptSideIds, previewReroll, previewComponentReroll]);
 
   const close = () => router.back();
 
@@ -58,12 +143,41 @@ export default function RerollScreen() {
     );
   }
 
+  // Commit wiring (Law #5 — the store re-applies the allergy guard itself
+  // at the point of replacement; this screen's job is only to route to the
+  // right commit action, never to decide safety): keeping the main means
+  // only the sides are changing, so `rerollSidesOnly` is the commit path
+  // (sides + sidesChangedAtISO only — cooked/rating untouched, the dish
+  // didn't change). Keeping the sides (or no keep at all) means the main is
+  // changing — a new dish — so `commitComponentReroll` is the commit path
+  // (full body stamp via `rerollMeal`, cooked/rating cleared).
   const commit = (recipeId: string, sideRecipeIds: string[]) => {
-    rerollMeal(dayIndex, recipeId, sideRecipeIds);
+    if (keepMain) rerollSidesOnly(dayIndex, sideRecipeIds);
+    else commitComponentReroll(dayIndex, { recipeId, sideRecipeIds });
     router.back();
   };
 
-  const sideNames = (ids: string[]) => ids.map((id) => recipesById[id]?.name).filter(Boolean).join(', ');
+  const keptSideIdSet = new Set(keptSideIds);
+
+  const renderSides = (ids: string[]) => {
+    const sides = ids.map((id) => recipesById[id]).filter((r): r is Recipe => !!r);
+    if (sides.length === 0) return null;
+    return (
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: theme.spacing.sm, marginTop: theme.spacing.xs }}>
+        {sides.map((side) => {
+          const kept = keptSideIdSet.has(side.id);
+          return (
+            <View key={side.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+              {kept ? <Ionicons name="lock-closed" size={12} color={theme.colors.accent} /> : null}
+              <Text variant="footnote" color="secondary">
+                {side.name}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
+    );
+  };
 
   const { candidates, nearMisses } = outcome;
 
@@ -77,24 +191,43 @@ export default function RerollScreen() {
           store trip.
         </Text>
 
-        {candidates.length > 0 ? (
+        <Card style={{ marginBottom: theme.spacing.lg }}>
+          <Text variant="footnote" color="tertiary" style={{ marginBottom: theme.spacing.xs }}>
+            Keep a part of tonight's plate, and I'll build a new one around it.
+          </Text>
+          <KeepRow theme={theme} label={outgoingRecipe.name} kept={keepMain} onToggle={toggleKeepMain} />
+          {outgoingSides.map((side) => (
+            <KeepRow
+              key={side.id}
+              theme={theme}
+              label={side.name}
+              kept={keptSideIds.includes(side.id)}
+              onToggle={() => toggleKeptSide(side.id)}
+            />
+          ))}
+        </Card>
+
+        {nothingToReroll ? (
+          <Text variant="body" color="secondary">
+            Keeping the main and every side leaves nothing to re-roll — unlock something first.
+          </Text>
+        ) : candidates.length > 0 ? (
           (() => {
-            const { recipe: candidate, sideRecipeIds } = candidates[index % candidates.length];
+            const { recipe: candidate, sideRecipeIds }: RerollCandidate = candidates[index % candidates.length];
             return (
               <>
                 <Card>
                   <View style={{ marginBottom: theme.spacing.md }}>
                     <RecipeImage recipe={candidate} height={140} radius={theme.radius.lg} />
                   </View>
-                  <Text variant="title3">{candidate.name}</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                    {keepMain ? <Ionicons name="lock-closed" size={14} color={theme.colors.accent} /> : null}
+                    <Text variant="title3">{candidate.name}</Text>
+                  </View>
                   <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
                     {candidate.cuisine} · {candidate.difficulty} · {candidate.prepMinutes + candidate.cookMinutes}m
                   </Text>
-                  {sideRecipeIds.length > 0 ? (
-                    <Text variant="footnote" color="secondary" style={{ marginTop: theme.spacing.xs }}>
-                      + {sideNames(sideRecipeIds)}
-                    </Text>
-                  ) : null}
+                  {renderSides(sideRecipeIds)}
                   <Pressable
                     accessibilityRole="button"
                     accessibilityLabel="View recipe"
@@ -143,15 +276,14 @@ export default function RerollScreen() {
                 onPress={() => commit(recipe.id, sideRecipeIds)}
                 style={{ marginBottom: theme.spacing.md }}
               >
-                <Text variant="headline">{recipe.name}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  {keepMain ? <Ionicons name="lock-closed" size={14} color={theme.colors.accent} /> : null}
+                  <Text variant="headline">{recipe.name}</Text>
+                </View>
                 <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
                   {recipe.cuisine} · {recipe.difficulty}
                 </Text>
-                {sideRecipeIds.length > 0 ? (
-                  <Text variant="footnote" color="secondary" style={{ marginTop: theme.spacing.xs }}>
-                    + {sideNames(sideRecipeIds)}
-                  </Text>
-                ) : null}
+                {renderSides(sideRecipeIds)}
                 <Text variant="footnote" color="accent" style={{ marginTop: theme.spacing.xs }}>
                   You'll need: {missing.join(', ')}
                 </Text>
