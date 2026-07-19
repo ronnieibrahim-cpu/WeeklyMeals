@@ -110,8 +110,9 @@ src/engine/       recommendation/ (filters · scoring [scoreRecipe + M4.2's
                   cost · learning · season · schedule · reroll · rating ·
                   syncMerge · manualItems · recipeSearch · cookMode (M4.2:
                   composeCookSteps/cookModePlateKey) · userRecipes · portions
-                  (M4.1: household → adult-equivalent servings)    (+ a .test.ts
-                  beside almost every module)
+                  (M4.1: household → adult-equivalent servings) · planHistory
+                  (M5.0: archivePlan — dedupe/sort/cap for the rolling 6-week
+                  per-device archive)    (+ a .test.ts beside almost every module)
 src/data/seed/    230 hand-curated mains (batches 1–8, cookbook-grade content) +
                   recipeImported.ts (356 TheMealDB imports, GENERATED — never
                   hand-edit) + recipeSides.ts (50 hand-curated sides/sauces,
@@ -131,7 +132,9 @@ src/data/repositories/local   kvStore (AsyncStorage JSON) + one repo per aggrega
 src/data/sync/    config.ts (URL/key/kill-switch) · householdApi.ts (row by 6-char code)
 src/stores/       planStore · profileStore · pantryStore · learningStore ·
                   settingsStore · syncStore · manualItemsStore · cookModeStore ·
-                  userRecipesStore · recipeNotesStore (M4.4)
+                  userRecipesStore · recipeNotesStore (M4.4) · planHistoryStore
+                  (M5.0, per-device — not household-synced, same class as
+                  cookModeStore)
 scripts/          validateRecipes · importRecipes · importPhotos ·
                   checkCuratedWeighting · checkKidApprovedWeighting
 ```
@@ -272,6 +275,11 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
 5. **Sync (optional):** plan, shopping list, manual items, favorites, kid-approved
    flags, and recipe notes sync between two phones (~20s poll, 600ms debounced push)
    with **per-item / per-meal deterministic merging** (see §6).
+6. **Past weeks (M5.0):** on approval, or on adopting a genuine week-replacement
+   synced from the other phone, the outgoing week joins a rolling 6-week
+   per-device archive (`usePlanHistoryStore`, NOT synced — same class as cook-mode
+   progress), browsable read-only as a collapsible "Past weeks" list below the
+   current week on the Schedule tab.
 
 ## 6. The sync merge contract (the most dangerous code in the app)
 

@@ -20,6 +20,7 @@ import { useCookModeStore } from './cookModeStore';
 import { useLearningStore } from './learningStore';
 import { useManualItemsStore } from './manualItemsStore';
 import { usePantryStore } from './pantryStore';
+import { usePlanHistoryStore } from './planHistoryStore';
 import { useProfileStore } from './profileStore';
 import { allRecipesList, getAnyRecipe, mainRecipesList } from './userRecipesStore';
 
@@ -301,14 +302,34 @@ interface PlanState {
    * silently adding them would have.
    */
   addMissingIngredients: (dayIndex: number, recipeId: string) => void;
-  /** Promote the draft to the active plan and build its shopping list. */
+  /**
+   * Promote the draft to the active plan and build its shopping list. M5.0:
+   * if there's a currently active plan (there might not be, on a first-ever
+   * approval), it's about to be replaced — archive it into the rolling
+   * per-device plan history (`usePlanHistoryStore`) first, so its cooked
+   * progress/ratings are preserved for the read-only "Past weeks" view
+   * before this call overwrites `plan`.
+   */
   approve: () => void;
   /** Discard the pending draft without approving it (e.g. closing review). */
   discardDraft: () => void;
   /** (Re)build the H-E-B shopping list from the current plan. */
   buildList: () => void;
   toggleShoppingItem: (ingredientName: string, unit: string) => void;
-  /** Replace plan + shopping list from a remote sync payload. */
+  /**
+   * Replace plan + shopping list from a remote sync payload. M5.0: archives
+   * the OUTGOING active plan into the rolling per-device history ONLY when
+   * the incoming plan is non-null and carries a DIFFERENT `id` than the
+   * current one — that's a genuine week replacement adopted from the other
+   * phone (the same event `approve()` archives on the device that actually
+   * approved), so both devices end up with equivalent archives over time.
+   * A same-id incoming plan is progress on the SAME week (a cooked toggle,
+   * a rating, a re-roll merging in from the other phone) — not a rollover
+   * — and must NOT archive, or every ordinary sync tick would spuriously
+   * duplicate the current week into history. An incoming `null` plan (a
+   * sync clear/reset) also does not archive — there is no new plan being
+   * "adopted" for it to be a replacement of.
+   */
   hydrateFromSync: (plan: WeeklyPlan | null, shoppingList: ShoppingList | null) => void;
   clear: () => void;
   recipeFor: (meal: PlannedMeal) => Recipe | undefined;
@@ -878,6 +899,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   approve: () => {
     const draftPlan = get().draftPlan;
     if (!draftPlan) return;
+    // M5.0: archive whatever active plan is about to be replaced (there may
+    // be none, on a first-ever approval) before it's overwritten below.
+    const outgoing = get().plan;
+    if (outgoing) usePlanHistoryStore.getState().archive(outgoing);
     const next: WeeklyPlan = { ...draftPlan, status: 'approved' };
     const shoppingList = listFor(next);
     set({ plan: next, draftPlan: null, shoppingList });
@@ -920,6 +945,15 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   },
 
   hydrateFromSync: (plan, shoppingList) => {
+    // M5.0: a genuine week replacement (incoming plan exists and has a
+    // different id than what's currently active) archives the outgoing
+    // plan, same as approve() does on the device that performed it. A
+    // same-id merge (progress on the same week) or an incoming null plan
+    // (clear/reset) does neither.
+    const outgoing = get().plan;
+    if (outgoing && plan && outgoing.id !== plan.id) {
+      usePlanHistoryStore.getState().archive(outgoing);
+    }
     set({ plan, shoppingList, intake: plan?.intake ?? get().intake });
     if (plan) persist(plan);
     else void localPlanRepository.clear();

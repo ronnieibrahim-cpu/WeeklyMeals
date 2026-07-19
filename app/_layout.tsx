@@ -9,6 +9,7 @@ import { useCookModeStore } from '@/stores/cookModeStore';
 import { useLearningStore } from '@/stores/learningStore';
 import { useManualItemsStore } from '@/stores/manualItemsStore';
 import { usePantryStore } from '@/stores/pantryStore';
+import { usePlanHistoryStore } from '@/stores/planHistoryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
 import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
@@ -27,6 +28,7 @@ function RootNavigator() {
     void useSettingsStore.getState().init();
     void useProfileStore.getState().init();
     void usePlanStore.getState().init();
+    void usePlanHistoryStore.getState().init();
     void usePantryStore.getState().init();
     void useLearningStore.getState().init();
     void useManualItemsStore.getState().init();
