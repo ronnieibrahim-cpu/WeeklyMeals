@@ -20,8 +20,8 @@ export type TypographyVariant =
 export type Typography = Record<TypographyVariant, TextStyle>;
 
 export const typography: Typography = {
-  largeTitle: { fontSize: 34, lineHeight: 41, fontWeight: '700', letterSpacing: 0.37 },
-  title1: { fontSize: 28, lineHeight: 34, fontWeight: '700', letterSpacing: 0.36 },
+  largeTitle: { fontSize: 34, lineHeight: 41, fontWeight: '800', letterSpacing: 0.37 },
+  title1: { fontSize: 28, lineHeight: 34, fontWeight: '800', letterSpacing: 0.36 },
   title2: { fontSize: 22, lineHeight: 28, fontWeight: '700', letterSpacing: 0.35 },
   title3: { fontSize: 20, lineHeight: 25, fontWeight: '600', letterSpacing: 0.38 },
   headline: { fontSize: 17, lineHeight: 22, fontWeight: '600', letterSpacing: -0.41 },
