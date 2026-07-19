@@ -1,21 +1,25 @@
 import { isMain, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 
+import { canonicalIngredientName } from './ingredientKey';
 import { composeSides } from './mealComposition';
 import { passesHardFilters, scoreRecipe } from './recommendation';
 import { GenerateContext } from './recommendation/types';
 import { todayOffset } from './schedule';
 
-const lower = (s: string) => s.trim().toLowerCase();
-
 /**
- * M3.0: exact normalized match first; substring only as a fallback, and only
- * in the safe direction (an available name that's as long or longer than the
+ * M3.0/M4.7: exact canonical-name match first (folds a trailing plural, so
+ * "carrots" on the list satisfies a recipe needing "carrot" symmetrically,
+ * whichever side is singular); substring only as a fallback, and only in the
+ * safe direction (an available name that's as long or longer than the
  * required name, containing it in full) — a shorter available name can never
  * satisfy a longer required one. Without this guard, having "cream" on hand
- * would wrongly satisfy a recipe that needs "coconut cream".
+ * would wrongly satisfy a recipe that needs "coconut cream". Both sides are
+ * folded through the same `canonicalIngredientName` used by the shopping
+ * list's dedup, so "available" and "required" agree on what counts as the
+ * same ingredient.
  */
 function loosely(name: string, available: Set<string>): boolean {
-  const n = lower(name);
+  const n = canonicalIngredientName(name);
   if (available.has(n)) return true;
   for (const a of available) {
     if (a.length >= n.length && a.includes(n)) return true;
@@ -40,10 +44,10 @@ export function availableIngredients(
   outgoingSides: Recipe[] = [],
 ): Set<string> {
   const set = new Set<string>();
-  for (const p of pantry) set.add(lower(p));
-  if (shoppingList) for (const item of shoppingList.items) set.add(lower(item.ingredientName));
-  if (outgoingRecipe) for (const ing of outgoingRecipe.ingredients) set.add(lower(ing.name));
-  for (const side of outgoingSides) for (const ing of side.ingredients) set.add(lower(ing.name));
+  for (const p of pantry) set.add(canonicalIngredientName(p));
+  if (shoppingList) for (const item of shoppingList.items) set.add(canonicalIngredientName(item.ingredientName));
+  if (outgoingRecipe) for (const ing of outgoingRecipe.ingredients) set.add(canonicalIngredientName(ing.name));
+  for (const side of outgoingSides) for (const ing of side.ingredients) set.add(canonicalIngredientName(ing.name));
   return set;
 }
 

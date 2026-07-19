@@ -193,7 +193,7 @@ export const recipeBatch5: Recipe[] = [
       { name: 'poblano peppers', quantity: 6, unit: 'piece', department: 'Produce' },
       { name: 'monterey jack cheese', quantity: 10, unit: 'oz', department: 'Dairy' },
       { name: 'eggs', quantity: 4, unit: 'piece', department: 'Dairy' },
-      { name: 'tomato sauce', quantity: 2, unit: 'cup', department: 'DryGoods' },
+      { name: 'tomato sauce', quantity: 2, unit: 'can', department: 'DryGoods' },
       { name: 'flour', quantity: 0.5, unit: 'cup', department: 'DryGoods' },
       { name: 'vegetable oil', quantity: 0.5, unit: 'cup', department: 'DryGoods', pantryStaple: true },
       { name: 'salt', quantity: 0.5, unit: 'tsp', department: 'Spices', pantryStaple: true },

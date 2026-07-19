@@ -69,7 +69,7 @@ export const recipeBatch8: Recipe[] = [
     ingredients: [
       { name: 'firm tofu', quantity: 14, unit: 'oz', department: 'Produce' },
       { name: 'crushed tomatoes', quantity: 1, unit: 'can', department: 'DryGoods' },
-      { name: 'coconut milk', quantity: 0.75, unit: 'cup', department: 'International' },
+      { name: 'coconut milk', quantity: 1, unit: 'can', department: 'International' },
       { name: 'onion', quantity: 1, unit: 'piece', department: 'Produce' },
       { name: 'garam masala', quantity: 2, unit: 'tbsp', department: 'Spices' },
       { name: 'basmati rice', quantity: 1.5, unit: 'cup', department: 'International' },
@@ -407,7 +407,7 @@ export const recipeBatch8: Recipe[] = [
     ingredients: [
       { name: 'salmon fillets', quantity: 1.5, unit: 'lb', department: 'Seafood' },
       { name: 'coconut milk', quantity: 1, unit: 'can', department: 'International' },
-      { name: 'crushed tomatoes', quantity: 1, unit: 'cup', department: 'DryGoods' },
+      { name: 'crushed tomatoes', quantity: 1, unit: 'can', department: 'DryGoods' },
       { name: 'onion', quantity: 1, unit: 'piece', department: 'Produce' },
       { name: 'curry powder', quantity: 2, unit: 'tbsp', department: 'Spices' },
       { name: 'basmati rice', quantity: 1.5, unit: 'cup', department: 'International' },

@@ -1,5 +1,6 @@
 import { GroceryProvider } from '@/data/grocery/GroceryProvider';
 import { PlannedMeal, Recipe, RecipeIngredient, ShoppingItem, ShoppingList, ShoppingListDelta, ShoppingListDeltaLine } from '@/domain/models';
+import { convertQuantity, ingredientDedupKey, mergeQuantities } from './ingredientKey';
 
 const lower = (s: string) => s.trim().toLowerCase();
 const round2 = (n: number) => Math.round(n * 100) / 100;
@@ -28,11 +29,16 @@ function addRecipeToMap(
     if (ing.pantryStaple) continue;
     if (pantryHas(pantry, ing.name)) continue;
 
-    const key = `${lower(ing.name)}|${ing.unit}`;
+    const key = ingredientDedupKey(ing.name, ing.unit);
     const qty = round2(ing.quantity * scale);
     const existing = map.get(key);
     if (existing) {
-      existing.quantity = round2(existing.quantity + qty);
+      // M4.7: same canonical ingredient, possibly a different (but
+      // family-convertible) unit than what's on the list so far — see
+      // `mergeQuantities` for why the display unit can change here.
+      const merged = mergeQuantities(existing.quantity, existing.unit, qty, ing.unit);
+      existing.quantity = merged.quantity;
+      existing.unit = merged.unit;
       if (!existing.fromRecipeIds.includes(recipe.id)) existing.fromRecipeIds.push(recipe.id);
     } else {
       map.set(key, {
@@ -109,19 +115,22 @@ export function addIngredientsToShoppingList(
   recipeId: string,
   grocery: GroceryProvider,
 ): ShoppingList {
-  const map = new Map<string, ShoppingItem>(list.items.map((i) => [`${lower(i.ingredientName)}|${i.unit}`, i]));
+  const map = new Map<string, ShoppingItem>(list.items.map((i) => [ingredientDedupKey(i.ingredientName, i.unit), i]));
 
   for (const ing of ingredients) {
     if (ing.pantryStaple) continue;
-    const key = `${lower(ing.name)}|${ing.unit}`;
+    const key = ingredientDedupKey(ing.name, ing.unit);
     const existing = map.get(key);
 
     if (existing) {
-      const quantity = round2(existing.quantity + ing.quantity);
-      const priced = grocery.priceFor(existing.ingredientName, quantity, existing.unit, existing.department);
+      // M4.7: merge onto the existing line's canonical+family key, not the
+      // exact unit — the display unit can change (see `mergeQuantities`).
+      const { quantity, unit } = mergeQuantities(existing.quantity, existing.unit, ing.quantity, ing.unit);
+      const priced = grocery.priceFor(existing.ingredientName, quantity, unit, existing.department);
       map.set(key, {
         ...existing,
         quantity,
+        unit,
         estimatedPrice: priced.price,
         hebProductName: priced.productName,
         fromRecipeIds: existing.fromRecipeIds.includes(recipeId)
@@ -232,10 +241,10 @@ export function applyShoppingListDelta(
   grocery: GroceryProvider,
   removesSource: boolean = false,
 ): ShoppingList {
-  const map = new Map<string, ShoppingItem>(list.items.map((i) => [`${lower(i.ingredientName)}|${i.unit}`, i]));
+  const map = new Map<string, ShoppingItem>(list.items.map((i) => [ingredientDedupKey(i.ingredientName, i.unit), i]));
 
   for (const line of delta.lines) {
-    const key = `${lower(line.ingredientName)}|${line.unit}`;
+    const key = ingredientDedupKey(line.ingredientName, line.unit);
     const existing = map.get(key);
 
     if (!existing) {
@@ -259,7 +268,13 @@ export function applyShoppingListDelta(
       continue;
     }
 
-    const signed = delta.direction === 'increase' ? line.deltaQuantity : -line.deltaQuantity;
+    // M4.7: the existing line's display unit may not be `line.unit` — e.g.
+    // this recipe's own ingredient is in grams but the merged list line
+    // reads in lb because another recipe on the plate contributed pounds.
+    // Convert the delta into the line's actual unit before applying it,
+    // never the other way — a delta never re-elects the display unit.
+    const deltaInExistingUnit = convertQuantity(line.deltaQuantity, line.unit, existing.unit);
+    const signed = delta.direction === 'increase' ? deltaInExistingUnit : -deltaInExistingUnit;
     const newQty = round2(existing.quantity + signed);
     if (newQty <= 0) {
       map.delete(key);

@@ -973,7 +973,7 @@ export const recipeBatch7: Recipe[] = [
     nutrition: { calories: 320, protein: 8, carbs: 44, fat: 14 },
     ingredients: [
       { name: 'leek', quantity: 3, unit: 'piece', department: 'Produce' },
-      { name: 'potatoes', quantity: 2, unit: 'lb', department: 'Produce' },
+      { name: 'potatoes', quantity: 6, unit: 'piece', department: 'Produce' },
       { name: 'vegetable broth', quantity: 6, unit: 'cup', department: 'DryGoods' },
       { name: 'heavy cream', quantity: 0.5, unit: 'cup', department: 'Dairy' },
       { name: 'butter', quantity: 3, unit: 'tbsp', department: 'Dairy' },
@@ -1347,7 +1347,7 @@ export const recipeBatch7: Recipe[] = [
     baseServings: 4,
     nutrition: { calories: 420, protein: 14, carbs: 68, fat: 12 },
     ingredients: [
-      { name: 'potatoes', quantity: 2, unit: 'lb', department: 'Produce' },
+      { name: 'potatoes', quantity: 6, unit: 'piece', department: 'Produce' },
       { name: 'chickpeas', quantity: 1, unit: 'can', department: 'DryGoods' },
       { name: 'bell pepper', quantity: 1, unit: 'piece', department: 'Produce' },
       { name: 'garlic', quantity: 4, unit: 'clove', department: 'Produce' },

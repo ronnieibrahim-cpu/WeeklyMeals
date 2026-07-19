@@ -175,6 +175,58 @@ describe('buildShoppingList', () => {
 
     expect(list.items.map((i) => i.ingredientName)).toEqual(['chicken']);
   });
+
+  describe('M4.7: cross-source ingredient dedup (plural-fold + unit-family merge)', () => {
+    it('merges a plural spelling from one recipe with a singular spelling from another, same unit', () => {
+      const a = makeRecipe({ id: 'a', baseServings: 4, ingredients: [{ name: 'carrots', quantity: 2, unit: 'lb', department: 'Produce' }] });
+      const b = makeRecipe({ id: 'b', baseServings: 4, ingredients: [{ name: 'Carrot', quantity: 1, unit: 'lb', department: 'Produce' }] });
+      const recipesById: Record<string, Recipe> = { a, b };
+      const meals = [makeMeal({ recipeId: 'a', dayIndex: 0, servings: 4 }), makeMeal({ recipeId: 'b', dayIndex: 1, servings: 4 })];
+
+      const list = buildShoppingList('plan-1', meals, (id) => recipesById[id], [], fakeGrocery);
+
+      expect(list.items).toHaveLength(1);
+      expect(list.items[0].quantity).toBe(3);
+      expect(list.items[0].ingredientName).toBe('carrots'); // first-seen spelling/casing kept for display
+    });
+
+    it('merges a mass-family cross-unit pair (g + lb) into one line, in lb', () => {
+      const a = makeRecipe({ id: 'a', baseServings: 4, ingredients: [{ name: 'ground beef', quantity: 700, unit: 'g', department: 'Meat' }] });
+      const b = makeRecipe({ id: 'b', baseServings: 4, ingredients: [{ name: 'ground beef', quantity: 1, unit: 'lb', department: 'Meat' }] });
+      const recipesById: Record<string, Recipe> = { a, b };
+      const meals = [makeMeal({ recipeId: 'a', dayIndex: 0, servings: 4 }), makeMeal({ recipeId: 'b', dayIndex: 1, servings: 4 })];
+
+      const list = buildShoppingList('plan-1', meals, (id) => recipesById[id], [], fakeGrocery);
+
+      expect(list.items).toHaveLength(1);
+      expect(list.items[0].unit).toBe('lb');
+      expect(list.items[0].quantity).toBeCloseTo(2.54, 2);
+    });
+
+    it('merges a volume-family cross-unit pair (tbsp + cup) into one line, in cup', () => {
+      const a = makeRecipe({ id: 'a', baseServings: 4, ingredients: [{ name: 'olive oil', quantity: 2, unit: 'tbsp', department: 'DryGoods' }] });
+      const b = makeRecipe({ id: 'b', baseServings: 4, ingredients: [{ name: 'olive oil', quantity: 0.5, unit: 'cup', department: 'DryGoods' }] });
+      const recipesById: Record<string, Recipe> = { a, b };
+      const meals = [makeMeal({ recipeId: 'a', dayIndex: 0, servings: 4 }), makeMeal({ recipeId: 'b', dayIndex: 1, servings: 4 })];
+
+      const list = buildShoppingList('plan-1', meals, (id) => recipesById[id], [], fakeGrocery);
+
+      expect(list.items).toHaveLength(1);
+      expect(list.items[0].unit).toBe('cup');
+      expect(list.items[0].quantity).toBeCloseTo(0.63, 2);
+    });
+
+    it('a non-convertible unit (piece) never merges against lb, even for the same ingredient name', () => {
+      const a = makeRecipe({ id: 'a', baseServings: 4, ingredients: [{ name: 'salmon', quantity: 2, unit: 'piece', department: 'Seafood' }] });
+      const b = makeRecipe({ id: 'b', baseServings: 4, ingredients: [{ name: 'salmon', quantity: 1, unit: 'lb', department: 'Seafood' }] });
+      const recipesById: Record<string, Recipe> = { a, b };
+      const meals = [makeMeal({ recipeId: 'a', dayIndex: 0, servings: 4 }), makeMeal({ recipeId: 'b', dayIndex: 1, servings: 4 })];
+
+      const list = buildShoppingList('plan-1', meals, (id) => recipesById[id], [], fakeGrocery);
+
+      expect(list.items).toHaveLength(2);
+    });
+  });
 });
 
 describe('addIngredientsToShoppingList (M3.1 — explicit "Add these to shopping list" button on pin-to-week)', () => {
@@ -223,6 +275,31 @@ describe('addIngredientsToShoppingList (M3.1 — explicit "Add these to shopping
       fakeGrocery,
     );
     expect(list.items).toHaveLength(1); // only the original onion line
+  });
+
+  it('M4.7: merges a plural spelling onto an existing singular line instead of duplicating it', () => {
+    const list = addIngredientsToShoppingList(baseList(), [{ name: 'onions', quantity: 2, unit: 'piece', department: 'Produce' }], 'pinned-recipe', fakeGrocery);
+    expect(list.items).toHaveLength(1);
+    expect(list.items[0].quantity).toBe(3);
+    expect(list.items[0].ingredientName).toBe('onion'); // display keeps the original list line's spelling
+  });
+
+  it('M4.7: merges a cross-unit (mass-family) addition onto an existing line, updating the display unit', () => {
+    const list = addIngredientsToShoppingList(
+      buildShoppingList(
+        'plan-1',
+        [makeMeal({ recipeId: 'r1', dayIndex: 0, servings: 4 })],
+        () => makeRecipe({ id: 'r1', ingredients: [{ name: 'ground beef', quantity: 1, unit: 'lb', department: 'Meat' }] }),
+        [],
+        fakeGrocery,
+      ),
+      [{ name: 'ground beef', quantity: 700, unit: 'g', department: 'Meat' }],
+      'pinned-recipe',
+      fakeGrocery,
+    );
+    expect(list.items).toHaveLength(1);
+    expect(list.items[0].unit).toBe('lb');
+    expect(list.items[0].quantity).toBeCloseTo(2.54, 2);
   });
 
   it('never mutates the original list object or its items (immutability)', () => {
@@ -377,6 +454,57 @@ describe('applyShoppingListDelta (M4.1)', () => {
     const next = applyShoppingListDelta(list, delta, 'a', fakeGrocery);
     expect(next.estimatedTotal).toBe(5);
   });
+
+  describe('M4.7: applying a delta onto a cross-unit merged line', () => {
+    const beefG = makeRecipe({ id: 'g', baseServings: 4, ingredients: [{ name: 'ground beef', quantity: 200, unit: 'g', department: 'Meat' }] });
+    const beefLb = makeRecipe({ id: 'lb', baseServings: 4, ingredients: [{ name: 'ground beef', quantity: 1, unit: 'lb', department: 'Meat' }] });
+
+    function mergedList() {
+      return buildShoppingList(
+        'plan-1',
+        [makeMeal({ recipeId: 'g', dayIndex: 0, servings: 4 }), makeMeal({ recipeId: 'lb', dayIndex: 1, servings: 4 })],
+        (id) => ({ g: beefG, lb: beefLb })[id],
+        [],
+        fakeGrocery,
+      );
+    }
+
+    it('an increase delta (in the recipe\'s own unit, g) converts into the merged line\'s display unit (lb)', () => {
+      const list = mergedList();
+      const merged = list.items.find((i) => i.ingredientName === 'ground beef')!;
+      expect(merged.unit).toBe('lb'); // sanity: the merge elected lb, not g
+
+      const delta = computeServingsDelta(beefG, 4, 8, []); // g's own contribution doubles: +200g
+      const next = applyShoppingListDelta(list, delta, 'g', fakeGrocery);
+      const nextBeef = next.items.find((i) => i.ingredientName === 'ground beef')!;
+
+      expect(nextBeef.unit).toBe('lb'); // a delta never re-elects the display unit
+      expect(nextBeef.quantity).toBeCloseTo(merged.quantity + 200 / 453.59, 1);
+    });
+
+    it('a decrease delta only removes this recipe\'s own (converted) share, leaving the other contributor\'s share intact', () => {
+      const list = mergedList();
+      const delta = computeServingsDelta(beefG, 4, 0, []); // g's own 200g contribution goes to zero
+      const next = applyShoppingListDelta(list, delta, 'g', fakeGrocery);
+      const nextBeef = next.items.find((i) => i.ingredientName === 'ground beef');
+
+      // lb's own 1lb contribution survives untouched.
+      expect(nextBeef).toBeDefined();
+      expect(nextBeef!.unit).toBe('lb');
+      expect(nextBeef!.quantity).toBeCloseTo(1, 1);
+    });
+
+    it('sequential decreases against a merged line still zero it out once the last contributor\'s share is removed', () => {
+      let list = mergedList();
+      list = applyShoppingListDelta(list, computeServingsDelta(beefLb, 4, 0, []), 'lb', fakeGrocery);
+      // Only g's ~200g (~0.44lb) share should remain now.
+      const afterFirst = list.items.find((i) => i.ingredientName === 'ground beef');
+      expect(afterFirst?.quantity).toBeCloseTo(200 / 453.59, 1);
+
+      list = applyShoppingListDelta(list, computeServingsDelta(beefG, 4, 0, []), 'g', fakeGrocery);
+      expect(list.items.find((i) => i.ingredientName === 'ground beef')).toBeUndefined();
+    });
+  });
 });
 
 describe('applyShoppingListDelta — removesSource (M4.2 part 2: removing a side)', () => {
@@ -446,5 +574,36 @@ describe('applyShoppingListDelta — removesSource (M4.2 part 2: removing a side
     const delta = computeServingsDelta(sideWithGarlic, 4, 0, []);
     const next = applyShoppingListDelta(list, delta, 'side', fakeGrocery, true);
     expect(next.items.find((i) => i.ingredientName === 'garlic')).toBeUndefined();
+  });
+
+  it('M4.7: removing a side subtracts its (converted) share even when the main and side contributed in different mass units', () => {
+    const mainG = makeRecipe({
+      id: 'main',
+      baseServings: 4,
+      ingredients: [{ name: 'ground beef', quantity: 1, unit: 'lb', department: 'Meat' }],
+    });
+    const sideG = makeRecipe({
+      id: 'side',
+      baseServings: 4,
+      ingredients: [{ name: 'ground beef', quantity: 200, unit: 'g', department: 'Meat' }],
+    });
+    const list = buildShoppingList(
+      'plan-1',
+      [makeMeal({ recipeId: 'main', dayIndex: 0, servings: 4, sideRecipeIds: ['side'] })],
+      (id) => ({ main: mainG, side: sideG })[id],
+      [],
+      fakeGrocery,
+    );
+    const merged = list.items.find((i) => i.ingredientName === 'ground beef')!;
+    expect(merged.unit).toBe('lb'); // lb has the larger base factor of the two present units
+
+    const delta = computeServingsDelta(sideG, 4, 0, []); // side's own 200g contribution removed entirely
+    const next = applyShoppingListDelta(list, delta, 'side', fakeGrocery, /* removesSource */ true);
+    const beef = next.items.find((i) => i.ingredientName === 'ground beef');
+
+    expect(beef).toBeDefined();
+    expect(beef!.unit).toBe('lb');
+    expect(beef!.quantity).toBeCloseTo(1, 1); // only the main's 1lb remains
+    expect(beef!.fromRecipeIds).toEqual(['main']); // side's attribution is gone too
   });
 });

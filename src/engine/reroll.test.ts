@@ -76,6 +76,24 @@ describe('missingIngredients', () => {
     });
     expect(missingIngredients(recipe, new Set(['cream']))).toEqual(['coconut cream']);
   });
+
+  it('M4.7: a plural on the list satisfies a recipe needing the singular, end to end via availableIngredients', () => {
+    const available = availableIngredients(['Carrots'], null, undefined);
+    const recipe = makeRecipe({ ingredients: [{ name: 'carrot', quantity: 2, unit: 'piece', department: 'Produce' }] });
+    expect(missingIngredients(recipe, available)).toEqual([]);
+  });
+
+  it('M4.7: the fold is symmetric — a singular on the list also satisfies a recipe needing the plural', () => {
+    const available = availableIngredients(['carrot'], null, undefined);
+    const recipe = makeRecipe({ ingredients: [{ name: 'Carrots', quantity: 2, unit: 'piece', department: 'Produce' }] });
+    expect(missingIngredients(recipe, available)).toEqual([]);
+  });
+
+  it('M4.7: the plural fold does not weaken the coconut-cream-vs-cream guard', () => {
+    const available = availableIngredients(['creams'], null, undefined); // plural, still just "cream"
+    const recipe = makeRecipe({ ingredients: [{ name: 'coconut cream', quantity: 1, unit: 'can', department: 'DryGoods' }] });
+    expect(missingIngredients(recipe, available)).toEqual(['coconut cream']);
+  });
 });
 
 describe('rerollCandidates', () => {

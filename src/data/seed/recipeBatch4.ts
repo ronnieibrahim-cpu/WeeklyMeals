@@ -1003,7 +1003,7 @@ export const recipeBatch4: Recipe[] = [
     nutrition: { calories: 660, protein: 40, carbs: 44, fat: 34 },
     ingredients: [
       { name: 'sirloin steak', quantity: 1.5, unit: 'lb', department: 'Meat' },
-      { name: 'russet potatoes', quantity: 3, unit: 'piece', department: 'Produce' },
+      { name: 'russet potatoes', quantity: 1.5, unit: 'lb', department: 'Produce' },
       { name: 'butter', quantity: 3, unit: 'tbsp', department: 'Dairy' },
       { name: 'garlic', quantity: 3, unit: 'clove', department: 'Produce' },
       { name: 'parsley', quantity: 1, unit: 'bunch', department: 'Produce' },

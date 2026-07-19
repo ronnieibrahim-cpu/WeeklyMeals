@@ -134,10 +134,19 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    A new draft never destroys the live approved plan until approval.
 2. **Review** (`plan/review`): lock / swap / regenerate / **pin a favorite** / adjust
    any draft meal's **servings** (a −/+ stepper, no confirmation needed pre-approval) →
-   `approve()` → status `approved`; shopping list built (scaled by servings,
-   deduped by `lowercase(name)|unit`, pantry staples + on-hand items excluded,
-   priced by the H-E-B provider) and persisted. **Cost shown at approval equals the
-   shopping tab's total** (single source of truth).
+   `approve()` → status `approved`; shopping list built (scaled by servings, pantry
+   staples + on-hand items excluded, priced by the H-E-B provider) and persisted.
+   **Deduped by ingredient identity, not exact string match (M4.7):** two lines merge
+   when they share a `canonicalIngredientName` (trims/lowercases, folds a simple
+   trailing plural — "carrots"/"carrot" are the same ingredient) AND a unit family —
+   mass (`g`/`kg`/`oz`/`lb`), volume (`ml`/`l`/`tsp`/`tbsp`/`cup`), or, for anything
+   else (`piece`/`clove`/`can`/`bunch`/`pinch`), the exact unit itself, since those
+   never convert. A cross-unit merge (e.g. curated `1 lb` + imported `700 g` ground
+   beef) sums in the base unit and displays in whichever of the two units actually in
+   play has the larger conversion factor — see `src/engine/ingredientKey.ts`. This is
+   why the same real-world ingredient from a curated main, an imported side, and a
+   composed side all land on one line instead of three. **Cost shown at approval
+   equals the shopping tab's total** (single source of truth).
    - **Servings (M4.1):** `IntakeAnswers.servingsPerMeal` (not a flat headcount) drives
      generation — `src/engine/portions.ts`'s `adultEquivalents(members)` converts
      `Profile.members` (each `{ name?, ageYears?, isChild, eatsLikeAdult? }`) into a
@@ -227,6 +236,17 @@ the identical result regardless of order, or they ping-pong forever.
   same day still converges: the re-roll's `recipeChangedAtISO` wins the whole meal
   body (sides included), regardless of how fresh the losing side's
   `sidesChangedAtISO` happens to be.
+- **Shopping-list sync merging (`mergeShoppingLists`'s `itemKey`) is still exact
+  `ingredientName|unit`, unchanged by M4.7's build-time dedup.** That's fine, not a
+  gap: both phones build a list from the identical `buildShoppingList` code against
+  the identical plan data, so they always arrive at the same already-merged lines
+  (same canonical name, same elected display unit) before sync ever compares them —
+  `itemKey` only ever needs to match two copies of the SAME line. The one edge case
+  this doesn't smooth over is a household mid-upgrade (one phone on the old
+  per-exact-unit build, one on the new one) producing differently-shaped lines for
+  the same plan; sync's existing union-of-keys fallback treats that exactly like any
+  other one-sided item today — an accepted, temporary rough edge until both phones
+  are current, not a new risk.
 - **Manual items** are keyed by **normalized name** (two people adding "milk"
   converge to one row) and deleted via **tombstones** (a delete is never resurrected
   by a phone that hasn't caught up). They are **not plan-scoped**: on approving a new
