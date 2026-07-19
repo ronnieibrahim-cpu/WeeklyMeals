@@ -9,8 +9,8 @@
 > long: fidelity beats brevity here. If you are that new instance — read this file
 > completely before responding to the Product Owner about anything substantive.
 >
-> **Last updated:** July 2026, at the close of Milestone 3 (v3.0) and the
-> post-v3 adversarial debug sweep.
+> **Last updated:** July 2026, after M4.2 (both parts — data model and actual
+> plate composition) shipped and was deployed to production.
 
 ---
 
@@ -135,13 +135,21 @@ backlog:**
 - **M4.1** — household composition → adult-equivalent servings. Shipped, then
   revised (plain editable age, no birthdate; `familySize` demoted to an invisible
   fallback). See Part 4's decision log for why.
-- **M4.2 through M4.6** — not started. See `MILESTONE-4.md` for the full task specs
-  (composed dinners, waste-fit scoring, recipe notes, component re-roll, week
-  rearrange).
+- **M4.2 — "a dinner is a plate, not a dish."** Shipped, both parts, and merged to
+  `claude/weekly-meals-app-eyowlr` (deployed). Part 1 (data model + validation):
+  `Recipe.role`/`Recipe.provides`, the 50-recipe `recipeSides.ts` library, the
+  content/allergen/plausibility validator gates. Part 2 (actually composing
+  plates): `src/engine/mealComposition.ts` (`composeSides`), `scoreSide`, the
+  unified `RECIPES` pool split everywhere by the new `isMain()`, sides flowing
+  through the shopping list/cost/cook mode/meal detail/strict re-roll/pin, and
+  sync merge for `sideRecipeIds`. See Part 4 items 21 and 23 for the design and
+  the corrections the advisor required before approving part 2.
+- **M4.3 through M4.6** — not started. See `MILESTONE-4.md` for the full task specs
+  (waste-fit scoring, recipe notes, component re-roll, week rearrange).
 
-**Verified state at last gate:** typecheck clean, **224 tests passing**, 230/230
-curated recipes pass the content validator, 586/586 recipes carry canonical
-allergen labels.
+**Verified state at last gate:** typecheck clean, **282 tests passing**, 230/230
+curated mains + 50/50 sides pass the content validator, 636/636 recipes carry
+canonical allergen labels and plausible `provides`.
 
 ---
 
@@ -335,6 +343,67 @@ what changed, and let him decide.
     alongside it, not instead of it. *Rationale: swipe is reliable on a phone and
     accessible; drag is nice-to-have and must not become the only path if it turns
     out fiddly in practice.*
+23. **M4.2 part 2 corrections the advisor required before approving the plan
+    (all shipped as specified):**
+    - **`isMain()` is the single, canonical main/side split** — one function in
+      `src/domain/models/recipe.ts`, not scattered ad-hoc filters. Every real
+      consumer of the recipe pool was enumerated and classified (main-only /
+      all-recipes / doesn't-care) before writing code, so standalone diagnostic
+      scripts that import `RECIPES` directly are protected for free.
+    - **`scripts/validateRecipes.ts`'s "curated mains" bucket had a real bug**
+      (pre-merge, sides lack the `mealdb-` prefix just like curated mains do, so
+      the old filter would run the protein-gate check on every vegetable-only
+      side and fail all of them, and a separate `recipeSides` import would then
+      double-count them against the now-unified `RECIPES` pool). Fixed by
+      deriving `curatedMains`/`sides`/`allRecipes` from `isMain()` over the
+      single unified pool.
+    - **`varietyBonus` is dropped from side-scoring entirely, not rescoped.**
+      The first proposal was to rescope it to the plate (pass the plate's own
+      `selected` sides instead of the week's), but the advisor caught that this
+      *inverts* the signal at plate scope: a side that fits the main's cuisine
+      would be scored as a "repeat" and penalized for the exact thing that makes
+      it a good pairing, and a legitimate second vegetable side would eat the
+      same penalty a genuinely repetitive week-level pick should. `scoreSide`
+      reuses every other `scoreRecipe` signal, plus a small standalone
+      `cuisineFitBonus` against the main's cuisine.
+    - **Re-roll candidates carry their composed sides through to commit,
+      never recomputed.** `RerollCandidate`/`RerollNearMiss` now hold
+      `{ recipe, sideRecipeIds }`; whatever `rerollCandidates()` composed and
+      scored is exactly what gets committed — recomposing at commit time could
+      silently pick a different (and unvetted-at-commit-time) set of sides.
+    - **Side removal from an approved plan needs its own, separate shopping-list
+      removal step**, computed via the existing `computeServingsDelta(recipe,
+      servings, 0, pantry)` path (a full removal is just "servings → 0") plus a
+      new `removesSource` flag on `applyShoppingListDelta`, so removing a side
+      never strips an ingredient another recipe on the same plate still needs
+      (e.g. two recipes sharing non-staple olive oil — removing one must not
+      zero out the list entry the other still requires).
+    - **Cook-mode progress invalidation is content-addressed, not
+      timestamp-addressed:** `cookModePlateKey(recipeId, sideRecipeIds)` sorts
+      the side ids before joining them, so a sync/recomposition ordering
+      difference between two devices can never spuriously reset a family
+      member's cook-mode progress.
+    - **The pin-to-week / pin-to-draft guard is enforced at the store level**,
+      not just by omitting a UI button — `isMain()` gates which recipes are
+      pinnable at all, and composed sides at pin time are re-checked against the
+      allergy guard explicitly, one at a time, mirroring Law #5 (pinning bypasses
+      candidate generation, so the pin action itself must re-enforce every guard
+      candidate generation would otherwise have applied).
+    - **`composeSides` is best-effort, with no error states or nagging UI.** A
+      plate that can't reach the vegetable-or-starch hard minimum still ships
+      with whatever sides *did* qualify (possibly zero) — sides are additive,
+      never a blocking gate (see decision 21).
+    *Rationale for capturing these here individually, not just as "M4.2 shipped":*
+    every one of these was a real correction the advisor caught before
+    implementation, in the same spirit as decision 21 and the hard-won-lessons
+    list below — a future advisor re-touching this code should not have to
+    rediscover any of them from scratch.
+24. **Deferred, not forgotten:** side-name deduping in `scripts/importRecipes.ts`
+    (an imported side/sauce sharing a name with a hand-curated one) was
+    explicitly declined for the M4.2 part 2 commit — noted as a follow-up, not
+    silently dropped. No imported sides exist yet (the sides library is 100%
+    hand-curated), so this has no live impact today; revisit if/when imported
+    sides are ever added.
 
 ### Hard-won lessons (the "how we got burned" list)
 
@@ -407,6 +476,10 @@ historical.
 4. **M3.6 — Photo accuracy QA.** A model pass to verify every matched photo actually
    depicts its dish (flag mismatches; a wrong photo is worse than none), ending in a
    flag list for Ronnie's human judgment. **Explicitly deferred as polish.**
+5. **Side-name deduping in `scripts/importRecipes.ts` (M4.2 follow-up).** See
+   decision 24 in Part 4. No live impact today (the sides library is entirely
+   hand-curated, no imported sides exist yet) — revisit only if imported sides
+   are ever added.
 
 ---
 
@@ -419,15 +492,20 @@ material for **Milestone 4 ("Real Dinners, Right-Sized," `MILESTONE-4.md`)**, wh
 is now the **active milestone**. The triangle workflow (Ronnie steers and verifies →
 Advisor audits, specs, writes prompts → Sonnet implements) is unchanged.
 
-**Where M4 stands:** M4.0 (bug fixes + browse list) and M4.1 (household composition
-→ adult-equivalent servings, revised) are shipped. M4.2 (composed dinners: main +
-sides, "a dinner is a plate, not a dish") is next. M4.3–M4.6 (waste-fit scoring,
-recipe notes, component re-roll, week rearrange) are specced in `MILESTONE-4.md`
-but not started.
+**Where M4 stands:** M4.0 (bug fixes + browse list), M4.1 (household composition →
+adult-equivalent servings, revised), and M4.2 (composed dinners: main + sides, "a
+dinner is a plate, not a dish," both parts) are shipped and merged to
+`claude/weekly-meals-app-eyowlr` (deployed to production). **M4.3 (waste-fit
+scoring — "use the whole cabbage") is next.** M4.4–M4.6 (recipe notes, component
+re-roll, week rearrange) are specced in `MILESTONE-4.md` but not started. Note
+M4.5 explicitly depends on M4.2's composition model, which is now in place.
 
-**The next gate is the M4 milestone audit** — same protocol as every prior gate:
-clone, run the checks, read the code, read `git log` for unspecced commits, verify
-Part 5's open items against the repo before signing off.
+**The next gate is the M4.2 close-out audit** (or the full M4 milestone audit, if
+Ronnie prefers to batch it with M4.3) — same protocol as every prior gate: clone,
+run the checks, read the code — especially `src/engine/mealComposition.ts`,
+`scoreSide`, the `isMain()` split, and the sync/removal/pin/cook-mode changes
+listed in decision 23 — read `git log` for unspecced commits, verify Part 5's open
+items against the repo before signing off.
 
 The parked list (leftovers-aware planning, thaw reminders, quantity-aware re-roll,
 H-E-B Curbside export, household-synced user recipes, calendar integration) remains

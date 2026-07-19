@@ -46,14 +46,19 @@ sub-branch (e.g. `claude/m4-1-...`) not yet merged to the working branch; check 
 
 ## Where we are (dated snapshot — VERIFY against the repo, do not quote as fact)
 
-- **As of the last advisor session:** v3.0 shipped; **Milestone 4 in progress.** M4.1
-  (household portions → adult-equivalent servings) shipped on a task branch. Two live
-  **sync** items are open — (1) household composition does not sync (by design; profile is
-  per-device) pending a product decision, and (2) a newly-approved plan sometimes not
-  appearing on the second phone (under investigation). **Supabase RLS remains an accepted
-  risk** with an imminent reopen trigger (syncing household composition would put children's
-  ages on an unsecured database). M4.2 (sides / composition) is next once the plan-sync
-  bug is diagnosed.
+- **As of the last advisor session:** v3.0 shipped; **Milestone 4 in progress.**
+  M4.0, M4.1 (household portions → adult-equivalent servings, revised to plain
+  editable age), and **M4.2 (sides / composition — "a dinner is a plate, not a
+  dish," both parts) are shipped and merged to `claude/weekly-meals-app-eyowlr`
+  (deployed).** **M4.3 (waste-fit scoring) is next.** Household composition
+  (`Profile.members`) still does not sync — that remains local-only by design,
+  not an open bug. The earlier "plan sometimes doesn't appear on the second
+  phone" issue was resolved after the M4.1 updates; treat any recurrence as a
+  fresh merge-race investigation, not a known issue. **Supabase RLS is a
+  permanent, informed accepted risk (Ronnie's call, July 2026) — not a
+  reopen-pending item; do not re-flag it without new evidence.** See
+  `ADVISOR-HANDOFF.md` Part 5 for the exact current wording of all of this —
+  it is the source of truth, this bullet is only a pointer to it.
 - **This bullet rots the fastest.** The moment you clone and read `ADVISOR-HANDOFF.md`
   Part 5 + `git log`, believe *those* over this paragraph.
 
