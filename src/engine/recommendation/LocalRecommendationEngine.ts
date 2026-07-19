@@ -89,8 +89,17 @@ export class LocalRecommendationEngine implements RecommendationProvider {
       locked: lockedIds.has(r.id),
       // M4.3: the whole week's mains are the waste-fit comparison pool for
       // each plate's sides — a side that mops up a half-unit any other main
-      // this week already forces buying scores a small bonus.
-      sideRecipeIds: composeSides(r, sidesPool, { ...ctx, weekRecipes: selected }),
+      // this week already forces buying scores a small bonus. `selected`
+      // already contains `r` itself at this point (it was pushed above, and
+      // this `.map` runs over that same array) — exclude it here so
+      // `scoreSide`'s own `[main, ...weekRecipes]` prepend (mealComposition
+      // -> scoring.ts scoreSide) doesn't count `r`'s ingredients twice
+      // (F7: a lone 0.5-unit ingredient would otherwise self-sum to 1.0,
+      // reading as "no leftover" and zeroing the exact bonus this is for).
+      sideRecipeIds: composeSides(r, sidesPool, {
+        ...ctx,
+        weekRecipes: selected.filter((s) => s.id !== r.id),
+      }),
     }));
   }
 }

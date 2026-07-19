@@ -1,5 +1,7 @@
 import { Department, PlannedMeal, Recipe, RecipeIngredient, ShoppingItem, Unit } from '@/domain/models';
 
+import { canonicalIngredientName } from './ingredientKey';
+
 /**
  * M4.3: waste-aware planning. Pure, deterministic — no React, no I/O, no
  * store imports (CLAUDE.md layering rule). This module never mutates the
@@ -56,17 +58,21 @@ export function isWholeUnitPerishable(ing: RecipeIngredient): boolean {
   return false;
 }
 
+/** Keyed by the same canonical-name fold the shopping list uses (M4.7) —
+ * plain lowercasing would treat "carrot" and "carrots" as different
+ * ingredients and miss the match this bonus exists to find. */
 function keyFor(name: string, unit: Unit): string {
-  return `${name.trim().toLowerCase()}|${unit}`;
+  return `${canonicalIngredientName(name)}|${unit}`;
 }
 
 /**
  * Scoring bonus (0..1): does `candidate` reuse a whole-unit perishable that
  * `weekRecipes` has already forced the household to buy, in a way that
- * leaves a partial unit unconsumed? Keyed by lowercased ingredient name +
- * unit so "cabbage|piece" in one recipe matches "cabbage|piece" in another
- * (a different unit, e.g. "cabbage|lb", is a different purchase and doesn't
- * match).
+ * leaves a partial unit unconsumed? Keyed by `canonicalIngredientName` (the
+ * same M4.7 identity fold the shopping list uses) + unit so "cabbage|piece"
+ * in one recipe matches "cabbage|piece" in another, and "carrot"/"carrots"
+ * match each other too (a different unit, e.g. "cabbage|lb", is a different
+ * purchase and doesn't match).
  *
  * For each of the candidate's whole-unit-perishable ingredients: sum every
  * whole-unit-perishable use of that same key across `weekRecipes`. That's a
@@ -102,7 +108,11 @@ export function wasteFitBonus(candidate: Recipe, weekRecipes: Recipe[]): number 
   for (const ing of candidateItems) {
     const sum = weekSums.get(keyFor(ing.name, ing.unit));
     if (sum === undefined) continue;
-    const leavesPartialUnit = isByWeightUnit(ing.unit) ? true : !Number.isInteger(sum);
+    // Epsilon compare instead of `Number.isInteger` — summed float
+    // quantities (0.3 + 0.7) can land a hair off a whole number and
+    // wrongly read as "leaves a partial unit".
+    const isWholeUnit = Math.abs(sum - Math.round(sum)) < 1e-9;
+    const leavesPartialUnit = isByWeightUnit(ing.unit) ? true : !isWholeUnit;
     if (leavesPartialUnit) matches += 1;
   }
 

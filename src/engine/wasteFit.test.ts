@@ -1,5 +1,6 @@
 import { RecipeIngredient } from '@/domain/models';
 
+import { LocalRecommendationEngine } from './recommendation/LocalRecommendationEngine';
 import { WEIGHTS } from './recommendation/types';
 import { scoreRecipe } from './recommendation/scoring';
 import { GenerateContext } from './recommendation/types';
@@ -110,6 +111,71 @@ describe('wasteFitBonus', () => {
       ingredients: [{ name: 'rice', quantity: 1, unit: 'cup', department: 'DryGoods' }],
     });
     expect(wasteFitBonus(candidate, [weekRecipe])).toBe(0);
+  });
+
+  it('matches "carrot" against "carrots" via the same canonical-name fold the shopping list uses (F7)', () => {
+    const carrotsHalf = ing({ name: 'carrots', unit: 'bunch', department: 'Produce', quantity: 0.5 });
+    const carrotWhole = ing({ name: 'carrot', unit: 'bunch', department: 'Produce', quantity: 1 });
+    const weekRecipe = makeRecipe({ id: 'main-1', ingredients: [carrotsHalf] });
+    const candidate = makeRecipe({ id: 'side-1', ingredients: [carrotWhole] });
+    expect(wasteFitBonus(candidate, [weekRecipe])).toBe(0.5);
+  });
+
+  it('epsilon-tolerates float summation noise instead of reading it as a leftover partial unit (F7)', () => {
+    // Ten recipes each buying 0.1 piece of cabbage sum in floating point to
+    // 0.9999999999999999, not exactly 1 — `Number.isInteger` would call that
+    // "not a whole number" and wrongly award the bonus even though nothing
+    // is actually left over.
+    const tenthsRecipes = Array.from({ length: 10 }, (_, i) =>
+      makeRecipe({ id: `main-${i}`, ingredients: [ing({ name: 'cabbage', unit: 'piece', quantity: 0.1 })] }),
+    );
+    const sum = tenthsRecipes.reduce((s, r) => s + r.ingredients[0].quantity, 0);
+    expect(Number.isInteger(sum)).toBe(false); // sanity check: the float noise is real
+    const candidate = makeRecipe({ id: 'side-1', ingredients: [cabbageWhole] });
+    expect(wasteFitBonus(candidate, tenthsRecipes)).toBe(0);
+  });
+});
+
+describe('generate() threading (F7 regression)', () => {
+  function ctxFor(overrides: Partial<GenerateContext> = {}): GenerateContext {
+    const profile = overrides.profile ?? makeProfile();
+    const intake = overrides.intake ?? makeIntake(profile, { dinners: 1 });
+    return { profile, intake, pantry: [], season: 'summer', ...overrides };
+  }
+
+  it('a side reusing the plate\'s own half-unit cabbage gets a positive waste-fit bonus, not a self-double-counted zero', () => {
+    const engine = new LocalRecommendationEngine();
+    const main = makeRecipe({
+      id: 'main-1',
+      provides: ['protein'],
+      ingredients: [{ name: 'cabbage', quantity: 0.5, unit: 'piece', department: 'Produce' }],
+    });
+    // Tied on everything scoreSide cares about except which one reuses the
+    // main's half-cabbage — before the fix, `generate()` threaded
+    // `weekRecipes: selected` (which still includes `main` itself at this
+    // point), so `scoreSide`'s own `[main, ...weekRecipes]` prepend summed
+    // the half-cabbage against itself (0.5+0.5=1.0, reads as "no leftover"),
+    // and the bonus that should distinguish these two never fired — leaving
+    // `composeSides`'s tie-break to fall back on array order and pick
+    // `otherSide` (index 0) regardless of the cabbage match.
+    const otherSide = makeRecipe({
+      id: 'other-side',
+      role: 'side',
+      provides: ['vegetable'],
+      ingredients: [{ name: 'lettuce', quantity: 1, unit: 'piece', department: 'Produce' }],
+    });
+    const cabbageSide = makeRecipe({
+      id: 'cabbage-side',
+      role: 'side',
+      provides: ['vegetable'],
+      ingredients: [{ name: 'cabbage', quantity: 1, unit: 'piece', department: 'Produce' }],
+    });
+
+    const ctx = ctxFor();
+    const meals = engine.generate(ctx, [main, otherSide, cabbageSide]);
+
+    expect(meals).toHaveLength(1);
+    expect(meals[0].sideRecipeIds).toEqual(['cabbage-side']);
   });
 });
 
