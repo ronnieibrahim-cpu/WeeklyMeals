@@ -2,12 +2,22 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
+import { eligibleMoveTargets } from '@/engine/rearrange';
 import { dateForDayIndex } from '@/engine/schedule';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
-import { Card, EmptyState, MealCard, Screen, ServingsShoppingListPrompt, Text } from '@/ui/components';
+import {
+  Card,
+  EmptyState,
+  MealCard,
+  MoveMealSheet,
+  Screen,
+  ServingsShoppingListPrompt,
+  SwipeableMealRow,
+  Text,
+} from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function ScheduleScreen() {
@@ -27,6 +37,9 @@ export default function ScheduleScreen() {
   const notesMap = useRecipeNotesStore((s) => s.notesMap);
   // M4.1: see app/(tabs)/index.tsx for why this is local-only, not persisted.
   const [pendingServings, setPendingServings] = useState<{ dayIndex: number; oldServings: number } | null>(null);
+  // M4.6 part 2: which day's meal (if any) is being moved — drives the
+  // "Move to…" bottom sheet. Local-only, same reasoning as above.
+  const [moveFromDay, setMoveFromDay] = useState<number | null>(null);
 
   if (!hydrated) {
     return (
@@ -65,10 +78,15 @@ export default function ScheduleScreen() {
   const cooked = meals.filter((m) => m.cooked).length;
 
   return (
+    <>
     <Screen title="Schedule" subtitle={`${fmt(rangeStart)} – ${fmt(rangeEnd)} · ${cooked}/${meals.length} cooked`}>
       {meals.map((meal) => {
         const recipe = recipeFor(meal);
         if (!recipe) return null;
+        // M4.6 part 2: only offer "Move to…" when this meal isn't cooked
+        // AND there's at least one not-yet-cooked other day to move it onto
+        // — never an action that opens an empty picker (Law #3).
+        const canMove = eligibleMoveTargets(plan, meal.dayIndex).length > 0;
         return (
           <View key={meal.dayIndex} style={{ marginBottom: theme.spacing.sm }}>
             <Text
@@ -78,24 +96,26 @@ export default function ScheduleScreen() {
             >
               {dateLabel(meal.dayIndex).toUpperCase()}
             </Text>
-            <MealCard
-              recipe={recipe}
-              badge={recipe.makesLeftovers ? 'makes leftovers' : undefined}
-              cooked={meal.cooked}
-              rating={meal.rating}
-              onRate={(rating) => rateMeal(meal.dayIndex, rating)}
-              onToggleCooked={() => toggleCooked(meal.dayIndex)}
-              onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-              kidApproved={!!kidApprovedMap[recipe.id]?.flag}
-              onToggleKidApproved={() => toggleKidApproved(recipe.id)}
-              servings={meal.servings}
-              onServingsChange={(servings) => {
-                setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
-                setApprovedMealServings(meal.dayIndex, servings);
-              }}
-              sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
-              hasNote={!!notesMap[recipe.id]?.text}
-            />
+            <SwipeableMealRow enabled={canMove} onMoveTo={() => setMoveFromDay(meal.dayIndex)}>
+              <MealCard
+                recipe={recipe}
+                badge={recipe.makesLeftovers ? 'makes leftovers' : undefined}
+                cooked={meal.cooked}
+                rating={meal.rating}
+                onRate={(rating) => rateMeal(meal.dayIndex, rating)}
+                onToggleCooked={() => toggleCooked(meal.dayIndex)}
+                onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+                kidApproved={!!kidApprovedMap[recipe.id]?.flag}
+                onToggleKidApproved={() => toggleKidApproved(recipe.id)}
+                servings={meal.servings}
+                onServingsChange={(servings) => {
+                  setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
+                  setApprovedMealServings(meal.dayIndex, servings);
+                }}
+                sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
+                hasNote={!!notesMap[recipe.id]?.text}
+              />
+            </SwipeableMealRow>
             {pendingServings?.dayIndex === meal.dayIndex ? (
               <ServingsShoppingListPrompt
                 dayIndex={meal.dayIndex}
@@ -116,5 +136,9 @@ export default function ScheduleScreen() {
         </Card>
       ) : null}
     </Screen>
+    {moveFromDay !== null ? (
+      <MoveMealSheet plan={plan} fromDay={moveFromDay} onClose={() => setMoveFromDay(null)} />
+    ) : null}
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import { IntakeAnswers, PlannedMeal, WeeklyPlan } from '@/domain/models';
-import { moveMeal } from './rearrange';
+import { eligibleMoveTargets, moveMeal } from './rearrange';
 import { mergePlanMeals } from './syncMerge';
 
 const INTAKE = {} as IntakeAnswers;
@@ -148,5 +148,39 @@ describe('moveMeal', () => {
 
     const mergedAgain = mergePlanMeals(merged, swapped);
     expect(mergedAgain).toEqual(merged);
+  });
+});
+
+describe('eligibleMoveTargets', () => {
+  it('lists every other not-yet-cooked day, excluding fromDay itself', () => {
+    const p = plan([meal(0), meal(2), meal(4), meal(6)]);
+    expect(eligibleMoveTargets(p, 2).map((m) => m.dayIndex)).toEqual([0, 4, 6]);
+  });
+
+  it('excludes already-cooked days from the target list', () => {
+    const p = plan([meal(0, { cooked: true }), meal(2), meal(4, { cooked: true }), meal(6)]);
+    expect(eligibleMoveTargets(p, 2).map((m) => m.dayIndex)).toEqual([6]);
+  });
+
+  it('returns [] when fromDay itself is already cooked ("a cooked day is history")', () => {
+    const p = plan([meal(2, { cooked: true }), meal(4)]);
+    expect(eligibleMoveTargets(p, 2)).toEqual([]);
+  });
+
+  it('returns [] when fromDay has no meal on the plan', () => {
+    const p = plan([meal(4)]);
+    expect(eligibleMoveTargets(p, 2)).toEqual([]);
+  });
+
+  it('returns [] when every other day is already cooked (no swipe action should be offered)', () => {
+    const p = plan([meal(2), meal(4, { cooked: true }), meal(6, { cooked: true })]);
+    expect(eligibleMoveTargets(p, 2)).toEqual([]);
+  });
+
+  it('every day it returns is a legal moveMeal target — the UI never offers what the store would reject', () => {
+    const p = plan([meal(0, { cooked: true }), meal(2), meal(4), meal(6, { cooked: true })]);
+    for (const target of eligibleMoveTargets(p, 2)) {
+      expect(moveMeal(p, 2, target.dayIndex, t0)).not.toBeNull();
+    }
   });
 });

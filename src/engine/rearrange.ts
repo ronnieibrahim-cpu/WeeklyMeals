@@ -75,3 +75,20 @@ export function moveMeal(
 
   return { ...plan, meals };
 }
+
+/**
+ * M4.6 part 2: which of `plan`'s meals `fromDay` could be moved/swapped onto
+ * — every OTHER not-yet-cooked day, provided `fromDay` itself isn't cooked
+ * either. This mirrors `moveMeal`'s own guards exactly (same-day excluded,
+ * either side cooked excluded) so the UI has a single place to ask "is there
+ * anywhere to move this to" and never offers a day `moveMeal` would reject.
+ * Returns `[]` (not a throw) for a missing or already-cooked `fromDay`, same
+ * "no eligible target" signal a screen uses to hide the swipe action
+ * entirely (Product Law #3: never offer an action that opens an empty
+ * picker).
+ */
+export function eligibleMoveTargets(plan: WeeklyPlan, fromDay: number): PlannedMeal[] {
+  const fromMeal = plan.meals.find((m) => m.dayIndex === fromDay);
+  if (!fromMeal || fromMeal.cooked) return [];
+  return plan.meals.filter((m) => m.dayIndex !== fromDay && !m.cooked);
+}

@@ -388,7 +388,26 @@ with the shopping list byte-for-byte unchanged.
 
 ---
 
-## [ ] M4.6 — Rearrange the week after it's approved
+## [x] M4.6 — Rearrange the week after it's approved
+**Done:** part 2 (UI) lands on top of part 1's engine/store. `SwipeableMealRow`
+(`src/ui/components/SwipeableMealRow.tsx`) wraps a meal card in the same
+`react-native-gesture-handler` `Swipeable` shopping.tsx's manual-item
+swipe-to-delete already uses (same `overshootRight={false}`, same
+close-then-fire sequencing) — the app's one proven cross-platform (touch +
+web mouse-drag) swipe gesture, reused rather than reinvented; renders no
+gesture wrapper at all when disabled. `MoveMealSheet`
+(`src/ui/components/MoveMealSheet.tsx`) is the day picker, structured exactly
+like `plan/review.tsx`'s "Swap in…" bottom sheet; each row's date comes from
+`dateForDayIndex` formatted the same way `schedule.tsx` formats its own day
+labels, plus "Swap with: {dish name}". New engine helper
+`eligibleMoveTargets(plan, fromDay)` in `src/engine/rearrange.ts` mirrors
+`moveMeal`'s own guards (same-day excluded, either side cooked excluded) so
+both the swipe action's visibility and the sheet's row list can never offer a
+day the store would reject — tested directly against `moveMeal` itself.
+Wired on This Week and Schedule (`app/(tabs)/index.tsx`,
+`app/(tabs)/schedule.tsx`); the draft review screen is untouched (nothing to
+move before approval). Drag-and-drop is explicitly deferred per the Product
+Owner's decision recorded above — not attempted this pass.
 
 **Part 1 landed (engine + store only, no UI yet):** `src/engine/rearrange.ts`'s
 `moveMeal(plan, fromDay, toDay, nowISO)` swaps two not-yet-cooked days' entire meal

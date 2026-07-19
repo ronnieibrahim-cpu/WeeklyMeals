@@ -4,13 +4,24 @@ import { useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import { PlannedMeal } from '@/domain/models';
+import { eligibleMoveTargets } from '@/engine/rearrange';
 import { allMealsRated } from '@/engine/rating';
 import { dayLabel, todayOffset } from '@/engine/schedule';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
-import { Card, EmptyState, MealCard, Screen, SecondaryButton, ServingsShoppingListPrompt, Text } from '@/ui/components';
+import {
+  Card,
+  EmptyState,
+  MealCard,
+  MoveMealSheet,
+  Screen,
+  SecondaryButton,
+  ServingsShoppingListPrompt,
+  SwipeableMealRow,
+  Text,
+} from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function ThisWeekScreen() {
@@ -38,6 +49,10 @@ export default function ThisWeekScreen() {
   // away drops the offer rather than nagging later (see planStore's doc
   // comment on why "old servings" isn't a synced field).
   const [pendingServings, setPendingServings] = useState<{ dayIndex: number; oldServings: number } | null>(null);
+  // M4.6 part 2: which day's meal (if any) is being moved — drives the
+  // "Move to…" bottom sheet. Local-only, same reasoning as pendingServings
+  // above: navigating away just drops it, nothing to persist.
+  const [moveFromDay, setMoveFromDay] = useState<number | null>(null);
 
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
@@ -142,32 +157,38 @@ export default function ThisWeekScreen() {
     const recipe = recipeFor(meal);
     if (!recipe) return null;
     const canReroll = meal.dayIndex >= todayIndex && !meal.cooked;
+    // M4.6 part 2: only offer "Move to…" when this meal isn't cooked AND
+    // there's at least one not-yet-cooked other day to move it onto — never
+    // an action that opens an empty picker (Law #3).
+    const canMove = eligibleMoveTargets(plan, meal.dayIndex).length > 0;
     return (
       <View key={meal.dayIndex}>
-        <MealCard
-          recipe={recipe}
-          dayLabel={label}
-          badge={recipe.makesLeftovers ? 'leftovers' : undefined}
-          cooked={meal.cooked}
-          rating={meal.rating}
-          onRate={(rating) => rateMeal(meal.dayIndex, rating)}
-          onReroll={
-            canReroll
-              ? () => router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(meal.dayIndex) } })
-              : undefined
-          }
-          onToggleCooked={() => toggleCooked(meal.dayIndex)}
-          onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-          kidApproved={!!kidApprovedMap[recipe.id]?.flag}
-          onToggleKidApproved={() => toggleKidApproved(recipe.id)}
-          servings={meal.servings}
-          onServingsChange={(servings) => {
-            setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
-            setApprovedMealServings(meal.dayIndex, servings);
-          }}
-          sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
-          hasNote={!!notesMap[recipe.id]?.text}
-        />
+        <SwipeableMealRow enabled={canMove} onMoveTo={() => setMoveFromDay(meal.dayIndex)}>
+          <MealCard
+            recipe={recipe}
+            dayLabel={label}
+            badge={recipe.makesLeftovers ? 'leftovers' : undefined}
+            cooked={meal.cooked}
+            rating={meal.rating}
+            onRate={(rating) => rateMeal(meal.dayIndex, rating)}
+            onReroll={
+              canReroll
+                ? () => router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(meal.dayIndex) } })
+                : undefined
+            }
+            onToggleCooked={() => toggleCooked(meal.dayIndex)}
+            onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+            kidApproved={!!kidApprovedMap[recipe.id]?.flag}
+            onToggleKidApproved={() => toggleKidApproved(recipe.id)}
+            servings={meal.servings}
+            onServingsChange={(servings) => {
+              setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
+              setApprovedMealServings(meal.dayIndex, servings);
+            }}
+            sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
+            hasNote={!!notesMap[recipe.id]?.text}
+          />
+        </SwipeableMealRow>
         {pendingServings?.dayIndex === meal.dayIndex ? (
           <ServingsShoppingListPrompt
             dayIndex={meal.dayIndex}
@@ -181,6 +202,7 @@ export default function ThisWeekScreen() {
   };
 
   return (
+    <>
     <Screen
       title="This Week"
       subtitle={`${meals.length} dinners · $${totalCost.toFixed(0)} · ${cookedCount}/${meals.length} cooked`}
@@ -233,5 +255,9 @@ export default function ThisWeekScreen() {
         style={{ marginTop: theme.spacing.lg }}
       />
     </Screen>
+    {moveFromDay !== null ? (
+      <MoveMealSheet plan={plan} fromDay={moveFromDay} onClose={() => setMoveFromDay(null)} />
+    ) : null}
+    </>
   );
 }

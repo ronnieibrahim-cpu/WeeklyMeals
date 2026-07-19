@@ -243,11 +243,21 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    `RecipeResultCard` wherever those are shown (This Week, Schedule, Recipes browse,
    plan review). Belongs to the recipe, not the plan, so it survives re-rolls, plan
    changes, and week rollovers untouched.
-   **Rearranging the week (M4.6 part 1, engine + store only, UI pending):** an
-   approved week's not-yet-cooked days can be swapped via `usePlanStore.moveMeal(fromDay,
-   toDay)` — the ENTIRE meal body (recipe, sides, servings, rating, cooked flag,
-   locked) travels with the dish to its new day, never the shopping list (same food,
-   different night). A cooked day can never be moved into or out of.
+   **Rearranging the week (M4.6, fully shipped):** an approved week's not-yet-cooked
+   days can be swapped via `usePlanStore.moveMeal(fromDay, toDay)` — the ENTIRE meal
+   body (recipe, sides, servings, rating, cooked flag, locked) travels with the dish
+   to its new day, never the shopping list (same food, different night). A cooked
+   day can never be moved into or out of. UI: swiping a not-yet-cooked meal card on
+   This Week or Schedule (`SwipeableMealRow`, mirroring the shopping tab's
+   swipe-to-delete gesture on manual items) reveals a "Move to…" action that opens a
+   bottom sheet (`MoveMealSheet`, structured like the plan-review "Swap in…" sheet)
+   listing every other not-yet-cooked day with its real date and what's currently on
+   it ("Swap with: {dish}") — choosing a row is the confirmation. `eligibleMoveTargets`
+   (`src/engine/rearrange.ts`) computes that list using the exact same guards
+   `moveMeal` enforces, so the UI never offers a day the store would reject, and the
+   swipe action itself doesn't render at all when no eligible day exists. Drag-and-drop
+   was considered and explicitly deferred (Product Owner's call, `MILESTONE-4.md`
+   §M4.6) — swipe "Move to…" is the only rearrange gesture that shipped.
 4. **Learning:** ratings are the source of truth and the `PreferenceProfile` is
    **recomputed from the full rating history** on every change (structurally
    immune to double-counting). Cuisine/protein/technique/vegetable affinities and
@@ -423,8 +433,12 @@ Product Owner's friction journal, is the active milestone:
   `rerollSidesOnly`/`commitComponentReroll` store actions (both commit paths re-apply
   the allergy guard, Law #5), Keep lock toggles on the re-roll screen, and sync
   assertions for the sides-vs-rating and sides-vs-full-re-roll races.
-- **M4.6** — rearrange the week after approval (swipe "Move to…" + hold-to-drag).
-  Not started.
+- **M4.6** — rearrange the week after approval. ✅ Shipped: engine
+  (`moveMeal`/`eligibleMoveTargets` in `src/engine/rearrange.ts`) + store
+  (`usePlanStore.moveMeal`, approved-only, cook-mode progress swap) + swipe
+  "Move to…" UI (`SwipeableMealRow`, `MoveMealSheet`) on This Week and
+  Schedule. Hold-to-drag was considered and deferred by the Product Owner —
+  not built.
 
 - **Deferred polish:** photo accuracy QA (`M3.6` — verify every matched photo actually
   depicts its dish; a wrong photo is worse than none).

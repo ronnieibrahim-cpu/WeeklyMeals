@@ -20,3 +20,5 @@ export { RecipeResultCard } from './RecipeResultCard';
 export { RecipeForm } from './RecipeForm';
 export { ServingsShoppingListPrompt } from './ServingsShoppingListPrompt';
 export { RemoveSideShoppingListPrompt } from './RemoveSideShoppingListPrompt';
+export { SwipeableMealRow } from './SwipeableMealRow';
+export { MoveMealSheet } from './MoveMealSheet';
