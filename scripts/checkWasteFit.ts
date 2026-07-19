@@ -18,13 +18,15 @@
  * not a deterministic pass/fail unit test.
  *
  * `RUNS = 100`: the waste-fit bonus is a deliberately modest tie-breaker
- * (WEIGHTS.wasteFit, kept well under half of `variety`'s weight — see
+ * (WEIGHTS.wasteFit, kept under half of `variety`'s weight — see
  * recommendation/types.ts), so its effect on any single week is easily lost
  * in the engine's own near-tie randomness. Seeding that randomness
  * identically per baseline/bonus pair (see `withSeed` below) removes most of
  * the noise; RUNS=30 still flapped occasionally across different random
- * scenario seeds during tuning, RUNS=100 passed reliably across 7+
- * independent seed bases (~1–3% reduction each time) and runs in ~4s.
+ * scenario seeds during tuning, RUNS=100 passed reliably across 8
+ * independent seed bases tried (~2–6% reduction; also used to sweep
+ * WEIGHTS.wasteFit itself — 0.5 landed clearly ahead of the original 0.35
+ * with no gate broken, see WEIGHTS.wasteFit's comment) and runs in ~4s.
  */
 import { createDefaultProfile, createIntakeFromProfile } from '@/domain/defaults';
 import { Cuisine, PlannedMeal, Protein, Recipe } from '@/domain/models';

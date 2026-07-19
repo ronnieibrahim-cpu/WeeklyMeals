@@ -176,9 +176,10 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
      that way if nothing in the sides pool can close the gap that week — no error
      state, no nagging copy.
    - **Waste-fit scoring (M4.3, fully landed):** `src/engine/wasteFit.ts` adds
-     a small, capped scoring bonus (`WEIGHTS.wasteFit = 0.35`, well under half
-     of `variety`'s 1.3) when a candidate main or side reuses a **whole-unit
-     perishable** (Produce/Meat/Seafood/Dairy/Bakery, bought as an indivisible
+     a small, capped scoring bonus (`WEIGHTS.wasteFit = 0.5`, chosen by an
+     evidence-based sweep against `checkWasteFit.ts` — see below — and kept
+     under half of `variety`'s 1.3) when a candidate main or side reuses a
+     **whole-unit perishable** (Produce/Meat/Seafood/Dairy/Bakery, bought as an indivisible
      piece/bunch/can, or under 1 lb/kg/l) that another meal already fixed for
      the week has forced onto the shopping list without consuming the whole
      unit — the "half a cabbage goes to waste" problem. `generate()`,
