@@ -38,3 +38,6 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Claude Code session machinery (agent worktrees live here; never commit)
+.claude/
