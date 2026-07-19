@@ -294,6 +294,20 @@ and the shopping list shows which items are shared.
 
 ## [ ] M4.4 — Notes on a recipe (what we liked, how we adapted it)
 
+**Part 1 landed (data + sync layer only, no UI yet):** `RecipeNote`/`RecipeNotesMap`
+domain model (`src/domain/models/recipeNotes.ts`); `mergeRecipeNotes` wired into
+`mergeSyncPayload` unconditionally (recipe-scoped, not plan-scoped), newer
+`updatedAtISO` wins per recipeId, tie falls back to the standard deterministic
+`chooseBase` — an empty `text` is a deliberate "cleared" tombstone, not a separate
+deleted flag; `RecipeNotesRepository`/`LocalRecipeNotesRepository`
+(`wm:recipeNotes:v1`) and `recipeNotesStore` (`init`/`setNote`/`hydrateFromSync`)
+following the manualItems/learning store idiom exactly; `syncStore` pulls, pushes,
+and debounce-subscribes to it like every other synced slice. Merge assertions (both
+orders, idempotence, tie determinism, the same-poll-window race, the cleared-note
+race, survival across a differing-plan merge) in `syncMerge.test.ts`; one store-level
+ordering test in `syncStore.test.ts`. Still needed: the actual note editor on the
+meal/recipe detail screen and the card glyph — that's the next task.
+
 **User problem:** *"we added a vegetable / we halved the chili / the kids hated the
 sauce" — that knowledge currently lives nowhere.*
 

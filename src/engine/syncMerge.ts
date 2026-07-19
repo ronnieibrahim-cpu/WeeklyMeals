@@ -5,6 +5,8 @@ import {
   ManualItemMap,
   PlannedMeal,
   PlanStatus,
+  RecipeNote,
+  RecipeNotesMap,
   ShoppingItem,
   ShoppingList,
   TimestampedFlag,
@@ -32,6 +34,7 @@ export interface SyncMergePayload {
   favorites: FavoritesMap;
   kidApproved: KidApprovedMap;
   manualItems: ManualItemMap;
+  recipeNotes: RecipeNotesMap;
 }
 
 /** Canonical JSON: object keys sorted recursively, `undefined` values
@@ -229,6 +232,39 @@ export function mergeManualItems(a: ManualItemMap, b: ManualItemMap): ManualItem
   return out;
 }
 
+/**
+ * Merge two recipeId -> RecipeNote maps (M4.4). Union of keys, newer
+ * `updatedAtISO` wins per recipe — structurally the same shape as
+ * `mergeTimestampedFlagMap`, but a note is free text, not a boolean, so a
+ * tie (including both sides unparseable) falls back to the same
+ * deterministic, commutative `chooseBase(stableStringify)` tie-break used
+ * everywhere else instead of "true wins" (there's no natural "more true"
+ * reading for two different strings). Not plan-scoped — a note belongs to
+ * the recipe, not any particular week's plan — so `mergeSyncPayload` merges
+ * this unconditionally, the same way it does favorites/kidApproved/
+ * manualItems, regardless of which plan branch fires below. An empty `text`
+ * is a deliberate "cleared" tombstone (see `RecipeNote`'s doc comment in
+ * `src/domain/models/recipeNotes.ts`), not special-cased here: it merges
+ * exactly like any other text value, which is what lets a clear on one
+ * phone beat a stale non-empty note on the other whenever it's newer.
+ */
+export function mergeRecipeNotes(a: RecipeNotesMap, b: RecipeNotesMap): RecipeNotesMap {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  const out: RecipeNotesMap = {};
+  for (const key of keys) {
+    const av = a[key];
+    const bv = b[key];
+    if (av && bv) {
+      const aTs = tsOf(av.updatedAtISO);
+      const bTs = tsOf(bv.updatedAtISO);
+      out[key] = aTs !== bTs ? (aTs > bTs ? av : bv) : chooseBase<RecipeNote>(av, bv, stableStringify);
+    } else {
+      out[key] = av ?? bv;
+    }
+  }
+  return out;
+}
+
 const STATUS_RANK: Record<PlanStatus, number> = { draft: 0, approved: 1, completed: 2 };
 
 /** Status only ever advances (draft -> approved -> completed); merging
@@ -383,27 +419,29 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
 
 /**
  * Top-level merge for a full sync payload. `favorites`/`kidApproved`/
- * `manualItems` are independent of the plan (not plan-scoped, M3.1/M3.2/
- * M3.3), so they're merged unconditionally regardless of which plan branch
- * below fires. For plan/shoppingList: if the two sides are looking at
- * different plans (different id), the newer plan (by createdAtISO) wins
- * outright — a freshly generated week is never silently deleted, but it
- * also never resurrects a plan that's genuinely been superseded. If both
- * sides share a plan id, per-item/per-meal merging takes over.
+ * `manualItems`/`recipeNotes` are independent of the plan (not plan-scoped,
+ * M3.1/M3.2/M3.3/M4.4), so they're merged unconditionally regardless of
+ * which plan branch below fires. For plan/shoppingList: if the two sides are
+ * looking at different plans (different id), the newer plan (by
+ * createdAtISO) wins outright — a freshly generated week is never silently
+ * deleted, but it also never resurrects a plan that's genuinely been
+ * superseded. If both sides share a plan id, per-item/per-meal merging takes
+ * over.
  */
 export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePayload): SyncMergePayload {
   const favorites = mergeTimestampedFlagMap(local.favorites, remote.favorites);
   const kidApproved = mergeTimestampedFlagMap(local.kidApproved, remote.kidApproved);
   const manualItems = mergeManualItems(local.manualItems, remote.manualItems);
+  const recipeNotes = mergeRecipeNotes(local.recipeNotes, remote.recipeNotes);
 
-  if (!local.plan) return { ...remote, favorites, kidApproved, manualItems };
-  if (!remote.plan) return { ...local, favorites, kidApproved, manualItems };
+  if (!local.plan) return { ...remote, favorites, kidApproved, manualItems, recipeNotes };
+  if (!remote.plan) return { ...local, favorites, kidApproved, manualItems, recipeNotes };
 
   if (local.plan.id !== remote.plan.id) {
     const localTs = tsOf(local.plan.createdAtISO);
     const remoteTs = tsOf(remote.plan.createdAtISO);
-    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites, kidApproved, manualItems };
-    return { ...chooseBase(local, remote, stableStringify), favorites, kidApproved, manualItems };
+    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites, kidApproved, manualItems, recipeNotes };
+    return { ...chooseBase(local, remote, stableStringify), favorites, kidApproved, manualItems, recipeNotes };
   }
 
   const plan = mergePlanMeals(local.plan, remote.plan);
@@ -417,5 +455,5 @@ export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePaylo
     shoppingList = remote.shoppingList;
   }
 
-  return { plan, shoppingList, favorites, kidApproved, manualItems };
+  return { plan, shoppingList, favorites, kidApproved, manualItems, recipeNotes };
 }

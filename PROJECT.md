@@ -125,7 +125,8 @@ src/data/repositories/local   kvStore (AsyncStorage JSON) + one repo per aggrega
 src/data/sync/    config.ts (URL/key/kill-switch) · householdApi.ts (row by 6-char code)
 src/stores/       planStore · profileStore · pantryStore · learningStore ·
                   settingsStore · syncStore · manualItemsStore · cookModeStore ·
-                  userRecipesStore
+                  userRecipesStore · recipeNotesStore (M4.4 part 1: data + sync
+                  only, no screen reads it yet)
 scripts/          validateRecipes · importRecipes · importPhotos ·
                   checkCuratedWeighting · checkKidApprovedWeighting
 ```
@@ -223,13 +224,17 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    shopping list" / "Reduce shopping list" button; declining leaves the list untouched
    — a side can also be removed from the plate ("no sides tonight" is a real, explicit
    choice) with the same explicit-button pattern before the shopping list is touched.
+   **Recipe notes (M4.4, data + sync layer only — no screen reads or writes one yet):**
+   one free-text note per recipe (not per cooking), household-synced, display only —
+   never feeds scoring. Belongs to the recipe, not the plan, so it survives re-rolls,
+   plan changes, and week rollovers untouched.
 4. **Learning:** ratings are the source of truth and the `PreferenceProfile` is
    **recomputed from the full rating history** on every change (structurally
    immune to double-counting). Cuisine/protein/technique/vegetable affinities and
    the learned dials (spice, complexity, budget, leftovers) all feed scoring with
    capped weights; hard filters always win.
-5. **Sync (optional):** plan, shopping list, manual items, favorites, and
-   kid-approved flags sync between two phones (~20s poll, 600ms debounced push)
+5. **Sync (optional):** plan, shopping list, manual items, favorites, kid-approved
+   flags, and recipe notes sync between two phones (~20s poll, 600ms debounced push)
    with **per-item / per-meal deterministic merging** (see §6).
 
 ## 6. The sync merge contract (the most dangerous code in the app)
@@ -274,6 +279,12 @@ the identical result regardless of order, or they ping-pong forever.
   partner's state — exactly the reconcile `app/plan/review.tsx`'s approve flow depends
   on before `clearChecked()` runs (M4.7 — previously `syncNow()` pushed first and
   silently dropped the partner's still-unmerged check-offs).
+- **Recipe notes (M4.4)** merge per `recipeId`, newer `updatedAtISO` wins, same pattern
+  as favorites/kidApproved; not plan-scoped, so they merge unconditionally regardless
+  of which plan branch fires. A cleared note is saved as an empty-text record, not a
+  deleted key — emptiness is its own tombstone, so a clear beats a stale non-empty copy
+  whenever it's newer. Two people editing the same note in the same poll window: the
+  later save wins the whole text, no merge-of-text (accepted limitation).
 - Plan-level fields (intake, weekStartISO) remain whole-payload last-write-wins.
 - Every sync change ships with assertions for both merge orders, idempotence, and the
   specific race the feature introduces.

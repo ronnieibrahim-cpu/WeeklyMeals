@@ -14,7 +14,7 @@
  * merge logic (covered exhaustively in syncMerge.test.ts) is correct in
  * isolation either way; only the store wiring can regress this.
  */
-import { ManualItemMap } from '@/domain/models';
+import { ManualItemMap, RecipeNotesMap } from '@/domain/models';
 
 const mockGetHousehold = jest.fn();
 const mockUpsertHousehold = jest.fn();
@@ -40,6 +40,7 @@ jest.mock('@/data/repositories/local/kvStore', () => ({
 }));
 
 import { useManualItemsStore } from './manualItemsStore';
+import { useRecipeNotesStore } from './recipeNotesStore';
 import { useSyncStore } from './syncStore';
 
 const REMOTE_MANUAL_ITEMS: ManualItemMap = {
@@ -55,11 +56,16 @@ const REMOTE_MANUAL_ITEMS: ManualItemMap = {
   },
 };
 
+const REMOTE_RECIPE_NOTES: RecipeNotesMap = {
+  'recipe-a': { text: 'halved the chili', updatedAtISO: '2026-07-01T10:10:00.000Z' },
+};
+
 describe('syncStore.syncNow ordering (M4.7)', () => {
   beforeEach(() => {
     mockGetHousehold.mockReset();
     mockUpsertHousehold.mockReset();
     useManualItemsStore.setState({ itemsMap: {}, items: [], hydrated: true });
+    useRecipeNotesStore.setState({ notesMap: {}, hydrated: true });
     useSyncStore.setState({ code: 'ABCDEF', status: 'idle', lastSyncedAt: null, error: null, hydrated: true });
   });
 
@@ -95,5 +101,29 @@ describe('syncStore.syncNow ordering (M4.7)', () => {
     // The merge landed locally BEFORE syncNow's push phase ran, i.e. the
     // partner's checked=true was not lost to a premature "already caught up".
     expect(useManualItemsStore.getState().itemsMap.eggs?.checked).toBe(true);
+  });
+
+  it('(M4.4) a pulled remote row carrying a recipe note lands in recipeNotesStore before push', async () => {
+    mockGetHousehold.mockImplementation(async () => ({
+      code: 'ABCDEF',
+      updated_at: '2026-07-01T10:10:00.000Z',
+      data: {
+        plan: null,
+        shoppingList: null,
+        favorites: {},
+        kidApproved: {},
+        manualItems: {},
+        recipeNotes: REMOTE_RECIPE_NOTES,
+      },
+    }));
+    mockUpsertHousehold.mockImplementation(async (code: string, data: unknown) => ({
+      code,
+      data,
+      updated_at: new Date().toISOString(),
+    }));
+
+    await useSyncStore.getState().syncNow();
+
+    expect(useRecipeNotesStore.getState().notesMap['recipe-a']?.text).toBe('halved the chili');
   });
 });

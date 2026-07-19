@@ -4,8 +4,8 @@
  * should move here once a runner existed. Same fixtures and cases, translated
  * to jest's describe/it/expect.
  */
-import { FavoritesMap, IntakeAnswers, ManualItem, ManualItemMap, PlannedMeal, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
-import { mergeManualItems, mergePlanMeals, mergeShoppingLists, mergeSyncPayload, mergeTimestampedFlagMap, stableStringify } from './syncMerge';
+import { FavoritesMap, IntakeAnswers, ManualItem, ManualItemMap, PlannedMeal, RecipeNote, RecipeNotesMap, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { mergeManualItems, mergePlanMeals, mergeRecipeNotes, mergeShoppingLists, mergeSyncPayload, mergeTimestampedFlagMap, stableStringify } from './syncMerge';
 
 const INTAKE = {} as IntakeAnswers; // opaque payload the merge never inspects
 
@@ -72,6 +72,14 @@ function manualItem(over: Partial<ManualItem> & Pick<ManualItem, 'displayName'>)
 }
 
 function manualMap(entries: Record<string, ManualItem> = {}): ManualItemMap {
+  return entries;
+}
+
+function note(text: string, updatedAtISO: string): RecipeNote {
+  return { text, updatedAtISO };
+}
+
+function notesMap(entries: Record<string, RecipeNote> = {}): RecipeNotesMap {
   return entries;
 }
 
@@ -159,8 +167,8 @@ describe('mergeShoppingLists', () => {
 
 describe('mergeSyncPayload — cross-plan (differing id)', () => {
   it('(e) differing planId keeps the newer plan either direction', () => {
-    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap() };
-    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap() };
+    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap(), recipeNotes: notesMap() };
+    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap(), recipeNotes: notesMap() };
 
     // Newer plan is "local", older is "remote": local must NOT be clobbered.
     const keepLocal = mergeSyncPayload(newer, older);
@@ -399,6 +407,7 @@ describe('mergeSyncPayload — full payload', () => {
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
       kidApproved: favMap(),
       manualItems: manualMap(),
+      recipeNotes: notesMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0)]),
@@ -406,6 +415,7 @@ describe('mergeSyncPayload — full payload', () => {
       favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
       kidApproved: favMap(),
       manualItems: manualMap(),
+      recipeNotes: notesMap(),
     };
 
     const merged = mergeSyncPayload(a, b);
@@ -420,6 +430,7 @@ describe('mergeSyncPayload — full payload', () => {
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
       kidApproved: favMap({ 'recipe-x': { flag: true, atISO: t1 } }),
       manualItems: manualMap(),
+      recipeNotes: notesMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0), meal(1, { cooked: true, cookedAtISO: t2 })]),
@@ -430,6 +441,7 @@ describe('mergeSyncPayload — full payload', () => {
       favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
       kidApproved: favMap({ 'recipe-y': { flag: true, atISO: t2 } }),
       manualItems: manualMap(),
+      recipeNotes: notesMap(),
     };
 
     expect(stableStringify(mergeSyncPayload(a, b))).toBe(stableStringify(mergeSyncPayload(b, a)));
@@ -442,6 +454,7 @@ describe('mergeSyncPayload — full payload', () => {
       favorites: favMap({ 'recipe-a': { flag: true, atISO: t1 } }),
       kidApproved: favMap(),
       manualItems: manualMap(),
+      recipeNotes: notesMap(),
     };
     const noPlan = {
       plan: null,
@@ -449,6 +462,7 @@ describe('mergeSyncPayload — full payload', () => {
       favorites: favMap({ 'recipe-b': { flag: true, atISO: t2 } }),
       kidApproved: favMap(),
       manualItems: manualMap(),
+      recipeNotes: notesMap(),
     };
 
     const merged = mergeSyncPayload(withPlan, noPlan);
@@ -466,6 +480,7 @@ describe('mergeSyncPayload — full payload', () => {
       favorites: favMap(),
       kidApproved: favMap({ 'recipe-a': { flag: true, atISO: t1 }, 'recipe-shared': { flag: true, atISO: t1 } }),
       manualItems: manualMap(),
+      recipeNotes: notesMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0)]),
@@ -473,6 +488,7 @@ describe('mergeSyncPayload — full payload', () => {
       favorites: favMap(),
       kidApproved: favMap({ 'recipe-b': { flag: true, atISO: t1 }, 'recipe-shared': { flag: false, atISO: t2 } }),
       manualItems: manualMap(),
+      recipeNotes: notesMap(),
     };
 
     const merged = mergeSyncPayload(a, b);
@@ -651,5 +667,91 @@ describe('mergeManualItems (M3.3)', () => {
     const merged = mergeManualItems(a, b);
     const mergedAgain = mergeManualItems(merged, b);
     expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
+  });
+});
+
+describe('mergeRecipeNotes (M4.4)', () => {
+  it('two devices noting different recipes converge to the union, order-independent', () => {
+    const a = notesMap({ 'recipe-a': note('halved the chili', t1) });
+    const b = notesMap({ 'recipe-b': note('kids hated the sauce', t1) });
+
+    const mergedAB = mergeRecipeNotes(a, b);
+    const mergedBA = mergeRecipeNotes(b, a);
+
+    expect(mergedAB['recipe-a'].text).toBe('halved the chili');
+    expect(mergedAB['recipe-b'].text).toBe('kids hated the sauce');
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('a newer edit beats an older note on the same recipe, both merge orders (the accepted same-poll-window limitation: later save wins the WHOLE text, no merge-of-text)', () => {
+    const older = notesMap({ 'recipe-a': note('added a vegetable', t1) });
+    const newer = notesMap({ 'recipe-a': note('added a vegetable, doubled the garlic', t2) });
+
+    const merged = mergeRecipeNotes(older, newer);
+    expect(merged['recipe-a'].text).toBe('added a vegetable, doubled the garlic');
+    expect(merged['recipe-a'].updatedAtISO).toBe(t2);
+
+    const mergedFlipped = mergeRecipeNotes(newer, older);
+    expect(mergedFlipped['recipe-a'].text).toBe('added a vegetable, doubled the garlic');
+    expect(stableStringify(merged)).toBe(stableStringify(mergedFlipped));
+  });
+
+  it('the cleared-note race: a clear (empty text, newer timestamp) beats an older non-empty edit, both merge orders', () => {
+    const olderEdit = notesMap({ 'recipe-a': note('too spicy for the kids', t1) });
+    const clearedLater = notesMap({ 'recipe-a': note('', t2) });
+
+    const mergedAB = mergeRecipeNotes(olderEdit, clearedLater);
+    const mergedBA = mergeRecipeNotes(clearedLater, olderEdit);
+
+    expect(mergedAB['recipe-a'].text).toBe('');
+    expect(mergedAB['recipe-a'].updatedAtISO).toBe(t2);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('a tie on updatedAtISO (including both unparseable) resolves deterministically either direction', () => {
+    const a = notesMap({ 'recipe-a': note('note from device A', '') });
+    const b = notesMap({ 'recipe-a': note('note from device B', '') });
+
+    const mergedAB = mergeRecipeNotes(a, b);
+    const mergedBA = mergeRecipeNotes(b, a);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('merge(merge(A,B), B) === merge(A,B) [recipe notes]', () => {
+    const a = notesMap({ 'recipe-a': note('halved the chili', t1) });
+    const b = notesMap({ 'recipe-b': note('kids hated the sauce', t2) });
+
+    const merged = mergeRecipeNotes(a, b);
+    const mergedAgain = mergeRecipeNotes(merged, b);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
+  });
+
+  it('notes survive mergeSyncPayload when the two sides hold DIFFERENT plans — notes are not plan-scoped, merged unconditionally', () => {
+    const a = {
+      plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }),
+      shoppingList: null,
+      favorites: favMap(),
+      kidApproved: favMap(),
+      manualItems: manualMap(),
+      recipeNotes: notesMap({ 'recipe-a': note('halved the chili', t1) }),
+    };
+    const b = {
+      plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }),
+      shoppingList: null,
+      favorites: favMap(),
+      kidApproved: favMap(),
+      manualItems: manualMap(),
+      recipeNotes: notesMap({ 'recipe-b': note('kids hated the sauce', t2) }),
+    };
+
+    const mergedAB = mergeSyncPayload(a, b);
+    const mergedBA = mergeSyncPayload(b, a);
+
+    // The newer plan ('plan-new') wins outright, but BOTH sides' notes
+    // survive regardless — notes are recipe-scoped, not plan-scoped.
+    expect(mergedAB.plan?.id).toBe('plan-new');
+    expect(mergedAB.recipeNotes['recipe-a'].text).toBe('halved the chili');
+    expect(mergedAB.recipeNotes['recipe-b'].text).toBe('kids hated the sauce');
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
   });
 });
