@@ -8,6 +8,7 @@ import { createDefaultProfile } from '@/domain/defaults';
 import { IntakeAnswers, isMain, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, ShoppingListDelta, ShoppingListDeltaLine, WeeklyPlan } from '@/domain/models';
 import { composeSides } from '@/engine/mealComposition';
 import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
+import { moveMeal as moveMealInPlan } from '@/engine/rearrange';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
 import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinnableDays, RerollKeepOptions, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localDateString } from '@/engine/schedule';
@@ -15,6 +16,7 @@ import { seasonForDate } from '@/engine/season';
 import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
 
+import { useCookModeStore } from './cookModeStore';
 import { useLearningStore } from './learningStore';
 import { useManualItemsStore } from './manualItemsStore';
 import { usePantryStore } from './pantryStore';
@@ -86,6 +88,23 @@ interface PlanState {
   swapMealTo: (dayIndex: number, recipeId: string) => void;
   /** Mark a meal cooked / not cooked (week progress, on the active plan). */
   toggleCooked: (dayIndex: number) => void;
+  /**
+   * M4.6 part 1: rearrange the approved week — swap `fromDay`'s and
+   * `toDay`'s ENTIRE meal bodies (recipe, sides, servings, rating, cooked
+   * flag, locked — everything except `dayIndex` itself). No-ops (via
+   * `moveMeal`'s own guards) on a same-day swap, a day with no meal, or
+   * either day already cooked — "a cooked day is history." Stamps
+   * `recipeChangedAtISO` with `new Date().toISOString()` on BOTH resulting
+   * meals (see `src/engine/rearrange.ts`'s doc comment for why that's what
+   * makes a remote device adopt both whole bodies together instead of
+   * mixing halves of two different swaps). NEVER touches the shopping list
+   * — same food, different night (Law #1) — this action does not import or
+   * call `applyShoppingListDelta`/`addIngredientsToShoppingList`/`buildShoppingList`/
+   * `listFor`. On success, also swaps this device's cook-mode progress for
+   * the two days via `useCookModeStore.swapProgress` (see that store's own
+   * doc comment for the known per-device sync limitation).
+   */
+  moveMeal: (fromDay: number, toDay: number) => void;
   /**
    * M4.1: set one draft meal's servings (−/+ in 0.5 steps, floored at 1).
    * Draft-only — the shopping list doesn't exist yet at this stage, it's
@@ -476,6 +495,17 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const next = { ...plan, meals };
     set({ plan: next });
     persist(next);
+  },
+
+  moveMeal: (fromDay, toDay) => {
+    const plan = get().plan;
+    if (!plan || plan.status !== 'approved') return;
+    const next = moveMealInPlan(plan, fromDay, toDay, new Date().toISOString());
+    if (!next) return;
+    set({ plan: next });
+    persist(next);
+    // Cook-mode progress travels on this device, same swap, same two days.
+    useCookModeStore.getState().swapProgress(plan.id, fromDay, toDay);
   },
 
   setDraftMealServings: (dayIndex, servings) => {

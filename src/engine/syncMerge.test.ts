@@ -5,6 +5,7 @@
  * to jest's describe/it/expect.
  */
 import { FavoritesMap, IntakeAnswers, ManualItem, ManualItemMap, PlannedMeal, RecipeNote, RecipeNotesMap, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { moveMeal } from './rearrange';
 import { mergeManualItems, mergePlanMeals, mergeRecipeNotes, mergeShoppingLists, mergeSyncPayload, mergeTimestampedFlagMap, stableStringify } from './syncMerge';
 
 const INTAKE = {} as IntakeAnswers; // opaque payload the merge never inspects
@@ -777,5 +778,110 @@ describe('mergeRecipeNotes (M4.4)', () => {
     expect(mergedAB.recipeNotes['recipe-a'].text).toBe('halved the chili');
     expect(mergedAB.recipeNotes['recipe-b'].text).toBe('kids hated the sauce');
     expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+});
+
+describe('mergePlanMeals — rearrange (M4.6 part 1: moveMeal swap)', () => {
+  it('(z) phone A swaps Tue<->Thu (both stamped t2), phone B does nothing: both merge orders converge to the swapped week, idempotent', () => {
+    const base = plan('plan-1', [meal(2, { recipeId: 'tue-dish' }), meal(4, { recipeId: 'thu-dish' })]);
+    const a = moveMeal(base, 2, 4, t2)!;
+    const b = base; // phone B untouched
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+
+    expect(mergedAB.meals.find((m) => m.dayIndex === 2)?.recipeId).toBe('thu-dish');
+    expect(mergedAB.meals.find((m) => m.dayIndex === 4)?.recipeId).toBe('tue-dish');
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+
+    // Idempotent: re-merging with either original side changes nothing further.
+    const mergedAgain = mergePlanMeals(mergedAB, a);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(mergedAB));
+  });
+
+  it('(aa) THE SPECCED RACE: phone A swaps Tue<->Thu at t2 while phone B rates Thursday\'s (pre-swap) dish at t3 > t2 — both orders converge to the same result, and B\'s rating is deterministically DROPPED (accepted outcome, same class as the re-roll-vs-rate race)', () => {
+    const base = plan('plan-1', [meal(2, { recipeId: 'tue-dish' }), meal(4, { recipeId: 'thu-dish' })]);
+    // Phone A: swaps Tue<->Thu at t2 (both days stamped recipeChangedAtISO=t2).
+    const a = moveMeal(base, 2, 4, t2)!;
+    // Phone B, unaware of the swap: rates Thursday's dish (still 'thu-dish'
+    // on B's copy) at t3 — chronologically newer than the swap, but B never
+    // touched recipeId/recipeChangedAtISO, so its stamp there stays epoch 0.
+    const b = plan('plan-1', [
+      meal(2, { recipeId: 'tue-dish' }),
+      meal(4, { recipeId: 'thu-dish', rating: 5, ratedAtISO: t3 }),
+    ]);
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+
+    // Reasoning through resolveDivergedRecipe: on BOTH days, recipeId
+    // differs between A and B (A already swapped; B hasn't), so it's gated
+    // on recipeChangedAtISO alone, not on any individual field's timestamp.
+    // A's t2 beats B's epoch-0 stamp on both days, so A's whole (unrated)
+    // bodies win both slots — the dish that carried B's rating (thu-dish)
+    // physically relocated to day 2 in A's swap, and A's swap-time snapshot
+    // of that body has no rating on it (the rating happened on B, after A's
+    // swap, and A never saw it). Migrating B's rating across to day 2 would
+    // require the merge to understand "this recipeId moved," which
+    // `resolveDivergedRecipe` deliberately does not attempt — it resolves
+    // per dayIndex, not per dish. So B's rating of Thursday's original dish
+    // is dropped entirely; it appears on neither day post-merge.
+    const day2 = mergedAB.meals.find((m) => m.dayIndex === 2)!;
+    const day4 = mergedAB.meals.find((m) => m.dayIndex === 4)!;
+    expect(day2.recipeId).toBe('thu-dish');
+    expect(day2.rating).toBeUndefined();
+    expect(day4.recipeId).toBe('tue-dish');
+    expect(day4.rating).toBeUndefined();
+    // The rating (5) is not present anywhere in the merged plan.
+    expect(mergedAB.meals.every((m) => m.rating === undefined)).toBe(true);
+
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+
+    // Idempotence: re-merging with B again (the side that "loses" its
+    // rating) doesn't resurrect it or otherwise change the result.
+    const mergedAgain = mergePlanMeals(mergedAB, b);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(mergedAB));
+  });
+
+  it('(bb) swap racing a swap: phone A swaps Tue<->Thu at t2, phone B swaps Tue<->Wed at t3 — both orders converge to the same (day-level "torn" but deterministic) result', () => {
+    const base = plan('plan-1', [
+      meal(2, { recipeId: 'tue-dish' }),
+      meal(3, { recipeId: 'wed-dish' }),
+      meal(4, { recipeId: 'thu-dish' }),
+    ]);
+    const a = moveMeal(base, 2, 4, t2)!; // day2 <- thu-dish, day4 <- tue-dish, day3 untouched
+    const b = moveMeal(base, 2, 3, t3)!; // day2 <- wed-dish, day3 <- tue-dish, day4 untouched
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+
+    // Per-dayIndex reasoning (resolveDivergedRecipe gates on
+    // recipeChangedAtISO alone, per day, independent of the other days):
+    //  - day 2: A says 'thu-dish'@t2, B says 'wed-dish'@t3 -> B's t3 wins.
+    //  - day 3: A left it untouched ('wed-dish', stamp epoch 0), B says
+    //    'tue-dish'@t3 -> B's t3 wins (beats A's epoch 0).
+    //  - day 4: A says 'tue-dish'@t2, B left it untouched ('thu-dish', stamp
+    //    epoch 0) -> A's t2 wins (beats B's epoch 0).
+    //
+    // The converged week is 'torn' between the two swaps at the day level:
+    // B's swap wins days 2 and 3 outright, A's swap wins day 4 — the result
+    // is NOT "one swap fully applied" nor "the other swap fully applied,"
+    // and 'tue-dish' ends up duplicated on both day 3 and day 4 while
+    // 'thu-dish' disappears from the plan entirely. That is the accepted
+    // guarantee this merge makes: deterministic and order-independent
+    // convergence, per day — NOT atomicity of a swap as a two-day unit
+    // across devices. (A single device's own swap is always atomic; this
+    // torn state only arises from two *different* concurrent swaps sharing
+    // a day, exactly the race this test constructs.)
+    expect(mergedAB.meals.find((m) => m.dayIndex === 2)?.recipeId).toBe('wed-dish');
+    expect(mergedAB.meals.find((m) => m.dayIndex === 3)?.recipeId).toBe('tue-dish');
+    expect(mergedAB.meals.find((m) => m.dayIndex === 4)?.recipeId).toBe('tue-dish');
+
+    // Idempotence: re-merging with either original side again is a no-op.
+    const mergedAgainA = mergePlanMeals(mergedAB, a);
+    expect(stableStringify(mergedAgainA)).toBe(stableStringify(mergedAB));
+    const mergedAgainB = mergePlanMeals(mergedAB, b);
+    expect(stableStringify(mergedAgainB)).toBe(stableStringify(mergedAB));
   });
 });

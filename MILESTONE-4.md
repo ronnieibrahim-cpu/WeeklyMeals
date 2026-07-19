@@ -390,6 +390,19 @@ with the shopping list byte-for-byte unchanged.
 
 ## [ ] M4.6 — Rearrange the week after it's approved
 
+**Part 1 landed (engine + store only, no UI yet):** `src/engine/rearrange.ts`'s
+`moveMeal(plan, fromDay, toDay, nowISO)` swaps two not-yet-cooked days' entire meal
+bodies (recipe, sides, servings, rating, cooked flag, locked — everything except
+`dayIndex`), returning `null` on a same-day swap, a missing meal, or either side
+already cooked; both resulting meals are stamped with the same `recipeChangedAtISO`
+so sync adopts them as one atomic unit (see `PROJECT.md` §6). `usePlanStore.moveMeal`
+wires it to the active plan (approved-only guard) and swaps this device's cook-mode
+progress for the two days via the new `useCookModeStore.swapProgress`; never touches
+the shopping list. Sync race assertions (both merge orders, idempotence, the
+swap-vs-rate race, and a swap-vs-swap race) added in `syncMerge.test.ts`. Still
+needed: the actual swipe "Move to…" UI on the meal card and the day picker — that's
+the next task.
+
 **User problem:** plans survive contact with Tuesday about as well as anything else.
 
 **Decision (advisor's recommendation — confirm with Ronnie):** **not** drag-and-drop.

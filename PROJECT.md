@@ -243,6 +243,11 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    `RecipeResultCard` wherever those are shown (This Week, Schedule, Recipes browse,
    plan review). Belongs to the recipe, not the plan, so it survives re-rolls, plan
    changes, and week rollovers untouched.
+   **Rearranging the week (M4.6 part 1, engine + store only, UI pending):** an
+   approved week's not-yet-cooked days can be swapped via `usePlanStore.moveMeal(fromDay,
+   toDay)` — the ENTIRE meal body (recipe, sides, servings, rating, cooked flag,
+   locked) travels with the dish to its new day, never the shopping list (same food,
+   different night). A cooked day can never be moved into or out of.
 4. **Learning:** ratings are the source of truth and the `PreferenceProfile` is
    **recomputed from the full rating history** on every change (structurally
    immune to double-counting). Cuisine/protein/technique/vegetable affinities and
@@ -304,6 +309,13 @@ the identical result regardless of order, or they ping-pong forever.
   deleted key — emptiness is its own tombstone, so a clear beats a stale non-empty copy
   whenever it's newer. Two people editing the same note in the same poll window: the
   later save wins the whole text, no merge-of-text (accepted limitation).
+- **Rearranging the week (M4.6 part 1):** `moveMeal` (`src/engine/rearrange.ts`) stamps
+  `recipeChangedAtISO` on BOTH affected meals with the same swap timestamp, so a remote
+  device adopts both whole bodies together via `resolveDivergedRecipe` instead of
+  mixing halves of two different swaps; a cross-day rating race (one phone swaps while
+  the other rates the pre-swap dish on one of the two days) resolves deterministically
+  in both merge orders, with the rating dropped — same accepted class as the existing
+  re-roll-vs-rate race — since the merge resolves per `dayIndex`, not per dish.
 - Plan-level fields (intake, weekStartISO) remain whole-payload last-write-wins.
 - Every sync change ships with assertions for both merge orders, idempotence, and the
   specific race the feature introduces.
