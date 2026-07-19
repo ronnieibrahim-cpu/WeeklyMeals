@@ -1,8 +1,27 @@
 import { GroceryProvider } from '@/data/grocery/GroceryProvider';
-import { Recipe } from '@/domain/models';
+import { Recipe, ShoppingItem } from '@/domain/models';
 
-import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta } from './shoppingList';
+import {
+  addIngredientsToShoppingList,
+  applyShoppingListDelta,
+  buildShoppingList,
+  computeServingsDelta,
+  reconcileDeltaWithList,
+} from './shoppingList';
 import { makeMeal, makeRecipe } from './testFixtures';
+
+function makeItem(overrides: Partial<ShoppingItem> = {}): ShoppingItem {
+  return {
+    ingredientName: 'onion',
+    quantity: 1,
+    unit: 'piece',
+    department: 'Produce',
+    estimatedPrice: 1,
+    checked: false,
+    fromRecipeIds: ['r1'],
+    ...overrides,
+  };
+}
 
 /** $1 per unit of quantity — makes totals trivial to assert on. */
 const fakeGrocery: GroceryProvider = {
@@ -605,5 +624,85 @@ describe('applyShoppingListDelta — removesSource (M4.2 part 2: removing a side
     expect(beef!.unit).toBe('lb');
     expect(beef!.quantity).toBeCloseTo(1, 1); // only the main's 1lb remains
     expect(beef!.fromRecipeIds).toEqual(['main']); // side's attribution is gone too
+  });
+});
+
+describe('reconcileDeltaWithList (F1 — preview matches/merges against the live list, M4.7-aware)', () => {
+  it('matches a spelling divergence (recipe "lemon" vs list "lemons") via the canonical-name fold', () => {
+    const items = [makeItem({ ingredientName: 'lemons', quantity: 3, unit: 'piece' })];
+    const lines = [{ ingredientName: 'lemon', unit: 'piece' as const, department: 'Produce' as const, deltaQuantity: 1, removesItem: false }];
+
+    const result = reconcileDeltaWithList(lines, items, 'increase');
+
+    expect(result).toHaveLength(1);
+    expect(result[0].ingredientName).toBe('lemons'); // list's own first-seen spelling, not the recipe's
+    expect(result[0].deltaQuantity).toBe(1);
+    expect(result[0].removesItem).toBe(false);
+  });
+
+  it('converts a same-family unit divergence (recipe oz vs list lb) into the list\'s own display unit', () => {
+    // List line is 0.5 lb of spinach, i.e. exactly 8 oz — the recipe's own delta is in oz.
+    const items = [makeItem({ ingredientName: 'spinach', quantity: 0.5, unit: 'lb', department: 'Produce' })];
+    const lines = [{ ingredientName: 'spinach', unit: 'oz' as const, department: 'Produce' as const, deltaQuantity: 8, removesItem: false }];
+
+    const result = reconcileDeltaWithList(lines, items, 'decrease');
+
+    expect(result).toHaveLength(1);
+    expect(result[0].unit).toBe('lb'); // shown in the list's own unit, not the recipe's oz
+    expect(result[0].deltaQuantity).toBeCloseTo(0.5, 2);
+    // Exactly zeroes out the list's real 0.5 lb — removesItem must flip true at this boundary.
+    expect(result[0].removesItem).toBe(true);
+  });
+
+  it('a decrease that does NOT reach zero leaves removesItem false', () => {
+    const items = [makeItem({ ingredientName: 'spinach', quantity: 2, unit: 'lb', department: 'Produce' })];
+    const lines = [{ ingredientName: 'spinach', unit: 'oz' as const, department: 'Produce' as const, deltaQuantity: 8, removesItem: false }];
+
+    const result = reconcileDeltaWithList(lines, items, 'decrease');
+
+    expect(result[0].removesItem).toBe(false);
+  });
+
+  it('a cross-family non-match (piece vs lb) stays unmatched, shown as-is with removesItem false', () => {
+    const items = [makeItem({ ingredientName: 'salmon', quantity: 1, unit: 'lb', department: 'Seafood' })];
+    const lines = [{ ingredientName: 'salmon', unit: 'piece' as const, department: 'Seafood' as const, deltaQuantity: 1, removesItem: false }];
+
+    const result = reconcileDeltaWithList(lines, items, 'decrease');
+
+    expect(result).toHaveLength(1);
+    expect(result[0].ingredientName).toBe('salmon'); // unmatched: recipe's own name/unit pass through
+    expect(result[0].unit).toBe('piece');
+    expect(result[0].deltaQuantity).toBe(1);
+    expect(result[0].removesItem).toBe(false); // no live item to judge "removed" against
+  });
+
+  it('a line with no live-list match at all (brand-new increase) stays unmatched', () => {
+    const items = [makeItem({ ingredientName: 'onion', quantity: 1, unit: 'piece' })];
+    const lines = [{ ingredientName: 'basil', unit: 'bunch' as const, department: 'Produce' as const, deltaQuantity: 1, removesItem: false }];
+
+    const result = reconcileDeltaWithList(lines, items, 'increase');
+
+    expect(result).toEqual([{ ingredientName: 'basil', unit: 'bunch', department: 'Produce', deltaQuantity: 1, removesItem: false }]);
+  });
+
+  it('merges two lines (from two different recipes on a plate) that map onto the same live list item', () => {
+    const items = [makeItem({ ingredientName: 'carrots', quantity: 3, unit: 'lb', department: 'Produce' })];
+    const lines = [
+      // main contributes under the singular spelling, in oz
+      { ingredientName: 'carrot', unit: 'oz' as const, department: 'Produce' as const, deltaQuantity: 8, removesItem: false },
+      // a side contributes under the plural spelling, in lb
+      { ingredientName: 'carrots', unit: 'lb' as const, department: 'Produce' as const, deltaQuantity: 0.5, removesItem: false },
+    ];
+
+    const result = reconcileDeltaWithList(lines, items, 'increase');
+
+    expect(result).toHaveLength(1); // merged into the list's one real line, not two
+    expect(result[0].ingredientName).toBe('carrots');
+    expect(result[0].unit).toBe('lb');
+    expect(result[0].deltaQuantity).toBeCloseTo(1, 2); // 8oz (~0.5lb) converted + 0.5lb = ~1lb
+  });
+
+  it('returns an empty array for an empty input (no confirmation UI to show)', () => {
+    expect(reconcileDeltaWithList([], [makeItem()], 'increase')).toEqual([]);
   });
 });

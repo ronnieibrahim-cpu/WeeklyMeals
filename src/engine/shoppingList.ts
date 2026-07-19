@@ -179,6 +179,74 @@ export function addIngredientsToShoppingList(
  * by comparing `deltaQuantity` against the real current item, exactly as
  * `applyShoppingListDelta` itself does when actually applying the change.
  */
+/**
+ * F1: reconcile a delta's ingredient-native lines (from `computeServingsDelta`,
+ * one or more recipes' worth) against the REAL, live shopping list, so a
+ * preview's confirmation copy always speaks in the list's own first-seen
+ * names and elected family unit — not the raw recipe name/exact-unit lookup
+ * `previewServingsDelta`/`previewRemoveSideDelta` used before M4.7 changed
+ * what a list line's own name/unit actually are. Pure/read-only, same
+ * "compute the truth before the tap" spirit as `computeServingsDelta`.
+ *
+ * For each line: match it to a live item via `ingredientDedupKey` equality
+ * (canonical name + unit family — the exact same identity `buildShoppingList`/
+ * `applyShoppingListDelta` use to decide "same ingredient"), convert
+ * `deltaQuantity` into the matched item's OWN display unit via
+ * `convertQuantity` (safe by construction: a shared dedup key means a shared
+ * family), and merge any other lines sharing that same key into one —
+ * exactly what happens if two recipes on a plate contribute the same
+ * ingredient under different spellings/units. `removesItem` is computed
+ * against the matched item's real current quantity, only for `direction:
+ * 'decrease'`. A line with no live-list match (e.g. an increase introducing
+ * a brand-new ingredient) passes through unmatched, in the recipe's own
+ * name/unit, with `removesItem: false` — there's nothing on the list yet to
+ * remove.
+ */
+export function reconcileDeltaWithList(
+  lines: ShoppingListDeltaLine[],
+  items: ShoppingItem[],
+  direction: 'increase' | 'decrease',
+): ShoppingListDeltaLine[] {
+  const itemsByKey = new Map<string, ShoppingItem>();
+  for (const item of items) {
+    itemsByKey.set(ingredientDedupKey(item.ingredientName, item.unit), item);
+  }
+
+  const mergedByKey = new Map<string, ShoppingListDeltaLine>();
+  const unmatched: ShoppingListDeltaLine[] = [];
+
+  for (const line of lines) {
+    const key = ingredientDedupKey(line.ingredientName, line.unit);
+    const item = itemsByKey.get(key);
+    if (!item) {
+      unmatched.push({ ...line, removesItem: false });
+      continue;
+    }
+
+    const deltaInListUnit = round2(convertQuantity(line.deltaQuantity, line.unit, item.unit));
+    const existing = mergedByKey.get(key);
+    if (existing) {
+      existing.deltaQuantity = round2(existing.deltaQuantity + deltaInListUnit);
+    } else {
+      mergedByKey.set(key, {
+        ingredientName: item.ingredientName,
+        unit: item.unit,
+        department: line.department,
+        deltaQuantity: deltaInListUnit,
+        removesItem: false,
+      });
+    }
+  }
+
+  const reconciled = Array.from(mergedByKey.entries()).map(([key, line]) => {
+    const item = itemsByKey.get(key)!;
+    const removesItem = direction === 'decrease' && round2(item.quantity - line.deltaQuantity) <= 0;
+    return { ...line, removesItem };
+  });
+
+  return [...reconciled, ...unmatched];
+}
+
 export function computeServingsDelta(
   recipe: Recipe,
   oldServings: number,

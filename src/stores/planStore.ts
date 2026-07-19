@@ -5,7 +5,7 @@ import { localDraftPlanRepository } from '@/data/repositories/local/LocalDraftPl
 import { localPlanRepository } from '@/data/repositories/local/LocalPlanRepository';
 import { localShoppingListRepository } from '@/data/repositories/local/LocalShoppingListRepository';
 import { createDefaultProfile } from '@/domain/defaults';
-import { IntakeAnswers, isMain, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, ShoppingListDelta, ShoppingListDeltaLine, WeeklyPlan } from '@/domain/models';
+import { IntakeAnswers, isMain, PlannedMeal, Profile, RatingEvent, Recipe, ShoppingList, ShoppingListDelta, WeeklyPlan } from '@/domain/models';
 import { composeSides } from '@/engine/mealComposition';
 import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
 import { moveMeal as moveMealInPlan } from '@/engine/rearrange';
@@ -13,7 +13,7 @@ import { GenerateContext, localRecommendationEngine, passesAllergySafety, passes
 import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinnableDays, RerollKeepOptions, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localDateString } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
-import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta } from '@/engine/shoppingList';
+import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta, reconcileDeltaWithList } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
 
 import { useCookModeStore } from './cookModeStore';
@@ -559,36 +559,19 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
     if (!meal) return null;
     // M4.2 part 2: a servings change scales the WHOLE plate — main and every
-    // side — not just the main. Merged by ingredient+unit for display so the
-    // confirm shows one "+0.75 onion" line, not a separate one per recipe.
+    // side — not just the main. F1: matched/merged against the live list via
+    // `reconcileDeltaWithList` (M4.7 dedup key), so the confirm copy speaks
+    // in the list's own first-seen name/elected unit, not each recipe's own
+    // — and "will be removed" is judged against the list's real quantity.
     const recipes = resolveRecipes([meal.recipeId, ...(meal.sideRecipeIds ?? [])]);
     if (recipes.length === 0) return null;
     const pantry = usePantryStore.getState().items;
     const deltas = recipes.map((r) => computeServingsDelta(r, oldServings, meal.servings, pantry));
     const direction = deltas[0].direction; // identical for every recipe: same oldServings -> meal.servings
-    const mergedByKey = new Map<string, ShoppingListDeltaLine>();
-    for (const delta of deltas) {
-      for (const line of delta.lines) {
-        const key = `${line.ingredientName.toLowerCase()}|${line.unit}`;
-        const existingLine = mergedByKey.get(key);
-        if (existingLine) existingLine.deltaQuantity = round2(existingLine.deltaQuantity + line.deltaQuantity);
-        else mergedByKey.set(key, { ...line });
-      }
-    }
-    if (mergedByKey.size === 0) return null;
-    // Fill in `removesItem` for display: the merged delta only sees the
-    // plate's own ingredients, not the live list, so it can't know whether a
-    // decrease would zero out a shared item — check the real current
-    // quantity here so the confirmation copy can say "will be removed"
-    // truthfully before the tap, never after.
-    const lines = Array.from(mergedByKey.values()).map((line) => {
-      const existing = list.items.find(
-        (i) => i.ingredientName.toLowerCase() === line.ingredientName.toLowerCase() && i.unit === line.unit,
-      );
-      const removesItem =
-        direction === 'decrease' && !!existing && round2(existing.quantity - line.deltaQuantity) <= 0;
-      return { ...line, removesItem };
-    });
+    const allLines = deltas.flatMap((d) => d.lines);
+    if (allLines.length === 0) return null;
+    const lines = reconcileDeltaWithList(allLines, list.items, direction);
+    if (lines.length === 0) return null;
     return { direction, lines };
   },
 
@@ -625,16 +608,11 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const side = getAnyRecipe(sideId);
     if (!meal || !side) return null;
     const pantry = usePantryStore.getState().items;
-    // A removal is a full delta: this side's servings going to zero.
+    // A removal is a full delta: this side's servings going to zero. F1:
+    // reconciled against the live list the same way previewServingsDelta is.
     const delta = computeServingsDelta(side, meal.servings, 0, pantry);
     if (delta.lines.length === 0) return null;
-    const lines = delta.lines.map((line) => {
-      const existing = list.items.find(
-        (i) => i.ingredientName.toLowerCase() === line.ingredientName.toLowerCase() && i.unit === line.unit,
-      );
-      const removesItem = !!existing && round2(existing.quantity - line.deltaQuantity) <= 0;
-      return { ...line, removesItem };
-    });
+    const lines = reconcileDeltaWithList(delta.lines, list.items, delta.direction);
     return { ...delta, lines };
   },
 
