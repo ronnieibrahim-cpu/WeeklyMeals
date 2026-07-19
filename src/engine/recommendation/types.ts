@@ -21,6 +21,17 @@ export interface GenerateContext {
   favoriteRecipeIds?: string[];
   /** Kid-approved recipes (M3.2) get a modest tie-breaking bonus. */
   kidApprovedRecipeIds?: string[];
+  /** M4.3: recipes (mains and, where the caller has them, sides) already
+   * fixed for this week — the comparison pool for waste-fit scoring. When
+   * absent, scoreRecipe falls back to its `selected` argument. */
+  weekRecipes?: Recipe[];
+  /** Test/harness-only: override individual scoring weights (e.g.
+   * `{ wasteFit: 0 }` for an A/B in scripts/checkWasteFit.ts); never set by
+   * app code. Typed as plain numbers (not `Partial<typeof WEIGHTS>`) because
+   * `WEIGHTS` is declared `as const` — its property types are narrowed to
+   * each weight's literal default value, which would reject any other
+   * override number. */
+  weightOverrides?: Partial<Record<keyof typeof WEIGHTS, number>>;
 }
 
 export interface RecommendationProvider {
@@ -71,4 +82,11 @@ export const WEIGHTS = {
   // cuisine-fitting side, and penalize a second vegetable side for sharing
   // primaryProtein: 'None' with the first).
   sideCuisineFit: 0.4,
+  // M4.3: a modest tie/near-tie breaker for reusing a whole-unit perishable
+  // another meal this week already forces you to buy (the "half a cabbage"
+  // problem — see wasteFit.ts). Same order of magnitude as `curated`/
+  // `kidApproved`: enough to nudge a pick when things are close, never
+  // strong enough to bury a better dish or beat variety (kept well under
+  // half of `variety`'s 1.3).
+  wasteFit: 0.35,
 } as const;

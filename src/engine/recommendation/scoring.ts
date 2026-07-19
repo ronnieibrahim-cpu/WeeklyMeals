@@ -1,7 +1,19 @@
 import { Recipe } from '@/domain/models';
 
 import { roughCostPerServing } from '../cost';
+import { wasteFitBonus } from '../wasteFit';
 import { GenerateContext, WEIGHTS } from './types';
+
+/** Widened (plain-`number`) shape of `WEIGHTS` — `WEIGHTS` itself is
+ * declared `as const` for self-documenting literal defaults, but an
+ * override (`ctx.weightOverrides`) needs to be able to set any number. */
+type Weights = Record<keyof typeof WEIGHTS, number>;
+
+/** `WEIGHTS` with any test/harness-only per-call overrides applied
+ * (`ctx.weightOverrides` — see GenerateContext, never set by app code). */
+function weightsFor(ctx: GenerateContext): Weights {
+  return ctx.weightOverrides ? { ...WEIGHTS, ...ctx.weightOverrides } : WEIGHTS;
+}
 
 const lower = (s: string) => s.trim().toLowerCase();
 
@@ -180,22 +192,24 @@ function ratingsPenalty(recipe: Recipe, ctx: GenerateContext): number {
 
 /** Weighted, explainable score. Higher is better. */
 export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Recipe[]): number {
+  const w = weightsFor(ctx);
   return (
-    WEIGHTS.pantry * pantryOverlap(recipe, ctx.pantry) +
-    WEIGHTS.preference * preferenceMatch(recipe, ctx) +
-    WEIGHTS.affinity * affinityBonus(recipe, ctx) +
-    WEIGHTS.favorite * favoriteBonus(recipe, ctx) +
-    WEIGHTS.curated * curatedBonus(recipe) +
-    WEIGHTS.kidApproved * kidApprovedBonus(recipe, ctx) +
-    WEIGHTS.learnedDials * learnedDialsFit(recipe, ctx) +
-    WEIGHTS.variety * varietyBonus(recipe, selected) +
-    WEIGHTS.budget * budgetFit(recipe, ctx) +
-    WEIGHTS.time * timeFit(recipe, ctx) +
-    WEIGHTS.nutrition * nutritionFit(recipe, ctx) +
-    WEIGHTS.healthyComfort * healthyComfortFit(recipe, ctx) +
-    WEIGHTS.adventurous * adventurousFit(recipe, ctx) +
-    WEIGHTS.season * seasonFit(recipe, ctx) -
-    WEIGHTS.ratingsPenalty * ratingsPenalty(recipe, ctx)
+    w.pantry * pantryOverlap(recipe, ctx.pantry) +
+    w.preference * preferenceMatch(recipe, ctx) +
+    w.affinity * affinityBonus(recipe, ctx) +
+    w.favorite * favoriteBonus(recipe, ctx) +
+    w.curated * curatedBonus(recipe) +
+    w.kidApproved * kidApprovedBonus(recipe, ctx) +
+    w.learnedDials * learnedDialsFit(recipe, ctx) +
+    w.variety * varietyBonus(recipe, selected) +
+    w.budget * budgetFit(recipe, ctx) +
+    w.time * timeFit(recipe, ctx) +
+    w.nutrition * nutritionFit(recipe, ctx) +
+    w.healthyComfort * healthyComfortFit(recipe, ctx) +
+    w.adventurous * adventurousFit(recipe, ctx) +
+    w.season * seasonFit(recipe, ctx) +
+    w.wasteFit * wasteFitBonus(recipe, ctx.weekRecipes ?? selected) -
+    w.ratingsPenalty * ratingsPenalty(recipe, ctx)
   );
 }
 
@@ -222,21 +236,26 @@ function cuisineFitBonus(recipe: Recipe, main: Recipe): number {
  * separately as a hard filter in `mealComposition.ts`, not here.
  */
 export function scoreSide(side: Recipe, main: Recipe, ctx: GenerateContext): number {
+  const w = weightsFor(ctx);
   return (
-    WEIGHTS.pantry * pantryOverlap(side, ctx.pantry) +
-    WEIGHTS.preference * preferenceMatch(side, ctx) +
-    WEIGHTS.affinity * affinityBonus(side, ctx) +
-    WEIGHTS.favorite * favoriteBonus(side, ctx) +
-    WEIGHTS.curated * curatedBonus(side) +
-    WEIGHTS.kidApproved * kidApprovedBonus(side, ctx) +
-    WEIGHTS.learnedDials * learnedDialsFit(side, ctx) +
-    WEIGHTS.sideCuisineFit * cuisineFitBonus(side, main) +
-    WEIGHTS.budget * budgetFit(side, ctx) +
-    WEIGHTS.time * timeFit(side, ctx) +
-    WEIGHTS.nutrition * nutritionFit(side, ctx) +
-    WEIGHTS.healthyComfort * healthyComfortFit(side, ctx) +
-    WEIGHTS.adventurous * adventurousFit(side, ctx) +
-    WEIGHTS.season * seasonFit(side, ctx) -
-    WEIGHTS.ratingsPenalty * ratingsPenalty(side, ctx)
+    w.pantry * pantryOverlap(side, ctx.pantry) +
+    w.preference * preferenceMatch(side, ctx) +
+    w.affinity * affinityBonus(side, ctx) +
+    w.favorite * favoriteBonus(side, ctx) +
+    w.curated * curatedBonus(side) +
+    w.kidApproved * kidApprovedBonus(side, ctx) +
+    w.learnedDials * learnedDialsFit(side, ctx) +
+    w.sideCuisineFit * cuisineFitBonus(side, main) +
+    w.budget * budgetFit(side, ctx) +
+    w.time * timeFit(side, ctx) +
+    w.nutrition * nutritionFit(side, ctx) +
+    w.healthyComfort * healthyComfortFit(side, ctx) +
+    w.adventurous * adventurousFit(side, ctx) +
+    w.season * seasonFit(side, ctx) +
+    // M4.3: a side that uses up the main's own half-unit, or another meal's,
+    // both count — the "half cabbage becomes sautéed cabbage on Thursday"
+    // case from MILESTONE-4.md.
+    w.wasteFit * wasteFitBonus(side, [main, ...(ctx.weekRecipes ?? [])]) -
+    w.ratingsPenalty * ratingsPenalty(side, ctx)
   );
 }

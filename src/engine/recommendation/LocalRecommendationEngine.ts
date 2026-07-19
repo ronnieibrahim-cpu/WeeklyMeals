@@ -87,7 +87,10 @@ export class LocalRecommendationEngine implements RecommendationProvider {
       servings: ctx.intake.servingsPerMeal,
       dayIndex: index,
       locked: lockedIds.has(r.id),
-      sideRecipeIds: composeSides(r, sidesPool, ctx),
+      // M4.3: the whole week's mains are the waste-fit comparison pool for
+      // each plate's sides — a side that mops up a half-unit any other main
+      // this week already forces buying scores a small bonus.
+      sideRecipeIds: composeSides(r, sidesPool, { ...ctx, weekRecipes: selected }),
     }));
   }
 }

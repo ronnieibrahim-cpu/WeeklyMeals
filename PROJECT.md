@@ -172,6 +172,19 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
      allowlist in `scripts/validateRecipes.ts`) are honestly protein-light and stay
      that way if nothing in the sides pool can close the gap that week — no error
      state, no nagging copy.
+   - **Waste-fit scoring (M4.3, engine landed; harness + shopping-list UI to
+     follow):** `src/engine/wasteFit.ts` adds a small, capped scoring bonus
+     (`WEIGHTS.wasteFit = 0.35`, well under half of `variety`'s 1.3) when a
+     candidate main or side reuses a **whole-unit perishable** (Produce/Meat/
+     Seafood/Dairy/Bakery, bought as an indivisible piece/bunch/can, or under
+     1 lb/kg/l) that another meal already fixed for the week has forced onto
+     the shopping list without consuming the whole unit — the "half a cabbage
+     goes to waste" problem. `generate()`, `rerollCandidates`, and every
+     `composeSides` call site in `planStore.ts` now pass `weekRecipes` (the
+     week's other fixed mains/sides) through `GenerateContext` for this
+     comparison. A tie/near-tie breaker only — never enough to bury a better
+     dish or beat variety. `scripts/checkWasteFit.ts` and the shopping list's
+     "used in 2 meals" line are still to come.
 3. **During the week:** meals map to **real calendar dates** ("Tonight" means
    tonight). Cook mode (composed steps: the main's, then each side's, each side's
    first step carrying a "Side: X"/"Sauce: X" section label; cook-mode progress is

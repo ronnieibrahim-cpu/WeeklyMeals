@@ -132,7 +132,10 @@ export function rerollCandidates(
   const coverable: RerollCandidate[] = [];
   const shortfalls: RerollNearMiss[] = [];
   for (const r of pool) {
-    const sideRecipeIds = composeSides(r, sidesPool, ctx);
+    // M4.3: score this candidate's sides for waste-fit against the rest of
+    // the week's already-fixed mains (`selectedRecipes` — everything except
+    // the outgoing day being re-rolled).
+    const sideRecipeIds = composeSides(r, sidesPool, { ...ctx, weekRecipes: selectedRecipes });
     const sides = sideRecipeIds.map((id) => sidesById.get(id)).filter((s): s is Recipe => !!s);
     const missing = missingIngredientsForPlate(r, sides, available);
     if (missing.length === 0) coverable.push({ recipe: r, sideRecipeIds });

@@ -32,6 +32,17 @@ function resolveRecipes(ids: string[]): Recipe[] {
   return ids.map(getAnyRecipe).filter((r): r is Recipe => !!r);
 }
 
+/** M4.3: the resolved recipes (each other meal's main plus its already-known
+ * sides) of every day EXCEPT `excludeDayIndex` — the waste-fit comparison
+ * pool passed as `weekRecipes` when composing sides for the day being
+ * swapped/pinned/completed. Kept simple: reads whatever `sideRecipeIds` the
+ * other meals already carry rather than recomposing them. */
+function otherWeekRecipes(meals: PlannedMeal[], excludeDayIndex: number): Recipe[] {
+  return meals
+    .filter((m) => m.dayIndex !== excludeDayIndex)
+    .flatMap((m) => resolveRecipes([m.recipeId, ...(m.sideRecipeIds ?? [])]));
+}
+
 function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: string[]): GenerateContext {
   const learning = useLearningStore.getState();
   return {
@@ -401,7 +412,9 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const recipe = getAnyRecipe(recipeId);
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     const ctx = context(draftPlan.intake, profile, []);
-    const sideRecipeIds = recipe ? composeSides(recipe, sidesPool(), ctx) : [];
+    const sideRecipeIds = recipe
+      ? composeSides(recipe, sidesPool(), { ...ctx, weekRecipes: otherWeekRecipes(draftPlan.meals, dayIndex) })
+      : [];
     const meals = draftPlan.meals.map((m) =>
       m.dayIndex === dayIndex ? { ...m, recipeId, sideRecipeIds, locked: false } : m,
     );
@@ -640,7 +653,9 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const available = availableIngredients(pantry, get().shoppingList, outgoingRecipe, outgoingSides);
     if (!isMain(recipe)) return missingIngredients(recipe, available); // defensive; not reachable via UI
     const ctx = context(plan.intake, profile, []);
-    const sides = resolveRecipes(composeSides(recipe, sidesPool(), ctx));
+    const sides = resolveRecipes(
+      composeSides(recipe, sidesPool(), { ...ctx, weekRecipes: otherWeekRecipes(plan.meals, dayIndex) }),
+    );
     return missingIngredientsForPlate(recipe, sides, available);
   },
 
@@ -653,7 +668,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     if (!passesAllergySafety(recipe, profile)) return;
     if (!pinnableDays(plan, recipeId).includes(dayIndex)) return;
     const ctx = context(plan.intake, profile, []);
-    const composedSideIds = composeSides(recipe, sidesPool(), ctx);
+    const composedSideIds = composeSides(recipe, sidesPool(), {
+      ...ctx,
+      weekRecipes: otherWeekRecipes(plan.meals, dayIndex),
+    });
     // Defense in depth (Law #5): re-check every composed side explicitly,
     // exactly like the main above — never trust that `composeSides`'
     // internal filtering alone was enough.
@@ -680,7 +698,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     if (!passesAllergySafety(recipe, profile)) return;
     if (!get().pinnableDraftDaysFor(recipeId).includes(dayIndex)) return;
     const ctx = context(draftPlan.intake, profile, []);
-    const composedSideIds = composeSides(recipe, sidesPool(), ctx);
+    const composedSideIds = composeSides(recipe, sidesPool(), {
+      ...ctx,
+      weekRecipes: otherWeekRecipes(draftPlan.meals, dayIndex),
+    });
     const sideRecipeIds = composedSideIds.filter((id) => {
       const side = getAnyRecipe(id);
       return !!side && passesAllergySafety(side, profile);
@@ -706,7 +727,11 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const available = availableIngredients(pantry, list, outgoingRecipe, outgoingSides);
 
     const ctx = context(plan.intake, profile, []);
-    const sides = isMain(recipe) ? resolveRecipes(composeSides(recipe, sidesPool(), ctx)) : [];
+    const sides = isMain(recipe)
+      ? resolveRecipes(
+          composeSides(recipe, sidesPool(), { ...ctx, weekRecipes: otherWeekRecipes(plan.meals, dayIndex) }),
+        )
+      : [];
 
     // Each recipe on the prospective plate adds its own missing ingredients,
     // attributed to its own id — mirrors `applyServingsDeltaToShoppingList`'s
