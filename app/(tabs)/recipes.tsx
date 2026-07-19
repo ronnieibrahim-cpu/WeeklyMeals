@@ -9,6 +9,7 @@ import { Category, Cuisine, Difficulty, Protein, Recipe } from '@/domain/models'
 import { autocompleteSuggestions, filterRecipes, findByExactName, RecipeFilters, searchRecipes } from '@/engine/recipeSearch';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useMainRecipes } from '@/stores/userRecipesStore';
 import { ChipMultiSelect, ChipSingleSelect, EmptyState, RecipeResultCard, Screen, SectionHeader, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -29,6 +30,9 @@ export default function RecipesScreen() {
   const toggleFavorite = useLearningStore((s) => s.toggleFavorite);
   const kidApprovedList = useLearningStore((s) => s.kidApproved);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
+  // M4.4: subscribe to the data (notesMap), not a lookup function — the
+  // M4.0a lesson (see recipeNotesStore's doc comment).
+  const notesMap = useRecipeNotesStore((s) => s.notesMap);
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const canPin = !!(pinTarget === 'draft' ? draftPlan : plan);
@@ -85,6 +89,7 @@ export default function RecipesScreen() {
       onQuickPin={canPin ? () => openPin(recipe.id) : undefined}
       kidApproved={kidApprovedIds.has(recipe.id)}
       onToggleKidApproved={() => toggleKidApproved(recipe.id)}
+      hasNote={!!notesMap[recipe.id]?.text}
     />
   );
 

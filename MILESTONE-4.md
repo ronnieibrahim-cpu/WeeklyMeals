@@ -292,7 +292,15 @@ and the shopping list shows which items are shared.
 
 ---
 
-## [ ] M4.4 — Notes on a recipe (what we liked, how we adapted it)
+## [x] M4.4 — Notes on a recipe (what we liked, how we adapted it)
+**Done:** part 1 (data + sync merge, below) plus part 2 — the inline "Family notes"
+editor on the meal detail screen (under Steps: "+ Add a note" / note text + Edit /
+multiline Save-Cancel editor, saving empty text clears via the tombstone path) and a
+quiet `document-text-outline` glyph next to the recipe name on `MealCard` and
+`RecipeResultCard`, wired on This Week, Schedule, Recipes browse, and plan review —
+each of those screens subscribes to `recipeNotesStore`'s `notesMap` directly (not a
+lookup function), so an edit anywhere updates the glyph everywhere without leaving
+the screen.
 
 **Part 1 landed (data + sync layer only, no UI yet):** `RecipeNote`/`RecipeNotesMap`
 domain model (`src/domain/models/recipeNotes.ts`); `mergeRecipeNotes` wired into

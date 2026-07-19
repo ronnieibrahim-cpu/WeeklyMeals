@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Linking, Pressable, View } from 'react-native';
+import { Linking, Pressable, TextInput, View } from 'react-native';
 
 import { RECIPE_IMAGE_ATTRIBUTION } from '@/data/recipeImages';
 import { isMain } from '@/domain/models';
@@ -9,6 +9,7 @@ import { formatServings } from '@/engine/portions';
 import { isUserRecipe } from '@/engine/userRecipes';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useRecipesById, useUserRecipesStore } from '@/stores/userRecipesStore';
 import {
   Card,
@@ -43,6 +44,10 @@ export default function MealDetailScreen() {
   const rateMeal = usePlanStore((s) => s.rateMeal);
   const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
   const removeSideFromMeal = usePlanStore((s) => s.removeSideFromMeal);
+  // M4.4: subscribe to the data (notesMap), not a lookup function — the
+  // M4.0a lesson, see recipeNotesStore's doc comment.
+  const notesMap = useRecipeNotesStore((s) => s.notesMap);
+  const setNote = useRecipeNotesStore((s) => s.setNote);
   // Law #5, store-level guard already covers pinning itself — this is just
   // the UI reflecting the same invariant: a side/sauce opened from a plate
   // is never independently pinnable as a whole dinner.
@@ -56,6 +61,9 @@ export default function MealDetailScreen() {
   // M4.2 part 2: which side (if any) was just removed from the plate,
   // waiting on the separate, explicit shopping-list confirm.
   const [removingSideId, setRemovingSideId] = useState<string | null>(null);
+  // M4.4: whether the family-notes editor is open, and its in-progress text.
+  const [editingNote, setEditingNote] = useState(false);
+  const [noteDraft, setNoteDraft] = useState('');
 
   const photoAttribution = recipe ? RECIPE_IMAGE_ATTRIBUTION[recipe.id] : undefined;
   const isFavorite = recipe ? favorites.includes(recipe.id) : false;
@@ -66,6 +74,8 @@ export default function MealDetailScreen() {
       : undefined;
   const isOwnRecipe = recipe ? isUserRecipe(recipe.id) : false;
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  // Empty text is the M4.4 tombstone for "cleared" — treat it as no note.
+  const noteText = recipe ? notesMap[recipe.id]?.text ?? '' : '';
 
   const header = (
     <View
@@ -387,6 +397,88 @@ export default function MealDetailScreen() {
           </Text>
         </View>
       ))}
+
+      <Text variant="title3" style={{ marginTop: theme.spacing.xl, marginBottom: theme.spacing.sm }}>
+        Family notes
+      </Text>
+      <Card>
+        {editingNote ? (
+          <>
+            <TextInput
+              value={noteDraft}
+              onChangeText={setNoteDraft}
+              placeholder="What did you change? What did everyone think?"
+              placeholderTextColor={theme.colors.textTertiary}
+              multiline
+              autoFocus
+              style={{
+                borderWidth: 1,
+                borderColor: theme.colors.border,
+                borderRadius: theme.radius.md,
+                paddingVertical: theme.spacing.sm,
+                paddingHorizontal: theme.spacing.md,
+                fontSize: 17,
+                color: theme.colors.text,
+                minHeight: 80,
+              }}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                gap: theme.spacing.lg,
+                marginTop: theme.spacing.sm,
+              }}
+            >
+              <Pressable onPress={() => setEditingNote(false)}>
+                <Text variant="footnote" color="secondary">
+                  Cancel
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  setNote(recipe.id, noteDraft.trim());
+                  setEditingNote(false);
+                }}
+              >
+                <Text variant="footnote" color="accent">
+                  Save
+                </Text>
+              </Pressable>
+            </View>
+          </>
+        ) : noteText ? (
+          <>
+            <Text variant="body" color="secondary">
+              {noteText}
+            </Text>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => {
+                setNoteDraft(noteText);
+                setEditingNote(true);
+              }}
+              style={{ marginTop: theme.spacing.sm }}
+            >
+              <Text variant="footnote" color="accent">
+                Edit
+              </Text>
+            </Pressable>
+          </>
+        ) : (
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => {
+              setNoteDraft('');
+              setEditingNote(true);
+            }}
+          >
+            <Text variant="footnote" color="accent">
+              + Add a note
+            </Text>
+          </Pressable>
+        )}
+      </Card>
 
       {recipe.tips && recipe.tips.length > 0 ? (
         <Card style={{ marginTop: theme.spacing.md }}>

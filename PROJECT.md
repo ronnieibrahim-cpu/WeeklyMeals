@@ -125,8 +125,7 @@ src/data/repositories/local   kvStore (AsyncStorage JSON) + one repo per aggrega
 src/data/sync/    config.ts (URL/key/kill-switch) · householdApi.ts (row by 6-char code)
 src/stores/       planStore · profileStore · pantryStore · learningStore ·
                   settingsStore · syncStore · manualItemsStore · cookModeStore ·
-                  userRecipesStore · recipeNotesStore (M4.4 part 1: data + sync
-                  only, no screen reads it yet)
+                  userRecipesStore · recipeNotesStore (M4.4)
 scripts/          validateRecipes · importRecipes · importPhotos ·
                   checkCuratedWeighting · checkKidApprovedWeighting
 ```
@@ -224,10 +223,14 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    shopping list" / "Reduce shopping list" button; declining leaves the list untouched
    — a side can also be removed from the plate ("no sides tonight" is a real, explicit
    choice) with the same explicit-button pattern before the shopping list is touched.
-   **Recipe notes (M4.4, data + sync layer only — no screen reads or writes one yet):**
-   one free-text note per recipe (not per cooking), household-synced, display only —
-   never feeds scoring. Belongs to the recipe, not the plan, so it survives re-rolls,
-   plan changes, and week rollovers untouched.
+   **Recipe notes (M4.4):** one free-text note per recipe (not per cooking),
+   household-synced, display only — never feeds scoring. Edited inline on the
+   recipe/meal detail screen (`app/meal/[id].tsx`, a "Family notes" section under
+   Steps — "+ Add a note" / Edit / Save / Cancel; saving empty text clears it), and
+   flagged with a small quiet glyph next to the recipe name on `MealCard` and
+   `RecipeResultCard` wherever those are shown (This Week, Schedule, Recipes browse,
+   plan review). Belongs to the recipe, not the plan, so it survives re-rolls, plan
+   changes, and week rollovers untouched.
 4. **Learning:** ratings are the source of truth and the `PreferenceProfile` is
    **recomputed from the full rating history** on every change (structurally
    immune to double-counting). Cuisine/protein/technique/vegetable affinities and
@@ -370,7 +373,9 @@ Product Owner's friction journal, is the active milestone:
   whole-plate strict re-roll, sync).
 - **M4.3** — waste-fit scoring bonus (use the whole cabbage). ✅ Shipped: scoring
   bonus, `checkWasteFit.ts` harness, shopping-list "used in N meals" caption.
-- **M4.4** — per-recipe notes, household-synced. Not started.
+- **M4.4** — per-recipe notes, household-synced. ✅ Shipped: data + sync layer,
+  the "Family notes" editor on meal detail, and the card glyph on This
+  Week/Schedule/Recipes/plan review.
 - **M4.5** — component re-roll (keep a side/sauce, regenerate the rest). Depends on
   M4.2 (now shipped). Not started.
 - **M4.6** — rearrange the week after approval (swipe "Move to…" + hold-to-drag).

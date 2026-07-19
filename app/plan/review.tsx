@@ -6,6 +6,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useSyncStore } from '@/stores/syncStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, MealCard, PrimaryButton, SecondaryButton, Text } from '@/ui/components';
@@ -27,6 +28,9 @@ export default function ReviewPlanScreen() {
   const previewShoppingList = usePlanStore((s) => s.previewShoppingList);
   const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
+  // M4.4: subscribe to the data (notesMap), not a lookup function — the
+  // M4.0a lesson (see recipeNotesStore's doc comment).
+  const notesMap = useRecipeNotesStore((s) => s.notesMap);
   const recipesById = useRecipesById();
 
   // Swap now offers a choice instead of silently committing to the
@@ -134,6 +138,7 @@ export default function ReviewPlanScreen() {
               servings={meal.servings}
               onServingsChange={(servings) => setDraftMealServings(meal.dayIndex, servings)}
               sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
+              hasNote={!!notesMap[recipe.id]?.text}
             />
           );
         })}

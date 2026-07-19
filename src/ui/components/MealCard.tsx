@@ -42,6 +42,10 @@ interface Props {
    * the caller. Undefined/empty renders nothing extra — "no sides tonight"
    * is a normal, explicit state, not a gap in the card. */
   sideNames?: string[];
+  /** M4.4: whether this recipe has a (non-empty) family note. Display only —
+   * a quiet glyph next to the name, not tappable here; editing happens on
+   * the recipe detail screen. */
+  hasNote?: boolean;
 }
 
 /** Compact meal card used on This Week and the Review screen. */
@@ -63,6 +67,7 @@ export function MealCard({
   servings,
   onServingsChange,
   sideNames,
+  hasNote,
 }: Props) {
   const theme = useTheme();
   const showActions = !!(onToggleLock || onSwap);
@@ -96,6 +101,14 @@ export function MealCard({
                   color={kidApproved ? theme.colors.success : theme.colors.textTertiary}
                 />
               </Pressable>
+            ) : null}
+            {hasNote ? (
+              <Ionicons
+                accessibilityLabel="Has a family note"
+                name="document-text-outline"
+                size={16}
+                color={theme.colors.textTertiary}
+              />
             ) : null}
           </View>
           <Text variant="footnote" color="secondary" style={{ marginTop: 2 }}>

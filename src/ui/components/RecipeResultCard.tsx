@@ -25,6 +25,10 @@ interface Props {
   /** M3.2 "Kids approved" badge. */
   kidApproved: boolean;
   onToggleKidApproved: () => void;
+  /** M4.4: whether this recipe has a (non-empty) family note. Display only —
+   * a quiet glyph next to the name; editing happens on the recipe detail
+   * screen. */
+  hasNote?: boolean;
 }
 
 /** Result card for the Recipes tab (search results and the Favorites section). */
@@ -36,6 +40,7 @@ export function RecipeResultCard({
   onQuickPin,
   kidApproved,
   onToggleKidApproved,
+  hasNote,
 }: Props) {
   const theme = useTheme();
 
@@ -47,9 +52,19 @@ export function RecipeResultCard({
         </View>
 
         <View style={{ flex: 1 }}>
-          <Text variant="headline" numberOfLines={1}>
-            {recipe.name}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <Text variant="headline" numberOfLines={1} style={{ flex: 1 }}>
+              {recipe.name}
+            </Text>
+            {hasNote ? (
+              <Ionicons
+                accessibilityLabel="Has a family note"
+                name="document-text-outline"
+                size={16}
+                color={theme.colors.textTertiary}
+              />
+            ) : null}
+          </View>
           <Text variant="footnote" color="secondary" style={{ marginTop: 2 }}>
             {recipe.cuisine} · {recipe.difficulty} · {recipe.prepMinutes + recipe.cookMinutes}m
           </Text>

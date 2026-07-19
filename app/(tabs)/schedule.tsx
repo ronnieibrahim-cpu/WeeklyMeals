@@ -5,6 +5,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { dateForDayIndex } from '@/engine/schedule';
 import { useLearningStore } from '@/stores/learningStore';
 import { usePlanStore } from '@/stores/planStore';
+import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, EmptyState, MealCard, Screen, ServingsShoppingListPrompt, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -21,6 +22,9 @@ export default function ScheduleScreen() {
   const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const recipesById = useRecipesById();
+  // M4.4: subscribe to the data (notesMap), not a lookup function — the
+  // M4.0a lesson (see recipeNotesStore's doc comment).
+  const notesMap = useRecipeNotesStore((s) => s.notesMap);
   // M4.1: see app/(tabs)/index.tsx for why this is local-only, not persisted.
   const [pendingServings, setPendingServings] = useState<{ dayIndex: number; oldServings: number } | null>(null);
 
@@ -90,6 +94,7 @@ export default function ScheduleScreen() {
                 setApprovedMealServings(meal.dayIndex, servings);
               }}
               sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
+              hasNote={!!notesMap[recipe.id]?.text}
             />
             {pendingServings?.dayIndex === meal.dayIndex ? (
               <ServingsShoppingListPrompt
