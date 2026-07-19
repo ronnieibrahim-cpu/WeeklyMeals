@@ -261,8 +261,19 @@ export const useSyncStore = create<SyncState>((set, get) => {
     },
 
     syncNow: async () => {
-      await run(push);
+      // Pull BEFORE push, not after. pull() already pushes the merged result
+      // back to the server when local knows more than the row it fetched, so
+      // a purely-local edit still round-trips even when pull's own push
+      // fires. Doing it the other way (push then pull) is broken: push()
+      // unconditionally overwrites the row and stamps our own write's
+      // updated_at as lastSyncedTs, so the immediately-following pull sees
+      // remoteTs <= lastSyncedTs (it's now looking at the row we just wrote)
+      // and early-returns as "already caught up" — silently discarding
+      // whatever the partner device had written since our last poll, right
+      // before callers like review.tsx's onApprove act on local state that
+      // was never actually reconciled. See MILESTONE-4.md M4.7.
       await run(pull);
+      await run(push);
     },
   };
 });

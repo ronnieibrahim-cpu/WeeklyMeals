@@ -77,6 +77,7 @@ function manualMap(entries: Record<string, ManualItem> = {}): ManualItemMap {
 
 const t1 = '2026-07-01T10:00:00.000Z';
 const t2 = '2026-07-01T10:05:00.000Z'; // later than t1
+const t3 = '2026-07-01T10:10:00.000Z'; // later than t2
 
 describe('mergeShoppingLists', () => {
   it('(a) cross-device checks converge, order-independent', () => {
@@ -571,6 +572,53 @@ describe('mergeManualItems (M3.3)', () => {
     expect(mergedAB.butter.deleted).toBe(false);
     expect(mergedBA.butter.deleted).toBe(false);
     expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('clear-vs-late-check: a delete beats a checked flag stamped AFTER the delete, converging either direction (checked is irrelevant on a deleted item)', () => {
+    // Device A: approve-clears the item at t2.
+    const clearedThenLateChecked = manualMap({
+      butter: manualItem({ displayName: 'butter', deleted: true, deletedAtISO: t2, checked: false, checkedAtISO: null }),
+    });
+    // Device B: unaware of the clear, taps the (stale, already-cleared)
+    // checkbox at t3 — chronologically AFTER the delete, but on the wrong
+    // (deleted) copy of the item.
+    const lateCheck = manualMap({
+      butter: manualItem({ displayName: 'butter', deleted: false, deletedAtISO: null, checked: true, checkedAtISO: t3 }),
+    });
+
+    const mergedAB = mergeManualItems(clearedThenLateChecked, lateCheck);
+    const mergedBA = mergeManualItems(lateCheck, clearedThenLateChecked);
+
+    // deleted/checked resolve independently by their OWN timestamps — the
+    // delete (real deletedAtISO at t2) beats the missing deletedAtISO on the
+    // other side regardless of how fresh the losing side's checkedAtISO is.
+    expect(mergedAB.butter.deleted).toBe(true);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('revive race (M4.7): checked on phone B at t1; phone A clears (delete@t2) then re-adds (undelete + unchecked@t3) — both merge orders converge to active + unchecked, and it is idempotent', () => {
+    // Phone B checked "eggs" at t1 and never saw the clear.
+    const phoneB = manualMap({
+      eggs: manualItem({ displayName: 'eggs', checked: true, checkedAtISO: t1, deleted: false, deletedAtISO: null }),
+    });
+    // Phone A: approve cleared it at t2 (soft-delete), then the user typed
+    // "eggs" into the manual-add box again at t3 — manualItemsStore.add()
+    // revives it with checked:false stamped at t3 (not null), per the M4.7
+    // fix, so the revive's unchecked state deterministically beats B's
+    // stale checked=true.
+    const phoneA = manualMap({
+      eggs: manualItem({ displayName: 'eggs', checked: false, checkedAtISO: t3, deleted: false, deletedAtISO: t3, updatedAtISO: t3 }),
+    });
+
+    const mergedAB = mergeManualItems(phoneA, phoneB);
+    const mergedBA = mergeManualItems(phoneB, phoneA);
+
+    expect(mergedAB.eggs.deleted).toBe(false);
+    expect(mergedAB.eggs.checked).toBe(false);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+
+    const mergedAgain = mergeManualItems(mergedAB, phoneB);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(mergedAB));
   });
 
   it('a rename (tombstone old key + new key) leaves the old key deleted and the new key present, converging either direction', () => {

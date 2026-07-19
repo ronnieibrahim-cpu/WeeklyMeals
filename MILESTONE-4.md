@@ -367,6 +367,14 @@ same week regardless of merge order; the shopping list is unchanged.
 
 ---
 
+## [ ] M4.7 — Two live bugs from the family (BUGFIX)
+**Reported:** (a) manually entered shopping items sometimes don't clear week to week even after being checked off; (b) duplicate entries appear on the shopping list — the same ingredient shows as multiple lines.
+**Diagnosis (verified):** (a) `syncNow()` pushes before pulling; the push records its own `updated_at` as last-synced, so the following pull early-returns as 'already caught up' — the reconcile `onApprove` relies on (app/plan/review.tsx) never merges the partner phone's check-offs, and `clearChecked()` runs against stale state. Also, `manualItemsStore.add()` revives a cleared item with `checkedAtISO: null`, so a stale remote checked=true (real timestamp beats epoch 0) resurrects it pre-checked. (b) `buildShoppingList` dedups by exact lowercased name|unit; the recipe pool uses inconsistent singular/plural spellings and units for the same ingredient across curated/imported/sides sources, so one real-world ingredient becomes several lines.
+**Fix:** see commits. **Accept when:** an item checked on either phone is cleared by the next week's approval on either phone; re-adding a cleared item never comes back pre-checked; one week's list shows one line per real ingredient wherever units are convertible; merge assertions cover both orders, idempotence, and the revive race.
+**Fix A landed:** `syncNow()` now pulls before it pushes (see comment on `syncNow` in `src/stores/syncStore.ts`); `manualItemsStore.add()` stamps a revive's `checkedAtISO` with `now` instead of `null` so it deterministically beats a stale remote checked=true. Merge-level tests added for the revive race and the clear-vs-late-check case (`src/engine/syncMerge.test.ts`), plus one store-level ordering test (`src/stores/syncStore.test.ts`).
+
+---
+
 ## Parked / future (unchanged — do NOT start)
 Photo accuracy QA (M3.6, deferred polish) · leftovers-aware planning ·
 thaw-tonight reminders · quantity-aware re-roll · household-synced user recipes ·

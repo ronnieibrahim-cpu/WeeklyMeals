@@ -76,7 +76,13 @@ export const useManualItemsStore = create<ManualItemsState>((set, get) => ({
       quantityLabel: existing?.quantityLabel,
       department: department ?? guessDepartment(displayName, INGREDIENT_DEPARTMENT_MAP),
       checked: false,
-      checkedAtISO: null,
+      // Stamped `now`, not null, even though the item is unchecked: a
+      // revived key's `checked: false` needs a real, current timestamp so it
+      // deterministically beats a stale remote `checked: true` from before
+      // the delete (resolveFlag's "newer wins" would otherwise let an old
+      // real timestamp beat our null and resurrect the item pre-checked —
+      // see syncMerge.test.ts "revive race" and MILESTONE-4.md M4.7).
+      checkedAtISO: now,
       // Reviving a tombstoned key needs a fresh, later deletedAtISO so a
       // re-add always beats the old delete marker once this syncs (see
       // syncMerge.test.ts "tombstone override").

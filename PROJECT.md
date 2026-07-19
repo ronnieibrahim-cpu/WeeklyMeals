@@ -230,7 +230,17 @@ the identical result regardless of order, or they ping-pong forever.
 - **Manual items** are keyed by **normalized name** (two people adding "milk"
   converge to one row) and deleted via **tombstones** (a delete is never resurrected
   by a phone that hasn't caught up). They are **not plan-scoped**: on approving a new
-  week, checked items clear (bought) and unchecked items carry over.
+  week, checked items clear (bought) and unchecked items carry over. **Reviving a
+  tombstoned key (re-adding a cleared item) stamps `checkedAtISO` with the current
+  time, not `null`** — a null timestamp reads as older than any real one, so a stale
+  remote `checked: true` from before the delete would otherwise win the merge and
+  resurrect the item pre-checked (M4.7).
+- **`syncNow()` pulls before it pushes.** Push unconditionally overwrites the remote
+  row and records that write's own `updated_at` as "last synced," so pushing first
+  makes the very next pull see itself as already caught up and skip merging the
+  partner's state — exactly the reconcile `app/plan/review.tsx`'s approve flow depends
+  on before `clearChecked()` runs (M4.7 — previously `syncNow()` pushed first and
+  silently dropped the partner's still-unmerged check-offs).
 - Plan-level fields (intake, weekStartISO) remain whole-payload last-write-wins.
 - Every sync change ships with assertions for both merge orders, idempotence, and the
   specific race the feature introduces.
