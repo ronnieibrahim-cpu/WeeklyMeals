@@ -1,8 +1,8 @@
 import { isMain, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 
 import { canonicalIngredientName } from './ingredientKey';
-import { composeSides } from './mealComposition';
-import { passesHardFilters, scoreRecipe } from './recommendation';
+import { composeSides, fitsCombinedTime } from './mealComposition';
+import { passesHardFilters, scoreRecipe, WEIGHTS } from './recommendation';
 import { GenerateContext } from './recommendation/types';
 import { todayOffset } from './schedule';
 
@@ -90,6 +90,33 @@ export interface RerollOutcome {
 }
 
 /**
+ * M4.5: which plate part(s) the user locked before re-rolling. Absent, or
+ * `{ keepMain: false, keptSideIds: [] }`, means "no keep" — the ordinary
+ * whole-plate re-roll (M2.2/M4.2 part 2), unchanged.
+ */
+export interface RerollKeepOptions {
+  /** true = keep the outgoing plate's main, re-roll its sides. */
+  keepMain: boolean;
+  /** Side/sauce ids from the outgoing plate to carry over verbatim. Only
+   * meaningful when `keepMain` is false (keep sides, re-roll the main) or
+   * when it's true and the user pinned a subset of the current sides too;
+   * defensively ignored below if a given id isn't actually on the outgoing
+   * meal's `sideRecipeIds` — a stale/tampered id can never smuggle a side
+   * onto a candidate plate that wasn't really there. */
+  keptSideIds: string[];
+}
+
+type Provides = 'protein' | 'vegetable' | 'starch';
+
+/** Mirrors `mealComposition.ts`'s private `hardMinimumMet` (protein +
+ * vegetable-or-starch). Duplicated rather than imported — M4.5's scope
+ * explicitly limits the change to that module to exporting
+ * `fitsCombinedTime`. Keep in sync if the composition rule ever changes. */
+function hardMinimumMet(provides: Set<Provides>): boolean {
+  return provides.has('protein') && (provides.has('vegetable') || provides.has('starch'));
+}
+
+/**
  * Pure candidate selection for a mid-week re-roll. STRICT mode (✅ decided):
  * only PLATES — main + composed sides (M4.2 part 2) — fully coverable by
  * `available` qualify, evaluated as a whole; a re-roll must never imply a
@@ -101,6 +128,14 @@ export interface RerollOutcome {
  * ties break by stable-sort array order (deterministic — not
  * shuffled/randomized). `recipes` is the FULL pool (mains + sides +
  * imported), split once here via `isMain()`.
+ *
+ * M4.5 adds an optional `keep` param for component re-roll ("keep the
+ * chimichurri, change the meal"): keep the sides/sauce and re-roll only the
+ * main, or keep the main and re-roll only the sides. Every candidate this
+ * function emits — in every mode — still passes the identical hard filters
+ * (allergy/diet/dislikes/blocked/time) a normal re-roll does; the allergy
+ * re-check at commit time is the store's job (LAW #5), not a reason to relax
+ * anything generated here.
  */
 export function rerollCandidates(
   plan: WeeklyPlan,
@@ -109,6 +144,7 @@ export function rerollCandidates(
   getRecipe: (id: string) => Recipe | undefined,
   available: Set<string>,
   ctx: GenerateContext,
+  keep?: RerollKeepOptions,
 ): RerollOutcome {
   const outgoingMeal = plan.meals.find((m) => m.dayIndex === dayIndex);
   if (!outgoingMeal || outgoingMeal.cooked) return { candidates: [], nearMisses: [] };
@@ -129,10 +165,37 @@ export function rerollCandidates(
   const sidesById = new Map(sidesPool.map((s) => [s.id, s]));
 
   const blocked = new Set(ctx.preferences?.blockedRecipeIds ?? []);
+
+  // Defensive (M4.5): a "kept" id only counts if it's really on the
+  // outgoing plate right now.
+  const outgoingSideIds = new Set(outgoingMeal.sideRecipeIds ?? []);
+  const keptSideIds = (keep?.keptSideIds ?? []).filter((id) => outgoingSideIds.has(id));
+
+  if (keep?.keepMain) {
+    const outgoingMain = getRecipe(outgoingMeal.recipeId);
+    if (!outgoingMain) return { candidates: [], nearMisses: [] };
+    return rerollKeepMain(
+      outgoingMain,
+      outgoingSideIds,
+      keptSideIds,
+      sidesPool,
+      sidesById,
+      available,
+      ctx,
+      selectedRecipes,
+      blocked,
+    );
+  }
+
   const pool = mains.filter(
     (r) => !usedIds.has(r.id) && !blocked.has(r.id) && passesHardFilters(r, ctx.intake, ctx.profile),
   );
 
+  if (keptSideIds.length > 0) {
+    return rerollKeepSides(pool, sidesPool, sidesById, keptSideIds, available, ctx, selectedRecipes);
+  }
+
+  // No-keep (default): unchanged M2.2/M4.2 part 2 whole-plate re-roll.
   const coverable: RerollCandidate[] = [];
   const shortfalls: RerollNearMiss[] = [];
   for (const r of pool) {
@@ -162,6 +225,162 @@ export function rerollCandidates(
     .slice(0, 3);
 
   return { candidates: [], nearMisses };
+}
+
+/**
+ * M4.5 mode "keep sides, re-roll the main": candidates are mains that pair
+ * with the kept side/sauce — passing every hard filter a main normally does
+ * — with the whole resulting plate still strictly coverable. `pool` is the
+ * same candidate-main pool the no-keep path uses (unused-this-week, not
+ * blocked, `passesHardFilters`).
+ */
+function rerollKeepSides(
+  pool: Recipe[],
+  sidesPool: Recipe[],
+  sidesById: Map<string, Recipe>,
+  keptSideIds: string[],
+  available: Set<string>,
+  ctx: GenerateContext,
+  selectedRecipes: Recipe[],
+): RerollOutcome {
+  const keptSides = keptSideIds.map((id) => sidesById.get(id)).filter((s): s is Recipe => !!s);
+  const keptSideIdSet = new Set(keptSideIds);
+
+  const coverable: RerollCandidate[] = [];
+  const shortfalls: RerollNearMiss[] = [];
+
+  for (const main of pool) {
+    // Pairing gate (a): every kept side/sauce must still fit the combined
+    // time budget with this candidate main.
+    if (!keptSides.every((side) => fitsCombinedTime(main, side, ctx.intake))) continue;
+
+    // Pairing gate (b): a kept side with real `provides` must still
+    // contribute something this main doesn't already cover on its own; a
+    // sauce (empty/absent `provides`) always pairs — it has nothing to
+    // clash with.
+    const mainProvides = new Set<Provides>((main.provides ?? []) as Provides[]);
+    const clashes = keptSides.some(
+      (side) =>
+        side.provides && side.provides.length > 0 && side.provides.every((p) => mainProvides.has(p as Provides)),
+    );
+    if (clashes) continue;
+
+    // Plate assembly: kept sides first, verbatim; top up only if the plate
+    // is short of 2 sides AND the hard minimum still isn't met.
+    let sideRecipeIds = [...keptSideIds];
+    const plateProvides = new Set<Provides>(mainProvides);
+    for (const side of keptSides) for (const p of side.provides ?? []) plateProvides.add(p as Provides);
+
+    if (sideRecipeIds.length < 2 && !hardMinimumMet(plateProvides)) {
+      const remainingPool = sidesPool.filter((s) => !keptSideIdSet.has(s.id));
+      const additions = composeSides(main, remainingPool, { ...ctx, weekRecipes: selectedRecipes });
+      sideRecipeIds = [...sideRecipeIds, ...additions.slice(0, 2 - sideRecipeIds.length)];
+    }
+
+    const sides = sideRecipeIds.map((id) => sidesById.get(id)).filter((s): s is Recipe => !!s);
+    const missing = missingIngredientsForPlate(main, sides, available);
+    if (missing.length === 0) coverable.push({ recipe: main, sideRecipeIds });
+    else if (missing.length <= 2) shortfalls.push({ recipe: main, sideRecipeIds, missing });
+  }
+
+  if (coverable.length > 0) {
+    const keptCuisines = new Set(keptSides.map((s) => s.cuisine));
+    // M4.5: nudge a candidate main toward the front of the ranking when its
+    // cuisine matches a kept side/sauce's — "candidates are mains that pair
+    // with the kept part (cuisine fit)" (MILESTONE-4.md §M4.5). Reuses
+    // `WEIGHTS.sideCuisineFit`'s magnitude — the existing side-vs-main
+    // cuisine nudge in scoring.ts — because it's the same kind of
+    // tie-breaking signal one level up the plate. Deliberately a local
+    // sort-key adjustment rather than a change to `scoreRecipe`, which has
+    // no notion of "kept parts" and shouldn't grow one just for this screen.
+    const sortKey = (c: RerollCandidate) =>
+      scoreRecipe(c.recipe, ctx, selectedRecipes) + (keptCuisines.has(c.recipe.cuisine) ? WEIGHTS.sideCuisineFit : 0);
+    const ranked = [...coverable].sort((a, b) => sortKey(b) - sortKey(a));
+    return { candidates: ranked.slice(0, 5), nearMisses: [] };
+  }
+
+  const nearMisses = shortfalls
+    .sort(
+      (a, b) =>
+        a.missing.length - b.missing.length ||
+        scoreRecipe(b.recipe, ctx, selectedRecipes) - scoreRecipe(a.recipe, ctx, selectedRecipes),
+    )
+    .slice(0, 3);
+
+  return { candidates: [], nearMisses };
+}
+
+/**
+ * M4.5 mode "keep the main, re-roll the sides": up to 3 distinct alternative
+ * plates for the SAME outgoing main. Each alternative carries the kept
+ * subset verbatim, first, plus newly composed sides that avoid every id
+ * already on the outgoing plate — a re-roll must offer something different,
+ * not just recompute the plate you already have.
+ */
+function rerollKeepMain(
+  outgoingMain: Recipe,
+  outgoingSideIds: Set<string>,
+  keptSideIds: string[],
+  sidesPool: Recipe[],
+  sidesById: Map<string, Recipe>,
+  available: Set<string>,
+  ctx: GenerateContext,
+  selectedRecipes: Recipe[],
+  blocked: Set<string>,
+): RerollOutcome {
+  // The plate model caps at 2 sides total (`PlannedMeal.sideRecipeIds`). If
+  // both slots are already pinned there's no room for anything new, and
+  // nothing can be dropped either (the kept subset must stay verbatim) — so
+  // there's no possible alternative plate to offer.
+  const room = 2 - keptSideIds.length;
+  if (room <= 0) return { candidates: [], nearMisses: [] };
+
+  const excludeIds = new Set(outgoingSideIds); // never re-offer anything already on the plate
+  const alternatives: RerollCandidate[] = [];
+
+  while (alternatives.length < 3) {
+    const eligiblePool = sidesPool.filter(
+      (s) =>
+        !blocked.has(s.id) &&
+        passesHardFilters(s, ctx.intake, ctx.profile) &&
+        fitsCombinedTime(outgoingMain, s, ctx.intake) &&
+        !excludeIds.has(s.id),
+    );
+    const rawAdditions = composeSides(outgoingMain, eligiblePool, { ...ctx, weekRecipes: selectedRecipes });
+
+    if (rawAdditions.length === 0) {
+      // Nothing left to compose — the only remaining "alternative" is
+      // dropping the unkept sides outright. That's a real, distinct plate
+      // only if it actually differs from the current one, and it's only
+      // offered once we've already found at least one composed alternative
+      // — never as the very first offer (MILESTONE-4.md §M4.5).
+      if (alternatives.length > 0) {
+        const isSameAsCurrent =
+          keptSideIds.length === outgoingSideIds.size && keptSideIds.every((id) => outgoingSideIds.has(id));
+        if (!isSameAsCurrent) alternatives.push({ recipe: outgoingMain, sideRecipeIds: [...keptSideIds] });
+      }
+      break;
+    }
+
+    const additions = rawAdditions.slice(0, room);
+    alternatives.push({ recipe: outgoingMain, sideRecipeIds: [...keptSideIds, ...additions] });
+    // Force distinctness on the next pass: exclude everything this round
+    // touched — including anything trimmed off by the cap — so the loop
+    // always makes forward progress instead of re-composing the same set.
+    for (const id of rawAdditions) excludeIds.add(id);
+  }
+
+  const coverable: RerollCandidate[] = [];
+  const shortfalls: RerollNearMiss[] = [];
+  for (const alt of alternatives) {
+    const sides = alt.sideRecipeIds.map((id) => sidesById.get(id)).filter((s): s is Recipe => !!s);
+    const missing = missingIngredientsForPlate(outgoingMain, sides, available);
+    if (missing.length === 0) coverable.push(alt);
+    else if (missing.length <= 2) shortfalls.push({ ...alt, missing });
+  }
+
+  if (coverable.length > 0) return { candidates: coverable, nearMisses: [] };
+  return { candidates: [], nearMisses: shortfalls.slice(0, 3) };
 }
 
 /**
