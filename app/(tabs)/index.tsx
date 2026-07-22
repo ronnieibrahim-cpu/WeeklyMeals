@@ -48,7 +48,13 @@ export default function ThisWeekScreen() {
   // shopping list" confirmation. Local-only, never persisted: navigating
   // away drops the offer rather than nagging later (see planStore's doc
   // comment on why "old servings" isn't a synced field).
-  const [pendingServings, setPendingServings] = useState<{ dayIndex: number; oldServings: number } | null>(null);
+  // F6 (July 2026 sweep): key the pending servings prompt by recipeId too,
+  // not dayIndex alone — a swipe-move or a partner's synced swap/re-roll can
+  // change which dish sits on this dayIndex between the tap and the render,
+  // and a prompt left pointing at the new dish computes a phantom delta and
+  // would apply quantities nobody asked for (Law #1). The render gate below
+  // drops the prompt the moment the meal's recipeId no longer matches.
+  const [pendingServings, setPendingServings] = useState<{ dayIndex: number; recipeId: string; oldServings: number } | null>(null);
   // M4.6 part 2: which day's meal (if any) is being moved — drives the
   // "Move to…" bottom sheet. Local-only, same reasoning as pendingServings
   // above: navigating away just drops it, nothing to persist.
@@ -182,14 +188,14 @@ export default function ThisWeekScreen() {
             onToggleKidApproved={() => toggleKidApproved(recipe.id)}
             servings={meal.servings}
             onServingsChange={(servings) => {
-              setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
+              setPendingServings({ dayIndex: meal.dayIndex, recipeId: meal.recipeId, oldServings: meal.servings });
               setApprovedMealServings(meal.dayIndex, servings);
             }}
             sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
             hasNote={!!notesMap[recipe.id]?.text}
           />
         </SwipeableMealRow>
-        {pendingServings?.dayIndex === meal.dayIndex ? (
+        {pendingServings?.dayIndex === meal.dayIndex && pendingServings?.recipeId === meal.recipeId ? (
           <ServingsShoppingListPrompt
             dayIndex={meal.dayIndex}
             oldServings={pendingServings.oldServings}

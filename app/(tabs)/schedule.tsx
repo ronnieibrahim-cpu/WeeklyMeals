@@ -40,7 +40,10 @@ export default function ScheduleScreen() {
   // M4.0a lesson (see recipeNotesStore's doc comment).
   const notesMap = useRecipeNotesStore((s) => s.notesMap);
   // M4.1: see app/(tabs)/index.tsx for why this is local-only, not persisted.
-  const [pendingServings, setPendingServings] = useState<{ dayIndex: number; oldServings: number } | null>(null);
+  // F6 (July 2026 sweep): keyed by recipeId too, so a move/swap that changes
+  // which dish sits on this day drops the prompt instead of applying a
+  // phantom delta to the shopping list — see the fuller note in index.tsx.
+  const [pendingServings, setPendingServings] = useState<{ dayIndex: number; recipeId: string; oldServings: number } | null>(null);
   // M4.6 part 2: which day's meal (if any) is being moved — drives the
   // "Move to…" bottom sheet. Local-only, same reasoning as above.
   const [moveFromDay, setMoveFromDay] = useState<number | null>(null);
@@ -146,14 +149,14 @@ export default function ScheduleScreen() {
                 onToggleKidApproved={() => toggleKidApproved(recipe.id)}
                 servings={meal.servings}
                 onServingsChange={(servings) => {
-                  setPendingServings({ dayIndex: meal.dayIndex, oldServings: meal.servings });
+                  setPendingServings({ dayIndex: meal.dayIndex, recipeId: meal.recipeId, oldServings: meal.servings });
                   setApprovedMealServings(meal.dayIndex, servings);
                 }}
                 sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
                 hasNote={!!notesMap[recipe.id]?.text}
               />
             </SwipeableMealRow>
-            {pendingServings?.dayIndex === meal.dayIndex ? (
+            {pendingServings?.dayIndex === meal.dayIndex && pendingServings?.recipeId === meal.recipeId ? (
               <ServingsShoppingListPrompt
                 dayIndex={meal.dayIndex}
                 oldServings={pendingServings.oldServings}
@@ -174,6 +177,11 @@ export default function ScheduleScreen() {
       ) : null}
 
       {pastWeeksSection}
+      {history.length === 0 ? (
+        <Text variant="footnote" color="tertiary" style={{ marginTop: theme.spacing.md }}>
+          Past weeks will appear here once your next week is approved.
+        </Text>
+      ) : null}
     </Screen>
     {moveFromDay !== null ? (
       <MoveMealSheet plan={plan} fromDay={moveFromDay} onClose={() => setMoveFromDay(null)} />
