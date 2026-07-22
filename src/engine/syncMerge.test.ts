@@ -662,6 +662,30 @@ describe('mergeManualItems (M3.3)', () => {
     expect(stableStringify(mergedAgain)).toBe(stableStringify(mergedAB));
   });
 
+  it('rename-onto-a-cleared-key race (F4): renaming onto a key phone B still holds checked at t1 does not arrive pre-checked, because the created entry stamps checkedAtISO=now', () => {
+    // Phone B still holds "sparkling water" checked at t1 (it was a real
+    // item once, checked, then cleared on A but B never saw the clear).
+    const phoneB = manualMap({
+      'sparkling water': manualItem({ displayName: 'sparkling water', checked: true, checkedAtISO: t1, updatedAtISO: t1 }),
+    });
+    // Phone A renames "soda" -> "sparkling water" at t3. manualItemsStore.edit()
+    // builds the new key from the (unchecked) "soda", and per the F4 fix
+    // stamps checkedAtISO=t3 rather than inheriting soda's — so the renamed
+    // item's unchecked state (t3) deterministically beats B's stale check (t1).
+    const phoneA = manualMap({
+      'sparkling water': manualItem({ displayName: 'sparkling water', checked: false, checkedAtISO: t3, deleted: false, deletedAtISO: t3, updatedAtISO: t3, createdAtISO: t3 }),
+    });
+
+    const mergedAB = mergeManualItems(phoneA, phoneB);
+    const mergedBA = mergeManualItems(phoneB, phoneA);
+
+    expect(mergedAB['sparkling water'].checked).toBe(false);
+    expect(mergedAB['sparkling water'].deleted).toBe(false);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+    // Idempotent.
+    expect(stableStringify(mergeManualItems(mergedAB, phoneB))).toBe(stableStringify(mergedAB));
+  });
+
   it('a rename (tombstone old key + new key) leaves the old key deleted and the new key present, converging either direction', () => {
     const before = manualMap({ soda: manualItem({ displayName: 'soda', updatedAtISO: t1 }) });
     // Local device renamed "soda" -> "sparkling water": tombstones "soda",

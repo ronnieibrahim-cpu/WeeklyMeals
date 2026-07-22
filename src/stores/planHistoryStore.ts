@@ -11,8 +11,11 @@ interface PlanHistoryState {
   /** Fold `plan` into the rolling 6-week archive (see `archivePlan`'s doc
    * comment in `src/engine/planHistory.ts` for the dedupe/sort/cap rules)
    * and persist. Called by `planStore.approve()`/`hydrateFromSync()` with
-   * whatever plan is about to be replaced — never called from the UI. */
-  archive: (plan: WeeklyPlan) => void;
+   * whatever plan is about to be replaced — never called from the UI.
+   * Async: it self-hydrates first (F8a, July 2026 sweep) so it can never
+   * fold into a still-empty `history` at the exact rollover moment. Callers
+   * stay fire-and-forget (`void`). */
+  archive: (plan: WeeklyPlan) => Promise<void>;
 }
 
 /**
@@ -43,7 +46,13 @@ export const usePlanHistoryStore = create<PlanHistoryState>((set, get) => ({
     set({ history, hydrated: true });
   },
 
-  archive: (plan) => {
+  archive: async (plan) => {
+    // F8a (July 2026 sweep): a launch-time sync poll can adopt the partner's
+    // new week — precisely the archive-worthy moment — before this store's
+    // own init() has resolved. Folding into a still-empty `history` would
+    // then persist a 1-entry array over up to 5 stored weeks. Ensure
+    // hydration first; init() itself no-ops if already hydrated.
+    if (!get().hydrated) await get().init();
     const next = archivePlan(get().history, plan);
     set({ history: next });
     void localPlanHistoryRepository.save(next);

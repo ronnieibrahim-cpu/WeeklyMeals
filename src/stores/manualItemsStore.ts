@@ -112,6 +112,14 @@ export const useManualItemsStore = create<ManualItemsState>((set, get) => ({
         displayName: renamedTo,
         quantityLabel: patch.quantityLabel ?? existing.quantityLabel,
         department: patch.department ?? existing.department,
+        // F4 (July 2026 sweep): stamp a fresh checkedAtISO even though the
+        // checked flag carries over — the new key may collide with one that
+        // was previously checked-then-cleared on the other phone, and
+        // without a current timestamp that stale remote `checked: true`
+        // (newer than the inherited stamp) would win the merge and the
+        // renamed item would arrive pre-checked. Same class as `add()`'s
+        // revive-stamp fix in M4.7.
+        checkedAtISO: now,
         deleted: false,
         deletedAtISO: now,
         updatedAtISO: now,

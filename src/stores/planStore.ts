@@ -880,7 +880,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     // M5.0: archive whatever active plan is about to be replaced (there may
     // be none, on a first-ever approval) before it's overwritten below.
     const outgoing = get().plan;
-    if (outgoing) usePlanHistoryStore.getState().archive(outgoing);
+    if (outgoing) void usePlanHistoryStore.getState().archive(outgoing);
     const next: WeeklyPlan = { ...draftPlan, status: 'approved' };
     const shoppingList = listFor(next);
     set({ plan: next, draftPlan: null, shoppingList });
@@ -930,7 +930,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     // (clear/reset) does neither.
     const outgoing = get().plan;
     if (outgoing && plan && outgoing.id !== plan.id) {
-      usePlanHistoryStore.getState().archive(outgoing);
+      void usePlanHistoryStore.getState().archive(outgoing);
     }
     set({ plan, shoppingList, intake: plan?.intake ?? get().intake });
     if (plan) persist(plan);
