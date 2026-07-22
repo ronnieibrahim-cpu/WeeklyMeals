@@ -22,7 +22,7 @@ export function SecondaryButton({ title, onPress, disabled, style }: Props) {
       onPress={onPress}
       style={({ pressed }) => [
         {
-          borderRadius: theme.radius.lg,
+          borderRadius: theme.radius.pill,
           height: 52,
           alignItems: 'center',
           justifyContent: 'center',

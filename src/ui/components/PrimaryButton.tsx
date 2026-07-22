@@ -25,7 +25,7 @@ export function PrimaryButton({ title, onPress, loading, disabled, style }: Prop
       style={({ pressed }) => [
         {
           backgroundColor: theme.colors.accent,
-          borderRadius: theme.radius.lg,
+          borderRadius: theme.radius.pill,
           height: 52,
           alignItems: 'center',
           justifyContent: 'center',
