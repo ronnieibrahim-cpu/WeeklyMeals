@@ -444,13 +444,13 @@ open bugs:
    never-cooked plan as a "past week." Cosmetic on a read-only surface.
 4. **recipeNotes tombstones accumulate.** A cleared note keeps an empty-text
    entry forever; the map grows unbounded. Trivial at family scale.
-5. **F5 (P2, not yet fixed) — re-roll commit-path belt-and-suspenders.**
-   `rerollMeal`/`rerollSidesOnly`/`commitComponentReroll` don't re-check
-   `meal.cooked` or outgoing-recipe identity at commit (unlike `moveMeal`).
-   Exposure is one render tick (the re-roll screen recomputes its preview
-   reactively on any plan change), so a partner's sync-adopted cook/re-roll
-   would have to land between the final render and the tap. Tracked in
-   `MILESTONE-5.md` as cheap hardening; not yet done.
+Also fixed after the initial sweep pass: F5 (`rerollMeal`/`rerollSidesOnly`/
+`commitComponentReroll` now no-op on a cooked target, and the two
+component-reroll paths take an `expectedRecipeId` so a preview raced by a
+synced change commits nothing) and the name-fold audit gap
+(`checkIngredientConsistency.ts` now performs the collision check
+`ingredientKey.ts` references). The whole M4.3–M4.7 sweep is closed except
+the four accepted edges above.
 
 ## 9. Roadmap
 
