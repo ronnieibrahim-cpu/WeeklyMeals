@@ -149,7 +149,8 @@ export default function ReviewPlanScreen() {
           style={{ marginTop: theme.spacing.sm }}
         />
         <SecondaryButton
-          title="★  Swap in a favorite"
+          title="Swap in a favorite"
+          icon="swap-horizontal"
           onPress={() =>
             router.push({ pathname: '/(tabs)/recipes', params: { favoritesOnly: '1', pinTarget: 'draft' } })
           }

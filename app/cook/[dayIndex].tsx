@@ -223,7 +223,8 @@ export default function CookModeScreen() {
               />
             </View>
             <PrimaryButton
-              title={meal.cooked ? '✓ Cooked' : 'Mark cooked'}
+              title={meal.cooked ? 'Cooked' : 'Mark cooked'}
+              icon={meal.cooked ? 'checkmark-circle' : undefined}
               onPress={() => toggleCooked(meal.dayIndex)}
               style={{ marginTop: theme.spacing.lg }}
             />

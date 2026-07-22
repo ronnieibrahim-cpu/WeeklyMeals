@@ -244,9 +244,9 @@ export default function PlanIntakeScreen() {
     },
     {
       key: 'summary',
-      title: 'You’re all set 🎉',
+      title: 'You’re all set',
       subtitle: 'Here’s what I’ll plan around this week.',
-      continueLabel: 'Build my week 🍳',
+      continueLabel: 'Build my week',
       control: <IntakeSummary answers={answers} profile={profile ?? createDefaultProfile()} />,
     },
   ];
@@ -323,7 +323,7 @@ export default function PlanIntakeScreen() {
       total={activeSteps.length}
       title={current.title}
       subtitle={current.subtitle}
-      continueLabel={isLast ? 'Build my week 🍳' : current.continueLabel ?? 'Continue'}
+      continueLabel={isLast ? 'Build my week' : current.continueLabel ?? 'Continue'}
       onContinue={() => (isLast ? finish() : setIndex(index + 1))}
       onClose={() => router.back()}
       onBack={index > 0 ? () => setIndex(index - 1) : canReturnToChoice ? () => setMode('choice') : undefined}
