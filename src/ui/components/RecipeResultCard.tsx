@@ -48,7 +48,7 @@ export function RecipeResultCard({
     <Card onPress={onPress} padded={false} style={{ marginBottom: theme.spacing.md }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: theme.spacing.md }}>
         <View style={{ marginRight: theme.spacing.md }}>
-          <RecipeImage recipe={recipe} width={56} height={56} emojiSize={28} radius={theme.radius.md} />
+          <RecipeImage recipe={recipe} width={72} height={72} emojiSize={28} radius={theme.radius.md} />
         </View>
 
         <View style={{ flex: 1 }}>
@@ -70,12 +70,12 @@ export function RecipeResultCard({
           </Text>
           {recipe.estimated ? (
             <Text variant="caption" color="tertiary" style={{ marginTop: 1 }}>
-              ⚠️ Allergen info estimated
+              Allergen info estimated
             </Text>
           ) : null}
           {isUserRecipe(recipe.id) ? (
             <Text variant="caption" color="tertiary" style={{ marginTop: 1 }}>
-              🏠 Your recipe
+              Your recipe
             </Text>
           ) : null}
         </View>

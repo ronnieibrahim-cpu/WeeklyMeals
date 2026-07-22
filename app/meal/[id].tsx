@@ -180,12 +180,12 @@ export default function MealDetailScreen() {
       </Text>
       {isKidApproved ? (
         <Text variant="footnote" color="success" style={{ marginTop: theme.spacing.xs }}>
-          😊 Kids approved
+          Kids approved
         </Text>
       ) : null}
       {isOwnRecipe ? (
         <Text variant="footnote" color="tertiary" style={{ marginTop: theme.spacing.xs }}>
-          🏠 Your recipe — saved on this device only
+          Your recipe — saved on this device only
         </Text>
       ) : null}
       {recipe.description ? (
@@ -360,7 +360,7 @@ export default function MealDetailScreen() {
       </Text>
       {recipe.estimated ? (
         <Text variant="footnote" color="tertiary" style={{ marginBottom: theme.spacing.sm }}>
-          ⚠️ Imported recipe — allergen info estimated, check labels.
+          Imported recipe — allergen info estimated, check labels.
         </Text>
       ) : null}
       <Card>
@@ -484,7 +484,7 @@ export default function MealDetailScreen() {
 
       {recipe.tips && recipe.tips.length > 0 ? (
         <Card style={{ marginTop: theme.spacing.md }}>
-          <Text variant="headline">💡 Tips</Text>
+          <Text variant="headline">Tips</Text>
           {recipe.tips.map((tip, i) => (
             <Text
               key={i}
@@ -500,7 +500,7 @@ export default function MealDetailScreen() {
 
       {recipe.leftoverNotes ? (
         <Card style={{ marginTop: theme.spacing.md }}>
-          <Text variant="headline">🥡 Leftovers</Text>
+          <Text variant="headline">Leftovers</Text>
           <Text variant="body" color="secondary" style={{ marginTop: theme.spacing.xs }}>
             {recipe.leftoverNotes}
           </Text>
@@ -508,7 +508,7 @@ export default function MealDetailScreen() {
       ) : null}
       {recipe.freezingNotes ? (
         <Card style={{ marginTop: theme.spacing.md }}>
-          <Text variant="headline">❄️ Freezing</Text>
+          <Text variant="headline">Freezing</Text>
           <Text variant="body" color="secondary" style={{ marginTop: theme.spacing.xs }}>
             {recipe.freezingNotes}
           </Text>

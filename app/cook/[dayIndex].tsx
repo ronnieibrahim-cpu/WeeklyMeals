@@ -152,7 +152,7 @@ export default function CookModeScreen() {
           style={{ flexDirection: 'row', alignItems: 'center' }}
         >
           <Text variant="body" color="accent">
-            🥕 Ingredients
+            Ingredients
           </Text>
         </Pressable>
       </View>

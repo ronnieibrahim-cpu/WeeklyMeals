@@ -120,14 +120,14 @@ export default function ThisWeekScreen() {
     >
       {allMealsRated(plan.meals) ? (
         <>
-          <Text variant="headline">⭐ Week rated ✓</Text>
+          <Text variant="headline">Week rated</Text>
           <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
             Thanks for the feedback — tap to see what you said.
           </Text>
         </>
       ) : (
         <>
-          <Text variant="headline">⭐ How did this week go?</Text>
+          <Text variant="headline">How did this week go?</Text>
           <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
             Rate your meals — favorites come back and your weeks keep improving.
           </Text>
@@ -159,7 +159,7 @@ export default function ThisWeekScreen() {
   const past = meals.filter((m) => m.dayIndex < todayIndex);
   const future = meals.filter((m) => m.dayIndex > todayIndex);
 
-  const renderMeal = (meal: PlannedMeal, label: string) => {
+  const renderMeal = (meal: PlannedMeal, label: string, featured = false) => {
     const recipe = recipeFor(meal);
     if (!recipe) return null;
     const canReroll = meal.dayIndex >= todayIndex && !meal.cooked;
@@ -173,6 +173,7 @@ export default function ThisWeekScreen() {
           <MealCard
             recipe={recipe}
             dayLabel={label}
+            featured={featured}
             badge={recipe.makesLeftovers ? 'leftovers' : undefined}
             cooked={meal.cooked}
             rating={meal.rating}
@@ -239,7 +240,7 @@ export default function ThisWeekScreen() {
         </>
       ) : null}
 
-      {tonight && tonightRecipe ? renderMeal(tonight, 'Tonight') : null}
+      {tonight && tonightRecipe ? renderMeal(tonight, 'Tonight', true) : null}
 
       {future.length > 0 ? (
         <Text
