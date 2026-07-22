@@ -36,10 +36,12 @@ const round2 = (n: number) => Math.round(n * 100) / 100;
  *   "molasse", "asparagu"). Harmless on its own (still a unique key, and
  *   display text is untouched) UNLESS some other real ingredient's name
  *   coincidentally folds to that exact same string, which would wrongly
- *   merge two different ingredients. No such collision exists in the
- *   current recipe library (checked via the consistency script below), but
- *   it's the price of staying a one-line, dependency-free fold instead of a
- *   real pluralization library.
+ *   merge two different ingredients. `scripts/checkIngredientConsistency.ts`
+ *   audits this: it surfaces every plural-fold merge among curated recipes
+ *   for review (INFO) and hard-FAILS on any canonical collision NOT
+ *   explained by the trailing-s fold. It passes on the current library —
+ *   the price of staying a one-line, dependency-free fold instead of a real
+ *   pluralization library.
  */
 export function canonicalIngredientName(name: string): string {
   const base = name.trim().toLowerCase().replace(/\s+/g, ' ');

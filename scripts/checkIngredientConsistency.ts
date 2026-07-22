@@ -57,6 +57,49 @@ function crossFamilyGroups(groups: Map<string, Occurrence[]>): [string, Occurren
   return Array.from(groups.entries()).filter(([, occs]) => new Set(occs.map((o) => o.family)).size > 1);
 }
 
+/** Same lower/trim/whitespace normalization `canonicalIngredientName` does,
+ * but WITHOUT the trailing-s fold — the raw form the fold is applied to. */
+function normalizeRaw(name: string): string {
+  return name.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+/**
+ * Name-fold audit (the check `ingredientKey.ts` references). For each
+ * canonical key, the distinct RAW spellings that fold onto it. Two outcomes:
+ *  - `pluralMerges`: a canonical key reached from 2+ distinct raw spellings —
+ *    always an {X, Xs} pair by construction of the single-trailing-s fold.
+ *    Almost always a legitimate plural (carrot/carrots), but a mass noun
+ *    ("molasses"→"molasse") folds the same way, so these are surfaced for a
+ *    human eye, INFO-only (they still form a unique key — harmless unless a
+ *    different real ingredient shares it, which is the hard check below).
+ *  - `collisions`: a raw spelling that folds onto a canonical key it is
+ *    NEITHER equal to NOR the `+"s"` plural of — impossible under today's
+ *    fold, so this is a forward guard: if the fold is ever made lossier and
+ *    starts merging genuinely different ingredients, this fails loudly.
+ */
+function nameFoldAudit(recipes: Recipe[]): {
+  pluralMerges: [string, string[]][];
+  collisions: [string, string[]][];
+} {
+  const byCanonical = new Map<string, Set<string>>();
+  for (const recipe of recipes) {
+    for (const ing of recipe.ingredients) {
+      const canonical = canonicalIngredientName(ing.name);
+      const set = byCanonical.get(canonical) ?? new Set<string>();
+      set.add(normalizeRaw(ing.name));
+      byCanonical.set(canonical, set);
+    }
+  }
+  const pluralMerges: [string, string[]][] = [];
+  const collisions: [string, string[]][] = [];
+  for (const [canonical, raws] of byCanonical) {
+    if (raws.size > 1) pluralMerges.push([canonical, [...raws].sort()]);
+    const bad = [...raws].filter((r) => r !== canonical && r !== `${canonical}s`);
+    if (bad.length > 0) collisions.push([canonical, bad.sort()]);
+  }
+  return { pluralMerges, collisions };
+}
+
 const handAuthored = RECIPES.filter((r) => !r.id.startsWith('mealdb-')); // curated mains + sides
 const imported = RECIPES.filter((r) => r.id.startsWith('mealdb-'));
 
@@ -80,17 +123,45 @@ if (importedInfo.length > 0) {
   console.log('');
 }
 
-if (handAuthoredViolations.length === 0) {
-  console.log('PASS ✅ — no cross-family ingredient-unit inconsistencies among curated mains + sides.');
+// Name-fold audit (the check `ingredientKey.ts`'s doc comment references).
+const foldAudit = nameFoldAudit(handAuthored);
+if (foldAudit.pluralMerges.length > 0) {
+  console.log(
+    `INFO — ${foldAudit.pluralMerges.length} canonical key(s) among curated recipes reached from more than one ` +
+      `spelling via the plural fold (verify each is a true plural, not a lossy fold of a mass noun):`,
+  );
+  for (const [canonical, raws] of foldAudit.pluralMerges) {
+    console.log(`  - "${canonical}" ← ${raws.map((r) => `"${r}"`).join(', ')}`);
+  }
+  console.log('');
+}
+
+const failures = handAuthoredViolations.length + foldAudit.collisions.length;
+if (failures === 0) {
+  console.log(
+    'PASS ✅ — no cross-family unit inconsistencies and no non-plural name-fold collisions among curated mains + sides.',
+  );
   process.exit(0);
 }
 
-console.log(`FAIL ❌ — ${handAuthoredViolations.length} cross-family group(s) among curated mains + sides:\n`);
-for (const [canonical, occs] of handAuthoredViolations) {
-  console.log(`  "${canonical}":`);
-  for (const o of occs) {
-    console.log(`    - ${o.recipeId}: "${o.ingredientName}" (${o.unit}, family=${o.family})`);
+if (handAuthoredViolations.length > 0) {
+  console.log(`FAIL ❌ — ${handAuthoredViolations.length} cross-family group(s) among curated mains + sides:\n`);
+  for (const [canonical, occs] of handAuthoredViolations) {
+    console.log(`  "${canonical}":`);
+    for (const o of occs) {
+      console.log(`    - ${o.recipeId}: "${o.ingredientName}" (${o.unit}, family=${o.family})`);
+    }
+  }
+  console.log('\nHand-align these to one unit family (edit the curated seed file directly — never recipeImported.ts).');
+}
+
+if (foldAudit.collisions.length > 0) {
+  console.log(
+    `\nFAIL ❌ — ${foldAudit.collisions.length} canonical key(s) reached by a NON-plural fold (two different ` +
+      `ingredients would merge into one shopping-list line):`,
+  );
+  for (const [canonical, bad] of foldAudit.collisions) {
+    console.log(`  - "${canonical}" ← unexpected raw spelling(s) ${bad.map((r) => `"${r}"`).join(', ')}`);
   }
 }
-console.log('\nHand-align these to one unit family (edit the curated seed file directly — never recipeImported.ts).');
 process.exit(1);
