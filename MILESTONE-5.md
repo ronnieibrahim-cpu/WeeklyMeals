@@ -35,7 +35,19 @@ window we want to see more often anyway."*
 weeks with its dishes and ratings intact; the archive never exceeds 6; nothing
 on the surface can mutate a plan or the list.
 
-## [ ] M5.1 — Photos at scale (token-efficient, license-safe)
+## [~] M5.1 — Photos at scale (token-efficient, license-safe)
+
+**Progress (July 2026):** harvested license-clean candidates for the 170
+photo-less recipes (88 had ≥1 candidate; 82 keep the tile). Four parallel
+vision agents screened all 223 candidate images against dish + primary
+protein. **55 EXACT matches auto-wired** into `src/data/recipeImages.ts`
+(52 Wikimedia w/ attribution, 3 TheMealDB); 20 PLAUSIBLE + 13 rejects logged
+in `PHOTO-REVIEW-2.md`. Deployed to the Vercel preview first for Ronnie's
+visual check (the harvest environment got Wikimedia-rate-limited, so the
+preview is the reachability/accuracy gate); every auto-wired photo is
+revertible by recipe id. Remaining: Ronnie reviews the 20 PLAUSIBLE and
+flags any bad auto-wires, then promote to production.
+
 
 **Goal:** populate as many of the ~170 photo-less recipes (≈120 curated mains
 with no confident match from M3.0b + all 50 sides/sauces) with accurate,
