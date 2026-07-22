@@ -21,12 +21,22 @@ decision history. You implement; the advisor audits. Keep that separation.
    any decision recorded there.**
 6. `AUDIT.md` — the original audit. Historical; many items are now fixed.
 
-## State
-Milestones 1, 2, 3 (v3.0) AND Milestone 4 are complete; `DEBUG-SWEEP.md`'s
-P0/P1/P2 items are closed. `MILESTONE-4.md` is finished history (M4.0–M4.7 all
-shipped and deployed, July 2026). There is no active work queue: the next step
-is the advisor's full M4 close-out audit (see `ADVISOR-HANDOFF.md` Part 6) —
-do not start parked items without an explicit go-ahead from Ronnie.
+## State (PARKED — July 2026)
+Milestones 1–4 (v3.0 + all of M4.0–M4.7) are complete and deployed.
+**Milestone 5 is partly shipped:** M5.0 (rolling 6-week "Past weeks" archive),
+M5.2 (adversarial bug sweep — no P0s, all P1/P2 findings fixed), and M5.3
+(Vercel branch previews; production stays on GitHub Pages) are done; **M5.1
+(recipe photos) is live but partial** — 55 vision-screened exact matches are
+wired, 20 "plausible" candidates await Ronnie's review in `PHOTO-REVIEW-2.md`.
+A **Basil green retheme** (authored in a separate design session) is also live.
+**Next confirmed feature: M5.4 — household-synced user recipes (not started).**
+
+**Before building anything new, the priority is the independent advisor
+close-out audit of the whole M4.3–M4.7 + M5.0–M5.1 range** — it shipped in one
+orchestrated worker session that also self-reviewed (the sweep was run by that
+same session; it is not a substitute for an independent audit). See
+`ADVISOR-HANDOFF.md` Part 6. Do not start M5.4 or parked items without an
+explicit go-ahead from Ronnie.
 
 ## Commands (all three must be green before every commit)
 ```bash

@@ -46,19 +46,22 @@ sub-branch (e.g. `claude/m4-1-...`) not yet merged to the working branch; check 
 
 ## Where we are (dated snapshot — VERIFY against the repo, do not quote as fact)
 
-- **As of July 2026: Milestone 4 is COMPLETE and deployed** — M4.0 through
-  M4.6 plus M4.7 (two live bugfixes: manual items not clearing across weeks,
-  duplicate shopping-list lines). Implemented in a single orchestrated session
-  (a Fable architect steering Sonnet subagent workers) at Ronnie's explicit
-  direction, WITHOUT per-task advisor gates — **the auditor-independence step
-  was knowingly deferred, so the next advisor action is a full M4.3–M4.7
-  close-out audit** (see `ADVISOR-HANDOFF.md` Parts 4 item 25 and 6).
-  Household composition (`Profile.members`) still does not sync — local-only
-  by design, not an open bug. **Supabase RLS is a permanent, informed
-  accepted risk (Ronnie's call, July 2026) — not a reopen-pending item; do
-  not re-flag it without new evidence.** See `ADVISOR-HANDOFF.md` Part 5 for
-  the exact current wording of all of this — it is the source of truth, this
-  bullet is only a pointer to it.
+- **As of July 2026 (PARKED): Milestone 4 COMPLETE, Milestone 5 partly
+  shipped.** M4.0–M4.7 all deployed. M5.0 (6-week "Past weeks" archive), M5.2
+  (bug sweep — no P0s, all P1/P2 fixed), and M5.3 (Vercel branch previews;
+  production stays on GitHub Pages) shipped; **M5.1 (recipe photos) live but
+  partial** — 55 vision-screened exact matches wired, 20 "plausible" in
+  `PHOTO-REVIEW-2.md` awaiting Ronnie; **M5.4 (household-synced user recipes)
+  confirmed-next, not started.** A Basil green retheme (separate design
+  session) is also live. Everything from M4.3 through M5.1 was implemented in
+  ONE orchestrated worker session that also self-reviewed — **so the next
+  advisor action is the full M4.3–M4.7 + M5.0–M5.1 close-out audit** (see
+  `ADVISOR-HANDOFF.md` Parts 4 item 25 and 6). Household composition
+  (`Profile.members`) still does not sync — local-only by design, not an open
+  bug. **Supabase RLS is a permanent, informed accepted risk (Ronnie's call,
+  July 2026) — not a reopen-pending item; do not re-flag it without new
+  evidence.** See `ADVISOR-HANDOFF.md` Part 5 — it is the source of truth,
+  this bullet is only a pointer to it.
 - **This bullet rots the fastest.** The moment you clone and read `ADVISOR-HANDOFF.md`
   Part 5 + `git log`, believe *those* over this paragraph.
 

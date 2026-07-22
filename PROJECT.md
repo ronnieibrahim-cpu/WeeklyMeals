@@ -6,20 +6,26 @@
 > with reality, **this file wins** (that file is stale and partly fictional).
 > If reality and this file disagree, **fix this file in the same change.**
 >
-> **State: Milestone 4 COMPLETE** ("Real Dinners, Right-Sized" — see
-> `MILESTONE-4.md` for per-task notes). M4.0 (fixes + virtualized browse),
-> M4.1 (household composition → adult-equivalent servings, plain editable age,
-> `familySize` an invisible fallback), M4.2 (a dinner is a plate, not a dish —
-> composed main + sides end to end), M4.3 (waste-fit scoring bonus +
-> `checkWasteFit.ts` harness + "used in N meals" caption), M4.4 (per-recipe
-> family notes, household-synced), M4.5 (component re-roll — keep a plate
-> part, re-roll the rest), M4.6 (rearrange the approved week — swipe
-> "Move to…" swap; hold-to-drag deferred by Product Owner decision), and
-> M4.7 (bugfixes: syncNow pull-before-push so checked manual items clear on
-> approval, and shopping-list dedup by ingredient identity — plural fold +
-> unit-family conversion) are ALL shipped and deployed. See §5, §6, §7, §9.
-> Milestones 1, 2, 3 (v3.0) and the `DEBUG-SWEEP.md` P0/P1/P2 fixes precede it.
-> **Last verified:** July 2026 · typecheck clean · 377 tests green ·
+> **State: Milestone 4 COMPLETE; Milestone 5 partly shipped (PARKED July 2026).**
+> **M4** ("Real Dinners, Right-Sized" — see `MILESTONE-4.md`): M4.0 (fixes +
+> virtualized browse), M4.1 (household composition → adult-equivalent servings),
+> M4.2 (a dinner is a plate, not a dish — composed main + sides), M4.3
+> (waste-fit scoring + `checkWasteFit.ts` + "used in N meals" caption), M4.4
+> (per-recipe family notes, synced), M4.5 (component re-roll — keep a plate
+> part), M4.6 (rearrange the approved week — swipe "Move to…" swap; drag
+> deferred), M4.7 (bugfixes: syncNow pull-before-push, shopping-list dedup by
+> ingredient identity) — all shipped and deployed.
+> **M5** ("Look Back, Look Better" — see `MILESTONE-5.md`): M5.0 (rolling
+> 6-week "Past weeks" archive, per-device), M5.2 (adversarial bug sweep — no
+> P0s, all P1/P2 fixed), M5.3 (Vercel branch previews; production stays on
+> GitHub Pages) shipped; **M5.1 (recipe photos) live but partial** — 55
+> vision-screened exact matches wired, 20 "plausible" in `PHOTO-REVIEW-2.md`
+> pending Ronnie; **M5.4 (household-synced user recipes) confirmed-next, not
+> started.** A Basil green retheme (separate design session) is also live.
+> **Open priority is process, not a feature: the independent advisor close-out
+> audit of M4.3–M4.7 + M5.0–M5.1** (see `ADVISOR-HANDOFF.md` Part 6) — that
+> range self-reviewed; the M5.2 sweep is not a substitute.
+> **Last verified:** July 2026 · typecheck clean · 398 tests green ·
 > 230/230 curated recipes + 50/50 sides/sauces pass content validation,
 > 636/636 recipes use canonical allergen labels and plausible `provides` ·
 > `checkWasteFit`/`checkIngredientConsistency`/`checkCuratedWeighting`/
@@ -454,8 +460,25 @@ the four accepted edges above.
 
 ## 9. Roadmap
 
-**Milestone 4 — "Real Dinners, Right-Sized"** (`MILESTONE-4.md`), written from the
-Product Owner's friction journal, is the active milestone:
+**Milestone 5 — "Look Back, Look Better"** (`MILESTONE-5.md`) is the current
+milestone, PARKED mid-flight (July 2026):
+- **M5.0** — rolling 6-week per-device "Past weeks" archive on the Schedule
+  tab. ✅ Shipped (`src/engine/planHistory.ts`, `planHistoryStore`).
+- **M5.1** — recipe photos at scale. 🚧 Live but partial: 55 vision-screened
+  exact matches wired into `recipeImages.ts`; 20 "plausible" candidates await
+  Ronnie in `PHOTO-REVIEW-2.md`; 82 recipes keep the cuisine tile.
+- **M5.2** — adversarial parking-lot bug sweep of M4.3–M4.7. ✅ Done (no P0s;
+  F1/F6/F7 P1s + F4/F8a/F5 P2s + the name-fold audit gap all fixed; four edges
+  accepted, see §8).
+- **M5.3** — Vercel branch preview deploys (production stays on GitHub Pages).
+  ✅ Shipped (`vercel.json`; repo connected in Ronnie's dashboard).
+- **M5.4** — household-synced user recipes. ⬜ Confirmed-next, not started.
+- **Do first, not a feature:** the independent advisor close-out audit of the
+  whole M4.3–M4.7 + M5.0–M5.1 range (that range self-reviewed — see
+  `ADVISOR-HANDOFF.md` Part 6).
+
+**Milestone 4 — "Real Dinners, Right-Sized"** (`MILESTONE-4.md`) is complete
+history, all shipped and deployed:
 
 - **M4.0** — three bug fixes + virtualized recipe browse list. ✅ Shipped.
 - **M4.1** — household composition → adult-equivalent servings. ✅ Shipped, revised
@@ -482,13 +505,16 @@ Product Owner's friction journal, is the active milestone:
   Schedule. Hold-to-drag was considered and deferred by the Product Owner —
   not built.
 
-- **Deferred polish:** photo accuracy QA (`M3.6` — verify every matched photo actually
-  depicts its dish; a wrong photo is worse than none).
-- **Parked candidates (do not start without an explicit go-ahead):** leftovers-aware
-  planning · thaw-tonight reminders/notifications · quantity-aware re-roll ·
-  household-synced user recipes & learning · H-E-B Curbside / Instacart export ·
-  other stores · **calendar-aware planning (explicitly deferred on privacy grounds)** ·
-  an optional TestFlight native build (EAS cloud build; **not** a rewrite).
+- **Photos:** M5.1 wired 55 vision-screened matches; the old `M3.6` "verify
+  every photo depicts its dish" QA is now largely folded into M5.1's screening.
+  `PHOTO-REVIEW-2.md` holds the 20 plausible candidates still pending Ronnie.
+- **Parked candidates (do not start without an explicit go-ahead; full list in
+  `MILESTONE-5.md`):** leftovers-aware planning · thaw-tonight reminders/
+  notifications (needs an iOS web-push feasibility check first) · quantity-aware
+  re-roll · H-E-B Curbside / Instacart export · other stores · **calendar-aware
+  planning (explicitly deferred on privacy grounds)** · an optional TestFlight
+  native build (EAS cloud build; **not** a rewrite). Note: **household-synced
+  user recipes is now M5.4 (confirmed-next), no longer a mere candidate.**
 
 ## 10. Operational notes for future sessions
 

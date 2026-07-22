@@ -9,11 +9,13 @@
 > long: fidelity beats brevity here. If you are that new instance — read this file
 > completely before responding to the Product Owner about anything substantive.
 >
-> **Last updated:** July 2026, after the FULL Milestone 4 (M4.3–M4.6 plus the
-> M4.7 bugfix task) shipped and deployed. **This update was written by the
-> implementing session's architect, not by an independent advisor — see Part 4
-> item 25 and Part 6: the next advisor's first job is the M4.3–M4.7 close-out
-> audit, and this file's claims are among the things to verify.**
+> **Last updated:** July 2026, at the PARK point after Milestone 4 (all of
+> M4.0–M4.7) shipped and Milestone 5 was started (M5.0 archive, M5.2 sweep, and
+> M5.3 Vercel previews shipped; M5.1 photos live-but-partial; M5.4 not started).
+> **This update was written by the implementing session's architect, not by an
+> independent advisor — see Part 4 item 25 and Part 6: the next advisor's first
+> job is the M4.3–M4.7 + M5.0–M5.1 close-out audit, and this file's claims are
+> among the things to verify.**
 
 ---
 
@@ -179,12 +181,34 @@ from the Product Owner's friction journal, not a speculative backlog:**
   `scripts/checkIngredientConsistency.ts` guards regressions. See Part 4
   items 28–29.
 
+**Then Milestone 5 ("Look Back, Look Better") began and is PARKED mid-flight:**
+- **M5.0** — rolling 6-week per-device "Past weeks" archive on Schedule. Shipped.
+- **M5.1** — recipe photos at scale. Live but PARTIAL: harvested license-clean
+  candidates for 170 photo-less recipes (88 had candidates), four parallel
+  vision agents screened all 223 images against dish + primary protein, 55
+  EXACT matches auto-wired into `recipeImages.ts` (52 Wikimedia w/ attribution,
+  3 TheMealDB), 20 PLAUSIBLE + 13 rejects in `PHOTO-REVIEW-2.md` pending Ronnie.
+- **M5.2** — adversarial bug sweep of the whole M4.3–M4.7 range. Done: no P0s;
+  P1s F1/F6/F7 and P2s F4/F8a/F5 fixed, name-fold audit gap closed, four edges
+  accepted (`PROJECT.md` §8).
+- **M5.3** — Vercel branch previews (production stays on GitHub Pages). Shipped.
+- **M5.4** — household-synced user recipes. Confirmed-next, not started.
+- A **Basil green retheme** (separate design session) merged and deployed too.
+
 **Verified state at last push (by the implementing session, pending advisor
-audit):** typecheck clean, **377 tests passing**, 230/230 curated mains +
+audit):** typecheck clean, **398 tests passing**, 230/230 curated mains +
 50/50 sides pass the content validator, 636/636 recipes carry canonical
 allergen labels and plausible `provides`, and all four harness scripts
 (`checkWasteFit`, `checkIngredientConsistency`, `checkCuratedWeighting`,
 `checkKidApprovedWeighting`) PASS.
+
+**⚠️ Process note the next advisor must not skip:** everything from M4.3
+onward — through M5.1 — was implemented in ONE orchestrated worker session
+that ALSO acted as its own reviewer and ran its own bug sweep (M5.2). That is
+precisely the auditor-is-the-implementer setup Part 1 and decision 25 warn
+against. The sweep found and fixed three P1s, which is evidence the code was
+NOT clean on the first pass — treat the whole range as unaudited until an
+independent advisor gate clears it.
 
 ---
 
@@ -596,34 +620,48 @@ historical.
 
 ## PART 6 — WHAT HAPPENS NEXT
 
-At the close of v3, the recommendation was "stop building and start watching," and
-Ronnie kept a friction journal — a note on his phone, one line whenever anyone in
-the family hit a snag. That journal became **Milestone 4 ("Real Dinners,
-Right-Sized," `MILESTONE-4.md`)**, which is now **complete — M4.0 through M4.7
-all shipped and deployed** (see Part 2). The last stretch (M4.3–M4.7) was
-implemented in one orchestrated session without per-task advisor gates, at
+Milestone 4 is complete and Milestone 5 ("Look Back, Look Better,"
+`MILESTONE-5.md`) is PARKED mid-flight (see Part 2 for the per-task status).
+The last stretch — M4.3 through M5.1 — was implemented in one orchestrated
+worker session that acted as its own reviewer and ran its own bug sweep, at
 Ronnie's explicit direction (Part 4 item 25). The triangle workflow (Ronnie
-steers and verifies → Advisor audits, specs, writes prompts → worker implements)
-resumes from here.
+steers and verifies → Advisor audits, specs, writes prompts → worker
+implements) resumes from here.
 
-**The next gate is the FULL M4.3–M4.7 close-out audit, and it is not optional
-housekeeping — that whole range shipped with no independent review.** Same
-protocol as every prior gate: clone, run the checks and all four harness
-scripts, read the code, read `git log`. Priority reading order for the auditor:
+**The next gate is the FULL M4.3–M4.7 + M5.0–M5.1 close-out audit, and it is
+not optional housekeeping — that whole range shipped with no independent
+review, and the one sweep that did run (M5.2) was run by the implementing
+session itself and still surfaced three P1s.** Same protocol as every prior
+gate: clone, run the checks and all four harness scripts, read the code, read
+`git log`. Priority reading order for the auditor:
 (1) `src/engine/ingredientKey.ts` + the M4.7 changes to `shoppingList.ts`'s
-delta paths (Law #1 territory — cross-unit merged lines must never corrupt an
-explicit-button delta); (2) `syncStore.ts`'s pull-before-push and the
-`clearChecked` reconcile path; (3) `planStore.ts`'s M4.5 commit actions
-(`commitComponentReroll`/`rerollSidesOnly` — Law #5 re-checks) and the M4.5
-additions to `reroll.ts`; (4) `rearrange.ts` + the three swap-race assertions
-in `syncMerge.test.ts` (verify the "torn week" and dropped-rating outcomes
-really are acceptable to Ronnie, not just documented); (5) `wasteFit.ts` and
-whether 0.5 shows any variety regression in real weeks. Verify Part 5's open
-items against the repo before signing off.
+delta paths, and the F1 fix in `previewServingsDelta`/`previewRemoveSideDelta`
+(Law #1 territory — cross-unit merged lines must never corrupt an
+explicit-button delta or its disclosure copy); (2) `syncStore.ts`'s
+pull-before-push and the `clearChecked` reconcile path, plus the F4 rename
+revive-stamp in `manualItemsStore.ts`; (3) `planStore.ts`'s M4.5 commit actions
+(`commitComponentReroll`/`rerollSidesOnly` — Law #5 re-checks AND the F5
+cooked/`expectedRecipeId` guards) and the M4.5 additions to `reroll.ts`;
+(4) `rearrange.ts` + the three swap-race assertions in `syncMerge.test.ts`
+(verify the "torn week" and dropped-rating outcomes are acceptable to Ronnie,
+not just documented); (5) `wasteFit.ts` and whether 0.5 shows any variety
+regression in real weeks (the F7 fix changed the measured signal — re-run
+`checkWasteFit`); (6) M5.0 `planHistory.ts`/`planHistoryStore.ts` (the F8a
+hydration guard) and the M5.1 photo wiring in `recipeImages.ts` (spot-check a
+sample of the 55 auto-wired images actually depict their dish — the vision
+screen was strict but is not infallible; `PHOTO-REVIEW-2.md` is the record).
+Verify Part 5's open items and §8's accepted edges against the repo before
+signing off.
 
-The parked list (leftovers-aware planning, thaw reminders, quantity-aware re-roll,
-H-E-B Curbside export, household-synced user recipes, calendar integration) remains
-*candidates*, not a plan — don't start any of it without Ronnie's explicit go-ahead.
+**Immediate product to-dos waiting on Ronnie (not the advisor):** review the
+20 PLAUSIBLE photos in `PHOTO-REVIEW-2.md`; flag any wrong auto-wired photo
+(one-line revert to the tile). **Next confirmed feature after the audit: M5.4
+household-synced user recipes** (spec sketch in `MILESTONE-5.md`; sync +
+allergy-handling decisions to make BEFORE coding, tests in the same commit —
+extra review gate applies). The remaining parked list (leftovers-aware
+planning, thaw reminders, quantity-aware re-roll, H-E-B Curbside export,
+calendar integration) stays *candidates* — don't start any of it without
+Ronnie's explicit go-ahead.
 
 ---
 

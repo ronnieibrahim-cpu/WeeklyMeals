@@ -1,20 +1,39 @@
-# MILESTONE-5 — Look Back, Look Better (DRAFT — priorities pending Ronnie)
+# MILESTONE-5 — Look Back, Look Better
 
-> Status: **M5.0–M5.3 are active by Ronnie's direct instruction (July 2026).**
-> Everything under "Candidates" is a PROPOSED pipeline distilled from the
-> parked list — Ronnie picks the order; nothing there starts without his
-> explicit go-ahead. Same rules as every milestone: all three checks green
-> before every commit, product laws in `PROJECT.md` §7 are binding, sync/
-> allergy/shopping-list changes carry their extra scrutiny.
+> **Status (July 2026 — PARKED here):** M5.0 (6-week archive), M5.2 (bug
+> sweep), and M5.3 (Vercel previews) are **shipped and deployed**. M5.1
+> (photos) is **live but partially done** — 55 exact-match photos are wired
+> and on the family's phones; 20 "plausible" candidates in `PHOTO-REVIEW-2.md`
+> await Ronnie's yes/no, and any wrong auto-wire is one line to revert.
+> **M5.4 (household-synced user recipes) is the next confirmed feature — not
+> started.** Everything under "Candidates" is a proposed pipeline; Ronnie
+> picks the order, nothing there starts without his explicit go-ahead.
 >
-> Standing context: the full M4.3–M4.7 range still awaits its independent
-> advisor close-out audit (`ADVISOR-HANDOFF.md` Part 6). An adversarial bug
-> sweep (M5.2) was run at parking time; the advisor audit remains the real
-> gate.
+> **The single most important open item is NOT a feature: it is the
+> independent advisor close-out audit of the entire M4.3–M4.7 + M5.0–M5.1
+> range** (`ADVISOR-HANDOFF.md` Part 6). That whole range was implemented in
+> one orchestrated worker session that also acted as its own reviewer — the
+> exact setup this project's rules warn against. An adversarial sweep (M5.2)
+> was run and its findings fixed, but a sweep is not the audit. Do the audit
+> in a fresh advisor chat before building M5.4 or anything new.
+>
+> Same rules as every milestone: all three checks green before every commit
+> (`npm run typecheck`, `npx jest`, `npx tsx scripts/validateRecipes.ts` —
+> currently **398 tests**), product laws in `PROJECT.md` §7 are binding,
+> sync/allergy/shopping-list changes carry their extra scrutiny.
 
 ---
 
-## [ ] M5.0 — Past six weeks, at a glance (ASAP per Ronnie)
+## [x] M5.0 — Past six weeks, at a glance (SHIPPED)
+
+**Done:** rolling per-device 6-week archive (`src/engine/planHistory.ts`
+`archivePlan` + `planHistoryStore` + `LocalPlanHistoryRepository`); the
+outgoing plan is archived on `approve()` and on adopting a different-id week
+via `hydrateFromSync()`; "Past weeks" collapsible section on the Schedule tab
+with a quiet empty-state hint until the first rollover. Not synced (per-device,
+like cook-mode progress). Note: the archive starts capturing at the first
+approval AFTER it shipped — weeks approved before then were already overwritten
+and are unrecoverable (there was only ever one stored plan pre-M5.0).
 
 **User request (verbatim intent):** *"an archive of the last 6 weeks of cooking
 in a collapsible format just so we can go back and look at/reflect on what
@@ -76,16 +95,20 @@ collision check `ingredientKey.ts` references). Four edges knowingly accepted
 double-approval archive, notes-tombstone growth). **Does not replace the
 independent advisor audit** (`ADVISOR-HANDOFF.md` Part 6).
 
-## [ ] M5.3 — Branch preview deploys (Vercel), production stays on GitHub Pages
+## [x] M5.3 — Branch preview deploys (Vercel), production stays on GitHub Pages (SHIPPED)
 
-`vercel.json` added so Vercel builds the Expo web export zero-config. Ronnie
-connects the repo in his Vercel dashboard → every branch push gets a preview
-URL viewable on a phone (solves the retheme-preview problem). **Production
-deliberately stays at the GitHub Pages URL:** the app's local data
+**Done:** `vercel.json` builds the Expo web export zero-config; Ronnie
+connected the repo in his Vercel dashboard, so every branch push now gets a
+phone-viewable preview URL (Vercel dashboard → Deployments → the branch row).
+**Production deliberately stays at the GitHub Pages URL** (`git push … :claude/
+weekly-meals-app-eyowlr` is the production deploy): the app's local data
 (AsyncStorage) is origin-bound and the PWA is installed from that URL — a
 production origin move would strand un-synced local data (profile, pantry,
 ratings history, cook progress) and force re-install on every phone. Revisit
-only with a deliberate data-migration plan.
+only with a deliberate data-migration plan. Note: a preview is the full app on
+a separate origin with blank local data — do NOT enter the real household code
+on a preview (it would read/write the family's live synced data); use a
+throwaway code to test sync.
 
 ---
 
