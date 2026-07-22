@@ -51,12 +51,22 @@ fallback returns). Pipeline: extend `scripts/importPhotos.ts` candidate search
 subagents (protein/dish accuracy, not filename match) → wire EXACT tier +
 attribution → review doc for the rest.
 
-## [ ] M5.2 — Parking-lot bug sweep (run at M4 close)
+## [~] M5.2 — Parking-lot bug sweep (DONE; one P2 remains)
 
-Adversarial read-only sweep over the unaudited M4.3–M4.7 range (shopping-list
-identity/deltas, sync ordering, component re-roll commit paths, rearrange
-races, waste-fit threading). Findings triaged P0/P1/P2; P0/P1 fixed before
-parking. (Does not replace the advisor audit.)
+Adversarial read-only sweep over the unaudited M4.3–M4.7 range ran July 2026.
+**No P0s.** Three P1s fixed (F1 Law #1 disclosure retrofit for merged lines,
+F6 stale servings-prompt keying, F7 waste-fit self-double-count in
+`generate()`), plus P2s F4 (rename revive-stamp) and F8a (archive hydration
+race). Four edges accepted (see `PROJECT.md` §8). **Still open:** F5 — cheap
+belt-and-suspenders on the re-roll commit paths (`rerollMeal`/`rerollSidesOnly`/
+`commitComponentReroll` should re-check `meal.cooked` and, for the sides-only
+paths, an `expectedRecipeId` the screen previewed against — mirroring
+`moveMeal`'s commit-time guard); one-render-tick exposure. Also open: the
+`checkIngredientConsistency.ts` name-fold collision check that
+`ingredientKey.ts`'s comment promises but the script doesn't yet perform
+(clean on today's data — the sweep's probe confirmed zero collisions — but the
+guard should exist before new recipes are added). Neither blocks parking.
+**Does not replace the independent advisor audit** (`ADVISOR-HANDOFF.md` Part 6).
 
 ## [ ] M5.3 — Branch preview deploys (Vercel), production stays on GitHub Pages
 

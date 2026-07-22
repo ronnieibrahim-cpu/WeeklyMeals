@@ -424,6 +424,34 @@ store actions with no UI · no keyboard-avoidance around the inline manual-item 
 3. **A newly-approved plan sometimes doesn't appear on the second phone** — resolved
    after the M4.1 updates. If it recurs, investigate as a merge race.
 
+**Accepted edges (July 2026 adversarial sweep of M4.3–M4.7).** The sweep found
+no P0s; its three P1s (F1 disclosure layer, F6 stale servings prompt, F7
+waste-fit self-double-count) and two P2s (F4 rename revive-stamp, F8a archive
+hydration race) are FIXED. These remaining edges are knowingly accepted, not
+open bugs:
+1. **Sub-0.01-display-unit co-contributor swallow (F2).** A merged shopping
+   line whose two sources differ by less than the display unit's rounding
+   floor (≈2 g on a pounds-displayed line) can be zeroed out by removing the
+   larger source. Contrived magnitudes; real recipes don't sit there.
+2. **Approve while offline/unsyncable (F3).** `onApprove` reconciles via
+   `syncNow()` before `clearChecked()`; if that pull fails (offline, Supabase
+   hiccup, or the partner simply hasn't pushed yet), checked items clear
+   against local-only state and the partner's un-pulled check-offs survive
+   until the next successful approval-time sync. Narrow window; the fix would
+   be a "couldn't reach the other phone" notice, deferred.
+3. **Double-approval archives a never-cooked week (F8b).** In a two-phones-
+   approve-at-once race, the losing phone archives its own just-approved,
+   never-cooked plan as a "past week." Cosmetic on a read-only surface.
+4. **recipeNotes tombstones accumulate.** A cleared note keeps an empty-text
+   entry forever; the map grows unbounded. Trivial at family scale.
+5. **F5 (P2, not yet fixed) — re-roll commit-path belt-and-suspenders.**
+   `rerollMeal`/`rerollSidesOnly`/`commitComponentReroll` don't re-check
+   `meal.cooked` or outgoing-recipe identity at commit (unlike `moveMeal`).
+   Exposure is one render tick (the re-roll screen recomputes its preview
+   reactively on any plan change), so a partner's sync-adopted cook/re-roll
+   would have to land between the final render and the tap. Tracked in
+   `MILESTONE-5.md` as cheap hardening; not yet done.
+
 ## 9. Roadmap
 
 **Milestone 4 — "Real Dinners, Right-Sized"** (`MILESTONE-4.md`), written from the
