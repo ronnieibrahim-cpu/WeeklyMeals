@@ -152,8 +152,12 @@ export default function RerollScreen() {
   // changing — a new dish — so `commitComponentReroll` is the commit path
   // (full body stamp via `rerollMeal`, cooked/rating cleared).
   const commit = (recipeId: string, sideRecipeIds: string[]) => {
-    if (keepMain) rerollSidesOnly(dayIndex, sideRecipeIds);
-    else commitComponentReroll(dayIndex, { recipeId, sideRecipeIds });
+    // F5: pass the outgoing main id the preview was computed against, so a
+    // commit no-ops if a synced change swapped this day's dish out from
+    // under the preview between render and tap.
+    const expectedRecipeId = outgoingMeal.recipeId;
+    if (keepMain) rerollSidesOnly(dayIndex, sideRecipeIds, expectedRecipeId);
+    else commitComponentReroll(dayIndex, { recipeId, sideRecipeIds }, expectedRecipeId);
     router.back();
   };
 

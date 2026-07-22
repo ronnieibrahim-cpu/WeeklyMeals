@@ -236,7 +236,7 @@ interface PlanState {
    * screen — a main can never be smuggled onto the plate as a "side" this
    * way, mirroring `pinRecipeToWeek`'s defense-in-depth comment.
    */
-  rerollSidesOnly: (dayIndex: number, sideRecipeIds: string[]) => void;
+  rerollSidesOnly: (dayIndex: number, sideRecipeIds: string[], expectedRecipeId?: string) => void;
   /**
    * M4.5 commit path for "keep the sides/sauce, re-roll the main" — and,
    * routed here for uniformity, the ordinary no-keep whole-plate re-roll
@@ -253,7 +253,7 @@ interface PlanState {
    * no-op) rather than silently substituting a different-shaped plate than
    * what the user saw.
    */
-  commitComponentReroll: (dayIndex: number, candidate: { recipeId: string; sideRecipeIds: string[] }) => void;
+  commitComponentReroll: (dayIndex: number, candidate: { recipeId: string; sideRecipeIds: string[] }, expectedRecipeId?: string) => void;
   /**
    * M3.1: today-or-future, not-yet-cooked days `recipeId` could be pinned
    * into on the active plan — empty means "can't be pinned right now"
@@ -698,6 +698,14 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   rerollMeal: (dayIndex, recipeId, sideRecipeIds = []) => {
     const plan = get().plan;
     if (!plan) return;
+    // F5 (July 2026 sweep): refuse to replace a cooked day, mirroring
+    // moveMeal's commit-time guard. rerollCandidates already excludes cooked
+    // days at preview time, but a partner's cook could sync in between the
+    // final render and the tap; a cooked day is history and must never have
+    // its recipe/rating/cooked flag wiped. Pinning is unaffected — its
+    // pinnableDays guard already excludes cooked days upstream.
+    const target = plan.meals.find((m) => m.dayIndex === dayIndex);
+    if (target?.cooked) return;
     const now = new Date().toISOString();
     const meals = plan.meals.map((m) =>
       m.dayIndex === dayIndex
@@ -720,12 +728,19 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     persist(next);
   },
 
-  rerollSidesOnly: (dayIndex, sideRecipeIds) => {
+  rerollSidesOnly: (dayIndex, sideRecipeIds, expectedRecipeId) => {
     const plan = get().plan;
     if (!plan) return;
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     const meal = plan.meals.find((m) => m.dayIndex === dayIndex);
     if (!meal) return;
+    // F5 (July 2026 sweep): a cooked day is history; and if a partner's
+    // swap/re-roll synced a different main onto this day since the preview,
+    // these sides were composed against a dish that's no longer here — no-op
+    // rather than attach them to the wrong plate (the screen passes the main
+    // id it previewed against as expectedRecipeId).
+    if (meal.cooked) return;
+    if (expectedRecipeId !== undefined && meal.recipeId !== expectedRecipeId) return;
     // LAW #5 defense in depth — never trust the screen's ids as-is: drop
     // anything unresolvable, anything failing the allergy guard, and
     // anything that's actually a main (a main can never be smuggled onto
@@ -743,11 +758,19 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     persist(next);
   },
 
-  commitComponentReroll: (dayIndex, candidate) => {
+  commitComponentReroll: (dayIndex, candidate, expectedRecipeId) => {
     const plan = get().plan;
     const recipe = getAnyRecipe(candidate.recipeId);
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!plan || !recipe) return;
+    // F5 (July 2026 sweep): if a partner's synced change replaced this day's
+    // dish since the preview, the kept sides this candidate carries were
+    // paired against a main that's no longer here — no-op rather than commit
+    // a plate the user never actually saw. (rerollMeal below also guards
+    // cooked, belt-and-suspenders.)
+    const outgoing = plan.meals.find((m) => m.dayIndex === dayIndex);
+    if (!outgoing || outgoing.cooked) return;
+    if (expectedRecipeId !== undefined && outgoing.recipeId !== expectedRecipeId) return;
     // LAW #5: re-apply the guard at the point of replacement rather than
     // trusting that the candidate the screen has been holding since preview
     // is still safe. A partial commit (dropping just the offending id)
