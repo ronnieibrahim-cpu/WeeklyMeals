@@ -9,12 +9,12 @@ import { useTheme } from '@/ui/theme/useTheme';
 
 type IoniconName = ComponentProps<typeof Ionicons>['name'];
 
-const ICONS: Record<string, IoniconName> = {
-  index: 'restaurant',
-  recipes: 'search',
-  schedule: 'calendar',
-  shopping: 'cart',
-  profile: 'person',
+const ICONS: Record<string, { active: IoniconName; inactive: IoniconName }> = {
+  index: { active: 'restaurant', inactive: 'restaurant-outline' },
+  recipes: { active: 'search', inactive: 'search-outline' },
+  schedule: { active: 'calendar', inactive: 'calendar-outline' },
+  shopping: { active: 'cart', inactive: 'cart-outline' },
+  profile: { active: 'person', inactive: 'person-outline' },
 };
 const LABELS: Record<string, string> = {
   index: 'This Week',
@@ -74,7 +74,13 @@ function TabBar({ state, navigation }: TabBarProps) {
             }}
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 3 }}
           >
-            <Ionicons name={ICONS[route.name] ?? 'ellipse'} size={24} color={color} />
+            <Ionicons
+              name={
+                (focused ? ICONS[route.name]?.active : ICONS[route.name]?.inactive) ?? 'ellipse-outline'
+              }
+              size={24}
+              color={color}
+            />
             <Text variant="caption" numberOfLines={1} style={{ color, fontSize: 11 }}>
               {LABELS[route.name] ?? route.name}
             </Text>
