@@ -4,9 +4,11 @@
  * should move here once a runner existed. Same fixtures and cases, translated
  * to jest's describe/it/expect.
  */
-import { FavoritesMap, IntakeAnswers, ManualItem, ManualItemMap, PlannedMeal, RecipeNote, RecipeNotesMap, ShoppingItem, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { FavoritesMap, IntakeAnswers, ManualItem, ManualItemMap, PlannedMeal, RecipeNote, RecipeNotesMap, ShoppingItem, ShoppingList, UserRecipeEntry, UserRecipeSyncMap, WeeklyPlan } from '@/domain/models';
+import { passesAllergySafety, passesHardFilters } from './recommendation/filters';
 import { moveMeal } from './rearrange';
-import { mergeManualItems, mergePlanMeals, mergeRecipeNotes, mergeShoppingLists, mergeSyncPayload, mergeTimestampedFlagMap, stableStringify } from './syncMerge';
+import { mergeManualItems, mergePlanMeals, mergeRecipeNotes, mergeShoppingLists, mergeSyncPayload, mergeTimestampedFlagMap, mergeUserRecipes, stableStringify, SyncMergePayload } from './syncMerge';
+import { makeIntake, makeProfile, makeRecipe } from './testFixtures';
 
 const INTAKE = {} as IntakeAnswers; // opaque payload the merge never inspects
 
@@ -81,6 +83,19 @@ function note(text: string, updatedAtISO: string): RecipeNote {
 }
 
 function notesMap(entries: Record<string, RecipeNote> = {}): RecipeNotesMap {
+  return entries;
+}
+
+function userRecipeEntry(over: Partial<UserRecipeEntry> & Pick<UserRecipeEntry, 'recipe'>): UserRecipeEntry {
+  return {
+    updatedAtISO: '2026-01-01T00:00:00.000Z',
+    deleted: false,
+    deletedAtISO: null,
+    ...over,
+  };
+}
+
+function userRecipesMap(entries: Record<string, UserRecipeEntry> = {}): UserRecipeSyncMap {
   return entries;
 }
 
@@ -168,8 +183,8 @@ describe('mergeShoppingLists', () => {
 
 describe('mergeSyncPayload — cross-plan (differing id)', () => {
   it('(e) differing planId keeps the newer plan either direction', () => {
-    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap(), recipeNotes: notesMap() };
-    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap(), recipeNotes: notesMap() };
+    const older = { plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap(), recipeNotes: notesMap(), userRecipes: userRecipesMap() };
+    const newer = { plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }), shoppingList: null, favorites: favMap(), kidApproved: favMap(), manualItems: manualMap(), recipeNotes: notesMap(), userRecipes: userRecipesMap() };
 
     // Newer plan is "local", older is "remote": local must NOT be clobbered.
     const keepLocal = mergeSyncPayload(newer, older);
@@ -484,6 +499,7 @@ describe('mergeSyncPayload — full payload', () => {
       kidApproved: favMap(),
       manualItems: manualMap(),
       recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0)]),
@@ -492,6 +508,7 @@ describe('mergeSyncPayload — full payload', () => {
       kidApproved: favMap(),
       manualItems: manualMap(),
       recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
     };
 
     const merged = mergeSyncPayload(a, b);
@@ -507,6 +524,7 @@ describe('mergeSyncPayload — full payload', () => {
       kidApproved: favMap({ 'recipe-x': { flag: true, atISO: t1 } }),
       manualItems: manualMap(),
       recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0), meal(1, { cooked: true, cookedAtISO: t2 })]),
@@ -518,6 +536,7 @@ describe('mergeSyncPayload — full payload', () => {
       kidApproved: favMap({ 'recipe-y': { flag: true, atISO: t2 } }),
       manualItems: manualMap(),
       recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
     };
 
     expect(stableStringify(mergeSyncPayload(a, b))).toBe(stableStringify(mergeSyncPayload(b, a)));
@@ -531,6 +550,7 @@ describe('mergeSyncPayload — full payload', () => {
       kidApproved: favMap(),
       manualItems: manualMap(),
       recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
     };
     const noPlan = {
       plan: null,
@@ -539,6 +559,7 @@ describe('mergeSyncPayload — full payload', () => {
       kidApproved: favMap(),
       manualItems: manualMap(),
       recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
     };
 
     const merged = mergeSyncPayload(withPlan, noPlan);
@@ -557,6 +578,7 @@ describe('mergeSyncPayload — full payload', () => {
       kidApproved: favMap({ 'recipe-a': { flag: true, atISO: t1 }, 'recipe-shared': { flag: true, atISO: t1 } }),
       manualItems: manualMap(),
       recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
     };
     const b = {
       plan: plan('plan-1', [meal(0)]),
@@ -565,6 +587,7 @@ describe('mergeSyncPayload — full payload', () => {
       kidApproved: favMap({ 'recipe-b': { flag: true, atISO: t1 }, 'recipe-shared': { flag: false, atISO: t2 } }),
       manualItems: manualMap(),
       recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
     };
 
     const merged = mergeSyncPayload(a, b);
@@ -770,6 +793,239 @@ describe('mergeManualItems (M3.3)', () => {
   });
 });
 
+describe('mergeUserRecipes (M5.4 household-synced family recipes)', () => {
+  const chicken = makeRecipe({ id: 'user-1', name: 'Grandma\'s Chicken Soup' });
+  const chickenRevised = makeRecipe({ id: 'user-1', name: 'Grandma\'s Chicken Soup (halved the salt)' });
+  const pasta = makeRecipe({ id: 'user-2', name: 'Weeknight Pasta' });
+
+  it('two devices adding different recipes converge to the union, order-independent', () => {
+    const a = userRecipesMap({ 'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1 }) });
+    const b = userRecipesMap({ 'user-2': userRecipeEntry({ recipe: pasta, updatedAtISO: t1 }) });
+
+    const mergedAB = mergeUserRecipes(a, b);
+    const mergedBA = mergeUserRecipes(b, a);
+
+    expect(mergedAB['user-1'].recipe.id).toBe('user-1');
+    expect(mergedAB['user-2'].recipe.id).toBe('user-2');
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('(a) concurrent edits to the same recipe id: the newest updatedAtISO wins the whole body, both merge orders', () => {
+    const older = userRecipesMap({ 'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1 }) });
+    const newer = userRecipesMap({ 'user-1': userRecipeEntry({ recipe: chickenRevised, updatedAtISO: t2 }) });
+
+    const merged = mergeUserRecipes(older, newer);
+    expect(merged['user-1'].recipe.name).toBe(chickenRevised.name);
+    expect(merged['user-1'].updatedAtISO).toBe(t2);
+
+    const mergedFlipped = mergeUserRecipes(newer, older);
+    expect(mergedFlipped['user-1'].recipe.name).toBe(chickenRevised.name);
+    expect(stableStringify(merged)).toBe(stableStringify(mergedFlipped));
+  });
+
+  it('(b) edit-on-A vs delete-on-B: the side with the newer OWN timestamp on its axis decides — mirrors mergeManualItems\' edit-vs-delete rule (deleted resolves independently of the body edit, by its own deletedAtISO)', () => {
+    // Phone A edits the recipe body at t2 but never deletes it (deletedAtISO stays null).
+    const editedOnA = userRecipesMap({
+      'user-1': userRecipeEntry({ recipe: chickenRevised, updatedAtISO: t2, deleted: false, deletedAtISO: null }),
+    });
+    // Phone B, unaware of the edit, deletes the recipe at t3 — chronologically
+    // after A's edit — without touching the body (still the original t1 body).
+    const deletedOnB = userRecipesMap({
+      'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1, deleted: true, deletedAtISO: t3 }),
+    });
+
+    const mergedAB = mergeUserRecipes(editedOnA, deletedOnB);
+    const mergedBA = mergeUserRecipes(deletedOnB, editedOnA);
+
+    // Body: A's edit (t2) beats B's untouched body (t1).
+    expect(mergedAB['user-1'].recipe.name).toBe(chickenRevised.name);
+    // deleted: resolved independently by its OWN timestamp — B's real
+    // deletedAtISO (t3) beats A's missing one (null), regardless of how the
+    // body resolved.
+    expect(mergedAB['user-1'].deleted).toBe(true);
+    expect(mergedAB['user-1'].deletedAtISO).toBe(t3);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('(c) a tombstone is not resurrected by a stale live copy, either merge order', () => {
+    // Phone A deleted the recipe at t2.
+    const tombstoned = userRecipesMap({
+      'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1, deleted: true, deletedAtISO: t2 }),
+    });
+    // Phone B never saw the delete — still holds the original live copy,
+    // stamped BEFORE the delete.
+    const staleLive = userRecipesMap({
+      'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1, deleted: false, deletedAtISO: null }),
+    });
+
+    const mergedAB = mergeUserRecipes(tombstoned, staleLive);
+    const mergedBA = mergeUserRecipes(staleLive, tombstoned);
+
+    expect(mergedAB['user-1'].deleted).toBe(true);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+
+    // Idempotence: re-merging with the stale live side again doesn't
+    // resurrect it.
+    const mergedAgain = mergeUserRecipes(mergedAB, staleLive);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(mergedAB));
+  });
+
+  it('a newer re-add (revived, undeleted) beats an older delete, either device order', () => {
+    const deletedOnly = userRecipesMap({
+      'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1, deleted: true, deletedAtISO: t1 }),
+    });
+    const reAdded = userRecipesMap({
+      'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t2, deleted: false, deletedAtISO: t2 }),
+    });
+
+    const mergedAB = mergeUserRecipes(deletedOnly, reAdded);
+    const mergedBA = mergeUserRecipes(reAdded, deletedOnly);
+
+    expect(mergedAB['user-1'].deleted).toBe(false);
+    expect(mergedBA['user-1'].deleted).toBe(false);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('merge(merge(A,B), B) === merge(A,B) [user recipes]', () => {
+    const a = userRecipesMap({
+      'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1 }),
+      'user-2': userRecipeEntry({ recipe: pasta, updatedAtISO: t1, deleted: true, deletedAtISO: t1 }),
+    });
+    const b = userRecipesMap({
+      'user-1': userRecipeEntry({ recipe: chickenRevised, updatedAtISO: t2 }),
+      'user-3': userRecipeEntry({ recipe: makeRecipe({ id: 'user-3' }), updatedAtISO: t2 }),
+    });
+
+    const merged = mergeUserRecipes(a, b);
+    const mergedAgain = mergeUserRecipes(merged, b);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
+  });
+
+  it('userRecipes merges unconditionally as part of mergeSyncPayload, independent of the plan branch (mirrors manualItems/recipeNotes)', () => {
+    const a = {
+      plan: plan('plan-old', [meal(0)], { createdAtISO: t1 }),
+      shoppingList: null,
+      favorites: favMap(),
+      kidApproved: favMap(),
+      manualItems: manualMap(),
+      recipeNotes: notesMap(),
+      userRecipes: userRecipesMap({ 'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1 }) }),
+    };
+    const b = {
+      plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }),
+      shoppingList: null,
+      favorites: favMap(),
+      kidApproved: favMap(),
+      manualItems: manualMap(),
+      recipeNotes: notesMap(),
+      userRecipes: userRecipesMap({ 'user-2': userRecipeEntry({ recipe: pasta, updatedAtISO: t2 }) }),
+    };
+
+    const mergedAB = mergeSyncPayload(a, b);
+    const mergedBA = mergeSyncPayload(b, a);
+
+    expect(mergedAB.plan?.id).toBe('plan-new');
+    expect(mergedAB.userRecipes['user-1'].recipe.id).toBe('user-1');
+    expect(mergedAB.userRecipes['user-2'].recipe.id).toBe('user-2');
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('old-client absence defaults to {}: mergeSyncPayload never breaks or drops local recipes when one side has no userRecipes field', () => {
+    const localOld: SyncMergePayload = {
+      plan: plan('plan-1', [meal(0)]),
+      shoppingList: null,
+      favorites: favMap(),
+      kidApproved: favMap(),
+      manualItems: manualMap(),
+      recipeNotes: notesMap(),
+      userRecipes: userRecipesMap({ 'user-1': userRecipeEntry({ recipe: chicken, updatedAtISO: t1 }) }),
+    };
+    // Simulates a remote row written by a pre-M5.4 client (the field is
+    // entirely absent on the wire) — syncStore defaults it to {} before
+    // calling mergeSyncPayload; this test exercises that defaulted shape.
+    const remoteFromOldClient: SyncMergePayload = {
+      plan: plan('plan-1', [meal(0)]),
+      shoppingList: null,
+      favorites: favMap(),
+      kidApproved: favMap(),
+      manualItems: manualMap(),
+      recipeNotes: notesMap(),
+      userRecipes: userRecipesMap(),
+    };
+
+    const merged = mergeSyncPayload(localOld, remoteFromOldClient);
+    expect(merged.userRecipes['user-1'].recipe.id).toBe('user-1');
+  });
+});
+
+describe('allergy safety for a household-synced user recipe (Laws #4/#5, M5.4)', () => {
+  it('a synced-in user recipe carrying an allergen is filtered OUT of candidates for a profile with that allergy', () => {
+    const dangerousRecipe = makeRecipe({ id: 'user-danger', allergens: ['Peanuts'], estimated: undefined });
+    // Simulate the recipe having arrived via a sync merge: build the entry
+    // through mergeUserRecipes exactly like syncStore does, then read the
+    // recipe back out of it the same way userRecipesStore's derived
+    // recipesMap/list would (live entry, unwrapped).
+    const merged = mergeUserRecipes(
+      {},
+      userRecipesMap({ 'user-danger': userRecipeEntry({ recipe: dangerousRecipe, updatedAtISO: t1 }) }),
+    );
+    const arrivedRecipe = merged['user-danger'].recipe;
+    expect(merged['user-danger'].deleted).toBe(false);
+
+    const profile = makeProfile({ allergies: ['Peanuts'] });
+    const intake = makeIntake(profile);
+
+    // Not a hand-curated import (estimated unset), so this recipe would
+    // normally be trusted — the allergen list itself is what must exclude it.
+    expect(passesHardFilters(arrivedRecipe, intake, profile)).toBe(false);
+    expect(passesAllergySafety(arrivedRecipe, profile)).toBe(false);
+  });
+
+  it('the same synced-in recipe cannot be pinned past the guard: passesAllergySafety — the exact check pinRecipeToWeek/pinRecipeToDraft re-apply on getAnyRecipe(id) — rejects it', () => {
+    const dangerousRecipe = makeRecipe({ id: 'user-danger-2', allergens: ['Tree Nuts'] });
+    const merged = mergeUserRecipes(
+      userRecipesMap({ 'user-danger-2': userRecipeEntry({ recipe: dangerousRecipe, updatedAtISO: t1 }) }),
+      {},
+    );
+    const arrivedRecipe = merged['user-danger-2'].recipe;
+
+    const profile = makeProfile({ allergies: ['Tree Nuts'] });
+
+    // This is exactly the guard planStore.pinRecipeToWeek/pinRecipeToDraft
+    // re-check on the recipe resolved via getAnyRecipe(id) before honoring a
+    // pin (Law #5) — a recipe failing it is never pinnable, no matter how it
+    // arrived (authored locally or synced in from a household partner).
+    expect(passesAllergySafety(arrivedRecipe, profile)).toBe(false);
+  });
+
+  it('a synced-in recipe with no overlapping allergens still passes, and is not excluded merely for being a user recipe', () => {
+    const safeRecipe = makeRecipe({ id: 'user-safe', allergens: ['Gluten'] });
+    const merged = mergeUserRecipes(
+      {},
+      userRecipesMap({ 'user-safe': userRecipeEntry({ recipe: safeRecipe, updatedAtISO: t1 }) }),
+    );
+    const arrivedRecipe = merged['user-safe'].recipe;
+
+    const profile = makeProfile({ allergies: ['Peanuts'] });
+    expect(passesAllergySafety(arrivedRecipe, profile)).toBe(true);
+  });
+
+  it('a tombstoned (soft-deleted) synced recipe never reaches the candidate pool at all — mirrors userRecipesStore\'s live-only derivation', () => {
+    const dangerousRecipe = makeRecipe({ id: 'user-danger-3', allergens: ['Peanuts'] });
+    const deletedRemotely = mergeUserRecipes(
+      userRecipesMap({ 'user-danger-3': userRecipeEntry({ recipe: dangerousRecipe, updatedAtISO: t1 }) }),
+      userRecipesMap({ 'user-danger-3': userRecipeEntry({ recipe: dangerousRecipe, updatedAtISO: t2, deleted: true, deletedAtISO: t2 }) }),
+    );
+
+    expect(deletedRemotely['user-danger-3'].deleted).toBe(true);
+    // A consumer deriving the live view (as userRecipesStore does) would
+    // never even construct a Recipe from this entry, so it can neither be a
+    // reroll candidate nor a pin target.
+    const liveEntries = Object.values(deletedRemotely).filter((e) => !e.deleted);
+    expect(liveEntries.find((e) => e.recipe.id === 'user-danger-3')).toBeUndefined();
+  });
+});
+
 describe('mergeRecipeNotes (M4.4)', () => {
   it('two devices noting different recipes converge to the union, order-independent', () => {
     const a = notesMap({ 'recipe-a': note('halved the chili', t1) });
@@ -834,6 +1090,7 @@ describe('mergeRecipeNotes (M4.4)', () => {
       kidApproved: favMap(),
       manualItems: manualMap(),
       recipeNotes: notesMap({ 'recipe-a': note('halved the chili', t1) }),
+      userRecipes: userRecipesMap(),
     };
     const b = {
       plan: plan('plan-new', [meal(0)], { createdAtISO: t2 }),
@@ -842,6 +1099,7 @@ describe('mergeRecipeNotes (M4.4)', () => {
       kidApproved: favMap(),
       manualItems: manualMap(),
       recipeNotes: notesMap({ 'recipe-b': note('kids hated the sauce', t2) }),
+      userRecipes: userRecipesMap(),
     };
 
     const mergedAB = mergeSyncPayload(a, b);

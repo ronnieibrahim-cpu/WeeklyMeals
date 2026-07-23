@@ -1,11 +1,12 @@
-import { FavoritesMap, KidApprovedMap, ManualItemMap, RecipeNotesMap, ShoppingList, WeeklyPlan } from '@/domain/models';
+import { FavoritesMap, KidApprovedMap, ManualItemMap, RecipeNotesMap, ShoppingList, UserRecipeSyncMap, WeeklyPlan } from '@/domain/models';
 
 import { HOUSEHOLD_TABLE, SUPABASE_KEY, SUPABASE_URL } from './config';
 
 /** The shared state synced across a household's devices. `favorites`/
- * `kidApproved`/`manualItems`/`recipeNotes` are optional on the wire (M3.1,
- * M3.2, M3.3, M4.4) since existing rows written before those fields existed
- * won't have them — treat a missing map the same as an empty one. */
+ * `kidApproved`/`manualItems`/`recipeNotes`/`userRecipes` are optional on the
+ * wire (M3.1, M3.2, M3.3, M4.4, M5.4) since existing rows written before
+ * those fields existed won't have them — treat a missing map the same as an
+ * empty one. */
 export interface SyncPayload {
   plan: WeeklyPlan | null;
   shoppingList: ShoppingList | null;
@@ -13,6 +14,7 @@ export interface SyncPayload {
   kidApproved?: KidApprovedMap;
   manualItems?: ManualItemMap;
   recipeNotes?: RecipeNotesMap;
+  userRecipes?: UserRecipeSyncMap;
 }
 
 export interface HouseholdRow {

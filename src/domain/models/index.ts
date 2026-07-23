@@ -8,3 +8,4 @@ export * from './rating';
 export * from './preferences';
 export * from './sync';
 export * from './recipeNotes';
+export * from './userRecipes';

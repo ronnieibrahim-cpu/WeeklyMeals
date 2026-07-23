@@ -1,4 +1,4 @@
-import { Recipe } from '@/domain/models';
+import { UserRecipeSyncMap } from '@/domain/models';
 
 import { UserRecipesRepository } from '../UserRecipesRepository';
 import { kvStore } from './kvStore';
@@ -6,11 +6,11 @@ import { kvStore } from './kvStore';
 const KEY = 'wm:userRecipes:v1';
 
 export class LocalUserRecipesRepository implements UserRecipesRepository {
-  load(): Promise<Record<string, Recipe> | null> {
-    return kvStore.getJSON<Record<string, Recipe>>(KEY);
+  load(): Promise<unknown> {
+    return kvStore.getJSON<unknown>(KEY);
   }
 
-  save(map: Record<string, Recipe>): Promise<void> {
+  save(map: UserRecipeSyncMap): Promise<void> {
     return kvStore.setJSON(KEY, map);
   }
 

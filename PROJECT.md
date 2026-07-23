@@ -20,8 +20,9 @@
 > P0s, all P1/P2 fixed), M5.3 (Vercel branch previews; production stays on
 > GitHub Pages) shipped; **M5.1 (recipe photos) live but partial** — 55
 > vision-screened exact matches wired, plus 11 Ronnie-approved (66 total); the
-> remaining 9 "plausible" are held on the tile (`PHOTO-REVIEW-2.md`); **M5.4 (household-synced user recipes) confirmed-next, not
-> started.** A four-phase visual **redesign** (Basil green retheme →
+> remaining 9 "plausible" are held on the tile (`PHOTO-REVIEW-2.md`); **M5.4
+> (household-synced user recipes) shipped 2026-07-23** (sync merge; advisor
+> gate waived — see decision 36; owes the independent audit). A four-phase visual **redesign** (Basil green retheme →
 > photo-forward cards → chrome unification → Phase 4 IA consolidation) is
 > complete and merged: the app is now **4 tabs** (This Week · Recipes ·
 > Shopping · Profile), This Week is a single always-visible full-week view with
@@ -30,7 +31,7 @@
 > **Open priority is process, not a feature: the independent advisor close-out
 > audit of M4.3–M4.7 + M5.0–M5.1** (see `ADVISOR-HANDOFF.md` Part 6) — that
 > range self-reviewed; the M5.2 sweep is not a substitute.
-> **Last verified:** July 2026 · typecheck clean · 404 tests green ·
+> **Last verified:** July 2026 · typecheck clean · 422 tests green ·
 > 230/230 curated recipes + 50/50 sides/sauces pass content validation,
 > 636/636 recipes use canonical allergen labels and plausible `provides` ·
 > `checkWasteFit`/`checkIngredientConsistency`/`checkCuratedWeighting`/
@@ -284,7 +285,7 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    the learned dials (spice, complexity, budget, leftovers) all feed scoring with
    capped weights; hard filters always win.
 5. **Sync (optional):** plan, shopping list, manual items, favorites, kid-approved
-   flags, and recipe notes sync between two phones (~20s poll, 600ms debounced push)
+   flags, recipe notes, and **user recipes (M5.4)** sync between two phones (~20s poll, 600ms debounced push)
    with **per-item / per-meal deterministic merging** (see §6).
 6. **Past weeks (M5.0):** on approval, or on adopting a genuine week-replacement
    synced from the other phone, the outgoing week joins a rolling 6-week
@@ -332,6 +333,11 @@ the identical result regardless of order, or they ping-pong forever.
   the same plan; sync's existing union-of-keys fallback treats that exactly like any
   other one-sided item today — an accepted, temporary rough edge until both phones
   are current, not a new risk.
+- **User recipes (M5.4)** merge per-recipe via `mergeUserRecipes` — newest
+  `updatedAtISO` wins the body, `deleted`/`deletedAtISO` is an independent
+  tombstone axis (structurally identical to `mergeManualItems`); `userRecipes`
+  is optional on the wire and defaults to `{}`, so an old client never breaks
+  the merge or drops recipes.
 - **Manual items** are keyed by **normalized name** (two people adding "milk"
   converge to one row) and deleted via **tombstones** (a delete is never resurrected
   by a phone that hasn't caught up). They are **not plan-scoped**: on approving a new
@@ -491,7 +497,10 @@ milestone, PARKED mid-flight (July 2026):
   accepted, see §8).
 - **M5.3** — Vercel branch preview deploys (production stays on GitHub Pages).
   ✅ Shipped (`vercel.json`; repo connected in Ronnie's dashboard).
-- **M5.4** — household-synced user recipes. ⬜ Confirmed-next, not started.
+- **M5.4** — household-synced user recipes. ✅ Shipped 2026-07-23
+  (`mergeUserRecipes`, enveloped sync map, soft-delete tombstones,
+  backward-compatible migration; advisor gate waived — see
+  `ADVISOR-HANDOFF.md` decision 36).
 - **Do first, not a feature:** the independent advisor close-out audit of the
   whole M4.3–M4.7 + M5.0–M5.1 range (that range self-reviewed — see
   `ADVISOR-HANDOFF.md` Part 6).
@@ -533,7 +542,7 @@ history, all shipped and deployed:
   re-roll · H-E-B Curbside / Instacart export · other stores · **calendar-aware
   planning (explicitly deferred on privacy grounds)** · an optional TestFlight
   native build (EAS cloud build; **not** a rewrite). Note: **household-synced
-  user recipes is now M5.4 (confirmed-next), no longer a mere candidate.**
+  user recipes shipped as M5.4 (2026-07-23).**
 
 ## 10. Operational notes for future sessions
 

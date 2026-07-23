@@ -39,20 +39,23 @@ A follow-up **"stale week" fix** (2026-07-23) made week-completion progress-base
 re-anchor for weeks planned ahead — a small **sync** change (`weekStartISO` now
 merges as a forward-only later-date ratchet, Law #6 tests included) that shipped
 live without the usual advisor pass at Ronnie's direction; see decision 35.
-**Next confirmed feature: M5.4 — household-synced user recipes (not started).**
+**M5.4 (household-synced user recipes) shipped 2026-07-23** (sync merge;
+advisor gate waived — see `ADVISOR-HANDOFF.md` decision 36). No further
+feature is confirmed-next; the standing priority is the independent advisor
+audit.
 
 **Before building anything new, the priority is the independent advisor
 close-out audit of the whole M4.3–M4.7 + M5.0–M5.1 range** — it shipped in one
 orchestrated worker session that also self-reviewed (the sweep was run by that
 same session; it is not a substitute for an independent audit). See
-`ADVISOR-HANDOFF.md` Part 6. Do not start M5.4 or parked items without an
+`ADVISOR-HANDOFF.md` Part 6. Do not start parked items without an
 explicit go-ahead from Ronnie.
 
 ## Commands (all three must be green before every commit)
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine + data/import (+ syncStore) test suite — currently 404 tests
+npx jest                           # engine + data/import (+ syncStore) test suite — currently 422 tests
 npx tsx scripts/validateRecipes.ts # 230/230 curated mains + 50/50 sides (636/636 allergen labels + provides) must pass
 npm run web                        # local browser preview for manual testing
 ```

@@ -10,6 +10,8 @@ import {
   ShoppingItem,
   ShoppingList,
   TimestampedFlag,
+  UserRecipeEntry,
+  UserRecipeSyncMap,
   WeeklyPlan,
 } from '@/domain/models';
 
@@ -35,6 +37,10 @@ export interface SyncMergePayload {
   kidApproved: KidApprovedMap;
   manualItems: ManualItemMap;
   recipeNotes: RecipeNotesMap;
+  /** Household-synced family recipes (M5.4). Not plan-scoped, merged
+   * unconditionally exactly like `manualItems`/`recipeNotes` — see
+   * `mergeUserRecipes`. */
+  userRecipes: UserRecipeSyncMap;
 }
 
 /** Canonical JSON: object keys sorted recursively, `undefined` values
@@ -225,6 +231,54 @@ export function mergeManualItems(a: ManualItemMap, b: ManualItemMap): ManualItem
         deleted: deleted.flag,
         deletedAtISO: deleted.atISO,
       };
+    } else {
+      out[key] = av ?? bv;
+    }
+  }
+  return out;
+}
+
+function userRecipeBaseKey(e: UserRecipeEntry): string {
+  const { deleted: _deleted, deletedAtISO: _deletedAtISO, ...rest } = e;
+  return stableStringify(rest);
+}
+
+/** Whichever side edited the recipe body more recently wins the whole entry
+ * — mirrors `resolveManualItemBody` exactly (same "diverged bodies replace
+ * atomically" pattern), since a stale device's ingredient list shouldn't
+ * partially clobber a fresher rewrite. */
+function resolveUserRecipeBody(a: UserRecipeEntry, b: UserRecipeEntry): UserRecipeEntry {
+  const aTs = tsOf(a.updatedAtISO);
+  const bTs = tsOf(b.updatedAtISO);
+  if (aTs !== bTs) return aTs > bTs ? a : b;
+  return chooseBase(a, b, userRecipeBaseKey);
+}
+
+/**
+ * Merge two recipe id -> UserRecipeEntry maps (M5.4 household-synced family
+ * recipes). Structurally identical to `mergeManualItems`, minus the
+ * `checked` axis (a user recipe has no analogous flag): the recipe body is
+ * resolved via `resolveUserRecipeBody` (newest `updatedAtISO` wins, ties
+ * broken deterministically), and `deleted`/`deletedAtISO` is resolved
+ * independently via the same newer-timestamp-wins `resolveFlag` used
+ * everywhere else, exactly as `mergeManualItems` resolves `deleted`
+ * independently of its body. That's what makes an edit-vs-delete race (one
+ * device rewrites a recipe while another deletes it) and a delete-then-
+ * re-add (any device order) both converge to the same state regardless of
+ * which side merges first: a real deletedAtISO always beats a missing one on
+ * the losing side, and a fresher one beats an older one — see
+ * syncMerge.test.ts.
+ */
+export function mergeUserRecipes(a: UserRecipeSyncMap, b: UserRecipeSyncMap): UserRecipeSyncMap {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  const out: UserRecipeSyncMap = {};
+  for (const key of keys) {
+    const av = a[key];
+    const bv = b[key];
+    if (av && bv) {
+      const base = resolveUserRecipeBody(av, bv);
+      const deleted = resolveFlag({ flag: av.deleted, atISO: av.deletedAtISO }, { flag: bv.deleted, atISO: bv.deletedAtISO });
+      out[key] = { ...base, deleted: deleted.flag, deletedAtISO: deleted.atISO };
     } else {
       out[key] = av ?? bv;
     }
@@ -429,29 +483,30 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
 
 /**
  * Top-level merge for a full sync payload. `favorites`/`kidApproved`/
- * `manualItems`/`recipeNotes` are independent of the plan (not plan-scoped,
- * M3.1/M3.2/M3.3/M4.4), so they're merged unconditionally regardless of
- * which plan branch below fires. For plan/shoppingList: if the two sides are
- * looking at different plans (different id), the newer plan (by
- * createdAtISO) wins outright — a freshly generated week is never silently
- * deleted, but it also never resurrects a plan that's genuinely been
- * superseded. If both sides share a plan id, per-item/per-meal merging takes
- * over.
+ * `manualItems`/`recipeNotes`/`userRecipes` are independent of the plan (not
+ * plan-scoped, M3.1/M3.2/M3.3/M4.4/M5.4), so they're merged unconditionally
+ * regardless of which plan branch below fires. For plan/shoppingList: if the
+ * two sides are looking at different plans (different id), the newer plan
+ * (by createdAtISO) wins outright — a freshly generated week is never
+ * silently deleted, but it also never resurrects a plan that's genuinely
+ * been superseded. If both sides share a plan id, per-item/per-meal merging
+ * takes over.
  */
 export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePayload): SyncMergePayload {
   const favorites = mergeTimestampedFlagMap(local.favorites, remote.favorites);
   const kidApproved = mergeTimestampedFlagMap(local.kidApproved, remote.kidApproved);
   const manualItems = mergeManualItems(local.manualItems, remote.manualItems);
   const recipeNotes = mergeRecipeNotes(local.recipeNotes, remote.recipeNotes);
+  const userRecipes = mergeUserRecipes(local.userRecipes, remote.userRecipes);
 
-  if (!local.plan) return { ...remote, favorites, kidApproved, manualItems, recipeNotes };
-  if (!remote.plan) return { ...local, favorites, kidApproved, manualItems, recipeNotes };
+  if (!local.plan) return { ...remote, favorites, kidApproved, manualItems, recipeNotes, userRecipes };
+  if (!remote.plan) return { ...local, favorites, kidApproved, manualItems, recipeNotes, userRecipes };
 
   if (local.plan.id !== remote.plan.id) {
     const localTs = tsOf(local.plan.createdAtISO);
     const remoteTs = tsOf(remote.plan.createdAtISO);
-    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites, kidApproved, manualItems, recipeNotes };
-    return { ...chooseBase(local, remote, stableStringify), favorites, kidApproved, manualItems, recipeNotes };
+    if (localTs !== remoteTs) return { ...(localTs > remoteTs ? local : remote), favorites, kidApproved, manualItems, recipeNotes, userRecipes };
+    return { ...chooseBase(local, remote, stableStringify), favorites, kidApproved, manualItems, recipeNotes, userRecipes };
   }
 
   const plan = mergePlanMeals(local.plan, remote.plan);
@@ -465,5 +520,5 @@ export function mergeSyncPayload(local: SyncMergePayload, remote: SyncMergePaylo
     shoppingList = remote.shoppingList;
   }
 
-  return { plan, shoppingList, favorites, kidApproved, manualItems, recipeNotes };
+  return { plan, shoppingList, favorites, kidApproved, manualItems, recipeNotes, userRecipes };
 }
