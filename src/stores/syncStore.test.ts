@@ -14,7 +14,8 @@
  * merge logic (covered exhaustively in syncMerge.test.ts) is correct in
  * isolation either way; only the store wiring can regress this.
  */
-import { ManualItemMap, RecipeNotesMap } from '@/domain/models';
+import { IntakeAnswers, ManualItemMap, PlannedMeal, RecipeNotesMap, WeeklyPlan } from '@/domain/models';
+import { localDateString } from '@/engine/schedule';
 
 const mockGetHousehold = jest.fn();
 const mockUpsertHousehold = jest.fn();
@@ -40,6 +41,7 @@ jest.mock('@/data/repositories/local/kvStore', () => ({
 }));
 
 import { useManualItemsStore } from './manualItemsStore';
+import { usePlanStore } from './planStore';
 import { useRecipeNotesStore } from './recipeNotesStore';
 import { useSyncStore } from './syncStore';
 
@@ -125,5 +127,78 @@ describe('syncStore.syncNow ordering (M4.7)', () => {
     await useSyncStore.getState().syncNow();
 
     expect(useRecipeNotesStore.getState().notesMap['recipe-a']?.text).toBe('halved the chili');
+  });
+});
+
+/**
+ * "Stale week" fix: `pickUpFromToday` is a plan-store action, not a sync
+ * function, but this file is the one sanctioned exception to "stores aren't
+ * the coverage goal" (see the file-level doc comment above and
+ * jest.config.js) and already mocks kvStore, which is all `pickUpFromToday`
+ * touches (via `localPlanRepository.save`). Kept narrow — this is not a
+ * general invitation to grow this file into a full planStore suite.
+ */
+describe('planStore.pickUpFromToday ("stale week" fix)', () => {
+  const INTAKE = {} as IntakeAnswers;
+
+  function meal(dayIndex: number, cooked: boolean): PlannedMeal {
+    return {
+      recipeId: `r${dayIndex}`,
+      servings: 4,
+      dayIndex,
+      locked: false,
+      cooked,
+      cookedAtISO: cooked ? '2026-07-01T10:00:00.000Z' : null,
+    };
+  }
+
+  function approvedPlan(meals: PlannedMeal[], weekStartISO: string): WeeklyPlan {
+    return {
+      id: 'plan-stale',
+      weekStartISO,
+      intake: INTAKE,
+      meals,
+      status: 'approved',
+      createdAtISO: '2026-07-01T00:00:00.000Z',
+    };
+  }
+
+  beforeEach(() => {
+    usePlanStore.setState({ plan: null, draftPlan: null, shoppingList: null, intake: null, hydrated: true });
+  });
+
+  it('sets weekStartISO so the first uncooked meal lands on today (all cooked except day 2 -> weekStartISO = today − 2 days)', () => {
+    const plan = approvedPlan(
+      [meal(0, true), meal(1, true), meal(2, false), meal(3, false)],
+      '2026-06-01', // stale — irrelevant to the result, only the first uncooked dayIndex matters
+    );
+    usePlanStore.setState({ plan });
+
+    usePlanStore.getState().pickUpFromToday();
+
+    const today = new Date();
+    const expectedAnchor = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    expectedAnchor.setDate(expectedAnchor.getDate() - 2); // firstUncooked dayIndex = 2
+    const expected = localDateString(expectedAnchor);
+
+    const result = usePlanStore.getState().plan;
+    expect(result?.weekStartISO).toBe(expected);
+    // Only weekStartISO changed — cooked flags, servings, everything else on
+    // every meal is untouched (Product Law #1: same food, just re-dated).
+    expect(result?.meals).toEqual(plan.meals);
+  });
+
+  it('is a no-op when every meal is already cooked', () => {
+    const plan = approvedPlan([meal(0, true), meal(1, true)], '2026-06-01');
+    usePlanStore.setState({ plan });
+
+    usePlanStore.getState().pickUpFromToday();
+
+    expect(usePlanStore.getState().plan?.weekStartISO).toBe('2026-06-01');
+  });
+
+  it('is a no-op when there is no active plan', () => {
+    usePlanStore.getState().pickUpFromToday();
+    expect(usePlanStore.getState().plan).toBeNull();
   });
 });

@@ -19,6 +19,7 @@ import {
   MoveMealSheet,
   PrimaryButton,
   Screen,
+  SecondaryButton,
   SectionHeader,
   ServingsShoppingListPrompt,
   SwipeableMealRow,
@@ -38,6 +39,7 @@ export default function ThisWeekScreen() {
   const toggleCooked = usePlanStore((s) => s.toggleCooked);
   const rateMeal = usePlanStore((s) => s.rateMeal);
   const setApprovedMealServings = usePlanStore((s) => s.setApprovedMealServings);
+  const pickUpFromToday = usePlanStore((s) => s.pickUpFromToday);
   const kidApprovedMap = useLearningStore((s) => s.kidApprovedMap);
   const toggleKidApproved = useLearningStore((s) => s.toggleKidApproved);
   const recipesById = useRecipesById();
@@ -191,10 +193,20 @@ export default function ThisWeekScreen() {
 
   const offset = todayOffset(plan.weekStartISO);
   const todayIndex = Math.max(0, offset);
-  // Today is past the last planned day → the week is done. Only evaluated
-  // when there's no draft pending, matching the original behavior where a
-  // pending draft always took priority over this state.
-  const weekComplete = !draftPlan && offset >= meals.length;
+  // "Stale week" fix: completion is now about PROGRESS, not the calendar —
+  // a week generated ahead of schedule and left with uncooked days must
+  // never read as "complete" just because today's date has run past it
+  // (Product Law #3: never claim something's done when it isn't). Only
+  // evaluated when there's no draft pending, matching the original behavior
+  // where a pending draft always took priority over this state.
+  const allCooked = meals.length > 0 && meals.every((m) => m.cooked);
+  const datesPassed = offset >= meals.length;
+  const weekComplete = !draftPlan && allCooked;
+  // The calendar ran out but there's still uncooked food — distinct from
+  // "done": offer to re-date the remaining meals to today (`pickUpFromToday`)
+  // or start over, but never silently pick one (Law #1/#3).
+  const staleWeek = !draftPlan && datesPassed && !allCooked;
+  const uncookedCount = meals.filter((m) => !m.cooked).length;
 
   const reviewCard = !draftPlan ? (
     <Card
@@ -233,6 +245,25 @@ export default function ThisWeekScreen() {
             <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
               You've made it through this week's dinners. Ready to plan the next one?
             </Text>
+          </Card>
+        ) : null}
+
+        {staleWeek ? (
+          <Card style={{ marginBottom: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}>
+            <Text variant="headline">This week's dates have passed</Text>
+            <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+              {uncookedCount} meal{uncookedCount === 1 ? '' : 's'} still to cook.
+            </Text>
+            <PrimaryButton
+              title="Pick up from today"
+              onPress={pickUpFromToday}
+              style={{ marginTop: theme.spacing.md }}
+            />
+            <SecondaryButton
+              title="Plan a new week"
+              onPress={() => router.push('/plan')}
+              style={{ marginTop: theme.spacing.sm }}
+            />
           </Card>
         ) : null}
 

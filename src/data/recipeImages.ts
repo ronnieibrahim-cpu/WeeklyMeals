@@ -194,6 +194,18 @@ export const RECIPE_IMAGE_URLS: Record<string, string> = {
   'sd-tahini-sauce': 'https://upload.wikimedia.org/wikipedia/commons/6/67/Tahini_Sauce.JPG',
   'sd-tzatziki': 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Tzatziki_salade.JPG',
   'th-panang-beef': 'https://upload.wikimedia.org/wikipedia/commons/1/13/Phanaeng_beef_curry.jpg',
+  // M5.1 (July 2026), PHOTO-REVIEW-2.md round 2: 11 PLAUSIBLE candidates approved by Ronnie.
+  'am-beef-burgers': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Beef_Burger_and_Vegan_Xmas_Burger_by_Honest_Burgers.jpg',
+  'gr-lemon-chicken-soup': 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Avgolemono_Soup_and_Grilled_Chicken_and_Mango_Salad.jpg',
+  'bq-bbq-tofu-bowls': 'https://upload.wikimedia.org/wikipedia/commons/4/41/Baked_BBQ_tofu_%2843179229531%29.jpg',
+  'it-creamy-salmon-pasta': 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Fresh_Pan-Seared_Salmon_PastaFresh_Pan-Seared_Salmon_Pasta.jpg',
+  'sd-orzo-pilaf': 'https://upload.wikimedia.org/wikipedia/commons/4/48/Orzo_pilav_from_Turkey.jpg',
+  'sd-coconut-rice': 'https://upload.wikimedia.org/wikipedia/commons/c/cf/The_coconut_rice.jpg',
+  'sd-basmati-rice': 'https://upload.wikimedia.org/wikipedia/commons/d/dd/Basmati_Rice_1.jpg',
+  'me-batata-harra-bowl': 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Batata_harra.jpg',
+  'sd-simple-green-salad': 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Mixed_Green_Salad_%2815977106804%29.jpg',
+  'sd-herbed-couscous': 'https://www.themealdb.com/images/media/meals/02s6gc1763799560.jpg',
+  'sd-creamy-polenta': 'https://upload.wikimedia.org/wikipedia/commons/2/25/Ribs_and_Polenta_%2815227410%29.jpg',
 };
 
 export interface PhotoAttribution {
@@ -341,4 +353,16 @@ export const RECIPE_IMAGE_ATTRIBUTION: Record<string, PhotoAttribution> = {
   'sd-tahini-sauce': { source: 'wikimedia', license: 'CC0 1.0', attribution: '"Tahini Sauce" by Miansari66 is licensed under CC0 1.0. To view a copy of this license, visit https://creativecommons.org/publicdomain/zero/1.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=14918749' },
   'sd-tzatziki': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Tzatziki salade" by Petar Milošević is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=29868868' },
   'th-panang-beef': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Phanaeng beef curry" by Alpha from Melbourne, Australia is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=43763151' },
+  // M5.1 (July 2026), PHOTO-REVIEW-2.md round 2: 11 PLAUSIBLE candidates approved by Ronnie.
+  // (sd-herbed-couscous is TheMealDB, no per-photo attribution entry needed — see file header.)
+  'am-beef-burgers': { source: 'wikimedia', license: 'CC0 1.0', attribution: '"Beef Burger and Vegan Xmas Burger by Honest Burgers" by Andy Li is licensed under CC0 1.0. To view a copy of this license, visit https://creativecommons.org/publicdomain/zero/1.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=126599437' },
+  'gr-lemon-chicken-soup': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Avgolemono Soup and Grilled Chicken and Mango Salad" by Alpha is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=2876176' },
+  'bq-bbq-tofu-bowls': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Baked BBQ tofu (43179229531)" by Joey Doll is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=102853808' },
+  'it-creamy-salmon-pasta': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Fresh Pan-Seared Salmon PastaFresh Pan-Seared Salmon Pasta" by inazakira is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=114302517' },
+  'sd-orzo-pilaf': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"Orzo pilav from Turkey" by E4024 is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=40976989' },
+  'sd-coconut-rice': { source: 'wikimedia', license: 'CC BY-SA 4.0', attribution: '"The coconut rice" by S Navya Sree is licensed under CC BY-SA 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=40989441' },
+  'sd-basmati-rice': { source: 'wikimedia', license: 'CC BY-SA 3.0', attribution: '"Basmati Rice 1" by Sudeshna Banerjee is licensed under CC BY-SA 3.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/3.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=23906935' },
+  'me-batata-harra-bowl': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Batata harra" by secretlondon123 is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=10877735' },
+  'sd-simple-green-salad': { source: 'wikimedia', license: 'CC BY 2.0', attribution: '"Mixed Green Salad (15977106804)" by Prayitno / Thank you for (12 millions +) view from Los Angeles, USA is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=75420769' },
+  'sd-creamy-polenta': { source: 'wikimedia', license: 'CC BY-SA 2.0', attribution: '"Ribs and Polenta (15227410)" by Charles Haynes is licensed under CC BY-SA 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/.', attributionUrl: 'https://commons.wikimedia.org/w/index.php?curid=101322885' },
 };

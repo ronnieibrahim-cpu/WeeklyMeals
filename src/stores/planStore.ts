@@ -11,7 +11,7 @@ import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
 import { moveMeal as moveMealInPlan } from '@/engine/rearrange';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
 import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinnableDays, RerollKeepOptions, RerollOutcome, rerollCandidates } from '@/engine/reroll';
-import { localDateString } from '@/engine/schedule';
+import { localDateString, localMidnight } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
 import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta, reconcileDeltaWithList } from '@/engine/shoppingList';
 import { createId } from '@/utils/id';
@@ -106,6 +106,20 @@ interface PlanState {
    * doc comment for the known per-device sync limitation).
    */
   moveMeal: (fromDay: number, toDay: number) => void;
+  /**
+   * "Stale week" fix: re-anchor the active plan so the first not-yet-cooked
+   * meal lands on today, instead of the calendar just running past a week
+   * that was generated ahead of schedule and never finished. Approved-plan
+   * only; no-op if there's no plan, it isn't approved, or every meal is
+   * already cooked (nothing to pick up). Only `weekStartISO` changes — every
+   * meal keeps its own `dayIndex`, `cooked`/`rating`/`servings`/
+   * `sideRecipeIds` — so this is purely a re-date, never a silent edit to
+   * what's being cooked or to the shopping list (Product Law #1). See
+   * `mergePlanMeals`'s weekStartISO rule in syncMerge.ts (Law #6): a
+   * re-anchor only ever moves the start forward (to today), so the later of
+   * two synced dates is always the convergent winner.
+   */
+  pickUpFromToday: () => void;
   /**
    * M4.1: set one draft meal's servings (−/+ in 0.5 steps, floored at 1).
    * Draft-only — the shopping list doesn't exist yet at this stage, it's
@@ -527,6 +541,21 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     persist(next);
     // Cook-mode progress travels on this device, same swap, same two days.
     useCookModeStore.getState().swapProgress(plan.id, fromDay, toDay);
+  },
+
+  pickUpFromToday: () => {
+    const plan = get().plan;
+    if (!plan || plan.status !== 'approved') return;
+    const firstUncooked = plan.meals
+      .filter((m) => !m.cooked)
+      .reduce<number | null>((min, m) => (min === null || m.dayIndex < min ? m.dayIndex : min), null);
+    if (firstUncooked === null) return; // everything's cooked — nothing to pick up
+    const anchor = localMidnight(new Date());
+    anchor.setDate(anchor.getDate() - firstUncooked);
+    const weekStartISO = localDateString(anchor);
+    const next = { ...plan, weekStartISO };
+    set({ plan: next });
+    persist(next);
   },
 
   setDraftMealServings: (dayIndex, servings) => {
