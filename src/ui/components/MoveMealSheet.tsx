@@ -29,9 +29,10 @@ interface Props {
  * when that list is non-empty (Law #3), but an empty state is included here
  * too as defense in depth.
  *
- * Each row shows the real day name/date, derived exactly the way
- * `app/(tabs)/schedule.tsx` derives its own day labels (`dateForDayIndex` +
- * the same `toLocaleDateString` format), plus what's currently on that day —
+ * Each row shows the real day name/date, derived exactly the way the "Full
+ * week" segment of `app/(tabs)/index.tsx` derives its own day labels
+ * (`dateForDayIndex` + the same `toLocaleDateString` format), plus what's
+ * currently on that day —
  * since every day of an approved week is occupied, choosing one always
  * swaps two whole meal bodies (recipe, sides, servings, rating, cooked
  * flag), never just an insert.

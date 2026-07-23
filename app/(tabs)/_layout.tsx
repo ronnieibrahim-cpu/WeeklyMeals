@@ -14,17 +14,20 @@ type IoniconName = ComponentProps<typeof Ionicons>['name'];
 const ICONS: Record<string, { active: IoniconName; inactive: IoniconName }> = {
   index: { active: 'restaurant', inactive: 'restaurant-outline' },
   recipes: { active: 'search', inactive: 'search-outline' },
-  schedule: { active: 'calendar', inactive: 'calendar-outline' },
   shopping: { active: 'cart', inactive: 'cart-outline' },
   profile: { active: 'person', inactive: 'person-outline' },
 };
 const LABELS: Record<string, string> = {
   index: 'This Week',
   recipes: 'Recipes',
-  schedule: 'Schedule',
   shopping: 'Shopping',
   profile: 'Profile',
 };
+// Phase 4 G1: the Schedule tab was folded into This Week as a segment (see
+// app/(tabs)/index.tsx's WeekViewSwitch). Its route file still exists
+// (app/(tabs)/schedule.tsx, now a <Redirect>) purely to keep old /schedule
+// deep links resolving — it must never render as a visible tab bar button.
+const HIDDEN_ROUTE_NAMES = new Set(['schedule']);
 
 interface TabBarProps {
   state: { index: number; routes: { key: string; name: string }[] };
@@ -90,6 +93,13 @@ function TabBar({ state, navigation }: TabBarProps) {
     shopping: uncheckedShoppingCount,
   };
 
+  // Phase 4 G1: render a button for every route except the hidden
+  // (redirect-only) ones. Focus is computed by route key against the
+  // navigator's actual focused route, not by array index, since filtering
+  // shifts positions relative to `state.index`.
+  const visibleRoutes = state.routes.filter((route) => !HIDDEN_ROUTE_NAMES.has(route.name));
+  const focusedRouteKey = state.routes[state.index]?.key;
+
   return (
     <View
       style={{
@@ -101,8 +111,8 @@ function TabBar({ state, navigation }: TabBarProps) {
         paddingBottom: Math.max(insets.bottom, 12),
       }}
     >
-      {state.routes.map((route, index) => {
-        const focused = state.index === index;
+      {visibleRoutes.map((route) => {
+        const focused = route.key === focusedRouteKey;
         const color = focused ? theme.colors.accent : theme.colors.tabBarInactive;
         return (
           <Pressable
@@ -152,7 +162,11 @@ export default function TabsLayout() {
     >
       <Tabs.Screen name="index" options={{ title: 'This Week' }} />
       <Tabs.Screen name="recipes" options={{ title: 'Recipes' }} />
-      <Tabs.Screen name="schedule" options={{ title: 'Schedule' }} />
+      {/* Phase 4 G1: kept registered (not declared as a visible tab) so the
+          route still resolves for old /schedule deep links — the redirect
+          itself lives in app/(tabs)/schedule.tsx. Default options are fine
+          since it renders nothing but a <Redirect>. */}
+      <Tabs.Screen name="schedule" options={{ href: null }} />
       <Tabs.Screen name="shopping" options={{ title: 'Shopping' }} />
       <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
     </Tabs>
