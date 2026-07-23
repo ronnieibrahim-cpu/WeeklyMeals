@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { ReactNode, useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
@@ -28,6 +27,7 @@ import {
   ChipMultiSelect,
   ChipOption,
   ChipSingleSelect,
+  NavHeader,
   PrimaryButton,
   QuestionScaffold,
   SecondaryButton,
@@ -278,11 +278,7 @@ export default function PlanIntakeScreen() {
   if (mode === 'choice' && previousIntake) {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['top', 'left', 'right']}>
-        <View style={{ flexDirection: 'row', paddingHorizontal: theme.spacing.xl, paddingTop: theme.spacing.sm }}>
-          <Pressable accessibilityLabel="Close" accessibilityRole="button" hitSlop={8} onPress={() => router.back()}>
-            <Ionicons name="close" size={26} color={theme.colors.text} />
-          </Pressable>
-        </View>
+        <NavHeader onClose={() => router.back()} style={{ paddingBottom: 0 }} />
         <ScrollView contentContainerStyle={{ padding: theme.spacing.xl, paddingTop: theme.spacing.md }}>
           <Text variant="largeTitle" style={{ marginBottom: theme.spacing.lg }}>
             Plan this week

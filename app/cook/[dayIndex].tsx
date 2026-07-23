@@ -10,7 +10,7 @@ import { composeCookSteps, cookModePlateKey, parseDurationMinutes } from '@/engi
 import { cookModeKey, useCookModeStore } from '@/stores/cookModeStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
-import { Card, EmptyState, PrimaryButton, ProgressBar, StarRating, Text } from '@/ui/components';
+import { Card, EmptyState, NavHeader, PrimaryButton, ProgressBar, StarRating, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 interface TimerState {
@@ -121,41 +121,18 @@ export default function CookModeScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: theme.spacing.xl,
-          paddingTop: theme.spacing.sm,
-          paddingBottom: theme.spacing.md,
-        }}
-      >
-        <Pressable
-          accessibilityLabel="Exit cook mode"
-          hitSlop={8}
-          onPress={() => router.back()}
-          style={{ flexDirection: 'row', alignItems: 'center' }}
-        >
-          <Ionicons name="chevron-down" size={22} color={theme.colors.accent} />
-          <Text variant="body" color="accent">
-            Exit
-          </Text>
-        </Pressable>
-        <Text variant="subhead" color="secondary">
-          Step {stepIndex + 1} of {composedSteps.length}
-        </Text>
-        <Pressable
-          accessibilityLabel="Show ingredients"
-          hitSlop={8}
-          onPress={() => setShowIngredients(true)}
-          style={{ flexDirection: 'row', alignItems: 'center' }}
-        >
-          <Text variant="body" color="accent">
-            Ingredients
-          </Text>
-        </Pressable>
-      </View>
+      <NavHeader
+        onClose={() => router.back()}
+        closeAccessibilityLabel="Exit cook mode"
+        title={`Step ${stepIndex + 1} of ${composedSteps.length}`}
+        trailing={
+          <Pressable accessibilityLabel="Show ingredients" hitSlop={8} onPress={() => setShowIngredients(true)}>
+            <Text variant="body" color="accent">
+              Ingredients
+            </Text>
+          </Pressable>
+        }
+      />
 
       <View style={{ paddingHorizontal: theme.spacing.xl }}>
         <ProgressBar progress={(stepIndex + 1) / composedSteps.length} />

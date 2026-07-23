@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
@@ -9,7 +8,7 @@ import { usePlanStore } from '@/stores/planStore';
 import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useSyncStore } from '@/stores/syncStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
-import { Card, MealCard, PrimaryButton, SecondaryButton, Text } from '@/ui/components';
+import { Card, MealCard, NavHeader, PrimaryButton, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function ReviewPlanScreen() {
@@ -82,20 +81,7 @@ export default function ReviewPlanScreen() {
       style={{ flex: 1, backgroundColor: theme.colors.background }}
       edges={['top', 'left', 'right']}
     >
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: theme.spacing.md,
-          paddingHorizontal: theme.spacing.xl,
-          paddingTop: theme.spacing.sm,
-        }}
-      >
-        <Pressable accessibilityLabel="Close" hitSlop={8} onPress={close}>
-          <Ionicons name="close" size={26} color={theme.colors.text} />
-        </Pressable>
-        <Text variant="headline">Your Week</Text>
-      </View>
+      <NavHeader onClose={close} title="Your Week" style={{ paddingBottom: 0 }} />
 
       <ScrollView
         style={{ flex: 1 }}

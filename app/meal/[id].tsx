@@ -14,6 +14,7 @@ import { useRecipesById, useUserRecipesStore } from '@/stores/userRecipesStore';
 import {
   Card,
   EmptyState,
+  NavHeader,
   PrimaryButton,
   RecipeImage,
   RemoveSideShoppingListPrompt,
@@ -77,62 +78,48 @@ export default function MealDetailScreen() {
   // Empty text is the M4.4 tombstone for "cleared" — treat it as no note.
   const noteText = recipe ? notesMap[recipe.id]?.text ?? '' : '';
 
-  const header = (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: theme.spacing.md,
-      }}
-    >
-      <Pressable
-        accessibilityLabel="Back"
-        hitSlop={8}
-        onPress={() => router.back()}
-        style={{ flexDirection: 'row', alignItems: 'center' }}
-      >
-        <Ionicons name="chevron-back" size={26} color={theme.colors.accent} />
-        <Text variant="body" color="accent">
-          Back
-        </Text>
-      </Pressable>
-      {recipe ? (
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.lg }}>
-          {isOwnRecipe ? (
-            <Pressable
-              accessibilityLabel="Edit recipe"
-              hitSlop={8}
-              onPress={() => router.push({ pathname: '/recipe/edit/[id]', params: { id: recipe.id } })}
-            >
-              <Ionicons name="pencil-outline" size={24} color={theme.colors.textTertiary} />
-            </Pressable>
-          ) : null}
-          <Pressable
-            accessibilityLabel={isKidApproved ? 'Remove Kids approved' : 'Mark Kids approved'}
-            hitSlop={8}
-            onPress={() => toggleKidApproved(recipe.id)}
-          >
-            <Ionicons
-              name={isKidApproved ? 'happy' : 'happy-outline'}
-              size={26}
-              color={isKidApproved ? theme.colors.success : theme.colors.textTertiary}
-            />
-          </Pressable>
-          <Pressable
-            accessibilityLabel={isFavorite ? 'Remove favorite' : 'Add favorite'}
-            hitSlop={8}
-            onPress={() => toggleFavorite(recipe.id)}
-          >
-            <Ionicons
-              name={isFavorite ? 'heart' : 'heart-outline'}
-              size={26}
-              color={isFavorite ? theme.colors.danger : theme.colors.textTertiary}
-            />
-          </Pressable>
-        </View>
+  const headerTrailing = recipe ? (
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.spacing.lg }}>
+      {isOwnRecipe ? (
+        <Pressable
+          accessibilityLabel="Edit recipe"
+          hitSlop={8}
+          onPress={() => router.push({ pathname: '/recipe/edit/[id]', params: { id: recipe.id } })}
+        >
+          <Ionicons name="pencil-outline" size={24} color={theme.colors.textTertiary} />
+        </Pressable>
       ) : null}
+      <Pressable
+        accessibilityLabel={isKidApproved ? 'Remove Kids approved' : 'Mark Kids approved'}
+        hitSlop={8}
+        onPress={() => toggleKidApproved(recipe.id)}
+      >
+        <Ionicons
+          name={isKidApproved ? 'happy' : 'happy-outline'}
+          size={26}
+          color={isKidApproved ? theme.colors.success : theme.colors.textTertiary}
+        />
+      </Pressable>
+      <Pressable
+        accessibilityLabel={isFavorite ? 'Remove favorite' : 'Add favorite'}
+        hitSlop={8}
+        onPress={() => toggleFavorite(recipe.id)}
+      >
+        <Ionicons
+          name={isFavorite ? 'heart' : 'heart-outline'}
+          size={26}
+          color={isFavorite ? theme.colors.danger : theme.colors.textTertiary}
+        />
+      </Pressable>
     </View>
+  ) : undefined;
+
+  const header = (
+    <NavHeader
+      onBack={() => router.back()}
+      trailing={headerTrailing}
+      style={{ paddingHorizontal: 0, paddingTop: 0, paddingBottom: theme.spacing.md }}
+    />
   );
 
   if (!recipe) {

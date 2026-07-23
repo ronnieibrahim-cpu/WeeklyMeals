@@ -3,6 +3,7 @@ export { Card } from './Card';
 export { PrimaryButton } from './PrimaryButton';
 export { SecondaryButton } from './SecondaryButton';
 export { Screen } from './Screen';
+export { NavHeader } from './NavHeader';
 export { EmptyState } from './EmptyState';
 export { Chip } from './Chip';
 export { ChipMultiSelect, type ChipOption } from './ChipMultiSelect';
