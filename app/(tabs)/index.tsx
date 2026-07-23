@@ -16,8 +16,8 @@ import {
   EmptyState,
   MealCard,
   MoveMealSheet,
+  PrimaryButton,
   Screen,
-  SecondaryButton,
   ServingsShoppingListPrompt,
   SwipeableMealRow,
   Text,
@@ -256,7 +256,7 @@ export default function ThisWeekScreen() {
 
       {reviewCard}
 
-      <SecondaryButton
+      <PrimaryButton
         title="Plan a new week"
         onPress={() => router.push('/plan')}
         style={{ marginTop: theme.spacing.lg }}

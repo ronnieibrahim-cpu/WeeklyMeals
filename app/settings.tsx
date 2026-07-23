@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
-import { Card, Screen, Text } from '@/ui/components';
+import { Card, NavHeader, Screen, Text } from '@/ui/components';
 import { ThemePreference, useSettingsStore } from '@/stores/settingsStore';
 import { useTheme } from '@/ui/theme/useTheme';
 
@@ -27,27 +27,15 @@ export default function SettingsScreen() {
 
   return (
     <Screen scroll>
-      <View
+      <NavHeader
+        onBack={() => router.back()}
         style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: theme.spacing.lg,
+          paddingHorizontal: 0,
+          paddingTop: 0,
+          paddingBottom: theme.spacing.lg,
           marginLeft: -theme.spacing.xs,
         }}
-      >
-        <Pressable
-          accessibilityLabel="Back"
-          accessibilityRole="button"
-          hitSlop={8}
-          onPress={() => router.back()}
-          style={{ flexDirection: 'row', alignItems: 'center' }}
-        >
-          <Ionicons name="chevron-back" size={26} color={theme.colors.accent} />
-          <Text variant="body" color="accent">
-            Profile
-          </Text>
-        </Pressable>
-      </View>
+      />
 
       <Text variant="largeTitle" style={{ marginBottom: theme.spacing.xl }}>
         Settings

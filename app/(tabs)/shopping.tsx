@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, TextInput, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { INGREDIENT_SUGGESTIONS } from '@/data/ingredientSuggestions';
 import { DEPARTMENT_LABELS, DEPARTMENT_ORDER } from '@/domain/constants';
@@ -9,13 +10,20 @@ import { Department, ManualItem, PlannedMeal, ShoppingItem } from '@/domain/mode
 import { isWholeUnitShoppingItem, mealsUsingItem } from '@/engine/wasteFit';
 import { useManualItemsStore } from '@/stores/manualItemsStore';
 import { usePlanStore } from '@/stores/planStore';
-import { ChipSingleSelect, Card, EmptyState, Screen, Text } from '@/ui/components';
+import { ChipSingleSelect, Card, EmptyState, Fab, Screen, Text } from '@/ui/components';
+import { useHaptics } from '@/ui/hooks/useHaptics';
 import { useTheme } from '@/ui/theme/useTheme';
 
 type ManualRow = ManualItem & { key: string };
 
+// Height reserved at the bottom of the list so the floating "+" FAB never
+// covers the last department card.
+const FAB_CLEARANCE = 88;
+
 export default function ShoppingScreen() {
   const theme = useTheme();
+  const haptics = useHaptics();
+  const insets = useSafeAreaInsets();
   const plan = usePlanStore((s) => s.plan);
   const shoppingList = usePlanStore((s) => s.shoppingList);
   const hydrated = usePlanStore((s) => s.hydrated);
@@ -41,6 +49,10 @@ export default function ShoppingScreen() {
 
   const [query, setQuery] = useState('');
   const [editingKey, setEditingKey] = useState<string | null>(null);
+  // Group 2b: the add-item flow is unchanged (same query/suggestions/onAdd
+  // logic below) — only its entry point moved from an always-visible bar to
+  // a FAB that opens it in a sheet.
+  const [addSheetOpen, setAddSheetOpen] = useState(false);
 
   const previouslyUsedNames = useMemo(
     () => Array.from(new Set(manualItems.map((i) => i.displayName.toLowerCase()))),
@@ -62,6 +74,67 @@ export default function ShoppingScreen() {
     setQuery('');
   };
 
+  const closeAddSheet = () => {
+    setAddSheetOpen(false);
+    setQuery('');
+  };
+
+  const fab = (
+    <Fab
+      icon="add"
+      accessibilityLabel="Add an item"
+      onPress={() => setAddSheetOpen(true)}
+      style={{ position: 'absolute', right: theme.spacing.xl, bottom: theme.spacing.lg }}
+    />
+  );
+
+  const addItemSheet = addSheetOpen ? (
+    <Pressable
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        justifyContent: 'flex-end',
+      }}
+      onPress={closeAddSheet}
+    >
+      <Pressable
+        onPress={() => {}}
+        style={{
+          backgroundColor: theme.colors.card,
+          borderTopLeftRadius: theme.radius.xl,
+          borderTopRightRadius: theme.radius.xl,
+          padding: theme.spacing.xl,
+          paddingBottom: theme.spacing.xl + insets.bottom,
+        }}
+      >
+        <Text variant="title3" style={{ marginBottom: theme.spacing.md }}>
+          Add an item
+        </Text>
+        <AddItemBar
+          query={query}
+          setQuery={setQuery}
+          suggestions={suggestions}
+          showCustomAdd={showCustomAdd}
+          onAdd={addAndClear}
+          autoFocus
+        />
+        <Pressable
+          accessibilityRole="button"
+          onPress={closeAddSheet}
+          style={{ marginTop: theme.spacing.sm, alignItems: 'center' }}
+        >
+          <Text variant="body" color="secondary">
+            Done
+          </Text>
+        </Pressable>
+      </Pressable>
+    </Pressable>
+  ) : null;
+
   if (!hydrated || !manualHydrated) {
     return (
       <Screen title="Shopping List" subtitle="H-E-B" scroll={false}>
@@ -77,20 +150,17 @@ export default function ShoppingScreen() {
 
   if (!hasPlannedList && manualItems.length === 0) {
     return (
-      <Screen title="Shopping List" subtitle="H-E-B">
-        <AddItemBar
-          query={query}
-          setQuery={setQuery}
-          suggestions={suggestions}
-          showCustomAdd={showCustomAdd}
-          onAdd={addAndClear}
-        />
-        <EmptyState
-          emoji="🛒"
-          title="Nothing to buy yet"
-          body="Add an item above anytime, or approve a weekly plan and a consolidated H-E-B list — organized by department, with an estimated total — shows up here too."
-        />
-      </Screen>
+      <>
+        <Screen title="Shopping List" subtitle="H-E-B">
+          <EmptyState
+            emoji="🛒"
+            title="Nothing to buy yet"
+            body="Tap the + button to add an item anytime, or approve a weekly plan and a consolidated H-E-B list — organized by department, with an estimated total — shows up here too."
+          />
+        </Screen>
+        {fab}
+        {addItemSheet}
+      </>
     );
   }
 
@@ -105,15 +175,12 @@ export default function ShoppingScreen() {
   const totalCount = plannedItems.length + manualItems.length;
 
   return (
-    <Screen title="Shopping List" subtitle="H-E-B">
-      <AddItemBar
-        query={query}
-        setQuery={setQuery}
-        suggestions={suggestions}
-        showCustomAdd={showCustomAdd}
-        onAdd={addAndClear}
-      />
-
+    <>
+    <Screen
+      title="Shopping List"
+      subtitle="H-E-B"
+      contentStyle={{ paddingBottom: theme.spacing.xxl + insets.bottom + FAB_CLEARANCE }}
+    >
       {hasPlannedList ? (
         <Card style={{ marginBottom: theme.spacing.lg }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -169,7 +236,10 @@ export default function ShoppingScreen() {
                     key={`${item.ingredientName}-${item.unit}`}
                     item={item}
                     first={i === 0}
-                    onToggle={() => toggleItem(item.ingredientName, item.unit)}
+                    onToggle={() => {
+                      haptics.light();
+                      toggleItem(item.ingredientName, item.unit);
+                    }}
                     meals={plan?.meals ?? []}
                   />
                 ))}
@@ -180,7 +250,10 @@ export default function ShoppingScreen() {
                     first={planned.length === 0 && i === 0}
                     last={i === manual.length - 1}
                     editing={editingKey === item.key}
-                    onToggle={() => toggleManualChecked(item.key)}
+                    onToggle={() => {
+                      haptics.light();
+                      toggleManualChecked(item.key);
+                    }}
                     onStartEdit={() => setEditingKey(item.key)}
                     onCancelEdit={() => setEditingKey(null)}
                     onSave={(patch) => {
@@ -205,6 +278,9 @@ export default function ShoppingScreen() {
         </Text>
       ) : null}
     </Screen>
+    {fab}
+    {addItemSheet}
+    </>
   );
 }
 
@@ -214,12 +290,14 @@ function AddItemBar({
   suggestions,
   showCustomAdd,
   onAdd,
+  autoFocus,
 }: {
   query: string;
   setQuery: (q: string) => void;
   suggestions: string[];
   showCustomAdd: boolean;
   onAdd: (name: string) => void;
+  autoFocus?: boolean;
 }) {
   const theme = useTheme();
   return (
@@ -243,6 +321,7 @@ function AddItemBar({
           placeholderTextColor={theme.colors.textTertiary}
           autoCapitalize="none"
           autoCorrect={false}
+          autoFocus={autoFocus}
           returnKeyType="done"
           onSubmitEditing={() => query.trim() && onAdd(query.trim())}
           style={{

@@ -1,9 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import { ComponentProps } from 'react';
-import { Pressable, View, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 
 import { useTheme } from '@/ui/theme/useTheme';
 
+import { AnimatedPressable } from './AnimatedPressable';
 import { Text } from './Text';
 
 interface Props {
@@ -20,7 +21,7 @@ export function SecondaryButton({ title, onPress, disabled, icon, style }: Props
   const theme = useTheme();
 
   return (
-    <Pressable
+    <AnimatedPressable
       accessibilityRole="button"
       disabled={disabled}
       onPress={onPress}
@@ -36,7 +37,6 @@ export function SecondaryButton({ title, onPress, disabled, icon, style }: Props
           borderWidth: 1,
           borderColor: theme.colors.border,
           backgroundColor: pressed ? theme.colors.backgroundSecondary : 'transparent',
-          opacity: disabled ? 0.5 : 1,
         },
         style,
       ]}
@@ -45,6 +45,6 @@ export function SecondaryButton({ title, onPress, disabled, icon, style }: Props
       <Text variant="headline" color="accent">
         {title}
       </Text>
-    </Pressable>
+    </AnimatedPressable>
   );
 }
