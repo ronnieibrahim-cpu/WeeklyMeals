@@ -4,8 +4,8 @@ Generated 2026-07-22 by the M5.1 vision-screening pipeline (4 parallel agents vi
 
 Scope: the 170 curated mains + sides that had no photo. 88 had at least one license-clean candidate; 82 had none and keep the cuisine-tile fallback.
 
-- **55 auto-wired** (EXACT tier — dish + protein visually confirmed). Already live in `src/data/recipeImages.ts`.
-- **20 need your review** (PLAUSIBLE — right family, some doubt). Listed below; nothing wired.
+- **66 wired** (55 EXACT tier + 11 PLAUSIBLE approved by Ronnie this round). All live in `src/data/recipeImages.ts`.
+- **9 held** (PLAUSIBLE — Ronnie did not approve; kept the cuisine tile).
 - **13 rejected** (no confident match; keep the tile).
 
 ## Reverting an auto-wired photo
@@ -72,32 +72,39 @@ If any auto-wired photo is wrong, tell me the recipe id (or say "photo for X did
 | Tzatziki (`sd-tzatziki`) | wikimedia | CC BY-SA 3.0 | A full bowl of creamy white tzatziki dotted with paprika and herbs -- clean, unmistakable sauce shot. |
 | Panang Beef Curry (`th-panang-beef`) | wikimedia | CC BY-SA 2.0 | Bowl of orange-red panang curry with visible beef chunks — matches dish name and color exactly. |
 
-## Needs your review (PLAUSIBLE) — 20
+## Approved this round — 11
 
-Reply "wire N" (by row) to add any of these, or ignore to keep the tile. Open the image link to judge.
+Reviewed and approved by Ronnie (2026-07-23). Now wired in `src/data/recipeImages.ts` — same revert path as the EXACT tier above (give the recipe id and the line comes out).
+
+| Recipe (id) | Source | License | Reviewer note |
+|---|---|---|---|
+| Classic Beef Burgers (`am-beef-burgers`) | wikimedia | CC0 1.0 | Real beef burger with lettuce and fries, but a second (possibly vegan) burger sits in the same frame, creating ambiguity about which is the beef one. |
+| Avgolemono (Lemon Chicken Soup) (`gr-lemon-chicken-soup`) | wikimedia | CC BY-SA 2.0 | Pale creamy soup consistent with avgolemono and captioned as such, but no chicken visibly identifiable in the smooth soup itself. |
+| BBQ Tofu Bowls (`bq-bbq-tofu-bowls`) | wikimedia | CC BY 2.0 | Baked tofu in a red BBQ-style sauce -- correct protein and sauce style, but just a plate of tofu, no bowl components (corn/cabbage). |
+| Creamy Lemon Salmon Pasta (`it-creamy-salmon-pasta`) | wikimedia | CC BY-SA 2.0 | Farfalle pasta in cream sauce with spinach and pink/orange chunks that could be salmon, but the protein is not unambiguously identifiable. |
+| Orzo Pilaf (`sd-orzo-pilaf`) | wikimedia | CC BY-SA 4.0 | Grains in a pot look more like plain rice than orzo pasta at this resolution; captioned as orzo pilav but visual confirmation is uncertain. |
+| Coconut Rice (`sd-coconut-rice`) | wikimedia | CC BY-SA 4.0 | Garnished rice with carrot, parsley, olive in a bowl - no visible coconut texture/flakes to confirm it is specifically coconut rice. |
+| Basmati Rice (`sd-basmati-rice`) | wikimedia | CC BY-SA 3.0 | Cooked white rice spilling from a basket on a stylized red background - plausible but unusual, non-standard presentation. |
+| Batata Harra Bowl (`me-batata-harra-bowl`) | wikimedia | CC BY-SA 2.0 | Fried spiced potatoes with roasted red pepper clearly visible matching the potato/pepper veg, but no beans (the recipe's primary protein) are visible. |
+| Simple Green Salad (`sd-simple-green-salad`) | wikimedia | CC BY 2.0 | Mixed greens with tomato and cucumber visible, but also olives, feta and red onion not in this simple recipe - a fancier composed salad variant. |
+| Herbed Couscous (`sd-herbed-couscous`) | themealdb | TheMealDB (free tier, attribution required) | A grain salad with herbs and pomegranate that could pass for herbed couscous, but grain identity and aubergine ingredient are uncertain. |
+| Creamy Polenta (`sd-creamy-polenta`) | wikimedia | CC BY-SA 2.0 | A smooth, creamy polenta base is visible and matches the texture, but it's topped with braised ribs and greens not part of this side dish. |
+
+## Held — kept the tile (dish/subject mismatch) — 9
+
+Ronnie did not approve these; nothing wired, tile fallback stays. Reply "wire N" any time to reconsider one, or ignore.
 
 | Recipe (id) | Best candidate image | License | Reviewer note |
 |---|---|---|---|
-| Classic Beef Burgers (`am-beef-burgers`) | [image](https://upload.wikimedia.org/wikipedia/commons/3/34/Beef_Burger_and_Vegan_Xmas_Burger_by_Honest_Burgers.jpg) | CC0 1.0 | Real beef burger with lettuce and fries, but a second (possibly vegan) burger sits in the same frame, creating ambiguity about which is the beef one. |
-| Avgolemono (Lemon Chicken Soup) (`gr-lemon-chicken-soup`) | [image](https://upload.wikimedia.org/wikipedia/commons/2/2c/Avgolemono_Soup_and_Grilled_Chicken_and_Mango_Salad.jpg) | CC BY-SA 2.0 | Pale creamy soup consistent with avgolemono and captioned as such, but no chicken visibly identifiable in the smooth soup itself. |
-| BBQ Tofu Bowls (`bq-bbq-tofu-bowls`) | [image](https://upload.wikimedia.org/wikipedia/commons/4/41/Baked_BBQ_tofu_%2843179229531%29.jpg) | CC BY 2.0 | Baked tofu in a red BBQ-style sauce -- correct protein and sauce style, but just a plate of tofu, no bowl components (corn/cabbage). |
-| Creamy Lemon Salmon Pasta (`it-creamy-salmon-pasta`) | [image](https://upload.wikimedia.org/wikipedia/commons/b/b9/Fresh_Pan-Seared_Salmon_PastaFresh_Pan-Seared_Salmon_Pasta.jpg) | CC BY-SA 2.0 | Farfalle pasta in cream sauce with spinach and pink/orange chunks that could be salmon, but the protein is not unambiguously identifiable. |
-| Orzo Pilaf (`sd-orzo-pilaf`) | [image](https://upload.wikimedia.org/wikipedia/commons/4/48/Orzo_pilav_from_Turkey.jpg) | CC BY-SA 4.0 | Grains in a pot look more like plain rice than orzo pasta at this resolution; captioned as orzo pilav but visual confirmation is uncertain. |
 | Garlic Yogurt Sauce (`sd-garlic-yogurt-sauce`) | [image](https://upload.wikimedia.org/wikipedia/commons/7/7f/Dolma_with_garlic_yogurt_sauce.jpg) | CC BY-SA 4.0 | Yogurt-garlic sauce visible drizzled over stuffed dolma, but the sauce is a minor garnish on an unrelated dish rather than the focus. |
 | Honey Garlic Shrimp (`cn-honey-garlic-shrimp`) | [image](https://upload.wikimedia.org/wikipedia/commons/9/9b/Buttered_Garlic_Shrimp_Viand_at_Night.jpg) | CC BY 4.0 | Buttered garlic shrimp, right protein, but no honey glaze or broccoli, different (Filipino) style. |
 | BBQ Chicken Sandwiches (`bq-bbq-chicken-sandwiches`) | [image](https://upload.wikimedia.org/wikipedia/commons/6/60/Fast_Food_Fried_Chicken_Sandwiches.jpg) | CC BY-SA 4.0 | Assorted fast-food fried chicken sandwiches - right format and protein but not clearly BBQ-sauced, no cabbage. |
-| Coconut Rice (`sd-coconut-rice`) | [image](https://upload.wikimedia.org/wikipedia/commons/c/cf/The_coconut_rice.jpg) | CC BY-SA 4.0 | Garnished rice with carrot, parsley, olive in a bowl - no visible coconut texture/flakes to confirm it is specifically coconut rice. |
-| Basmati Rice (`sd-basmati-rice`) | [image](https://upload.wikimedia.org/wikipedia/commons/d/dd/Basmati_Rice_1.jpg) | CC BY-SA 3.0 | Cooked white rice spilling from a basket on a stylized red background - plausible but unusual, non-standard presentation. |
 | Chicken Shawarma Bowls (`md-chicken-shawarma-bowl`) | [image](https://upload.wikimedia.org/wikipedia/commons/9/90/Chicken_Shawarma.jpg) | CC BY-SA 4.0 | Shawarma-spiced chicken wrapped in pita bread — right protein/flavor, but a wrap not a bowl. |
 | Chicken Kofta (`me-chicken-kofta`) | [image](https://upload.wikimedia.org/wikipedia/commons/f/f5/Arabic_Chicken_Kofta_Rice_with_Grilled_Chicken.jpg) | CC BY 2.0 | Middle Eastern chicken platter with rice, salad, and sauces, but the visible chicken piece is a leg quarter, not kofta shape. |
 | Charred Green Beans with Chili (`sd-charred-green-beans-chili`) | [image](https://upload.wikimedia.org/wikipedia/commons/9/90/Green_bean_dishes_of_Turkey.jpg) | CC BY-SA 4.0 | Green beans in a tomato/chili-tinted stew — right main ingredient but stewed rather than charred/stir-fried. |
 | Cilantro Lime Rice (`sd-cilantro-lime-rice`) | [image](https://upload.wikimedia.org/wikipedia/commons/5/57/Cilantro_Lime_Chicken_with_Rice.jpg) | CC0 1.0 | Full plate of chicken and vegetables with a plain-looking rice mound — rice itself doesn't clearly show cilantro/lime flecking. |
 | Sheet-Pan Lemon Chicken & Potatoes (`md-sheet-pan-chicken`) | [image](https://upload.wikimedia.org/wikipedia/commons/e/e8/0959Filipino_chicken_adobo_with_potatoes_in_lemon_grass_06.jpg) | CC0 1.0 | Chicken and whole potatoes present but this is a dark braised Filipino adobo stew, not a sheet-pan roasted lemon chicken; no lemon or roasting visible. |
 | Oyakodon (Chicken & Egg Bowl) (`jp-oyakodon`) | [image](https://upload.wikimedia.org/wikipedia/commons/0/04/Tokyo_Tokyo%27s_%22Chicken_Oyakodon_Donburi_Bowl%22_Meal.jpg) | CC BY-SA 4.0 | Rice bowl with chicken and green onion visible, matching donburi format, but no visible egg (the signature element of oyakodon). |
-| Batata Harra Bowl (`me-batata-harra-bowl`) | [image](https://upload.wikimedia.org/wikipedia/commons/6/6f/Batata_harra.jpg) | CC BY-SA 2.0 | Fried spiced potatoes with roasted red pepper clearly visible matching the potato/pepper veg, but no beans (the recipe's primary protein) are visible. |
-| Simple Green Salad (`sd-simple-green-salad`) | [image](https://upload.wikimedia.org/wikipedia/commons/3/3f/Mixed_Green_Salad_%2815977106804%29.jpg) | CC BY 2.0 | Mixed greens with tomato and cucumber visible, but also olives, feta and red onion not in this simple recipe - a fancier composed salad variant. |
-| Herbed Couscous (`sd-herbed-couscous`) | [image](https://www.themealdb.com/images/media/meals/02s6gc1763799560.jpg) | TheMealDB (free tier, attribution required) | A grain salad with herbs and pomegranate that could pass for herbed couscous, but grain identity and aubergine ingredient are uncertain. |
-| Creamy Polenta (`sd-creamy-polenta`) | [image](https://upload.wikimedia.org/wikipedia/commons/2/25/Ribs_and_Polenta_%2815227410%29.jpg) | CC BY-SA 2.0 | A smooth, creamy polenta base is visible and matches the texture, but it's topped with braised ribs and greens not part of this side dish. |
 
 ## Rejected (keep the tile) — 13
 
