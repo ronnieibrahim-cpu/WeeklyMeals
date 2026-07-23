@@ -19,8 +19,8 @@
 > 6-week "Past weeks" archive, per-device), M5.2 (adversarial bug sweep — no
 > P0s, all P1/P2 fixed), M5.3 (Vercel branch previews; production stays on
 > GitHub Pages) shipped; **M5.1 (recipe photos) live but partial** — 55
-> vision-screened exact matches wired, 20 "plausible" in `PHOTO-REVIEW-2.md`
-> pending Ronnie; **M5.4 (household-synced user recipes) confirmed-next, not
+> vision-screened exact matches wired, plus 11 Ronnie-approved (66 total); the
+> remaining 9 "plausible" are held on the tile (`PHOTO-REVIEW-2.md`); **M5.4 (household-synced user recipes) confirmed-next, not
 > started.** A four-phase visual **redesign** (Basil green retheme →
 > photo-forward cards → chrome unification → Phase 4 IA consolidation) is
 > complete and merged: the app is now **4 tabs** (This Week · Recipes ·
@@ -30,7 +30,7 @@
 > **Open priority is process, not a feature: the independent advisor close-out
 > audit of M4.3–M4.7 + M5.0–M5.1** (see `ADVISOR-HANDOFF.md` Part 6) — that
 > range self-reviewed; the M5.2 sweep is not a substitute.
-> **Last verified:** July 2026 · typecheck clean · 398 tests green ·
+> **Last verified:** July 2026 · typecheck clean · 404 tests green ·
 > 230/230 curated recipes + 50/50 sides/sauces pass content validation,
 > 636/636 recipes use canonical allergen labels and plausible `provides` ·
 > `checkWasteFit`/`checkIngredientConsistency`/`checkCuratedWeighting`/
@@ -74,7 +74,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
   accepted risk, not a fix in progress** (see §8)
 - **Jest / jest-expo** — engine + `src/data/import` test suite, plus one deliberate
   store-level exception (`src/stores/syncStore.test.ts`, M4.7 — see `jest.config.js`)
-  (**377 tests**); `npx jest` must stay green
+  (**404 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**
@@ -291,6 +291,14 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    per-device archive (`usePlanHistoryStore`, NOT synced — same class as cook-mode
    progress), browsable read-only as a collapsible "Past weeks" section at the
    bottom of the This Week screen (collapsed by default).
+7. **Stale / planned-ahead weeks:** a week is "complete" only when **every meal is
+   cooked**, not when the calendar passes the last planned day. If a plan's dates have
+   elapsed with meals still uncooked (e.g. a week generated ahead of actually cooking),
+   This Week shows a "This week's dates have passed" banner offering **"Pick up from
+   today"** — `pickUpFromToday` (`planStore`, approved-plan only) re-anchors
+   `weekStartISO` so the first still-uncooked meal lands today; it changes only the
+   anchor date, never the shopping list, cooked flags, servings, sides, or ratings, and
+   nothing happens without the tap. See §6 for how the re-anchored `weekStartISO` merges.
 
 ## 6. The sync merge contract (the most dangerous code in the app)
 
@@ -351,7 +359,12 @@ the identical result regardless of order, or they ping-pong forever.
   the other rates the pre-swap dish on one of the two days) resolves deterministically
   in both merge orders, with the rating dropped — same accepted class as the existing
   re-roll-vs-rate race — since the merge resolves per `dayIndex`, not per dish.
-- Plan-level fields (intake, weekStartISO) remain whole-payload last-write-wins.
+- Plan-level `intake` stays whole-payload last-write-wins. `weekStartISO` became
+  mutable via `pickUpFromToday` (the "stale week" re-anchor), so within a shared plan
+  id `mergePlanMeals` now takes the **later** of the two dates — a forward-only ratchet
+  (re-anchoring only ever moves the start toward today), which is commutative and
+  idempotent; a genuinely different week (new plan id) is still resolved upstream by
+  `createdAtISO`.
 - Every sync change ships with assertions for both merge orders, idempotence, and the
   specific race the feature introduces.
 
@@ -470,9 +483,9 @@ milestone, PARKED mid-flight (July 2026):
 - **M5.0** — rolling 6-week per-device "Past weeks" archive, now a collapsible
   section at the bottom of This Week (moved off the retired Schedule tab in
   Phase 4). ✅ Shipped (`src/engine/planHistory.ts`, `planHistoryStore`).
-- **M5.1** — recipe photos at scale. 🚧 Live but partial: 55 vision-screened
-  exact matches wired into `recipeImages.ts`; 20 "plausible" candidates await
-  Ronnie in `PHOTO-REVIEW-2.md`; 82 recipes keep the cuisine tile.
+- **M5.1** — recipe photos at scale. 🚧 Live but partial: 66 wired into
+  `recipeImages.ts` (55 vision-screened exact + 11 Ronnie-approved this round);
+  9 "plausible" held and the unmatched keep the cuisine tile (`PHOTO-REVIEW-2.md`).
 - **M5.2** — adversarial parking-lot bug sweep of M4.3–M4.7. ✅ Done (no P0s;
   F1/F6/F7 P1s + F4/F8a/F5 P2s + the name-fold audit gap all fixed; four edges
   accepted, see §8).
@@ -511,9 +524,9 @@ history, all shipped and deployed:
   Hold-to-drag was considered and deferred by the Product Owner —
   not built.
 
-- **Photos:** M5.1 wired 55 vision-screened matches; the old `M3.6` "verify
-  every photo depicts its dish" QA is now largely folded into M5.1's screening.
-  `PHOTO-REVIEW-2.md` holds the 20 plausible candidates still pending Ronnie.
+- **Photos:** M5.1 wired 66 (55 vision-screened exact + 11 Ronnie-approved); the
+  old `M3.6` "verify every photo depicts its dish" QA is now largely folded into
+  M5.1's screening. `PHOTO-REVIEW-2.md` is the record: 66 wired, 9 held, 13 rejected.
 - **Parked candidates (do not start without an explicit go-ahead; full list in
   `MILESTONE-5.md`):** leftovers-aware planning · thaw-tonight reminders/
   notifications (needs an iOS web-push feasibility check first) · quantity-aware
