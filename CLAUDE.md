@@ -28,7 +28,12 @@ M5.2 (adversarial bug sweep — no P0s, all P1/P2 findings fixed), and M5.3
 (Vercel branch previews; production stays on GitHub Pages) are done; **M5.1
 (recipe photos) is live but partial** — 55 vision-screened exact matches are
 wired, 20 "plausible" candidates await Ronnie's review in `PHOTO-REVIEW-2.md`.
-A **Basil green retheme** (authored in a separate design session) is also live.
+A four-phase visual **redesign** (Basil green retheme → photo-forward cards →
+chrome unification → Phase 4 IA consolidation) is complete and merged: the app
+is now **4 tabs** (This Week · Recipes · Shopping · Profile), This Week is a
+single full-week view with a collapsible "Past weeks", app Settings sit behind a
+gear on Profile, and web ≥1024px renders a left sidebar. (Presentation only; no
+engine/store/product-law changes. See `ADVISOR-HANDOFF.md` decision 34.)
 **Next confirmed feature: M5.4 — household-synced user recipes (not started).**
 
 **Before building anything new, the priority is the independent advisor

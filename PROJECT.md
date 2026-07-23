@@ -21,7 +21,12 @@
 > GitHub Pages) shipped; **M5.1 (recipe photos) live but partial** — 55
 > vision-screened exact matches wired, 20 "plausible" in `PHOTO-REVIEW-2.md`
 > pending Ronnie; **M5.4 (household-synced user recipes) confirmed-next, not
-> started.** A Basil green retheme (separate design session) is also live.
+> started.** A four-phase visual **redesign** (Basil green retheme →
+> photo-forward cards → chrome unification → Phase 4 IA consolidation) is
+> complete and merged: the app is now **4 tabs** (This Week · Recipes ·
+> Shopping · Profile), This Week is a single always-visible full-week view with
+> a collapsed "Past weeks" section, app Settings sit behind a gear on Profile,
+> and web ≥1024px renders a left sidebar instead of bottom tabs.
 > **Open priority is process, not a feature: the independent advisor close-out
 > audit of M4.3–M4.7 + M5.0–M5.1** (see `ADVISOR-HANDOFF.md` Part 6) — that
 > range self-reviewed; the M5.2 sweep is not a substitute.
@@ -98,12 +103,12 @@ src/ui/   (theme tokens light/dark + reusable presentational components)
 ## 4. Repository map
 
 ```
-app/(tabs)/       index (This Week) · schedule · shopping · recipes · profile + custom tab bar
+app/(tabs)/       index (This Week — single full-week view + collapsible "Past weeks") · recipes · shopping · profile + custom tab bar (4 tabs; on web ≥1024px the tab bar renders as a left sidebar). schedule.tsx survives only as a legacy redirect → This Week
 app/plan/         intake wizard (with "same as last week" fast path) → review.tsx
 app/review/       weekly ratings wizard (now a catch-up for unrated meals only)
 app/cook/         full-screen guided cook mode (steps, timers, keep-awake)
 app/meal/ recipe/ pin/ reroll/   detail, pin-to-week, re-roll flows
-app/household.tsx sync setup · app/settings.tsx theme
+app/household.tsx sync setup · app/settings.tsx app settings/theme (opened via a gear in Profile's NavHeader)
 
 src/domain/       models (Recipe — `role`/`provides` + `isMain()`, M4.2;
                   PlannedMeal — `sideRecipeIds`/`sidesChangedAtISO`, M4.2 part 2 —
@@ -255,7 +260,7 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    recipe/meal detail screen (`app/meal/[id].tsx`, a "Family notes" section under
    Steps — "+ Add a note" / Edit / Save / Cancel; saving empty text clears it), and
    flagged with a small quiet glyph next to the recipe name on `MealCard` and
-   `RecipeResultCard` wherever those are shown (This Week, Schedule, Recipes browse,
+   `RecipeResultCard` wherever those are shown (This Week, Recipes browse,
    plan review). Belongs to the recipe, not the plan, so it survives re-rolls, plan
    changes, and week rollovers untouched.
    **Rearranging the week (M4.6, fully shipped):** an approved week's not-yet-cooked
@@ -263,7 +268,7 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    body (recipe, sides, servings, rating, cooked flag, locked) travels with the dish
    to its new day, never the shopping list (same food, different night). A cooked
    day can never be moved into or out of. UI: swiping a not-yet-cooked meal card on
-   This Week or Schedule (`SwipeableMealRow`, mirroring the shopping tab's
+   This Week (`SwipeableMealRow`, mirroring the shopping tab's
    swipe-to-delete gesture on manual items) reveals a "Move to…" action that opens a
    bottom sheet (`MoveMealSheet`, structured like the plan-review "Swap in…" sheet)
    listing every other not-yet-cooked day with its real date and what's currently on
@@ -284,8 +289,8 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
 6. **Past weeks (M5.0):** on approval, or on adopting a genuine week-replacement
    synced from the other phone, the outgoing week joins a rolling 6-week
    per-device archive (`usePlanHistoryStore`, NOT synced — same class as cook-mode
-   progress), browsable read-only as a collapsible "Past weeks" list below the
-   current week on the Schedule tab.
+   progress), browsable read-only as a collapsible "Past weeks" section at the
+   bottom of the This Week screen (collapsed by default).
 
 ## 6. The sync merge contract (the most dangerous code in the app)
 
@@ -462,8 +467,9 @@ the four accepted edges above.
 
 **Milestone 5 — "Look Back, Look Better"** (`MILESTONE-5.md`) is the current
 milestone, PARKED mid-flight (July 2026):
-- **M5.0** — rolling 6-week per-device "Past weeks" archive on the Schedule
-  tab. ✅ Shipped (`src/engine/planHistory.ts`, `planHistoryStore`).
+- **M5.0** — rolling 6-week per-device "Past weeks" archive, now a collapsible
+  section at the bottom of This Week (moved off the retired Schedule tab in
+  Phase 4). ✅ Shipped (`src/engine/planHistory.ts`, `planHistoryStore`).
 - **M5.1** — recipe photos at scale. 🚧 Live but partial: 55 vision-screened
   exact matches wired into `recipeImages.ts`; 20 "plausible" candidates await
   Ronnie in `PHOTO-REVIEW-2.md`; 82 recipes keep the cuisine tile.
@@ -492,7 +498,7 @@ history, all shipped and deployed:
   bonus, `checkWasteFit.ts` harness, shopping-list "used in N meals" caption.
 - **M4.4** — per-recipe notes, household-synced. ✅ Shipped: data + sync layer,
   the "Family notes" editor on meal detail, and the card glyph on This
-  Week/Schedule/Recipes/plan review.
+  Week/Recipes/plan review.
 - **M4.5** — component re-roll (keep a side/sauce, regenerate the rest). ✅ Shipped:
   `rerollCandidates`' `keep?: RerollKeepOptions` engine mode, `previewComponentReroll`/
   `rerollSidesOnly`/`commitComponentReroll` store actions (both commit paths re-apply
@@ -501,8 +507,8 @@ history, all shipped and deployed:
 - **M4.6** — rearrange the week after approval. ✅ Shipped: engine
   (`moveMeal`/`eligibleMoveTargets` in `src/engine/rearrange.ts`) + store
   (`usePlanStore.moveMeal`, approved-only, cook-mode progress swap) + swipe
-  "Move to…" UI (`SwipeableMealRow`, `MoveMealSheet`) on This Week and
-  Schedule. Hold-to-drag was considered and deferred by the Product Owner —
+  "Move to…" UI (`SwipeableMealRow`, `MoveMealSheet`) on This Week.
+  Hold-to-drag was considered and deferred by the Product Owner —
   not built.
 
 - **Photos:** M5.1 wired 55 vision-screened matches; the old `M3.6` "verify
