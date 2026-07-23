@@ -30,8 +30,9 @@ interface Props {
  * too as defense in depth.
  *
  * Each row shows the real day name/date, derived exactly the way
- * `app/(tabs)/schedule.tsx` derives its own day labels (`dateForDayIndex` +
- * the same `toLocaleDateString` format), plus what's currently on that day —
+ * `app/(tabs)/index.tsx` (This Week) derives its own day labels
+ * (`dateForDayIndex` + the same `toLocaleDateString` format), plus what's
+ * currently on that day —
  * since every day of an approved week is occupied, choosing one always
  * swaps two whole meal bodies (recipe, sides, servings, rating, cooked
  * flag), never just an insert.

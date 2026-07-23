@@ -27,6 +27,7 @@ import {
   ChipMultiSelect,
   ChipOption,
   ChipSingleSelect,
+  NavHeader,
   SecondaryButton,
   SectionHeader,
   Screen,
@@ -75,6 +76,9 @@ export default function ProfileScreen() {
   const topCuisine = topAffinity(preferences.cuisineAffinity);
   const topProtein = topAffinity(preferences.proteinAffinity);
 
+  // Reuse the shared Phase-3 NavHeader for the trailing action (rather than a
+  // bespoke Screen.headerRight button) so Settings is reached the same way
+  // every pushed-header trailing action in the app is reached.
   const settingsButton = (
     <Pressable
       accessibilityLabel="Settings"
@@ -85,10 +89,16 @@ export default function ProfileScreen() {
       <Ionicons name="settings-outline" size={24} color={theme.colors.text} />
     </Pressable>
   );
+  const navHeaderStyle = {
+    paddingHorizontal: 0,
+    paddingTop: 0,
+    marginLeft: -theme.spacing.xs,
+  };
 
   if (!hydrated || !profile) {
     return (
-      <Screen title="Profile" headerRight={settingsButton} scroll={false}>
+      <Screen scroll={false}>
+        <NavHeader trailing={settingsButton} style={{ ...navHeaderStyle, paddingBottom: theme.spacing.lg }} />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator color={theme.colors.accent} />
         </View>
@@ -108,7 +118,13 @@ export default function ProfileScreen() {
   };
 
   return (
-    <Screen title="Profile" subtitle="The more I know, the better your plans" headerRight={settingsButton}>
+    <Screen>
+      <NavHeader trailing={settingsButton} style={{ ...navHeaderStyle, paddingBottom: theme.spacing.md }} />
+      <Text variant="largeTitle">Profile</Text>
+      <Text variant="subhead" color="secondary" style={{ marginTop: theme.spacing.xs, marginBottom: theme.spacing.xl }}>
+        The more I know, the better your plans
+      </Text>
+
       <SectionHeader title="What I've learned" />
       <Card>
         {preferences.mealsRated > 0 ? (

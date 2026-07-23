@@ -531,6 +531,24 @@ what changed, and let him decide.
     thaw reminders were offered and NOT selected this round — they stay
     candidates, not commitments. User-recipe sync lands on the same unsecured
     household row under the standing RLS acceptance (decision on P0-2).
+34. **Redesign Phase 4 — IA consolidation; the interim "Today" segment was axed
+    for a single This Week view (Ronnie, July 2026).** The four-phase visual
+    redesign (retheme → photo-forward cards → chrome unification → IA
+    consolidation) closed with Phase 4: five tabs collapsed to four (**This Week
+    · Recipes · Shopping · Profile**), the old Schedule tab folded into This
+    Week, app Settings moved behind a NavHeader gear on Profile, and web ≥1024px
+    gained a left sidebar. Phase 4 first shipped This Week as a "Today / Full
+    week" segmented control; on device review Ronnie judged that toggle
+    logically inconsistent (the "Full week" segment was also the *only* path to
+    the Past-weeks archive) and carrying too little unique function to justify
+    the confusion, so the toggle was removed. **This Week is now a single,
+    always-visible full-week view with a "Past weeks" section collapsed at the
+    bottom.** No capability was dropped: the draft/review banner, week-complete
+    state, review/rating card, "plan a new week", and per-meal re-roll all fold
+    into the single view, and `/schedule` deep links redirect to This Week.
+    Presentation/navigation only — engine, store, selectors, allergy/household
+    logic, product laws, and the full suite (398 tests) untouched. The redesign
+    still owes an independent advisor pass, same as the M4.3–M5.1 range (Part 6).
 
 ### Hard-won lessons (the "how we got burned" list)
 

@@ -3,11 +3,12 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 
-import { PlannedMeal } from '@/domain/models';
+import { PlannedMeal, Recipe, WeeklyPlan } from '@/domain/models';
 import { eligibleMoveTargets } from '@/engine/rearrange';
 import { allMealsRated } from '@/engine/rating';
-import { dayLabel, todayOffset } from '@/engine/schedule';
+import { dateForDayIndex, todayOffset } from '@/engine/schedule';
 import { useLearningStore } from '@/stores/learningStore';
+import { usePlanHistoryStore } from '@/stores/planHistoryStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
@@ -18,6 +19,7 @@ import {
   MoveMealSheet,
   PrimaryButton,
   Screen,
+  SectionHeader,
   ServingsShoppingListPrompt,
   SwipeableMealRow,
   Text,
@@ -42,7 +44,7 @@ export default function ThisWeekScreen() {
   // M4.4: subscribe to the data (notesMap), not a lookup function — the
   // M4.0a lesson (see recipeNotesStore's doc comment).
   const notesMap = useRecipeNotesStore((s) => s.notesMap);
-  const [showPast, setShowPast] = useState(false);
+
   // M4.1: which meal (if any) just had its servings changed on the
   // approved plan, and what it was before — drives the inline "Update
   // shopping list" confirmation. Local-only, never persisted: navigating
@@ -60,6 +62,57 @@ export default function ThisWeekScreen() {
   // above: navigating away just drops it, nothing to persist.
   const [moveFromDay, setMoveFromDay] = useState<number | null>(null);
 
+  // M5.0: rolling per-device archive of the last 6 cooked weeks — read-only
+  // reflection. Phase 4 follow-up: collapsed by default behind a single
+  // "Past weeks" toggle at the bottom of the page, rather than always
+  // expanded — which cards inside it are expanded is separate, still
+  // local-only UI state (multiple may be open at once), not persisted.
+  const history = usePlanHistoryStore((s) => s.history);
+  const [showPastWeeks, setShowPastWeeks] = useState(false);
+  const [expandedHistoryIds, setExpandedHistoryIds] = useState<Set<string>>(new Set());
+  const toggleHistoryExpanded = (id: string) =>
+    setExpandedHistoryIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  const openArchivedRecipe = (recipeId: string) =>
+    router.push({ pathname: '/meal/[id]', params: { id: recipeId } });
+  const pastWeeksSection = (
+    <View style={{ marginTop: theme.spacing.md }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={showPastWeeks ? 'Collapse past weeks' : 'Expand past weeks'}
+        accessibilityState={{ expanded: showPastWeeks }}
+        onPress={() => setShowPastWeeks((v) => !v)}
+        style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+      >
+        <SectionHeader title="Past weeks" />
+        <Ionicons name={showPastWeeks ? 'chevron-up' : 'chevron-down'} size={18} color={theme.colors.textTertiary} />
+      </Pressable>
+      {showPastWeeks ? (
+        history.length > 0 ? (
+          history.map((week) => (
+            <ArchivedWeekCard
+              key={week.id}
+              plan={week}
+              expanded={expandedHistoryIds.has(week.id)}
+              onToggle={() => toggleHistoryExpanded(week.id)}
+              recipeFor={recipeFor}
+              recipesById={recipesById}
+              onOpenRecipe={openArchivedRecipe}
+            />
+          ))
+        ) : (
+          <Text variant="footnote" color="tertiary" style={{ marginTop: theme.spacing.sm }}>
+            Past weeks will appear here once your next week is approved.
+          </Text>
+        )
+      ) : null}
+    </View>
+  );
+
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
@@ -76,44 +129,74 @@ export default function ThisWeekScreen() {
     );
   }
 
-  // A freshly generated draft always takes priority to nudge toward review,
-  // regardless of whether an already-approved week still exists underneath
-  // (it does, untouched, until the draft is approved or discarded — P0-3).
-  if (draftPlan) {
+  // Nothing approved and nothing drafted yet → invite to plan.
+  if (!plan && !draftPlan) {
     return (
       <Screen title="This Week" subtitle={today}>
         <EmptyState
-          emoji="📝"
-          title="Your week is ready to review"
-          body="I've drafted your dinners. Take a look, lock your favorites, and approve."
-          action={{ label: 'Review my week', onPress: () => router.push('/plan/review') }}
+          emoji="📅"
+          title="No schedule yet"
+          body="Once you approve a week, your dinners land here day by day, with a heads-up on any meals that make leftovers."
+          action={{ label: "Let's plan this week", onPress: () => router.push('/plan') }}
+          footnote="Takes about 3 minutes · 7 dinners"
         />
+        {pastWeeksSection}
       </Screen>
     );
   }
 
-  // No plan yet → invite to plan.
+  // A freshly generated draft awaiting review is surfaced as a banner —
+  // whole-card tap, same idiom as `reviewCard` below — rather than taking
+  // over the whole screen (P0-3): the still-approved plan underneath (if
+  // any) keeps showing beneath it, exactly as it did when this lived on its
+  // own "Schedule" tab and stayed reachable while a draft was pending.
+  const draftBanner = draftPlan ? (
+    <Card
+      onPress={() => router.push('/plan/review')}
+      style={{ marginBottom: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}
+    >
+      <Text variant="headline">Your week is ready to review</Text>
+      <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+        I've drafted your dinners. Take a look, lock your favorites, and approve.
+      </Text>
+    </Card>
+  ) : null;
+
+  // A draft exists but there's no approved plan underneath it yet (e.g.
+  // first plan ever) — nothing to schedule below the banner.
   if (!plan) {
     return (
       <Screen title="This Week" subtitle={today}>
-        <EmptyState
-          emoji="🍽️"
-          title="No plan yet for this week"
-          body="Answer a few quick questions and I'll build your whole week of dinners — recipes, a schedule, and one H-E-B shopping list."
-          action={{ label: "Let's plan this week", onPress: () => router.push('/plan') }}
-          footnote="Takes about 3 minutes · 7 dinners"
-        />
+        {draftBanner}
+        {pastWeeksSection}
       </Screen>
     );
   }
 
   const meals = [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex);
+  const dateLabel = (i: number) =>
+    dateForDayIndex(plan.weekStartISO, i).toLocaleDateString(undefined, {
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+    });
+  const rangeStart = dateForDayIndex(plan.weekStartISO, 0);
+  const rangeEnd = dateForDayIndex(plan.weekStartISO, Math.max(0, meals.length - 1));
+  const fmt = (d: Date) => d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  const leftovers = meals.filter((m) => recipeFor(m)?.makesLeftovers).length;
+  const cooked = meals.filter((m) => m.cooked).length;
   const hasList = !!shoppingList && shoppingList.planId === plan.id;
   const list = hasList ? shoppingList! : previewShoppingList(plan);
   const totalCost = list.estimatedTotal;
-  const cookedCount = meals.filter((m) => m.cooked).length;
 
-  const reviewCard = (
+  const offset = todayOffset(plan.weekStartISO);
+  const todayIndex = Math.max(0, offset);
+  // Today is past the last planned day → the week is done. Only evaluated
+  // when there's no draft pending, matching the original behavior where a
+  // pending draft always took priority over this state.
+  const weekComplete = !draftPlan && offset >= meals.length;
+
+  const reviewCard = !draftPlan ? (
     <Card
       onPress={() => router.push('/review')}
       style={{ marginTop: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}
@@ -134,137 +217,219 @@ export default function ThisWeekScreen() {
         </>
       )}
     </Card>
-  );
-
-  const offset = todayOffset(plan.weekStartISO);
-
-  // Today is past the last planned day → the week is done.
-  if (offset >= meals.length) {
-    return (
-      <Screen title="This Week" subtitle={today}>
-        <EmptyState
-          emoji="🎉"
-          title="Week complete!"
-          body="You've made it through this week's dinners. Ready to plan the next one?"
-          action={{ label: 'Plan next week', onPress: () => router.push('/plan') }}
-        />
-        {reviewCard}
-      </Screen>
-    );
-  }
-
-  const todayIndex = Math.max(0, offset);
-  const tonight = meals.find((m) => m.dayIndex === todayIndex);
-  const tonightRecipe = tonight ? recipeFor(tonight) : undefined;
-  const past = meals.filter((m) => m.dayIndex < todayIndex);
-  const future = meals.filter((m) => m.dayIndex > todayIndex);
-
-  const renderMeal = (meal: PlannedMeal, label: string, featured = false) => {
-    const recipe = recipeFor(meal);
-    if (!recipe) return null;
-    const canReroll = meal.dayIndex >= todayIndex && !meal.cooked;
-    // M4.6 part 2: only offer "Move to…" when this meal isn't cooked AND
-    // there's at least one not-yet-cooked other day to move it onto — never
-    // an action that opens an empty picker (Law #3).
-    const canMove = eligibleMoveTargets(plan, meal.dayIndex).length > 0;
-    return (
-      <View key={meal.dayIndex}>
-        <SwipeableMealRow enabled={canMove} onMoveTo={() => setMoveFromDay(meal.dayIndex)}>
-          <MealCard
-            recipe={recipe}
-            dayLabel={label}
-            featured={featured}
-            badge={recipe.makesLeftovers ? 'leftovers' : undefined}
-            cooked={meal.cooked}
-            rating={meal.rating}
-            onRate={(rating) => rateMeal(meal.dayIndex, rating)}
-            onReroll={
-              canReroll
-                ? () => router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(meal.dayIndex) } })
-                : undefined
-            }
-            onToggleCooked={() => toggleCooked(meal.dayIndex)}
-            onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-            kidApproved={!!kidApprovedMap[recipe.id]?.flag}
-            onToggleKidApproved={() => toggleKidApproved(recipe.id)}
-            servings={meal.servings}
-            onServingsChange={(servings) => {
-              setPendingServings({ dayIndex: meal.dayIndex, recipeId: meal.recipeId, oldServings: meal.servings });
-              setApprovedMealServings(meal.dayIndex, servings);
-            }}
-            sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
-            hasNote={!!notesMap[recipe.id]?.text}
-          />
-        </SwipeableMealRow>
-        {pendingServings?.dayIndex === meal.dayIndex && pendingServings?.recipeId === meal.recipeId ? (
-          <ServingsShoppingListPrompt
-            dayIndex={meal.dayIndex}
-            oldServings={pendingServings.oldServings}
-            onResolved={() => setPendingServings(null)}
-          />
-        ) : null}
-      </View>
-
-    );
-  };
+  ) : null;
 
   return (
     <>
-    <Screen
-      title="This Week"
-      subtitle={`${meals.length} dinners · $${totalCost.toFixed(0)} · ${cookedCount}/${meals.length} cooked`}
-    >
-      {past.length > 0 ? (
-        <>
-          <Pressable
-            accessibilityRole="button"
-            onPress={() => setShowPast((v) => !v)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: theme.spacing.sm,
-              marginLeft: theme.spacing.xs,
-            }}
-          >
-            <Text variant="footnote" color="secondary">
-              EARLIER THIS WEEK ({past.length})
+      <Screen
+        title="This Week"
+        subtitle={`${fmt(rangeStart)} – ${fmt(rangeEnd)} · $${totalCost.toFixed(0)} · ${cooked}/${meals.length} cooked`}
+      >
+        {draftBanner}
+
+        {weekComplete ? (
+          <Card style={{ marginBottom: theme.spacing.lg, backgroundColor: theme.colors.accentMuted }}>
+            <Text variant="headline">🎉 Week complete!</Text>
+            <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+              You've made it through this week's dinners. Ready to plan the next one?
             </Text>
-            <Ionicons
-              name={showPast ? 'chevron-down' : 'chevron-forward'}
-              size={16}
-              color={theme.colors.textTertiary}
-            />
-          </Pressable>
-          {showPast ? past.map((meal) => renderMeal(meal, dayLabel(plan.weekStartISO, meal.dayIndex))) : null}
-        </>
+          </Card>
+        ) : null}
+
+        {meals.map((meal) => {
+          const recipe = recipeFor(meal);
+          if (!recipe) return null;
+          // M4.6 part 2: only offer "Move to…" when this meal isn't cooked
+          // AND there's at least one not-yet-cooked other day to move it onto
+          // — never an action that opens an empty picker (Law #3).
+          const canMove = eligibleMoveTargets(plan, meal.dayIndex).length > 0;
+          // M2.2: re-roll is only offered for today/future, not-yet-cooked
+          // meals, and — same conservative rule as `weekComplete` above —
+          // never while a draft is pending, matching the fact that this
+          // whole day-by-day list wasn't reachable at all during a pending
+          // draft before Phase 4 (so re-roll was never offered then either).
+          const canReroll = !draftPlan && meal.dayIndex >= todayIndex && !meal.cooked;
+          return (
+            <View key={meal.dayIndex} style={{ marginBottom: theme.spacing.sm }}>
+              <Text
+                variant="footnote"
+                color="secondary"
+                style={{ marginBottom: 4, marginLeft: theme.spacing.xs }}
+              >
+                {dateLabel(meal.dayIndex).toUpperCase()}
+              </Text>
+              <SwipeableMealRow enabled={canMove} onMoveTo={() => setMoveFromDay(meal.dayIndex)}>
+                <MealCard
+                  recipe={recipe}
+                  badge={recipe.makesLeftovers ? 'makes leftovers' : undefined}
+                  cooked={meal.cooked}
+                  rating={meal.rating}
+                  onRate={(rating) => rateMeal(meal.dayIndex, rating)}
+                  onReroll={
+                    canReroll
+                      ? () => router.push({ pathname: '/reroll/[dayIndex]', params: { dayIndex: String(meal.dayIndex) } })
+                      : undefined
+                  }
+                  onToggleCooked={() => toggleCooked(meal.dayIndex)}
+                  onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+                  kidApproved={!!kidApprovedMap[recipe.id]?.flag}
+                  onToggleKidApproved={() => toggleKidApproved(recipe.id)}
+                  servings={meal.servings}
+                  onServingsChange={(servings) => {
+                    setPendingServings({ dayIndex: meal.dayIndex, recipeId: meal.recipeId, oldServings: meal.servings });
+                    setApprovedMealServings(meal.dayIndex, servings);
+                  }}
+                  sideNames={(meal.sideRecipeIds ?? []).map((id) => recipesById[id]?.name).filter((n): n is string => !!n)}
+                  hasNote={!!notesMap[recipe.id]?.text}
+                />
+              </SwipeableMealRow>
+              {pendingServings?.dayIndex === meal.dayIndex && pendingServings?.recipeId === meal.recipeId ? (
+                <ServingsShoppingListPrompt
+                  dayIndex={meal.dayIndex}
+                  oldServings={pendingServings.oldServings}
+                  onResolved={() => setPendingServings(null)}
+                />
+              ) : null}
+            </View>
+          );
+        })}
+
+        {leftovers > 0 ? (
+          <Card style={{ marginTop: theme.spacing.md, backgroundColor: theme.colors.accentMuted }}>
+            <Text variant="subhead">
+              🥡 {leftovers} meal{leftovers === 1 ? '' : 's'} make leftovers — a great excuse for a
+              lighter or no-cook night to reuse them.
+            </Text>
+          </Card>
+        ) : null}
+
+        {reviewCard}
+
+        {!draftPlan ? (
+          <PrimaryButton
+            title="Plan a new week"
+            onPress={() => router.push('/plan')}
+            style={{ marginTop: theme.spacing.lg }}
+          />
+        ) : null}
+
+        {pastWeeksSection}
+      </Screen>
+      {moveFromDay !== null ? (
+        <MoveMealSheet plan={plan} fromDay={moveFromDay} onClose={() => setMoveFromDay(null)} />
       ) : null}
-
-      {tonight && tonightRecipe ? renderMeal(tonight, 'Tonight', true) : null}
-
-      {future.length > 0 ? (
-        <Text
-          variant="footnote"
-          color="secondary"
-          style={{ marginTop: theme.spacing.lg, marginBottom: theme.spacing.sm, marginLeft: theme.spacing.xs }}
-        >
-          LATER THIS WEEK
-        </Text>
-      ) : null}
-
-      {future.map((meal) => renderMeal(meal, dayLabel(plan.weekStartISO, meal.dayIndex)))}
-
-      {reviewCard}
-
-      <PrimaryButton
-        title="Plan a new week"
-        onPress={() => router.push('/plan')}
-        style={{ marginTop: theme.spacing.lg }}
-      />
-    </Screen>
-    {moveFromDay !== null ? (
-      <MoveMealSheet plan={plan} fromDay={moveFromDay} onClose={() => setMoveFromDay(null)} />
-    ) : null}
     </>
+  );
+}
+
+/**
+ * M5.0: one row in the "Past weeks" archive — collapsed by default (a
+ * chevron header, "Week of {date} · {n} dinners"); expanding shows one
+ * read-only row per day. Pure reflection: no re-roll, no pin, no servings,
+ * no shopping-list affordance anywhere in here — tapping a day only pushes
+ * `/meal/[id]` for the RECIPE id, same read-only detail screen the Recipes
+ * tab opens.
+ */
+function ArchivedWeekCard({
+  plan,
+  expanded,
+  onToggle,
+  recipeFor,
+  recipesById,
+  onOpenRecipe,
+}: {
+  plan: WeeklyPlan;
+  expanded: boolean;
+  onToggle: () => void;
+  recipeFor: (meal: PlannedMeal) => Recipe | undefined;
+  recipesById: Record<string, Recipe>;
+  onOpenRecipe: (recipeId: string) => void;
+}) {
+  const theme = useTheme();
+  const meals = [...plan.meals].sort((a, b) => a.dayIndex - b.dayIndex);
+  const weekOfLabel = dateForDayIndex(plan.weekStartISO, 0).toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+  });
+
+  return (
+    <Card padded={false} style={{ marginBottom: theme.spacing.sm, overflow: 'hidden' }}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${expanded ? 'Collapse' : 'Expand'} week of ${weekOfLabel}`}
+        onPress={onToggle}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: theme.spacing.md,
+        }}
+      >
+        <Text variant="subhead">
+          Week of {weekOfLabel} · {meals.length} dinner{meals.length === 1 ? '' : 's'}
+        </Text>
+        <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={theme.colors.textTertiary} />
+      </Pressable>
+      {expanded ? (
+        <View style={{ paddingHorizontal: theme.spacing.md, paddingBottom: theme.spacing.sm }}>
+          {meals.map((meal, i) => {
+            const recipe = recipeFor(meal);
+            if (!recipe) return null; // a recipe id that no longer resolves — skip gracefully, nothing crashes
+            const sideNames = (meal.sideRecipeIds ?? [])
+              .map((id) => recipesById[id]?.name)
+              .filter((n): n is string => !!n);
+            return (
+              <Pressable
+                key={meal.dayIndex}
+                accessibilityRole="button"
+                onPress={() => onOpenRecipe(recipe.id)}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingVertical: theme.spacing.sm,
+                  borderTopWidth: i === 0 ? 0 : 1,
+                  borderTopColor: theme.colors.separator,
+                }}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text variant="caption" color="tertiary">
+                    {dateForDayIndex(plan.weekStartISO, meal.dayIndex).toLocaleDateString(undefined, {
+                      weekday: 'long',
+                    })}
+                  </Text>
+                  <Text variant="body">{recipe.name}</Text>
+                  {sideNames.length > 0 ? (
+                    <Text variant="footnote" color="secondary" numberOfLines={1}>
+                      + {sideNames.join(', ')}
+                    </Text>
+                  ) : null}
+                  {meal.rating ? (
+                    <View style={{ flexDirection: 'row', gap: 1, marginTop: 2 }}>
+                      {Array.from({ length: 5 }, (_, s) => s + 1).map((s) => (
+                        <Ionicons
+                          key={s}
+                          name={s <= meal.rating! ? 'star' : 'star-outline'}
+                          size={12}
+                          color={s <= meal.rating! ? theme.colors.star : theme.colors.textTertiary}
+                        />
+                      ))}
+                    </View>
+                  ) : null}
+                </View>
+                {meal.cooked ? (
+                  <Ionicons
+                    accessibilityLabel="Cooked"
+                    name="checkmark-circle-outline"
+                    size={16}
+                    color={theme.colors.textTertiary}
+                  />
+                ) : null}
+                <Ionicons name="chevron-forward" size={16} color={theme.colors.textTertiary} style={{ marginLeft: theme.spacing.xs }} />
+              </Pressable>
+            );
+          })}
+        </View>
+      ) : null}
+    </Card>
   );
 }
