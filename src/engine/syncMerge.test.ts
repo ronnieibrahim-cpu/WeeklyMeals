@@ -284,6 +284,57 @@ describe('mergePlanMeals — servings (M4.1)', () => {
   });
 });
 
+describe('mergePlanMeals — weekStartISO ("stale week" fix / pickUpFromToday, Law #6)', () => {
+  it('(aa) the later weekStartISO wins, both merge orders (commutative)', () => {
+    const a = plan('plan-1', [meal(0)], { weekStartISO: '2026-07-06' });
+    const b = plan('plan-1', [meal(0)], { weekStartISO: '2026-07-13' });
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+
+    expect(mergedAB.weekStartISO).toBe('2026-07-13');
+    expect(mergedBA.weekStartISO).toBe('2026-07-13');
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+  });
+
+  it('(ab) idempotence: merging a plan with itself keeps its own weekStartISO', () => {
+    const p = plan('plan-1', [meal(0)], { weekStartISO: '2026-07-13' });
+    const merged = mergePlanMeals(p, p);
+    expect(merged.weekStartISO).toBe(p.weekStartISO);
+
+    const mergedAgain = mergePlanMeals(merged, p);
+    expect(stableStringify(mergedAgain)).toBe(stableStringify(merged));
+  });
+
+  it('(ac) the specific race: phone A re-anchors to a later start via pickUpFromToday, phone B is still on the original start — both merge orders converge to A\'s later start (B adopts it)', () => {
+    const original = '2026-07-06'; // when the week was originally generated
+    const reanchored = '2026-07-13'; // phone A tapped "Pick up from today" a week later
+
+    const a = plan(
+      'plan-1',
+      [meal(0, { cooked: true, cookedAtISO: t1 }), meal(1)],
+      { weekStartISO: reanchored },
+    );
+    const b = plan(
+      'plan-1',
+      [meal(0, { cooked: true, cookedAtISO: t1 }), meal(1)],
+      { weekStartISO: original },
+    );
+
+    const mergedAB = mergePlanMeals(a, b);
+    const mergedBA = mergePlanMeals(b, a);
+
+    expect(mergedAB.weekStartISO).toBe(reanchored);
+    expect(mergedBA.weekStartISO).toBe(reanchored);
+    expect(stableStringify(mergedAB)).toBe(stableStringify(mergedBA));
+
+    // Idempotence for this case too: merging the converged result with
+    // either original input again changes nothing.
+    expect(stableStringify(mergePlanMeals(mergedAB, b))).toBe(stableStringify(mergedAB));
+    expect(stableStringify(mergePlanMeals(mergedAB, a))).toBe(stableStringify(mergedAB));
+  });
+});
+
 describe('mergePlanMeals — sides (M4.2 part 2)', () => {
   it('(t) merge(merge(A,B), B) === merge(A,B) [sides]', () => {
     const a = plan('plan-1', [meal(0, { sideRecipeIds: ['side-a'], sidesChangedAtISO: t1 }), meal(1)]);

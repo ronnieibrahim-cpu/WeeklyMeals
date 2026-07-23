@@ -379,11 +379,13 @@ function resolveDivergedRecipe(a: PlannedMeal, b: PlannedMeal): PlannedMeal {
  * object (servings and sideRecipeIds included), gated purely on
  * `recipeChangedAtISO`, regardless of how fresh the losing side's
  * `servingsChangedAtISO`/`sidesChangedAtISO` happens to be (see
- * syncMerge.test.ts). weekStartISO/intake/
- * createdAtISO are set once at generation and never mutated afterwards by
- * any store action, so they're identical between two copies of the same
- * plan id by construction — status is the only other WeeklyPlan-level
- * field that can legitimately diverge, merged as a one-way ratchet.
+ * syncMerge.test.ts). `intake`/`createdAtISO` are set once at generation and
+ * never mutated afterwards by any store action, so they're identical between
+ * two copies of the same plan id by construction. `status` is a one-way
+ * ratchet (draft -> approved -> completed). `weekStartISO` CAN diverge —
+ * `pickUpFromToday` (the "stale week" fix) re-anchors it — and is merged as
+ * a forward-only ratchet too: the later of the two dates always wins (see
+ * the comment inline below).
  */
 export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
   const aByDay = new Map(a.meals.map((m) => [m.dayIndex, m]));
@@ -409,7 +411,15 @@ export function mergePlanMeals(a: WeeklyPlan, b: WeeklyPlan): WeeklyPlan {
 
   return {
     id: a.id,
-    weekStartISO: a.weekStartISO,
+    // "Stale week" fix: weekStartISO is now mutable via `pickUpFromToday`
+    // (a re-anchor), so it needs a deterministic merge rule too. A re-anchor
+    // only ever moves the start FORWARD (to today) — never backward — so the
+    // later of the two YYYY-MM-DD strings (they sort chronologically as
+    // plain strings) is always the convergent winner: commutative (max is
+    // symmetric), idempotent (max(x, x) === x), and deterministic. The
+    // different-plan-id case (a genuinely different week) never reaches
+    // here — it's resolved upstream in `mergeSyncPayload` by createdAtISO.
+    weekStartISO: a.weekStartISO >= b.weekStartISO ? a.weekStartISO : b.weekStartISO,
     intake: a.intake,
     createdAtISO: a.createdAtISO,
     status: mergeStatus(a.status, b.status),
