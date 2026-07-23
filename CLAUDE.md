@@ -26,14 +26,19 @@ Milestones 1–4 (v3.0 + all of M4.0–M4.7) are complete and deployed.
 **Milestone 5 is partly shipped:** M5.0 (rolling 6-week "Past weeks" archive),
 M5.2 (adversarial bug sweep — no P0s, all P1/P2 findings fixed), and M5.3
 (Vercel branch previews; production stays on GitHub Pages) are done; **M5.1
-(recipe photos) is live but partial** — 55 vision-screened exact matches are
-wired, 20 "plausible" candidates await Ronnie's review in `PHOTO-REVIEW-2.md`.
+(recipe photos) is live but partial** — 66 wired (55 vision-screened exact + 11
+Ronnie-approved); the remaining 9 "plausible" are held on the tile (`PHOTO-REVIEW-2.md`).
 A four-phase visual **redesign** (Basil green retheme → photo-forward cards →
 chrome unification → Phase 4 IA consolidation) is complete and merged: the app
 is now **4 tabs** (This Week · Recipes · Shopping · Profile), This Week is a
 single full-week view with a collapsible "Past weeks", app Settings sit behind a
 gear on Profile, and web ≥1024px renders a left sidebar. (Presentation only; no
 engine/store/product-law changes. See `ADVISOR-HANDOFF.md` decision 34.)
+A follow-up **"stale week" fix** (2026-07-23) made week-completion progress-based
+(all meals cooked, not calendar-elapsed) and added a "Pick up from today"
+re-anchor for weeks planned ahead — a small **sync** change (`weekStartISO` now
+merges as a forward-only later-date ratchet, Law #6 tests included) that shipped
+live without the usual advisor pass at Ronnie's direction; see decision 35.
 **Next confirmed feature: M5.4 — household-synced user recipes (not started).**
 
 **Before building anything new, the priority is the independent advisor
@@ -47,7 +52,7 @@ explicit go-ahead from Ronnie.
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine + data/import (+ syncStore) test suite — currently 377 tests
+npx jest                           # engine + data/import (+ syncStore) test suite — currently 404 tests
 npx tsx scripts/validateRecipes.ts # 230/230 curated mains + 50/50 sides (636/636 allergen labels + provides) must pass
 npm run web                        # local browser preview for manual testing
 ```

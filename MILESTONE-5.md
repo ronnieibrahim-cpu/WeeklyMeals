@@ -2,9 +2,10 @@
 
 > **Status (July 2026 — PARKED here):** M5.0 (6-week archive), M5.2 (bug
 > sweep), and M5.3 (Vercel previews) are **shipped and deployed**. M5.1
-> (photos) is **live but partially done** — 55 exact-match photos are wired
-> and on the family's phones; 20 "plausible" candidates in `PHOTO-REVIEW-2.md`
-> await Ronnie's yes/no, and any wrong auto-wire is one line to revert.
+> (photos) is **live but partially done** — 66 photos are wired and on the
+> family's phones (55 exact-match + 11 Ronnie-approved on 2026-07-23); the
+> remaining 9 "plausible" in `PHOTO-REVIEW-2.md` are held on the tile, and any
+> wrong live photo is one line to revert.
 > **M5.4 (household-synced user recipes) is the next confirmed feature — not
 > started.** Everything under "Candidates" is a proposed pipeline; Ronnie
 > picks the order, nothing there starts without his explicit go-ahead.

@@ -187,7 +187,8 @@ from the Product Owner's friction journal, not a speculative backlog:**
   candidates for 170 photo-less recipes (88 had candidates), four parallel
   vision agents screened all 223 images against dish + primary protein, 55
   EXACT matches auto-wired into `recipeImages.ts` (52 Wikimedia w/ attribution,
-  3 TheMealDB), 20 PLAUSIBLE + 13 rejects in `PHOTO-REVIEW-2.md` pending Ronnie.
+  3 TheMealDB); of the 20 PLAUSIBLE, Ronnie approved 11 this round (now wired,
+  66 total) and held 9; 13 rejects — see `PHOTO-REVIEW-2.md`.
 - **M5.2** — adversarial bug sweep of the whole M4.3–M4.7 range. Done: no P0s;
   P1s F1/F6/F7 and P2s F4/F8a/F5 fixed, name-fold audit gap closed, four edges
   accepted (`PROJECT.md` §8).
@@ -549,6 +550,28 @@ what changed, and let him decide.
     Presentation/navigation only — engine, store, selectors, allergy/household
     logic, product laws, and the full suite (398 tests) untouched. The redesign
     still owes an independent advisor pass, same as the M4.3–M5.1 range (Part 6).
+35. **"Stale week" fix — completion is progress-based, plus a "Pick up from
+    today" re-anchor (Ronnie, July 2026).** Ronnie hit a live bug: a week
+    generated ahead for dates that had since passed showed "all complete" even
+    though meals were uncooked, because completion was CALENDAR-based (today
+    past the last planned day) rather than PROGRESS-based. Fix (Option A of two
+    offered; he picked it): (a) `weekComplete` now means *every meal cooked*;
+    (b) when a plan's dates have elapsed with meals still uncooked, This Week
+    shows a "This week's dates have passed" banner offering **"Pick up from
+    today"** — `planStore.pickUpFromToday()` re-anchors `weekStartISO` so the
+    first uncooked meal lands today (date only; never the shopping list, cooked
+    flags, servings, sides, or ratings; nothing without the tap). Because the
+    re-anchor makes `weekStartISO` mutable-and-synced, `mergePlanMeals` now
+    merges it as a **forward-only ratchet — later date wins** (commutative,
+    idempotent, deterministic; different plan id still resolved upstream by
+    `createdAtISO`), shipped with both-orders + idempotence + the re-anchor-race
+    assertions and `pickUpFromToday` store tests (jest 398 → 404).
+    **PROCESS EXCEPTION worth flagging to the auditor:** this touches sync, so
+    per the binding process it should have gone to the advisor BEFORE build;
+    Ronnie chose to ship it live the same day (2026-07-23) without that pass to
+    unblock his in-progress week. The merge rule and its Law-#6 tests are in
+    `syncMerge.ts`/`syncMerge.test.ts` for review — treat this change, together
+    with the Phase-4 redesign, as owed an independent advisor audit (Part 6).
 
 ### Hard-won lessons (the "how we got burned" list)
 
@@ -671,9 +694,9 @@ screen was strict but is not infallible; `PHOTO-REVIEW-2.md` is the record).
 Verify Part 5's open items and §8's accepted edges against the repo before
 signing off.
 
-**Immediate product to-dos waiting on Ronnie (not the advisor):** review the
-20 PLAUSIBLE photos in `PHOTO-REVIEW-2.md`; flag any wrong auto-wired photo
-(one-line revert to the tile). **Next confirmed feature after the audit: M5.4
+**Immediate product to-dos waiting on Ronnie (not the advisor):** photos
+reviewed (2026-07-23) — 11 approved & wired, 9 held on the tile
+(`PHOTO-REVIEW-2.md`); still flag any wrong LIVE photo (one-line revert to the tile). **Next confirmed feature after the audit: M5.4
 household-synced user recipes** (spec sketch in `MILESTONE-5.md`; sync +
 allergy-handling decisions to make BEFORE coding, tests in the same commit —
 extra review gate applies). The remaining parked list (leftovers-aware
