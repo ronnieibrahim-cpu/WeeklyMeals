@@ -40,10 +40,11 @@ const LABELS: Record<string, string> = {
   shopping: 'Shopping',
   profile: 'Profile',
 };
-// Phase 4 G1: the Schedule tab was folded into This Week as a segment (see
-// app/(tabs)/index.tsx's WeekViewSwitch). Its route file still exists
-// (app/(tabs)/schedule.tsx, now a <Redirect>) purely to keep old /schedule
-// deep links resolving — it must never render as a visible tab bar button.
+// Phase 4: the Schedule tab was folded into This Week, which now always
+// shows the full week's day-by-day schedule directly (see
+// app/(tabs)/index.tsx). Its route file still exists (app/(tabs)/schedule.tsx,
+// now a <Redirect>) purely to keep old /schedule deep links resolving — it
+// must never render as a visible tab bar button.
 const HIDDEN_ROUTE_NAMES = new Set(['schedule']);
 
 interface TabBarProps {
