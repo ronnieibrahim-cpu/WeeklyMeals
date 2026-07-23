@@ -2,7 +2,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PlannedMeal } from '@/domain/models';
 import { eligibleMoveTargets } from '@/engine/rearrange';
@@ -25,15 +24,9 @@ import {
 } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
 
-// Height reserved at the bottom of the list so the floating "Plan a new
-// week" pill (52pt tall, plus its own top/bottom margins) never covers the
-// last card.
-const FLOATING_ACTION_CLEARANCE = 96;
-
 export default function ThisWeekScreen() {
   const router = useRouter();
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const hydrated = usePlanStore((s) => s.hydrated);
@@ -220,7 +213,6 @@ export default function ThisWeekScreen() {
     <Screen
       title="This Week"
       subtitle={`${meals.length} dinners · $${totalCost.toFixed(0)} · ${cookedCount}/${meals.length} cooked`}
-      contentStyle={{ paddingBottom: theme.spacing.xxl + insets.bottom + FLOATING_ACTION_CLEARANCE }}
     >
       {past.length > 0 ? (
         <>
@@ -263,17 +255,13 @@ export default function ThisWeekScreen() {
       {future.map((meal) => renderMeal(meal, dayLabel(plan.weekStartISO, meal.dayIndex)))}
 
       {reviewCard}
+
+      <PrimaryButton
+        title="Plan a new week"
+        onPress={() => router.push('/plan')}
+        style={{ marginTop: theme.spacing.lg }}
+      />
     </Screen>
-    <PrimaryButton
-      title="Plan a new week"
-      onPress={() => router.push('/plan')}
-      style={{
-        position: 'absolute',
-        left: theme.spacing.xl,
-        right: theme.spacing.xl,
-        bottom: theme.spacing.lg,
-      }}
-    />
     {moveFromDay !== null ? (
       <MoveMealSheet plan={plan} fromDay={moveFromDay} onClose={() => setMoveFromDay(null)} />
     ) : null}
