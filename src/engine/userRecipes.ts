@@ -1,4 +1,4 @@
-import { Cuisine, Difficulty, Nutrition, Protein, Recipe, RecipeIngredient } from '@/domain/models';
+import { Cuisine, Difficulty, Nutrition, Protein, Recipe, RecipeIngredient, UserRecipeSyncMap } from '@/domain/models';
 import { createId } from '@/utils/id';
 
 /** Id prefix for family-authored recipes (M3.5) — mirrors `mealdb-` for imports. */
@@ -168,4 +168,59 @@ export function buildUserRecipe(input: UserRecipeInput, existingId?: string): Re
     allergens: input.allergens,
     dietTags: inferDietTagsFromIngredients(input.primaryProtein, input.ingredients, input.allergens),
   };
+}
+
+/**
+ * M5.4: fixed, deterministic `updatedAtISO` stamped on a pre-M5.4 recipe
+ * during migration (see `migrateUserRecipesMap`) — `Recipe` itself carries no
+ * creation timestamp, so every migrated entry gets the same old, arbitrary
+ * instant rather than "now". That keeps migration idempotent (re-running it
+ * produces byte-identical entries) and, crucially, means any REAL edit made
+ * on either phone after M5.4 ships (a real `updatedAtISO`) always wins the
+ * sync merge over an untouched legacy recipe, never the other way around.
+ */
+export const LEGACY_USER_RECIPE_TIMESTAMP = '2020-01-01T00:00:00.000Z';
+
+function looksLikeRecipe(value: unknown): value is Recipe {
+  return !!value && typeof value === 'object' && typeof (value as Partial<Recipe>).id === 'string' && typeof (value as Partial<Recipe>).name === 'string';
+}
+
+/**
+ * Backward-compatible load-time migration (M5.4): the persisted shape before
+ * this milestone was a plain `Record<id, Recipe>` (see
+ * `LocalUserRecipesRepository`, pre-M5.4). Wraps any such plain recipe into a
+ * live `UserRecipeEntry` (`deleted: false`, `deletedAtISO: null`, a fixed old
+ * `updatedAtISO` — see `LEGACY_USER_RECIPE_TIMESTAMP`). Tolerates the current
+ * enveloped shape, the old shape, a mix of both (defensive — shouldn't happen
+ * in practice, but a partial/corrupt write shouldn't throw), and missing/null
+ * input, so it's always safe to run unconditionally on load. Pure and
+ * idempotent: migrating an already-migrated map returns it unchanged.
+ */
+export function migrateUserRecipesMap(raw: unknown): UserRecipeSyncMap {
+  if (!raw || typeof raw !== 'object') return {};
+  const out: UserRecipeSyncMap = {};
+  for (const [id, value] of Object.entries(raw as Record<string, unknown>)) {
+    if (!value || typeof value !== 'object') continue;
+    const v = value as Record<string, unknown>;
+    if ('recipe' in v && 'updatedAtISO' in v) {
+      // Already the enveloped (post-M5.4) shape.
+      const recipe = v.recipe;
+      if (!looksLikeRecipe(recipe)) continue;
+      out[id] = {
+        recipe,
+        updatedAtISO: typeof v.updatedAtISO === 'string' ? v.updatedAtISO : LEGACY_USER_RECIPE_TIMESTAMP,
+        deleted: v.deleted === true,
+        deletedAtISO: typeof v.deletedAtISO === 'string' ? v.deletedAtISO : null,
+      };
+    } else if (looksLikeRecipe(value)) {
+      // Pre-M5.4 shape: a plain Recipe, no envelope.
+      out[id] = {
+        recipe: value,
+        updatedAtISO: LEGACY_USER_RECIPE_TIMESTAMP,
+        deleted: false,
+        deletedAtISO: null,
+      };
+    }
+  }
+  return out;
 }

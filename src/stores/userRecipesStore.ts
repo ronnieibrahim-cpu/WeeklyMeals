@@ -3,11 +3,20 @@ import { create } from 'zustand';
 
 import { recipesById as seedRecipesById, RECIPES as SEED_RECIPES } from '@/data/seed/recipes';
 import { localUserRecipesRepository } from '@/data/repositories/local/LocalUserRecipesRepository';
-import { isMain, Recipe } from '@/domain/models';
-import { buildUserRecipe, UserRecipeInput } from '@/engine/userRecipes';
+import { isMain, Recipe, UserRecipeSyncMap } from '@/domain/models';
+import { buildUserRecipe, migrateUserRecipesMap, UserRecipeInput } from '@/engine/userRecipes';
 
 interface UserRecipesState {
-  /** Source of truth — per-device only, never synced (M3.5). */
+  /** Source of truth (household-synced as of M5.4) — the full enveloped
+   * sync map, including soft-deleted (tombstoned) entries. Not read
+   * directly by recipe-pool/allergy/meal-resolution consumers; see
+   * `recipesMap`/`list` below for the view they use. */
+  syncMap: UserRecipeSyncMap;
+  /** Derived, LIVE-ONLY, unwrapped view of `syncMap` (deleted entries
+   * filtered out, `.recipe` unwrapped) — every existing consumer
+   * (`getAnyRecipe`, `allRecipesList`, `allRecipesById`, the Recipes tab,
+   * generation/reroll/pinning) depends on this staying exactly a plain
+   * `id -> Recipe` map, unaware sync exists at all. */
   recipesMap: Record<string, Recipe>;
   /** Derived array, kept in sync with recipesMap on every change. */
   list: Recipe[];
@@ -16,46 +25,86 @@ interface UserRecipesState {
   /** Returns the new recipe's id. */
   addRecipe: (input: UserRecipeInput) => string;
   updateRecipe: (id: string, input: UserRecipeInput) => void;
+  /** Soft-delete (M5.4) — never a hard removal, so a delete on one device
+   * can't be silently resurrected by a stale copy on another once synced.
+   * Disappears from `recipesMap`/`list` exactly like a hard delete did
+   * before M5.4. */
   deleteRecipe: (id: string) => void;
+  /** Adopt a synced recipes map after a household sync merge (mirrors
+   * manualItemsStore.hydrateFromSync / recipeNotesStore.hydrateFromSync). */
+  hydrateUserRecipesFromSync: (map: UserRecipeSyncMap) => void;
 }
 
-function persist(map: Record<string, Recipe>) {
+function deriveViews(map: UserRecipeSyncMap): { recipesMap: Record<string, Recipe>; list: Recipe[] } {
+  const recipesMap: Record<string, Recipe> = {};
+  for (const entry of Object.values(map)) {
+    if (entry.deleted) continue;
+    recipesMap[entry.recipe.id] = entry.recipe;
+  }
+  return { recipesMap, list: Object.values(recipesMap) };
+}
+
+function persist(map: UserRecipeSyncMap) {
   void localUserRecipesRepository.save(map);
 }
 
 export const useUserRecipesStore = create<UserRecipesState>((set, get) => ({
+  syncMap: {},
   recipesMap: {},
   list: [],
   hydrated: false,
 
   init: async () => {
     if (get().hydrated) return;
-    const recipesMap = (await localUserRecipesRepository.load()) ?? {};
-    set({ recipesMap, list: Object.values(recipesMap), hydrated: true });
+    const raw = await localUserRecipesRepository.load();
+    const syncMap = migrateUserRecipesMap(raw);
+    set({ syncMap, ...deriveViews(syncMap), hydrated: true });
   },
 
   addRecipe: (input) => {
     const recipe = buildUserRecipe(input);
-    const recipesMap = { ...get().recipesMap, [recipe.id]: recipe };
-    set({ recipesMap, list: Object.values(recipesMap) });
-    persist(recipesMap);
+    const now = new Date().toISOString();
+    const syncMap: UserRecipeSyncMap = {
+      ...get().syncMap,
+      [recipe.id]: { recipe, updatedAtISO: now, deleted: false, deletedAtISO: null },
+    };
+    set({ syncMap, ...deriveViews(syncMap) });
+    persist(syncMap);
     return recipe.id;
   },
 
   updateRecipe: (id, input) => {
-    if (!get().recipesMap[id]) return;
+    const existing = get().syncMap[id];
+    if (!get().recipesMap[id] || !existing) return;
     const recipe = buildUserRecipe(input, id);
-    const recipesMap = { ...get().recipesMap, [id]: recipe };
-    set({ recipesMap, list: Object.values(recipesMap) });
-    persist(recipesMap);
+    const now = new Date().toISOString();
+    const syncMap: UserRecipeSyncMap = {
+      ...get().syncMap,
+      // Body edit only — deleted/deletedAtISO inherit from `existing` (an
+      // edit never touches them, mirroring manualItemsStore.edit) rather
+      // than being forced to false/null; the `recipesMap[id]` guard above
+      // already guarantees this entry is currently live.
+      [id]: { ...existing, recipe, updatedAtISO: now },
+    };
+    set({ syncMap, ...deriveViews(syncMap) });
+    persist(syncMap);
   },
 
   deleteRecipe: (id) => {
-    if (!get().recipesMap[id]) return;
-    const recipesMap = { ...get().recipesMap };
-    delete recipesMap[id];
-    set({ recipesMap, list: Object.values(recipesMap) });
-    persist(recipesMap);
+    const existing = get().syncMap[id];
+    if (!existing) return;
+    const now = new Date().toISOString();
+    const syncMap: UserRecipeSyncMap = {
+      ...get().syncMap,
+      [id]: { ...existing, deleted: true, deletedAtISO: now, updatedAtISO: now },
+    };
+    set({ syncMap, ...deriveViews(syncMap) });
+    persist(syncMap);
+  },
+
+  hydrateUserRecipesFromSync: (map) => {
+    set({ syncMap: map, ...deriveViews(map) });
+    persist(map);
   },
 }));
 
@@ -64,6 +113,12 @@ export const useUserRecipesStore = create<UserRecipesState>((set, get) => ({
  * learningStore) exactly the way `useProfileStore.getState()` etc. are
  * already used there — these read the live store state at call time, they
  * are not memoized/reactive themselves.
+ *
+ * All four of these (plus `mainRecipesList`) read ONLY `recipesMap`/`list` —
+ * the derived, live-only, unwrapped view — never `syncMap`. That is the
+ * M5.4 backward-compatibility contract every recipe-pool/allergy/
+ * meal-resolution consumer depends on: a soft-deleted or enveloped entry can
+ * never leak in here.
  */
 export function getAnyRecipe(id: string): Recipe | undefined {
   return seedRecipesById[id] ?? useUserRecipesStore.getState().recipesMap[id];

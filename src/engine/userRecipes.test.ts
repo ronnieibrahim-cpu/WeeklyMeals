@@ -1,4 +1,4 @@
-import { RecipeIngredient } from '@/domain/models';
+import { Recipe, RecipeIngredient, UserRecipeSyncMap } from '@/domain/models';
 
 import {
   buildUserRecipe,
@@ -7,6 +7,8 @@ import {
   inferAllergensFromIngredients,
   inferDietTagsFromIngredients,
   isUserRecipe,
+  LEGACY_USER_RECIPE_TIMESTAMP,
+  migrateUserRecipesMap,
   UserRecipeInput,
   validateUserRecipeInput,
 } from './userRecipes';
@@ -132,5 +134,67 @@ describe('buildUserRecipe', () => {
   it('drops blank step rows', () => {
     const recipe = buildUserRecipe({ ...baseInput, steps: [...baseInput.steps, '   '] });
     expect(recipe.steps.length).toBe(3);
+  });
+});
+
+describe('migrateUserRecipesMap (M5.4 backward-compatible load-time migration)', () => {
+  const soup = buildUserRecipe(baseInput, 'user-soup');
+  const pasta = buildUserRecipe({ ...baseInput, name: 'Weeknight Pasta' }, 'user-pasta');
+
+  it('wraps the pre-M5.4 plain Record<id, Recipe> shape into live entries', () => {
+    const legacyPersisted: Record<string, Recipe> = { 'user-soup': soup, 'user-pasta': pasta };
+
+    const migrated = migrateUserRecipesMap(legacyPersisted);
+
+    expect(migrated['user-soup']).toEqual({
+      recipe: soup,
+      updatedAtISO: LEGACY_USER_RECIPE_TIMESTAMP,
+      deleted: false,
+      deletedAtISO: null,
+    });
+    expect(migrated['user-pasta'].recipe.name).toBe('Weeknight Pasta');
+  });
+
+  it('the public view derived from a migrated map (live entries, unwrapped) shows every pre-existing recipe untouched', () => {
+    const legacyPersisted: Record<string, Recipe> = { 'user-soup': soup };
+    const migrated = migrateUserRecipesMap(legacyPersisted);
+
+    // Mirrors userRecipesStore's own derivation (filter !deleted, unwrap .recipe).
+    const publicRecipesMap = Object.fromEntries(
+      Object.entries(migrated).filter(([, e]) => !e.deleted).map(([id, e]) => [id, e.recipe]),
+    );
+    expect(publicRecipesMap['user-soup']).toEqual(soup);
+  });
+
+  it('tolerates the current (post-M5.4) enveloped shape without re-wrapping it', () => {
+    const alreadyEnveloped: UserRecipeSyncMap = {
+      'user-soup': { recipe: soup, updatedAtISO: '2026-07-01T00:00:00.000Z', deleted: false, deletedAtISO: null },
+    };
+    const migrated = migrateUserRecipesMap(alreadyEnveloped);
+    expect(migrated).toEqual(alreadyEnveloped);
+  });
+
+  it('is idempotent: migrating an already-migrated map returns it unchanged', () => {
+    const legacyPersisted: Record<string, Recipe> = { 'user-soup': soup };
+    const once = migrateUserRecipesMap(legacyPersisted);
+    const twice = migrateUserRecipesMap(once);
+    expect(twice).toEqual(once);
+  });
+
+  it('tolerates null/undefined/malformed input without throwing', () => {
+    expect(migrateUserRecipesMap(null)).toEqual({});
+    expect(migrateUserRecipesMap(undefined)).toEqual({});
+    expect(migrateUserRecipesMap('not an object')).toEqual({});
+    expect(migrateUserRecipesMap({ garbage: 'not a recipe' })).toEqual({});
+  });
+
+  it('tolerates a mix of legacy and enveloped entries in the same map', () => {
+    const mixed = {
+      'user-soup': soup, // legacy: plain Recipe
+      'user-pasta': { recipe: pasta, updatedAtISO: '2026-07-01T00:00:00.000Z', deleted: true, deletedAtISO: '2026-07-01T00:00:00.000Z' }, // enveloped
+    };
+    const migrated = migrateUserRecipesMap(mixed);
+    expect(migrated['user-soup'].deleted).toBe(false);
+    expect(migrated['user-pasta'].deleted).toBe(true);
   });
 });
