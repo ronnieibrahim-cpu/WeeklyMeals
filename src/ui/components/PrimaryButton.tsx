@@ -1,9 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import { ComponentProps } from 'react';
-import { ActivityIndicator, Pressable, View, ViewStyle } from 'react-native';
+import { ActivityIndicator, View, ViewStyle } from 'react-native';
 
 import { useTheme } from '@/ui/theme/useTheme';
 
+import { AnimatedPressable } from './AnimatedPressable';
 import { Text } from './Text';
 
 interface Props {
@@ -22,11 +23,11 @@ export function PrimaryButton({ title, onPress, loading, disabled, icon, style }
   const isDisabled = disabled || loading;
 
   return (
-    <Pressable
+    <AnimatedPressable
       accessibilityRole="button"
       disabled={isDisabled}
       onPress={onPress}
-      style={({ pressed }) => [
+      style={[
         {
           backgroundColor: theme.colors.accent,
           borderRadius: theme.radius.pill,
@@ -36,7 +37,6 @@ export function PrimaryButton({ title, onPress, loading, disabled, icon, style }
           justifyContent: 'center',
           gap: theme.spacing.sm,
           paddingHorizontal: theme.spacing.xl,
-          opacity: isDisabled ? 0.5 : pressed ? 0.85 : 1,
         },
         style,
       ]}
@@ -51,6 +51,6 @@ export function PrimaryButton({ title, onPress, loading, disabled, icon, style }
           </Text>
         </View>
       )}
-    </Pressable>
+    </AnimatedPressable>
   );
 }

@@ -11,6 +11,7 @@ import { cookModeKey, useCookModeStore } from '@/stores/cookModeStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, EmptyState, NavHeader, PrimaryButton, ProgressBar, StarRating, Text } from '@/ui/components';
+import { useHaptics } from '@/ui/hooks/useHaptics';
 import { useTheme } from '@/ui/theme/useTheme';
 
 interface TimerState {
@@ -55,6 +56,7 @@ export default function CookModeScreen() {
 
   const router = useRouter();
   const theme = useTheme();
+  const haptics = useHaptics();
   const { dayIndex: dayIndexParam } = useLocalSearchParams<{ dayIndex: string }>();
   const dayIndex = Number(dayIndexParam);
 
@@ -202,7 +204,10 @@ export default function CookModeScreen() {
             <PrimaryButton
               title={meal.cooked ? 'Cooked' : 'Mark cooked'}
               icon={meal.cooked ? 'checkmark-circle' : undefined}
-              onPress={() => toggleCooked(meal.dayIndex)}
+              onPress={() => {
+                haptics.light();
+                toggleCooked(meal.dayIndex);
+              }}
               style={{ marginTop: theme.spacing.lg }}
             />
           </Card>

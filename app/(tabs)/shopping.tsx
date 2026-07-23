@@ -11,6 +11,7 @@ import { isWholeUnitShoppingItem, mealsUsingItem } from '@/engine/wasteFit';
 import { useManualItemsStore } from '@/stores/manualItemsStore';
 import { usePlanStore } from '@/stores/planStore';
 import { ChipSingleSelect, Card, EmptyState, Fab, Screen, Text } from '@/ui/components';
+import { useHaptics } from '@/ui/hooks/useHaptics';
 import { useTheme } from '@/ui/theme/useTheme';
 
 type ManualRow = ManualItem & { key: string };
@@ -21,6 +22,7 @@ const FAB_CLEARANCE = 88;
 
 export default function ShoppingScreen() {
   const theme = useTheme();
+  const haptics = useHaptics();
   const insets = useSafeAreaInsets();
   const plan = usePlanStore((s) => s.plan);
   const shoppingList = usePlanStore((s) => s.shoppingList);
@@ -234,7 +236,10 @@ export default function ShoppingScreen() {
                     key={`${item.ingredientName}-${item.unit}`}
                     item={item}
                     first={i === 0}
-                    onToggle={() => toggleItem(item.ingredientName, item.unit)}
+                    onToggle={() => {
+                      haptics.light();
+                      toggleItem(item.ingredientName, item.unit);
+                    }}
                     meals={plan?.meals ?? []}
                   />
                 ))}
@@ -245,7 +250,10 @@ export default function ShoppingScreen() {
                     first={planned.length === 0 && i === 0}
                     last={i === manual.length - 1}
                     editing={editingKey === item.key}
-                    onToggle={() => toggleManualChecked(item.key)}
+                    onToggle={() => {
+                      haptics.light();
+                      toggleManualChecked(item.key);
+                    }}
                     onStartEdit={() => setEditingKey(item.key)}
                     onCancelEdit={() => setEditingKey(null)}
                     onSave={(patch) => {

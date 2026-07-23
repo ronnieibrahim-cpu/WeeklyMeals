@@ -1,8 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useEffect, useRef } from 'react';
 import { Pressable, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
 
 import { Recipe } from '@/domain/models';
 import { formatServings } from '@/engine/portions';
+import { useHaptics } from '@/ui/hooks/useHaptics';
+import { usePrefersReducedMotion } from '@/ui/hooks/usePrefersReducedMotion';
 import { useTheme } from '@/ui/theme/useTheme';
 
 import { Card } from './Card';
@@ -75,9 +79,26 @@ export function MealCard({
   featured,
 }: Props) {
   const theme = useTheme();
+  const haptics = useHaptics();
+  const reduceMotion = usePrefersReducedMotion();
   const showActions = !!(onToggleLock || onSwap);
   const photoHeight = featured ? 200 : 150;
   const totalMinutes = recipe.prepMinutes + recipe.cookMinutes;
+
+  // Group 4c: a quick fill + tick pop the moment this meal is marked cooked
+  // (skipped on first mount, so a card that's already cooked doesn't pop).
+  const cookedPop = useSharedValue(1);
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      return;
+    }
+    if (cooked && !reduceMotion) {
+      cookedPop.value = withSequence(withTiming(1.3, { duration: 100 }), withTiming(1, { duration: 140 }));
+    }
+  }, [cooked, reduceMotion, cookedPop]);
+  const cookedIconStyle = useAnimatedStyle(() => ({ transform: [{ scale: cookedPop.value }] }));
 
   return (
     <Card onPress={onPress} padded={false} style={{ marginBottom: theme.spacing.md, overflow: 'hidden' }}>
@@ -126,7 +147,10 @@ export function MealCard({
           <Pressable
             accessibilityLabel={cooked ? 'Mark not cooked' : 'Mark cooked'}
             hitSlop={8}
-            onPress={onToggleCooked}
+            onPress={() => {
+              haptics.light();
+              onToggleCooked();
+            }}
             style={{
               position: 'absolute',
               top: theme.spacing.md,
@@ -144,11 +168,13 @@ export function MealCard({
               elevation: 2,
             }}
           >
-            <Ionicons
-              name={cooked ? 'checkmark' : 'ellipse-outline'}
-              size={cooked ? 20 : 22}
-              color={cooked ? theme.colors.onAccent : theme.colors.textTertiary}
-            />
+            <Animated.View style={cookedIconStyle}>
+              <Ionicons
+                name={cooked ? 'checkmark' : 'ellipse-outline'}
+                size={cooked ? 20 : 22}
+                color={cooked ? theme.colors.onAccent : theme.colors.textTertiary}
+              />
+            </Animated.View>
           </Pressable>
         ) : showActions ? (
           // Review screen: lock/swap as floating discs, top-right
@@ -157,7 +183,10 @@ export function MealCard({
               <Pressable
                 accessibilityLabel={locked ? 'Unlock' : 'Lock'}
                 hitSlop={6}
-                onPress={onToggleLock}
+                onPress={() => {
+                  haptics.light();
+                  onToggleLock();
+                }}
                 style={discStyle(theme)}
               >
                 <Ionicons

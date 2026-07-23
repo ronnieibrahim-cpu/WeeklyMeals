@@ -25,11 +25,13 @@ import {
   Stepper,
   Text,
 } from '@/ui/components';
+import { useHaptics } from '@/ui/hooks/useHaptics';
 import { useTheme } from '@/ui/theme/useTheme';
 
 export default function MealDetailScreen() {
   const router = useRouter();
   const theme = useTheme();
+  const haptics = useHaptics();
   const { id, pinTarget: pinTargetParam } = useLocalSearchParams<{ id: string; pinTarget?: string }>();
   const pinTarget = pinTargetParam === 'draft' ? 'draft' : 'plan';
   const recipesById = useRecipesById();
@@ -219,7 +221,10 @@ export default function MealDetailScreen() {
         <SecondaryButton
           title={plannedMeal.cooked ? 'Cooked' : 'Mark as cooked'}
           icon={plannedMeal.cooked ? 'checkmark-circle' : undefined}
-          onPress={() => toggleCooked(plannedMeal.dayIndex)}
+          onPress={() => {
+            haptics.light();
+            toggleCooked(plannedMeal.dayIndex);
+          }}
           style={{ marginTop: theme.spacing.md }}
         />
       ) : null}

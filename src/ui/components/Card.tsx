@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
-import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 
 import { useTheme } from '@/ui/theme/useTheme';
+
+import { AnimatedPressable } from './AnimatedPressable';
 
 interface Props {
   children: ReactNode;
@@ -34,12 +36,9 @@ export function Card({ children, onPress, padded = true, style }: Props) {
 
   if (onPress) {
     return (
-      <Pressable
-        onPress={onPress}
-        style={({ pressed }) => [surface, pressed && { opacity: 0.7 }, style]}
-      >
+      <AnimatedPressable onPress={onPress} style={[surface, style]}>
         {children}
-      </Pressable>
+      </AnimatedPressable>
     );
   }
 

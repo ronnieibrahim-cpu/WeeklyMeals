@@ -1,8 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import { ComponentProps } from 'react';
-import { Pressable, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 
 import { useTheme } from '@/ui/theme/useTheme';
+
+import { AnimatedPressable } from './AnimatedPressable';
 
 interface Props {
   icon: ComponentProps<typeof Ionicons>['name'];
@@ -16,11 +18,11 @@ export function Fab({ icon, onPress, accessibilityLabel, style }: Props) {
   const theme = useTheme();
 
   return (
-    <Pressable
+    <AnimatedPressable
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
-      style={({ pressed }) => [
+      style={[
         {
           width: 56,
           height: 56,
@@ -33,12 +35,11 @@ export function Fab({ icon, onPress, accessibilityLabel, style }: Props) {
           shadowRadius: 6,
           shadowOffset: { width: 0, height: 2 },
           elevation: 2,
-          opacity: pressed ? 0.85 : 1,
         },
         style,
       ]}
     >
       <Ionicons name={icon} size={26} color={theme.colors.onAccent} />
-    </Pressable>
+    </AnimatedPressable>
   );
 }
