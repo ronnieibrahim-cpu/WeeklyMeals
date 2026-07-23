@@ -11,7 +11,8 @@
 >
 > **Last updated:** July 2026, at the PARK point after Milestone 4 (all of
 > M4.0–M4.7) shipped and Milestone 5 was started (M5.0 archive, M5.2 sweep, and
-> M5.3 Vercel previews shipped; M5.1 photos live-but-partial; M5.4 not started).
+> M5.3 Vercel previews shipped; M5.1 photos live-but-partial; M5.4 shipped
+> 2026-07-23 (advisor-unaudited)).
 > **This update was written by the implementing session's architect, not by an
 > independent advisor — see Part 4 item 25 and Part 6: the next advisor's first
 > job is the M4.3–M4.7 + M5.0–M5.1 close-out audit, and this file's claims are
@@ -193,7 +194,8 @@ from the Product Owner's friction journal, not a speculative backlog:**
   P1s F1/F6/F7 and P2s F4/F8a/F5 fixed, name-fold audit gap closed, four edges
   accepted (`PROJECT.md` §8).
 - **M5.3** — Vercel branch previews (production stays on GitHub Pages). Shipped.
-- **M5.4** — household-synced user recipes. Confirmed-next, not started.
+- **M5.4** — household-synced user recipes. ✅ Shipped 2026-07-23 (advisor gate
+  waived — decision 36; still owes the independent audit).
 - A **Basil green retheme** (separate design session) merged and deployed too.
 
 **Verified state at last push (by the implementing session, pending advisor
@@ -573,6 +575,8 @@ what changed, and let him decide.
     `syncMerge.ts`/`syncMerge.test.ts` for review — treat this change, together
     with the Phase-4 redesign, as owed an independent advisor audit (Part 6).
 
+36. **M5.4 household-synced user recipes shipped — advisor gate waived (Ronnie, 2026-07-23).** User recipes now sync between the household's phones: each recipe is held in an enveloped sync map (`{recipe, updatedAtISO, deleted, deletedAtISO}`) mirroring `ManualItem`; `deleteRecipe` is a soft delete (tombstone) so a delete propagates and isn't resurrected; `mergeUserRecipes` mirrors `mergeManualItems` (newest `updatedAtISO` wins the body, `deleted` on its own timestamp axis) and is merged unconditionally in `mergeSyncPayload`; the wire `userRecipes` field is optional and defaults to `{}` so old clients never break or lose data; a backward-compatible load-time migration wraps the pre-M5.4 plain map. The public store views (`recipesMap`/`list`/`getAnyRecipe`/`allRecipesList`/`allRecipesById`) are unchanged (live plain recipes only, derived from the sync map), which is the guarantee that existing recipe-pool/allergy/meal-resolution behavior can't regress. Ships with Law-#6 tests (both orders, idempotence, concurrent-edit, edit-vs-delete, tombstone-not-resurrected), migration tests, and allergy-safety tests (a synced recipe carrying an allergen is filtered and cannot be pinned). 404 → 422 tests. **PROCESS EXCEPTION:** this touches sync, so per the binding process it should have gone to the advisor BEFORE build; Ronnie explicitly chose to implement and ship it live the same day without that pass ("I trust you"), conditioned on not breaking existing functionality — verified by the full green suite plus overseer review of the merge rule, migration, and public-contract preservation. Treat M5.4 — together with the Phase-4 redesign and the stale-week fix — as owed an independent advisor audit (Part 6). One caveat CI can't cover: true two-phone cross-device hydration wasn't exercised, so a real 2-device sanity check is still worth doing.
+
 ### Hard-won lessons (the "how we got burned" list)
 
 - **A pure engine plus a well-specced task is why Sonnet works here.** Vague specs
@@ -696,10 +700,9 @@ signing off.
 
 **Immediate product to-dos waiting on Ronnie (not the advisor):** photos
 reviewed (2026-07-23) — 11 approved & wired, 9 held on the tile
-(`PHOTO-REVIEW-2.md`); still flag any wrong LIVE photo (one-line revert to the tile). **Next confirmed feature after the audit: M5.4
-household-synced user recipes** (spec sketch in `MILESTONE-5.md`; sync +
-allergy-handling decisions to make BEFORE coding, tests in the same commit —
-extra review gate applies). The remaining parked list (leftovers-aware
+(`PHOTO-REVIEW-2.md`); still flag any wrong LIVE photo (one-line revert to the tile). **M5.4 household-synced user recipes shipped 2026-07-23**
+(advisor gate waived; owes the independent audit). No feature is
+confirmed-next; the priority remains the audit. The remaining parked list (leftovers-aware
 planning, thaw reminders, quantity-aware re-roll, H-E-B Curbside export,
 calendar integration) stays *candidates* — don't start any of it without
 Ronnie's explicit go-ahead.

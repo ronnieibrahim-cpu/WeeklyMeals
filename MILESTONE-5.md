@@ -6,8 +6,8 @@
 > family's phones (55 exact-match + 11 Ronnie-approved on 2026-07-23); the
 > remaining 9 "plausible" in `PHOTO-REVIEW-2.md` are held on the tile, and any
 > wrong live photo is one line to revert.
-> **M5.4 (household-synced user recipes) is the next confirmed feature — not
-> started.** Everything under "Candidates" is a proposed pipeline; Ronnie
+> **M5.4 (household-synced user recipes) shipped 2026-07-23** (advisor gate
+> waived; owes the independent audit). Everything under "Candidates" is a proposed pipeline; Ronnie
 > picks the order, nothing there starts without his explicit go-ahead.
 >
 > **The single most important open item is NOT a feature: it is the
@@ -16,11 +16,12 @@
 > one orchestrated worker session that also acted as its own reviewer — the
 > exact setup this project's rules warn against. An adversarial sweep (M5.2)
 > was run and its findings fixed, but a sweep is not the audit. Do the audit
-> in a fresh advisor chat before building M5.4 or anything new.
+> in a fresh advisor chat; the audit now also owes M5.4 + the Phase-4
+> redesign + the stale-week fix.
 >
 > Same rules as every milestone: all three checks green before every commit
 > (`npm run typecheck`, `npx jest`, `npx tsx scripts/validateRecipes.ts` —
-> currently **398 tests**), product laws in `PROJECT.md` §7 are binding,
+> currently **422 tests**), product laws in `PROJECT.md` §7 are binding,
 > sync/allergy/shopping-list changes carry their extra scrutiny.
 
 ---
@@ -113,16 +114,18 @@ throwaway code to test sync.
 
 ---
 
-## [ ] M5.4 — Household-synced user recipes (CONFIRMED — Ronnie's pick, July 2026)
+## [x] M5.4 — Household-synced user recipes (✅ SHIPPED 2026-07-23 — advisor gate waived; owes the independent audit)
 
-Family recipes entered on one phone appear on both. Scope sketch (spec to be
-written before implementation): `userRecipesStore`'s recipe map joins the sync
-payload with a per-recipe newer-wins merge (same deterministic pattern as
-notes/favorites; deletes need tombstones like manual items); imported/user
-recipes keep their existing allergy handling (user recipes are hand-entered —
-decide and document whether they follow curated or imported rules under the
-allergy guard BEFORE coding, with tests in the same commit). Extends the
-standing RLS acceptance (decision 33). **Extra review gate applies (sync).**
+Family recipes entered on one phone appear on both. As shipped (2026-07-23):
+`userRecipesStore`'s recipe map joins the sync payload with a per-recipe
+newer-wins merge (`mergeUserRecipes`, mirroring `mergeManualItems`; deletes are
+soft-delete tombstones). Allergy handling was decided and tested: user recipes
+flow through the **normal deterministic allergen-label filter** — NOT the
+`mealdb-` blanket exclusion (they're hand-entered, not imported) — with
+allergy-safety tests (filtered + un-pinnable for a matching allergy) in the same
+commit. Extends the standing RLS acceptance (decision 33). Shipped with the sync
+advisor gate **waived** by Ronnie — see `ADVISOR-HANDOFF.md` decision 36; owes the
+independent audit.
 
 ---
 
