@@ -9,6 +9,7 @@ import { IntakeAnswers, isMain, PlannedMeal, Profile, RatingEvent, Recipe, Shopp
 import { composeSides } from '@/engine/mealComposition';
 import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
 import { moveMeal as moveMealInPlan } from '@/engine/rearrange';
+import { recencyByRecipe } from '@/engine/rotation';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
 import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinBlockReason, PinBlockReason, pinnableDays, RerollKeepOptions, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localDateString, localMidnight } from '@/engine/schedule';
@@ -46,6 +47,27 @@ function otherWeekRecipes(meals: PlannedMeal[], excludeDayIndex: number): Recipe
     .flatMap((m) => resolveRecipes([m.recipeId, ...(m.sideRecipeIds ?? [])]));
 }
 
+/**
+ * The plans the engine's cross-week rotation memory is built from: the active
+ * week plus the rolling per-device archive (`usePlanHistoryStore`, 6 weeks).
+ *
+ * This makes the archive a scoring input, which M5.0 originally specced it
+ * NOT to be ("strictly a reflection surface … no scoring input") — a
+ * deliberate, Ronnie-approved reversal, because it's the only multi-week
+ * memory that exists: ratings aren't synced, and a plan carries only its own
+ * week. Two consequences, both accepted: rotation memory is per-device (the
+ * phone that generates a week is the one whose history shapes it — and since
+ * the resulting week syncs as a unit, no merge is involved, so Law #6 is
+ * untouched), and it only covers weeks approved since M5.0 shipped, so a
+ * fresh install simply has nothing to rotate against and every recipe reads
+ * as rested.
+ */
+function rotationPlans(): WeeklyPlan[] {
+  const active = usePlanStore.getState().plan;
+  const archive = usePlanHistoryStore.getState().history;
+  return active ? [active, ...archive] : archive;
+}
+
 function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: string[]): GenerateContext {
   const learning = useLearningStore.getState();
   return {
@@ -54,6 +76,7 @@ function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: strin
     preferences: learning.preferences,
     favoriteRecipeIds: learning.favorites,
     kidApprovedRecipeIds: learning.kidApproved,
+    recencyByRecipeId: recencyByRecipe(rotationPlans()),
     pantry: intake.ingredientsAtHome,
     season: seasonForDate(new Date()),
     lockedRecipeIds,

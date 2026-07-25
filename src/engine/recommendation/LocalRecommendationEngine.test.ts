@@ -1,6 +1,6 @@
 import { GenerateContext, WEIGHTS } from './types';
 import { LocalRecommendationEngine, rankReplacements } from './LocalRecommendationEngine';
-import { scoreRecipe } from './scoring';
+import { scoreRecipe, scoreSide } from './scoring';
 import { makeIntake, makePreferences, makeProfile, makeRecipe } from '../testFixtures';
 
 function ctxFor(overrides: Partial<GenerateContext> = {}): GenerateContext {
@@ -217,6 +217,173 @@ describe('scoreRecipe kid-approved bonus (M3.2)', () => {
     const meals = engine.generate(ctx, [unsafe, ...safe]);
 
     expect(meals.some((m) => m.recipeId === 'unsafe-but-kid-approved')).toBe(false);
+  });
+});
+
+/**
+ * The reported problem: with a single week of history, three favorited
+ * recipes all landed in the next week's menu. `WEIGHTS.favorite` was a flat,
+ * permanent bonus with no notion of when a dish was last cooked — despite
+ * describing itself as "periodic reintroduction".
+ */
+describe('scoreRecipe favorite bonus — rest and crowding', () => {
+  const favorite = makeRecipe({ id: 'fav' });
+  const other = makeRecipe({ id: 'other' });
+
+  it('gives a well-rested favorite a real edge over an identical non-favorite', () => {
+    const ctx = ctxFor({ favoriteRecipeIds: ['fav'], recencyByRecipeId: { fav: 4 } });
+    expect(scoreRecipe(favorite, ctx, [])).toBeGreaterThan(scoreRecipe(other, ctx, []));
+  });
+
+  it('gives a favorite that was on last week\'s menu almost none of that edge', () => {
+    const rested = ctxFor({ favoriteRecipeIds: ['fav'], recencyByRecipeId: { fav: 4 } });
+    const justCooked = ctxFor({ favoriteRecipeIds: ['fav'], recencyByRecipeId: { fav: 1 } });
+
+    expect(scoreRecipe(favorite, justCooked, [])).toBeLessThan(scoreRecipe(favorite, rested, []));
+  });
+
+  it('scores a favorite from last week BELOW an identical never-planned recipe', () => {
+    // The heart of the bug: a repeat used to outrank everything. The repeat
+    // penalty plus the withheld favorite bonus must now flip that ordering.
+    const ctx = ctxFor({ favoriteRecipeIds: ['fav'], recencyByRecipeId: { fav: 1 } });
+    expect(scoreRecipe(favorite, ctx, [])).toBeLessThan(scoreRecipe(other, ctx, []));
+  });
+
+  it('tapers the bonus as favorites pile up in the same week', () => {
+    const ctx = ctxFor({ favoriteRecipeIds: ['fav', 'fav-2', 'fav-3'], recencyByRecipeId: {} });
+    const alreadyOne = [makeRecipe({ id: 'fav-2' })];
+    const alreadyTwo = [makeRecipe({ id: 'fav-2' }), makeRecipe({ id: 'fav-3' })];
+
+    const alone = scoreRecipe(favorite, ctx, []);
+    const withOne = scoreRecipe(favorite, ctx, alreadyOne);
+    const withTwo = scoreRecipe(favorite, ctx, alreadyTwo);
+
+    expect(withOne).toBeLessThan(alone);
+    expect(withTwo).toBeLessThan(withOne);
+    // Fully crowded out: no favorite bonus left at all, same as a non-favorite
+    // (both still carry the identical varietyBonus against `alreadyTwo`).
+    expect(withTwo).toBeCloseTo(scoreRecipe(other, ctx, alreadyTwo));
+  });
+
+  it('caps a favorite structurally below preference, affinity and variety', () => {
+    // Weight discipline (ADVISOR-HANDOFF decision 27's contract): a favorite
+    // may win a close call, never outrank this week's explicit answers.
+    expect(WEIGHTS.favorite).toBeLessThan(WEIGHTS.preference);
+    expect(WEIGHTS.favorite).toBeLessThan(WEIGHTS.affinity);
+    expect(WEIGHTS.favorite).toBeLessThan(WEIGHTS.variety);
+  });
+
+  it('never lets a favorite override a hard filter (allergy)', () => {
+    const engine = new LocalRecommendationEngine();
+    const unsafe = makeRecipe({ id: 'unsafe-but-favorite', allergens: ['Peanuts'] });
+    const safe = Array.from({ length: 6 }, (_, i) => makeRecipe({ id: `safe-${i}` }));
+    const profile = makeProfile({ allergies: ['Peanuts'] });
+    const ctx = ctxFor({
+      profile,
+      intake: makeIntake(profile, { dinners: 5 }),
+      favoriteRecipeIds: ['unsafe-but-favorite'],
+    });
+
+    expect(engine.generate(ctx, [unsafe, ...safe]).some((m) => m.recipeId === 'unsafe-but-favorite')).toBe(false);
+  });
+
+  // How many favorites actually land in a generated week is a distribution
+  // question — with an all-identical synthetic pool the engine's near-tie
+  // randomness dominates, so asserting a hard ceiling here would test the
+  // random draw, not the crowding rule (which the taper case above pins down
+  // exactly). Measured instead against the real 230-recipe library by
+  // scripts/checkRotation.ts, same split as checkWasteFit.ts.
+});
+
+describe('scoreRecipe repeat penalty (cross-week variety, AUDIT P1.2)', () => {
+  it('penalizes a main that was on a recent plan, fading with time', () => {
+    const recipe = makeRecipe({ id: 'r' });
+    const thisWeek = ctxFor({ recencyByRecipeId: { r: 0 } });
+    const lastWeek = ctxFor({ recencyByRecipeId: { r: 1 } });
+    const longAgo = ctxFor({ recencyByRecipeId: { r: 4 } });
+    const never = ctxFor();
+
+    expect(scoreRecipe(recipe, thisWeek, [])).toBeLessThan(scoreRecipe(recipe, lastWeek, []));
+    expect(scoreRecipe(recipe, lastWeek, [])).toBeLessThan(scoreRecipe(recipe, longAgo, []));
+    // Fully faded — identical to having no history at all.
+    expect(scoreRecipe(recipe, longAgo, [])).toBeCloseTo(scoreRecipe(recipe, never, []));
+  });
+
+  it('holds the repeat weight below variety, and its contribution bounded by that weight', () => {
+    expect(WEIGHTS.repeat).toBeLessThan(WEIGHTS.variety);
+
+    const recipe = makeRecipe({ id: 'r' });
+    const worst = scoreRecipe(recipe, ctxFor({ recencyByRecipeId: { r: 0 } }), []);
+    const none = scoreRecipe(recipe, ctxFor(), []);
+    expect(none - worst).toBeLessThanOrEqual(WEIGHTS.repeat + 1e-9);
+  });
+
+  it('lets a strong pantry match still win despite being a recent repeat', () => {
+    // Soft, not a filter: pantry (3.0) outweighs repeat (1.0), so a dish you
+    // already have the ingredients for is never buried by rotation.
+    const repeatWithPantry = makeRecipe({
+      id: 'repeat',
+      ingredients: [{ name: 'salmon', quantity: 1, unit: 'lb', department: 'Seafood' }],
+    });
+    const freshNoPantry = makeRecipe({
+      id: 'fresh',
+      ingredients: [{ name: 'octopus', quantity: 1, unit: 'lb', department: 'Seafood' }],
+    });
+    const ctx = ctxFor({ pantry: ['salmon'], recencyByRecipeId: { repeat: 1 } });
+
+    expect(scoreRecipe(repeatWithPantry, ctx, [])).toBeGreaterThan(scoreRecipe(freshNoPantry, ctx, []));
+  });
+
+  it('does not penalize sides — scoreSide has no repeat term', () => {
+    const main = makeRecipe({ id: 'main' });
+    const side = makeRecipe({ id: 'side', provides: ['vegetable'], primaryProtein: 'None' });
+    const withHistory = ctxFor({ recencyByRecipeId: { side: 0 } });
+    const without = ctxFor();
+
+    expect(scoreSide(side, main, withHistory)).toBeCloseTo(scoreSide(side, main, without));
+  });
+});
+
+describe('learned-preference confidence (limited sample size)', () => {
+  const thai = makeRecipe({ id: 'thai', cuisine: 'Thai' });
+  const french = makeRecipe({ id: 'french', cuisine: 'French' });
+
+  it('damps a learned cuisine liking that rests on one week of ratings', () => {
+    const oneWeek = ctxFor({ preferences: makePreferences({ cuisineAffinity: { Thai: 1 }, mealsRated: 4 }) });
+    const seasoned = ctxFor({ preferences: makePreferences({ cuisineAffinity: { Thai: 1 }, mealsRated: 40 }) });
+
+    const earlyEdge = scoreRecipe(thai, oneWeek, []) - scoreRecipe(french, oneWeek, []);
+    const settledEdge = scoreRecipe(thai, seasoned, []) - scoreRecipe(french, seasoned, []);
+
+    expect(earlyEdge).toBeGreaterThan(0); // still learns, just quietly
+    expect(earlyEdge).toBeLessThan(settledEdge / 2);
+  });
+
+  it('damps the learned dials the same way', () => {
+    const mild = makeRecipe({ id: 'mild', spiceLevel: 'None' });
+    const hot = makeRecipe({ id: 'hot', spiceLevel: 'Hot' });
+    const oneWeek = ctxFor({ preferences: makePreferences({ spiceTolerance: -1, mealsRated: 4 }) });
+    const seasoned = ctxFor({ preferences: makePreferences({ spiceTolerance: -1, mealsRated: 40 }) });
+
+    const earlyEdge = scoreRecipe(mild, oneWeek, []) - scoreRecipe(hot, oneWeek, []);
+    const settledEdge = scoreRecipe(mild, seasoned, []) - scoreRecipe(hot, seasoned, []);
+
+    expect(earlyEdge).toBeGreaterThan(0);
+    expect(earlyEdge).toBeLessThan(settledEdge);
+  });
+
+  it('does NOT damp dislikes — a bad meal is believed immediately', () => {
+    // Deliberate asymmetry: `ratingsPenalty` (and blocking) stay at full
+    // strength however little has been rated.
+    const disliked = makeRecipe({ id: 'disliked', cuisine: 'Thai' });
+    const neutral = makeRecipe({ id: 'neutral', cuisine: 'French' });
+    const barelyRated = ctxFor({ preferences: makePreferences({ cuisineAffinity: { Thai: -1 }, mealsRated: 1 }) });
+    const seasoned = ctxFor({ preferences: makePreferences({ cuisineAffinity: { Thai: -1 }, mealsRated: 40 }) });
+
+    const earlyGap = scoreRecipe(neutral, barelyRated, []) - scoreRecipe(disliked, barelyRated, []);
+    const settledGap = scoreRecipe(neutral, seasoned, []) - scoreRecipe(disliked, seasoned, []);
+
+    expect(earlyGap).toBeCloseTo(settledGap);
   });
 });
 

@@ -283,7 +283,34 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    **recomputed from the full rating history** on every change (structurally
    immune to double-counting). Cuisine/protein/technique/vegetable affinities and
    the learned dials (spice, complexity, budget, leftovers) all feed scoring with
-   capped weights; hard filters always win.
+   capped weights; hard filters always win. Those **positive** learned signals are
+   additionally scaled by how much has actually been rated
+   (`learningConfidence`, full strength at 12 rated meals), so one week of data
+   nudges the next week instead of steering it. Deliberately asymmetric:
+   `ratingsPenalty` and recipe blocking are **not** damped — a family that
+   disliked a dish is believed immediately, while "you love Thai" has to earn
+   its standing.
+4b. **Cross-week rotation (`src/engine/rotation.ts`):** the engine remembers what
+   it planned. `recencyByRecipe` folds the active plan plus the rolling
+   per-device archive into `recipeId -> whole weeks since last planned`
+   (`GenerateContext.recencyByRecipeId`), which drives three things: the
+   **favorite bonus is now genuinely periodic** (a favorite planned last week
+   earns almost none of `WEIGHTS.favorite = 0.8`, one rested 3+ weeks earns all
+   of it), a **per-week crowding taper** (the 2nd favorite gets half, the 3rd
+   none — a week of hearted re-runs is not a menu), and a **repeat penalty**
+   (`WEIGHTS.repeat = 1.0`, fading to nothing over 4 weeks). Mains only —
+   side repeats are normal, and penalizing them would repeat the M4.2 part 2
+   scope-inversion mistake (decision 23). All soft: pantry (3.0) still outweighs
+   rotation, so a repeat that's genuinely the best use of what's on hand still
+   wins, and no week is ever left short. Measured by `scripts/checkRotation.ts`
+   (100 two-week scenarios): favorites returning to the very next week fell
+   2.56 -> 0.01 of 3, week-over-week repeats 3.49 -> 0.01 of 5, while rested
+   favorites still return more than un-hearted dishes (2.56 vs 1.65) — pacing,
+   not suppression. **Note this makes the M5.0 archive a scoring input**, which
+   M5.0 originally excluded; reversed deliberately with Ronnie's approval (it is
+   the only multi-week memory that exists — ratings aren't synced). Rotation
+   memory is therefore per-device, and empty on a fresh install, in which case
+   everything reads as rested.
 5. **Sync (optional):** plan, shopping list, manual items, favorites, kid-approved
    flags, recipe notes, and **user recipes (M5.4)** sync between two phones (~20s poll, 600ms debounced push)
    with **per-item / per-meal deterministic merging** (see §6).

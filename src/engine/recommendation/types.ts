@@ -17,8 +17,15 @@ export interface GenerateContext {
   season: Season;
   /** Recipes the user locked during review; always kept, never re-scored out. */
   lockedRecipeIds?: string[];
-  /** Favorited recipes get a reintroduction bonus. */
+  /** Favorited recipes get a reintroduction bonus — periodic, gated on
+   * `recencyByRecipeId` (see rotation.ts and scoring.ts's `favoriteBonus`). */
   favoriteRecipeIds?: string[];
+  /** Cross-week rotation memory: main recipe id -> whole weeks since it was
+   * last on a plan (0 = this week). Built by `recencyByRecipe` from the
+   * active plan plus the rolling per-device archive. Absent means "no history
+   * available" — every recipe then reads as fully rested, which is the
+   * correct cold-start behavior for a household with no past weeks yet. */
+  recencyByRecipeId?: Record<string, number>;
   /** Kid-approved recipes (M3.2) get a modest tie-breaking bonus. */
   kidApprovedRecipeIds?: string[];
   /**
@@ -59,7 +66,16 @@ export const WEIGHTS = {
   pantry: 3.0,
   preference: 1.5,
   affinity: 1.4, // learned positive likes (cuisine/protein/technique)
-  favorite: 1.0, // periodic reintroduction of favorited recipes
+  // Periodic reintroduction of favorited recipes, and as of the rotation
+  // work it really is periodic: the flat, permanent +1.0 this used to be is
+  // now multiplied by a rest factor (weeks since the dish was last planned)
+  // and a crowding factor (how many favorites are already on this week), so
+  // the number below is the ceiling for a well-rested first favorite of the
+  // week, not a standing thumb on the scale. Trimmed 1.0 -> 0.8 at the same
+  // time so that ceiling sits below `preference`, `affinity` AND `variety`:
+  // a favorite may win a close call, but it can never outrank what the user
+  // explicitly asked for this week, nor beat variety.
+  favorite: 0.8,
   variety: 1.3,
   budget: 0.9,
   time: 0.5,
@@ -83,6 +99,13 @@ export const WEIGHTS = {
   // override the profile/questionnaire the user explicitly set.
   learnedDials: 0.8,
   ratingsPenalty: 2.0,
+  // Cross-week repeat discouragement (AUDIT.md B7/P1.2, finally built): a
+  // main that was on a recent plan is subtracted from, fading to nothing over
+  // `REPEAT_FADE_WEEKS`. Held below `variety` (1.3) by the same discipline
+  // `wasteFit` follows — strong enough that a fresh week no longer echoes the
+  // last one, never strong enough to bury a dish the pantry (weight 3.0)
+  // genuinely calls for. Mains only; `scoreSide` has no repeat term.
+  repeat: 1.0,
   // M4.2 part 2: a small nudge for a side sharing the main's cuisine
   // (MILESTONE-4.md Rule 3 — "prefer sides that fit the main's cuisine").
   // Deliberately modest: strong enough to break ties toward a cuisine-fitting

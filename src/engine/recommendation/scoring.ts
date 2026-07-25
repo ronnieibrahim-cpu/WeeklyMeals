@@ -1,6 +1,12 @@
 import { Recipe } from '@/domain/models';
 
 import { roughCostPerServing } from '../cost';
+import {
+  favoriteCrowdingFactor,
+  favoriteRestFactor,
+  learningConfidence,
+  repeatPenaltyFactor,
+} from '../rotation';
 import { wasteFitBonus } from '../wasteFit';
 import { GenerateContext, WEIGHTS } from './types';
 
@@ -105,7 +111,9 @@ function seasonFit(recipe: Recipe, ctx: GenerateContext): number {
   return recipe.seasons.includes(ctx.season) ? 1 : 0.2;
 }
 
-/** Learned positive likes (0–1): favored cuisine/protein/technique drift the score up. */
+/** Learned positive likes (0–1): favored cuisine/protein/technique drift the
+ * score up — damped by how much the household has actually rated, so one
+ * week of data can't steer the whole next week (see `learningConfidence`). */
 function affinityBonus(recipe: Recipe, ctx: GenerateContext): number {
   const prefs = ctx.preferences;
   if (!prefs) return 0;
@@ -115,11 +123,46 @@ function affinityBonus(recipe: Recipe, ctx: GenerateContext): number {
   let techMax = 0;
   for (const t of recipe.techniques) techMax = Math.max(techMax, Math.max(0, prefs.techniqueAffinity[t] ?? 0));
   parts.push(techMax);
-  return parts.reduce((a, b) => a + b, 0) / parts.length;
+  const raw = parts.reduce((a, b) => a + b, 0) / parts.length;
+  return raw * learningConfidence(prefs.mealsRated);
 }
 
-function favoriteBonus(recipe: Recipe, ctx: GenerateContext): number {
-  return ctx.favoriteRecipeIds?.includes(recipe.id) ? 1 : 0;
+/**
+ * Favorites, as an actual *periodic* reintroduction rather than the flat
+ * permanent +1 this used to be. Two independent dampers, both 0–1:
+ *
+ * - **rest** (`favoriteRestFactor`): a favorite that was on the menu last
+ *   week earns almost none of the bonus; one that hasn't appeared for
+ *   `FAVORITE_REST_WEEKS` earns all of it. This is what stops three hearted
+ *   dishes from reappearing every single week.
+ * - **crowding** (`favoriteCrowdingFactor`): the bonus tapers as favorites
+ *   accumulate in the week being built, so a long list of well-rested
+ *   favorites yields a couple of re-runs, not a menu of them.
+ *
+ * `alreadyChosen` is the week-so-far — `selected` for a main, the plate plus
+ * the rest of the week for a side. Neither damper can ever push the bonus
+ * negative or above 1, so `WEIGHTS.favorite` remains the hard ceiling on
+ * this factor's contribution.
+ */
+function favoriteBonus(recipe: Recipe, ctx: GenerateContext, alreadyChosen: Recipe[]): number {
+  const favorites = ctx.favoriteRecipeIds;
+  if (!favorites?.includes(recipe.id)) return 0;
+  const rest = favoriteRestFactor(ctx.recencyByRecipeId?.[recipe.id]);
+  const favoritesSoFar = alreadyChosen.filter((r) => favorites.includes(r.id)).length;
+  return rest * favoriteCrowdingFactor(favoritesSoFar);
+}
+
+/**
+ * Cross-week repeat discouragement (0–1, subtracted): a main that was on a
+ * recent plan is steered away from, fading to nothing after
+ * `REPEAT_FADE_WEEKS`. Soft by design — a repeat that's still the best
+ * pantry match can and should win anyway; the point is that the engine stops
+ * reproducing near-identical weeks (AUDIT.md B7/P1.2). Sides have no entry in
+ * the recency map, so this is a no-op for them (see rotation.ts on why that's
+ * deliberate).
+ */
+function repeatPenalty(recipe: Recipe, ctx: GenerateContext): number {
+  return repeatPenaltyFactor(ctx.recencyByRecipeId?.[recipe.id]);
 }
 
 /** M2.4: flat bonus for hand-curated recipes (id not prefixed `mealdb-`). */
@@ -176,7 +219,11 @@ function learnedDialsFit(recipe: Recipe, ctx: GenerateContext): number {
     parts.push(vegScores.reduce((a, b) => a + b, 0) / vegScores.length);
   }
 
-  return clampSigned(parts.reduce((a, b) => a + b, 0) / parts.length);
+  // Damped by rating volume for the same reason as `affinityBonus`: these
+  // dials move off a handful of checkboxes, and a first week's worth of them
+  // shouldn't carry the authority of a season's worth.
+  const raw = clampSigned(parts.reduce((a, b) => a + b, 0) / parts.length);
+  return raw * learningConfidence(prefs.mealsRated);
 }
 
 function ratingsPenalty(recipe: Recipe, ctx: GenerateContext): number {
@@ -197,7 +244,7 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
     w.pantry * pantryOverlap(recipe, ctx.pantry) +
     w.preference * preferenceMatch(recipe, ctx) +
     w.affinity * affinityBonus(recipe, ctx) +
-    w.favorite * favoriteBonus(recipe, ctx) +
+    w.favorite * favoriteBonus(recipe, ctx, selected) +
     w.curated * curatedBonus(recipe) +
     w.kidApproved * kidApprovedBonus(recipe, ctx) +
     w.learnedDials * learnedDialsFit(recipe, ctx) +
@@ -209,7 +256,8 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
     w.adventurous * adventurousFit(recipe, ctx) +
     w.season * seasonFit(recipe, ctx) +
     w.wasteFit * wasteFitBonus(recipe, ctx.weekRecipes ?? selected) -
-    w.ratingsPenalty * ratingsPenalty(recipe, ctx)
+    w.ratingsPenalty * ratingsPenalty(recipe, ctx) -
+    w.repeat * repeatPenalty(recipe, ctx)
   );
 }
 
@@ -237,11 +285,16 @@ function cuisineFitBonus(recipe: Recipe, main: Recipe): number {
  */
 export function scoreSide(side: Recipe, main: Recipe, ctx: GenerateContext): number {
   const w = weightsFor(ctx);
+  // The plate plus the rest of the week — what `favoriteBonus` measures
+  // favorite crowding against. No `repeatPenalty` term appears below: side
+  // repeats are not a defect (rotation.ts explains why, and the recency map
+  // holds no side entries anyway).
+  const chosenSoFar = [main, ...(ctx.weekRecipes ?? [])];
   return (
     w.pantry * pantryOverlap(side, ctx.pantry) +
     w.preference * preferenceMatch(side, ctx) +
     w.affinity * affinityBonus(side, ctx) +
-    w.favorite * favoriteBonus(side, ctx) +
+    w.favorite * favoriteBonus(side, ctx, chosenSoFar) +
     w.curated * curatedBonus(side) +
     w.kidApproved * kidApprovedBonus(side, ctx) +
     w.learnedDials * learnedDialsFit(side, ctx) +

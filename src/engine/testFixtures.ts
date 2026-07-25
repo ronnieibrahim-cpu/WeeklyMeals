@@ -2,6 +2,7 @@ import { createDefaultProfile, createIntakeFromProfile } from '@/domain/defaults
 import { IntakeAnswers, PlannedMeal, PreferenceProfile, Profile, Recipe, WeeklyPlan } from '@/domain/models';
 
 import { createDefaultPreferences } from './learning';
+import { CONFIDENCE_FULL_AT_RATINGS } from './rotation';
 
 /** Not a *.test.ts file, so jest's testMatch (src/engine/**\/*.test.ts) skips it. */
 
@@ -49,8 +50,17 @@ export function makeIntake(profile: Profile, overrides: Partial<IntakeAnswers> =
   return { ...createIntakeFromProfile(profile), ...overrides };
 }
 
+/**
+ * A PreferenceProfile with enough rating history that learned signals count
+ * at full strength (`mealsRated: CONFIDENCE_FULL_AT_RATINGS` — see
+ * rotation.ts's `learningConfidence`). Learned affinity and the learned dials
+ * are damped in proportion to how much has actually been rated, so a fixture
+ * left at the real default of `mealsRated: 0` would silently zero out the
+ * very signal a dial/affinity test is trying to exercise. Tests about the
+ * damping itself set `mealsRated` explicitly.
+ */
 export function makePreferences(overrides: Partial<PreferenceProfile> = {}): PreferenceProfile {
-  return { ...createDefaultPreferences(), ...overrides };
+  return { ...createDefaultPreferences(), mealsRated: CONFIDENCE_FULL_AT_RATINGS, ...overrides };
 }
 
 export function makeMeal(overrides: Partial<PlannedMeal> & Pick<PlannedMeal, 'recipeId' | 'dayIndex'>): PlannedMeal {
