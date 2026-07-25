@@ -185,14 +185,72 @@ export default function RerollScreen() {
 
   const { candidates, nearMisses } = outcome;
 
+  /**
+   * The "needs a couple of things" section. Rendered BELOW the fully-cookable
+   * options when the strict list is thin, and on its own when nothing at all
+   * is fully cookable. Either way it stays visually separate and every entry
+   * spells out exactly what's missing — picking one still never touches the
+   * shopping list by itself (Law #1); that's the explicit add step after the
+   * swap.
+   */
+  const nearMissSection =
+    nearMisses.length === 0 ? null : (
+      <>
+        <Text variant="headline" style={{ marginTop: theme.spacing.xl, marginBottom: theme.spacing.sm }}>
+          {candidates.length > 0 ? 'Close — needs a couple of things' : 'Nothing can be made entirely from what you have'}
+        </Text>
+        <Text variant="body" color="secondary" style={{ marginBottom: theme.spacing.lg }}>
+          {candidates.length > 0
+            ? "These aren't fully covered by what you have. Pick one and I'll tell you exactly what to grab (it won't touch your shopping list automatically)."
+            : "These are close — pick one and I'll tell you exactly what to grab (it won't touch your shopping list automatically)."}
+        </Text>
+        {nearMisses.map(({ recipe, sideRecipeIds, missing }) => (
+          <Card
+            key={recipe.id}
+            onPress={() => commit(recipe.id, sideRecipeIds)}
+            style={{ marginBottom: theme.spacing.md }}
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+              {keepMain ? <Ionicons name="lock-closed" size={14} color={theme.colors.accent} /> : null}
+              <Text variant="headline">{recipe.name}</Text>
+            </View>
+            <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
+              {recipe.cuisine} · {recipe.difficulty}
+            </Text>
+            {renderSides(sideRecipeIds)}
+            <Text variant="footnote" color="accent" style={{ marginTop: theme.spacing.xs }}>
+              You'll need: {missing.join(', ')}
+            </Text>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="View recipe"
+              onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: theme.spacing.sm }}
+            >
+              <Ionicons name="book-outline" size={16} color={theme.colors.accent} />
+              <Text variant="footnote" color="accent">
+                View recipe
+              </Text>
+            </Pressable>
+          </Card>
+        ))}
+      </>
+    );
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['top', 'left', 'right']}>
       {header}
       <ScrollView contentContainerStyle={{ padding: theme.spacing.xl, paddingTop: 0 }} showsVerticalScrollIndicator={false}>
+        {/* Copy must match what's actually offered below. Near-misses now
+            appear alongside a thin strict list, so the old "only meals fully
+            covered … are offered" line would be a promise the screen no
+            longer keeps (Law #3). What holds — and what this says — is that
+            anything needing a shop is labeled as such and separated out, and
+            that nothing here edits the list on its own (Law #1). */}
         <Text variant="body" color="secondary" style={{ marginBottom: theme.spacing.lg }}>
-          Swapping out <Text variant="body" style={{ fontWeight: '600' }}>{outgoingRecipe.name}</Text> — only
-          meals fully covered by your pantry and this week's shopping list are offered, so this never adds a
-          store trip.
+          Swapping out <Text variant="body" style={{ fontWeight: '600' }}>{outgoingRecipe.name}</Text> — meals
+          you can cook from your pantry and this week's shopping list come first, so a swap never means a store
+          trip.
         </Text>
 
         <Card style={{ marginBottom: theme.spacing.lg }}>
@@ -257,59 +315,17 @@ export default function RerollScreen() {
                 />
                 {candidates.length > 1 ? (
                   <SecondaryButton
-                    title="Try another"
+                    title={`Try another (${(index % candidates.length) + 1} of ${candidates.length})`}
                     onPress={() => setIndex((i) => i + 1)}
                     style={{ marginTop: theme.spacing.md }}
                   />
                 ) : null}
+                {nearMissSection}
               </>
             );
           })()
         ) : nearMisses.length > 0 ? (
-          <>
-            <Text variant="headline" style={{ marginBottom: theme.spacing.sm }}>
-              Nothing can be made entirely from what you have
-            </Text>
-            <Text variant="body" color="secondary" style={{ marginBottom: theme.spacing.lg }}>
-              These are close — pick one and I'll tell you exactly what to grab (it won't touch your shopping
-              list automatically).
-            </Text>
-            {nearMisses.map(({ recipe, sideRecipeIds, missing }) => (
-              <Card
-                key={recipe.id}
-                onPress={() => commit(recipe.id, sideRecipeIds)}
-                style={{ marginBottom: theme.spacing.md }}
-              >
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                  {keepMain ? <Ionicons name="lock-closed" size={14} color={theme.colors.accent} /> : null}
-                  <Text variant="headline">{recipe.name}</Text>
-                </View>
-                <Text variant="subhead" color="secondary" style={{ marginTop: 2 }}>
-                  {recipe.cuisine} · {recipe.difficulty}
-                </Text>
-                {renderSides(sideRecipeIds)}
-                <Text variant="footnote" color="accent" style={{ marginTop: theme.spacing.xs }}>
-                  You'll need: {missing.join(', ')}
-                </Text>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="View recipe"
-                  onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 4,
-                    marginTop: theme.spacing.sm,
-                  }}
-                >
-                  <Ionicons name="book-outline" size={16} color={theme.colors.accent} />
-                  <Text variant="footnote" color="accent">
-                    View recipe
-                  </Text>
-                </Pressable>
-              </Card>
-            ))}
-          </>
+          nearMissSection
         ) : (
           <Text variant="body" color="secondary">
             Nothing fits what you already have on hand this week, even loosely. Try adding a few pantry items,

@@ -406,9 +406,17 @@ the identical result regardless of order, or they ping-pong forever.
 1. **Never silently modify the shopping list.** Features may say "you'll need X, Y"
    and offer an **explicit** add button. Nothing adds/removes items unasked. (Applies
    to re-roll, pin-to-week, and everything after.)
-2. **Strict re-roll:** a mid-week re-roll only offers meals cookable from pantry +
-   this week's list + staples. No surprise store trips. If nothing qualifies, show
-   near-misses labeled with exactly what's missing. **Since M4.2 part 2, this applies
+2. **Strict re-roll:** a mid-week re-roll's *fully-cookable* offers are meals cookable
+   from pantry + this week's list + staples. No surprise store trips. **Near-misses
+   (missing 1-2 items, each labeled with exactly what's missing) now appear ALONGSIDE
+   a thin strict list** — below it, in a separate labeled section — not only when
+   nothing qualifies at all; a change of shape approved by Ronnie (July 2026) after
+   `scripts/checkRerollPool.ts` measured the fully-cookable pool at well under one
+   plate per mid-week scenario. The substance is unchanged and non-negotiable:
+   cookable-now options always come first, anything needing a shop is labeled as
+   such, and choosing one never edits the shopping list by itself (law #1). Sides are
+   composed from **on-hand sides only**, so a cookable main is never disqualified by a
+   side pick you can't make. **Since M4.2 part 2, this applies
    to the WHOLE PLATE** — main and composed sides together, not the main alone; a
    candidate's sides are checked for coverage too, and the plate offered as a
    candidate is exactly the plate committed (never recomposed at commit time).

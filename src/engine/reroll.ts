@@ -83,10 +83,100 @@ export interface RerollNearMiss extends RerollCandidate {
 }
 
 export interface RerollOutcome {
-  /** Fully coverable candidates, ranked best-first (top 5). Empty if none qualify. */
+  /** Fully coverable candidates, ranked best-first and diversified by cuisine
+   * (up to `MAX_CANDIDATES`). Empty if none qualify. */
   candidates: RerollCandidate[];
-  /** Up to 3 near-misses (each missing 1-2 ingredients across the whole plate), only populated when `candidates` is empty. */
+  /**
+   * Up to `MAX_NEAR_MISSES` plates each missing 1-2 ingredients across the
+   * whole plate. Populated whenever the strict pool is thin
+   * (`< NEAR_MISS_THRESHOLD` candidates), not only when it's empty — so a
+   * sparse week offers real alternatives instead of a choice of three.
+   * The caller must present them as a clearly separate, labeled section
+   * BELOW the coverable candidates, never mixed in: Law #2's substance is
+   * that a re-roll never implies a surprise store trip, and these are only
+   * honest as "here's exactly what you'd need to grab."
+   */
   nearMisses: RerollNearMiss[];
+}
+
+/**
+ * How many coverable plates a re-roll offers, and when it also surfaces
+ * near-misses.
+ *
+ * The old cap was 5 with near-misses shown ONLY when nothing qualified. In
+ * practice the offered pool was routinely three: mid-week, `available` is
+ * pantry + this week's list, so few OTHER plates are fully coverable — and
+ * the biggest, most invisible shrinker was side composition. `composeSides`
+ * picks the best-scoring sides with no notion of what's on hand, so a
+ * perfectly coverable main was thrown out whenever its winning side happened
+ * to need something you didn't have (see `coverableSides`).
+ */
+const MAX_CANDIDATES = 8;
+/**
+ * 3 -> 5. `scripts/checkRerollPool.ts` measures the fully-cookable pool at
+ * well under one plate per scenario with an empty pantry: mid-week,
+ * `available` is essentially this week's own shopping list, and few of 230
+ * other mains are entirely covered by it. Widening the strict pool helps but
+ * cannot fix that on its own, so the labeled "needs a couple of things" list
+ * is what actually turns a re-roll into a choice. Each entry still spells out
+ * exactly what's missing and still never touches the list on its own.
+ */
+const MAX_NEAR_MISSES = 5;
+const NEAR_TIE_THRESHOLD = 5;
+/** Below this many coverable plates, near-misses are offered alongside. At or
+ * above it the strict list is already a real choice and near-misses stay
+ * hidden — no store-trip pressure in a week that doesn't need it. */
+const NEAR_MISS_THRESHOLD = NEAR_TIE_THRESHOLD;
+
+/**
+ * Sides that are themselves fully coverable from `available`. Composing a
+ * candidate plate from only these makes the sides half of every plate
+ * coverable BY CONSTRUCTION, so a main's eligibility comes down to the main's
+ * own ingredients instead of an unlucky side pick. This strictly grows the
+ * offered pool without loosening Law #2 one inch — the best side is still the
+ * best side whenever it's actually on hand; only sides you can't make are
+ * removed from consideration. A plate may end up with fewer sides as a
+ * result, which `composeSides` already handles as its documented best-effort
+ * behavior.
+ */
+function coverableSides(sidesPool: Recipe[], available: Set<string>): Recipe[] {
+  return sidesPool.filter((s) => missingIngredients(s, available).length === 0);
+}
+
+/**
+ * At most one plate per cuisine first, then backfill with the next-best
+ * remaining — the same shape `rankReplacements` uses for draft swaps, and for
+ * the same reason: without it "try another" can walk through several
+ * near-identical dishes whenever one cuisine dominates the ranking, which is
+ * a choice that isn't a choice. Input must already be ranked best-first;
+ * this only reorders and caps, never re-scores.
+ */
+function diversifyByCuisine(ranked: RerollCandidate[], count: number): RerollCandidate[] {
+  const picks: RerollCandidate[] = [];
+  const usedCuisines = new Set<Recipe['cuisine']>();
+  for (const candidate of ranked) {
+    if (picks.length >= count) break;
+    if (usedCuisines.has(candidate.recipe.cuisine)) continue;
+    picks.push(candidate);
+    usedCuisines.add(candidate.recipe.cuisine);
+  }
+  const pickedIds = new Set(picks.map((c) => c.recipe.id));
+  for (const candidate of ranked) {
+    if (picks.length >= count) break;
+    if (pickedIds.has(candidate.recipe.id)) continue;
+    picks.push(candidate);
+    pickedIds.add(candidate.recipe.id);
+  }
+  return picks;
+}
+
+/** Assemble the final outcome: cuisine-diversified coverable plates, plus
+ * near-misses when (and only when) the strict pool is thin. */
+function outcomeFrom(candidates: RerollCandidate[], nearMisses: RerollNearMiss[]): RerollOutcome {
+  return {
+    candidates,
+    nearMisses: candidates.length < NEAR_MISS_THRESHOLD ? nearMisses.slice(0, MAX_NEAR_MISSES) : [],
+  };
 }
 
 /**
@@ -195,36 +285,51 @@ export function rerollCandidates(
     return rerollKeepSides(pool, sidesPool, sidesById, keptSideIds, available, ctx, selectedRecipes);
   }
 
-  // No-keep (default): unchanged M2.2/M4.2 part 2 whole-plate re-roll.
+  // No-keep (default): the M2.2/M4.2 part 2 whole-plate re-roll.
+  const onHandSides = coverableSides(sidesPool, available);
   const coverable: RerollCandidate[] = [];
   const shortfalls: RerollNearMiss[] = [];
   for (const r of pool) {
     // M4.3: score this candidate's sides for waste-fit against the rest of
     // the week's already-fixed mains (`selectedRecipes` — everything except
-    // the outgoing day being re-rolled).
-    const sideRecipeIds = composeSides(r, sidesPool, { ...ctx, weekRecipes: selectedRecipes });
+    // the outgoing day being re-rolled). Composed from the on-hand sides
+    // only, so a coverable main is never disqualified by its side pick.
+    const sideRecipeIds = composeSides(r, onHandSides, { ...ctx, weekRecipes: selectedRecipes });
     const sides = sideRecipeIds.map((id) => sidesById.get(id)).filter((s): s is Recipe => !!s);
     const missing = missingIngredientsForPlate(r, sides, available);
     if (missing.length === 0) coverable.push({ recipe: r, sideRecipeIds });
     else if (missing.length <= 2) shortfalls.push({ recipe: r, sideRecipeIds, missing });
   }
 
-  if (coverable.length > 0) {
-    const ranked = [...coverable].sort(
-      (a, b) => scoreRecipe(b.recipe, ctx, selectedRecipes) - scoreRecipe(a.recipe, ctx, selectedRecipes),
-    );
-    return { candidates: ranked.slice(0, 5), nearMisses: [] };
-  }
+  return outcomeFrom(
+    diversifyByCuisine(rankCandidates(coverable, ctx, selectedRecipes), MAX_CANDIDATES),
+    rankNearMisses(shortfalls, ctx, selectedRecipes),
+  );
+}
 
-  const nearMisses = shortfalls
-    .sort(
-      (a, b) =>
-        a.missing.length - b.missing.length ||
-        scoreRecipe(b.recipe, ctx, selectedRecipes) - scoreRecipe(a.recipe, ctx, selectedRecipes),
-    )
-    .slice(0, 3);
+/** Coverable plates, best-first. Deterministic: ties break by the stable
+ * sort's input order, never shuffled (unlike draft generation). */
+function rankCandidates(
+  coverable: RerollCandidate[],
+  ctx: GenerateContext,
+  selectedRecipes: Recipe[],
+): RerollCandidate[] {
+  return [...coverable].sort(
+    (a, b) => scoreRecipe(b.recipe, ctx, selectedRecipes) - scoreRecipe(a.recipe, ctx, selectedRecipes),
+  );
+}
 
-  return { candidates: [], nearMisses };
+/** Near-misses, fewest missing ingredients first, then best-scoring. */
+function rankNearMisses(
+  shortfalls: RerollNearMiss[],
+  ctx: GenerateContext,
+  selectedRecipes: Recipe[],
+): RerollNearMiss[] {
+  return [...shortfalls].sort(
+    (a, b) =>
+      a.missing.length - b.missing.length ||
+      scoreRecipe(b.recipe, ctx, selectedRecipes) - scoreRecipe(a.recipe, ctx, selectedRecipes),
+  );
 }
 
 /**
@@ -245,6 +350,7 @@ function rerollKeepSides(
 ): RerollOutcome {
   const keptSides = keptSideIds.map((id) => sidesById.get(id)).filter((s): s is Recipe => !!s);
   const keptSideIdSet = new Set(keptSideIds);
+  const onHandSides = coverableSides(sidesPool, available);
 
   const coverable: RerollCandidate[] = [];
   const shortfalls: RerollNearMiss[] = [];
@@ -272,7 +378,10 @@ function rerollKeepSides(
     for (const side of keptSides) for (const p of side.provides ?? []) plateProvides.add(p as Provides);
 
     if (sideRecipeIds.length < 2 && !hardMinimumMet(plateProvides)) {
-      const remainingPool = sidesPool.filter((s) => !keptSideIdSet.has(s.id));
+      // Top up from on-hand sides only, same reason as the no-keep path: a
+      // main that pairs with the kept part shouldn't be lost to a side pick
+      // that isn't cookable this week.
+      const remainingPool = onHandSides.filter((s) => !keptSideIdSet.has(s.id));
       const additions = composeSides(main, remainingPool, { ...ctx, weekRecipes: selectedRecipes });
       sideRecipeIds = [...sideRecipeIds, ...additions.slice(0, 2 - sideRecipeIds.length)];
     }
@@ -283,31 +392,24 @@ function rerollKeepSides(
     else if (missing.length <= 2) shortfalls.push({ recipe: main, sideRecipeIds, missing });
   }
 
-  if (coverable.length > 0) {
-    const keptCuisines = new Set(keptSides.map((s) => s.cuisine));
-    // M4.5: nudge a candidate main toward the front of the ranking when its
-    // cuisine matches a kept side/sauce's — "candidates are mains that pair
-    // with the kept part (cuisine fit)" (MILESTONE-4.md §M4.5). Reuses
-    // `WEIGHTS.sideCuisineFit`'s magnitude — the existing side-vs-main
-    // cuisine nudge in scoring.ts — because it's the same kind of
-    // tie-breaking signal one level up the plate. Deliberately a local
-    // sort-key adjustment rather than a change to `scoreRecipe`, which has
-    // no notion of "kept parts" and shouldn't grow one just for this screen.
-    const sortKey = (c: RerollCandidate) =>
-      scoreRecipe(c.recipe, ctx, selectedRecipes) + (keptCuisines.has(c.recipe.cuisine) ? WEIGHTS.sideCuisineFit : 0);
-    const ranked = [...coverable].sort((a, b) => sortKey(b) - sortKey(a));
-    return { candidates: ranked.slice(0, 5), nearMisses: [] };
-  }
+  const keptCuisines = new Set(keptSides.map((s) => s.cuisine));
+  // M4.5: nudge a candidate main toward the front of the ranking when its
+  // cuisine matches a kept side/sauce's — "candidates are mains that pair
+  // with the kept part (cuisine fit)" (MILESTONE-4.md §M4.5). Reuses
+  // `WEIGHTS.sideCuisineFit`'s magnitude — the existing side-vs-main
+  // cuisine nudge in scoring.ts — because it's the same kind of
+  // tie-breaking signal one level up the plate. Deliberately a local
+  // sort-key adjustment rather than a change to `scoreRecipe`, which has
+  // no notion of "kept parts" and shouldn't grow one just for this screen.
+  const sortKey = (c: RerollCandidate) =>
+    scoreRecipe(c.recipe, ctx, selectedRecipes) + (keptCuisines.has(c.recipe.cuisine) ? WEIGHTS.sideCuisineFit : 0);
+  const ranked = [...coverable].sort((a, b) => sortKey(b) - sortKey(a));
 
-  const nearMisses = shortfalls
-    .sort(
-      (a, b) =>
-        a.missing.length - b.missing.length ||
-        scoreRecipe(b.recipe, ctx, selectedRecipes) - scoreRecipe(a.recipe, ctx, selectedRecipes),
-    )
-    .slice(0, 3);
-
-  return { candidates: [], nearMisses };
+  // Cuisine diversification is deliberately NOT applied here: this mode's
+  // whole point is mains that pair with the kept part, and the sort key above
+  // already rewards exactly that cuisine. Spreading candidates across cuisines
+  // would fight it.
+  return outcomeFrom(ranked.slice(0, MAX_CANDIDATES), rankNearMisses(shortfalls, ctx, selectedRecipes));
 }
 
 /**
@@ -344,6 +446,10 @@ function rerollKeepMain(
         !blocked.has(s.id) &&
         passesHardFilters(s, ctx.intake, ctx.profile) &&
         fitsCombinedTime(outgoingMain, s, ctx.intake) &&
+        // On-hand only, same rule as the other two modes — composing an
+        // alternative plate out of sides you can't cook this week just burns
+        // one of the three offers.
+        missingIngredients(s, available).length === 0 &&
         !excludeIds.has(s.id),
     );
     const rawAdditions = composeSides(outgoingMain, eligiblePool, { ...ctx, weekRecipes: selectedRecipes });
@@ -379,8 +485,13 @@ function rerollKeepMain(
     else if (missing.length <= 2) shortfalls.push({ ...alt, missing });
   }
 
+  // Keep-main keeps the original empty-only fallback rather than the
+  // alongside rule the other two modes use: this mode offers at most 3
+  // alternative plates for a FIXED main by design, so "fewer than
+  // NEAR_MISS_THRESHOLD coverable" is always true here and the rule would
+  // degenerate into "always show near-misses".
   if (coverable.length > 0) return { candidates: coverable, nearMisses: [] };
-  return { candidates: [], nearMisses: shortfalls.slice(0, 3) };
+  return { candidates: [], nearMisses: shortfalls.slice(0, MAX_NEAR_MISSES) };
 }
 
 /**

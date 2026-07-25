@@ -1,3 +1,5 @@
+import { Recipe } from '@/domain/models';
+
 import { GenerateContext } from './recommendation/types';
 import { availableIngredients, missingIngredients, pinBlockReason, pinnableDays, rerollCandidates } from './reroll';
 import { makeIntake, makeMeal, makePlan, makeProfile, makeRecipe } from './testFixtures';
@@ -257,7 +259,15 @@ describe('rerollCandidates — whole-plate evaluation (M4.2 part 2)', () => {
     expect(candidate?.sideRecipeIds).toEqual(['side-candidate']);
   });
 
-  it('excludes a candidate whose composed side needs an ingredient not on hand — the plate is evaluated as a whole', () => {
+  /**
+   * Sides are composed from on-hand sides only. Before this, `composeSides`
+   * picked the best-scoring side with no notion of what was in the kitchen,
+   * so a perfectly cookable main was demoted to a near-miss (or dropped)
+   * whenever its winning side happened to need something you didn't have —
+   * the single biggest reason the offered pool kept coming back as three.
+   * Strictness is untouched: what's offered must still be cookable in full.
+   */
+  describe('side composition respects what is on hand', () => {
     const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
     const main = makeRecipe({
       id: 'main-candidate',
@@ -265,29 +275,180 @@ describe('rerollCandidates — whole-plate evaluation (M4.2 part 2)', () => {
       provides: ['protein'],
       ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
     });
-    // Only one side candidate exists, and it needs an ingredient that isn't
-    // available — composeSides will still pick it (best-effort), so the
-    // WHOLE PLATE isn't coverable even though the main alone would be.
     const unavailableSide = makeRecipe({
-      id: 'side-candidate',
+      id: 'unavailable-side',
       role: 'side',
       provides: ['vegetable'],
       primaryProtein: 'None',
+      // Scores ahead of the on-hand side below (kid-approved), so the old
+      // code would have picked it and lost the whole plate.
       ingredients: [{ name: 'asparagus', quantity: 1, unit: 'lb', department: 'Produce' }],
     });
+    const onHandSide = makeRecipe({
+      id: 'on-hand-side',
+      role: 'side',
+      provides: ['vegetable'],
+      primaryProtein: 'None',
+      ingredients: [{ name: 'broccoli', quantity: 1, unit: 'lb', department: 'Produce' }],
+    });
     const plan = makePlan({ meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0 })] });
-    const recipes = [outgoing, main, unavailableSide];
-    const ctx = ctxFor();
-    const available = new Set(['chicken']); // no asparagus on hand
 
-    const outcome = rerollCandidates(plan, 0, recipes, (id) => recipes.find((r) => r.id === id), available, ctx);
+    it('offers the main with a side it can actually cook instead of dropping it', () => {
+      const recipes = [outgoing, main, unavailableSide, onHandSide];
+      const available = new Set(['chicken', 'broccoli']); // no asparagus
+      const ctx = ctxFor({ kidApprovedRecipeIds: ['unavailable-side'] });
 
-    expect(outcome.candidates.map((c) => c.recipe.id)).not.toContain('main-candidate');
-    // Missing only one ingredient (asparagus) across the whole plate, so it
-    // should show up as a near-miss instead, carrying the same composed side.
-    const nearMiss = outcome.nearMisses.find((n) => n.recipe.id === 'main-candidate');
-    expect(nearMiss?.sideRecipeIds).toEqual(['side-candidate']);
-    expect(nearMiss?.missing).toEqual(['asparagus']);
+      const outcome = rerollCandidates(plan, 0, recipes, (id) => recipes.find((r) => r.id === id), available, ctx);
+
+      const candidate = outcome.candidates.find((c) => c.recipe.id === 'main-candidate');
+      expect(candidate?.sideRecipeIds).toEqual(['on-hand-side']);
+    });
+
+    it('still offers the main with a short plate when no side at all is on hand', () => {
+      // Best-effort plates are already the documented composeSides behavior;
+      // a cookable dinner beats a dinner that needs a store trip.
+      const recipes = [outgoing, main, unavailableSide];
+      const available = new Set(['chicken']);
+      const ctx = ctxFor();
+
+      const outcome = rerollCandidates(plan, 0, recipes, (id) => recipes.find((r) => r.id === id), available, ctx);
+
+      const candidate = outcome.candidates.find((c) => c.recipe.id === 'main-candidate');
+      expect(candidate).toBeDefined();
+      expect(candidate?.sideRecipeIds).toEqual([]);
+    });
+
+    it('never puts a side it cannot cook on an offered plate (Law #2)', () => {
+      const recipes = [outgoing, main, unavailableSide, onHandSide];
+      const available = new Set(['chicken', 'broccoli']);
+      const ctx = ctxFor();
+
+      const outcome = rerollCandidates(plan, 0, recipes, (id) => recipes.find((r) => r.id === id), available, ctx);
+
+      for (const candidate of outcome.candidates) {
+        for (const sideId of candidate.sideRecipeIds) {
+          const side = recipes.find((r) => r.id === sideId)!;
+          expect(missingIngredients(side, available)).toEqual([]);
+        }
+      }
+    });
+  });
+});
+
+/**
+ * Pool size and shape. Reported: "the re-roll pool is too small, often only
+ * three, and those include favorites." Three things changed — the cap (5 ->
+ * 8), cuisine diversification so "try another" walks through genuinely
+ * different dishes, and near-misses offered alongside a thin strict list
+ * rather than only when it's empty.
+ */
+describe('rerollCandidates — pool size and shape', () => {
+  const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+  const plan = makePlan({ meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0 })] });
+
+  /** `count` coverable mains, cycling through `cuisines`. */
+  function mainsFor(count: number, cuisines: Recipe['cuisine'][]): Recipe[] {
+    return Array.from({ length: count }, (_, i) =>
+      makeRecipe({
+        id: `main-${i}`,
+        cuisine: cuisines[i % cuisines.length],
+        ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+      }),
+    );
+  }
+
+  it('offers up to 8 coverable plates, not 5', () => {
+    const mains = mainsFor(12, ['Italian', 'Thai', 'Mexican', 'Greek', 'Indian', 'French']);
+    const recipes = [outgoing, ...mains];
+
+    const outcome = rerollCandidates(
+      plan, 0, recipes, (id) => recipes.find((r) => r.id === id), new Set(['chicken']), ctxFor(),
+    );
+
+    expect(outcome.candidates).toHaveLength(8);
+  });
+
+  it('leads with one plate per cuisine rather than a run of near-identical dishes', () => {
+    // 10 Italian mains and 3 others: without diversification the first
+    // several offers would all be Italian.
+    const italian = Array.from({ length: 10 }, (_, i) =>
+      makeRecipe({
+        id: `italian-${i}`,
+        cuisine: 'Italian',
+        ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+      }),
+    );
+    const others = mainsFor(3, ['Thai', 'Mexican', 'Greek']);
+    const recipes = [outgoing, ...italian, ...others];
+
+    const outcome = rerollCandidates(
+      plan, 0, recipes, (id) => recipes.find((r) => r.id === id), new Set(['chicken']), ctxFor(),
+    );
+
+    const firstFourCuisines = outcome.candidates.slice(0, 4).map((c) => c.recipe.cuisine);
+    expect(new Set(firstFourCuisines).size).toBe(4);
+    // Backfill still uses the remaining best candidates, so the list is full.
+    expect(outcome.candidates).toHaveLength(8);
+  });
+
+  it('offers near-misses alongside a thin strict list, not only when it is empty', () => {
+    const coverableMains = mainsFor(2, ['Italian', 'Thai']);
+    const nearMissMain = makeRecipe({
+      id: 'near-miss',
+      cuisine: 'Greek',
+      ingredients: [
+        { name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' },
+        { name: 'feta', quantity: 1, unit: 'oz', department: 'Dairy' },
+      ],
+    });
+    const recipes = [outgoing, ...coverableMains, nearMissMain];
+
+    const outcome = rerollCandidates(
+      plan, 0, recipes, (id) => recipes.find((r) => r.id === id), new Set(['chicken']), ctxFor(),
+    );
+
+    expect(outcome.candidates).toHaveLength(2);
+    expect(outcome.nearMisses.map((n) => n.recipe.id)).toEqual(['near-miss']);
+    expect(outcome.nearMisses[0].missing).toEqual(['feta']);
+  });
+
+  it('hides near-misses once the strict list is a real choice on its own', () => {
+    const coverableMains = mainsFor(6, ['Italian', 'Thai', 'Mexican', 'Greek', 'Indian', 'French']);
+    const nearMissMain = makeRecipe({
+      id: 'near-miss',
+      cuisine: 'Japanese',
+      ingredients: [
+        { name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' },
+        { name: 'miso', quantity: 1, unit: 'oz', department: 'DryGoods' },
+      ],
+    });
+    const recipes = [outgoing, ...coverableMains, nearMissMain];
+
+    const outcome = rerollCandidates(
+      plan, 0, recipes, (id) => recipes.find((r) => r.id === id), new Set(['chicken']), ctxFor(),
+    );
+
+    expect(outcome.candidates.length).toBeGreaterThanOrEqual(5);
+    expect(outcome.nearMisses).toEqual([]);
+  });
+
+  it('every offered candidate is fully coverable, however long the list gets (Law #2)', () => {
+    const mains = mainsFor(12, ['Italian', 'Thai', 'Mexican']);
+    const needsShopping = makeRecipe({
+      id: 'needs-shopping',
+      ingredients: [{ name: 'saffron', quantity: 1, unit: 'oz', department: 'Spices' }],
+    });
+    const recipes = [outgoing, ...mains, needsShopping];
+    const available = new Set(['chicken']);
+
+    const outcome = rerollCandidates(
+      plan, 0, recipes, (id) => recipes.find((r) => r.id === id), available, ctxFor(),
+    );
+
+    for (const candidate of outcome.candidates) {
+      expect(missingIngredients(candidate.recipe, available)).toEqual([]);
+    }
+    expect(outcome.candidates.map((c) => c.recipe.id)).not.toContain('needs-shopping');
   });
 });
 
