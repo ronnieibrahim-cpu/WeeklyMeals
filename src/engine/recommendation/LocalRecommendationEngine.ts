@@ -62,7 +62,7 @@ export class LocalRecommendationEngine implements RecommendationProvider {
     const mains = recipes.filter(isMain);
     const sidesPool = recipes.filter((r) => !isMain(r));
 
-    const pool = mains.filter(
+    const basePool = mains.filter(
       (r) => !blocked.has(r.id) && passesHardFilters(r, ctx.intake, ctx.profile),
     );
 
@@ -72,6 +72,16 @@ export class LocalRecommendationEngine implements RecommendationProvider {
     for (const r of mains) {
       if (lockedIds.has(r.id) && !selected.includes(r)) selected.push(r);
     }
+
+    // `avoidRecipeIds` (regenerate): drop the outgoing picks so the re-pick
+    // is genuinely different, but only while enough candidates remain to
+    // still fill the week — a preference, never a filter (see types.ts). The
+    // comparison is against the number of slots left to fill, so a locked
+    // week needs correspondingly fewer spare candidates.
+    const avoid = new Set(ctx.avoidRecipeIds ?? []);
+    const slotsToFill = Math.max(0, ctx.intake.dinners - selected.length);
+    const trimmedPool = avoid.size > 0 ? basePool.filter((r) => !avoid.has(r.id)) : basePool;
+    const pool = trimmedPool.length >= slotsToFill ? trimmedPool : basePool;
 
     const target = Math.min(ctx.intake.dinners, Math.max(pool.length, selected.length));
 

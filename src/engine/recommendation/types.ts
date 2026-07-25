@@ -21,6 +21,18 @@ export interface GenerateContext {
   favoriteRecipeIds?: string[];
   /** Kid-approved recipes (M3.2) get a modest tie-breaking bonus. */
   kidApprovedRecipeIds?: string[];
+  /**
+   * Mains to leave out of this pass's candidate pool, if the pool can spare
+   * them. This is what makes "Regenerate unlocked" actually re-pick: scoring
+   * is near-deterministic (the near-tie band in LocalRecommendationEngine is
+   * narrow by design), so regenerating without excluding the outgoing picks
+   * re-chooses the same dishes and only appears to shuffle them. NOT a hard
+   * filter and never a safety mechanism — if honoring it would leave fewer
+   * candidates than the week needs, the engine falls back to the full pool
+   * rather than returning a short week (see `generate`). Locked recipes are
+   * unaffected: they're kept from `mains` directly, not drawn from the pool.
+   */
+  avoidRecipeIds?: string[];
   /** M4.3: recipes (mains and, where the caller has them, sides) already
    * fixed for this week — the comparison pool for waste-fit scoring. When
    * absent, scoreRecipe falls back to its `selected` argument. */

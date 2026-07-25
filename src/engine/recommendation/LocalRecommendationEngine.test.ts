@@ -115,6 +115,65 @@ describe('LocalRecommendationEngine.generate', () => {
       expect(meals[0].recipeId).toBe('clear-best');
     }
   });
+
+  // `avoidRecipeIds` is what makes "Regenerate unlocked" produce a different
+  // week: scoring is near-deterministic, so without it the same dishes came
+  // back and only their order appeared to change.
+  describe('avoidRecipeIds', () => {
+    it('leaves avoided mains out of the pool when there are candidates to spare', () => {
+      const engine = new LocalRecommendationEngine();
+      const pool = Array.from({ length: 12 }, (_, i) => makeRecipe({ id: `r-${i}` }));
+      const ctx = ctxFor({ intake: makeIntake(makeProfile(), { dinners: 4 }), avoidRecipeIds: ['r-0', 'r-1', 'r-2'] });
+
+      const ids = engine.generate(ctx, pool).map((m) => m.recipeId);
+
+      expect(ids).not.toContain('r-0');
+      expect(ids).not.toContain('r-1');
+      expect(ids).not.toContain('r-2');
+      expect(ids).toHaveLength(4);
+    });
+
+    it('falls back to the full pool rather than returning a short week', () => {
+      // 5 candidates, 4 of them avoided, 4 dinners wanted: honoring the
+      // avoid list would leave 1 — a preference must never starve the week.
+      const engine = new LocalRecommendationEngine();
+      const pool = Array.from({ length: 5 }, (_, i) => makeRecipe({ id: `r-${i}` }));
+      const ctx = ctxFor({
+        intake: makeIntake(makeProfile(), { dinners: 4 }),
+        avoidRecipeIds: ['r-0', 'r-1', 'r-2', 'r-3'],
+      });
+
+      expect(engine.generate(ctx, pool)).toHaveLength(4);
+    });
+
+    it('never drops a locked recipe just because it is also avoided', () => {
+      // Locked wins: locked meals are carried over verbatim by the caller,
+      // and the engine keeps them from `mains` directly, not from the pool.
+      const engine = new LocalRecommendationEngine();
+      const pool = Array.from({ length: 12 }, (_, i) => makeRecipe({ id: `r-${i}` }));
+      const ctx = ctxFor({
+        intake: makeIntake(makeProfile(), { dinners: 4 }),
+        lockedRecipeIds: ['r-0'],
+        avoidRecipeIds: ['r-0'],
+      });
+
+      expect(engine.generate(ctx, pool).some((m) => m.recipeId === 'r-0' && m.locked)).toBe(true);
+    });
+
+    it('still honors hard filters for the recipes it falls back to', () => {
+      const engine = new LocalRecommendationEngine();
+      const unsafe = makeRecipe({ id: 'unsafe', allergens: ['Peanuts'] });
+      const safe = Array.from({ length: 3 }, (_, i) => makeRecipe({ id: `safe-${i}` }));
+      const profile = makeProfile({ allergies: ['Peanuts'] });
+      const ctx = ctxFor({
+        profile,
+        intake: makeIntake(profile, { dinners: 4 }),
+        avoidRecipeIds: ['safe-0', 'safe-1', 'safe-2'],
+      });
+
+      expect(engine.generate(ctx, [unsafe, ...safe]).some((m) => m.recipeId === 'unsafe')).toBe(false);
+    });
+  });
 });
 
 describe('scoreRecipe curated bonus (M2.4)', () => {

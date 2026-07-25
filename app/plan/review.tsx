@@ -116,7 +116,13 @@ export default function ReviewPlanScreen() {
               recipe={recipe}
               locked={meal.locked}
               badge={recipe.makesLeftovers ? 'leftovers' : undefined}
-              onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id } })}
+              // `pinTarget: 'draft'` matters: without it the recipe viewer
+              // defaults to 'plan', so its pin button targeted the still-active
+              // PREVIOUS week rather than the draft being reviewed here — and
+              // since that week's days are already in the past, every pin came
+              // back "already in this week's plan". Same param the
+              // browse-favorites button below already passes.
+              onPress={() => router.push({ pathname: '/meal/[id]', params: { id: recipe.id, pinTarget: 'draft' } })}
               onToggleLock={() => toggleLock(meal.recipeId)}
               onSwap={() => setSwapDayIndex(meal.dayIndex)}
               kidApproved={!!kidApprovedMap[recipe.id]?.flag}

@@ -1,5 +1,5 @@
 import { GenerateContext } from './recommendation/types';
-import { availableIngredients, missingIngredients, pinnableDays, rerollCandidates } from './reroll';
+import { availableIngredients, missingIngredients, pinBlockReason, pinnableDays, rerollCandidates } from './reroll';
 import { makeIntake, makeMeal, makePlan, makeProfile, makeRecipe } from './testFixtures';
 
 function ctxFor(overrides: Partial<GenerateContext> = {}): GenerateContext {
@@ -798,5 +798,59 @@ describe('pinnableDays (M3.1)', () => {
       meals: [makeMeal({ recipeId: 'already-planned', dayIndex: 3 }), makeMeal({ recipeId: 'r4', dayIndex: 4 })],
     });
     expect(pinnableDays(plan, 'already-planned', today)).toEqual([]);
+  });
+});
+
+/** The bug: the pin screen printed "already in this week's plan" for every
+ * empty `pinnableDays` result, so a week whose days had elapsed (the active
+ * plan, while reviewing next week's draft) claimed the recipe was already
+ * pinned. Each cause now reports itself. */
+describe('pinBlockReason', () => {
+  const today = new Date('2026-07-07T09:00:00.000Z'); // day 2 of a 2026-07-05 week
+
+  it('returns null when at least one day is pinnable', () => {
+    const plan = makePlan({
+      meals: [makeMeal({ recipeId: 'r2', dayIndex: 2 }), makeMeal({ recipeId: 'r3', dayIndex: 3 })],
+    });
+    expect(pinBlockReason(plan, 'new-recipe', today)).toBeNull();
+  });
+
+  it('reports already-in-plan when the recipe is on some day of the week', () => {
+    const plan = makePlan({
+      meals: [makeMeal({ recipeId: 'already-planned', dayIndex: 3 }), makeMeal({ recipeId: 'r4', dayIndex: 4 })],
+    });
+    expect(pinBlockReason(plan, 'already-planned', today)).toBe('already-in-plan');
+  });
+
+  it('reports week-elapsed when no day of the plan is today-or-later', () => {
+    // The reported bug: last week's still-active plan, every day in the past.
+    const plan = makePlan({
+      meals: [makeMeal({ recipeId: 'r0', dayIndex: 0 }), makeMeal({ recipeId: 'r1', dayIndex: 1 })],
+    });
+    expect(pinBlockReason(plan, 'new-recipe', today)).toBe('week-elapsed');
+  });
+
+  it('reports remaining-days-cooked when every upcoming day is already cooked', () => {
+    const plan = makePlan({
+      meals: [
+        makeMeal({ recipeId: 'r1', dayIndex: 1 }), // past, uncooked — not a pin target either way
+        makeMeal({ recipeId: 'r2', dayIndex: 2, cooked: true }),
+        makeMeal({ recipeId: 'r3', dayIndex: 3, cooked: true }),
+      ],
+    });
+    expect(pinBlockReason(plan, 'new-recipe', today)).toBe('remaining-days-cooked');
+  });
+
+  it('agrees with pinnableDays: a reason is present exactly when there are no pinnable days', () => {
+    const cases = [
+      makePlan({ meals: [makeMeal({ recipeId: 'r3', dayIndex: 3 })] }),
+      makePlan({ meals: [makeMeal({ recipeId: 'r0', dayIndex: 0 })] }),
+      makePlan({ meals: [makeMeal({ recipeId: 'r3', dayIndex: 3, cooked: true })] }),
+      makePlan({ meals: [makeMeal({ recipeId: 'target', dayIndex: 3 })] }),
+    ];
+    for (const plan of cases) {
+      const blocked = pinBlockReason(plan, 'target', today) !== null;
+      expect(pinnableDays(plan, 'target', today).length === 0).toBe(blocked);
+    }
   });
 });

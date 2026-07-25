@@ -10,7 +10,7 @@ import { composeSides } from '@/engine/mealComposition';
 import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
 import { moveMeal as moveMealInPlan } from '@/engine/rearrange';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
-import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinnableDays, RerollKeepOptions, RerollOutcome, rerollCandidates } from '@/engine/reroll';
+import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinBlockReason, PinBlockReason, pinnableDays, RerollKeepOptions, RerollOutcome, rerollCandidates } from '@/engine/reroll';
 import { localDateString, localMidnight } from '@/engine/schedule';
 import { seasonForDate } from '@/engine/season';
 import { addIngredientsToShoppingList, applyShoppingListDelta, buildShoppingList, computeServingsDelta, reconcileDeltaWithList } from '@/engine/shoppingList';
@@ -274,6 +274,10 @@ interface PlanState {
    * (already used elsewhere this week, or every remaining day is cooked).
    */
   pinnableDaysFor: (recipeId: string) => number[];
+  /** Why `pinnableDaysFor` came back empty, so the pin screen can say the
+   * true reason instead of assuming "already in the plan" (which was wrong
+   * for a week whose days have simply elapsed). `null` = not blocked. */
+  pinBlockReasonFor: (recipeId: string) => PinBlockReason | null;
   /** Which of `recipeId`'s (and, M4.2 part 2, its freshly-composed sides')
    * non-staple ingredients aren't covered by pantry + this week's shopping
    * list + the day's outgoing plate (same "available" set reroll uses) —
@@ -468,7 +472,38 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!draftPlan || !intake) return;
     const lockedIds = draftPlan.meals.filter((m) => m.locked).map((m) => m.recipeId);
-    const meals = localRecommendationEngine.generate(context(intake, profile, lockedIds), allRecipesList());
+    // Two bugs this shape fixes, both reported as "regenerate just reorders
+    // the week instead of changing it":
+    //  1. `generate()` assigns `dayIndex` by ARRAY POSITION and returns
+    //     locked recipes first, so feeding its output back in wholesale
+    //     moved locked meals onto different days (and recomposed their
+    //     sides) — a locked meal must stay exactly where it is, plate and
+    //     all. So locked slots are now carried over verbatim and only
+    //     unlocked slots are refilled, each keeping its own dayIndex.
+    //  2. Scoring is near-deterministic, so re-picking from the same pool
+    //     re-chose the same dishes. `avoidRecipeIds` asks the engine to skip
+    //     the outgoing unlocked picks (it falls back to the full pool if
+    //     that would leave too few candidates — see types.ts).
+    const outgoingUnlockedIds = draftPlan.meals.filter((m) => !m.locked).map((m) => m.recipeId);
+    const generated = localRecommendationEngine.generate(
+      { ...context(intake, profile, lockedIds), avoidRecipeIds: outgoingUnlockedIds },
+      allRecipesList(),
+    );
+    const lockedIdSet = new Set(lockedIds);
+    const replacements = generated.filter((m) => !lockedIdSet.has(m.recipeId));
+    let cursor = 0;
+    const meals = draftPlan.meals.map((m) => {
+      if (m.locked) return m;
+      const replacement = replacements[cursor];
+      if (!replacement) return m; // pool exhausted — keep what's there rather than emptying a day
+      cursor += 1;
+      return {
+        ...m,
+        recipeId: replacement.recipeId,
+        sideRecipeIds: replacement.sideRecipeIds,
+        locked: false,
+      };
+    });
     const next: WeeklyPlan = { ...draftPlan, meals };
     set({ draftPlan: next });
     persistDraft(next);
@@ -818,6 +853,11 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const plan = get().plan;
     if (!plan) return [];
     return pinnableDays(plan, recipeId);
+  },
+  pinBlockReasonFor: (recipeId) => {
+    const plan = get().plan;
+    if (!plan) return null;
+    return pinBlockReason(plan, recipeId);
   },
 
   missingIngredientsForPin: (dayIndex, recipeId) => {

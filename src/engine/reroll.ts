@@ -398,3 +398,36 @@ export function pinnableDays(plan: WeeklyPlan, recipeId: string, today: Date = n
   const todayIndex = todayOffset(plan.weekStartISO, today);
   return plan.meals.filter((m) => m.dayIndex >= todayIndex && !m.cooked).map((m) => m.dayIndex);
 }
+
+/**
+ * WHY a pin has no eligible day, as distinct causes rather than one empty
+ * array. `pinnableDays` collapses three unrelated situations into `[]`, and
+ * the pin screen used to print "already in this week's plan" for all of
+ * them — so a week whose days have simply run out (the active plan is a few
+ * days past its `weekStartISO`, e.g. while reviewing next week's draft)
+ * wrongly told the user the recipe was already pinned. Order matters:
+ * "already in the plan" is checked first because it's true regardless of
+ * dates, then the two date/progress cases.
+ *
+ * - `already-in-plan`: it's on some day of this week already.
+ * - `week-elapsed`: no day of the plan is today-or-later — the week has run
+ *   past its end (the "Pick up from today" re-anchor, or a new week, is the
+ *   real fix, and the copy should say so).
+ * - `remaining-days-cooked`: there ARE upcoming days, but every one of them
+ *   is already marked cooked — a cooked day is history and never a pin target.
+ * - `null`: at least one day is pinnable.
+ */
+export type PinBlockReason = 'already-in-plan' | 'week-elapsed' | 'remaining-days-cooked';
+
+export function pinBlockReason(
+  plan: WeeklyPlan,
+  recipeId: string,
+  today: Date = new Date(),
+): PinBlockReason | null {
+  if (plan.meals.some((m) => m.recipeId === recipeId)) return 'already-in-plan';
+  const todayIndex = todayOffset(plan.weekStartISO, today);
+  const upcoming = plan.meals.filter((m) => m.dayIndex >= todayIndex);
+  if (upcoming.length === 0) return 'week-elapsed';
+  if (upcoming.every((m) => m.cooked)) return 'remaining-days-cooked';
+  return null;
+}

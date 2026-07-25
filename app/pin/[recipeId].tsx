@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Profile, Recipe } from '@/domain/models';
 import { createDefaultProfile } from '@/domain/defaults';
 import { passesAllergySafety } from '@/engine/recommendation';
+import { PinBlockReason } from '@/engine/reroll';
 import { dayLabel } from '@/engine/schedule';
 import { usePlanStore } from '@/stores/planStore';
 import { useProfileStore } from '@/stores/profileStore';
@@ -27,6 +28,28 @@ function safetyBlockReason(recipe: Recipe, profile: Profile): string | null {
   return "This is an imported recipe with estimated allergen info, and you have an allergy set — its ingredient data isn't reliable enough to trust automatically, so it can't be pinned.";
 }
 
+/**
+ * Plain-English copy for each reason a pin has nowhere to go. This screen
+ * used to print the "already in this week's plan" line for EVERY empty day
+ * list, which was flatly wrong (and confusing) when the real cause was a
+ * week whose days had run out — the case you hit while reviewing a new week,
+ * because the active plan is still last week's. A draft has no dates and no
+ * cooked days, so its only possible reason is `already-in-plan`.
+ */
+function blockedMessage(recipeName: string, reason: PinBlockReason | null): string {
+  switch (reason) {
+    case 'week-elapsed':
+      return "This week's days have all passed, so there's no upcoming night to pin into. Use “Pick up from today” on This Week to re-date the rest of the week, or plan a new week.";
+    case 'remaining-days-cooked':
+      return "Every night left this week is already cooked — a cooked day is history, so there's nothing to replace.";
+    case 'already-in-plan':
+      return `${recipeName} is already in this week's plan — a recipe can't be pinned to two days at once.`;
+    default:
+      // Defensive: days.length === 0 always has one of the reasons above.
+      return "There's no night available to pin into right now.";
+  }
+}
+
 export default function PinScreen() {
   const router = useRouter();
   const theme = useTheme();
@@ -39,6 +62,7 @@ export default function PinScreen() {
   const plan = usePlanStore((s) => s.plan);
   const draftPlan = usePlanStore((s) => s.draftPlan);
   const pinnableDaysFor = usePlanStore((s) => s.pinnableDaysFor);
+  const pinBlockReasonFor = usePlanStore((s) => s.pinBlockReasonFor);
   const pinnableDraftDaysFor = usePlanStore((s) => s.pinnableDraftDaysFor);
   const missingIngredientsForPin = usePlanStore((s) => s.missingIngredientsForPin);
   const pinRecipeToWeek = usePlanStore((s) => s.pinRecipeToWeek);
@@ -49,6 +73,12 @@ export default function PinScreen() {
   const days = useMemo(
     () => (recipeId ? (isDraft ? pinnableDraftDaysFor(recipeId) : pinnableDaysFor(recipeId)) : []),
     [recipeId, isDraft, pinnableDraftDaysFor, pinnableDaysFor, targetPlan],
+  );
+
+  const pinBlock = useMemo(
+    () => (recipeId && !isDraft ? pinBlockReasonFor(recipeId) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- targetPlan is the state this reads through the store selector
+    [recipeId, isDraft, pinBlockReasonFor, targetPlan],
   );
 
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
@@ -66,7 +96,10 @@ export default function PinScreen() {
         paddingBottom: theme.spacing.md,
       }}
     >
-      <Text variant="headline">Pin to this week</Text>
+      {/* Matches the button that opened this screen (meal detail uses the
+          same wording), so it's always clear WHICH week is being pinned into
+          — the draft under review, or the active week. */}
+      <Text variant="headline">{isDraft ? 'Pin to this draft' : 'Pin to this week'}</Text>
       <Pressable accessibilityLabel="Close" accessibilityRole="button" hitSlop={8} onPress={close}>
         <Ionicons name="close" size={26} color={theme.colors.text} />
       </Pressable>
@@ -106,7 +139,7 @@ export default function PinScreen() {
         {header}
         <View style={{ padding: theme.spacing.xl }}>
           <Text variant="body" color="secondary">
-            {recipe.name} is already in this week's plan — a recipe can't be pinned to two days at once.
+            {blockedMessage(recipe.name, isDraft ? 'already-in-plan' : pinBlock)}
           </Text>
         </View>
       </SafeAreaView>
