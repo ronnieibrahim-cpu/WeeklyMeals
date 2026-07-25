@@ -292,7 +292,13 @@ export default function ThisWeekScreen() {
               <SwipeableMealRow enabled={canMove} onMoveTo={() => setMoveFromDay(meal.dayIndex)}>
                 <MealCard
                   recipe={recipe}
-                  badge={recipe.makesLeftovers ? 'makes leftovers' : undefined}
+                  badge={
+                    recipe.equipment?.includes('Instant Pot')
+                      ? 'Instant Pot'
+                      : recipe.makesLeftovers
+                        ? 'makes leftovers'
+                        : undefined
+                  }
                   cooked={meal.cooked}
                   rating={meal.rating}
                   onRate={(rating) => rateMeal(meal.dayIndex, rating)}

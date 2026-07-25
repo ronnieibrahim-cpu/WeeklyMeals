@@ -16,4 +16,12 @@ export interface IntakeAnswers {
   dietaryRestrictions: string[];
   ingredientsAtHome: string[];
   adventurousness: number; // 0 safe … 1 adventurous
+  /**
+   * How many of this week's dinners should be Instant Pot recipes (0 = none).
+   * The engine reserves this many nights for recipes that genuinely declare
+   * `equipment: ['Instant Pot']` before filling the rest of the week, so the
+   * answer is always acted on. Optional for backward compatibility: a plan or
+   * draft persisted before this question existed reads as 0.
+   */
+  instantPotNights?: number;
 }

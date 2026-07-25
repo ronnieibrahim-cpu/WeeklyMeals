@@ -115,7 +115,16 @@ export default function ReviewPlanScreen() {
               key={meal.dayIndex}
               recipe={recipe}
               locked={meal.locked}
-              badge={recipe.makesLeftovers ? 'leftovers' : undefined}
+              // Instant Pot takes precedence over the leftovers note: when
+              // the week was planned around reserved Instant Pot nights, which
+              // ones they are is the more useful thing to see at a glance.
+              badge={
+                recipe.equipment?.includes('Instant Pot')
+                  ? 'Instant Pot'
+                  : recipe.makesLeftovers
+                    ? 'leftovers'
+                    : undefined
+              }
               // `pinTarget: 'draft'` matters: without it the recipe viewer
               // defaults to 'plan', so its pin button targeted the still-active
               // PREVIOUS week rather than the draft being reviewed here — and

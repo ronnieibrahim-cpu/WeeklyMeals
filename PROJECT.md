@@ -31,11 +31,12 @@
 > **Open priority is process, not a feature: the independent advisor close-out
 > audit of M4.3–M4.7 + M5.0–M5.1** (see `ADVISOR-HANDOFF.md` Part 6) — that
 > range self-reviewed; the M5.2 sweep is not a substitute.
-> **Last verified:** July 2026 · typecheck clean · 422 tests green ·
-> 230/230 curated recipes + 50/50 sides/sauces pass content validation,
-> 636/636 recipes use canonical allergen labels and plausible `provides` ·
+> **Last verified:** July 2026 · typecheck clean · 475 tests green ·
+> 245/245 curated recipes + 50/50 sides/sauces pass content validation,
+> 651/651 recipes use canonical allergen labels and plausible `provides` ·
 > `checkWasteFit`/`checkIngredientConsistency`/`checkCuratedWeighting`/
-> `checkKidApprovedWeighting` all PASS.
+> `checkKidApprovedWeighting`/`checkRotation`/`checkRerollPool`/
+> `checkInstantPot` all PASS.
 >
 > **Advisor context, decision rationale, and current open items live in
 > `ADVISOR-HANDOFF.md`. Read that too.**
@@ -46,7 +47,7 @@
 
 A meal-planning app for one family (2 adults, 2 young kids, Houston TX, shops at
 H-E-B). Each week it asks a short questionnaire (or a one-tap "same as last week"),
-generates a week of dinners from a ~586-main library, composes each main with 0–2
+generates a week of dinners from a ~601-main library, composes each main with 0–2
 sides/sauces from a 50-recipe sides library (M4.2 — a dinner is a plate, not a
 dish), and produces one consolidated H-E-B shopping list with estimated prices. The
 family cooks from the app, re-rolls meals mid-week from ingredients already bought
@@ -75,7 +76,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
   accepted risk, not a fix in progress** (see §8)
 - **Jest / jest-expo** — engine + `src/data/import` test suite, plus one deliberate
   store-level exception (`src/stores/syncStore.test.ts`, M4.7 — see `jest.config.js`)
-  (**404 tests**); `npx jest` must stay green
+  (**475 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**
@@ -125,10 +126,12 @@ src/engine/       recommendation/ (filters · scoring [scoreRecipe + M4.2's
                   (M4.1: household → adult-equivalent servings) · planHistory
                   (M5.0: archivePlan — dedupe/sort/cap for the rolling 6-week
                   per-device archive)    (+ a .test.ts beside almost every module)
-src/data/seed/    230 hand-curated mains (batches 1–8, cookbook-grade content) +
+src/data/seed/    245 hand-curated mains (batches 1–8, cookbook-grade content,
+                  plus recipeInstantPot.ts — 15 mains written FOR the pressure
+                  cooker, real pressure times and release methods) +
                   recipeImported.ts (356 TheMealDB imports, GENERATED — never
                   hand-edit) + recipeSides.ts (50 hand-curated sides/sauces,
-                  M4.2). All three are merged into one `RECIPES` pool
+                  M4.2). All are merged into one `RECIPES` pool
                   (recipes.ts) — anything picking "a main" (generation, re-roll,
                   swap, the Recipes browse tab) filters through `isMain()`;
                   nothing else needs to, since `getAnyRecipe`/shopping
@@ -290,6 +293,21 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    `ratingsPenalty` and recipe blocking are **not** damped — a family that
    disliked a dish is believed immediately, while "you love Thai" has to earn
    its standing.
+4a. **Instant Pot nights (July 2026):** the weekly questionnaire asks how many
+   dinners should be Instant Pot recipes (0/1/2), and `generate()` **reserves
+   those nights first**, before the general fill, so the answer is always acted
+   on (Law #3). Backed by 15 hand-authored mains in `recipeInstantPot.ts` that
+   are genuinely written for the machine — real pressure times, stated release
+   method, real liquid volumes — carrying the new `Recipe.equipment` field
+   (`['Instant Pot']`, labels from `EQUIPMENT`). Nothing is relabeled: a
+   stovetop braise never claims the machine. Reserved picks still come from the
+   same scoring, still pass every hard filter (allergy included), and a request
+   the library can't fill (a tight time limit filters most of them out) fills
+   what it can rather than leaving a day empty. Instant Pot dishes show a badge
+   on meal cards and the equipment on the recipe detail. Verified by
+   `scripts/checkInstantPot.ts` (48 varied weeks per request level, time limits
+   swept 30-90 min: delivered in 48/48 at every level, no short weeks, and every
+   tagged recipe really does describe pressure cooking).
 4b. **Cross-week rotation (`src/engine/rotation.ts`):** the engine remembers what
    it planned. `recencyByRecipe` folds the active plan plus the rolling
    per-device archive into `recipeId -> whole weeks since last planned`

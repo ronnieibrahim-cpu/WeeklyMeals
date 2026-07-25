@@ -52,5 +52,6 @@ export function createIntakeFromProfile(p: Profile): IntakeAnswers {
     dietaryRestrictions: [...p.dietaryRestrictions],
     ingredientsAtHome: [],
     adventurousness: 0.5,
+    instantPotNights: 0,
   };
 }

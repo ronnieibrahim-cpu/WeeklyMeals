@@ -166,6 +166,10 @@ export default function MealDetailScreen() {
       <Text variant="subhead" color="secondary" style={{ marginTop: theme.spacing.xs }}>
         {recipe.cuisine} · {recipe.difficulty}
         {recipe.spiceLevel !== 'None' ? ` · ${recipe.spiceLevel} spice` : ''}
+        {/* Special equipment is part of "can I actually cook this tonight?",
+            so it belongs next to the time and difficulty rather than buried
+            in the steps. */}
+        {recipe.equipment && recipe.equipment.length > 0 ? ` · ${recipe.equipment.join(' · ')}` : ''}
       </Text>
       {isKidApproved ? (
         <Text variant="footnote" color="success" style={{ marginTop: theme.spacing.xs }}>

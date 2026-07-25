@@ -30,6 +30,16 @@ export interface Recipe {
    * "not authored yet," not "provides nothing." */
   provides?: Array<'protein' | 'vegetable' | 'starch'>;
   primaryProtein: Protein;
+  /**
+   * Special equipment a recipe genuinely REQUIRES, using the exact labels
+   * from `EQUIPMENT` (src/domain/constants/equipment.ts) — e.g.
+   * `['Instant Pot']`. Absent means "nothing beyond a stovetop and an oven",
+   * which is every recipe authored before this field existed. Only claim
+   * equipment whose real steps are written for it: this drives the weekly
+   * "Instant Pot nights" request, and a dish tagged for a machine but
+   * carrying stovetop instructions would be a promise the app can't keep.
+   */
+  equipment?: string[];
   vegetables: string[]; // for rotation/variety scoring
   techniques: string[]; // e.g. ['roast', 'sheet-pan'] for learning
   difficulty: Difficulty;

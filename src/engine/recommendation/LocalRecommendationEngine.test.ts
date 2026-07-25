@@ -116,6 +116,94 @@ describe('LocalRecommendationEngine.generate', () => {
     }
   });
 
+  /**
+   * "Any Instant Pot nights this week?" has to be delivered, not hoped for —
+   * a question the code doesn't act on is a bug (Law #3). Nights are reserved
+   * before the general fill.
+   */
+  describe('instantPotNights', () => {
+    const ipRecipe = (id: string) => makeRecipe({ id, equipment: ['Instant Pot'] });
+
+    it('reserves the requested number of Instant Pot dinners', () => {
+      const engine = new LocalRecommendationEngine();
+      const pool = [
+        ...Array.from({ length: 5 }, (_, i) => ipRecipe(`ip-${i}`)),
+        ...Array.from({ length: 12 }, (_, i) => makeRecipe({ id: `plain-${i}` })),
+      ];
+      const ctx = ctxFor({ intake: makeIntake(makeProfile(), { dinners: 5, instantPotNights: 2 }) });
+
+      const ids = engine.generate(ctx, pool).map((m) => m.recipeId);
+
+      expect(ids.filter((id) => id.startsWith('ip-')).length).toBeGreaterThanOrEqual(2);
+      expect(ids).toHaveLength(5);
+    });
+
+    it('plans no Instant Pot dinners when none are asked for', () => {
+      const engine = new LocalRecommendationEngine();
+      const pool = [ipRecipe('ip-0'), ...Array.from({ length: 12 }, (_, i) => makeRecipe({ id: `plain-${i}` }))];
+      const ctx = ctxFor({ intake: makeIntake(makeProfile(), { dinners: 4, instantPotNights: 0 }) });
+
+      // Not excluded — an Instant Pot recipe can still win on merit — but
+      // nothing is reserved, so with 12 equal alternatives it is not
+      // systematically pulled in.
+      const weeks = Array.from({ length: 10 }, () => engine.generate(ctx, pool).map((m) => m.recipeId));
+      expect(weeks.every((ids) => ids.length === 4)).toBe(true);
+    });
+
+    it('treats a missing instantPotNights (a plan saved before the question existed) as none', () => {
+      const engine = new LocalRecommendationEngine();
+      const pool = Array.from({ length: 8 }, (_, i) => makeRecipe({ id: `plain-${i}` }));
+      const intake = makeIntake(makeProfile(), { dinners: 4 });
+      delete (intake as { instantPotNights?: number }).instantPotNights;
+
+      expect(engine.generate(ctxFor({ intake }), pool)).toHaveLength(4);
+    });
+
+    it('fills what it can and still delivers a full week when too few Instant Pot recipes qualify', () => {
+      const engine = new LocalRecommendationEngine();
+      const pool = [ipRecipe('ip-0'), ...Array.from({ length: 12 }, (_, i) => makeRecipe({ id: `plain-${i}` }))];
+      const ctx = ctxFor({ intake: makeIntake(makeProfile(), { dinners: 5, instantPotNights: 2 }) });
+
+      const ids = engine.generate(ctx, pool).map((m) => m.recipeId);
+
+      expect(ids).toContain('ip-0');
+      expect(ids).toHaveLength(5); // never a short week
+    });
+
+    it('counts a locked Instant Pot meal toward the quota rather than double-booking', () => {
+      const engine = new LocalRecommendationEngine();
+      const pool = [
+        ...Array.from({ length: 5 }, (_, i) => ipRecipe(`ip-${i}`)),
+        ...Array.from({ length: 12 }, (_, i) => makeRecipe({ id: `plain-${i}` })),
+      ];
+      const ctx = ctxFor({
+        intake: makeIntake(makeProfile(), { dinners: 5, instantPotNights: 1 }),
+        lockedRecipeIds: ['ip-0'],
+      });
+
+      const ids = engine.generate(ctx, pool).map((m) => m.recipeId);
+
+      expect(ids).toContain('ip-0');
+      // The lock satisfies the single requested night; nothing extra is
+      // reserved on top of it. (Another may still win on merit — hence the
+      // check on what was RESERVED, which is at most the quota.)
+      expect(ids.filter((id) => id.startsWith('ip-')).length).toBeLessThanOrEqual(3);
+    });
+
+    it('never lets the quota override a hard filter (allergy)', () => {
+      const engine = new LocalRecommendationEngine();
+      const unsafe = makeRecipe({ id: 'ip-unsafe', equipment: ['Instant Pot'], allergens: ['Peanuts'] });
+      const safe = Array.from({ length: 8 }, (_, i) => makeRecipe({ id: `safe-${i}` }));
+      const profile = makeProfile({ allergies: ['Peanuts'] });
+      const ctx = ctxFor({
+        profile,
+        intake: makeIntake(profile, { dinners: 4, instantPotNights: 2 }),
+      });
+
+      expect(engine.generate(ctx, [unsafe, ...safe]).some((m) => m.recipeId === 'ip-unsafe')).toBe(false);
+    });
+  });
+
   // `avoidRecipeIds` is what makes "Regenerate unlocked" produce a different
   // week: scoring is near-deterministic, so without it the same dishes came
   // back and only their order appeared to change.

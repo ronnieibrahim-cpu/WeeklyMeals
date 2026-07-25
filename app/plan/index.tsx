@@ -11,6 +11,7 @@ import {
   CUISINE_LABEL,
   CUISINES,
   HEALTHY_COMFORT_OPTIONS,
+  INSTANT_POT_OPTIONS,
   MAX_COOK_OPTIONS,
   MAX_PREP_OPTIONS,
   PROTEINS,
@@ -215,6 +216,20 @@ export default function PlanIntakeScreen() {
       ),
     },
     {
+      key: 'instantPot',
+      title: 'Any Instant Pot nights this week?',
+      subtitle:
+        "I'll reserve that many dinners for recipes actually written for the pressure cooker — real times, real release. Pick none if you'd rather not use it (or don't have one).",
+      control: (
+        <ChipSingleSelect
+          options={INSTANT_POT_OPTIONS}
+          value={String(answers.instantPotNights ?? 0)}
+          onChange={(v) => patch({ instantPotNights: Number(v) })}
+        />
+      ),
+      canSkip: true,
+    },
+    {
       key: 'diets',
       title: 'Any dietary restrictions?',
       subtitle: 'Pre-filled from your profile — adjust just for this week if you like.',
@@ -349,6 +364,13 @@ function IntakeSummary({ answers, profile }: { answers: IntakeAnswers; profile: 
     ['Building around', pantryCount > 0 ? `${pantryCount} pantry item${pantryCount === 1 ? '' : 's'}` : 'Nothing on hand'],
     ['Style', vibe],
   ];
+
+  // Only shown when it's actually in play — a row reading "Instant Pot: none"
+  // on every recap would be noise for a household that never uses one.
+  const instantPotNights = answers.instantPotNights ?? 0;
+  if (instantPotNights > 0) {
+    rows.push(['Instant Pot', `${instantPotNights} night${instantPotNights === 1 ? '' : 's'}`]);
+  }
 
   return (
     <View style={{ gap: theme.spacing.md }}>

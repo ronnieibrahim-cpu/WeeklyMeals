@@ -41,6 +41,13 @@ function pickNearBest(scored: { r: Recipe; score: number }[]): Recipe {
   return contenders[Math.floor(Math.random() * contenders.length)].r;
 }
 
+/** Does this recipe genuinely require an Instant Pot? Matches the exact label
+ * from `EQUIPMENT` (src/domain/constants/equipment.ts) that the curated
+ * Instant Pot recipes declare, case-insensitively. */
+export function usesInstantPot(recipe: Recipe): boolean {
+  return (recipe.equipment ?? []).some((e) => e.trim().toLowerCase() === 'instant pot');
+}
+
 /**
  * On-device, deterministic-ish greedy engine: filter to a valid pool, then
  * repeatedly pick among the highest-scoring recipes given what's already
@@ -84,6 +91,29 @@ export class LocalRecommendationEngine implements RecommendationProvider {
     const pool = trimmedPool.length >= slotsToFill ? trimmedPool : basePool;
 
     const target = Math.min(ctx.intake.dinners, Math.max(pool.length, selected.length));
+
+    // Instant Pot nights are RESERVED FIRST, before the general fill, so the
+    // answer to "how many Instant Pot dinners this week?" is always actually
+    // delivered rather than left to chance in the ordinary scoring race
+    // (Law #3: never ask a question the code doesn't act on). Recipes are
+    // still chosen by the same `scoreRecipe`/`pickNearBest` among Instant Pot
+    // candidates, so the reserved nights are the BEST Instant Pot fits, not
+    // arbitrary ones — and anything already locked that uses the machine
+    // counts toward the quota rather than being double-booked.
+    const wantedInstantPot = ctx.intake.instantPotNights ?? 0;
+    if (wantedInstantPot > 0) {
+      const lockedInstantPot = selected.filter(usesInstantPot).length;
+      const stillWanted = Math.min(wantedInstantPot, target) - lockedInstantPot;
+      for (let i = 0; i < stillWanted; i++) {
+        if (selected.length >= target) break;
+        const remaining = pool.filter((r) => usesInstantPot(r) && !selected.includes(r));
+        // Fewer Instant Pot recipes available than asked for (a tight time
+        // limit can filter most of them out): fill what exists and let the
+        // rest of the week fill normally rather than leaving a day empty.
+        if (remaining.length === 0) break;
+        selected.push(pickNearBest(remaining.map((r) => ({ r, score: scoreRecipe(r, ctx, selected) }))));
+      }
+    }
 
     while (selected.length < target) {
       const remaining = pool.filter((r) => !selected.includes(r));

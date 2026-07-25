@@ -103,3 +103,13 @@ export const ADVENTUROUS_OPTIONS: LabeledOption<string>[] = [
   { value: '0.5', label: 'Some variety' },
   { value: '1', label: 'Adventurous' },
 ];
+
+/** How many dinners to reserve for Instant Pot recipes. Capped at 2: the
+ * curated Instant Pot set is 15 dishes and a tight weekly time limit filters
+ * some of them out, so offering "3+" would be offering something the library
+ * can't reliably deliver. */
+export const INSTANT_POT_OPTIONS: LabeledOption<string>[] = [
+  { value: '0', label: 'None' },
+  { value: '1', label: '1 night' },
+  { value: '2', label: '2 nights' },
+];
