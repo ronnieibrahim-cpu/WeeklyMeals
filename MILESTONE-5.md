@@ -129,6 +129,46 @@ independent audit.
 
 ---
 
+---
+
+## [x] M5.5 — Rotation, re-roll pool, two review-flow bugs, Instant Pot nights (✅ SHIPPED 2026-07-25)
+
+One session, four things Ronnie asked for, one commit each. Advisor decisions
+recorded as `ADVISOR-HANDOFF.md` 37-39 (two of them reverse earlier recorded
+decisions, both with his explicit approval).
+
+- [x] **Two review-flow bugs.** (1) "Already pinned" on a recipe that wasn't:
+  the review screen opened the recipe viewer without `pinTarget: 'draft'`, so
+  the pin evaluated the still-active PREVIOUS week — whose days are all past —
+  and the screen printed "already in this week's plan" for every empty result.
+  Fixed the target and split the message into its three real causes
+  (`pinBlockReason`, tested). (2) "Regenerate unlocked" only reordered: the
+  engine assigns `dayIndex` by array position and returns locked recipes first,
+  and near-deterministic scoring re-picked the same dishes. Locked slots are now
+  carried over verbatim, only unlocked slots refill, and the outgoing picks are
+  passed as `avoidRecipeIds` (a preference — falls back rather than shorten a week).
+- [x] **Cross-week rotation** (`src/engine/rotation.ts`) — favorites paced by a
+  rest ramp and a per-week crowding taper, a repeat penalty fading over 4 weeks
+  (mains only), and learned positive signals scaled by rating volume. Evidence in
+  `scripts/checkRotation.ts`: favorites returning to the next week 2.56 → 0.01 of 3.
+- [x] **Re-roll pool** — sides composed from on-hand sides only (the big invisible
+  shrinker), cap 5 → 8, cuisine diversification, and near-misses alongside a thin
+  strict list. `scripts/checkRerollPool.ts`. Note for whoever picks this up next:
+  the strict pool is structurally tiny mid-week, so the labeled near-miss list is
+  what actually makes a re-roll a choice.
+- [x] **Instant Pot nights** — 15 hand-authored pressure-cooker mains
+  (`recipeInstantPot.ts`), new `Recipe.equipment`, `intake.instantPotNights`
+  (0/1/2), and a reservation pass so the answer is always delivered.
+  `scripts/checkInstantPot.ts`. **Open:** `profile.equipment` still isn't editable,
+  so the question is asked of every household.
+
+**Accept when:** 475 tests green, 245/245 curated + 50/50 sides validate, and the
+three new harnesses pass. Verified. **Owes the same independent advisor audit as
+M5.4** — this shipped without an advisor pass on the two law/decision reversals
+(Ronnie approved them directly in-session).
+
+---
+
 ## Candidates for the M5 pipeline (Ronnie prioritizes; do NOT start unasked)
 
 From the parked list plus M4 follow-ups, with the mission test applied (*does
