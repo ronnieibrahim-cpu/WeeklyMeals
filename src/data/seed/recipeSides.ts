@@ -9,7 +9,11 @@ import { Recipe } from '@/domain/models';
  *
  * `role` is 'side' or 'sauce'. `provides` reflects what's actually on the
  * plate — sauces are flavor, not a plate component, so they intentionally
- * carry no `provides`. Five of the sides (fried egg, white beans, chickpeas,
+ * carry no `provides`. Every sauce also declares `pairsWith` (M5.6): the
+ * cuisines it actually belongs on, enforced as a hard gate by
+ * `saucePairsWithMain`. It is required, not optional — a sauce without one
+ * fails `validateRecipes.ts`, because the old implicit default ("any sauce
+ * may fill a free slot") is exactly what put tahini sauce on Thai curries. Five of the sides (fried egg, white beans, chickpeas,
  * seared tofu, shredded chicken) are protein-capable, so the M4.2-part-2
  * composition engine can optionally close a protein gap on a vegetable-only
  * main. No composition behavior is wired up in this commit.
@@ -1283,6 +1287,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'BBQ',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** Argentine grilled-meat sauce: steak, grilled chicken, roasted vegetables. */
+    pairsWith: ['BBQ', 'American', 'Mexican', 'Mediterranean'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['chop'],
@@ -1319,6 +1325,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'Mexican',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** Tomatillo salsa — tacos, grilled meats, eggs. Not a general-purpose green sauce. */
+    pairsWith: ['Mexican', 'BBQ'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['blend'],
@@ -1356,6 +1364,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'Greek',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** Yogurt-cucumber: grilled lamb and chicken, gyros, falafel. */
+    pairsWith: ['Greek', 'Mediterranean', 'MiddleEastern'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['mix'],
@@ -1393,6 +1403,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'Thai',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** Satay and noodle sauce. Emphatically not a Japanese or Indian condiment. */
+    pairsWith: ['Thai', 'Chinese'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['whisk'],
@@ -1430,6 +1442,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'Mediterranean',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** Spanish pepper-almond sauce: grilled fish and vegetables. */
+    pairsWith: ['Mediterranean', 'BBQ'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['blend'],
@@ -1468,6 +1482,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'Italian',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** Pesto travels further than most — grilled chicken, sandwiches, vegetables. */
+    pairsWith: ['Italian', 'Mediterranean', 'American'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['blend'],
@@ -1504,6 +1520,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'MiddleEastern',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** Falafel, shawarma, roasted vegetables. */
+    pairsWith: ['MiddleEastern', 'Mediterranean', 'Greek'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['whisk'],
@@ -1538,6 +1556,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'MiddleEastern',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** Kofta and gyros; the Indian entry is its raita-adjacent use alongside spiced dishes. */
+    pairsWith: ['MiddleEastern', 'Mediterranean', 'Greek', 'Indian'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['mix'],
@@ -1574,6 +1594,8 @@ export const recipeSides: Recipe[] = [
     cuisine: 'Mexican',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** The everyday taco salsa. */
+    pairsWith: ['Mexican', 'BBQ'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['char', 'blend'],
@@ -1611,6 +1633,11 @@ export const recipeSides: Recipe[] = [
     cuisine: 'Italian',
     categories: ['Vegetarian'],
     role: 'sauce',
+    /** A finish for rich Italian dishes. Note it is blocked from most of them by
+     * `mainIsAlreadySauced` (osso buco and the braises are its classic home) —
+     * accepted: a rarely-placed sauce beats a wrongly-placed one, which is the
+     * complaint that started M5.6. */
+    pairsWith: ['Italian'],
     primaryProtein: 'None',
     vegetables: [],
     techniques: ['chop'],

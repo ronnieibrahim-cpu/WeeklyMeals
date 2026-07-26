@@ -196,6 +196,24 @@ function validateProvidesPlausibility(recipe: Recipe, violations: Violation[]) {
   }
 }
 
+/** Hard gate (M5.6): every sauce must declare a non-empty `pairsWith`. The
+ * composition engine fails closed on a missing list (a sauce with no
+ * allowlist pairs with nothing), so the failure mode is a silently invisible
+ * sauce rather than a wrong one — but silent is still wrong, and the whole
+ * point of the allowlist is that "goes with everything" stops being the
+ * default a new sauce inherits by saying nothing. */
+function validateSaucePairsWith(recipe: Recipe, violations: Violation[]) {
+  if (recipe.role !== 'sauce') return;
+  if (!recipe.pairsWith || recipe.pairsWith.length === 0) {
+    violations.push({
+      recipeId: recipe.id,
+      message:
+        'sauce is missing `pairsWith` — list the cuisines whose mains it actually belongs on ' +
+        '(see saucePairsWithMain in src/engine/mealComposition.ts)',
+    });
+  }
+}
+
 // M4.2 part 2: `RECIPES` now contains sides/sauces too (merged so
 // `getAnyRecipe` et al. resolve a side id the same way they resolve a main
 // id everywhere else). Scoped by role here, not by id prefix — sides don't
@@ -216,6 +234,7 @@ for (const recipe of handAuthored) {
   validateAllergenCoverage(recipe, violations);
 }
 for (const recipe of curatedMains) validateMainProvides(recipe, violations);
+for (const recipe of sides) validateSaucePairsWith(recipe, violations);
 for (const recipe of allRecipes) {
   validateAllergenLabels(recipe, violations);
   validateProvidesPlausibility(recipe, violations);

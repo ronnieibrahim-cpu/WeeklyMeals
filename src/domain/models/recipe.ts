@@ -29,6 +29,19 @@ export interface Recipe {
    * (M4.2 part 2) uses this to fill gaps with sides. Absent/omitted means
    * "not authored yet," not "provides nothing." */
   provides?: Array<'protein' | 'vegetable' | 'starch'>;
+  /**
+   * SAUCES ONLY (M5.6): the cuisines whose mains this sauce actually belongs
+   * on — an allowlist, checked as a hard gate by `saucePairsWithMain`, not a
+   * scoring nudge. Authored per sauce rather than derived from a
+   * cuisine-affinity table because "same cuisine" is not the real test: a
+   * sauce can share a main's cuisine and still be wrong on it (gremolata is
+   * Italian; so is chicken piccata, which already has a lemon-caper pan
+   * sauce). Required on every `role: 'sauce'` recipe — `validateRecipes.ts`
+   * fails the build without it, so a new sauce can't quietly default to
+   * "goes with everything," which is how sauces ended up on 431 of 601
+   * plates before this existed. Meaningless on mains and non-sauce sides.
+   */
+  pairsWith?: Cuisine[];
   primaryProtein: Protein;
   /**
    * Special equipment a recipe genuinely REQUIRES, using the exact labels

@@ -169,6 +169,40 @@ M5.4** — this shipped without an advisor pass on the two law/decision reversal
 
 ---
 
+## M5.6 — Side/sauce pairing that makes culinary sense (shipped 2026-07-26)
+
+Reported by Ronnie: gremolata turning up on chicken piccata. The cause was
+structural, not a bad data entry — the second plate slot fell through to
+"best-scoring sauce" whenever the plate was already complete, and the only
+affinity check was exact cuisine equality (gremolata IS Italian; so is
+piccata, which already has a lemon-caper pan sauce).
+
+- [x] **Sauce pairing gate** (`saucePairsWithMain`) — a sauce must clear two
+  independent checks: the main isn't already sauced (`mainIsAlreadySauced`,
+  derived from existing `techniques`/`categories` so no main needed hand-editing),
+  and the main's cuisine is on the sauce's new `pairsWith` allowlist. Fails
+  closed; `validateRecipes.ts` requires the allowlist on every sauce.
+- [x] **Parallel cook time** — `fitsCombinedTime` sums prep but takes the max of
+  cook times. Summing meant a long main rejected every side with any cook time,
+  leaving zero-cook sauces as the only eligible candidates on 90 plates.
+- [x] **Kept-sauce gate on re-roll** (`reroll.ts` pairing gate (c)) — a kept sauce
+  used to pair with any main unconditionally, which reopened the same bug through
+  the component-re-roll door (product law #5).
+
+Measured across all 601 mains, default profile: plates with a sauce 431 → 82;
+two-sauce plates 274 → 21; plates carrying a vegetable 547 → **577** (the
+parallel-cook fix put real sides where only sauces used to fit). Chicken
+Piccata now composes to Elote alone; Pesto Gnocchi (complete on its own, and
+Pasta) composes to nothing instead of pesto + gremolata.
+
+**Deliberately out of scope** (Ronnie, in session): letting a starch attach to a
+main that already provides one — "chana masala should still get rice" is a real
+question, but plates that already have a sensible side were left alone.
+
+**Accept when:** 486 tests green, 245/245 curated + 50/50 sides validate. Verified.
+
+---
+
 ## Candidates for the M5 pipeline (Ronnie prioritizes; do NOT start unasked)
 
 From the parked list plus M4 follow-ups, with the mission test applied (*does

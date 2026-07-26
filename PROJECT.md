@@ -197,7 +197,21 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
      best-effort, capped at 2: fills the hard minimum (protein + vegetable/starch)
      first, then the full target (protein + vegetable + starch), only considering a
      sauce once the hard minimum is already met, never adding a side that duplicates
-     what's already on the plate. Every side candidate passes the exact same hard
+     what's already on the plate. **Sauce pairing (M5.6):** a sauce must additionally
+     clear `saucePairsWithMain` — the main must not already carry a sauce of its own
+     (`mainIsAlreadySauced`, derived from the main's `techniques`/`categories`) AND
+     the main's cuisine must appear on the sauce's required `pairsWith` allowlist.
+     A sauce with no allowlist fails closed. When nothing pairs, the slot is left
+     empty rather than filled: before this gate the free second slot fell through to
+     the best-scoring sauce regardless of fit, putting a sauce on 431 of 601 plates
+     (274 of them two sauces and no real side) — tahini on Thai curries, gremolata
+     on chicken piccata. Now 82 and 21. `reroll.ts` applies the identical gate to a
+     KEPT sauce when the main is re-rolled out from under it. **Combined time
+     (M5.6):** prep is summed but cook is the MAXIMUM of main and side — sides cook
+     alongside the main, they don't queue behind it. Summing cook time meant a
+     45-minute main against a 45-minute budget rejected every side with any cook
+     time, which is what made sauces the only eligible candidate on those plates;
+     the fix raised plates carrying a vegetable from 547 to 577. Every side candidate passes the exact same hard
      filters a main does (allergies, diet, dislikes, blocked, combined time budget)
      — a side is food, it can hurt someone just as badly as a main. Scored with
      `scoreSide` — every `scoreRecipe` signal except `varietyBonus` (which is

@@ -1,7 +1,7 @@
 import { isMain, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 
 import { canonicalIngredientName } from './ingredientKey';
-import { composeSides, fitsCombinedTime } from './mealComposition';
+import { composeSides, fitsCombinedTime, saucePairsWithMain } from './mealComposition';
 import { passesHardFilters, scoreRecipe, WEIGHTS } from './recommendation';
 import { GenerateContext } from './recommendation/types';
 import { todayOffset } from './schedule';
@@ -361,15 +361,24 @@ function rerollKeepSides(
     if (!keptSides.every((side) => fitsCombinedTime(main, side, ctx.intake))) continue;
 
     // Pairing gate (b): a kept side with real `provides` must still
-    // contribute something this main doesn't already cover on its own; a
-    // sauce (empty/absent `provides`) always pairs — it has nothing to
-    // clash with.
+    // contribute something this main doesn't already cover on its own.
     const mainProvides = new Set<Provides>((main.provides ?? []) as Provides[]);
     const clashes = keptSides.some(
       (side) =>
         side.provides && side.provides.length > 0 && side.provides.every((p) => mainProvides.has(p as Provides)),
     );
     if (clashes) continue;
+
+    // Pairing gate (c) — M5.6. A kept SAUCE used to pass unconditionally
+    // ("it has nothing to clash with"), which was true of `provides` and
+    // false of the plate: keeping the gremolata and re-rolling the main
+    // could land it on a Thai curry through a door `composeSides` had just
+    // been taught to close. Product law #5 — the invariant belongs to the
+    // pairing, not to the code path that first enforced it.
+    const sauceMismatch = keptSides.some(
+      (side) => (!side.provides || side.provides.length === 0) && !saucePairsWithMain(side, main),
+    );
+    if (sauceMismatch) continue;
 
     // Plate assembly: kept sides first, verbatim; top up only if the plate
     // is short of 2 sides AND the hard minimum still isn't met.

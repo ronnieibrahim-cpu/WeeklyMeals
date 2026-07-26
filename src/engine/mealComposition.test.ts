@@ -1,5 +1,5 @@
 import { GenerateContext } from './recommendation/types';
-import { composeSides } from './mealComposition';
+import { composeSides, fitsCombinedTime, mainIsAlreadySauced, saucePairsWithMain } from './mealComposition';
 import { makeIntake, makePreferences, makeProfile, makeRecipe } from './testFixtures';
 
 function ctxFor(overrides: Partial<GenerateContext> = {}): GenerateContext {
@@ -35,6 +35,9 @@ const starchSide = (overrides: Partial<Parameters<typeof makeRecipe>[0]> = {}) =
     ...overrides,
   });
 
+// `makeRecipe`'s default cuisine is Italian, so the default allowlist pairs
+// this sauce with the default main — tests about anything OTHER than the
+// M5.6 pairing gate stay about what they were before the gate existed.
 const sauce = (overrides: Partial<Parameters<typeof makeRecipe>[0]> = {}) =>
   makeRecipe({
     id: 'side-sauce',
@@ -42,6 +45,7 @@ const sauce = (overrides: Partial<Parameters<typeof makeRecipe>[0]> = {}) =>
     role: 'sauce',
     provides: undefined,
     primaryProtein: 'None',
+    pairsWith: ['Italian'],
     prepMinutes: 10,
     cookMinutes: 0,
     ...overrides,
@@ -155,14 +159,82 @@ describe('composeSides — combined time budget', () => {
     expect(ids).toContain('side-starch');
   });
 
-  it('excludes a side that would push the combined cook time over the intake limit', () => {
+  it('excludes a side whose own cook time exceeds the intake limit', () => {
     const main = makeRecipe({ id: 'main-timed2', primaryProtein: 'Beef', provides: ['protein'], prepMinutes: 5, cookMinutes: 40 });
     const intake = makeIntake(makeProfile(), { maxPrepMinutes: 60, maxCookMinutes: 45 });
-    const tooSlowStarch = starchSide({ cookMinutes: 20 }); // 40 + 20 = 60 > 45
-    const quickVeg = vegSide({ cookMinutes: 5 }); // 40 + 5 = 45 <= 45
+    const tooSlowStarch = starchSide({ cookMinutes: 50 }); // max(40, 50) = 50 > 45
+    const quickVeg = vegSide({ cookMinutes: 5 }); // max(40, 5) = 40 <= 45
     const ids = composeSides(main, [tooSlowStarch, quickVeg], ctxFor({ intake }));
     expect(ids).not.toContain('side-starch');
     expect(ids).toContain('side-veg');
+  });
+
+  // M5.6 — the regression that starved 274 plates of any real side.
+  it('cooks sides in PARALLEL with the main: a long main no longer rejects every side with cook time', () => {
+    // Brisket-shaped: the main alone consumes the entire cook budget.
+    const brisket = makeRecipe({ id: 'main-brisket', primaryProtein: 'Beef', provides: ['protein'], prepMinutes: 15, cookMinutes: 45 });
+    const intake = makeIntake(makeProfile(), { maxPrepMinutes: 20, maxCookMinutes: 45 });
+    const roastedVeg = vegSide({ prepMinutes: 5, cookMinutes: 15 });
+    // Summed (the old rule): 45 + 15 = 60 > 45, so nothing but a zero-cook
+    // sauce could ever fit. Parallel: the vegetable roasts alongside.
+    expect(fitsCombinedTime(brisket, roastedVeg, intake)).toBe(true);
+    expect(composeSides(brisket, [roastedVeg], ctxFor({ intake }))).toContain('side-veg');
+  });
+
+  it('still sums PREP time — hands are serial even when the oven is not', () => {
+    const main = makeRecipe({ id: 'main-preppy', primaryProtein: 'Beef', provides: ['protein'], prepMinutes: 15, cookMinutes: 10 });
+    const intake = makeIntake(makeProfile(), { maxPrepMinutes: 20, maxCookMinutes: 60 });
+    expect(fitsCombinedTime(main, vegSide({ prepMinutes: 10 }), intake)).toBe(false); // 15 + 10 = 25 > 20
+    expect(fitsCombinedTime(main, vegSide({ prepMinutes: 5 }), intake)).toBe(true); // 15 + 5 = 20 <= 20
+  });
+});
+
+describe('saucePairsWithMain — the M5.6 pairing gate', () => {
+  const gremolata = () => sauce({ id: 'sd-gremolata', name: 'Gremolata', cuisine: 'Italian', pairsWith: ['Italian'] });
+
+  it('refuses a sauce on a main that already carries one (chicken piccata + gremolata)', () => {
+    // The case that started this: same cuisine, allowlist matches, but the
+    // dish arrives with its own lemon-caper pan sauce.
+    const piccata = makeRecipe({
+      id: 'it-chicken-piccata',
+      name: 'Chicken Piccata',
+      cuisine: 'Italian',
+      techniques: ['sear', 'pan-sauce'],
+      provides: ['protein', 'starch'],
+    });
+    expect(mainIsAlreadySauced(piccata)).toBe(true);
+    expect(saucePairsWithMain(gremolata(), piccata)).toBe(false);
+  });
+
+  it('refuses a sauce whose allowlist does not include the main\'s cuisine', () => {
+    const thaiCurry = makeRecipe({ id: 'th-green-curry', cuisine: 'Thai', techniques: ['saute'], provides: ['protein'] });
+    const tahini = sauce({ id: 'sd-tahini', cuisine: 'MiddleEastern', pairsWith: ['MiddleEastern', 'Mediterranean', 'Greek'] });
+    expect(saucePairsWithMain(tahini, thaiCurry)).toBe(false);
+  });
+
+  it('allows a sauce that both matches the allowlist and meets an unsauced main', () => {
+    const grilledChicken = makeRecipe({ id: 'it-grilled-chicken', cuisine: 'Italian', techniques: ['grill'], provides: ['protein'] });
+    expect(mainIsAlreadySauced(grilledChicken)).toBe(false);
+    expect(saucePairsWithMain(gremolata(), grilledChicken)).toBe(true);
+  });
+
+  it('fails CLOSED for a sauce with no `pairsWith` authored', () => {
+    const unlisted = sauce({ id: 'sd-unlisted', pairsWith: undefined });
+    const main = makeRecipe({ id: 'main-plain', cuisine: 'Italian', techniques: ['grill'], provides: ['protein'] });
+    expect(saucePairsWithMain(unlisted, main)).toBe(false);
+  });
+
+  it('treats soups, stews and pasta as already sauced by category', () => {
+    for (const c of ['Soups', 'Stews', 'Pasta'] as const) {
+      expect(mainIsAlreadySauced(makeRecipe({ categories: [c], techniques: ['boil'] }))).toBe(true);
+    }
+  });
+
+  it('does NOT treat rice bowls or one-pot dishes as already sauced — those are where a sauce belongs', () => {
+    // Falafel bowls want tahini; blocking them would trade one wrong answer
+    // for another.
+    expect(mainIsAlreadySauced(makeRecipe({ categories: ['RiceBowls'], techniques: ['assemble'] }))).toBe(false);
+    expect(mainIsAlreadySauced(makeRecipe({ categories: ['OnePot'], techniques: ['fry'] }))).toBe(false);
   });
 });
 
@@ -190,5 +262,51 @@ describe('composeSides — priority order (hard minimum, then target, then sauce
     const main = proteinOnlyMain();
     const ids = composeSides(main, [sauce()], ctxFor());
     expect(ids).toEqual([]);
+  });
+
+  // M5.6: the free second slot used to fall through to the best-scoring
+  // sauce unconditionally. Now it has to be earned, and an unearned slot is
+  // left empty — one right side beats two wrong ones.
+  it('leaves the slot EMPTY rather than adding a sauce that does not belong on the main', () => {
+    const thaiMain = makeRecipe({
+      id: 'main-thai',
+      cuisine: 'Thai',
+      techniques: ['stir-fry'],
+      primaryProtein: 'Chicken',
+      provides: ['protein'],
+      prepMinutes: 10,
+      cookMinutes: 10,
+    });
+    const veg = vegSide({ cuisine: 'Thai' });
+    const wrongSauce = sauce({ id: 'sd-tahini', cuisine: 'MiddleEastern', pairsWith: ['MiddleEastern'] });
+    const ids = composeSides(thaiMain, [veg, wrongSauce], ctxFor());
+    expect(ids).toEqual(['side-veg']);
+  });
+
+  it('still fills the slot when the sauce genuinely pairs', () => {
+    const italianMain = makeRecipe({
+      id: 'main-italian-grill',
+      cuisine: 'Italian',
+      techniques: ['grill'],
+      primaryProtein: 'Chicken',
+      provides: ['protein'],
+      prepMinutes: 10,
+      cookMinutes: 10,
+    });
+    const ids = composeSides(italianMain, [vegSide(), sauce()], ctxFor());
+    expect(ids).toEqual(['side-veg', 'side-sauce']);
+  });
+
+  it('never adds a second sauce to a main that already brings its own', () => {
+    const braise = makeRecipe({
+      id: 'main-braise',
+      cuisine: 'Italian',
+      techniques: ['braise'],
+      primaryProtein: 'Beef',
+      provides: ['protein', 'vegetable', 'starch'],
+      prepMinutes: 10,
+      cookMinutes: 10,
+    });
+    expect(composeSides(braise, [sauce(), sauce({ id: 'sauce-2' })], ctxFor())).toEqual([]);
   });
 });

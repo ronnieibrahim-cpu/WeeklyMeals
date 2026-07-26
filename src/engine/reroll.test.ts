@@ -487,13 +487,16 @@ describe('rerollCandidates — M4.5 keep/re-roll a plate component', () => {
   });
 
   describe('keep sides, re-roll the main', () => {
-    it('carries the kept side id verbatim and first on the candidate, and a sauce (empty provides) pairs with any main', () => {
+    it('carries the kept side id verbatim and first on the candidate when the kept sauce pairs with the new main', () => {
       const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
       const sauce = makeRecipe({
         id: 'chimichurri',
         role: 'sauce',
         provides: [],
         cuisine: 'Mexican',
+        // M5.6: a kept sauce is no longer assumed to pair with any main —
+        // it has to say so, and the candidate below is Mexican.
+        pairsWith: ['Mexican'],
         primaryProtein: 'None',
         ingredients: [{ name: 'parsley', quantity: 1, unit: 'bunch', department: 'Produce' }],
       });
@@ -574,13 +577,15 @@ describe('rerollCandidates — M4.5 keep/re-roll a plate component', () => {
 
     it('excludes a main that breaks the combined time budget with a kept side', () => {
       const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
+      // M5.6: cook time now runs in PARALLEL (max), prep still sums — so the
+      // budget a candidate main can break with a kept side is the prep one.
       const keptSide = makeRecipe({
         id: 'kept-side',
         role: 'side',
         provides: ['starch'],
         cuisine: 'Italian',
         primaryProtein: 'None',
-        prepMinutes: 5,
+        prepMinutes: 12,
         cookMinutes: 35,
         ingredients: [{ name: 'rice', quantity: 1, unit: 'cup', department: 'DryGoods' }],
       });
@@ -589,8 +594,8 @@ describe('rerollCandidates — M4.5 keep/re-roll a plate component', () => {
         primaryProtein: 'Chicken',
         provides: ['protein'],
         cuisine: 'Italian',
-        prepMinutes: 10,
-        cookMinutes: 20, // 20 + 35 = 55 > maxCookMinutes (45)
+        prepMinutes: 10, // 10 + 12 = 22 > maxPrepMinutes (20)
+        cookMinutes: 20,
         ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
       });
       const fastMain = makeRecipe({
@@ -598,8 +603,8 @@ describe('rerollCandidates — M4.5 keep/re-roll a plate component', () => {
         primaryProtein: 'Beef',
         provides: ['protein'],
         cuisine: 'Italian',
-        prepMinutes: 5,
-        cookMinutes: 5, // 5 + 35 = 40 <= 45
+        prepMinutes: 5, // 5 + 12 = 17 <= 20
+        cookMinutes: 5,
         ingredients: [{ name: 'beef', quantity: 1, unit: 'lb', department: 'Meat' }],
       });
       const plan = makePlan({
@@ -672,6 +677,7 @@ describe('rerollCandidates — M4.5 keep/re-roll a plate component', () => {
         role: 'sauce',
         provides: [],
         cuisine: 'Mexican',
+        pairsWith: ['Mexican', 'Italian'], // must clear the M5.6 gate for BOTH candidate mains
         primaryProtein: 'None',
         ingredients: [{ name: 'parsley', quantity: 1, unit: 'bunch', department: 'Produce' }],
       });
@@ -812,6 +818,7 @@ describe('rerollCandidates — M4.5 keep/re-roll a plate component', () => {
         id: 'kept-sauce',
         role: 'sauce',
         provides: [],
+        pairsWith: ['Italian'], // makeRecipe's default cuisine — clears the M5.6 gate
         primaryProtein: 'None',
         ingredients: [{ name: 'parsley', quantity: 1, unit: 'bunch', department: 'Produce' }],
       });
