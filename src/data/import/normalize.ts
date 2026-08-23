@@ -141,7 +141,48 @@ function parseFraction(token: string): number | null {
   return null;
 }
 
-function parseMeasure(measure: string): { quantity: number; unit: Unit } {
+const round2 = (n: number) => Math.round(n * 100) / 100;
+function roundToStep(value: number, step: number): number {
+  return round2(Math.round(value / step) * step);
+}
+
+/**
+ * TheMealDB (the only source that ever emits g/kg/ml/l) is UK-authored and
+ * metric-first, but every hand-authored recipe in this app already uses
+ * customary units (lb/oz, cup/tbsp/tsp) — see `recipes.ts`. Convert within
+ * the same dimensional family (mass -> oz/lb, volume -> tsp/tbsp/cup) so
+ * imported recipes read the same way; this deliberately does NOT attempt a
+ * mass->volume density conversion (e.g. "5 g of paprika" -> tsp), which
+ * would need a per-ingredient density table. The mass/volume conversion
+ * factors here match `ingredientKey.ts`'s `MASS_TO_GRAMS`/`VOLUME_TO_ML`
+ * exactly, so a converted quantity round-trips identically once it reaches
+ * the shopping list's own unit-family merge logic.
+ */
+function toCustomary(quantity: number, unit: Unit): { quantity: number; unit: Unit } {
+  if (unit === 'kg') return toCustomary(quantity * 1000, 'g');
+  if (unit === 'l') return toCustomary(quantity * 1000, 'ml');
+
+  if (unit === 'g') {
+    const ounces = quantity / 28.35;
+    if (ounces < 16) return { quantity: Math.max(0.25, roundToStep(ounces, 0.25)), unit: 'oz' };
+    return { quantity: roundToStep(ounces / 16, 0.25), unit: 'lb' };
+  }
+
+  if (unit === 'ml') {
+    const teaspoons = quantity / 5;
+    if (teaspoons < 3) return { quantity: Math.max(0.25, roundToStep(teaspoons, 0.25)), unit: 'tsp' };
+    const tablespoons = quantity / 15;
+    if (tablespoons < 4) return { quantity: roundToStep(tablespoons, 0.5), unit: 'tbsp' };
+    const cups = quantity / 240;
+    return { quantity: roundToStep(cups, 0.25), unit: 'cup' };
+  }
+
+  return { quantity, unit };
+}
+
+/** Exported so normalize.test.ts can verify the metric->customary unit
+ * conversion directly. */
+export function parseMeasure(measure: string): { quantity: number; unit: Unit } {
   const m = measure.trim().toLowerCase();
   if (!m || /to taste|to serve|for serving|as needed|garnish|as required/.test(m)) {
     return { quantity: 1, unit: 'pinch' };
@@ -161,7 +202,10 @@ function parseMeasure(measure: string): { quantity: number; unit: Unit } {
   if (quantity === 0) quantity = 1;
   const unitWord = tokens[i];
   const unit = (unitWord && UNIT_WORDS[unitWord]) || 'piece';
-  return { quantity: Math.round(quantity * 100) / 100, unit };
+  if (unit === 'g' || unit === 'kg' || unit === 'ml' || unit === 'l') {
+    return toCustomary(quantity, unit);
+  }
+  return { quantity: round2(quantity), unit };
 }
 
 const DEPT_RULES: [Department, string[]][] = [

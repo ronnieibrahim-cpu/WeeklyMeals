@@ -168,12 +168,19 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    trailing plural — "carrots"/"carrot" are the same ingredient) AND a unit family —
    mass (`g`/`kg`/`oz`/`lb`), volume (`ml`/`l`/`tsp`/`tbsp`/`cup`), or, for anything
    else (`piece`/`clove`/`can`/`bunch`/`pinch`), the exact unit itself, since those
-   never convert. A cross-unit merge (e.g. curated `1 lb` + imported `700 g` ground
-   beef) sums in the base unit and displays in whichever of the two units actually in
-   play has the larger conversion factor — see `src/engine/ingredientKey.ts`. This is
-   why the same real-world ingredient from a curated main, an imported side, and a
-   composed side all land on one line instead of three. **Cost shown at approval
-   equals the shopping tab's total** (single source of truth).
+   never convert. A cross-unit merge (e.g. curated `1 lb` + a user-added recipe's
+   `700 g` ground beef — `g`/`kg`/`ml`/`l` stay selectable when hand-adding a recipe,
+   even though every curated/imported recipe in the library itself is customary-only,
+   see below) sums in the base unit and displays in whichever of the two units
+   actually in play has the larger conversion factor — see `src/engine/ingredientKey.ts`.
+   This is why the same real-world ingredient from a curated main, an imported side,
+   and a composed side all land on one line instead of three. **Cost shown at
+   approval equals the shopping tab's total** (single source of truth).
+   - **All library recipes use customary units** (lb/oz, cup/tbsp/tsp, not
+     g/ml/kg/l) — including the 356 TheMealDB imports (`recipeImported.ts`), which
+     source metric measures; `src/data/import/normalize.ts`'s `parseMeasure`
+     converts g/kg → oz/lb and ml/l → tsp/tbsp/cup at import time (mass→mass,
+     volume→volume only — no density-based mass→volume conversion).
    - **Servings (M4.1):** `IntakeAnswers.servingsPerMeal` (not a flat headcount) drives
      generation — `src/engine/portions.ts`'s `adultEquivalents(members)` converts
      `Profile.members` (each `{ name?, ageYears?, isChild, eatsLikeAdult? }`) into a

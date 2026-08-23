@@ -41,14 +41,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lean minced steak",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "cooked beetroot",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -59,8 +59,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rocket",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -131,8 +131,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "natural yoghurt",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -149,8 +149,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "baby new potatoes",
-        "quantity": 1.25,
-        "unit": "kg",
+        "quantity": 2.75,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -174,8 +174,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tortillas",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Bakery"
       }
     ],
@@ -254,8 +254,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cherry tomatoes",
-        "quantity": 175,
-        "unit": "g",
+        "quantity": 6.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -267,8 +267,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "salmon",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -449,8 +449,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter beans",
-        "quantity": 1200,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "lb",
         "department": "Dairy"
       },
       {
@@ -665,14 +665,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "beef",
-        "quantity": 750,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -689,20 +689,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "onions",
-        "quantity": 175,
-        "unit": "g",
+        "quantity": 6.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "celery",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "carrots",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -713,20 +713,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "swede",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "red wine",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "beef stock",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -749,8 +749,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "plain flour",
-        "quantity": 125,
-        "unit": "g",
+        "quantity": 4.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -761,8 +761,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "suet",
-        "quantity": 60,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "oz",
         "department": "DryGoods"
       }
     ],
@@ -853,8 +853,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "plain flour",
-        "quantity": 140,
-        "unit": "g",
+        "quantity": 5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -865,8 +865,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "milk",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -933,8 +933,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "mushrooms",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -952,8 +952,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef fillet",
-        "quantity": 750,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -964,8 +964,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "puff pastry",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Bakery"
       },
       {
@@ -1038,8 +1038,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "minced beef",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -1196,8 +1196,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "plain flour",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -1208,8 +1208,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "milk",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -1451,8 +1451,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -1463,14 +1463,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "mushrooms",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "plain flour",
-        "quantity": 40,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -1493,8 +1493,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -1572,8 +1572,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "macaroni",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -1900,14 +1900,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cider",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Meat"
       }
     ],
@@ -2345,14 +2345,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "floury potatoes",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Produce"
       },
       {
         "name": "butter",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -2375,8 +2375,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "double cream",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -2387,8 +2387,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "ham",
-        "quantity": 180,
-        "unit": "g",
+        "quantity": 6.25,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -2581,20 +2581,20 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "whole wheat",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "lamb loin chops",
-        "quantity": 2,
-        "unit": "kg",
+        "quantity": 4.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "olive oil",
-        "quantity": 120,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -2624,14 +2624,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "charlotte potatoes",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "white wine",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -2654,8 +2654,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 450,
-        "unit": "ml",
+        "quantity": 2,
+        "unit": "cup",
         "department": "Meat"
       }
     ],
@@ -2825,8 +2825,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "smoked haddock",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -2837,8 +2837,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "milk",
-        "quantity": 300,
-        "unit": "ml",
+        "quantity": 1.25,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -2886,8 +2886,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       }
     ],
@@ -3112,14 +3112,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "lamb",
-        "quantity": 900,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -3142,8 +3142,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "plain flour",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -3154,8 +3154,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 500,
-        "unit": "ml",
+        "quantity": 2,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -3166,8 +3166,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 900,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "lb",
         "department": "Produce"
       }
     ],
@@ -3491,14 +3491,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "mushrooms",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "chestnuts",
-        "quantity": 240,
-        "unit": "g",
+        "quantity": 8.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -3521,8 +3521,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "wild mushrooms",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -3533,14 +3533,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white wine",
-        "quantity": 125,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "lasagne sheets",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -3629,8 +3629,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter",
-        "quantity": 60,
-        "unit": "ml",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -3641,8 +3641,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "minced beef",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -3653,8 +3653,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "creamed corn",
-        "quantity": 500,
-        "unit": "ml",
+        "quantity": 2,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -3816,8 +3816,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "squid",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -4058,8 +4058,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "salmon",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -4076,8 +4076,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "spinach",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -4465,8 +4465,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "can of chickpeas",
-        "quantity": 402,
-        "unit": "g",
+        "quantity": 14.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -4489,21 +4489,21 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "olive oil",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "squid",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
         "name": "chorizo",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -4770,8 +4770,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "plain flour",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -4788,14 +4788,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "milk",
-        "quantity": 225,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
         "name": "cherry tomatoes",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       }
     ],
@@ -4868,8 +4868,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "minced pork",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -4904,14 +4904,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "shortcrust pastry",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
@@ -5010,8 +5010,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "turkey mince",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -5022,8 +5022,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 85,
-        "unit": "g",
+        "quantity": 3,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
@@ -5034,8 +5034,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cannellini beans",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -5169,8 +5169,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock cube",
-        "quantity": 250,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -5187,8 +5187,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lentils",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "DryGoods"
       }
     ],
@@ -5244,8 +5244,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "roasted vegetables",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -5325,8 +5325,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "asparagus",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -5381,8 +5381,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rocket",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       }
     ],
@@ -5433,8 +5433,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "mixed beef cuts",
-        "quantity": 2,
-        "unit": "kg",
+        "quantity": 4.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -5520,8 +5520,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lard",
-        "quantity": 60,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -5533,8 +5533,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "all purpose flour",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -5563,8 +5563,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sirloin steak",
-        "quantity": 750,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -5947,8 +5947,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -5977,8 +5977,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "dried apricots",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -6063,14 +6063,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "milk",
-        "quantity": 80,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "butter",
-        "quantity": 60,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -6087,21 +6087,21 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bread flour",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Bakery"
       },
       {
         "name": "salt",
-        "quantity": 10,
-        "unit": "g",
+        "quantity": 0.25,
+        "unit": "oz",
         "department": "Spices",
         "pantryStaple": true
       },
       {
         "name": "yeast",
-        "quantity": 10,
-        "unit": "g",
+        "quantity": 0.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -6262,20 +6262,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "ham",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "mozzarella",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "bacon",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -6543,14 +6543,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "all purpose flour",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
         "name": "butter",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -6562,8 +6562,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "ground beef",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -6580,8 +6580,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "green olives",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -6856,14 +6856,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "minced beef",
-        "quantity": 900,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -7335,8 +7335,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "unsweetened coconut milk",
-        "quantity": 380,
-        "unit": "g",
+        "quantity": 13.5,
+        "unit": "oz",
         "department": "International"
       },
       {
@@ -7480,8 +7480,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "kidney beans",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -7678,14 +7678,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "coconut milk",
-        "quantity": 380,
-        "unit": "g",
+        "quantity": 13.5,
+        "unit": "oz",
         "department": "International"
       },
       {
         "name": "kidney beans",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -7868,14 +7868,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "basmati rice",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "International"
       },
       {
         "name": "coconut milk",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "International"
       },
       {
@@ -7904,8 +7904,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "kidney beans",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "DryGoods"
       }
     ],
@@ -7968,38 +7968,38 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "dried white corn",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
         "name": "dried white beans",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "pumpkin",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "potatoes",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "beef",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "pork",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -8087,20 +8087,20 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef flank steak",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "tomato sauce",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "mozzarella",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -8111,8 +8111,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "green olives",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -8198,8 +8198,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
@@ -8290,8 +8290,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "oxtail",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -8345,8 +8345,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "broad beans",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -8551,14 +8551,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "salt cod",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "ackee",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -8605,8 +8605,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tomatoes",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -8625,14 +8625,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "self-raising flour",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "suet",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -8709,14 +8709,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "cheddar cheese",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "ham",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -8727,21 +8727,21 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable oil",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "milk",
-        "quantity": 240,
-        "unit": "g",
+        "quantity": 8.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "all purpose flour",
-        "quantity": 120,
-        "unit": "g",
+        "quantity": 4.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -8825,8 +8825,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "pork shoulder",
-        "quantity": 650,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -9270,8 +9270,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef tenderloin",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -9326,20 +9326,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lettuce",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
         "name": "tomato",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "onion",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -9582,8 +9582,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken thighs",
-        "quantity": 650,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -10113,8 +10113,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "prawns",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -10150,8 +10150,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "peanuts",
-        "quantity": 85,
-        "unit": "g",
+        "quantity": 3,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -10174,8 +10174,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "water chestnut",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -10244,14 +10244,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "tofu",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "minced beef",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -11883,8 +11883,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "pork",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -11908,26 +11908,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "soy sauce",
-        "quantity": 10,
-        "unit": "g",
+        "quantity": 0.25,
+        "unit": "oz",
         "department": "International"
       },
       {
         "name": "starch",
-        "quantity": 10,
-        "unit": "g",
+        "quantity": 0.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "tomato puree",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "vinegar",
-        "quantity": 10,
-        "unit": "g",
+        "quantity": 0.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -12311,14 +12311,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken",
-        "quantity": 1.5,
-        "unit": "kg",
+        "quantity": 3.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "butter",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -12342,8 +12342,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 130,
-        "unit": "g",
+        "quantity": 4.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -12360,8 +12360,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "basmati rice",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "International"
       },
       {
@@ -12390,14 +12390,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 350,
-        "unit": "ml",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "Meat"
       },
       {
         "name": "dry white wine",
-        "quantity": 180,
-        "unit": "g",
+        "quantity": 6.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -12408,8 +12408,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "black olives",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -12489,8 +12489,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "mushrooms",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -12501,8 +12501,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "passata",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -12513,8 +12513,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "black olives",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -12580,14 +12580,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 1.5,
-        "unit": "kg",
+        "quantity": 3.25,
+        "unit": "lb",
         "department": "Produce"
       },
       {
         "name": "butter",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -12604,8 +12604,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -12646,20 +12646,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tinned tomatos",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 350,
-        "unit": "ml",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "Meat"
       },
       {
         "name": "chicken",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -12676,8 +12676,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "gruyere cheese",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
@@ -12765,8 +12765,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white wine",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       }
     ],
@@ -12844,14 +12844,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "dry white wine",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "fish stock",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Seafood"
       },
       {
@@ -12910,8 +12910,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chopped tomatoes",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -12922,8 +12922,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white fish",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -12996,14 +12996,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "leek",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -13015,8 +13015,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "creme fraiche",
-        "quantity": 300,
-        "unit": "ml",
+        "quantity": 1.25,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -13039,8 +13039,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "plain flour",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -13052,20 +13052,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter",
-        "quantity": 60,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "lard",
-        "quantity": 60,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "cheddar cheese",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
@@ -13341,8 +13341,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pork",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -13377,8 +13377,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock",
-        "quantity": 600,
-        "unit": "ml",
+        "quantity": 2.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -13401,8 +13401,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "haricot beans",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -13655,20 +13655,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "cannellini beans",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "green beans",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -13691,8 +13691,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parmesan",
-        "quantity": 40,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
@@ -13749,20 +13749,20 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "parmesan",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "milk",
-        "quantity": 300,
-        "unit": "ml",
+        "quantity": 1.25,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -13791,8 +13791,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "gruyère",
-        "quantity": 140,
-        "unit": "g",
+        "quantity": 5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -13809,8 +13809,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "double cream",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -13882,8 +13882,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -13913,8 +13913,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sunflower oil",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -13926,14 +13926,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "spinach",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "tuna",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       }
     ],
@@ -13995,14 +13995,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "quinoa",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "butter",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -14019,8 +14019,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken breast",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -14044,8 +14044,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "feta",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -14113,8 +14113,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "raw king prawns",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
@@ -14138,8 +14138,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white wine",
-        "quantity": 250,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -14218,8 +14218,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter beans",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -14249,8 +14249,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tomatoes",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -14362,8 +14362,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lamb leg",
-        "quantity": 750,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -14430,14 +14430,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "bulgur wheat",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "lamb mince",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -14485,8 +14485,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "greek yogurt",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -14551,8 +14551,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -14563,8 +14563,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "greek yogurt",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -14581,8 +14581,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tomato",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -14593,8 +14593,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "Produce"
       }
     ],
@@ -14686,8 +14686,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lamb",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -14704,14 +14704,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -14915,14 +14915,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "white fish",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "daikon radish",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -15056,8 +15056,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "basmati rice",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "International"
       },
       {
@@ -15319,8 +15319,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken",
-        "quantity": 1.2,
-        "unit": "kg",
+        "quantity": 2.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -15884,8 +15884,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lamb mince",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -16078,14 +16078,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chopped tomatoes",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "kidney beans",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -16407,14 +16407,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lamb",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "greek yogurt",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -16478,8 +16478,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lamb",
-        "quantity": 700,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -16502,14 +16502,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "natural yoghurt",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Dairy"
       },
       {
@@ -16620,8 +16620,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paneer",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -16662,8 +16662,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "peas",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -16782,14 +16782,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Meat"
       },
       {
         "name": "greek yogurt",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
@@ -17327,14 +17327,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "linguine pasta",
-        "quantity": 280,
-        "unit": "g",
+        "quantity": 10,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "sugar snap peas",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -17695,14 +17695,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "clotted cream",
-        "quantity": 227,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "butter",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -17713,8 +17713,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parmesan cheese",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -17725,8 +17725,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "fettuccine",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -17922,8 +17922,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "minced beef",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -17934,8 +17934,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chopped tomatoes",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -17946,26 +17946,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lasagne sheets",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
         "name": "creme fraiche",
-        "quantity": 400,
-        "unit": "ml",
+        "quantity": 1.75,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
         "name": "mozzarella balls",
-        "quantity": 125,
-        "unit": "g",
+        "quantity": 4.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "parmesan cheese",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -18033,14 +18033,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "mozzarella balls",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "baby plum tomatoes",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -18051,8 +18051,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "farfalle",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -18064,14 +18064,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "green olives",
-        "quantity": 40,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "tuna",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -18480,8 +18480,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "spaghetti",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -18517,14 +18517,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pilchards",
-        "quantity": 425,
-        "unit": "g",
+        "quantity": 15,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "black olives",
-        "quantity": 70,
-        "unit": "g",
+        "quantity": 2.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -18591,14 +18591,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "yeast",
-        "quantity": 15,
-        "unit": "g",
+        "quantity": 0.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "plain flour",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -18617,14 +18617,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "passata",
-        "quantity": 80,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "mozzarella",
-        "quantity": 70,
-        "unit": "g",
+        "quantity": 2.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -18820,8 +18820,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -18839,8 +18839,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -19122,14 +19122,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "red wine",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "chopped tomatoes",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -19140,20 +19140,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pitted black olives",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "rigatoni",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
         "name": "pecorino",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -19170,15 +19170,15 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "olive oil",
-        "quantity": 60,
-        "unit": "ml",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "basil leaves",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Produce"
       }
     ],
@@ -19250,20 +19250,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "white wine",
-        "quantity": 125,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "vegetable stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -19274,20 +19274,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "king prawns",
-        "quantity": 240,
-        "unit": "g",
+        "quantity": 8.5,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "salmon",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "asparagus",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -19299,8 +19299,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parmesan",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
@@ -19362,8 +19362,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "spaghetti",
-        "quantity": 320,
-        "unit": "g",
+        "quantity": 11.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -19381,14 +19381,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bacon",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "pecorino",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -19594,8 +19594,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chopped tomatoes",
-        "quantity": 403,
-        "unit": "g",
+        "quantity": 14.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -19618,8 +19618,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parmesan",
-        "quantity": 85,
-        "unit": "g",
+        "quantity": 3,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -19630,14 +19630,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "spinach",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Produce"
       },
       {
         "name": "parmesan",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -19654,8 +19654,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cannellini beans",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       }
     ],
@@ -19714,8 +19714,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butternut squash",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -19733,8 +19733,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "linguine pasta",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -19801,8 +19801,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "leek",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -19813,8 +19813,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -19825,8 +19825,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -19974,8 +19974,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "spinach",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -19986,8 +19986,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegan butter",
-        "quantity": 35,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -19998,8 +19998,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "soya milk",
-        "quantity": 300,
-        "unit": "ml",
+        "quantity": 1.25,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -20110,14 +20110,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "red wine",
-        "quantity": 250,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "chopped tomatoes",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -20152,8 +20152,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paccheri pasta",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -20314,8 +20314,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -20344,8 +20344,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sushi rice",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -20430,14 +20430,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
         "name": "vegetable oil",
-        "quantity": 230,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -20480,8 +20480,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 600,
-        "unit": "ml",
+        "quantity": 2.5,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -20568,14 +20568,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "sushi rice",
-        "quantity": 300,
-        "unit": "ml",
+        "quantity": 1.25,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "rice wine",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "International"
       },
       {
@@ -20778,8 +20778,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "flour",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -20790,8 +20790,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
@@ -20884,8 +20884,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "udon noodles",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -21001,8 +21001,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 900,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -21038,8 +21038,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tinned tomatos",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -21114,20 +21114,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pork belly slices",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "black pudding",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "bacon lardon",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -21168,14 +21168,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "dried white beans",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 1.5,
-        "unit": "l",
+        "quantity": 6.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -21186,8 +21186,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paella rice",
-        "quantity": 375,
-        "unit": "g",
+        "quantity": 13.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -21280,8 +21280,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paella rice",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -21292,14 +21292,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white wine",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "seafood stock",
-        "quantity": 650,
-        "unit": "ml",
+        "quantity": 2.75,
+        "unit": "cup",
         "department": "Seafood"
       },
       {
@@ -21440,14 +21440,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "minced beef",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "minced pork",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -21594,8 +21594,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -21612,20 +21612,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white wine",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 800,
-        "unit": "ml",
+        "quantity": 3.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
         "name": "rice",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -21689,8 +21689,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken",
-        "quantity": 1.25,
-        "unit": "kg",
+        "quantity": 2.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -21714,14 +21714,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "dry sherry",
-        "quantity": 125,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -21732,8 +21732,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "raisins",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -21850,8 +21850,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -21868,8 +21868,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chickpeas",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -21880,8 +21880,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "spinach",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       }
     ],
@@ -21939,8 +21939,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "baby new potatoes",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -21951,14 +21951,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "green beans",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "chorizo",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -22047,8 +22047,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -22065,8 +22065,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cheddar cheese",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
@@ -22131,8 +22131,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chorizo",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -22155,20 +22155,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "tinned tomatos",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "butter beans",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -22179,8 +22179,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "clams",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
@@ -22248,14 +22248,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "feta",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "cottage cheese",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -22377,8 +22377,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 0.5,
-        "unit": "kg",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       }
     ],
@@ -22440,8 +22440,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -22476,8 +22476,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lamb shoulder",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -22494,8 +22494,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "olive oil",
-        "quantity": 80,
-        "unit": "ml",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -22507,8 +22507,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white wine",
-        "quantity": 250,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -22596,8 +22596,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -22626,20 +22626,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tinned tomatos",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "green olives",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "butter beans",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -22712,14 +22712,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "haddock",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
         "name": "potatoes",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -22773,8 +22773,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
@@ -22840,14 +22840,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "squid",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "plain flour",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -22937,8 +22937,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "plain flour",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -22949,8 +22949,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
@@ -22975,26 +22975,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "jamón ibérico",
-        "quantity": 70,
-        "unit": "g",
+        "quantity": 2.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "plain flour",
-        "quantity": 60,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "vegetable stock",
-        "quantity": 75,
-        "unit": "ml",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "milk",
-        "quantity": 330,
-        "unit": "ml",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -23063,39 +23063,39 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "wild garlic leaves",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "milk",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "olive oil",
-        "quantity": 45,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "oz",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "flour",
-        "quantity": 65,
-        "unit": "g",
+        "quantity": 2.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "manchego",
-        "quantity": 35,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "jamón ibérico",
-        "quantity": 80,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -23106,14 +23106,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
         "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       }
@@ -23195,14 +23195,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "dry sherry",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "mussels",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
@@ -23213,8 +23213,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -23243,14 +23243,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paella rice",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "broad beans",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -23318,8 +23318,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "dried white beans",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -23349,14 +23349,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bread",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
         "name": "chorizo",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -23373,8 +23373,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -23467,8 +23467,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tinned tomatos",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -23503,8 +23503,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 900,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -23572,8 +23572,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken",
-        "quantity": 1.5,
-        "unit": "kg",
+        "quantity": 3.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -23878,14 +23878,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "almonds",
-        "quantity": 35,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "stale bread",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
@@ -23920,14 +23920,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "dry sherry",
-        "quantity": 250,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 350,
-        "unit": "ml",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -24025,8 +24025,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white wine",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -24062,8 +24062,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -24166,8 +24166,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "dry white wine",
-        "quantity": 400,
-        "unit": "ml",
+        "quantity": 1.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -24184,26 +24184,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "plum tomatoes",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "cod",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
         "name": "squid",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -24214,14 +24214,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "clams",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
         "name": "mussels",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
@@ -24659,8 +24659,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "olive oil",
-        "quantity": 120,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -24672,8 +24672,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tiger prawns",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       }
     ],
@@ -24770,8 +24770,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paella rice",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -24788,20 +24788,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white wine",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "vegetable stock",
-        "quantity": 700,
-        "unit": "ml",
+        "quantity": 3,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "frozen peas",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -24903,8 +24903,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "jersey royal potatoes",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -24927,8 +24927,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "salt cod",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Seafood"
       }
     ],
@@ -24992,8 +24992,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "mussels",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -25010,8 +25010,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vermicelli pasta",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -25053,8 +25053,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "fish stock",
-        "quantity": 650,
-        "unit": "ml",
+        "quantity": 2.75,
+        "unit": "cup",
         "department": "Seafood"
       },
       {
@@ -25148,8 +25148,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 110,
-        "unit": "g",
+        "quantity": 4,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -25160,26 +25160,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "fish stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "Seafood"
       },
       {
         "name": "peas",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "frozen seafood mix",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       }
     ],
@@ -25342,20 +25342,20 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chorizo",
-        "quantity": 80,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "spaghetti",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "parsley",
-        "quantity": 20,
-        "unit": "g",
+        "quantity": 0.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -25373,8 +25373,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parmesan cheese",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
@@ -25434,8 +25434,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "pinto beans",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -25476,20 +25476,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "jersey royal potatoes",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "chorizo",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "spinach",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       }
     ],
@@ -25549,8 +25549,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -25585,14 +25585,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
         "name": "pork",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -25603,39 +25603,39 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "olive oil",
-        "quantity": 50,
-        "unit": "ml",
+        "quantity": 3.5,
+        "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "chorizo",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "squid",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "white wine",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "tomato",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "clams",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -25724,8 +25724,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -25743,20 +25743,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "basmati rice",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "International"
       },
       {
         "name": "tinned tomatos",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "prawns",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Seafood"
       }
     ],
@@ -25845,14 +25845,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paella rice",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "vegetable stock",
-        "quantity": 800,
-        "unit": "ml",
+        "quantity": 3.25,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -25863,8 +25863,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "frozen seafood mix",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -25948,14 +25948,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "potatoes",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -26057,8 +26057,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lamb shoulder",
-        "quantity": 2.5,
-        "unit": "kg",
+        "quantity": 5.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -26088,26 +26088,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 500,
-        "unit": "ml",
+        "quantity": 2,
+        "unit": "cup",
         "department": "Meat"
       },
       {
         "name": "butter beans",
-        "quantity": 1200,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "lb",
         "department": "Dairy"
       },
       {
         "name": "roasted pepper",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Spices"
       },
       {
         "name": "black olives",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -26223,14 +26223,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cherry tomatoes",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "potatoes",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -26326,26 +26326,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "prawns",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "feta",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "butter",
-        "quantity": 15,
-        "unit": "g",
+        "quantity": 0.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "plain flour",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -26418,8 +26418,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -26448,8 +26448,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "red wine",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -26566,8 +26566,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "shredded meat",
-        "quantity": 2,
-        "unit": "kg",
+        "quantity": 4.5,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -26644,8 +26644,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -26686,8 +26686,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -26699,8 +26699,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cheese",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -26773,8 +26773,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -26798,8 +26798,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chorizo",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -27063,44 +27063,44 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tomato sauce",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "chorizo",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "turkey ham",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "sweetcorn",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "green olives",
-        "quantity": 40,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "paprika",
-        "quantity": 55,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "oz",
         "department": "Spices"
       },
       {
         "name": "mozzarella",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
@@ -27241,8 +27241,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chickpeas",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -27296,8 +27296,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sour cream",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -28343,26 +28343,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "hummus",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "walnuts",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "parsley",
-        "quantity": 40,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "cherry tomatoes",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -28578,8 +28578,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken breast",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -28602,20 +28602,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chickpeas",
-        "quantity": 220,
-        "unit": "g",
+        "quantity": 7.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "couscous",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -28677,8 +28677,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken breast",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -29297,8 +29297,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parsley",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -29339,8 +29339,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "extra virgin olive oil",
-        "quantity": 60,
-        "unit": "ml",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       }
@@ -29641,8 +29641,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "greek yogurt",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -29772,14 +29772,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chickpeas",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "tomato",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -29796,8 +29796,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "greek yogurt",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -29808,8 +29808,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "walnuts",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -29919,8 +29919,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white cabbage",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -30062,8 +30062,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "greek yogurt",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -30135,8 +30135,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -30298,8 +30298,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pumpkin",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -30386,8 +30386,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lamb",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -30643,8 +30643,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tinned tomatos",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -30655,14 +30655,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "mint",
-        "quantity": 10,
-        "unit": "g",
+        "quantity": 0.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "lamb mince",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -30673,8 +30673,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
@@ -30760,8 +30760,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lamb leg",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -30802,8 +30802,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "apricot",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -30907,8 +30907,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tomatoes",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -30937,8 +30937,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lamb mince",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -31073,14 +31073,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chickpeas",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "vegetable stock",
-        "quantity": 1.5,
-        "unit": "l",
+        "quantity": 6.25,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -31285,8 +31285,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "mulukhiyah",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -31297,8 +31297,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -31383,8 +31383,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "mincemeat",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -31702,8 +31702,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "goats cheese",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -31799,14 +31799,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Meat"
       },
       {
         "name": "walnuts",
-        "quantity": 175,
-        "unit": "g",
+        "quantity": 6.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -31823,8 +31823,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "single cream",
-        "quantity": 50,
-        "unit": "ml",
+        "quantity": 3.5,
+        "unit": "tbsp",
         "department": "Dairy"
       },
       {
@@ -31893,14 +31893,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "tomato",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "extra virgin olive oil",
-        "quantity": 40,
-        "unit": "ml",
+        "quantity": 2.5,
+        "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -32137,8 +32137,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken thighs",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -32286,8 +32286,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chuck roast",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -32733,8 +32733,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "tahini",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "International"
       },
       {
@@ -32770,8 +32770,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "green beans",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -32782,14 +32782,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "kale",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "lentils",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "DryGoods"
       }
     ],
@@ -33144,8 +33144,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "spinach",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -33261,8 +33261,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lamb mince",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -33279,8 +33279,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "spinach",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -33297,8 +33297,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -33309,8 +33309,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chickpeas",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -33321,8 +33321,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "macaroni",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -33418,14 +33418,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lamb",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "basmati rice",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "International"
       },
       {
@@ -33524,8 +33524,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "yogurt",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -33619,8 +33619,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tomato",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -34008,14 +34008,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "minced beef",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "minced pork",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -34204,14 +34204,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "savoy cabbage",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -34246,8 +34246,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "whole milk",
-        "quantity": 60,
-        "unit": "ml",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -34362,8 +34362,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -34657,26 +34657,26 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "flour",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "beef stock",
-        "quantity": 700,
-        "unit": "ml",
+        "quantity": 3,
+        "unit": "cup",
         "department": "Meat"
       },
       {
         "name": "onion",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -34687,8 +34687,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -34713,8 +34713,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "flour",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -34725,8 +34725,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "breadcrumbs",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Bakery"
       }
     ],
@@ -34789,8 +34789,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef shin",
-        "quantity": 1,
-        "unit": "kg",
+        "quantity": 2.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -34807,8 +34807,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 2.5,
-        "unit": "kg",
+        "quantity": 5.5,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -34832,8 +34832,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beetroot",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -34844,8 +34844,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tinned tomatos",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -34862,14 +34862,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "kidney beans",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "creme fraiche",
-        "quantity": 100,
-        "unit": "ml",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -35068,14 +35068,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
         "name": "plain flour",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -35093,14 +35093,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bryndza cheese",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "bacon",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -35853,14 +35853,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "semolina",
-        "quantity": 120,
-        "unit": "g",
+        "quantity": 4.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "butter",
-        "quantity": 60,
-        "unit": "g",
+        "quantity": 2,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -35891,8 +35891,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -36136,8 +36136,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "soya bean",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -36436,8 +36436,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "ground pork",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -36733,26 +36733,26 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "floury potatoes",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Produce"
       },
       {
         "name": "carrots",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "turnips",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "leek",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -36787,8 +36787,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken stock",
-        "quantity": 600,
-        "unit": "ml",
+        "quantity": 2.5,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -36870,8 +36870,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "frogs legs",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -37203,14 +37203,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "bread",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
         "name": "cheese",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -37240,14 +37240,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "flour",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "milk",
-        "quantity": 250,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -37462,8 +37462,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -37525,8 +37525,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "boiling water",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "DryGoods"
       }
     ],
@@ -37594,14 +37594,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lamb",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "prunes",
-        "quantity": 120,
-        "unit": "g",
+        "quantity": 4.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -37624,8 +37624,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lamb",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -37636,8 +37636,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock",
-        "quantity": 600,
-        "unit": "ml",
+        "quantity": 2.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -37717,14 +37717,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 350,
-        "unit": "g",
+        "quantity": 12.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "green beans",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -37735,8 +37735,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bacon",
-        "quantity": 125,
-        "unit": "g",
+        "quantity": 4.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -37845,8 +37845,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "creme fraiche",
-        "quantity": 150,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -37921,8 +37921,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "västerbottensost cheese",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -38159,8 +38159,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pork shoulder",
-        "quantity": 800,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -38183,8 +38183,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef stock",
-        "quantity": 1.5,
-        "unit": "l",
+        "quantity": 6.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -38195,14 +38195,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white sauerkraut",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "whipping cream",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -38390,14 +38390,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "leek",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Produce"
       },
       {
         "name": "lamb mince",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -38408,14 +38408,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "lamb stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -38798,8 +38798,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "olive oil",
-        "quantity": 175,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -38859,8 +38859,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "garlic",
-        "quantity": 40,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -38945,8 +38945,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 1.5,
-        "unit": "kg",
+        "quantity": 3.25,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -38969,8 +38969,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "kale",
-        "quantity": 750,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -38981,8 +38981,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "milk",
-        "quantity": 500,
-        "unit": "ml",
+        "quantity": 2,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -39069,8 +39069,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef brisket",
-        "quantity": 1.5,
-        "unit": "kg",
+        "quantity": 3.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -39181,14 +39181,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "lamb",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "butter",
-        "quantity": 20,
-        "unit": "g",
+        "quantity": 0.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -39200,8 +39200,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 70,
-        "unit": "g",
+        "quantity": 2.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -39212,8 +39212,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "boiling water",
-        "quantity": 450,
-        "unit": "ml",
+        "quantity": 2,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -39238,8 +39238,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -39250,8 +39250,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "greek yogurt",
-        "quantity": 750,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "lb",
         "department": "Dairy"
       },
       {
@@ -39339,20 +39339,20 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "bread",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Bakery"
       },
       {
         "name": "milk",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
         "name": "smoked ham",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -39607,8 +39607,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "mushrooms",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -39625,26 +39625,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cheddar cheese",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "ham",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "polish kabanos",
-        "quantity": 75,
-        "unit": "g",
+        "quantity": 2.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "mozzarella",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Dairy"
       },
       {
@@ -39988,14 +39988,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "sugar",
-        "quantity": 85,
-        "unit": "g",
+        "quantity": 3,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "white bread mix",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Bakery"
       },
       {
@@ -40105,8 +40105,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef",
-        "quantity": 1.5,
-        "unit": "kg",
+        "quantity": 3.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -40245,8 +40245,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef",
-        "quantity": 2,
-        "unit": "kg",
+        "quantity": 4.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -40515,8 +40515,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef stock",
-        "quantity": 1,
-        "unit": "l",
+        "quantity": 4.25,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -40557,8 +40557,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sirloin steak",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -40581,8 +40581,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice noodles",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -40898,8 +40898,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "minced pork",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -41141,8 +41141,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "coconut milk",
-        "quantity": 400,
-        "unit": "ml",
+        "quantity": 1.75,
+        "unit": "cup",
         "department": "International"
       },
       {
@@ -41153,8 +41153,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice noodles",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -41165,8 +41165,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "king prawns",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -41408,14 +41408,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "peanuts",
-        "quantity": 85,
-        "unit": "g",
+        "quantity": 3,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "coconut cream",
-        "quantity": 400,
-        "unit": "ml",
+        "quantity": 1.75,
+        "unit": "cup",
         "department": "International"
       },
       {
@@ -41426,14 +41426,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef",
-        "quantity": 600,
-        "unit": "g",
+        "quantity": 1.25,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "potatoes",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -41545,26 +41545,26 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "dried shrimp",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "rice",
-        "quantity": 40,
-        "unit": "g",
+        "quantity": 1.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "coconut",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "orange zest",
-        "quantity": 20,
-        "unit": "g",
+        "quantity": 0.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -41575,56 +41575,56 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "peanuts",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "pickled scallion heads",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "pickled scallion head brine",
-        "quantity": 30,
-        "unit": "ml",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
         "name": "galangal",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "shallots",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "orange juice",
-        "quantity": 20,
-        "unit": "ml",
+        "quantity": 1.5,
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
         "name": "lime juice",
-        "quantity": 50,
-        "unit": "ml",
+        "quantity": 3.5,
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
         "name": "fish sauce",
-        "quantity": 50,
-        "unit": "ml",
+        "quantity": 3.5,
+        "unit": "tbsp",
         "department": "International"
       },
       {
         "name": "palm sugar",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       }
     ],
@@ -41692,20 +41692,20 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "peanuts",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "chilli",
-        "quantity": 15,
-        "unit": "g",
+        "quantity": 0.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "prawns",
-        "quantity": 10,
-        "unit": "g",
+        "quantity": 0.25,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -41723,8 +41723,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -41741,14 +41741,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cabbage",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "chinese broccoli",
-        "quantity": 30,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -42140,8 +42140,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "rice noodles",
-        "quantity": 125,
-        "unit": "g",
+        "quantity": 4.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -42177,8 +42177,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tiger prawns",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -42189,14 +42189,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bean sprouts",
-        "quantity": 140,
-        "unit": "g",
+        "quantity": 5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "peanuts",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -42281,8 +42281,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "coconut milk",
-        "quantity": 400,
-        "unit": "ml",
+        "quantity": 1.75,
+        "unit": "cup",
         "department": "International"
       },
       {
@@ -42293,14 +42293,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken breast",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "green beans",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -42591,8 +42591,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "raw tiger prawns",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -42657,14 +42657,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "water chestnut",
-        "quantity": 85,
-        "unit": "g",
+        "quantity": 3,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "bean sprouts",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -42744,14 +42744,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "corn flour",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "plain flour",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -42769,14 +42769,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "soda water",
-        "quantity": 250,
-        "unit": "ml",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "purple sprouting broccoli",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -42875,14 +42875,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "shiitake mushrooms",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "ground pork",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -42893,8 +42893,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "ginger",
-        "quantity": 20,
-        "unit": "g",
+        "quantity": 0.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -42923,8 +42923,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable oil",
-        "quantity": 75,
-        "unit": "ml",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -43617,8 +43617,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "brown rice noodle",
-        "quantity": 85,
-        "unit": "g",
+        "quantity": 3,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -43629,8 +43629,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "fillet of steak",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -43885,8 +43885,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken thighs",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -43897,14 +43897,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "thai green curry paste",
-        "quantity": 280,
-        "unit": "g",
+        "quantity": 10,
+        "unit": "oz",
         "department": "International"
       },
       {
         "name": "coconut milk",
-        "quantity": 400,
-        "unit": "ml",
+        "quantity": 1.75,
+        "unit": "cup",
         "department": "International"
       },
       {
@@ -43933,14 +43933,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "green beans",
-        "quantity": 280,
-        "unit": "g",
+        "quantity": 10,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "bamboo shoot",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -44016,14 +44016,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 225,
-        "unit": "g",
+        "quantity": 8,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "green beans",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -44047,8 +44047,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "coconut milk",
-        "quantity": 400,
-        "unit": "ml",
+        "quantity": 1.75,
+        "unit": "cup",
         "department": "International"
       },
       {
@@ -44065,8 +44065,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken",
-        "quantity": 450,
-        "unit": "g",
+        "quantity": 15.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -44164,8 +44164,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pork tenderloin",
-        "quantity": 400,
-        "unit": "g",
+        "quantity": 14,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -44194,14 +44194,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "coconut milk",
-        "quantity": 400,
-        "unit": "ml",
+        "quantity": 1.75,
+        "unit": "cup",
         "department": "International"
       },
       {
         "name": "sweetcorn",
-        "quantity": 175,
-        "unit": "g",
+        "quantity": 6.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -44286,8 +44286,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bean sprouts",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -44322,8 +44322,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "minced pork",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -44426,14 +44426,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "brown rice noodle",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "chicken stock",
-        "quantity": 500,
-        "unit": "ml",
+        "quantity": 2,
+        "unit": "cup",
         "department": "Meat"
       },
       {
@@ -44456,14 +44456,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "white fish",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "raw king prawns",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -44567,8 +44567,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "soya bean",
-        "quantity": 140,
-        "unit": "g",
+        "quantity": 5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -44579,8 +44579,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "marinated tofu",
-        "quantity": 300,
-        "unit": "g",
+        "quantity": 10.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -44597,8 +44597,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cashew nuts",
-        "quantity": 25,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "oz",
         "department": "DryGoods"
       }
     ],
@@ -44665,26 +44665,26 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "onion",
-        "quantity": 200,
-        "unit": "g",
+        "quantity": 7,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "tomato",
-        "quantity": 150,
-        "unit": "g",
+        "quantity": 5.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "red chilli",
-        "quantity": 20,
-        "unit": "g",
+        "quantity": 0.75,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "galangal",
-        "quantity": 15,
-        "unit": "g",
+        "quantity": 0.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -44695,8 +44695,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "raw king prawns",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Seafood"
       },
       {
@@ -44707,8 +44707,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "oyster mushrooms",
-        "quantity": 120,
-        "unit": "g",
+        "quantity": 4.25,
+        "unit": "oz",
         "department": "Produce"
       },
       {
@@ -44719,20 +44719,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "fish sauce",
-        "quantity": 25,
-        "unit": "ml",
+        "quantity": 1.5,
+        "unit": "tbsp",
         "department": "International"
       },
       {
         "name": "lime juice",
-        "quantity": 25,
-        "unit": "ml",
+        "quantity": 1.5,
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
         "name": "coconut milk",
-        "quantity": 70,
-        "unit": "ml",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "International"
       },
       {
@@ -44890,14 +44890,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "strong white bread flour",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Bakery"
       },
       {
         "name": "fast action yeast",
-        "quantity": 10,
-        "unit": "g",
+        "quantity": 0.25,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -44932,8 +44932,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "ground beef",
-        "quantity": 250,
-        "unit": "g",
+        "quantity": 8.75,
+        "unit": "oz",
         "department": "Meat"
       },
       {
@@ -45221,8 +45221,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pork tenderloin",
-        "quantity": 500,
-        "unit": "g",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -45473,14 +45473,14 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "rice flour pancakes",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "rice noodles",
-        "quantity": 50,
-        "unit": "g",
+        "quantity": 1.75,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -45645,14 +45645,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable stock",
-        "quantity": 200,
-        "unit": "ml",
+        "quantity": 0.75,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "green beans",
-        "quantity": 100,
-        "unit": "g",
+        "quantity": 3.5,
+        "unit": "oz",
         "department": "Produce"
       },
       {

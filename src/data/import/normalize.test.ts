@@ -1,4 +1,39 @@
-import { inferProvides, unsupportedProvides } from './normalize';
+import { inferProvides, parseMeasure, unsupportedProvides } from './normalize';
+
+describe('parseMeasure — metric measures convert to customary units', () => {
+  it('converts small gram amounts to ounces', () => {
+    expect(parseMeasure('100g')).toEqual({ quantity: 3.5, unit: 'oz' });
+    expect(parseMeasure('250 g')).toEqual({ quantity: 8.75, unit: 'oz' });
+  });
+
+  it('converts gram amounts at or above a pound to pounds', () => {
+    expect(parseMeasure('500g')).toEqual({ quantity: 1, unit: 'lb' });
+    expect(parseMeasure('1kg')).toEqual({ quantity: 2.25, unit: 'lb' });
+  });
+
+  it('converts small millilitre amounts to teaspoons', () => {
+    expect(parseMeasure('10ml')).toEqual({ quantity: 2, unit: 'tsp' });
+  });
+
+  it('converts mid-range millilitre amounts to tablespoons', () => {
+    expect(parseMeasure('30ml')).toEqual({ quantity: 2, unit: 'tbsp' });
+  });
+
+  it('converts larger millilitre/litre amounts to cups', () => {
+    expect(parseMeasure('240ml')).toEqual({ quantity: 1, unit: 'cup' });
+    expect(parseMeasure('1l')).toEqual({ quantity: 4.25, unit: 'cup' });
+  });
+
+  it('never leaves a converted quantity at zero', () => {
+    expect(parseMeasure('1g').quantity).toBeGreaterThan(0);
+    expect(parseMeasure('1ml').quantity).toBeGreaterThan(0);
+  });
+
+  it('leaves already-customary measures untouched', () => {
+    expect(parseMeasure('1.5 lb')).toEqual({ quantity: 1.5, unit: 'lb' });
+    expect(parseMeasure('2 tbsp')).toEqual({ quantity: 2, unit: 'tbsp' });
+  });
+});
 
 describe('inferProvides — protein', () => {
   it('credits a real primaryProtein', () => {
