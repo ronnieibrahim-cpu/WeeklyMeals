@@ -21,8 +21,15 @@
 >
 > Same rules as every milestone: all three checks green before every commit
 > (`npm run typecheck`, `npx jest`, `npx tsx scripts/validateRecipes.ts` —
-> currently **422 tests**), product laws in `PROJECT.md` §7 are binding,
+> currently **493 tests**), product laws in `PROJECT.md` §7 are binding,
 > sync/allergy/shopping-list changes carry their extra scrutiny.
+>
+> Since this file's status line above was last touched, M5.4 (household-synced
+> user recipes), M5.5 (rotation/re-roll pool/review-flow bugs/Instant Pot),
+> M5.6 (sauce-pairing gate), and M5.7 (imported-recipe unit cleanup) have all
+> shipped — see their sections below. **None of M4.3 onward has had the
+> independent advisor audit** (`ADVISOR-HANDOFF.md` Part 6) — that is still the
+> single most important open item, not a feature.
 
 ---
 
@@ -203,6 +210,27 @@ question, but plates that already have a sensible side were left alone.
 
 ---
 
+## [x] M5.7 — Imported-recipe unit cleanup (SHIPPED)
+
+The 356 TheMealDB imports (`recipeImported.ts`) were the only recipes in the
+library still using metric measures (g/kg/ml/l); every hand-authored recipe
+already used customary units (lb/oz, cup/tbsp/tsp). Closes the deferred item
+from decision 28 / Part 5 item 6.
+
+- [x] `src/data/import/normalize.ts`'s `parseMeasure` now converts mass
+  (g/kg → oz/lb) and volume (ml/l → tsp/tbsp/cup) at import time —
+  mass→mass and volume→volume only, no density-based mass→volume guessing —
+  with tests in `normalize.test.ts`.
+- [x] `recipeImported.ts` regenerated from the importer (never hand-edited,
+  per the standing rule), and `PROJECT.md` updated to document that all
+  library recipes are customary-only, with metric still selectable when a
+  household hand-adds its own recipe via M5.4's user-recipe entry.
+
+**Accept when:** 493 tests green, 245/245 curated + 50/50 sides validate.
+Verified.
+
+---
+
 ## Candidates for the M5 pipeline (Ronnie prioritizes; do NOT start unasked)
 
 From the parked list plus M4 follow-ups, with the mission test applied (*does
@@ -215,11 +243,7 @@ it reduce decision fatigue for a busy family?*):
   on iOS <16.4; needs investigation first).
 - **Quantity-aware re-roll** — strict re-roll currently checks ingredient
   *names*, not amounts. Tightens Law #2 honesty.
-- **Household-synced user recipes** — family recipes currently live on one
-  phone only.
 - **M4.6 hold-to-drag** — only if the family misses it (decision 26).
-- **Imported-recipe unit cleanup** — content pass over the 356 imported
-  recipes' ~224 messy unit groups (Part 5 item 6).
 - **H-E-B Curbside / Instacart export** — shopping list → cart handoff.
 - **TestFlight native build (EAS)** — optional distribution upgrade, not a
   rewrite (decision 17).
