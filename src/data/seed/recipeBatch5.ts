@@ -746,7 +746,7 @@ export const recipeBatch5: Recipe[] = [
     nutrition: { calories: 620, protein: 34, carbs: 78, fat: 18 },
     ingredients: [
       { name: 'chicken thighs', quantity: 1.25, unit: 'lb', department: 'Meat' },
-      { name: 'japanese curry roux', quantity: 1, unit: 'piece', department: 'International' },
+      { name: 'japanese curry roux', quantity: 3.5, unit: 'oz', department: 'International' },
       { name: 'carrots', quantity: 2, unit: 'piece', department: 'Produce' },
       { name: 'potatoes', quantity: 2, unit: 'piece', department: 'Produce' },
       { name: 'onion', quantity: 1, unit: 'piece', department: 'Produce' },
