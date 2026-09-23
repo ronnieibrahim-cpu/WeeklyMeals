@@ -637,7 +637,7 @@ export const recipeSides: Recipe[] = [
     makesLeftovers: false,
     seasons: [],
     allergens: ['Soy', 'Gluten', 'Sesame'],
-    dietTags: ['dairy-free'],
+    dietTags: ['vegetarian', 'vegan', 'dairy-free'],
   },
   {
     id: 'sd-roasted-asparagus',
@@ -710,7 +710,7 @@ export const recipeSides: Recipe[] = [
     makesLeftovers: false,
     seasons: [],
     allergens: ['Soy', 'Gluten'],
-    dietTags: ['dairy-free'],
+    dietTags: ['vegetarian', 'vegan', 'dairy-free'],
   },
   {
     id: 'sd-garlicky-roasted-mushrooms',
@@ -817,7 +817,7 @@ export const recipeSides: Recipe[] = [
     makesLeftovers: true,
     seasons: [],
     allergens: ['Dairy'],
-    dietTags: ['vegetarian', 'gluten-free'],
+    dietTags: ['gluten-free'],
   },
   {
     id: 'sd-mashed-potatoes',
@@ -888,7 +888,7 @@ export const recipeSides: Recipe[] = [
     makesLeftovers: false,
     seasons: [],
     allergens: ['Gluten', 'Dairy'],
-    dietTags: [],
+    dietTags: ['vegetarian'],
   },
   {
     id: 'sd-warm-tortillas',
@@ -955,7 +955,7 @@ export const recipeSides: Recipe[] = [
     makesLeftovers: true,
     seasons: [],
     allergens: ['Gluten', 'Eggs', 'Dairy'],
-    dietTags: [],
+    dietTags: ['vegetarian'],
   },
   {
     id: 'sd-coconut-rice',
@@ -1025,7 +1025,7 @@ export const recipeSides: Recipe[] = [
     makesLeftovers: false,
     seasons: [],
     allergens: ['Gluten', 'Dairy'],
-    dietTags: [],
+    dietTags: ['vegetarian'],
   },
   {
     id: 'sd-herbed-couscous',

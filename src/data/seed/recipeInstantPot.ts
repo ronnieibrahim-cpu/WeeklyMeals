@@ -419,6 +419,7 @@ export const recipeInstantPot: Recipe[] = [
     tips: [
       'Roux blocks come in mild, medium and hot — mild is the one families reach for.',
       'Cut the vegetables large, or they disintegrate at this pressure time.',
+      'Curry roux contains wheat and soy, and some brands also contain milk — check the box if anyone has allergies.',
     ],
     leftoverNotes: 'Thickens overnight and reheats beautifully with a splash of water.',
     makesLeftovers: true,
