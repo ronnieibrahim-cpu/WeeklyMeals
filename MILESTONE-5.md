@@ -236,12 +236,38 @@ it actually produce a good dish, with steps an amateur can follow.
   a 5-hour timer).
 - [x] Three pre-existing `checkIngredientConsistency` failures (Instant Pot
   units for bacon, pearl onions, curry roux) aligned.
-- [ ] **Open, needs Ronnie:** pantry-chip matching on the shopping list is a
+- [x] ~~**Open, needs Ronnie:**~~ (fixed in M5.8) pantry-chip matching on the shopping list is a
   two-way substring ("Onions" drops green onions, "Rice" drops rice vinegar).
   See PROJECT.md §8. Not changed — it alters what lands on the list.
 
 **Accept when:** typecheck clean, 506 tests green, 310/310 curated + 50/50
 sides validate, all seven `scripts/check*.ts` harnesses pass. Verified.
+
+---
+
+## M5.8 — Post-M5.7 quality queue (September 2026, branch `claude/lucid-bardeen-ms2dl8`)
+
+One task at a time, each proposed to Ronnie first. Baseline on a fresh
+checkout of the live code: typecheck clean, 506 tests, 310/310 + 50/50
+validate, all seven harnesses pass, import regeneration byte-identical.
+
+- [x] **1. Shopping-list pantry matching** (shopping-list law; Ronnie approved
+  the plan and all three recommended calls; **owes the advisor review**). One
+  shared matcher (`src/engine/pantryMatch.ts`) now serves the list, the
+  servings prompt, strict re-roll and the pantry score: same item after plural
+  fold + allow-listed descriptors, or generic↔specific (chicken ↔ cuts, canned
+  tomatoes ↔ crushed/diced). Varieties don't count ("Cheese" ≠ feta). Old vs new
+  table in `PANTRY-MATCH-REVIEW.md` (COMMON_PANTRY: 17 still covered, 40 now on
+  the list, 6 newly covered). Re-roll, same 60 seeded weeks: fully-cookable
+  plates 72 → 89; 7 weeks lost one plate, every loss traced to an old false match
+  (peanut butter as butter, egg noodles as eggs, beef broth as beef, cherry
+  tomatoes as tomato). 506 → 545 tests.
+- [ ] 2. Optional ingredients on the shopping list
+- [ ] 3. Imported recipe cleanup
+- [ ] 4. More sides
+- [ ] 5. Nutrition refresh
+- [ ] 6. Photos for the M5.7 recipes
+- [ ] 7. Small content items (paneer twins, branzino count, label-check tips)
 
 ---
 

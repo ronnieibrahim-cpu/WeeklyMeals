@@ -1,17 +1,10 @@
 import { GroceryProvider } from '@/data/grocery/GroceryProvider';
 import { PlannedMeal, Recipe, RecipeIngredient, ShoppingItem, ShoppingList, ShoppingListDelta, ShoppingListDeltaLine } from '@/domain/models';
 import { convertQuantity, ingredientDedupKey, mergeQuantities } from './ingredientKey';
+import { coveredByAny } from './pantryMatch';
 
-const lower = (s: string) => s.trim().toLowerCase();
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
-function pantryHas(pantry: string[], name: string): boolean {
-  const n = lower(name);
-  return pantry.some((p) => {
-    const pl = lower(p);
-    return n.includes(pl) || pl.includes(n);
-  });
-}
 
 /** Fold one recipe's ingredients (main or side, M4.2 part 2 — the caller
  * decides which) into the running shopping-list map, scaled by the same
@@ -27,7 +20,7 @@ function addRecipeToMap(
 
   for (const ing of recipe.ingredients) {
     if (ing.pantryStaple) continue;
-    if (pantryHas(pantry, ing.name)) continue;
+    if (coveredByAny(pantry, ing.name)) continue;
 
     const key = ingredientDedupKey(ing.name, ing.unit);
     const qty = round2(ing.quantity * scale);
@@ -260,7 +253,7 @@ export function computeServingsDelta(
   const lines: ShoppingListDeltaLine[] = [];
   for (const ing of recipe.ingredients) {
     if (ing.pantryStaple) continue;
-    if (pantryHas(pantry, ing.name)) continue;
+    if (coveredByAny(pantry, ing.name)) continue;
 
     const delta = round2(Math.abs(ing.quantity * scaleNew - ing.quantity * scaleOld));
     if (delta <= 0) continue;
