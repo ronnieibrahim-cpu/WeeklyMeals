@@ -438,40 +438,111 @@ function estimateNutrition(protein: Protein, ingText: string): Nutrition {
   };
 }
 
+/** Whole-word (optionally plural) match — used for the keywords added after
+ * the original substring list, where a bare substring would misfire
+ * ("bun" inside "bunch", "roll" inside "rolled", "ham" inside "graham"). */
+const hasWord = (hay: string, ...words: string[]) =>
+  words.some((w) => new RegExp(`\\b${w}(e?s)?\\b`).test(hay));
+
 /** Exported so scripts/validateRecipes.ts can reuse the same keyword rules as
- * a coverage check over hand-authored allergen lists (P1-1). */
+ * a coverage check over hand-authored allergen lists (P1-1).
+ *
+ * September 2026 audit: the original substring list missed whole families of
+ * everyday ingredients — named pasta shapes and breads ("spaghetti",
+ * "lasagne", "baguette", "pastry"), mayonnaise (eggs), oyster sauce
+ * (shellfish), Worcestershire and dashi (fish), hummus (sesame), pine nuts
+ * and pesto (tree nuts), hoisin/teriyaki/tamari (soy). Because `dietTags`
+ * derive from these allergens, 27 imported pasta/pastry dishes were tagged
+ * gluten-free. Every addition below only ever ADDS an allergen — this list
+ * must never get more permissive without a test proving the old hit was a
+ * false positive (as with "butternut", which is squash, not butter). */
 export function inferAllergens(ingText: string): string[] {
+  const text = ingText.toLowerCase();
   const a = new Set<string>();
-  // Coconut milk/cream, peanut butter, and butter beans are dairy-free;
-  // strip them before the dairy check so e.g. Thai curries don't get a false
-  // 'Dairy' hit from "milk", and peanut/bean dishes don't from "butter".
-  const dairyText = ingText.replace(/coconut\s+(milk|cream)|peanut\s+butter|butter\s+beans?/g, '');
+  // Coconut milk/cream, peanut butter, butter beans, and butternut squash are
+  // dairy-free; strip them before the dairy check so e.g. Thai curries don't
+  // get a false 'Dairy' hit from "milk", and peanut/bean/squash dishes don't
+  // from "butter".
+  const dairyText = text.replace(/coconut\s+(milk|cream)|peanut\s+butter|butter\s+beans?|butternut/g, '');
   // "eggplant" contains "egg" but isn't the allergen; strip it before the
   // eggs check so e.g. ratatouille/moussaka don't get a false 'Eggs' hit.
-  const eggText = ingText.replace(/eggplant/g, '');
-  // Rice noodles are the classic gluten-free noodle (100% rice, no wheat);
-  // strip them before the "noodle" check so pad thai etc. don't get a false
-  // 'Gluten' hit. Other noodle types (egg/udon/ramen/wheat/soba) still match.
-  const glutenText = ingText.replace(/(wide\s+)?rice\s+noodles?/g, '');
-  if (has(glutenText, 'flour', 'bread', 'pasta', 'noodle', 'soy sauce', 'breadcrumb', 'wheat', 'couscous', 'panko', 'barley', 'cracker')) a.add('Gluten');
-  if (has(dairyText, 'milk', 'cream', 'butter', 'cheese', 'yogurt', 'yoghurt', 'paneer', 'ghee', 'parmesan', 'mozzarella', 'feta')) a.add('Dairy');
-  if (has(ingText, 'shrimp', 'prawn', 'crab', 'lobster', 'mussel', 'clam', 'scallop', 'squid')) a.add('Shellfish');
-  if (has(ingText, 'salmon', 'tuna', 'cod', 'fish', 'anchov', 'haddock', 'sardine')) a.add('Fish');
-  if (has(eggText, 'egg')) a.add('Eggs');
-  if (has(ingText, 'soy sauce', 'tofu', 'edamame', 'miso', 'tempeh')) a.add('Soy');
-  if (has(ingText, 'peanut')) a.add('Peanuts');
-  if (has(ingText, 'almond', 'cashew', 'walnut', 'pecan', 'pistachio', 'hazelnut')) a.add('Tree Nuts');
-  if (has(ingText, 'sesame', 'tahini')) a.add('Sesame');
+  const eggText = text.replace(/eggplant/g, '');
+  // Rice noodles/vermicelli, corn tortillas, and (corn) tortilla chips are
+  // the classic gluten-free swaps; strip them before the wheat checks so pad
+  // thai, tacos, etc. don't get a false 'Gluten' hit. Everything else still
+  // matches.
+  const glutenText = text.replace(/(wide\s+)?rice\s+(noodles?|vermicelli|sticks?)|corn\s+tortillas?|tortilla\s+chips?/g, '');
+  // "water chestnut" is a tuber and "chestnut mushrooms" (a UK name for
+  // cremini) are mushrooms — neither is a tree nut.
+  const nutText = text.replace(/water\s+chestnuts?|chestnut\s+mushrooms?/g, '');
+  if (
+    has(glutenText, 'flour', 'bread', 'pasta', 'noodle', 'soy sauce', 'breadcrumb', 'wheat', 'couscous', 'panko', 'barley', 'cracker') ||
+    hasWord(glutenText, 'spaghetti', 'linguine', 'penne', 'fettuc+ine', 'tagliatelle', 'pappardelle', 'lasagn[ae]', 'macaroni',
+      'rigatoni', 'fusilli', 'farfalle', 'orzo', 'ravioli', 'tortellini', 'ditalini', 'conchiglie', 'vermicelli', 'gnocchi',
+      'pastry', 'pastries', 'filo', 'phyllo', 'baguette', 'bun', 'roll', 'pitt?a', 'naan', 'tortilla', 'brioche', 'croissant',
+      'crumpet', 'biscuit', 'digestive', 'pizza', 'dumpling', 'wonton', 'udon', 'ramen', 'semolina', 'bulgh?ur', 'freekeh',
+      'farro', 'spelt', 'rye', 'malt', 'beer', 'stout', 'seitan', 'worcestershire', 'teriyaki', 'hoisin')
+  ) a.add('Gluten');
+  if (
+    has(dairyText, 'milk', 'cream', 'butter', 'cheese', 'yogurt', 'yoghurt', 'paneer', 'ghee', 'parmesan', 'mozzarella', 'feta') ||
+    hasWord(dairyText, 'cheddar', 'ricotta', 'mascarpone', 'halloumi', 'gruyere', 'provolone', 'parmigiano', 'pecorino', 'gouda',
+      'brie', 'camembert', 'emmental', 'stilton', 'fromage', 'creme fraiche', 'crème fraîche', 'queso', 'cotija', 'tzatziki',
+      'ranch', 'pesto', 'custard', 'whey', 'kefir', 'quark', 'raita', 'labneh')
+  ) a.add('Dairy');
+  if (
+    has(text, 'shrimp', 'prawn', 'crab', 'lobster', 'mussel', 'clam', 'scallop', 'squid') ||
+    hasWord(text, 'oyster', 'crayfish', 'crawfish', 'langoustine', 'cockle', 'whelk', 'octopus', 'calamari', 'seafood')
+  ) a.add('Shellfish');
+  if (
+    has(text, 'salmon', 'tuna', 'cod', 'fish', 'anchov', 'haddock', 'sardine') ||
+    hasWord(text, 'worcestershire', 'dashi', 'bonito', 'mackerel', 'trout', 'tilapia', 'halibut', 'snapper', 'bass', 'bream',
+      'herring', 'kipper', 'pollock', 'hake', 'plaice', 'sole', 'turbot', 'branzino', 'mahi', 'pilchard', 'whitebait', 'roe',
+      'caviar', 'eel')
+  ) a.add('Fish');
+  if (has(eggText, 'egg') || hasWord(text, 'mayonnaise', 'mayo', 'aioli', 'meringue')) a.add('Eggs');
+  if (
+    has(text, 'soy sauce', 'tofu', 'edamame', 'miso', 'tempeh') ||
+    hasWord(text, 'soy', 'soya', 'soybean', 'tamari', 'teriyaki', 'hoisin', 'doubanjiang', 'gochujang', 'natto', 'shoyu', 'curry roux')
+  ) a.add('Soy');
+  if (has(text, 'peanut') || hasWord(text, 'groundnut', 'satay')) a.add('Peanuts');
+  if (
+    has(nutText, 'almond', 'cashew', 'walnut', 'pecan', 'pistachio', 'hazelnut') ||
+    hasWord(nutText, 'pine nut', 'pinenut', 'pesto', 'macadamia', 'brazil nut', 'chestnut', 'marzipan', 'praline', 'frangipane', 'nutella')
+  ) a.add('Tree Nuts');
+  if (has(text, 'sesame', 'tahini') || hasWord(text, 'hummus', 'houmous', 'halva', 'halvah', 'furikake', "za'atar", 'zaatar'))
+    a.add('Sesame');
   return [...a];
 }
 
-function inferDietTags(protein: Protein, allergens: string[], ingText: string): string[] {
+/** Meat/fish words that make a dish non-vegetarian even when the inferred
+ * primary protein is 'None' or a vegetarian one (a duck pie, pastry made
+ * with lard, beans cooked with a stock cube of chicken). */
+const NON_VEGETARIAN_WORDS = [
+  'chicken', 'beef', 'pork', 'lamb', 'mutton', 'veal', 'venison', 'goat', 'duck', 'goose', 'turkey', 'ham', 'bacon',
+  'lardons?', 'lard', 'suet', 'pancetta', 'prosciutto', 'chorizo', 'salami', 'pepperoni', 'sausage', 'mince', 'meatballs?',
+  'liver', 'oxtail', 'gelatine?', 'fish', 'anchov(y|ies)', 'shrimp', 'prawn', 'dashi', 'bonito', 'worcestershire',
+  'oyster sauce', 'fish sauce',
+];
+
+/** Exported for tests (normalize.test.ts). */
+export function inferDietTags(protein: Protein, allergens: string[], ingText: string): string[] {
+  // Kidney beans and goat's cheese are vegetarian; strip them before the
+  // "kidney"/"goat" meat checks.
+  const text = ingText
+    .toLowerCase()
+    .replace(/kidney\s+beans?/g, 'beans')
+    .replace(/goat'?s?\s+(cheese|milk|curd)/g, 'cheese');
   const tags: string[] = [];
   const meaty = ['Chicken', 'Beef', 'Pork', 'Fish', 'Shellfish', 'Turkey', 'Lamb'].includes(protein);
-  const vegetarian = !meaty && !has(ingText, 'chicken', 'beef', 'pork', 'lamb', 'fish', 'bacon', 'sausage', 'anchov', 'gelatin', 'shrimp');
+  const vegetarian =
+    !meaty &&
+    !allergens.includes('Fish') &&
+    !allergens.includes('Shellfish') &&
+    !hasWord(text, ...NON_VEGETARIAN_WORDS) &&
+    !has(text, 'kidney', 'gelatin');
   if (vegetarian) {
     tags.push('vegetarian');
-    if (!allergens.includes('Dairy') && !allergens.includes('Eggs') && !has(ingText, 'honey')) tags.push('vegan');
+    if (!allergens.includes('Dairy') && !allergens.includes('Eggs') && !has(text, 'honey')) tags.push('vegan');
   }
   if (!allergens.includes('Gluten')) tags.push('gluten-free');
   if (!allergens.includes('Dairy')) tags.push('dairy-free');

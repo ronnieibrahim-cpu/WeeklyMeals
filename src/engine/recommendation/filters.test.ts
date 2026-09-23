@@ -55,11 +55,55 @@ describe('passesHardFilters', () => {
     expect(passesHardFilters(recipe, intake, profile)).toBe(true);
   });
 
-  it('treats a vegetarian-friendly primary protein as satisfying "vegetarian" even without the tag', () => {
-    const recipe = makeRecipe({ primaryProtein: 'Beans', dietTags: [] });
+  it('does NOT treat a vegetarian-friendly primary protein as vegetarian without the tag', () => {
+    // primaryProtein is what a dish is built around, not everything in it —
+    // e.g. Quiche Lorraine is an Eggs dish with bacon.
+    const quiche = makeRecipe({
+      primaryProtein: 'Eggs',
+      dietTags: [],
+      ingredients: [
+        { name: 'eggs', quantity: 4, unit: 'piece', department: 'Dairy' },
+        { name: 'bacon', quantity: 6, unit: 'piece', department: 'Meat' },
+      ],
+    });
+    const beanSoupInChickenBroth = makeRecipe({ primaryProtein: 'Beans', dietTags: ['gluten-free'] });
+    const profile = makeProfile();
+    const intake = makeIntake(profile, { dietaryRestrictions: ['vegetarian'] });
+    expect(passesHardFilters(quiche, intake, profile)).toBe(false);
+    expect(passesHardFilters(beanSoupInChickenBroth, intake, profile)).toBe(false);
+  });
+
+  it('allows a recipe tagged vegetarian under a vegetarian restriction', () => {
+    const recipe = makeRecipe({ primaryProtein: 'Beans', dietTags: ['vegetarian'] });
     const profile = makeProfile();
     const intake = makeIntake(profile, { dietaryRestrictions: ['vegetarian'] });
     expect(passesHardFilters(recipe, intake, profile)).toBe(true);
+  });
+
+  it('pescatarian allows fish/shellfish mains, vegetarian dishes, and pescatarian-tagged dishes only', () => {
+    const profile = makeProfile();
+    const intake = makeIntake(profile, { dietaryRestrictions: ['pescatarian'] });
+    expect(passesHardFilters(makeRecipe({ primaryProtein: 'Fish', dietTags: [] }), intake, profile)).toBe(true);
+    expect(passesHardFilters(makeRecipe({ primaryProtein: 'Shellfish', dietTags: [] }), intake, profile)).toBe(true);
+    expect(passesHardFilters(makeRecipe({ primaryProtein: 'Tofu', dietTags: ['vegetarian'] }), intake, profile)).toBe(true);
+    // e.g. agedashi tofu in fish-based dashi: fine for a pescatarian, not a vegetarian
+    expect(passesHardFilters(makeRecipe({ primaryProtein: 'Tofu', dietTags: ['pescatarian'] }), intake, profile)).toBe(true);
+    // an untagged 'None'-protein dish might contain chicken broth or bacon
+    expect(passesHardFilters(makeRecipe({ primaryProtein: 'None', dietTags: [] }), intake, profile)).toBe(false);
+    expect(passesHardFilters(makeRecipe({ primaryProtein: 'Chicken', dietTags: [] }), intake, profile)).toBe(false);
+  });
+
+  it('no recipe in the seed library that passes "vegetarian" lists meat, poultry, fish, or shellfish', () => {
+    // Library-wide regression for the quiche/potato-soup/rice-pilaf class of
+    // bug: a recipe reaching a vegetarian week must not contain meat.
+    const MEAT = /\b(chicken|beef|pork|lamb|mutton|veal|venison|duck|goose|turkey|ham|bacon|lardons?|lard|suet|pancetta|prosciutto|chorizo|salami|pepperoni|sausages?|mince|meatballs?|fish|salmon|tuna|cod|anchov(y|ies)|shrimp|prawns?|crab|lobster|mussels?|clams?|scallops?|squid|dashi|bonito|worcestershire|oyster sauce|gelatine?)\b/;
+    const profile = makeProfile();
+    const intake = makeIntake(profile, { dietaryRestrictions: ['vegetarian'], maxPrepMinutes: 999, maxCookMinutes: 999 });
+    const offenders = Object.values(recipesById)
+      .filter((r) => passesHardFilters(r, intake, profile))
+      .filter((r) => r.ingredients.some((i) => MEAT.test(i.name.toLowerCase())))
+      .map((r) => `${r.id}: ${r.ingredients.map((i) => i.name).filter((n) => MEAT.test(n.toLowerCase())).join(', ')}`);
+    expect(offenders).toEqual([]);
   });
 
   it('rejects a recipe over the prep-time limit', () => {

@@ -91,9 +91,15 @@ export function inferDietTagsFromIngredients(
   const text = ingredientText(ingredients);
   const tags: string[] = [];
   const meaty: Protein[] = ['Chicken', 'Beef', 'Pork', 'Fish', 'Shellfish', 'Turkey', 'Lamb'];
+  // Word list mirrors normalize.ts's NON_VEGETARIAN_WORDS (September 2026):
+  // the protein picker says what a dish is built around, not everything in
+  // it, and the vegetarian diet filter now trusts this tag alone.
+  const meatText = text.replace(/kidney\s+beans?/g, 'beans').replace(/goat'?s?\s+(cheese|milk|curd)/g, 'cheese');
   const vegetarian =
     !meaty.includes(primaryProtein) &&
-    !has(text, 'chicken', 'beef', 'pork', 'lamb', 'fish', 'bacon', 'sausage', 'anchov', 'gelatin', 'shrimp');
+    !allergens.includes('Fish') &&
+    !allergens.includes('Shellfish') &&
+    !/\b(chicken|beef|pork|lamb|mutton|veal|venison|goat|duck|goose|turkey|ham|bacon|lardons?|lard|suet|pancetta|prosciutto|chorizo|salami|pepperoni|sausages?|mince|meatballs?|liver|kidneys?|oxtail|gelatine?|fish|anchov(y|ies)|shrimp|prawns?|crab|lobster|mussels?|clams?|scallops?|squid|oysters?|dashi|bonito|worcestershire)\b/.test(meatText);
   if (vegetarian) {
     tags.push('vegetarian');
     if (!allergens.includes('Dairy') && !allergens.includes('Eggs') && !has(text, 'honey')) tags.push('vegan');

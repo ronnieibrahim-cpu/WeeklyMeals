@@ -187,11 +187,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
     "dietTags": [
-      "vegetarian",
-      "gluten-free"
+      "vegetarian"
     ],
     "image": "https://www.themealdb.com/images/media/meals/flrajf1762341295.jpg",
     "origin": "Australian",
@@ -1134,12 +1134,12 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy",
+      "Eggs",
       "Sesame"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg",
     "origin": "United States",
     "sourceName": "TheMealDB",
@@ -1654,11 +1654,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/qrqywr1503066605.jpg",
     "origin": "United States",
     "sourceName": "TheMealDB",
@@ -1804,10 +1803,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Eggs"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/0sd7ac1764787957.jpg",
@@ -3180,7 +3179,8 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Dairy"
+      "Dairy",
+      "Fish"
     ],
     "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/uttrxw1511637813.jpg",
@@ -3574,7 +3574,8 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Soy"
+      "Soy",
+      "Tree Nuts"
     ],
     "dietTags": [
       "vegetarian",
@@ -4007,6 +4008,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Eggs",
+      "Tree Nuts",
       "Sesame"
     ],
     "dietTags": [
@@ -4929,10 +4931,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Eggs"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/ytpstt1511814614.jpg",
@@ -5055,6 +5057,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Fish",
       "Eggs"
     ],
     "dietTags": [
@@ -6787,10 +6790,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Fish"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/1520084413.jpg",
@@ -8142,11 +8145,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/wf49qs1763075222.jpg",
     "origin": "Argentina",
     "sourceName": "TheMealDB",
@@ -8910,6 +8912,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Shellfish",
       "Soy"
     ],
     "dietTags": [
@@ -9055,6 +9058,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Shellfish",
       "Soy"
     ],
     "dietTags": [
@@ -9219,6 +9223,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Shellfish",
       "Eggs",
       "Soy",
       "Sesame"
@@ -9380,6 +9385,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Shellfish",
       "Eggs",
       "Soy",
       "Sesame"
@@ -10629,6 +10635,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Eggs",
       "Soy"
     ],
     "dietTags": [
@@ -12139,6 +12146,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Shellfish",
       "Eggs",
       "Soy",
       "Sesame"
@@ -12707,7 +12715,7 @@ export const recipeImported: Recipe[] = [
     "name": "Duck Confit",
     "cuisine": "French",
     "categories": [
-      "Vegetarian"
+      "ComfortFood"
     ],
     "provides": [],
     "primaryProtein": "None",
@@ -12780,8 +12788,6 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [],
     "dietTags": [
-      "vegetarian",
-      "vegan",
       "gluten-free",
       "dairy-free"
     ],
@@ -12968,7 +12974,7 @@ export const recipeImported: Recipe[] = [
     "name": "Flamiche",
     "cuisine": "French",
     "categories": [
-      "Vegetarian"
+      "ComfortFood"
     ],
     "provides": [
       "protein",
@@ -13082,9 +13088,7 @@ export const recipeImported: Recipe[] = [
       "Dairy",
       "Eggs"
     ],
-    "dietTags": [
-      "vegetarian"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/wssvvs1511785879.jpg",
     "origin": "France",
     "sourceName": "TheMealDB",
@@ -13589,11 +13593,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy"
+      "Gluten",
+      "Dairy",
+      "Fish"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/vussxq1511882648.jpg",
     "origin": "France",
     "sourceName": "TheMealDB",
@@ -17416,11 +17420,10 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Dairy",
       "Shellfish"
     ],
-    "dietTags": [
-      "dairy-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/usywpp1511189717.jpg",
     "origin": "Italian",
     "sourceName": "TheMealDB",
@@ -17649,11 +17652,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
     "dietTags": [
-      "vegetarian",
-      "gluten-free"
+      "vegetarian"
     ],
     "image": "https://www.themealdb.com/images/media/meals/0jv5gx1661040802.jpg",
     "origin": "Italian",
@@ -17834,7 +17837,8 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy"
+      "Dairy",
+      "Eggs"
     ],
     "dietTags": [
       "vegetarian",
@@ -17985,11 +17989,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/wtsvxx1511296896.jpg",
     "origin": "Italian",
     "sourceName": "TheMealDB",
@@ -18449,8 +18452,7 @@ export const recipeImported: Recipe[] = [
     "name": "Pilchard puttanesca",
     "cuisine": "Italian",
     "categories": [
-      "Pasta",
-      "Vegetarian"
+      "Pasta"
     ],
     "provides": [
       "protein",
@@ -18541,12 +18543,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy"
+      "Gluten",
+      "Dairy",
+      "Fish"
     ],
-    "dietTags": [
-      "vegetarian",
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/vvtvtr1511180578.jpg",
     "origin": "Italian",
     "sourceName": "TheMealDB",
@@ -18770,11 +18771,10 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": true,
     "seasons": [],
-    "allergens": [
-      "Dairy"
-    ],
+    "allergens": [],
     "dietTags": [
-      "gluten-free"
+      "gluten-free",
+      "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/nimml81782855200.jpg",
     "sourceName": "TheMealDB",
@@ -19191,12 +19191,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
+      "Dairy",
       "Fish"
     ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/qtqvys1468573168.jpg",
     "origin": "Italian",
     "sourceName": "TheMealDB",
@@ -19416,12 +19415,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
+      "Dairy",
       "Eggs"
     ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg",
     "origin": "Italian",
     "sourceName": "TheMealDB",
@@ -19520,12 +19518,12 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
+      "Dairy",
       "Eggs"
     ],
     "dietTags": [
-      "vegetarian",
-      "gluten-free",
-      "dairy-free"
+      "vegetarian"
     ],
     "image": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
     "origin": "Italian",
@@ -19751,11 +19749,12 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Gluten",
-      "Dairy"
+      "Gluten"
     ],
     "dietTags": [
-      "vegetarian"
+      "vegetarian",
+      "vegan",
+      "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/wxswxy1511452625.jpg",
     "origin": "Italian",
@@ -20027,7 +20026,8 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Dairy"
+      "Dairy",
+      "Soy"
     ],
     "dietTags": [
       "vegetarian"
@@ -20626,6 +20626,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Eggs",
       "Soy"
     ],
     "dietTags": [
@@ -20836,6 +20837,8 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Shellfish",
+      "Fish",
       "Eggs"
     ],
     "dietTags": [
@@ -20852,7 +20855,7 @@ export const recipeImported: Recipe[] = [
     "name": "Yaki Udon",
     "cuisine": "Japanese",
     "categories": [
-      "Vegetarian"
+      "ComfortFood"
     ],
     "provides": [
       "vegetable",
@@ -20951,12 +20954,11 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Fish",
       "Soy",
       "Sesame"
     ],
     "dietTags": [
-      "vegetarian",
-      "vegan",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/wrustq1511475474.jpg",
@@ -21757,7 +21759,9 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Tree Nuts"
+    ],
     "dietTags": [
       "gluten-free",
       "dairy-free"
@@ -22891,7 +22895,8 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Shellfish"
+      "Shellfish",
+      "Eggs"
     ],
     "dietTags": [
       "dairy-free"
@@ -23399,7 +23404,8 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Gluten"
+      "Gluten",
+      "Fish"
     ],
     "dietTags": [
       "dairy-free"
@@ -23681,7 +23687,8 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy"
+      "Dairy",
+      "Eggs"
     ],
     "dietTags": [
       "gluten-free"
@@ -24084,7 +24091,9 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Eggs"
+    ],
     "dietTags": [
       "gluten-free",
       "dairy-free"
@@ -24239,11 +24248,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": true,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Shellfish",
       "Fish"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/do7zps1614349775.jpg",
@@ -24940,11 +24949,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Fish",
       "Eggs"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/njj1681763297231.jpg",
@@ -25190,6 +25199,7 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Shellfish",
       "Fish"
     ],
     "dietTags": [
@@ -25387,11 +25397,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/vpcqn01763335688.jpg",
     "origin": "Spanish",
     "sourceName": "TheMealDB",
@@ -25887,7 +25896,9 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Shellfish"
+    ],
     "dietTags": [
       "gluten-free",
       "dairy-free"
@@ -26005,12 +26016,12 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy",
       "Eggs"
     ],
     "dietTags": [
-      "vegetarian",
-      "gluten-free"
+      "vegetarian"
     ],
     "image": "https://www.themealdb.com/images/media/meals/quuxsx1511476154.jpg",
     "origin": "Spanish",
@@ -26253,11 +26264,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Eggs"
     ],
     "dietTags": [
       "vegetarian",
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/7b862e1763194846.jpg",
@@ -27115,11 +27126,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/lrfdwz1764438393.jpg",
     "origin": "Venezuela",
     "sourceName": "TheMealDB",
@@ -27929,11 +27939,10 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [
-      "Dairy"
-    ],
+    "allergens": [],
     "dietTags": [
-      "gluten-free"
+      "gluten-free",
+      "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/8859m71764377470.jpg",
     "origin": "Venezuela",
@@ -28081,9 +28090,11 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten",
+      "Fish"
+    ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/mq27gf1764436795.jpg",
@@ -28388,7 +28399,8 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Tree Nuts"
+      "Tree Nuts",
+      "Sesame"
     ],
     "dietTags": [
       "vegetarian",
@@ -28943,9 +28955,10 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": true,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/p9tebp1764118792.jpg",
@@ -29950,7 +29963,8 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Gluten"
+      "Gluten",
+      "Eggs"
     ],
     "dietTags": [
       "dairy-free"
@@ -30563,11 +30577,12 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
       "vegetarian",
       "vegan",
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/4er7mj1598733193.jpg",
@@ -30840,10 +30855,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": true,
     "seasons": [],
     "allergens": [
-      "Gluten",
-      "Dairy"
+      "Gluten"
     ],
-    "dietTags": [],
+    "dietTags": [
+      "dairy-free"
+    ],
     "image": "https://www.themealdb.com/images/media/meals/yuwtuu1511295751.jpg",
     "origin": "Moroccan",
     "sourceName": "TheMealDB",
@@ -31489,12 +31505,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy",
       "Eggs"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/i5o2b61763739053.jpg",
     "origin": "Saudi Arabian",
     "sourceName": "TheMealDB",
@@ -32588,7 +32603,8 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy"
+      "Dairy",
+      "Tree Nuts"
     ],
     "dietTags": [
       "gluten-free"
@@ -32682,11 +32698,12 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
       "vegetarian",
       "vegan",
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/5fu4ew1760524857.jpg",
@@ -33209,11 +33226,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Fish",
       "Eggs"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/2dsltq1560461468.jpg",
@@ -33348,9 +33365,10 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": true,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/t8mn9g1560460231.jpg",
@@ -33453,7 +33471,9 @@ export const recipeImported: Recipe[] = [
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Tree Nuts"
+    ],
     "dietTags": [
       "gluten-free",
       "dairy-free"
@@ -33965,7 +33985,8 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Dairy"
+      "Dairy",
+      "Fish"
     ],
     "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/k07k271782502861.jpg",
@@ -34284,11 +34305,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/byolko1782500400.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://junedarville.com/stoemp.html#wprm-recipe-container-131911",
@@ -34612,7 +34632,8 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": true,
     "seasons": [],
     "allergens": [
-      "Gluten"
+      "Gluten",
+      "Fish"
     ],
     "dietTags": [
       "dairy-free"
@@ -34894,11 +34915,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Gluten"
+      "Gluten",
+      "Dairy"
     ],
-    "dietTags": [
-      "dairy-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/804v1j1764367088.jpg",
     "origin": "Ukrainian",
     "sourceName": "TheMealDB",
@@ -35913,12 +35933,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": true,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy",
       "Eggs"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/qserum1780156275.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.austria.info/en-gb/recipes/clear-soup-with-semolina-dumplings/",
@@ -36168,7 +36187,8 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Fish"
+      "Fish",
+      "Soy"
     ],
     "dietTags": [
       "dairy-free"
@@ -37052,11 +37072,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/q8sp3j1593349686.jpg",
     "origin": "Polish",
     "sourceName": "TheMealDB",
@@ -39675,11 +39694,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Dairy"
+      "Gluten",
+      "Dairy",
+      "Eggs"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/72lmpt1764122511.jpg",
     "origin": "Polish",
     "sourceName": "TheMealDB",
@@ -40950,7 +40969,8 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
-      "Fish"
+      "Fish",
+      "Soy"
     ],
     "dietTags": [
       "gluten-free",
@@ -43069,10 +43089,10 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Eggs"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/hx335q1619789561.jpg",
@@ -43567,6 +43587,7 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
+      "Fish",
       "Soy"
     ],
     "dietTags": [
@@ -44380,11 +44401,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Fish",
       "Sesame"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/6g3rso1763486069.jpg",
@@ -45421,11 +45442,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Shellfish",
       "Fish"
     ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/9r2xrg1763771238.jpg",
@@ -45686,12 +45707,12 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Dairy",
       "Eggs",
       "Soy"
     ],
     "dietTags": [
-      "vegetarian"
+      "vegetarian",
+      "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/4uje7l1763762276.jpg",
     "origin": "Vietnamese",
