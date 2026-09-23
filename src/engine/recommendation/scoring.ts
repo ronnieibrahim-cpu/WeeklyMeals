@@ -1,6 +1,7 @@
 import { Recipe } from '@/domain/models';
 
 import { roughCostPerServing } from '../cost';
+import { coveredByAny } from '../pantryMatch';
 import {
   favoriteCrowdingFactor,
   favoriteRestFactor,
@@ -26,12 +27,9 @@ const lower = (s: string) => s.trim().toLowerCase();
 /** Fraction (0–1) of a recipe's non-staple ingredients the user already has. */
 function pantryOverlap(recipe: Recipe, pantry: string[]): number {
   if (pantry.length === 0) return 0;
-  const have = pantry.map(lower);
   const usable = recipe.ingredients.filter((i) => !i.pantryStaple);
   if (usable.length === 0) return 0;
-  const matches = usable.filter((i) =>
-    have.some((h) => lower(i.name).includes(h) || h.includes(lower(i.name))),
-  );
+  const matches = usable.filter((i) => coveredByAny(pantry, i.name));
   return matches.length / usable.length;
 }
 

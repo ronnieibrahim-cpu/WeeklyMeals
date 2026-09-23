@@ -65,7 +65,7 @@ describe('missingIngredients', () => {
     expect(missingIngredients(recipe, new Set(['shrimp']))).toEqual(['Lime']);
   });
 
-  it('matches loosely (substring) when the available name is longer and contains the required name', () => {
+  it('a specific cut on hand satisfies a recipe needing generic chicken (M5.8 shared rule)', () => {
     const recipe = makeRecipe({
       ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
     });
@@ -89,6 +89,38 @@ describe('missingIngredients', () => {
     const available = availableIngredients(['carrot'], null, undefined);
     const recipe = makeRecipe({ ingredients: [{ name: 'Carrots', quantity: 2, unit: 'piece', department: 'Produce' }] });
     expect(missingIngredients(recipe, available)).toEqual([]);
+  });
+
+  it('M5.8: chicken broth on this week\'s list does not satisfy a recipe needing chicken', () => {
+    const list = { planId: 'p', items: [{ ingredientName: 'chicken broth', quantity: 4, unit: 'cup' as const, department: 'DryGoods' as const, estimatedPrice: 0, checked: false, fromRecipeIds: ['x'] }], estimatedTotal: 0, costPerServing: 0, generatedAtISO: '' };
+    const available = availableIngredients([], list, undefined);
+    const recipe = makeRecipe({ ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }] });
+    expect(missingIngredients(recipe, available)).toEqual(['chicken']);
+  });
+
+  it('M5.8: the old one-way substring false matches no longer count as on hand', () => {
+    const available = availableIngredients(['sausage', 'eggplant', 'peanuts'], null, undefined);
+    const recipe = makeRecipe({
+      ingredients: [
+        { name: 'sage', quantity: 1, unit: 'tbsp', department: 'Produce' },
+        { name: 'eggs', quantity: 4, unit: 'piece', department: 'Dairy' },
+        { name: 'peas', quantity: 1, unit: 'cup', department: 'Frozen' },
+      ],
+    });
+    expect(missingIngredients(recipe, available)).toEqual(['sage', 'eggs', 'peas']);
+  });
+
+  it('M5.8: re-roll and the shopping list agree — same-item descriptors are on hand', () => {
+    const available = availableIngredients(['Onions', 'Rice'], null, undefined);
+    const recipe = makeRecipe({
+      ingredients: [
+        { name: 'yellow onion', quantity: 1, unit: 'piece', department: 'Produce' },
+        { name: 'jasmine rice', quantity: 1, unit: 'cup', department: 'DryGoods' },
+        { name: 'green onions', quantity: 1, unit: 'bunch', department: 'Produce' },
+        { name: 'rice vinegar', quantity: 1, unit: 'tbsp', department: 'International' },
+      ],
+    });
+    expect(missingIngredients(recipe, available)).toEqual(['green onions', 'rice vinegar']);
   });
 
   it('M4.7: the plural fold does not weaken the coconut-cream-vs-cream guard', () => {

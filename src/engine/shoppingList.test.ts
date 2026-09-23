@@ -195,6 +195,48 @@ describe('buildShoppingList', () => {
     expect(list.items.map((i) => i.ingredientName)).toEqual(['chicken']);
   });
 
+  it('M5.8: a pantry item never drops a DIFFERENT item that merely shares a word with it', () => {
+    const recipe = makeRecipe({
+      id: 'r1',
+      ingredients: [
+        { name: 'green onions', quantity: 1, unit: 'bunch', department: 'Produce' },
+        { name: 'green beans', quantity: 1, unit: 'lb', department: 'Produce' },
+        { name: 'rice vinegar', quantity: 2, unit: 'tbsp', department: 'International' },
+        { name: 'rice noodles', quantity: 8, unit: 'oz', department: 'International' },
+        { name: 'sweet potatoes', quantity: 2, unit: 'piece', department: 'Produce' },
+        { name: 'garlic powder', quantity: 1, unit: 'tsp', department: 'Spices' },
+        { name: 'chicken broth', quantity: 4, unit: 'cup', department: 'DryGoods' },
+        { name: 'tomatoes', quantity: 3, unit: 'piece', department: 'Produce' },
+      ],
+    });
+    const meals = [makeMeal({ recipeId: 'r1', dayIndex: 0, servings: 4 })];
+    const pantry = ['Onions', 'Beans', 'Rice', 'Potatoes', 'Garlic', 'Chicken', 'Canned tomatoes'];
+
+    const list = buildShoppingList('plan-1', meals, () => recipe, pantry, fakeGrocery);
+
+    expect(list.items.map((i) => i.ingredientName).sort()).toEqual(
+      ['chicken broth', 'garlic powder', 'green beans', 'green onions', 'rice noodles', 'rice vinegar', 'sweet potatoes', 'tomatoes'].sort(),
+    );
+  });
+
+  it('M5.8: a pantry item still drops the same item under a harmless descriptor', () => {
+    const recipe = makeRecipe({
+      id: 'r1',
+      ingredients: [
+        { name: 'yellow onion', quantity: 1, unit: 'piece', department: 'Produce' },
+        { name: 'jasmine rice', quantity: 2, unit: 'cup', department: 'DryGoods' },
+        { name: 'chicken thighs', quantity: 2, unit: 'lb', department: 'Meat' },
+        { name: 'crushed tomatoes', quantity: 1, unit: 'can', department: 'DryGoods' },
+        { name: 'feta cheese', quantity: 4, unit: 'oz', department: 'Dairy' },
+      ],
+    });
+    const meals = [makeMeal({ recipeId: 'r1', dayIndex: 0, servings: 4 })];
+
+    const list = buildShoppingList('plan-1', meals, () => recipe, ['Onions', 'Rice', 'Chicken', 'Canned tomatoes', 'Cheese'], fakeGrocery);
+
+    expect(list.items.map((i) => i.ingredientName)).toEqual(['feta cheese']);
+  });
+
   describe('M4.7: cross-source ingredient dedup (plural-fold + unit-family merge)', () => {
     it('merges a plural spelling from one recipe with a singular spelling from another, same unit', () => {
       const a = makeRecipe({ id: 'a', baseServings: 4, ingredients: [{ name: 'carrots', quantity: 2, unit: 'lb', department: 'Produce' }] });
@@ -372,6 +414,18 @@ describe('computeServingsDelta (M4.1 — servings change on an approved plan)', 
     const delta = computeServingsDelta(recipe, 4, 8, ['Garlic']);
     expect(delta.lines.some((l) => l.ingredientName === 'garlic')).toBe(false);
     expect(delta.lines.some((l) => l.ingredientName === 'chicken thighs')).toBe(true);
+  });
+
+  it('M5.8: uses the same pantry rule as the list — "Chicken" covers thighs, "Garlic" does not cover garlic powder', () => {
+    const r = makeRecipe({
+      baseServings: 4,
+      ingredients: [
+        { name: 'chicken thighs', quantity: 2, unit: 'lb', department: 'Meat' },
+        { name: 'garlic powder', quantity: 1, unit: 'tsp', department: 'Spices' },
+      ],
+    });
+    const delta = computeServingsDelta(r, 4, 8, ['Chicken', 'Garlic']);
+    expect(delta.lines.map((l) => l.ingredientName)).toEqual(['garlic powder']);
   });
 
   it('produces no lines when servings does not change', () => {

@@ -2,29 +2,20 @@ import { isMain, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 
 import { canonicalIngredientName } from './ingredientKey';
 import { composeSides, fitsCombinedTime, saucePairsWithMain } from './mealComposition';
+import { coveredByAny } from './pantryMatch';
 import { passesHardFilters, scoreRecipe, WEIGHTS } from './recommendation';
 import { GenerateContext } from './recommendation/types';
 import { todayOffset } from './schedule';
 
 /**
- * M3.0/M4.7: exact canonical-name match first (folds a trailing plural, so
- * "carrots" on the list satisfies a recipe needing "carrot" symmetrically,
- * whichever side is singular); substring only as a fallback, and only in the
- * safe direction (an available name that's as long or longer than the
- * required name, containing it in full) — a shorter available name can never
- * satisfy a longer required one. Without this guard, having "cream" on hand
- * would wrongly satisfy a recipe that needs "coconut cream". Both sides are
- * folded through the same `canonicalIngredientName` used by the shopping
- * list's dedup, so "available" and "required" agree on what counts as the
- * same ingredient.
+ * M5.8: "is this required ingredient available?" uses the same shared rule
+ * as the shopping list (`covers` in pantryMatch.ts), so re-roll and the list
+ * can never disagree about what's on hand. It replaced a one-way substring
+ * test that counted "sausage" as sage, "eggplant" as egg and "chicken broth"
+ * on the list as chicken.
  */
 function loosely(name: string, available: Set<string>): boolean {
-  const n = canonicalIngredientName(name);
-  if (available.has(n)) return true;
-  for (const a of available) {
-    if (a.length >= n.length && a.includes(n)) return true;
-  }
-  return false;
+  return available.has(canonicalIngredientName(name)) || coveredByAny(available, name);
 }
 
 /**

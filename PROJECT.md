@@ -39,7 +39,7 @@
 > the vegetarian/pescatarian diet filters now trust `dietTags` instead of
 > `primaryProtein`; import allergen keywords broadened; cook-mode timer parses
 > fractional durations. Touches diet filtering → owes the advisor review.
-> **Last verified:** September 2026 · typecheck clean · 506 tests green ·
+> **Last verified:** September 2026 · typecheck clean · 545 tests green ·
 > 310/310 curated recipes + 50/50 sides/sauces pass content validation,
 > 716/716 recipes use canonical allergen labels and plausible `provides` ·
 > `checkWasteFit`/`checkIngredientConsistency`/`checkCuratedWeighting`/
@@ -84,7 +84,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
   accepted risk, not a fix in progress** (see §8)
 - **Jest / jest-expo** — engine + `src/data/import` test suite, plus one deliberate
   store-level exception (`src/stores/syncStore.test.ts`, M4.7 — see `jest.config.js`)
-  (**506 tests**); `npx jest` must stay green
+  (**545 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**
@@ -129,7 +129,8 @@ src/engine/       recommendation/ (filters · scoring [scoreRecipe + M4.2's
                   scoreSide] · LocalRecommendationEngine) · mealComposition
                   (M4.2 part 2: composeSides, pure, best-effort) · shoppingList ·
                   cost · learning · season · schedule · reroll · rating ·
-                  syncMerge · manualItems · recipeSearch · cookMode (M4.2:
+                  syncMerge · manualItems · pantryMatch (M5.8: the one
+                  "is it on hand?" rule) · recipeSearch · cookMode (M4.2:
                   composeCookSteps/cookModePlateKey) · userRecipes · portions
                   (M4.1: household → adult-equivalent servings) · planHistory
                   (M5.0: archivePlan — dedupe/sort/cap for the rolling 6-week
@@ -171,6 +172,16 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    any draft meal's **servings** (a −/+ stepper, no confirmation needed pre-approval) →
    `approve()` → status `approved`; shopping list built (scaled by servings, pantry
    staples + on-hand items excluded, priced by the H-E-B provider) and persisted.
+   **What "on hand" covers (M5.8):** one shared rule, `covers()` in
+   `engine/pantryMatch.ts`, used by the list, the servings prompt, strict
+   re-roll and the pantry score. An on-hand item covers an ingredient only when
+   they are the same item after folding plurals and stripping an allow-listed
+   descriptor ("yellow onion", "jasmine rice", "garlic cloves"), or one is the
+   generic of the other ("Chicken" ↔ chicken thighs/breasts/wings;
+   "Canned tomatoes" ↔ crushed/diced/fire-roasted). Anything not allow-listed is a
+   different item and stays on the list — green onions, sweet potatoes, rice
+   vinegar, garlic powder, chicken broth, fresh tomatoes, and varieties like
+   feta vs "Cheese" or black beans vs "Beans" (Ronnie, Sept 2026).
    **Deduped by ingredient identity, not exact string match (M4.7):** two lines merge
    when they share a `canonicalIngredientName` (trims/lowercases, folds a simple
    trailing plural — "carrots"/"carrot" are the same ingredient) AND a unit family —
@@ -509,16 +520,13 @@ the identical result regardless of order, or they ping-pong forever.
 
 ## 8. Known issues
 
-**OPEN — pantry matching on the shopping list (found Sept 2026, awaiting Ronnie's
-call; touches the shopping list, so not changed unasked).** `buildShoppingList`
-drops any ingredient whose name contains, or is contained in, a pantry chip
-(`pantryHas` in `shoppingList.ts`, two-way substring). So "Onions" on hand also
-removes green onions, "Beans" removes green beans, "Rice" removes rice vinegar /
-rice noodles, "Potatoes" removes sweet potatoes, "Garlic" removes garlic powder,
-"Chicken" removes chicken broth, and "Canned tomatoes" removes fresh tomatoes —
-each a missing item discovered at the stove. Re-roll's `loosely` in `reroll.ts`
-already uses a stricter one-direction rule, so the two disagree. Fix needs a
-product decision on what a pantry chip covers (see the Sept 2026 hand-off note).
+**CLOSED (M5.8) — pantry matching on the shopping list.** The two-way
+substring (`pantryHas`) that let "Onions" drop green onions, "Rice" drop rice
+vinegar, "Chicken" drop chicken broth and "Canned tomatoes" drop fresh tomatoes
+— and re-roll's one-way substring that counted sausage as sage and egg noodles
+as eggs — are replaced by the shared allow-list rule described in §5. Old vs new
+decisions for every pantry name: `PANTRY-MATCH-REVIEW.md`
+(`scripts/pantryMatchTable.ts`).
 
 **`DEBUG-SWEEP.md`'s P0-1, P1-1, P1-2, P2-1, P2-2, P2-3 are all closed** (tree-nut
 allergen mismatch, missing allergen validator, stale schedule-screen copy, cook-mode
