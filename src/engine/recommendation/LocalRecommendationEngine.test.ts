@@ -181,13 +181,24 @@ describe('LocalRecommendationEngine.generate', () => {
         lockedRecipeIds: ['ip-0'],
       });
 
-      const ids = engine.generate(ctx, pool).map((m) => m.recipeId);
+      // Every candidate here scores identically, so which one wins a near-tie
+      // is Math.random's call. Pin it to the LAST contender: ordinary merit
+      // picks then always land on a plain recipe (they follow the ip- ones in
+      // the pool), so any extra Instant Pot dinner could only have come from
+      // the reservation pass double-booking the quota. (Before this was
+      // pinned, a loose "at most 3" bound flaked ~5% of runs when random
+      // tie-breaks happened to favor ip- recipes on merit.)
+      const random = jest.spyOn(Math, 'random').mockReturnValue(0.999);
+      try {
+        const ids = engine.generate(ctx, pool).map((m) => m.recipeId);
 
-      expect(ids).toContain('ip-0');
-      // The lock satisfies the single requested night; nothing extra is
-      // reserved on top of it. (Another may still win on merit — hence the
-      // check on what was RESERVED, which is at most the quota.)
-      expect(ids.filter((id) => id.startsWith('ip-')).length).toBeLessThanOrEqual(3);
+        expect(ids).toContain('ip-0');
+        // The lock satisfies the single requested night; nothing extra is reserved.
+        expect(ids.filter((id) => id.startsWith('ip-'))).toEqual(['ip-0']);
+        expect(ids).toHaveLength(5);
+      } finally {
+        random.mockRestore();
+      }
     });
 
     it('never lets the quota override a hard filter (allergy)', () => {
