@@ -153,6 +153,9 @@ const PROTEIN_LESS_MAIN_ALLOWLIST = new Set([
   'jp-yaki-udon',
   'gr-briam',
   'fr-potato-leek-soup',
+  // Batch 11 (Sept 2026), reviewed: a meatless stroganoff is honestly
+  // mushrooms + noodles; composition can add a protein side.
+  'am-mushroom-stroganoff',
 ]);
 
 /** Curated mains only (role is absent/'main' for all of them today): every

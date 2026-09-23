@@ -9,6 +9,7 @@ import { recipeBatch7 } from './recipeBatch7';
 import { recipeBatch8 } from './recipeBatch8';
 import { recipeBatch9 } from './recipeBatch9';
 import { recipeBatch10 } from './recipeBatch10';
+import { recipeBatch11 } from './recipeBatch11';
 import { recipeImported } from './recipeImported';
 import { recipeInstantPot } from './recipeInstantPot';
 import { recipeSides } from './recipeSides';
@@ -1141,6 +1142,7 @@ export const RECIPES: Recipe[] = [
   ...recipeBatch8,
   ...recipeBatch9,
   ...recipeBatch10,
+  ...recipeBatch11,
   ...recipeInstantPot,
   ...recipeImported,
   ...recipeSides,
