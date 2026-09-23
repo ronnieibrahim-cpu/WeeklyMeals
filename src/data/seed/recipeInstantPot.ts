@@ -419,6 +419,7 @@ export const recipeInstantPot: Recipe[] = [
     tips: [
       'Roux blocks come in mild, medium and hot — mild is the one families reach for.',
       'Cut the vegetables large, or they disintegrate at this pressure time.',
+      'Curry roux contains wheat and soy, and some brands also contain milk — check the box if anyone has allergies.',
     ],
     leftoverNotes: 'Thickens overnight and reheats beautifully with a splash of water.',
     makesLeftovers: true,
@@ -496,10 +497,10 @@ export const recipeInstantPot: Recipe[] = [
     nutrition: { calories: 545, protein: 46, carbs: 16, fat: 30 },
     ingredients: [
       { name: 'beef chuck roast', quantity: 3, unit: 'lb', department: 'Meat' },
-      { name: 'bacon', quantity: 6, unit: 'oz', department: 'Meat' },
+      { name: 'bacon', quantity: 6, unit: 'piece', department: 'Meat' },
       { name: 'cremini mushrooms', quantity: 1, unit: 'lb', department: 'Produce' },
       { name: 'carrots', quantity: 4, unit: 'piece', department: 'Produce' },
-      { name: 'pearl onions', quantity: 10, unit: 'oz', department: 'Frozen' },
+      { name: 'pearl onions', quantity: 2, unit: 'cup', department: 'Frozen' },
       { name: 'red wine', quantity: 2, unit: 'cup', department: 'International' },
       { name: 'beef broth', quantity: 1, unit: 'cup', department: 'DryGoods' },
       { name: 'tomato paste', quantity: 2, unit: 'tbsp', department: 'DryGoods' },

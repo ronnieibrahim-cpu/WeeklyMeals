@@ -87,6 +87,20 @@ describe('inferDietTagsFromIngredients', () => {
     expect(tags).not.toContain('vegetarian');
   });
 
+  it('does not tag a dish vegetarian when a meat ingredient hides behind a vegetarian protein pick', () => {
+    for (const hidden of [ing('bacon', 'Meat'), ing('chicken broth', 'DryGoods'), ing('duck fat'), ing('worcestershire sauce', 'DryGoods'), ing('dashi', 'International')]) {
+      const ingredients = [ing('eggs', 'Dairy'), hidden];
+      const tags = inferDietTagsFromIngredients('Eggs', ingredients, inferAllergensFromIngredients(ingredients));
+      expect(tags).not.toContain('vegetarian');
+    }
+  });
+
+  it('keeps kidney beans and goat cheese vegetarian', () => {
+    const ingredients = [ing('kidney beans', 'DryGoods'), ing('goat cheese', 'Dairy')];
+    const tags = inferDietTagsFromIngredients('Beans', ingredients, inferAllergensFromIngredients(ingredients));
+    expect(tags).toContain('vegetarian');
+  });
+
   it('omits gluten-free/dairy-free when those allergens are present', () => {
     const ingredients = [ing('flour'), ing('milk')];
     const allergens = inferAllergensFromIngredients(ingredients);

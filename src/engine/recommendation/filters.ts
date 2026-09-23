@@ -6,23 +6,30 @@ const lower = (s: string) => s.trim().toLowerCase();
  * 'Tree Nuts' and 'TreeNuts' always compare equal, never silently diverge. */
 const canonicalAllergen = (s: string) => s.replace(/\s+/g, '').toLowerCase();
 
-/** Does the recipe satisfy a single dietary restriction? */
+/** Does the recipe satisfy a single dietary restriction?
+ *
+ * Vegetarian and pescatarian are decided by the recipe's own tags, not by
+ * its `primaryProtein`. The protein field says what the dish is *built
+ * around*, not everything in it: Quiche Lorraine is an Eggs dish with bacon,
+ * a bean soup can be simmered in chicken broth, and an imported pie inferred
+ * as protein 'None' can be made with duck. Until September 2026 a
+ * vegetarian-friendly primaryProtein alone satisfied "vegetarian", which let
+ * exactly those dishes through. Every curated recipe carries hand-checked
+ * tags, and imported/user recipes get them from ingredient inference
+ * (normalize.ts / userRecipes.ts), so the tag is the trustworthy signal. */
 function satisfiesDiet(recipe: Recipe, diet: string): boolean {
   const tags = recipe.dietTags.map(lower);
   const d = lower(diet);
-  const isVegetarianProtein = ['tofu', 'beans', 'lentils', 'eggs', 'none'].includes(
-    recipe.primaryProtein.toLowerCase(),
-  );
   switch (d) {
     case 'vegetarian':
-      return tags.includes('vegetarian') || isVegetarianProtein;
+      return tags.includes('vegetarian');
     case 'vegan':
       return tags.includes('vegan');
     case 'pescatarian':
       return (
-        ['fish', 'shellfish', 'tofu', 'beans', 'lentils', 'eggs', 'none'].includes(
-          recipe.primaryProtein.toLowerCase(),
-        ) || tags.includes('vegetarian')
+        ['fish', 'shellfish'].includes(recipe.primaryProtein.toLowerCase()) ||
+        tags.includes('vegetarian') ||
+        tags.includes('pescatarian')
       );
     case 'gluten-free':
       return tags.includes('gluten-free');

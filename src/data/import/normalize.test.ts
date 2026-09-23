@@ -1,4 +1,4 @@
-import { inferProvides, parseMeasure, unsupportedProvides } from './normalize';
+import { inferAllergens, inferDietTags, inferProvides, parseMeasure, unsupportedProvides } from './normalize';
 
 describe('parseMeasure — metric measures convert to customary units', () => {
   it('converts small gram amounts to ounces', () => {
@@ -148,5 +148,65 @@ describe('unsupportedProvides — the hard plausibility gate', () => {
   it('flags multiple unsupported entries at once', () => {
     const result = unsupportedProvides(['vegetable', 'starch'], 'None', ['canned tuna', 'cannellini beans', 'parsley']);
     expect(result.sort()).toEqual(['starch', 'vegetable']);
+  });
+});
+
+describe('inferAllergens — September 2026 keyword audit (only ever adds allergens)', () => {
+  const allergensOf = (...names: string[]) => inferAllergens(' ' + names.join(' ') + ' ');
+
+  it('flags gluten for named pasta shapes, breads, and pastry — not just the word "pasta"', () => {
+    for (const name of ['spaghetti', 'lasagne sheets', 'fettuccine', 'orzo', 'puff pastry', 'filo pastry', 'baguette', 'burger buns', 'pitta bread', 'naan', 'flour tortillas', 'gnocchi', 'semolina', 'beer', 'hoisin sauce']) {
+      expect(allergensOf(name)).toContain('Gluten');
+    }
+  });
+
+  it('does not flag gluten for the classic gluten-free swaps, or for "bun" inside "bunch"', () => {
+    for (const name of ['rice noodles', 'rice vermicelli', 'corn tortillas', 'tortilla chips', 'bunch of coriander', 'rolled oats']) {
+      expect(allergensOf(name)).not.toContain('Gluten');
+    }
+  });
+
+  it('flags sauces and spreads by what they are made from', () => {
+    expect(allergensOf('mayonnaise')).toContain('Eggs');
+    expect(allergensOf('oyster sauce')).toContain('Shellfish');
+    expect(allergensOf('worcestershire sauce')).toContain('Fish');
+    expect(allergensOf('dashi')).toContain('Fish');
+    expect(allergensOf('hummus')).toContain('Sesame');
+    expect(allergensOf('pesto')).toEqual(expect.arrayContaining(['Dairy', 'Tree Nuts']));
+    expect(allergensOf('pine nuts')).toContain('Tree Nuts');
+    expect(allergensOf('tamari')).toContain('Soy');
+    expect(allergensOf('cheddar')).toContain('Dairy');
+    expect(allergensOf('mackerel')).toContain('Fish');
+  });
+
+  it('does not mistake look-alike words for allergens', () => {
+    expect(allergensOf('butternut squash')).not.toContain('Dairy');
+    expect(allergensOf('water chestnuts')).not.toContain('Tree Nuts');
+    expect(allergensOf('chestnut mushrooms')).not.toContain('Tree Nuts');
+    expect(allergensOf('eggplant')).not.toContain('Eggs');
+    expect(allergensOf('coconut milk')).not.toContain('Dairy');
+  });
+});
+
+describe('inferDietTags — vegetarian means no meat anywhere in the dish', () => {
+  const tagsOf = (protein: Parameters<typeof inferDietTags>[0], ...names: string[]) => {
+    const text = ' ' + names.join(' ') + ' ';
+    return inferDietTags(protein, inferAllergens(text), text);
+  };
+
+  it('rejects a protein-None dish made with duck, lard, or Worcestershire', () => {
+    expect(tagsOf('None', 'duck legs', 'potatoes')).not.toContain('vegetarian');
+    expect(tagsOf('Eggs', 'eggs', 'lard', 'flour')).not.toContain('vegetarian');
+    expect(tagsOf('None', 'onions', 'worcestershire sauce')).not.toContain('vegetarian');
+    expect(tagsOf('Beans', 'kidney beans', 'chicken stock')).not.toContain('vegetarian');
+  });
+
+  it('still tags genuinely vegetarian dishes, including kidney beans and goat cheese', () => {
+    expect(tagsOf('Beans', 'kidney beans', 'onion', 'tomatoes')).toEqual(expect.arrayContaining(['vegetarian', 'vegan']));
+    expect(tagsOf('None', 'goat cheese', 'beetroot')).toContain('vegetarian');
+  });
+
+  it('never tags a wheat pasta dish gluten-free', () => {
+    expect(tagsOf('None', 'spaghetti', 'tomatoes', 'garlic')).not.toContain('gluten-free');
   });
 });

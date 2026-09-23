@@ -43,17 +43,35 @@ export function cookModePlateKey(recipeId: string, sideRecipeIds: string[] = [])
  * timer that goes a little long than to pull something out too early.
  */
 export function parseDurationMinutes(step: string): number | null {
-  const range = step.match(/(\d+)\s*(?:[-–—]|to)\s*(\d+)\s*(hours?|hrs?|minutes?|mins?)\b/i);
+  const range = step.match(new RegExp(`${NUM}\\s*(?:[-–—]|to)\\s*${NUM}\\s*${UNIT}`, 'i'));
   if (range) {
-    return toMinutes(Number(range[2]), range[3]);
+    return toMinutes(parseAmount(range[2]), range[3]);
   }
-  const single = step.match(/(\d+)\s*(hours?|hrs?|minutes?|mins?)\b/i);
+  const single = step.match(new RegExp(`${NUM}\\s*${UNIT}`, 'i'));
   if (single) {
-    return toMinutes(Number(single[1]), single[2]);
+    return toMinutes(parseAmount(single[1]), single[2]);
   }
   return null;
 }
 
+/** A whole number, a decimal ("2.5"), a whole number with a unicode
+ * fraction ("1½"), or a bare fraction ("½"). Before September 2026 only
+ * plain integers matched, so "1½ hours" offered no timer at all and
+ * "2.5 hours" preset a 5-hour timer (the regex latched onto the "5"). */
+const NUM = '(\\d+(?:\\.\\d+)?\\s*[¼½¾]?|[¼½¾])';
+const UNIT = '(hours?|hrs?|minutes?|mins?)\\b';
+const FRACTIONS: Record<string, number> = { '¼': 0.25, '½': 0.5, '¾': 0.75 };
+
+function parseAmount(text: string): number {
+  const t = text.replace(/\s+/g, '');
+  const frac = FRACTIONS[t.slice(-1)];
+  if (frac !== undefined) {
+    const whole = t.slice(0, -1);
+    return (whole ? Number(whole) : 0) + frac;
+  }
+  return Number(t);
+}
+
 function toMinutes(value: number, unit: string): number {
-  return /^h/i.test(unit) ? value * 60 : value;
+  return Math.round(/^h/i.test(unit) ? value * 60 : value);
 }
