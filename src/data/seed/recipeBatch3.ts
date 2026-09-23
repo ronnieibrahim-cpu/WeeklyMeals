@@ -544,7 +544,7 @@ export const recipeBatch3: Recipe[] = [
       'Heat the vegetable oil in a heavy pot over medium-high and brown the lamb in batches, without crowding the pot, then set aside.',
       'Soften the chopped onion in the same pot, 6–7 minutes, then add the minced garlic, ginger, and garam masala and cook until fragrant, about 1 minute.',
       'Add the crushed tomatoes and scrape up the browned bits from the bottom of the pot.',
-      'Return the lamb with a splash of water and the salt, add about 1 cup water, cover, and braise gently 1–1¼ hours, until fork-tender, stirring occasionally and topping up with water if it gets dry.',
+      'Return the lamb with the salt and about 1 cup water, cover, and braise gently 1–1¼ hours, until fork-tender, stirring occasionally and topping up with water if it gets dry.',
       'Taste and adjust salt, then serve over the rice.',
     ],
     leftoverNotes: 'Improves overnight.',

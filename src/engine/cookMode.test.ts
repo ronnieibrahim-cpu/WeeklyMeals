@@ -18,6 +18,15 @@ describe('parseDurationMinutes', () => {
     expect(parseDurationMinutes('Slow cook for 6–8 hours on low.')).toBe(480);
   });
 
+  it('parses decimals and unicode fractions instead of latching onto the last digit', () => {
+    expect(parseDurationMinutes('Leave to simmer for 2.5 hours.')).toBe(150);
+    expect(parseDurationMinutes('Braise in the oven for 1½ hours.')).toBe(90);
+    expect(parseDurationMinutes('Braise gently 1–1¼ hours, until fork-tender.')).toBe(75);
+    expect(parseDurationMinutes('Cook another 1½–2 hours.')).toBe(120);
+    expect(parseDurationMinutes('Braise 2.5–3 hours.')).toBe(180);
+    expect(parseDurationMinutes('Rest ½ hour before slicing.')).toBe(30);
+  });
+
   it('returns null when no duration is mentioned', () => {
     expect(parseDurationMinutes('Season with salt and pepper to taste.')).toBeNull();
   });
