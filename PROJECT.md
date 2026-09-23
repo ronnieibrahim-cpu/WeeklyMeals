@@ -31,9 +31,17 @@
 > **Open priority is process, not a feature: the independent advisor close-out
 > audit of M4.3–M4.7 + M5.0–M5.1** (see `ADVISOR-HANDOFF.md` Part 6) — that
 > range self-reviewed; the M5.2 sweep is not a substitute.
-> **Last verified:** July 2026 · typecheck clean · 475 tests green ·
-> 245/245 curated recipes + 50/50 sides/sauces pass content validation,
-> 651/651 recipes use canonical allergen labels and plausible `provides` ·
+> **September 2026 — recipe expansion + accuracy pass** (branch
+> `claude/recipe-expansion-accuracy-ths4k0`, NOT yet on the deploy branch; see
+> `MILESTONE-5.md` M5.7 and `ADVISOR-HANDOFF.md` decision 41): +65 hand-authored
+> mains (batches 9–11, incl. beef stroganoff) → 310 curated mains; every existing
+> curated recipe reviewed and corrected for flavor/technique/timing/food safety;
+> the vegetarian/pescatarian diet filters now trust `dietTags` instead of
+> `primaryProtein`; import allergen keywords broadened; cook-mode timer parses
+> fractional durations. Touches diet filtering → owes the advisor review.
+> **Last verified:** September 2026 · typecheck clean · 506 tests green ·
+> 310/310 curated recipes + 50/50 sides/sauces pass content validation,
+> 716/716 recipes use canonical allergen labels and plausible `provides` ·
 > `checkWasteFit`/`checkIngredientConsistency`/`checkCuratedWeighting`/
 > `checkKidApprovedWeighting`/`checkRotation`/`checkRerollPool`/
 > `checkInstantPot` all PASS.
@@ -47,7 +55,7 @@
 
 A meal-planning app for one family (2 adults, 2 young kids, Houston TX, shops at
 H-E-B). Each week it asks a short questionnaire (or a one-tap "same as last week"),
-generates a week of dinners from a ~601-main library, composes each main with 0–2
+generates a week of dinners from a ~666-main library, composes each main with 0–2
 sides/sauces from a 50-recipe sides library (M4.2 — a dinner is a plate, not a
 dish), and produces one consolidated H-E-B shopping list with estimated prices. The
 family cooks from the app, re-rolls meals mid-week from ingredients already bought
@@ -76,7 +84,7 @@ fatigue for a busy family? Remove clicks rather than add settings.
   accepted risk, not a fix in progress** (see §8)
 - **Jest / jest-expo** — engine + `src/data/import` test suite, plus one deliberate
   store-level exception (`src/stores/syncStore.test.ts`, M4.7 — see `jest.config.js`)
-  (**475 tests**); `npx jest` must stay green
+  (**506 tests**); `npx jest` must stay green
 - **expo-keep-awake** — cook mode only (sanctioned dependency)
 - **GitHub Pages** — web deploy via `.github/workflows/deploy-web.yml`, fires on
   every push to `claude/weekly-meals-app-eyowlr`. **Every push is a deploy.**
@@ -126,7 +134,7 @@ src/engine/       recommendation/ (filters · scoring [scoreRecipe + M4.2's
                   (M4.1: household → adult-equivalent servings) · planHistory
                   (M5.0: archivePlan — dedupe/sort/cap for the rolling 6-week
                   per-device archive)    (+ a .test.ts beside almost every module)
-src/data/seed/    245 hand-curated mains (batches 1–8, cookbook-grade content,
+src/data/seed/    310 hand-curated mains (batches 1–11, cookbook-grade content,
                   plus recipeInstantPot.ts — 15 mains written FOR the pressure
                   cooker, real pressure times and release methods) +
                   recipeImported.ts (356 TheMealDB imports, GENERATED — never
@@ -471,7 +479,14 @@ the identical result regardless of order, or they ping-pong forever.
    allergen data is keyword-guessed), and always carry an "allergen info estimated"
    note on their detail screen. A side is food; it can hurt someone just as badly as
    a main — every side candidate passes the exact same hard filters a main does
-   (M4.2 part 2, `composeSides`).
+   (M4.2 part 2, `composeSides`). **Diet restrictions (Sept 2026):** "vegetarian"
+   is decided by the recipe's `vegetarian` diet tag alone, and "pescatarian" by a
+   fish/shellfish `primaryProtein` or a `vegetarian`/`pescatarian` tag — never by a
+   vegetarian-sounding `primaryProtein` (Quiche Lorraine is an Eggs dish with
+   bacon). Curated tags are hand-checked; imported/user-recipe tags come from
+   ingredient inference, which excludes duck, lard, broth, Worcestershire, dashi,
+   etc. `filters.test.ts` asserts library-wide that nothing passing "vegetarian"
+   lists meat or fish.
 5. **Pinning bypasses candidate generation** — so the pin action itself must enforce
    the allergy guard. (Reusing a code path silently reuses its assumptions.) **M4.2
    part 2 extends this to sides:** pinning a main composes fresh sides the same way
@@ -493,6 +508,17 @@ the identical result regardless of order, or they ping-pong forever.
 6. **Bug-free beats feature-rich. Always.**
 
 ## 8. Known issues
+
+**OPEN — pantry matching on the shopping list (found Sept 2026, awaiting Ronnie's
+call; touches the shopping list, so not changed unasked).** `buildShoppingList`
+drops any ingredient whose name contains, or is contained in, a pantry chip
+(`pantryHas` in `shoppingList.ts`, two-way substring). So "Onions" on hand also
+removes green onions, "Beans" removes green beans, "Rice" removes rice vinegar /
+rice noodles, "Potatoes" removes sweet potatoes, "Garlic" removes garlic powder,
+"Chicken" removes chicken broth, and "Canned tomatoes" removes fresh tomatoes —
+each a missing item discovered at the stove. Re-roll's `loosely` in `reroll.ts`
+already uses a stricter one-direction rule, so the two disagree. Fix needs a
+product decision on what a pantry chip covers (see the Sept 2026 hand-off note).
 
 **`DEBUG-SWEEP.md`'s P0-1, P1-1, P1-2, P2-1, P2-2, P2-3 are all closed** (tree-nut
 allergen mismatch, missing allergen validator, stale schedule-screen copy, cook-mode

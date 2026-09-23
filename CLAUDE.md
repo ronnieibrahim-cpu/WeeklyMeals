@@ -43,6 +43,11 @@ live without the usual advisor pass at Ronnie's direction; see decision 35.
 advisor gate waived — see `ADVISOR-HANDOFF.md` decision 36). No further
 feature is confirmed-next; the standing priority is the independent advisor
 audit.
+**September 2026 (M5.7, on branch `claude/recipe-expansion-accuracy-ths4k0`, not
+yet deployed):** +65 curated mains (batches 9–11), a full accuracy pass over
+every existing curated recipe, a vegetarian/pescatarian diet-filter fix, broader
+import allergen keywords, and a cook-mode timer fix — see `ADVISOR-HANDOFF.md`
+decision 41. The diet-filter change owes the advisor review before it ships.
 
 **Before building anything new, the priority is the independent advisor
 close-out audit of the whole M4.3–M4.7 + M5.0–M5.1 range** — it shipped in one
@@ -55,8 +60,8 @@ explicit go-ahead from Ronnie.
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine + data/import (+ syncStore) test suite — currently 475 tests
-npx tsx scripts/validateRecipes.ts # 245/245 curated mains + 50/50 sides (651/651 allergen labels + provides) must pass
+npx jest                           # engine + data/import (+ syncStore) test suite — currently 506 tests
+npx tsx scripts/validateRecipes.ts # 310/310 curated mains + 50/50 sides (716/716 allergen labels + provides) must pass
 npm run web                        # local browser preview for manual testing
 ```
 Pushing to branch `claude/weekly-meals-app-eyowlr` auto-deploys the web build to

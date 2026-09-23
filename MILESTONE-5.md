@@ -203,6 +203,48 @@ question, but plates that already have a sensible side were left alone.
 
 ---
 
+## [x] M5.7 — Recipe expansion + accuracy pass (September 2026, on branch `claude/recipe-expansion-accuracy-ths4k0`; not yet deployed)
+
+Ronnie's ask: adversarial review and bug fixing, **more recipes and variety
+(including beef stroganoff)**, and a review of every recipe for accuracy — does
+it actually produce a good dish, with steps an amateur can follow.
+
+- [x] **+65 hand-authored mains** (`recipeBatch9.ts`, `recipeBatch10.ts`,
+  `recipeBatch11.ts`): 245 → 310 curated. Weighted to the thinnest proteins
+  (turkey 2 → 7, pork 17 → 29, lamb 9 → 11, eggs 8 → 12) and to family staples
+  the library lacked (stroganoff, pot roast, chicken noodle soup, lasagna,
+  fajitas, chicken tenders, pizza night, Texas chili …). First curated
+  `Other`-cuisine dish (Korean bulgogi).
+- [x] **Accuracy pass over all 295 existing hand-written recipes.** Fixed:
+  food safety (ceviche no longer relies on lime to "cook" raw shrimp);
+  undeclared allergens (trout amandine flour, Worcestershire = fish,
+  tonkatsu sauce / curry roux = soy); vegetarian tags on dishes made with
+  chicken broth or dashi; techniques that fail (katsu without flour, unbaked
+  quiche crust, oyakodon/gyudon with a "splash" of liquid, smoked wings at
+  250°F for 40 min, raw-chicken biryani, 45-minute lamb stew); and dozens of
+  recipes whose key seasonings existed only as asides ("a pinch of sugar
+  balances it") and so never reached the shopping list.
+- [x] **Diet filter bug:** vegetarian/pescatarian trusted `primaryProtein`, so
+  Quiche Lorraine (bacon) and an imported duck dish passed "vegetarian". Now
+  tag-based, with a library-wide test (decision 41).
+- [x] **Import allergen keywords broadened** (pasta shapes, breads, pastry →
+  Gluten; mayo → Eggs; oyster sauce → Shellfish; Worcestershire/dashi →
+  Fish; hummus → Sesame; pine nuts/pesto → Tree Nuts). 27 imported pasta
+  dishes had been tagged gluten-free. `recipeImported.ts` regenerated;
+  membership unchanged.
+- [x] **Cook-mode timer** parses "1½ hours" / "2.5 hours" (was: no timer /
+  a 5-hour timer).
+- [x] Three pre-existing `checkIngredientConsistency` failures (Instant Pot
+  units for bacon, pearl onions, curry roux) aligned.
+- [ ] **Open, needs Ronnie:** pantry-chip matching on the shopping list is a
+  two-way substring ("Onions" drops green onions, "Rice" drops rice vinegar).
+  See PROJECT.md §8. Not changed — it alters what lands on the list.
+
+**Accept when:** typecheck clean, 506 tests green, 310/310 curated + 50/50
+sides validate, all seven `scripts/check*.ts` harnesses pass. Verified.
+
+---
+
 ## Candidates for the M5 pipeline (Ronnie prioritizes; do NOT start unasked)
 
 From the parked list plus M4 follow-ups, with the mission test applied (*does

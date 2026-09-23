@@ -14,6 +14,15 @@ on the full curated library with zero exceptions.
 **STATUS: DONE.** All 230 recipes checked off; `validateRecipes.ts` passes
 with zero exceptions as of this commit.
 
+**September 2026 (M5.7):** a second, fidelity-focused pass over all 295
+hand-written recipes (245 mains incl. Instant Pot + 50 sides) — does the dish
+actually work and taste right, and can an amateur follow it — plus 65 new
+mains in `recipeBatch9.ts`–`recipeBatch11.ts` (310 curated mains total). The
+new bar, beyond the M2.2b validator: every seasoning a step uses is in the
+ingredient list (so it reaches the shopping list), every doneness call has a
+temperature or visible cue, and nothing depends on an unlisted "if you have
+it" to taste right. See MILESTONE-5.md M5.7 for the defect classes fixed.
+
 ## Batch 1 — recipes.ts (24)
 - [x] it-tuscan-chicken
 - [x] it-caprese-pasta
