@@ -312,6 +312,13 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       4; three overnight bean soaks → canned). 8 dropped (silken tofu,
       shopska, croquetas, kadu borani, rice and peas, tamiya, morning glory,
       and a duplicate fettuccine Alfredo). 337 → 329.
+    - [x] Batch 7: 17 fixed, 3 kept (kafteji's "24 eggs" → 8; pepitoria's
+      eggs never boiled; beef chilli's 120C was mislabeled 225°F; Irish stew's
+      overnight wheat berries left out — Gluten label goes with them). 10
+      dropped (pork belly missing from its own list; mechado's steps belong
+      to a kebob; frog legs tagged vegetarian; conch stew; cassava pizza;
+      poutine; egg drop soup; semolina dumpling soup; molasses beans; a
+      method-less Sunday roast). 329 → 319.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
