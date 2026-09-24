@@ -251,3 +251,32 @@ describe('British → US names (M5.8 task 3)', () => {
     }
   });
 });
+
+describe('parseMeasure — TheMealDB unit spellings (M5.8 task 3b)', () => {
+  it('reads tblsp/tbls/tsps as spoons, not pieces', () => {
+    expect(parseMeasure('2 tblsp')).toEqual({ quantity: 2, unit: 'tbsp' });
+    expect(parseMeasure('1 tbls')).toEqual({ quantity: 1, unit: 'tbsp' });
+    expect(parseMeasure('2 tsps')).toEqual({ quantity: 2, unit: 'tsp' });
+    expect(parseMeasure('1 tbsp.')).toEqual({ quantity: 1, unit: 'tbsp' });
+  });
+
+  it('gives loose amounts a customary unit', () => {
+    expect(parseMeasure('splash')).toEqual({ quantity: 1, unit: 'tbsp' });
+    expect(parseMeasure('knob')).toEqual({ quantity: 1, unit: 'tbsp' });
+    expect(parseMeasure('2 handfuls')).toEqual({ quantity: 2, unit: 'cup' });
+    expect(parseMeasure('sprinkling')).toEqual({ quantity: 1, unit: 'pinch' });
+  });
+
+  it('still counts genuinely countable things as pieces', () => {
+    expect(parseMeasure('2 large')).toEqual({ quantity: 2, unit: 'piece' });
+    expect(parseMeasure('1 chopped')).toEqual({ quantity: 1, unit: 'piece' });
+  });
+
+  it('a fresh herb to garnish is bought as a bunch', () => {
+    const parsley = RECIPES.filter((r) => r.id.startsWith('mealdb-'))
+      .flatMap((r) => r.ingredients)
+      .filter((i) => i.name === 'parsley');
+    expect(parsley.some((i) => i.unit === 'bunch')).toBe(true);
+    expect(parsley.some((i) => i.unit === 'pinch')).toBe(false);
+  });
+});

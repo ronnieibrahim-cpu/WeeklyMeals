@@ -117,7 +117,13 @@ function mapCuisine(area: string | undefined, ingredientText: string): Cuisine {
 // ---------------------------------------------------------------------------
 const UNIT_WORDS: Record<string, Unit> = {
   tbsp: 'tbsp', tablespoon: 'tbsp', tablespoons: 'tbsp', tbs: 'tbsp',
-  tsp: 'tsp', teaspoon: 'tsp', teaspoons: 'tsp',
+  // M5.8 task 3b: TheMealDB spellings that used to fall through to 'piece'
+  // ("2 tblsp olive oil" was 2 pieces), plus loose amounts with a sensible
+  // customary equivalent.
+  tblsp: 'tbsp', tbls: 'tbsp', tbl: 'tbsp', tbsps: 'tbsp', splash: 'tbsp', drizzle: 'tbsp', knob: 'tbsp', knobs: 'tbsp',
+  tsp: 'tsp', teaspoon: 'tsp', teaspoons: 'tsp', tsps: 'tsp', tspn: 'tsp',
+  sprinkling: 'pinch', sprinking: 'pinch', dusting: 'pinch',
+  handfull: 'cup', handfuls: 'cup', litres: 'l', liters: 'l',
   cup: 'cup', cups: 'cup',
   g: 'g', gram: 'g', grams: 'g', gr: 'g',
   kg: 'kg', kilogram: 'kg',
@@ -200,7 +206,7 @@ export function parseMeasure(measure: string): { quantity: number; unit: Unit } 
     i++;
   }
   if (quantity === 0) quantity = 1;
-  const unitWord = tokens[i];
+  const unitWord = tokens[i]?.replace(/[.,;:]+$/, '');
   const unit = (unitWord && UNIT_WORDS[unitWord]) || 'piece';
   if (unit === 'g' || unit === 'kg' || unit === 'ml' || unit === 'l') {
     return toCustomary(quantity, unit);
@@ -357,6 +363,10 @@ export function usStepText(step: string): string {
   return out;
 }
 
+function isFreshHerb(name: string): boolean {
+  return /^(fresh |freshly chopped )?(parsley|coriander|coriander leaves|cilantro|cilantro leaves|basil|basil leaves|mint|dill|chives)$/.test(name);
+}
+
 function cleanIngredientName(name: string): string {
   return name.trim().replace(/\s+/g, ' ').toLowerCase();
 }
@@ -366,7 +376,12 @@ function parseIngredients(pairs: { name: string; measure: string }[]): RecipeIng
   for (const { name, measure } of pairs) {
     const clean = cleanIngredientName(name);
     if (!clean || clean === 'water') continue;
-    const { quantity, unit } = parseMeasure(measure || '');
+    let { quantity, unit } = parseMeasure(measure || '');
+    // A fresh herb "to serve"/"garnish" is bought as a bunch, not a pinch.
+    if (unit === 'pinch' && isFreshHerb(clean) && (!measure.trim() || /serve|garnish|taste|pinch|dash/i.test(measure))) {
+      quantity = 1;
+      unit = 'bunch';
+    }
     out.push({
       name: clean,
       quantity,
