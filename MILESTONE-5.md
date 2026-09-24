@@ -306,6 +306,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       unsoaked dried beans → canned; fofos' potatoes never cooked; pad thai
       and prego scaled to 4; borsch's 5.5 lb potatoes → 1 1/4 lb. 2 dropped
       (bitterballen, conch fritters). 339 → 337.
+    - [x] Batch 6: 22 fixed (Liège salad's eggs never boiled; plov's "lamb
+      50 g" was the raisins; gratin never cooked its chicken; saganaki shrimp
+      boiled twice; romesco shrimp served raw as a starter; Big Mac made 2 for
+      4; three overnight bean soaks → canned). 8 dropped (silken tofu,
+      shopska, croquetas, kadu borani, rice and peas, tamiya, morning glory,
+      and a duplicate fettuccine Alfredo). 337 → 329.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
