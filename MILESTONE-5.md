@@ -278,6 +278,13 @@ validate, all seven harnesses pass, import regeneration byte-identical.
     read as pieces → tbsp; splash/knob → tbsp; handfuls → cup; 26 garnish
     herbs pinch → 1 bunch). No other field changed. Unit groups 217 → 202.
   - [ ] 3c. Triage batches of ~30 (keep / fix / drop; refill dropped slots).
+    Mechanism: `src/data/import/importOverrides.ts` (fixes patch raw text
+    before inference; drops retire the id but keep it resolvable). The frozen
+    fixture holds exactly 356 meals, all in use — no spare candidates to
+    refill from (asked Ronnie).
+    - [x] Batch 1 (30 thinnest): 27 fixed (steps split, °F, doneness temps,
+      missing seasonings/amounts, 4 cooking bugs); 3 proposed drops held
+      pending the refill answer (Sichuan long beans, chivito, grilled corn).
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes

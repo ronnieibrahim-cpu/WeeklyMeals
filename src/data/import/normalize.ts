@@ -820,12 +820,20 @@ export function normalize(raw: RawRecipe, times?: { prepMinutes?: number; cookMi
  * a raw recipe BEFORE normalize(), so every inferred field (allergens, diet
  * tags, protein, spice, departments) is re-derived from the corrected text. */
 export function applyImportFix(raw: RawRecipe, fix: ImportFix): RawRecipe {
-  const base = fix.ingredients ?? raw.ingredients;
-  return {
-    ...raw,
-    instructions: fix.instructions ?? raw.instructions,
-    ingredients: [...base, ...(fix.addIngredients ?? [])],
-  };
+  const same = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
+  let list = [...(fix.ingredients ?? raw.ingredients)];
+  for (const name of fix.removeIngredients ?? []) {
+    const at = list.findIndex((i) => same(i.name, name));
+    if (at < 0) throw new Error(`removeIngredients: no "${name}" in ${raw.sourceId}`);
+    list.splice(at, 1);
+  }
+  for (const [name, measure] of Object.entries(fix.measures ?? {})) {
+    const at = list.findIndex((i) => same(i.name, name));
+    if (at < 0) throw new Error(`measures: no "${name}" in ${raw.sourceId}`);
+    list[at] = { ...list[at], measure };
+  }
+  list = [...list, ...(fix.addIngredients ?? [])];
+  return { ...raw, instructions: fix.instructions ?? raw.instructions, ingredients: list };
 }
 
 /** Map a raw TheMealDB meal object into a RawRecipe. */

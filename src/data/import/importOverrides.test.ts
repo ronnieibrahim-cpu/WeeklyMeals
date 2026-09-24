@@ -1,6 +1,6 @@
 import raw from './themealdb-raw.json';
 import { IMPORT_DROPS, IMPORT_FIXES } from './importOverrides';
-import { applyImportFix, fromMealDb, normalize } from './normalize';
+import { applyImportFix, fromMealDb, inferAllergens, normalize } from './normalize';
 import { getRecipe, RECIPES } from '@/data/seed/recipes';
 import { recipeImported, recipeImportedRetired } from '@/data/seed/recipeImported';
 import { buildShoppingList } from '@/engine/shoppingList';
@@ -18,6 +18,13 @@ describe('applyImportFix — fixes go in before inference', () => {
     const fixed = normalize(applyImportFix(base, { note: 'x', addIngredients: [{ name: 'Butter', measure: '2 tbs' }] }))!;
     expect(normalize(base)!.allergens).not.toContain('Dairy');
     expect(fixed.allergens).toContain('Dairy');
+  });
+
+  it('corrects a measure and removes a duplicate by raw name', () => {
+    const dup = { ...base, ingredients: [...base.ingredients, { name: 'Carrots', measure: '2' }] };
+    const r = applyImportFix(dup, { note: 'x', measures: { beef: '2 lb' }, removeIngredients: ['Carrots'] });
+    expect(r.ingredients).toEqual([{ name: 'Beef', measure: '2 lb' }, { name: 'Onion', measure: '1' }, { name: 'Carrots', measure: '2' }]);
+    expect(() => applyImportFix(base, { note: 'x', removeIngredients: ['Tofu'] })).toThrow();
   });
 
   it('replaces steps and overrides the time guess', () => {
@@ -49,12 +56,13 @@ describe('importOverrides — every entry matches the generated corpus', () => {
     }
   });
 
-  it('a fix never loses an allergen unless it replaces the whole ingredient list', () => {
+  it('a fix never loses an allergen unless the ingredient behind it was removed', () => {
     for (const [id, fix] of Object.entries(IMPORT_FIXES)) {
       if (fix.ingredients) continue; // explicit rewrite — reviewed by hand in the batch report
       const before = normalize(fromMealDb(rawById.get(id)!))!.allergens;
       const after = recipeImported.find((r) => r.id === id)!.allergens;
-      for (const a of before) expect([id, after.includes(a)]).toEqual([id, true]);
+      const removed = inferAllergens(' ' + (fix.removeIngredients ?? []).join(' ').toLowerCase() + ' ');
+      for (const a of before) expect([id, a, after.includes(a) || removed.includes(a)]).toEqual([id, a, true]);
     }
   });
 });

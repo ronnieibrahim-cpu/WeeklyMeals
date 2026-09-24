@@ -225,7 +225,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 35,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -276,11 +276,22 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "pinch",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat oven to 180C/fan 160C/gas 4. Trim the fronds from the fennel and set aside. Cut the fennel bulbs in half, then cut each half into 3 wedges. Cook in boiling salted water for 10 mins, then drain well. Chop the fennel fronds roughly, then mix with the parsley and lemon zest.",
-      "Spread the drained fennel over a shallow ovenproof dish, then add the tomatoes. Drizzle with olive oil, then bake for 10 mins. Nestle the salmon among the veg, sprinkle with lemon juice, then bake 15 mins more until the fish is just cooked. Scatter over the parsley and serve."
+      "Heat the oven to 350°F. Trim the fronds from the fennel and set them aside. Halve each bulb and cut each half into 3 wedges.",
+      "Cook the fennel wedges in boiling salted water for 10 minutes, then drain well.",
+      "Roughly chop the fennel fronds and mix with the parsley and the lemon zest.",
+      "Spread the fennel in a shallow baking dish, add the cherry tomatoes and drizzle with the olive oil. Bake for 10 minutes.",
+      "Nestle the salmon among the vegetables, sprinkle with the lemon juice and a pinch of salt, and bake 15 minutes more, until the salmon flakes easily and reads 145°F.",
+      "Scatter with the herb mixture and the olives and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -425,8 +436,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 40,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -443,14 +454,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tomato sauce",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 24,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "butter beans",
-        "quantity": 2.75,
-        "unit": "lb",
+        "quantity": 3,
+        "unit": "can",
         "department": "Dairy"
       },
       {
@@ -464,11 +475,27 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "In a large casserole, fry the sausages until brown all over – about 10 mins.",
-      "Add the tomato sauce, stirring well, then stir in the beans, treacle or sugar and mustard. Bring to the simmer, cover and cook for 30 mins. Great served with crusty bread or rice."
+      "In a large heavy pot over medium-high heat, fry the sausages, turning, until browned all over, about 10 minutes.",
+      "Add the tomato sauce and stir well, scraping up the browned bits. Drain and rinse the butter beans, then stir them in with the molasses and mustard.",
+      "Bring to a simmer, cover and cook gently for 30 minutes, until the sauce has thickened and the sausages reach 160°F inside.",
+      "Season with salt and pepper. Serve with crusty bread or rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -2061,10 +2088,10 @@ export const recipeImported: Recipe[] = [
     "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
-      "calories": 420,
+      "calories": 480,
       "protein": 34,
       "carbs": 18,
-      "fat": 18
+      "fat": 30
     },
     "ingredients": [
       {
@@ -2075,19 +2102,19 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "italian fennel sausages",
-        "quantity": 8,
+        "quantity": 4,
         "unit": "piece",
         "department": "Meat"
       },
       {
         "name": "cabbage",
-        "quantity": 1,
+        "quantity": 0.5,
         "unit": "piece",
         "department": "Produce"
       },
       {
         "name": "garlic clove",
-        "quantity": 8,
+        "quantity": 4,
         "unit": "piece",
         "department": "Spices"
       },
@@ -2099,13 +2126,13 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "shiitake mushrooms",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 4,
+        "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "chicken broth",
-        "quantity": 1,
+        "quantity": 0.5,
         "unit": "cup",
         "department": "Meat"
       },
@@ -2122,11 +2149,28 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "olive oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "red wine vinegar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Preheat the oven to 350°. Remove the stems from one bunch of Tuscan kale and tear the leaves into 1\" pieces (mustard greens, collards, spinach, and chard are great, too). Coarsely chop half a head of green cabbage. Combine the greens in a large baking dish and add 4 cloves of thinly sliced garlic. Adding some sliced onions and shiitake mushrooms at this point is optional, but highly recommended (I'll sauté the onions and mushrooms in a cast iron baking dish right on the stove before adding to the greens). Coat the greens with some olive oil and pour ½ cup chicken broth or broth over everything. Cover the dish with foil and bake until the greens are wilted, about 15 minutes. Remove foil and season with salt and pepper. Continue to bake until cabbage is tender, about 20-25 minutes more.",
-      "Meanwhile, heat a little olive oil in a large skillet over medium-high. Prick four sweet Italian sausages with a fork and cook until browned on all sides and cooked through, 10 to 12 minutes. When the greens are done, slice the sausage and toss into the greens with a splash of your favorite vinegar (I like sherry or red wine)."
+      "Heat the oven to 350°F. Strip the kale leaves from the stems and tear them into 1-inch pieces. Coarsely chop the cabbage.",
+      "Heat 1 tbsp olive oil in a skillet and fry the sliced onion and mushrooms for 5 minutes until soft.",
+      "Combine the kale, cabbage, onion, mushrooms and thinly sliced garlic in a large baking dish. Toss with 1 tbsp olive oil and pour the broth over.",
+      "Cover with foil and bake for 15 minutes, until the greens wilt. Uncover, season with salt and pepper, and bake 20–25 minutes more until the cabbage is tender.",
+      "Meanwhile, heat the remaining oil in a large skillet over medium-high heat. Prick the sausages and fry, turning, until browned all over and 160°F inside, 10–12 minutes.",
+      "Slice the sausages and toss them into the greens with the vinegar."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -4049,7 +4093,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 10,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -4106,11 +4150,28 @@ export const recipeImported: Recipe[] = [
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Season the salmon, then rub with oil. Mix the dressing ingredients together. Halve, stone, peel and slice the avocados. Halve and quarter the cucumber lengthways, then cut into slices. Divide salad, avocado and cucumber between four plates, then drizzle with half the dressing.",
-      "Heat a non-stick pan. Add the salmon and fry for 3-4 mins on each side until crisp but still moist inside. Put a salmon fillet on top of each salad and drizzle over the remaining dressing. Serve warm."
+      "Make the dressing: finely chop the mint and whisk it with the lime zest and juice, the honey and 2 tbsp of the olive oil. Season with salt and pepper.",
+      "Halve, pit, peel and slice the avocados. Quarter the cucumber lengthwise, then slice it.",
+      "Divide the spinach, avocado and cucumber among four plates and drizzle with half the dressing.",
+      "Season the salmon with salt and pepper and rub with the remaining 1 tbsp olive oil. Heat a nonstick skillet over medium-high heat and pan-fry the salmon for 3–4 minutes per side, until crisp outside and 145°F in the thickest part.",
+      "Set a salmon fillet on each salad, drizzle with the rest of the dressing and serve warm."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -4325,12 +4386,13 @@ export const recipeImported: Recipe[] = [
       "red pepper flakes"
     ],
     "techniques": [
+      "roast",
       "grill"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 20,
+    "cookMinutes": 40,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -4383,18 +4445,6 @@ export const recipeImported: Recipe[] = [
         "department": "Spices"
       },
       {
-        "name": "rosemary",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Spices"
-      },
-      {
-        "name": "thyme",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Spices"
-      },
-      {
         "name": "thyme",
         "quantity": 1,
         "unit": "bunch",
@@ -4405,11 +4455,27 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "piece",
         "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Make the marinade. Smash the garlic with a little salt using a pestle and mortar. Add the lemon zest and juice, the spice mix, chile, oil and a good grinding of black pepper. Mix to a paste. This can be done in a mini food processor.",
-      "Toss the chicken in the marinade and set aside while you light the barbecue. When the barbecue’s hot, lay the bunches of herbs on the grid and put the chicken, skin side up, on top. Close the lid, if your barbecue has one, and cook the chicken on the smouldering herbs for about 10 minutes until the meat starts to colour. Turn the chicken and continue to cook for a further 20-30 minutes, turning as necessary, until it is slightly charred from the burnt herbs and cooked through to the bone."
+      "Mash the garlic with a little salt into a paste. Mix in the lemon zest and juice, curry powder, red pepper flakes, olive oil and plenty of black pepper.",
+      "Toss the chicken thighs in the marinade and set aside while you heat the grill to medium.",
+      "Lay the herb bunches and bay leaves on the grate and set the chicken, skin side up, on top. Close the lid and cook for 10 minutes.",
+      "Turn the chicken and cook 20–30 minutes more, turning as needed, until charred in places and 175°F at the bone. (No grill: roast on the herbs at 425°F for 35–40 minutes.)"
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -4447,9 +4513,9 @@ export const recipeImported: Recipe[] = [
       "fry",
       "stir-fry"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
+    "prepMinutes": 20,
     "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
@@ -4513,11 +4579,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "piece",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Cook the peppers whole under a grill, on a barbecue or griddle, until completely charred. Place the peppers in a bowl, cover with a plate until cool enough to handle, then peel, deseed and finely slice. In a large bowl mix the peppers and any juices with the chickpeas, parsley, chile and garlic. Set aside.",
-      "Heat a large frying pan until smoking. Working quickly and carefully, add a splash of oil to the pan, then the squid. Stir-fry for about 30 secs. Scatter the chorizo over the squid, continue to cook for 30 secs more, then tip into the bowl with the peppers. Season everything with salt and pepper, then dress with the remaining oil, lemon juice and lemon zest. Mix together, pile onto a platter and let everyone help themselves."
+      "Char the whole bell peppers under a hot broiler or on a grill, turning, until blackened all over. Put them in a bowl, cover with a plate and let cool.",
+      "Peel, seed and finely slice the peppers. In a large bowl mix them and their juices with the drained chickpeas, chopped parsley, chopped chile and minced garlic.",
+      "Slice the squid into rings. Heat a large skillet until smoking, add a splash of the oil, then the squid, and stir-fry for 30 seconds.",
+      "Add the diced chorizo and cook 30 seconds more, until the squid is opaque and just firm — any longer and it turns rubbery. Tip everything into the bowl.",
+      "Season with salt and pepper, dress with the remaining oil and the lemon juice and zest, toss and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -4553,8 +4636,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 10,
+    "cookMinutes": 40,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -4602,8 +4685,9 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Make 3 slashes on each of the drumsticks. Mix together the soy, honey, oil, tomato purée and mustard. Pour this mixture over the chicken and coat thoroughly. Leave to marinate for 30 mins at room temperature or overnight in the fridge. Heat oven to 200C/fan 180C/gas 6.",
-      "Tip the chicken into a shallow roasting tray and cook for 35 mins, turning occasionally, until the chicken is tender and glistening with the marinade."
+      "Cut 3 slashes into each drumstick. Mix the soy sauce, honey, olive oil, tomato paste and mustard, pour over the chicken and turn to coat. Marinate for 30 minutes at room temperature, or overnight in the fridge.",
+      "Heat the oven to 400°F.",
+      "Tip the chicken and marinade into a shallow roasting pan. Roast for 35–40 minutes, turning twice, until sticky and glazed and the thickest drumstick reads 175°F near the bone."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -8278,10 +8362,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "Hot",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 20,
+    "cookMinutes": 190,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -8292,8 +8376,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "oxtail",
-        "quantity": 15.75,
-        "unit": "oz",
+        "quantity": 3,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -8356,11 +8440,34 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tbsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "allspice",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Toss the oxtail with the onion, green onions, garlic, ginger, chile, soy sauce, thyme, salt and pepper. Heat the vegetable oil in a large frying pan over medium-high heat. Brown the oxtail in the pan until browned all over, about 10 minutes. Place into a pressure cooker, and pour in 375ml water. Cook at pressure for 25 minutes, then remove from heat, and remove the lid according to manufacturer's directions.",
-      "Add the broad beans and pimento berries, and bring to a simmer over medium-high heat. Dissolve the cornflour in 2 tablespoons water, and stir into the simmering oxtail. Cook and stir a few minutes until the sauce has thickened, and the broad beans are tender."
+      "Toss the oxtail with the onion, green onion, garlic, ginger, scotch bonnet, soy sauce, thyme, salt and pepper.",
+      "Heat the oil in a large heavy pot over medium-high heat and fry the oxtail until browned all over, about 10 minutes.",
+      "Add 4 cups water, bring to a boil, then cover and simmer gently for 2 1/2–3 hours, until the meat is falling off the bone. Add a splash of water if it gets dry.",
+      "Add the broad beans and allspice and simmer 10 minutes.",
+      "Stir the cornstarch into 2 tbsp water, stir it into the pot and cook a few minutes until the sauce thickens."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -12473,13 +12580,12 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "fry",
-      "stir-fry",
       "simmer"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 15,
+    "prepMinutes": 10,
+    "cookMinutes": 50,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -12530,11 +12636,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "piece",
         "department": "Produce"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a large flameproof casserole dish and stir-fry the mushrooms until they start to soften. Add the chicken legs and cook briefly on each side to colour them a little.",
-      "Pour in the passata, crumble in the stock cube and stir in the olives. Season with black pepper – you shouldn’t need salt. Cover and simmer for 40 mins until the chicken is tender. Sprinkle with parsley and serve with pasta and a salad, or mash and green veg, if you like."
+      "Heat the oil in a large heavy pot over medium-high heat. Add the sliced mushrooms and fry until they start to soften, about 5 minutes.",
+      "Add the chicken legs and brown briefly on each side, 2–3 minutes per side.",
+      "Pour in the passata, crumble in the bouillon cube and stir in the olives. Season with black pepper — it shouldn’t need salt.",
+      "Cover and simmer gently for 40 minutes, until the chicken is tender and reads 175°F at the thickest part.",
+      "Sprinkle with chopped parsley. Serve with pasta, or mashed potatoes and a green vegetable."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -13627,10 +13743,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -13690,7 +13806,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "basil",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "bunch",
         "department": "Produce"
       },
       {
@@ -13698,11 +13814,20 @@ export const recipeImported: Recipe[] = [
         "quantity": 1.5,
         "unit": "oz",
         "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a large pan and fry the leeks and zucchini for 5 mins to soften. Pour in the stock, add three-quarters of the haricot beans with the green beans, half the tomatoes, and simmer for 5-8 mins until the vegetables are tender.",
-      "Meanwhile, blitz the remaining beans and tomatoes, the garlic and basil in a food processor (or in a bowl with a stick blender) until smooth, then stir in the Parmesan. Stir the sauce into the soup, cook for 1 min, then ladle half into bowls or pour into a flask for a packed lunch. Chill the remainder. Will keep for a couple of days."
+      "Heat the oil in a large pot and fry the sliced leeks and diced zucchini for 5 minutes to soften.",
+      "Pour in the broth, add three-quarters of the drained beans, the green beans and half the chopped tomatoes. Simmer 5–8 minutes, until the vegetables are tender.",
+      "Meanwhile, blend the remaining beans and tomatoes with the garlic and basil until smooth, then stir in the parmesan.",
+      "Stir the pistou into the soup and cook 1 minute. Season with salt and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -14210,8 +14335,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 10,
+    "cookMinutes": 55,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -14222,8 +14347,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter beans",
-        "quantity": 14,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "can",
         "department": "Dairy"
       },
       {
@@ -14280,11 +14405,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Soak the beans overnight in plenty of water. Drain, rinse, then place in a pan covered with water. Bring to the boil, reduce the heat, then simmer for approx 50 mins until slightly tender but not soft. Drain, then set aside.",
-      "Heat oven to 180C/160C fan/gas 4. Heat the olive oil in a large frying pan, tip in the onion and garlic, then cook over a medium heat for 10 mins until softened but not browned. Add the tomato purée, cook for a further min, add remaining ingredients, then simmer for 2-3 mins. Season generously, then stir in the beans. Tip into a large ovenproof dish, then bake for approximately 1 hr, uncovered and without stirring, until the beans are tender. The beans will absorb all the fabulous flavours and the sauce will thicken. Allow to cool, then scatter with parsley and drizzle with a little more olive oil to serve."
+      "Heat the oven to 350°F. Drain and rinse the butter beans.",
+      "Heat the olive oil in a large skillet and fry the onion and garlic over medium heat for 10 minutes until soft but not browned.",
+      "Add the tomato paste and cook 1 minute, then add the chopped tomatoes, sugar, oregano and cinnamon and simmer 2–3 minutes. Season well with salt and pepper and stir in the beans.",
+      "Tip into a baking dish and bake uncovered for 40–45 minutes, without stirring, until the sauce is thick and bubbling at the edges.",
+      "Let cool slightly, scatter with parsley and drizzle with a little more olive oil to serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -14320,10 +14462,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "grill"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
+    "prepMinutes": 20,
+    "cookMinutes": 12,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -14372,14 +14514,17 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pita bread",
-        "quantity": 1,
-        "unit": "pinch",
+        "quantity": 4,
+        "unit": "piece",
         "department": "Bakery"
       }
     ],
     "steps": [
-      "Pound the garlic with sea salt in a pestle and mortar (or use a small food processor), until the garlic forms a paste. Whisk together the oil, lemon juice, zest, dill and garlic. Mix in the lamb and combine well. Cover and marinate for at least 2 hrs or overnight in the fridge. If you’re going to use bamboo skewers, soak them in cold water.",
-      "If you’ve prepared the lamb the previous day, take it out of the fridge 30 mins before cooking. Thread the meat onto the soaked or metal skewers. Heat the grill to high or have a hot griddle pan or barbecue ready. Cook the skewers for 2-3 mins on each side, basting with the remaining marinade. Heat the pitta or flatbreads briefly, then stuff with the souvlaki. Add Greek salad (see 'Goes well with', right) and Tzatziki (below), if you like."
+      "Pound the garlic with the sea salt using a mortar and pestle (or a small food processor) until it forms a paste.",
+      "Whisk the olive oil, lemon juice and zest, dill and garlic paste together. Cut the lamb into 1 1/4-inch cubes, add to the marinade and mix well. Cover and marinate in the fridge for at least 2 hours or overnight. If using bamboo skewers, soak them in cold water.",
+      "Take the lamb out of the fridge 30 minutes before cooking. Thread the meat onto skewers.",
+      "Heat a grill, grill pan or broiler to high. Cook the skewers for 2–3 minutes per side, basting with the leftover marinade, until browned outside and 135°F inside for medium.",
+      "Warm the pitas briefly and stuff with the lamb."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -14538,13 +14683,13 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "bake",
-      "grill",
-      "fry"
+      "simmer",
+      "grill"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
       "calories": 520,
@@ -14600,11 +14745,29 @@ export const recipeImported: Recipe[] = [
         "quantity": 12.25,
         "unit": "oz",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the grill to high. Brown the beef in a deep ovenproof frying pan over a high heat for 5 mins. Meanwhile, prick the eggplant with a fork, then microwave on High for 3-5 mins until soft. Mix the yogurt, egg and parmesan together, then add a little seasoning.",
-      "Stir the tomatoes, purée and potatoes in with the beef with some seasoning and heat through. Smooth the surface of the beef mixture with the back of a spoon, then slice the cooked eggplant and arrange on top. Pour the yogurt mixture over the eggplant, smooth out evenly, then grill until the topping has set and turned golden."
+      "Peel the potatoes, cut them into 3/4-inch cubes and boil in salted water for 10 minutes, until just tender. Drain.",
+      "Meanwhile, brown the ground beef in a deep ovenproof skillet over high heat, breaking it up, until no pink remains, about 5–7 minutes.",
+      "Prick the eggplant all over with a fork and microwave on high for 4–6 minutes, until soft. Slice it into rounds.",
+      "Mix the yogurt, egg and parmesan with a pinch of salt and pepper.",
+      "Heat the broiler to high. Stir the chopped tomatoes, tomato paste and potatoes into the beef, season, and simmer for 5 minutes until hot through.",
+      "Smooth the top, lay the eggplant slices over it, then spread the yogurt mixture evenly on top. Broil for 5–8 minutes, until the topping is set and golden."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -16717,7 +16880,8 @@ export const recipeImported: Recipe[] = [
       "HighProtein"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -16732,12 +16896,12 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 20,
     "baseServings": 6,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 38,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -16795,11 +16959,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 7,
         "unit": "oz",
         "department": "Dairy"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Finely slice a quarter of the chile, then put the rest in a food processor with the ginger, garlic, coriander stalks and one-third of the leaves. Whizz to a rough paste with a splash of water if needed.",
-      "Heat the oil in a frying pan, then quickly brown the chicken chunks for 1 min. Stir in the paste for another min, then add the peanut butter, stock and yogurt. When the sauce is gently bubbling, cook for 10 mins until the chicken is just cooked through and sauce thickened. Stir in most of the remaining coriander, then scatter the rest on top with the chile, if using. Eat with rice or mashed sweet potato."
+      "Cook the rice according to the package.",
+      "Finely slice a quarter of the chile. Put the rest in a food processor with the ginger, garlic, cilantro stems and a third of the leaves, and blend to a rough paste, adding a splash of water if needed.",
+      "Cut the chicken breasts into bite-size chunks. Heat the oil in a large skillet and fry the chicken for 1–2 minutes to brown.",
+      "Stir in the paste for 1 minute, then add the peanut butter, broth and yogurt.",
+      "Bring to a gentle bubble and cook for 10 minutes, until the sauce thickens and the chicken reads 165°F.",
+      "Stir in most of the remaining cilantro, scatter the rest on top with the sliced chile, and serve with the rice."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -18466,12 +18640,13 @@ export const recipeImported: Recipe[] = [
       "red chile"
     ],
     "techniques": [
-      "fry"
+      "fry",
+      "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -18532,13 +18707,15 @@ export const recipeImported: Recipe[] = [
       {
         "name": "parmesan",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "oz",
         "department": "Dairy"
       }
     ],
     "steps": [
-      "Cook the pasta following pack instructions. Heat the oil in a non-stick frying pan and cook the onion, garlic and chile for 3-4 mins to soften. Stir in the tomato purée and cook for 1 min, then add the pilchards with their sauce. Cook, breaking up the fish with a wooden spoon, then add the olives and continue to cook for a few more mins.",
-      "Drain the pasta and add to the pan with 2-3 tbsp of the cooking water. Toss everything together well, then divide between plates and serve, scattered with Parmesan."
+      "Cook the spaghetti in salted boiling water according to the package.",
+      "Meanwhile, heat the oil in a nonstick skillet and fry the onion, garlic and chopped chile for 3–4 minutes to soften.",
+      "Stir in the tomato paste for 1 minute, then add the pilchards with their sauce, breaking the fish up with a wooden spoon. Add the olives and cook a few minutes more until hot.",
+      "Drain the pasta, add it to the pan with 2–3 tbsp of the cooking water and toss well. Serve topped with shaved parmesan."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -18695,12 +18872,12 @@ export const recipeImported: Recipe[] = [
       "basil"
     ],
     "techniques": [
-      "braise"
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 15,
+    "cookMinutes": 55,
     "baseServings": 6,
     "nutrition": {
       "calories": 480,
@@ -18763,11 +18940,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "piece",
         "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the olive oil in a stock pot over medium heat; add the onion and cover. Cook the onions until soft and translucent, about 5 minutes. Stir the squash, great Northern beans, and lima beans into the pot; pour the chicken broth over the mixture. Cover and cook until the squash is tender and beginning to break apart, 30 to 45 minutes.",
-      "Stir the corn and basil into the stew; cook until the stew reaches the consistency of pancake batter, about 10 minutes more. Sprinkle the chopped banana pepper over individual portions to serve."
+      "Heat the olive oil in a large pot over medium heat. Add the chopped onion, cover and cook until soft and translucent, about 5 minutes.",
+      "Stir in the cubed squash, drained great northern beans and lima beans, then pour in the broth.",
+      "Cover and cook until the squash is tender and starting to break apart, 30–40 minutes.",
+      "Stir in the corn and chopped basil and cook about 10 minutes more, until thick. Season with salt and pepper.",
+      "Serve sprinkled with the chopped banana pepper."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -19696,12 +19890,13 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "bake",
       "roast",
-      "fry"
+      "fry",
+      "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 40,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -19740,11 +19935,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "piece",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat oven to 200C/180C fan/gas 6. Put the squash and garlic on a baking tray and drizzle with the olive oil. Roast for 35-40 mins until soft. Season.",
-      "Cook the pasta according to pack instructions. Drain, reserving the water. Use a stick blender to whizz the squash with 400ml cooking water. Heat some oil in a frying pan, fry the sage until crisp, then drain on kitchen paper. Tip the pasta and sauce into the pan and warm through. Scatter with sage."
+      "Heat the oven to 400°F. Peel the squash and cut it into 1-inch chunks. Put the squash and unpeeled garlic cloves on a baking sheet, drizzle with 2 tbsp of the olive oil and roast for 35–40 minutes, until the squash is soft enough to crush with a spoon. Season with salt and pepper.",
+      "Meanwhile, cook the linguine in salted boiling water according to the package. Reserve 2 cups of the cooking water, then drain.",
+      "Squeeze the roasted garlic out of its skins. Blend the squash and garlic with about 1 2/3 cups of the cooking water until smooth.",
+      "Heat the remaining 1 tbsp olive oil in a large skillet and fry the sage leaves until crisp, about 1 minute. Lift them onto paper towels.",
+      "Tip the pasta and squash sauce into the skillet and toss over low heat until hot, loosening with more cooking water if needed. Scatter with the crispy sage."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -20279,11 +20491,12 @@ export const recipeImported: Recipe[] = [
       "onion"
     ],
     "techniques": [
-      "fry"
+      "fry",
+      "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 20,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -20296,7 +20509,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "vegetable oil",
         "quantity": 1,
-        "unit": "tbsp",
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -20308,44 +20521,44 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pork",
-        "quantity": 1,
+        "quantity": 4,
         "unit": "piece",
         "department": "Meat"
       },
       {
         "name": "vegetable broth",
-        "quantity": 0.75,
+        "quantity": 1,
         "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "soy sauce",
-        "quantity": 1,
+        "quantity": 3,
         "unit": "tbsp",
         "department": "International"
       },
       {
         "name": "mirin",
-        "quantity": 1,
-        "unit": "tsp",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "International"
       },
       {
         "name": "sugar",
         "quantity": 1,
-        "unit": "tsp",
+        "unit": "tbsp",
         "department": "DryGoods"
       },
       {
         "name": "eggs",
-        "quantity": 2,
+        "quantity": 6,
         "unit": "piece",
         "department": "Dairy"
       },
       {
         "name": "sushi rice",
-        "quantity": 7,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -20353,11 +20566,35 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "piece",
         "department": "DryGoods"
+      },
+      {
+        "name": "all-purpose flour",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "panko",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a pan, fry the sliced onion until golden brown, then add the tonkatsu (see recipe here), placing it in the middle of the pan. Mix the dashi, soy, mirin and sugar together and tip three-quarters of the mixture around the tonkatsu. Sizzle for a couple of mins so the sauce thickens a little and the tonkatsu reheats.",
-      "Tip the beaten eggs around the tonkatsu and cook for 2-3 mins until the egg is cooked through but still a little runny. Divide the rice between two bowls, then top each with half the egg and tonkatsu mix, sprinkle over the chives and serve immediately, drizzling with a little more soy if you want an extra umami kick."
+      "Cook the rice according to the package.",
+      "Pound the pork chops to about 1/2 inch thick and season with salt. Dredge in the flour, dip in 2 of the beaten eggs, then press into the panko.",
+      "Heat the oil in a large skillet to 350°F and fry the pork for 3–4 minutes per side, until golden and 145°F inside. Drain on a rack, then slice into strips.",
+      "Pour off all but 1 tbsp of oil. Fry the sliced onion until golden, 5–6 minutes.",
+      "Mix the broth, soy sauce, mirin and sugar, pour it around the onion and bring to a simmer. Lay the pork strips on top.",
+      "Pour the remaining 4 beaten eggs around the pork, cover and cook 2–3 minutes, until the egg is just set.",
+      "Spoon the rice into four bowls, top with the pork and egg, and sprinkle with chives."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -20873,9 +21110,9 @@ export const recipeImported: Recipe[] = [
       "stir-fry",
       "simmer"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
@@ -20947,8 +21184,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Boil some water in a large saucepan. Add 250ml cold water and the udon noodles. (As they are so thick, adding cold water helps them to cook a little bit slower so the middle cooks through). If using frozen or fresh noodles, cook for 2 mins or until al dente; dried will take longer, about 5-6 mins. Drain and leave in the colander.",
-      "Heat 1 tbsp of the oil, add the onion and cabbage and sauté for 5 mins until softened. Add the mushrooms and some green onions, and sauté for 1 more min. Pour in the remaining sesame oil and the noodles. If using cold noodles, let them heat through before adding the ingredients for the sauce – otherwise tip in straight away and keep stir-frying until sticky and piping hot. Sprinkle with the remaining green onions."
+      "Bring a large pot of water to a boil. Cook the udon according to the package (about 2 minutes for fresh or frozen, 5–6 for dried), drain and set aside.",
+      "Mix the mirin, soy sauce, sugar and Worcestershire sauce in a small bowl.",
+      "Heat 1 tbsp of the sesame oil in a wok or large skillet and stir-fry the sliced onion and cabbage for 5 minutes until softened.",
+      "Add the sliced mushrooms and half the green onions and stir-fry 1 minute more.",
+      "Add the remaining sesame oil, the noodles and the sauce, and toss over high heat until sticky and piping hot, 2–3 minutes. Sprinkle with the remaining green onions."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -23443,7 +23683,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 50,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -23503,8 +23743,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parsley",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
@@ -23519,11 +23759,21 @@ export const recipeImported: Recipe[] = [
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a pan and fry the onion for about 5 mins until softened. Add the garlic, chopped tomatoes, tomato purée, sweet paprika, chili powder, sugar and a pinch of salt, then bring to the boil, stirring occasionally. Lower to a simmer and cook for 10 mins until pulpy. Can be kept chilled for up to 24 hrs.",
-      "Heat oven to 200C/180C fan/gas 6. Pat the potatoes dry with kitchen paper, then tip into a roasting tin and toss in the olive oil and some seasoning. Roast for 40-50 mins until crisp and golden. Tip the potatoes into serving dishes and spoon over the tomato sauce. Sprinkle with some fresh parsley to serve."
+      "Heat the oven to 400°F. Cut the potatoes into 1-inch chunks, pat dry, then toss in a roasting pan with the 2 tbsp olive oil and some salt.",
+      "Roast for 40–50 minutes, turning once, until crisp and golden.",
+      "Meanwhile, heat the 3 tbsp olive oil in a saucepan and fry the onion for 5 minutes until soft.",
+      "Add the garlic, canned tomatoes, tomato paste, paprika, chili powder, sugar and a pinch of salt. Bring to a boil, then simmer 10 minutes until pulpy.",
+      "Spoon the sauce over the potatoes and sprinkle with parsley."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -25124,7 +25374,8 @@ export const recipeImported: Recipe[] = [
     "primaryProtein": "Fish",
     "vegetables": [
       "leek",
-      "peas"
+      "peas",
+      "lemon"
     ],
     "techniques": [
       "fry",
@@ -25132,7 +25383,7 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -25190,11 +25441,27 @@ export const recipeImported: Recipe[] = [
         "quantity": 14,
         "unit": "oz",
         "department": "Seafood"
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a deep frying pan, then soften the leek for 5 mins without browning. Add the chorizo and fry until it releases its oils. Stir in the turmeric and rice until coated by the oils, then pour in the stock. Bring to the boil, then simmer for 15 mins, stirring occasionally.",
-      "Tip in the peas and cook for 5 mins, then stir in the seafood to heat through for a final 1-2 mins cooking or until rice is cooked. Check for seasoning and serve immediately with lemon wedges."
+      "Heat the oil in a large deep skillet and cook the sliced leek for 5 minutes without browning.",
+      "Add the diced chorizo and fry until it releases its red oil, about 2 minutes.",
+      "Stir in the turmeric and rice until coated, then pour in the fish broth. Bring to a boil, then simmer for 15 minutes, stirring occasionally.",
+      "Add the peas and cook for 5 minutes, then stir in the seafood mix and cook 2–3 minutes more, until the shrimp are pink and opaque and the rice is tender.",
+      "Season with salt and serve right away with lemon wedges."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -25703,8 +25970,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -25767,11 +26034,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 7,
         "unit": "oz",
         "department": "Seafood"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Boil the kettle. In a non-stick frying or shallow pan with a lid, fry the onion, peppers, chorizo and garlic in the oil over a high heat for 3 mins. Stir in the rice and chopped tomatoes with 500ml boiling water, cover, then cook over a high heat for 12 mins.",
-      "Uncover, then stir – the rice should be almost tender. Stir in the shrimp, with a splash more water if the rice is looking dry, then cook for another min until the shrimp are just pink and rice tender."
+      "Bring 2 cups of water to a boil.",
+      "In a large nonstick skillet with a lid, fry the onion, bell peppers, chorizo and garlic in the oil over high heat for 3 minutes.",
+      "Stir in the rice and the canned tomatoes with the boiling water. Cover and cook over high heat for 12 minutes.",
+      "Uncover and stir — the rice should be almost tender. Stir in the shrimp, adding a splash more water if it looks dry, and cook 2–3 minutes, until the shrimp are pink and the rice is tender.",
+      "Season with salt and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -26192,13 +26469,15 @@ export const recipeImported: Recipe[] = [
       "cilantro"
     ],
     "techniques": [
-      "grill",
-      "fry"
+      "bake",
+      "fry",
+      "simmer",
+      "grill"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 20,
+    "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -26255,11 +26534,29 @@ export const recipeImported: Recipe[] = [
         "quantity": 8,
         "unit": "piece",
         "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a large frying pan. Fry the onion and half the chile for 5 mins until softened. Tip in the spices, fry for 1 min more, then add the cherry tomatoes, potatoes and coriander stalks to the pan. Season the eggs well, pour over the top of the veg and leave to cook gently for 8-10 mins until almost set.",
-      "Heat the grill and flash the tortilla underneath for 1-2 mins until the top is set. Scatter the cilantro and remaining chile over the top, slice into wedges and serve with a green salad."
+      "Peel the potatoes, cut them into 3/4-inch cubes and boil in salted water for 8–10 minutes until just tender. Drain.",
+      "Heat the oil in a large ovenproof nonstick skillet. Fry the chopped onion and half the chopped chile for 5 minutes until soft.",
+      "Stir in the curry powder for 1 minute, then add the halved cherry tomatoes, the potatoes and the chopped cilantro stems.",
+      "Beat the eggs with salt and pepper, pour them over the vegetables and cook gently for 8–10 minutes, until almost set.",
+      "Heat the broiler and slide the pan underneath for 1–2 minutes, until the top is set and no longer wet.",
+      "Scatter with the cilantro leaves and the rest of the chile, cut into wedges and serve with a green salad."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -28565,8 +28862,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -28638,8 +28935,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Heat the olive oil in a large frying pan and cook the onion for 1-2 mins just until softened. Add the chicken and fry for 7-10 mins until cooked through and the onions have turned golden. Grate over the ginger, stir through the harissa to coat everything and cook for 1 min more.",
-      "Tip in the apricots, chickpeas and couscous, then pour over the stock and stir once. Cover with a lid or tightly cover the pan with foil and leave for about 5 mins until the couscous has soaked up all the stock and is soft. Fluff up the couscous with a fork and scatter over the coriander to serve. Serve with extra harissa, if you like."
+      "Heat the oil in a large skillet and cook the chopped onion for 1–2 minutes, just until softened.",
+      "Add the chicken (cut into bite-size pieces) and fry for 7–10 minutes, until golden and 165°F inside.",
+      "Stir in the ginger and harissa and cook 1 minute more.",
+      "Add the apricots, drained chickpeas and couscous, pour over the hot broth and stir once. Cover tightly and leave off the heat for 5 minutes, until the couscous has absorbed the broth.",
+      "Fluff with a fork and scatter with the cilantro."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -29613,7 +29913,8 @@ export const recipeImported: Recipe[] = [
       "Vegetarian"
     ],
     "provides": [
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -29630,12 +29931,12 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Easy",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 20,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 12,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -29693,21 +29994,36 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "cup",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pita bread",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "Brush each eggplant slice with some oil, then season. Heat a griddle pan or barbecue. When hot, griddle the eggplant slices for 2-3 mins on each side until golden brown and tender.",
-      "Mix the yogurt with the tahini, garlic, lemon juice and herbs, then season. Top the eggplant with the dressing and scatter over extra herb leaves."
+      "Slice the eggplants lengthwise about 1/2 inch thick. Brush the slices with the oil and season with salt.",
+      "Heat a grill pan or grill until very hot. Cook the eggplant for 2–3 minutes per side, until golden and tender all the way through.",
+      "Mix the yogurt with the tahini, crushed garlic, lemon juice and most of the chopped herbs. Season with salt.",
+      "Spoon the dressing over the eggplant, scatter with the remaining herbs and serve with warm pitas."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy",
       "Sesame"
     ],
     "dietTags": [
-      "vegetarian",
-      "gluten-free"
+      "vegetarian"
     ],
     "image": "https://www.themealdb.com/images/media/meals/yoj48r1763817100.jpg",
     "origin": "Turkish",
@@ -33399,7 +33715,7 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -33411,7 +33727,7 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "pine nuts",
-        "quantity": 1,
+        "quantity": 0.33,
         "unit": "cup",
         "department": "DryGoods"
       },
@@ -33463,11 +33779,29 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "cup",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Dry-fry the pine nuts or almonds in a large pan until lightly toasted, then tip onto a plate. Add the oil to the pan, then fry the onion and cinnamon together until starting to turn golden. Turn up the heat, stir in the lamb, fry until the meat changes colour, then tip in the rice and cook for 1 min, stirring all the time.",
-      "Pour in 500ml boiling water, crumble in the stock cube, add the apricots, then season to taste. Turn the heat down, cover and simmer for 12 mins until the rice is tender and the stock has been absorbed. Toss in the pine nuts and mint and serve."
+      "Toast the pine nuts in a large dry pot over medium heat until golden, 2–3 minutes, then tip onto a plate.",
+      "Add the oil to the pot and fry the chopped onion and cinnamon sticks until the onion starts to turn golden, about 6 minutes.",
+      "Turn up the heat, add the lamb (cut into bite-size pieces) and fry until browned on all sides, then stir in the rice for 1 minute.",
+      "Pour in 2 cups boiling water, crumble in the bouillon cube and add the apricots. Season with salt and pepper.",
+      "Lower the heat, cover and simmer for 12–15 minutes, until the rice is tender and the liquid is absorbed.",
+      "Remove the cinnamon sticks, toss in the pine nuts and chopped mint, and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -33506,10 +33840,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "grill"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 20,
+    "cookMinutes": 12,
     "baseServings": 4,
     "nutrition": {
       "calories": 520,
@@ -33523,12 +33857,6 @@ export const recipeImported: Recipe[] = [
         "quantity": 4,
         "unit": "piece",
         "department": "Meat"
-      },
-      {
-        "name": "seasoning",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Spices"
       },
       {
         "name": "dried oregano",
@@ -33571,11 +33899,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "piece",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat grill to high. Season the lamb, then grill for 2 mins on each side until browned, but still very rare. Meanwhile, mix the seasoning, oregano and half of the mint into one of the tubs of yogurt, smother this over the lamb, then return to the grill for another 2-3 mins or until the yogurt is blistered and the meat is cooked to your liking.",
-      "Leave the meat to rest on a board for a few mins while you toast the pittas, shred the lettuce and thinly slice the red onion. Stir the rest of the mint into the second tub of yogurt. Thickly slice the meat and stuff into the pitta bread with the salad and minted yogurt. Squeeze over lemon juice before tucking in, if you like."
+      "Heat the broiler to high. Season the lamb steaks with half the salt and pepper, then broil for 2 minutes per side until browned.",
+      "Meanwhile, mix the rest of the salt and pepper, the oregano, half the chopped mint and half the yogurt.",
+      "Spread the yogurt mixture over the lamb and broil 2–3 minutes more, until the yogurt blisters and the lamb reads 135°F for medium.",
+      "Rest the lamb for 5 minutes. Meanwhile, toast the pitas, shred the lettuce and thinly slice the red onion. Stir the rest of the mint into the remaining yogurt.",
+      "Slice the lamb thickly and stuff it into the pitas with the salad and minted yogurt. Squeeze lemon over to serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
