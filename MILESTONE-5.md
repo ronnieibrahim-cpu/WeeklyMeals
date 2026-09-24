@@ -295,6 +295,11 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       cooked the chicken; bean soaks → canned); 2 dropped (broccoli tempura,
       pork buns). "Egg Plants" spelling falsely tripped the Eggs allergen —
       renamed on 2 recipes (Eggs label removed, ingredient gone). 348 → 346.
+    - [x] Batch 4: 22 fixed, 1 kept as is (arroz al horno's dried beans and
+      the Spanish spaghetti's 3-minute pasta would not cook; clotted cream →
+      heavy cream; pho/fish broth scaled to 4); 7 dropped (veg chilli from
+      packets, ramen with only the egg, raw stuffed peppers, arepa pabellón,
+      carrot slaw, boxty breakfast, duck confit's 1–2 day cure). 346 → 339.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
