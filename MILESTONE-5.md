@@ -263,7 +263,13 @@ validate, all seven harnesses pass, import regeneration byte-identical.
   (peanut butter as butter, egg noodles as eggs, beef broth as beef, cherry
   tomatoes as tomato). 506 → 545 tests.
 - [ ] 2. Optional ingredients on the shopping list
-- [ ] 3. Imported recipe cleanup
+- [ ] 3. Imported recipe cleanup — Ronnie (2026-09-24): lenient triage (fix
+  what we can, drop only what's broken), refill dropped slots from the next
+  candidates, ship to the live branch.
+  - [x] 3a. British → US ingredient names + step wording (467 ingredient names
+    across 71 distinct renames, 160 steps; zero change to allergens, diet
+    tags, protein, departments, spice, membership). Unit groups 224 → 217.
+  - [ ] 3b. Unit clean-up · 3c. triage batches of ~30 (keep / fix / drop).
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes

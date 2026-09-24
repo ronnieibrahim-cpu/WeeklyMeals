@@ -243,6 +243,120 @@ function isStaple(name: string): boolean {
   return false;
 }
 
+/** British → US ingredient names (M5.8 task 3), so imported recipes use
+ * the words an H-E-B shopper and the curated library use — this is also what
+ * the shopping list and pantry matching see. Whole-name entries first
+ * (checked exactly), then phrase rules applied inside a name. Bare
+ * "coriander" is the fresh herb in TheMealDB; "ground coriander" and
+ * "coriander seeds" are the spice and are deliberately left alone.
+ *
+ * Applied only to the OUTPUT (normalize()'s ingredients, vegetables and
+ * steps). Every inference — allergens, diet tags, protein, department,
+ * staples, spice, provides, nutrition — still runs on the source names,
+ * because its keyword lists are written in them ("eggplant" contains
+ * "egg", "stock cube" is a gluten signal, "chilli" drives spice level).
+ * So this rename cannot change what a recipe is, only what it's called. */
+const US_NAME_EXACT: Record<string, string> = {
+  coriander: 'cilantro',
+  'coriander leaves': 'cilantro',
+  'cilantro leaves': 'cilantro',
+  chilli: 'chile pepper',
+  'red chilli': 'red chile',
+  'green chilli': 'green chile',
+  'chilli flakes': 'red pepper flakes',
+  'red chilli flakes': 'red pepper flakes',
+  'red pepper': 'red bell pepper',
+  'green pepper': 'green bell pepper',
+  'yellow pepper': 'yellow bell pepper',
+  'mixed peppers': 'mixed bell peppers',
+  'sweet red peppers': 'red bell peppers',
+  'roasted pepper': 'roasted red bell pepper',
+  'caster sugar': 'sugar',
+  'golden caster sugar': 'sugar',
+  'icing sugar': 'powdered sugar',
+  'muscovado sugar': 'dark brown sugar',
+  'double cream': 'heavy cream',
+  'single cream': 'half-and-half',
+  'plain flour': 'all-purpose flour',
+  'all purpose flour': 'all-purpose flour',
+  'self-raising flour': 'self-rising flour',
+  'strong white bread flour': 'bread flour',
+  'minced beef': 'ground beef',
+  'lean minced steak': 'lean ground beef',
+  'minced pork': 'ground pork',
+  'lamb mince': 'ground lamb',
+  'turkey mince': 'ground turkey',
+  prawns: 'shrimp',
+  'king prawns': 'jumbo shrimp',
+  'tiger prawns': 'jumbo shrimp',
+  'raw king prawns': 'raw jumbo shrimp',
+  'raw tiger prawns': 'raw jumbo shrimp',
+  rocket: 'arugula',
+  swede: 'rutabaga',
+  beetroot: 'beets',
+  'cooked beetroot': 'cooked beets',
+  'pak choi': 'bok choy',
+  'bicarbonate of soda': 'baking soda',
+  'rapeseed oil': 'canola oil',
+  passata: 'strained tomatoes (passata)',
+  'tinned tomatos': 'canned tomatoes',
+  'black treacle': 'molasses',
+  'streaky bacon': 'bacon',
+  'purple sprouting broccoli': 'broccolini',
+  'floury potatoes': 'russet potatoes',
+  'chicken stock cube': 'chicken bouillon cube',
+  'vegetable stock cube': 'vegetable bouillon cube',
+};
+const US_NAME_PHRASES: Array<[RegExp, string]> = [
+  [/\bcourgettes?\b/g, 'zucchini'],
+  [/\baubergines?\b/g, 'eggplant'],
+  [/\bspring onions?\b/g, 'green onions'],
+  [/\b(chicken|beef|vegetable|lamb|fish) stock\b/g, '$1 broth'],
+  [/\bchillies\b/g, 'chiles'],
+  [/\bchilli\b/g, 'chili'],
+];
+
+/** Exported for tests (normalize.test.ts). */
+export function usIngredientName(name: string): string {
+  if (US_NAME_EXACT[name]) return US_NAME_EXACT[name];
+  let out = name;
+  for (const [re, to] of US_NAME_PHRASES) out = out.replace(re, to);
+  return out;
+}
+
+/** The same renames inside step text, limited to words that are
+ * unambiguous in prose (no bare "coriander", which may be the spice, or "pepper"). */
+const US_STEP_PHRASES: Array<[RegExp, string]> = [
+  [/\bcourgettes?\b/gi, 'zucchini'],
+  [/\baubergines?\b/gi, 'eggplant'],
+  [/\bspring onions?\b/gi, 'green onions'],
+  [/\b(fresh coriander|coriander leaves)\b/gi, 'cilantro'],
+  [/\bking prawns\b/gi, 'jumbo shrimp'],
+  [/\bprawns?\b/gi, 'shrimp'],
+  [/\bplain flour\b/gi, 'all-purpose flour'],
+  [/\bdouble cream\b/gi, 'heavy cream'],
+  [/\bcaster sugar\b/gi, 'sugar'],
+  [/\bminced beef\b|\bbeef mince\b/gi, 'ground beef'],
+  [/\blamb mince\b/gi, 'ground lamb'],
+  [/\bbeetroots?\b/gi, 'beets'],
+  [/\bpak choi\b/gi, 'bok choy'],
+  [/\bbicarbonate of soda\b/gi, 'baking soda'],
+  [/\b(chicken|beef|vegetable|lamb|fish) stock\b/gi, '$1 broth'],
+  [/\bchilli powder\b/gi, 'chili powder'],
+  [/\bchilli (flakes)\b/gi, 'red pepper flakes'],
+  [/\bchilli (sauce|paste|oil)\b/gi, 'chili $1'],
+  [/\bchillies\b/gi, 'chiles'],
+  [/\bchilli\b/gi, 'chile'],
+  [/\brocket\b/gi, 'arugula'],
+];
+
+/** Exported for tests (normalize.test.ts). */
+export function usStepText(step: string): string {
+  let out = step;
+  for (const [re, to] of US_STEP_PHRASES) out = out.replace(re, to);
+  return out;
+}
+
 function cleanIngredientName(name: string): string {
   return name.trim().replace(/\s+/g, ' ').toLowerCase();
 }
@@ -599,7 +713,7 @@ export function normalize(raw: RawRecipe): Recipe | null {
 
   const ingredients = parseIngredients(raw.ingredients);
   if (ingredients.length < 3) return null;
-  const steps = splitSteps(raw.instructions);
+  const steps = splitSteps(raw.instructions).map(usStepText);
   if (steps.length < 2) return null;
 
   const ingText = ' ' + ingredients.map((i) => i.name).join(' ') + ' ' + lc(raw.name) + ' ';
@@ -629,7 +743,7 @@ export function normalize(raw: RawRecipe): Recipe | null {
     // sides, starters are filtered out above), so the 'main' default is correct.
     provides: inferProvides(protein, ingredientOnlyText),
     primaryProtein: protein,
-    vegetables: ingredients.filter((i) => i.department === 'Produce').map((i) => i.name).slice(0, 6),
+    vegetables: ingredients.filter((i) => i.department === 'Produce').map((i) => usIngredientName(i.name)).slice(0, 6),
     techniques,
     difficulty: difficultyFor(steps.length, prep + cook),
     spiceLevel: inferSpice(ingText),
@@ -637,7 +751,7 @@ export function normalize(raw: RawRecipe): Recipe | null {
     cookMinutes: cook,
     baseServings: makesLeftovers ? 6 : 4,
     nutrition,
-    ingredients,
+    ingredients: ingredients.map((i) => ({ ...i, name: usIngredientName(i.name) })),
     steps,
     makesLeftovers,
     seasons: [],
