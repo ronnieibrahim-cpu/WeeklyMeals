@@ -675,6 +675,16 @@ history, all shipped and deployed:
   every inference (allergens, diet tags, protein, department, spice) still
   reads the original TheMealDB words, so it cannot change what a recipe is.
   Recipe titles are left as published.
+- Import triage (M5.8 3c) lives in `src/data/import/importOverrides.ts`:
+  `IMPORT_FIXES` patch the raw TheMealDB text (steps, added/replaced
+  ingredients, times) BEFORE inference, so allergens/diet tags re-derive from
+  the fixed text; fixes apply after the per-cuisine selection, so a fix never
+  bumps another recipe out. `IMPORT_DROPS` leave the pool before the cap and
+  are emitted as `recipeImportedRetired` — resolvable by id (`getRecipe`,
+  `useRecipesById`) so a saved plan keeps its dinner and shopping list, but
+  never in `RECIPES`, so never planned, re-rolled, searched or browsed. Ids
+  are never reused. The fixture holds exactly 356 meals, all used, so there
+  is no spare candidate to refill a dropped slot.
 - Every push to `claude/weekly-meals-app-eyowlr` deploys the web build.
 - Keep changes small and grouped by task; isolate anything touching the plan lifecycle,
   allergy filtering, sync, or seed data.

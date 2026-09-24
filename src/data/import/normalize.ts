@@ -11,6 +11,8 @@ import {
   Unit,
 } from '@/domain/models';
 
+import type { ImportFix } from './importOverrides';
+
 /**
  * A loosely-structured recipe from an external source (an API or a web page's
  * schema.org/Recipe data). The normalizer below turns this into a fully-typed
@@ -750,7 +752,7 @@ function difficultyFor(steps: number, totalMinutes: number): Difficulty {
 }
 
 /** Normalize a raw external recipe into a Recipe, or null if it isn't a usable dinner main. */
-export function normalize(raw: RawRecipe): Recipe | null {
+export function normalize(raw: RawRecipe, times?: { prepMinutes?: number; cookMinutes?: number }): Recipe | null {
   const cat = lc(raw.category ?? '');
   // The planner is for dinners — skip desserts, drinks, breakfasts, sides, starters.
   if (['dessert', 'breakfast', 'side', 'starter'].includes(cat)) return null;
@@ -773,7 +775,9 @@ export function normalize(raw: RawRecipe): Recipe | null {
   const protein = inferProtein(raw.category, ingText);
   const cuisine = mapCuisine(raw.area, ingText);
   const techniques = inferTechniques(raw.instructions);
-  const { prep, cook } = estimateTimes(techniques);
+  const estimate = estimateTimes(techniques);
+  const prep = times?.prepMinutes ?? estimate.prep;
+  const cook = times?.cookMinutes ?? estimate.cook;
   const allergens = inferAllergens(ingText);
   const dietTags = inferDietTags(protein, allergens, ingText);
   const categories = inferCategories(raw.category, protein, ingText, raw.name, dietTags);
@@ -809,6 +813,18 @@ export function normalize(raw: RawRecipe): Recipe | null {
     sourceName: raw.sourceName,
     sourceUrl: raw.sourceUrl,
     estimated: true,
+  };
+}
+
+/** Apply a hand-reviewed triage fix (src/data/import/importOverrides.ts) to
+ * a raw recipe BEFORE normalize(), so every inferred field (allergens, diet
+ * tags, protein, spice, departments) is re-derived from the corrected text. */
+export function applyImportFix(raw: RawRecipe, fix: ImportFix): RawRecipe {
+  const base = fix.ingredients ?? raw.ingredients;
+  return {
+    ...raw,
+    instructions: fix.instructions ?? raw.instructions,
+    ingredients: [...base, ...(fix.addIngredients ?? [])],
   };
 }
 

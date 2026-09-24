@@ -45721,3 +45721,10 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   }
 ];
+
+/**
+ * Imports dropped in triage (src/data/import/importOverrides.ts). NOT in
+ * the planning pool — kept only so saved plans, ratings, favorites and
+ * notes that point at these ids still resolve. Ids are never reused.
+ */
+export const recipeImportedRetired: Recipe[] = [];

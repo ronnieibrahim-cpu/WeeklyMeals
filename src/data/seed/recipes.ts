@@ -10,7 +10,7 @@ import { recipeBatch8 } from './recipeBatch8';
 import { recipeBatch9 } from './recipeBatch9';
 import { recipeBatch10 } from './recipeBatch10';
 import { recipeBatch11 } from './recipeBatch11';
-import { recipeImported } from './recipeImported';
+import { recipeImported, recipeImportedRetired } from './recipeImported';
 import { recipeInstantPot } from './recipeInstantPot';
 import { recipeSides } from './recipeSides';
 
@@ -1152,6 +1152,12 @@ export const RECIPES: Recipe[] = [
 export const recipesById: Record<string, Recipe> = {};
 for (const r of RECIPES) {
   recipesById[r.id] = r;
+}
+// Imports dropped in triage (M5.8 3c): resolvable by id only, so a saved
+// plan keeps its dinner and shopping list — never in RECIPES, so never
+// planned, re-rolled, searched or browsed again.
+for (const r of recipeImportedRetired) {
+  if (!recipesById[r.id]) recipesById[r.id] = r;
 }
 
 export function getRecipe(id: string): Recipe | undefined {

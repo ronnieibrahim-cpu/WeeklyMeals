@@ -19,7 +19,8 @@
  */
 import fs from 'fs';
 
-import { fromMealDb, normalize } from '@/data/import/normalize';
+import { IMPORT_DROPS, IMPORT_FIXES } from '@/data/import/importOverrides';
+import { applyImportFix, fromMealDb, normalize } from '@/data/import/normalize';
 import { RECIPES } from '@/data/seed/recipes';
 import { isMain, Recipe } from '@/domain/models';
 
@@ -42,7 +43,8 @@ async function main() {
   const meals = loadMealDbFixture();
   console.log('loaded', meals.length, 'meals from', RAW_FIXTURE_PATH);
 
-  const scored: { r: Recipe; score: number }[] = [];
+  const scored: { r: Recipe; score: number; m: Record<string, string> }[] = [];
+  const retired: Recipe[] = [];
   const seen = new Set<string>();
   for (const m of meals) {
     const r = normalize(fromMealDb(m));
@@ -50,20 +52,44 @@ async function main() {
     const key = norm(r.name);
     if (curated.has(key) || seen.has(key)) continue;
     seen.add(key);
+    // Triage drops leave the pool BEFORE the cap, so the next candidate
+    // refills the slot. The dropped recipe is kept (unfixed, exactly as it
+    // shipped) only so saved plans/ratings/notes still resolve its id.
+    if (IMPORT_DROPS[r.id]) {
+      retired.push(r);
+      continue;
+    }
     const realSource = r.sourceUrl && !r.sourceUrl.includes('themealdb.com/meal') ? 2 : 0;
     const score = realSource + Math.min(r.ingredients.length, 10) / 10 + Math.min(r.steps.length, 8) / 8;
-    scored.push({ r, score });
+    scored.push({ r, score, m });
   }
 
   scored.sort((a, b) => b.score - a.score);
   const perCuisine: Record<string, number> = {};
   const out: Recipe[] = [];
-  for (const { r } of scored) {
-    if ((perCuisine[r.cuisine] ?? 0) >= CAP_PER_CUISINE) continue;
+  const next: Record<string, string[]> = {};
+  for (const { r, m } of scored) {
+    if ((perCuisine[r.cuisine] ?? 0) >= CAP_PER_CUISINE) {
+      (next[r.cuisine] ??= []).push(`${r.id} ${r.name}`);
+      continue;
+    }
     perCuisine[r.cuisine] = (perCuisine[r.cuisine] ?? 0) + 1;
-    out.push(r);
+    // Fixes apply AFTER selection (scored on the unfixed text), so fixing a
+    // recipe can never push a different recipe out of the corpus.
+    const fix = IMPORT_FIXES[r.id];
+    const fixed = fix ? normalize(applyImportFix(fromMealDb(m), fix), fix) : r;
+    if (!fixed) throw new Error(`fix for ${r.id} makes it unusable`);
+    out.push(fixed);
+  }
+  const outIds = new Set(out.map((r) => r.id));
+  for (const id of Object.keys(IMPORT_FIXES)) {
+    if (!outIds.has(id)) throw new Error(`IMPORT_FIXES has ${id}, which is not in the corpus`);
+  }
+  for (const id of Object.keys(IMPORT_DROPS)) {
+    if (!retired.some((r) => r.id === id)) throw new Error(`IMPORT_DROPS has ${id}, which is not a candidate`);
   }
   out.sort((a, b) => a.cuisine.localeCompare(b.cuisine) || a.name.localeCompare(b.name));
+  retired.sort((a, b) => a.id.localeCompare(b.id));
 
   const header =
     `import { Recipe } from '@/domain/models';\n\n` +
@@ -72,8 +98,17 @@ async function main() {
     ` * Every entry carries a citation (sourceName/sourceUrl) and is marked\n` +
     ` * \`estimated\` because times/nutrition are inferred, not hand-authored.\n */\n` +
     `export const recipeImported: Recipe[] = `;
-  fs.writeFileSync('src/data/seed/recipeImported.ts', header + JSON.stringify(out, null, 2) + ';\n');
-  console.log(`wrote ${out.length} imported recipes`, JSON.stringify(perCuisine));
+  const retiredHeader =
+    `\n/**\n * Imports dropped in triage (src/data/import/importOverrides.ts). NOT in\n` +
+    ` * the planning pool — kept only so saved plans, ratings, favorites and\n` +
+    ` * notes that point at these ids still resolve. Ids are never reused.\n */\n` +
+    `export const recipeImportedRetired: Recipe[] = `;
+  fs.writeFileSync(
+    'src/data/seed/recipeImported.ts',
+    header + JSON.stringify(out, null, 2) + ';\n' + retiredHeader + JSON.stringify(retired, null, 2) + ';\n',
+  );
+  console.log(`wrote ${out.length} imported recipes (+${retired.length} retired)`, JSON.stringify(perCuisine));
+  if (process.env.SHOW_NEXT) for (const [c, ids] of Object.entries(next)) console.log('next', c, ids.slice(0, 5).join(' | '));
 }
 
 main();
