@@ -286,6 +286,10 @@ validate, all seven harnesses pass, import regeneration byte-identical.
     - [x] Batch 1 (30 thinnest): 27 fixed (steps split, °F, doneness temps,
       missing seasonings/amounts, 4 cooking bugs); 3 dropped (Sichuan long
       beans, chivito, grilled corn).
+    - [x] Batch 2 (next 30): 25 fixed (4 recipes written for 1–2 scaled to 4,
+      missing glaze/marinade/slaw ingredients, fridge not room-temp
+      marinating, kidneys removed from hotpot); 5 dropped (ezme, flafla,
+      avocado dip, salt cod tortilla, air-fryer bravas). 353 → 348 imports.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes

@@ -90,116 +90,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53107",
-    "name": "Avocado dip with new potatoes",
-    "cuisine": "American",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "starch"
-    ],
-    "primaryProtein": "None",
-    "vegetables": [
-      "avocado",
-      "lime",
-      "lemon",
-      "baby new potatoes"
-    ],
-    "techniques": [
-      "bake",
-      "roast",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 12,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "avocado",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "natural yoghurt",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Dairy"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "lemon",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "baby new potatoes",
-        "quantity": 2.75,
-        "unit": "lb",
-        "department": "Produce"
-      },
-      {
-        "name": "olive oil",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "hot chili powder",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "cumin seeds",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "tortillas",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Bakery"
-      }
-    ],
-    "steps": [
-      "Whizz half the avocado flesh with the yogurt, lime and lemon juice and seasoning. Dice the remaining avocado, then gently stir into the whizzed mix with most of the lime zest. Cover, then chill until ready to serve.",
-      "Boil potatoes for 6 mins, then drain well and toss with olive oil, chili powder and cumin seeds. Now set aside until half an hour before your guests arrive.",
-      "Heat oven to 200C/180C fan/gas 6, then roast potatoes for about 30 mins, shaking the tray halfway, until golden and tender. Transfer the dip to one or two bowls, scatter with the remaining lime zest and serve with the hot potatoes, and tortilla chips for dipping."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy"
-    ],
-    "dietTags": [
-      "vegetarian"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/flrajf1762341295.jpg",
-    "origin": "Australian",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/avocado-citrus-dip-spicy-spuds-tortilla-chips",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52959",
     "name": "Baked salmon with fennel & tomatoes",
     "cuisine": "American",
@@ -317,7 +207,8 @@ export const recipeImported: Recipe[] = [
       "HighProtein"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -327,25 +218,23 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "bake",
-      "roast",
-      "grill",
-      "steam"
+      "roast"
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 40,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 34,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
         "name": "barramundi",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "piece",
         "department": "DryGoods"
       },
@@ -397,18 +286,34 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "bunch",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "couscous",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Tip all the dressing ingredients into a food processor with a pinch of salt and blitz to a dressing. Slash the fish three times on each side, coat with half of the dressing, then set aside to marinate for about 30 mins.",
-      "Heat oven to 220C/fan 200C/gas 7. Place the fish on a roasting tray, then cook in the oven for 20 mins until the flesh is firm and the eyes have turned white. Serve the fish with the rest of the dressing and steamed couscous or rice.",
-      "KNOW HOW: HOW TO COOK IT: Cooking barramundi on the bone, as we have done here, has its advantages – it will stay more moist during cooking, and some would say that the flavour is enhanced, too. If you want to take out the bones they are easy to locate and less likely to be lodged in the fillet if the fish is cooked whole. Fillets can be simply pan-fried or grilled. If you like trout, you will really enjoy the flavour of barramundi, which lends itself to similar ingredients and cooking methods – citrus flavours are particularly good, as are garlic and wild mushrooms. Simply roasting the fish with some fresh herbs, olive oil and seasoning is delicious, and in the summer months you could barbecue it, too. One thing that you mustn’t miss are the cheeks or ‘pearls’ of the fish, these are simply lovely, moist and really sweet – well worth leaving the head on for!"
+      "Blend the cumin, ground coriander, paprika, chili powder, garlic, lemon juice, olive oil, fresh cilantro and a pinch of salt into a dressing.",
+      "Coat the fish with half the dressing and marinate in the fridge for 30 minutes.",
+      "Heat the oven to 425°F. Put the fish on a baking sheet and roast for 12–15 minutes, until it flakes easily and reads 145°F.",
+      "Meanwhile, prepare the couscous according to the package.",
+      "Serve the fish on the couscous with the rest of the dressing."
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/4o4wh11761848573.jpg",
@@ -1884,7 +1789,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pork chops",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "piece",
         "department": "Meat"
       },
@@ -1896,7 +1801,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "piece",
         "department": "Produce"
       },
@@ -1932,15 +1837,31 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken broth",
-        "quantity": 3.5,
-        "unit": "oz",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Meat"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the butter in a casserole dish until sizzling, then fry the pork for 2-3 mins on each side until browned. Remove from the pan.",
-      "Tip the bacon, carrot, potatoes and swede into the pan, then gently fry until slightly coloured. Stir in the cabbage, sit the chops back on top, add the bay leaf, then pour over the cider and stock. Cover the pan, then leave everything to gently simmer for 20 mins until the pork is cooked through and the vegetables are tender.",
-      "Serve at the table spooned straight from the dish."
+      "Season the pork chops. Heat the butter in a large heavy pot until sizzling and fry the chops 2–3 minutes per side until browned. Remove.",
+      "Add the chopped bacon, carrot, potatoes and rutabaga and fry gently until lightly colored.",
+      "Stir in the shredded cabbage, set the chops on top, add the bay leaf and pour over the cider and broth.",
+      "Cover and simmer gently for 20 minutes, until the vegetables are tender and the chops read 145°F.",
+      "Serve straight from the pot."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -3137,14 +3058,14 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "bake",
-      "grill",
       "fry",
-      "simmer"
+      "simmer",
+      "grill"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 25,
+    "cookMinutes": 110,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -3163,12 +3084,6 @@ export const recipeImported: Recipe[] = [
         "name": "lamb",
         "quantity": 2,
         "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "lamb kidney",
-        "quantity": 3,
-        "unit": "piece",
         "department": "Meat"
       },
       {
@@ -3212,12 +3127,30 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "lb",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat oven to 160C/fan 140C/gas 3. Heat some dripping or butter in a large shallow casserole dish, brown the lamb in batches, lift to a plate, then repeat with the kidneys.",
-      "Fry the onions and carrots in the pan with a little more dripping until golden. Sprinkle over the flour, allow to cook for a couple of mins, shake over the Worcestershire sauce, pour in the stock, then bring to the boil. Stir in the meat and bay leaves, then turn off the heat. Arrange the sliced potatoes on top of the meat, then drizzle with a little more dripping. Cover, then place in the oven for about 1½ hrs until the potatoes are cooked.",
-      "Remove the lid, brush the potatoes with a little more dripping, then turn the oven up to brown the potatoes, or finish under the grill for 5-8 mins until brown."
+      "Heat the oven to 325°F. Cut the lamb into 1 1/2-inch pieces and season with salt and pepper.",
+      "Melt a third of the butter in a large ovenproof pot and brown the lamb in batches. Lift onto a plate.",
+      "Add a little more butter and fry the sliced onions and carrots until golden. Sprinkle over the flour and cook 2 minutes.",
+      "Add the Worcestershire sauce and broth and bring to a boil. Stir in the lamb and bay leaves, then turn off the heat.",
+      "Thinly slice the potatoes and layer them over the meat. Melt the remaining butter and brush some over the potatoes.",
+      "Cover and bake for 1 1/2 hours, until the potatoes are tender when pierced.",
+      "Uncover, brush the potatoes with the rest of the butter and broil 5–8 minutes until browned."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -3837,7 +3770,8 @@ export const recipeImported: Recipe[] = [
       "Seafood"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -3847,22 +3781,22 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "grill"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
     "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 30,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
         "name": "squid",
-        "quantity": 14,
-        "unit": "oz",
+        "quantity": 1.5,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
@@ -3881,7 +3815,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "sesame seed oil",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "tsp",
         "department": "International"
       },
       {
@@ -3892,15 +3826,37 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sweet chili sauce",
-        "quantity": 1,
-        "unit": "tbsp",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "Produce"
+      },
+      {
+        "name": "sea salt",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Ask the fishmonger to clean the squid; little ones often come ready-cleaned. Using kitchen scissors, cut open the body and open out. Wash well, then pat dry. If you have a large squid, cut the body into four portions, roughly square. Small squid can just be opened up.",
-      "Using the tip of a very sharp knife, score the top in a neat criss-cross. Brush with oil and set aside while you heat the barbecue or griddle until ready to cook.",
-      "Mix together 2 tsp sea salt, Chinese five-spice and 1 tsp freshly ground black pepper. Sprinkle on both sides of the squid just before cooking, according to taste. You may not need it all. Heat the griddle pan to hot and cook about 1 min each side, until it starts to curl. Remove with tongs to a serving plate and drizzle with a little sesame oil. To serve, garnish with cilantro and serve with small bowls of sweet chili sauce to dip into."
+      "Cook the rice according to the package.",
+      "Cut the cleaned squid bodies open so they lie flat, rinse and pat dry. Cut large ones into 2-inch squares. Lightly score the top in a crisscross and brush with oil.",
+      "Mix the sea salt, five-spice and black pepper. Sprinkle over both sides of the squid just before cooking.",
+      "Heat a grill pan or large skillet until very hot and cook the squid about 1 minute per side, until it curls and turns opaque.",
+      "Drizzle with sesame oil, scatter with cilantro and serve with the rice and sweet chili sauce for dipping."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -4724,9 +4680,9 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -4784,6 +4740,27 @@ export const recipeImported: Recipe[] = [
         "quantity": 0.5,
         "unit": "cup",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "extra virgin olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
       }
     ],
     "steps": [
@@ -5401,7 +5378,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 25,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -5471,12 +5448,29 @@ export const recipeImported: Recipe[] = [
         "quantity": 3.5,
         "unit": "oz",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Preheat the oven to 200C/Gas 6/fan 180C. Snap off the woody ends of the asparagus and discard. Arrange the asparagus in a single layer in a baking tray with sides. Cut the tomatoes in half widthways, nestle them in with the asparagus, season with sea salt and pepper and drizzle with olive oil. Roll each bacon rasher into a tight roll (if large, first cut in half crosswise), and arrange in the tray. Drizzle the bacon rolls with the honey and bake for 20 minutes until the tomatoes are soft and the bacon is crisp.",
-      "In the meantime, boil the potatoes until tender. Whisk the vinegar, olive oil, mustard, some sea salt and pepper in a large bowl until blended. Toss the arugula or spinach leaves in half of the dressing, and arrange on a large serving platter.",
-      "Drain the potatoes and cut in half. Gently toss them in the rest of the dressing, and arrange on the platter with the asparagus. Tuck in the tomatoes and bacon."
+      "Heat the oven to 400°F. Snap the woody ends off the asparagus and lay the spears in one layer in a rimmed baking pan.",
+      "Halve the tomatoes crosswise and nestle them in. Season with salt and pepper and drizzle with 1 tbsp olive oil.",
+      "Roll each bacon slice up tightly, tuck the rolls into the pan and drizzle them with the honey. Bake 20 minutes, until the tomatoes are soft and the bacon is crisp.",
+      "Meanwhile, boil the potatoes until tender when pierced, 15–20 minutes.",
+      "Whisk the vinegar, remaining olive oil, mustard, salt and pepper. Toss the arugula in half the dressing and spread on a platter.",
+      "Halve the potatoes, toss in the rest of the dressing and arrange on the platter with the asparagus, tomatoes and bacon."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -13127,8 +13121,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -13139,51 +13133,68 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "eggs",
-        "quantity": 3,
+        "quantity": 12,
         "unit": "piece",
         "department": "Dairy"
       },
       {
         "name": "butter",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "tbsp",
         "department": "Dairy"
       },
       {
         "name": "parmesan",
-        "quantity": 1,
+        "quantity": 4,
         "unit": "tsp",
         "department": "Dairy"
       },
       {
         "name": "tarragon leaves",
-        "quantity": 3,
-        "unit": "piece",
+        "quantity": 1,
+        "unit": "tbsp",
         "department": "DryGoods"
       },
       {
         "name": "parsley",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "tbsp",
         "department": "Produce"
       },
       {
         "name": "chives",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "tbsp",
         "department": "DryGoods"
       },
       {
         "name": "gruyère",
-        "quantity": 4,
-        "unit": "tbsp",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Get everything ready. Warm a 20cm (measured across the top) non-stick frying pan on a medium heat. Crack the eggs into a bowl and beat them with a fork so they break up and mix, but not as completely as you would for scrambled egg. With the heat on medium-hot, drop one knob of butter into the pan. It should bubble and sizzle, but not brown. Season the eggs with the Parmesan and a little salt and pepper, and pour into the pan.",
-      "Let the eggs bubble slightly for a couple of seconds, then take a wooden fork or spatula and gently draw the mixture in from the sides of the pan a few times, so it gathers in folds in the centre. Leave for a few seconds, then stir again to lightly combine uncooked egg with cooked. Leave briefly again, and when partly cooked, stir a bit faster, stopping while there’s some barely cooked egg left. With the pan flat on the heat, shake it back and forth a few times to settle the mixture. It should slide easily in the pan and look soft and moist on top. A quick burst of heat will brown the underside.",
-      "Grip the handle underneath. Tilt the pan down away from you and let the omelette fall to the edge. Fold the side nearest to you over by a third with your fork, and keep it rolling over, so the omelette tips onto a plate – or fold it in half, if that’s easier. For a neat finish, cover the omelette with a piece of kitchen paper and plump it up a bit with your fingers. Rub the other knob of butter over to glaze. Serve immediately."
+      "Mix the chopped herbs and grated Gruyère. You make four omelettes one at a time, each with 3 eggs.",
+      "Beat 3 eggs with a fork until just broken up. Season with 1 tsp parmesan, salt and pepper.",
+      "Warm an 8-inch nonstick skillet over medium-high heat, add 2 tsp butter and let it sizzle without browning. Pour in the eggs and let them fry gently for a few seconds.",
+      "After a few seconds, draw the egg in from the sides with a spatula a few times, then shake the pan to settle. Stop while the top is still soft and moist, about 1 minute in all.",
+      "Scatter a quarter of the herbs and cheese over, tilt the pan and roll the omelette onto a plate, folding it in thirds. Rub with a little butter.",
+      "Repeat with the remaining eggs."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -13377,8 +13388,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 25,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -13488,8 +13499,12 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Heat oil in a 12\" skillet over medium-high heat. Season steaks with salt and pepper, and add to skillet; cook, turning once, until browned on both sides and cooked to desired doneness, about 4 to 5 minutes for medium-rare. Transfer steaks to a plate, and set aside.",
-      "Return skillet to high heat, and add stock; cook until reduced until to 1⁄2 cup, about 10 minutes. Pour into a bowl, and set aside. Return skillet to heat, and add butter; add garlic and shallots, and cook, stirring, until soft, about 2 minutes. Add mushrooms, and cook, stirring, until they release any liquid and it evaporates and mushrooms begin to brown, about 2 minutes. Add cognac, and light with a match to flambée; cook until flame dies down. Stir in reserved stock, cream, Dijon, Worcestershire, and hot sauce, and then return steaks to skillet; cook, turning in sauce, until warmed through and sauce is thickened, about 4 minutes. Transfer steak to serving plates and stir parsley and chives into sauce; pour sauce over steaks to serve."
+      "Heat the oil in a 12-inch skillet over medium-high heat. Season the steaks with salt and pepper and cook, turning once, about 4–5 minutes total, until 130°F for medium-rare (145°F for medium). Set aside on a plate.",
+      "Add the broth to the skillet over high heat and boil until reduced to 1/2 cup, about 10 minutes. Pour into a bowl.",
+      "Melt the butter in the skillet, add the garlic and shallot and cook until soft, 2 minutes. Add the sliced mushrooms and cook until their liquid evaporates and they start to brown.",
+      "Off the heat, add the brandy, then return to the heat and simmer until it has mostly cooked off, about 1 minute. (Lighting it is optional — keep kids well back if you do.)",
+      "Stir in the reduced broth, cream, mustard, Worcestershire and hot sauce. Return the steaks and cook, turning in the sauce, until warm and the sauce thickens, about 4 minutes.",
+      "Plate the steaks, stir the parsley and chives into the sauce and pour it over."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -13775,17 +13790,18 @@ export const recipeImported: Recipe[] = [
     "vegetables": [
       "potatoes",
       "red onions",
-      "spinach"
+      "spinach",
+      "cherry tomatoes"
     ],
     "techniques": [
       "bake",
       "roast",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 25,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -13849,12 +13865,33 @@ export const recipeImported: Recipe[] = [
         "quantity": 14,
         "unit": "oz",
         "department": "Seafood"
+      },
+      {
+        "name": "cherry tomatoes",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat oven to 200C/fan 180C/gas 6. Toss the potatoes with 2 tsp oil and some seasoning. Tip onto a large baking tray, then roast for 20 mins, stirring halfway, until crisp, golden and cooked through.",
-      "Meanwhile, put eggs in a small pan of water, bring to the boil, then simmer for 8-10 mins, depending on how you like them cooked. Plunge into a bowl of cold water to cool for a few mins. Peel away the shells, then cut into halves.",
-      "In a large salad bowl, whisk together the remaining oil, red wine vinegar, capers and chopped tomatoes. Season, tip in the onion, spinach, tuna and potatoes, then gently toss together. Top with the eggs, then serve straight away."
+      "Heat the oven to 400°F. Cut the potatoes into bite-size chunks, toss with 2 tsp of the olive oil and some salt and pepper, and roast on a baking sheet for 20–25 minutes, stirring halfway, until golden and tender.",
+      "Meanwhile, put the eggs in a small pot of water, bring to a boil, then simmer 8–10 minutes for firm yolks. Cool in cold water, peel and halve.",
+      "In a large bowl, whisk the remaining olive oil, sunflower oil, vinegar and capers. Add the halved tomatoes and season.",
+      "Add the sliced red onion, spinach, drained tuna and potatoes and toss gently. Top with the eggs and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -15130,12 +15167,13 @@ export const recipeImported: Recipe[] = [
       "cilantro"
     ],
     "techniques": [
+      "fry",
       "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 45,
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
@@ -15216,11 +15254,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 0.5,
         "unit": "cup",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the olive oil in a large skillet over medium-high heat. Cook and stir the onions in the hot oil until translucent, about 5 minutes. Add the ginger-garlic paste and continue cooking another 5 minutes. Reduce heat to medium; stir the tomatoes into the mixture and cook until the tomatoes are pulpy, 5 to 10 minutes. Season with the cayenne pepper, curry powder, garam masala, turmeric, and cumin; cook and stir another 5 minutes.",
-      "Add the chicken and potatoes to the mixture in the skillet; simmer, stirring occasionally, until the potatoes are tender and the chicken is no longer pink in the center, about 20 minutes. Sprinkle the cilantro over the mixture and continue simmering another 10 minutes. Serve hot."
+      "Heat the oil in a large skillet over medium-high heat. Fry the diced onions until translucent, about 5 minutes. Add the ginger-garlic paste and cook 5 minutes more.",
+      "Lower the heat to medium, stir in the diced tomatoes and cook until pulpy, 5–10 minutes.",
+      "Stir in the cayenne, curry powder, garam masala, turmeric, cumin and a good pinch of salt; cook 5 minutes.",
+      "Cut the chicken into 1 1/2-inch pieces and the potatoes into 3/4-inch cubes. Add both with 1/2 cup water and simmer, stirring now and then, about 20–25 minutes, until the potatoes are tender and the chicken reads 165°F.",
+      "Sprinkle with cilantro and serve hot."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -16553,8 +16601,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -16572,7 +16620,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paneer",
-        "quantity": 8,
+        "quantity": 15.75,
         "unit": "oz",
         "department": "Dairy"
       },
@@ -16614,7 +16662,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "peas",
-        "quantity": 5.25,
+        "quantity": 10.5,
         "unit": "oz",
         "department": "Produce"
       },
@@ -16632,14 +16680,24 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "naan bread",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "salt",
         "quantity": 1,
         "unit": "pinch",
-        "department": "Bakery"
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a frying pan over high heat until it’s shimmering hot. Add the paneer, then turn the heat down a little. Fry until it starts to brown at the edges, then turn it over and brown on each side – the paneer will brown faster than you think, so don’t walk away. Remove the paneer from the pan and drain on kitchen paper.",
-      "Put the ginger, cumin, turmeric, ground coriander and chile in the pan, and fry everything for 1 min. Add the tomatoes, mashing them with the back of a spoon and simmer everything for 5 mins until the sauce smells fragrant. Add a splash of water if it’s too thick. Season well. Add the peas and simmer for a further 2 mins, then stir in the paneer and sprinkle over the garam masala. Divide between two bowls, top with cilantro and serve with naan bread, roti or rice."
+      "Cut the paneer into 3/4-inch cubes. Heat the oil in a large skillet over high heat until shimmering, add the paneer and turn the heat down a little. Fry, turning, until browned on each side — it browns fast, so stay with it. Lift onto paper towels.",
+      "Add the grated ginger, cumin, turmeric, ground coriander and chopped chile to the pan and fry for 1 minute.",
+      "Add the chopped tomatoes, mashing them with the back of a spoon, and simmer for 5 minutes until fragrant, adding a splash of water if it gets too thick. Season with salt.",
+      "Add the peas and simmer 2 minutes, then stir in the paneer and sprinkle with the garam masala.",
+      "Top with chopped cilantro and serve with warm naan."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -19338,10 +19396,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -19396,8 +19454,22 @@ export const recipeImported: Recipe[] = [
       {
         "name": "parmigiano-reggiano",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "oz",
         "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
@@ -20098,7 +20170,8 @@ export const recipeImported: Recipe[] = [
       "HighProtein"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [],
@@ -20107,13 +20180,13 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 34,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -20147,12 +20220,32 @@ export const recipeImported: Recipe[] = [
         "quantity": 4,
         "unit": "tbsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "honey",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mirin",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Mix all the ingredients in the Honey Teriyaki Glaze together. Whisk to blend well. Combine the salmon and the Glaze together.",
-      "Heat up a skillet on medium-low heat. Add the oil, Pan-fry the salmon on both sides until it’s completely cooked inside and the glaze thickens.",
-      "Garnish with sesame and serve immediately."
+      "Cook the rice according to the package.",
+      "Whisk the soy sauce, sake, honey and mirin together. Cut the salmon into 4 portions and turn them in the glaze.",
+      "Heat the oil in a skillet over medium-low heat. Lift the salmon out of the glaze and pan-fry for 3–4 minutes per side.",
+      "Pour in the leftover glaze and cook 1–2 minutes, spooning it over, until it thickens and the salmon reads 145°F.",
+      "Sprinkle with sesame seeds and serve right away with the rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -20904,110 +20997,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53158",
-    "name": "Air fryer patatas bravas",
-    "cuisine": "Mediterranean",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "None",
-    "vegetables": [
-      "potatoes",
-      "onion",
-      "garlic",
-      "basil leaves"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 12,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "potatoes",
-        "quantity": 2,
-        "unit": "lb",
-        "department": "Produce"
-      },
-      {
-        "name": "olive oil",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "paprika",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "canned tomatoes",
-        "quantity": 8,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "basil leaves",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Soak the potatoes in just-boiled water for 30 mins, then drain and leave to air-dry for 5 mins. Heat the air fryer to 200C. Tip the potatoes into a bowl and drizzle over 1 tbsp of the oil and add 1/2 tsp each of salt and freshly ground black pepper. Mix to coat the potatoes all over, then tip into the air fryer basket and cook for 20-30 mins until crisp and golden.",
-      "Meanwhile, heat the remaining oil in a small pan over a medium-low heat and fry the onion for 8-10 mins until softened but not golden. Stir in the garlic and cook for a minute before adding the paprika and cooking for 30 seconds more. Stir in the tomato purée, cook for 1 min, then tip in the chopped tomatoes. Cook for 5-10 mins over a medium heat until thickened slightly.",
-      "Once the potatoes are cooked, tip out onto a platter and pour over the tomato sauce. Sprinkle with the basil leaves, then serve."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "vegetarian",
-      "vegan",
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/3m8yae1763257951.jpg",
-    "origin": "Spanish",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/air-fryer-patatas-bravas",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53156",
     "name": "Arroz al horno (baked rice)",
     "cuisine": "Mediterranean",
@@ -21245,12 +21234,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 3,
         "unit": "piece",
         "department": "Seafood"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Peel and devein most of the shrimp (a fishmonger should be able to do this for you), keeping a few whole for decoration, if you like. Heat the olive oil in a large frying pan or shallow flameproof casserole over a medium-low heat and fry the onion for 5 mins until softened. Add the bay leaf, saffron, rice and tomato purée, and cook for 1-2 mins more, stirring.",
-      "Pour in the wine and bubble for 1-2 mins, then pour in the seafood stock and 150ml water. Cook for 5 mins, then add the squid, season well and stir to combine. Bring to the boil, then cover and reduce the heat to a gentle simmer. Cook for 12 mins more, adding a little more water if the mixture starts to look dry.",
-      "Uncover the pan and stir through the peeled shrimp, then arrange any whole shrimp on top of the rice mixture. Cover again and simmer for a further 5-6 mins until the shrimp are pink and cooked through. Leave to stand for a couple of minutes before serving from the pan."
+      "Peel and devein most of the shrimp, keeping a few whole for the top if you like.",
+      "Heat the oil in a large deep skillet over medium-low heat and fry the chopped onion for 5 minutes until soft. Add the bay leaf, saffron, rice and tomato paste and cook 1–2 minutes, stirring.",
+      "Add the wine and bubble 1–2 minutes, then add the seafood stock and 2/3 cup water. Cook 5 minutes.",
+      "Add the sliced squid, season with salt, bring to a boil, then cover and simmer gently for 12 minutes, adding a little water if it looks dry.",
+      "Stir in the peeled shrimp and set any whole ones on top. Cover and simmer 5–6 minutes more, until the shrimp are pink and the rice is tender. Rest 2 minutes before serving."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -21718,7 +21716,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -21736,12 +21735,12 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 20,
     "baseServings": 6,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 34,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -21808,8 +21807,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chickpeas",
-        "quantity": 1.75,
-        "unit": "lb",
+        "quantity": 2,
+        "unit": "can",
         "department": "Produce"
       },
       {
@@ -21823,17 +21822,41 @@ export const recipeImported: Recipe[] = [
         "quantity": 14,
         "unit": "oz",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "Heat the oil in a large pan, then gently fry the onion for 3-4 mins until it begins to soften. Stir in the carrot, celery, thyme and bay leaves. Season, then cook for 2-3 mins, stirring occasionally. Add the garlic, chorizo, cinnamon and smoked paprika. Gently fry until the vegetables soften and the chorizo starts to release its oils and crisp up.",
-      "Stir in the chickpeas, vinegar and 150ml water, then bring to a simmer for 1-2 mins until the chickpeas have heated up. Add the spinach, then stir through the chickpeas until it wilts a little. Remove from the heat, season to taste, then serve warm with crusty bread."
+      "Heat the oil in a large pot and gently fry the chopped onion for 3–4 minutes until it begins to soften.",
+      "Stir in the carrot, celery, thyme and bay leaves, season, and cook 2–3 minutes.",
+      "Add the garlic, sliced chorizo, cinnamon and paprika and fry gently until the chorizo releases its oil and starts to crisp.",
+      "Stir in the drained chickpeas, the vinegar and 2/3 cup water and simmer 2 minutes until hot.",
+      "Add the spinach and stir until it wilts. Season to taste and serve warm with crusty bread."
     ],
     "makesLeftovers": true,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/xvnx8j1763287209.jpg",
@@ -21865,10 +21888,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -21918,12 +21941,27 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Cook the potatoes in a large pan of boiling salted water for 12 mins, adding the eggs after 6 mins, and the beans for the final 2 mins. Drain everything and cool the eggs under cold running water.",
-      "Meanwhile fry chorizo slices for 1-2 mins, until beginning to crisp. Remove from the pan with a slotted spoon and set aside, leaving the oil from the chorizo in the pan. Add the garlic to the pan and cook gently for 1 min.",
-      "Remove the pan from the heat, stir in the vinegar and parsley, then toss with the potatoes, beans, chorizo and seasoning. Shell the eggs, cut into quarters and add to the salad."
+      "Boil the potatoes in a large pot of salted water for 12 minutes, adding the eggs after 6 minutes and the green beans for the last 2 — the potatoes should be tender when pierced. Drain and cool the eggs under cold running water.",
+      "Meanwhile, fry the sliced chorizo for 1–2 minutes until starting to crisp. Lift out with a slotted spoon, leaving the oil. Add the garlic and cook gently for 1 minute.",
+      "Off the heat, stir in the vinegar and parsley, then toss with the potatoes, beans and chorizo. Season.",
+      "Peel and quarter the eggs and add them to the salad."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -22764,12 +22802,12 @@ export const recipeImported: Recipe[] = [
       "lemon"
     ],
     "techniques": [
-      "simmer"
+      "fry"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -22780,8 +22818,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "squid",
-        "quantity": 10.5,
-        "unit": "oz",
+        "quantity": 1.5,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
@@ -22810,22 +22848,38 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 6,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "lemon",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "piece",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Cut the squid into rings about ½cm thick. Tip the flour into a freezer bag and season well. Add the capers, then give everything a good shake to mix together. Tip the squid into the bag, then shake again until all the rings are well coated. Mix together the garlic and mayonnaise, then place in a serving bowl.",
-      "Pour some oil into a large pan until it comes about 7cm up the sides, but the pan is no more than a third full. Place over a medium heat and let the oil warm up. To test that the oil is ready, place a small piece of bread in the pan – it should sizzle when it touches the oil.",
-      "Remove a handful of squid from the flour and shake off any excess. Gently drop into the oil, then cook for about 3 mins until crisp. Remove with a slotted spoon and place on kitchen paper. Repeat with the remaining squid. Serve straight away with the mayonnaise and lemon wedges."
+      "Cut the squid into 1/4-inch rings. Put the flour, salt, pepper and chopped capers in a large zip-top bag and shake to mix.",
+      "Mix the garlic into the mayonnaise and spoon into a serving bowl.",
+      "Pour oil into a large heavy pot to about 3 inches deep (no more than a third full). Heat to 350°F.",
+      "Shake the squid in the bag until coated, then fry in handfuls for about 3 minutes, until crisp and golden. Drain on paper towels. Keep children away from the hot oil.",
+      "Serve right away with the garlic mayonnaise and lemon wedges."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -23510,10 +23564,10 @@ export const recipeImported: Recipe[] = [
       "bake",
       "roast"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 25,
+    "cookMinutes": 80,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -23624,11 +23678,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tsp",
         "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Whizz together all of the marinade ingredients in a small food processor. Rub the marinade onto the chicken and leave for 1 hour at room temperature.",
-      "Heat the oven to 190C/fan 170C/gas 5. Put the chicken in a roasting tray and cook for 1 hour 20 minutes. Rest under loose foil for 20 minutes. While the chicken is resting, mix together the slaw ingredients and season. Serve the chicken with slaw, fries and condiments."
+      "Make the marinade: blend the red chiles, garlic, ginger, oregano, ground coriander, paprika, 2 tbsp of the vinegar and the oil with a pinch of salt.",
+      "Rub the marinade all over the chicken and refrigerate for at least 1 hour (or up to overnight).",
+      "Heat the oven to 375°F. Roast the chicken in a roasting pan for about 1 hour 20 minutes, until the thickest part of the thigh reads 175°F. Rest under loose foil for 20 minutes.",
+      "Meanwhile, make the slaw: thinly slice the red onion and cabbage leaves and grate the carrots and beet. Toss with the mayonnaise, yogurt, remaining 2 tbsp vinegar and the cumin seeds, and season.",
+      "Carve the chicken and serve with the slaw."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -24808,107 +24879,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53171",
-    "name": "Salt cod tortilla",
-    "cuisine": "Mediterranean",
-    "categories": [
-      "Seafood",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Fish",
-    "vegetables": [
-      "onion",
-      "jersey royal potatoes",
-      "garlic",
-      "parsley"
-    ],
-    "techniques": [
-      "grill",
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Easy",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "olive oil",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "jersey royal potatoes",
-        "quantity": 10.5,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "egg",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "parsley",
-        "quantity": 2.5,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "salt cod",
-        "quantity": 10.5,
-        "unit": "oz",
-        "department": "Seafood"
-      }
-    ],
-    "steps": [
-      "Heat half the oil in a frying pan, and sauté the onion over a medium heat until soft and pale gold – this will take about 8 mins. Remove from the pan, set aside, and add the potatoes to the pan. Cook until they are tender but not falling apart, carefully turning every so often. Cover the pan some of the time to help the slices cook through. Add the onions back to the pan along with the garlic and cook for another 4 mins. Tip into a bowl with the eggs, parsley and some seasoning and mix together. Leave to sit for half an hour.",
-      "Meanwhile, put the cod in a saucepan and cover with water. Bring up to a simmer. Remove from the heat, cover and leave for 10 mins. Drain, leave to cool and remove the skin and any bones. Break into large flakes and add to the potato and egg mixture.",
-      "Heat the rest of the oil in a non-stick frying pan. Pour in the tortilla mix and cook over a medium-low heat until it is just set and coming away from the sides of the pan. You might need to cover it to help the centre set. Be careful not to overcook it. Put a spatula underneath the tortilla every so often to make sure it isn’t sticking. Slide the tortilla onto a plate, then put the pan on top and flip the tortilla into it, uncooked side-down. Cook over a low heat until golden, or grill until just set. Leave to cool a little before serving."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish",
-      "Eggs"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/njj1681763297231.jpg",
-    "origin": "Spanish",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/salt-cod-tortilla",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52836",
     "name": "Seafood fideuà",
     "cuisine": "Mediterranean",
@@ -25509,7 +25479,7 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
+    "prepMinutes": 25,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -25612,7 +25582,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parsley",
-        "quantity": 1,
+        "quantity": 0.5,
         "unit": "cup",
         "department": "Produce"
       },
@@ -25622,11 +25592,36 @@ export const recipeImported: Recipe[] = [
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "Melt the butter in a heavy-based casserole, then soften the shallots for 5 mins. Add the paprika and crushed garlic and cook for 1 min until the paprika becomes fragrant. Splash in the sherry, then pour the whole lot into a bowl with the breadcrumbs. Season and cool.",
-      "Add the pork mince and the egg yolk to the bowl, then beat well. Shape into 18 small meatballs. Wipe the pan, put on a medium-high heat, then add the oil. Fry the meatballs for 5 mins, just to colour, then lift onto a plate, but keep the oil in the pan. Sizzle the chorizo with the sliced garlic. Add the squid and fry to give a little colour. Now tip in the white wine and bring to the boil, scraping the bottom. Stir in the pulped tomatoes, bring to the boil, then add the meatballs and the clams. Cover and cook for 5 mins until the clam shells open. Discard any that stay shut. Sprinkle with the chopped parsley, drizzle with the extra virgin oil, then serve with crusty bread."
+      "Melt the butter in a heavy pot and soften the shallots for 5 minutes. Add the paprika and the minced garlic and cook 1 minute. Add the sherry, then scrape everything into a bowl with the breadcrumbs. Season and let cool.",
+      "Add the ground pork and egg yolk to the bowl, mix well and shape into 18 small meatballs.",
+      "Wipe out the pot, heat the olive oil over medium-high and fry the meatballs for 5 minutes to brown. Lift onto a plate, leaving the oil.",
+      "Sizzle the sliced chorizo with the chopped garlic, then add the sliced squid and fry until lightly colored.",
+      "Add the wine and boil, scraping the bottom. Stir in the chopped tomatoes and bring back to a boil.",
+      "Add the meatballs and clams, cover and cook 5–6 minutes, until the clams open and the meatballs reach 160°F. Discard any clams that stay shut.",
+      "Sprinkle with parsley, drizzle with the extra-virgin oil and serve with crusty bread."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -28097,105 +28092,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53288",
-    "name": "Algerian Flafla (Bell Pepper Salad)",
-    "cuisine": "MiddleEastern",
-    "categories": [
-      "Vegetarian",
-      "Salads"
-    ],
-    "provides": [
-      "vegetable"
-    ],
-    "primaryProtein": "None",
-    "vegetables": [
-      "red onions",
-      "garlic",
-      "plum tomatoes"
-    ],
-    "techniques": [
-      "bake",
-      "roast"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 12,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "green bell pepper",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "olive oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "red onions",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "plum tomatoes",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Preheat an oven to 450 degrees F (230 degrees C). Place the whole peppers on aluminum foil. Bake until the skin is spotted black and the peppers are soft, 30 to 45 minutes, turning the peppers once if necessary.",
-      "Remove peppers from the oven and set aside to cool for 10 minutes. Peel off the skin and remove the stem and seeds. Chop the roasted peppers into half-inch pieces.",
-      "Heat the olive oil in a skillet over medium heat. Stir in the onion and cook, stirring frequently, until the onion has softened and turned translucent, about 5 minutes. Add the garlic, salt, and pepper; stir in the chopped peppers and tomato. Cook over medium heat, stirring occasionally, until the tomato is soft and the mixture is well incorporated, about 5 minutes."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "vegetarian",
-      "vegan",
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/tbj1bs1764118062.jpg",
-    "origin": "Algerian",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.allrecipes.com/recipe/153802/algerian-flafla-bell-pepper-salad/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53281",
     "name": "Algerian Kefta (Meatballs)",
     "cuisine": "MiddleEastern",
@@ -28314,10 +28210,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "grill"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 20,
+    "cookMinutes": 25,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -28381,12 +28277,27 @@ export const recipeImported: Recipe[] = [
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pita bread",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "Lay the eggplant out in one layer on a large baking sheet. Brush sparingly with vegetable oil, then season generously. Grill for 15 mins, turning twice and brushing with oil until the slices are softened and cooked through. Meanwhile, whizz the bread into crumbs. Add 2 tsp oil and whizz briefly again, to coat.",
-      "Spread a couple of tsps of hummus on top of each slice of eggplant. Tip the breadcrumbs onto a large plate, then press the hummus side of the eggplant into the crumbs to coat. Grill again, crumb-side up, for about 3 mins until golden.",
-      "Toss the walnuts, parsley and cherry tomatoes in a bowl, season, then add the lemon juice and olive oil and toss again. Serve the grills with the salad, a dollop more hummus and some pitta bread."
+      "Heat the broiler to high. Cut the eggplants into 1/2-inch slices and lay them on a large baking sheet. Brush lightly with vegetable oil and season with salt.",
+      "Broil for 15 minutes, turning twice and brushing with oil, until soft all the way through.",
+      "Meanwhile, blitz the bread into crumbs, add 2 tsp oil and blitz again.",
+      "Spread each eggplant slice with a little hummus, press the hummus side into the crumbs and broil crumb-side up for about 3 minutes, until golden.",
+      "Toss the chopped walnuts, parsley and halved tomatoes with the lemon juice, olive oil and a pinch of salt. Serve with the eggplant, extra hummus and warm pitas."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -29238,139 +29149,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Egyptian",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.food.com/recipe/egyptian-faatah-rice-meat-with-crispy-bread-on-bottom-194764",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53254",
-    "name": "Ezme",
-    "cuisine": "MiddleEastern",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "vegetable"
-    ],
-    "primaryProtein": "None",
-    "vegetables": [
-      "tomato",
-      "green chile",
-      "onion",
-      "garlic",
-      "parsley",
-      "dried mint"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 12,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "tomato",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "romano pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "green chile",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "red pepper paste",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "pomegranate molasses",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "pul biber",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "sumac",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "dried mint",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "extra virgin olive oil",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "DryGoods",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Put the tomatoes and all of the peppers in a food processor and blitz until finely chopped. Tip out into a sieve, set over a bowl and leave to strain. Add the onions, garlic and parsley to the food processor and blitz until finely chopped, then set aside.",
-      "Add red pepper paste, tomato purée, pomegranate molasses, pul biber, sumac, dried mint and most of the extra virgin olive oil to a serving bowl and whisk well so everything comes together as a sauce. Tip in the blitzed onion mixture and the strained pepper mixture along with 1 tsp flaky sea salt . Stir well, then drizzle with the remaining extra virgin olive oil to serve."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "vegetarian",
-      "vegan",
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/pb6mj11763788331.jpg",
-    "origin": "Turkish",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/ezme",
     "estimated": true
   },
   {
@@ -30400,8 +30178,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Easy",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
+    "prepMinutes": 20,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
       "calories": 520,
@@ -30473,13 +30251,22 @@ export const recipeImported: Recipe[] = [
       {
         "name": "yogurt",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "cup",
         "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Tip the mince into a large bowl (use a clean washing-up bowl if you don’t have anything big enough) with all the other burger ingredients and a good pinch of salt. Roll up your sleeves, get your hands into the mix and squelch everything together through your fingers until completely mixed. Pat the mix into 16 small burgers. These may now be frozen for up to 1 month or chilled up to a day ahead.",
-      "To cook, heat grill to its highest setting and lay the burgers in a single layer on a baking tray (you may need to do this in batches, depending on how big your tray is). Grill on the highest shelf for 5-6 mins on each side until browned and cooked through. Pile burgers onto a platter and serve with all the accompaniments, so everyone can construct their own sandwich."
+      "Finely chop the onions, garlic and cilantro. Put them in a large bowl with the ground lamb, garam masala, chili sauce and the salt, and mix with your hands until evenly combined.",
+      "Shape into 16 small patties.",
+      "Heat the broiler to high. Lay the patties in a single layer on a baking sheet (in batches if needed) and broil on the top rack for 5–6 minutes per side, until browned and 160°F in the center.",
+      "Serve with warm pitas, sliced tomatoes, shredded red cabbage, sliced red onion and yogurt so everyone builds their own."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -31547,10 +31334,10 @@ export const recipeImported: Recipe[] = [
       "bake",
       "roast"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 10,
+    "cookMinutes": 90,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -31618,9 +31405,10 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Preheat oven to 350 degrees F (175 degrees C).",
-      "Mix water, onion, olive oil, balsamic vinegar, Dijon mustard, garlic, black pepper, cayenne pepper, and salt together in a roasting dish. Add chicken; turn until well coated with mixture.",
-      "Bake in the preheated oven until an instant-read thermometer inserted into the thickest part of the thigh, near the bone, reads 165 degrees F (74 degrees C), about 1 hour 30 minutes."
+      "Heat the oven to 350°F.",
+      "In a roasting dish, mix the water, chopped onion, olive oil, balsamic vinegar, mustard, garlic, black pepper, cayenne and salt. Add the chicken and turn to coat.",
+      "Roast, basting a few times, for about 1 1/2 hours, until the thickest part of the thigh reads 175°F near the bone.",
+      "Rest 10 minutes, then carve and serve with the pan juices."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -32647,8 +32435,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 10,
+    "cookMinutes": 70,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -32750,8 +32538,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Easy",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 15,
+    "prepMinutes": 10,
+    "cookMinutes": 12,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -32817,9 +32605,16 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lentils",
-        "quantity": 8.75,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "cup",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
@@ -41165,8 +40960,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -41190,57 +40985,59 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "thai red curry paste",
-        "quantity": 2.5,
+        "quantity": 4,
         "unit": "tbsp",
         "department": "International"
       },
       {
         "name": "vegetable bouillon cube",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "piece",
         "department": "DryGoods"
       },
       {
         "name": "coconut milk",
-        "quantity": 1.75,
-        "unit": "cup",
+        "quantity": 2,
+        "unit": "can",
         "department": "International"
       },
       {
         "name": "fish sauce",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "tsp",
         "department": "International"
       },
       {
         "name": "rice noodles",
-        "quantity": 3.5,
+        "quantity": 8,
         "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "lime",
-        "quantity": 2,
+        "quantity": 3,
         "unit": "piece",
         "department": "Produce"
       },
       {
         "name": "jumbo shrimp",
-        "quantity": 5.25,
+        "quantity": 12,
         "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "cilantro",
-        "quantity": 0.5,
+        "quantity": 1,
         "unit": "piece",
         "department": "Produce"
       }
     ],
     "steps": [
-      "Heat the oil in a medium saucepan and add the chile. Cook for 1 min, then add the curry paste, stir and cook for 1 min more. Dissolve the stock cube in a large jug in 700ml boiling water, then pour into the pan and stir to combine. Tip in the coconut milk and bring to the boil.",
-      "Add the fish sauce and a little seasoning. Toss in the noodles and cook for a further 3-4 mins until softening. Squeeze in the lime juice, add the shrimp and cook through until warm, about 2-3 mins. Scatter over some of the coriander.",
-      "Serve in bowls with the remaining coriander and lime wedges on top for squeezing over."
+      "Heat the oil in a large pot, add the sliced chile and cook 1 minute. Add the curry paste and cook 1 minute more.",
+      "Dissolve the bouillon cubes in 6 cups boiling water, pour into the pot and add the coconut milk. Bring to a boil.",
+      "Add the fish sauce and the noodles and cook 3–4 minutes until softening.",
+      "Squeeze in the juice of 2 limes, add the shrimp and cook 2–3 minutes, until pink and opaque.",
+      "Serve in bowls topped with cilantro and lime wedges."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -45880,6 +45677,553 @@ export const recipeImportedRetired: Recipe[] = [
     "origin": "Uruguayan",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://cookpad.com/uy/recetas/116102-chivito-uruguayo",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53107",
+    "name": "Avocado dip with new potatoes",
+    "cuisine": "American",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "starch"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "avocado",
+      "lime",
+      "lemon",
+      "baby new potatoes"
+    ],
+    "techniques": [
+      "bake",
+      "roast",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 12,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "avocado",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "natural yoghurt",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Dairy"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "baby new potatoes",
+        "quantity": 2.75,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "hot chili powder",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cumin seeds",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "tortillas",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Bakery"
+      }
+    ],
+    "steps": [
+      "Whizz half the avocado flesh with the yogurt, lime and lemon juice and seasoning. Dice the remaining avocado, then gently stir into the whizzed mix with most of the lime zest. Cover, then chill until ready to serve.",
+      "Boil potatoes for 6 mins, then drain well and toss with olive oil, chili powder and cumin seeds. Now set aside until half an hour before your guests arrive.",
+      "Heat oven to 200C/180C fan/gas 6, then roast potatoes for about 30 mins, shaking the tray halfway, until golden and tender. Transfer the dip to one or two bowls, scatter with the remaining lime zest and serve with the hot potatoes, and tortilla chips for dipping."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [
+      "vegetarian"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/flrajf1762341295.jpg",
+    "origin": "Australian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/avocado-citrus-dip-spicy-spuds-tortilla-chips",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53158",
+    "name": "Air fryer patatas bravas",
+    "cuisine": "Mediterranean",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "potatoes",
+      "onion",
+      "garlic",
+      "basil leaves"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 12,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "potatoes",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "canned tomatoes",
+        "quantity": 8,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "basil leaves",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Soak the potatoes in just-boiled water for 30 mins, then drain and leave to air-dry for 5 mins. Heat the air fryer to 200C. Tip the potatoes into a bowl and drizzle over 1 tbsp of the oil and add 1/2 tsp each of salt and freshly ground black pepper. Mix to coat the potatoes all over, then tip into the air fryer basket and cook for 20-30 mins until crisp and golden.",
+      "Meanwhile, heat the remaining oil in a small pan over a medium-low heat and fry the onion for 8-10 mins until softened but not golden. Stir in the garlic and cook for a minute before adding the paprika and cooking for 30 seconds more. Stir in the tomato purée, cook for 1 min, then tip in the chopped tomatoes. Cook for 5-10 mins over a medium heat until thickened slightly.",
+      "Once the potatoes are cooked, tip out onto a platter and pour over the tomato sauce. Sprinkle with the basil leaves, then serve."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/3m8yae1763257951.jpg",
+    "origin": "Spanish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/air-fryer-patatas-bravas",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53171",
+    "name": "Salt cod tortilla",
+    "cuisine": "Mediterranean",
+    "categories": [
+      "Seafood",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "onion",
+      "jersey royal potatoes",
+      "garlic",
+      "parsley"
+    ],
+    "techniques": [
+      "grill",
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "jersey royal potatoes",
+        "quantity": 10.5,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "egg",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2.5,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt cod",
+        "quantity": 10.5,
+        "unit": "oz",
+        "department": "Seafood"
+      }
+    ],
+    "steps": [
+      "Heat half the oil in a frying pan, and sauté the onion over a medium heat until soft and pale gold – this will take about 8 mins. Remove from the pan, set aside, and add the potatoes to the pan. Cook until they are tender but not falling apart, carefully turning every so often. Cover the pan some of the time to help the slices cook through. Add the onions back to the pan along with the garlic and cook for another 4 mins. Tip into a bowl with the eggs, parsley and some seasoning and mix together. Leave to sit for half an hour.",
+      "Meanwhile, put the cod in a saucepan and cover with water. Bring up to a simmer. Remove from the heat, cover and leave for 10 mins. Drain, leave to cool and remove the skin and any bones. Break into large flakes and add to the potato and egg mixture.",
+      "Heat the rest of the oil in a non-stick frying pan. Pour in the tortilla mix and cook over a medium-low heat until it is just set and coming away from the sides of the pan. You might need to cover it to help the centre set. Be careful not to overcook it. Put a spatula underneath the tortilla every so often to make sure it isn’t sticking. Slide the tortilla onto a plate, then put the pan on top and flip the tortilla into it, uncooked side-down. Cook over a low heat until golden, or grill until just set. Leave to cool a little before serving."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish",
+      "Eggs"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/njj1681763297231.jpg",
+    "origin": "Spanish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/salt-cod-tortilla",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53254",
+    "name": "Ezme",
+    "cuisine": "MiddleEastern",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "vegetable"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "tomato",
+      "green chile",
+      "onion",
+      "garlic",
+      "parsley",
+      "dried mint"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 12,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "tomato",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "romano pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "green chile",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "red pepper paste",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "pomegranate molasses",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "pul biber",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "sumac",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "dried mint",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "extra virgin olive oil",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Put the tomatoes and all of the peppers in a food processor and blitz until finely chopped. Tip out into a sieve, set over a bowl and leave to strain. Add the onions, garlic and parsley to the food processor and blitz until finely chopped, then set aside.",
+      "Add red pepper paste, tomato purée, pomegranate molasses, pul biber, sumac, dried mint and most of the extra virgin olive oil to a serving bowl and whisk well so everything comes together as a sauce. Tip in the blitzed onion mixture and the strained pepper mixture along with 1 tsp flaky sea salt . Stir well, then drizzle with the remaining extra virgin olive oil to serve."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/pb6mj11763788331.jpg",
+    "origin": "Turkish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/ezme",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53288",
+    "name": "Algerian Flafla (Bell Pepper Salad)",
+    "cuisine": "MiddleEastern",
+    "categories": [
+      "Vegetarian",
+      "Salads"
+    ],
+    "provides": [
+      "vegetable"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "red onions",
+      "garlic",
+      "plum tomatoes"
+    ],
+    "techniques": [
+      "bake",
+      "roast"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 12,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "green bell pepper",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "red onions",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "plum tomatoes",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Preheat an oven to 450 degrees F (230 degrees C). Place the whole peppers on aluminum foil. Bake until the skin is spotted black and the peppers are soft, 30 to 45 minutes, turning the peppers once if necessary.",
+      "Remove peppers from the oven and set aside to cool for 10 minutes. Peel off the skin and remove the stem and seeds. Chop the roasted peppers into half-inch pieces.",
+      "Heat the olive oil in a skillet over medium heat. Stir in the onion and cook, stirring frequently, until the onion has softened and turned translucent, about 5 minutes. Add the garlic, salt, and pepper; stir in the chopped peppers and tomato. Cook over medium heat, stirring occasionally, until the tomato is soft and the mixture is well incorporated, about 5 minutes."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/tbj1bs1764118062.jpg",
+    "origin": "Algerian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.allrecipes.com/recipe/153802/algerian-flafla-bell-pepper-salad/",
     "estimated": true
   },
   {
