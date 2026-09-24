@@ -23,7 +23,7 @@
 import { isMain, Recipe } from '@/domain/models';
 import { RECIPES } from '@/data/seed/recipes';
 import { COMMON_ALLERGENS } from '@/domain/constants/options';
-import { inferAllergens, unsupportedProvides } from '@/data/import/normalize';
+import { dietTagConflicts, inferAllergens, unsupportedProvides } from '@/data/import/normalize';
 
 const MIN_STEPS = 5;
 const MIN_STEP_CHARS = 40;
@@ -235,6 +235,9 @@ const violations: Violation[] = [];
 for (const recipe of handAuthored) {
   validateRecipe(recipe, violations);
   validateAllergenCoverage(recipe, violations);
+  // M5.8 task 2: a vegan/vegetarian/dairy-free/gluten-free tag must not be
+  // contradicted by any ingredient (optional ones included) or allergen.
+  for (const message of dietTagConflicts(recipe)) violations.push({ recipeId: recipe.id, message });
 }
 for (const recipe of curatedMains) validateMainProvides(recipe, violations);
 for (const recipe of sides) validateSaucePairsWith(recipe, violations);

@@ -678,6 +678,38 @@ export function inferDietTags(protein: Protein, allergens: string[], ingText: st
   return tags;
 }
 
+/** Diet tag -> allergens that contradict it. */
+const DIET_TAG_CONFLICTS: Record<string, string[]> = {
+  vegan: ['Dairy', 'Eggs', 'Fish', 'Shellfish'],
+  vegetarian: ['Fish', 'Shellfish'],
+  'dairy-free': ['Dairy'],
+  'gluten-free': ['Gluten'],
+};
+
+/** A diet tag contradicted by the recipe's own ingredients (optional ones
+ * included — they still reach the shopping list) or by its declared
+ * allergens. Used by validateRecipes.ts on hand-authored recipes (M5.8
+ * task 2). Returns one message per conflict; empty means consistent. */
+export function dietTagConflicts(recipe: {
+  dietTags: string[];
+  allergens: string[];
+  ingredients: Array<{ name: string; optional?: boolean }>;
+}): string[] {
+  const out: string[] = [];
+  const declared = new Set(recipe.allergens.map(lc));
+  for (const tag of recipe.dietTags.map(lc)) {
+    for (const bad of DIET_TAG_CONFLICTS[tag] ?? []) {
+      if (declared.has(lc(bad))) out.push(`tagged "${tag}" but declares allergen "${bad}"`);
+      for (const ing of recipe.ingredients) {
+        if (inferAllergens(' ' + lc(ing.name) + ' ').includes(bad)) {
+          out.push(`tagged "${tag}" but ingredient "${ing.name}"${ing.optional ? ' (optional)' : ''} triggers "${bad}"`);
+        }
+      }
+    }
+  }
+  return out;
+}
+
 function inferCategories(category: string | undefined, protein: Protein, ingText: string, name: string, dietTags: string[]): Category[] {
   const set = new Set<Category>();
   const c = lc(category ?? '');

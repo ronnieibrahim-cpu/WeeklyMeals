@@ -262,7 +262,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
   plates 72 → 89; 7 weeks lost one plate, every loss traced to an old false match
   (peanut butter as butter, egg noodles as eggs, beef broth as beef, cherry
   tomatoes as tomato). 506 → 545 tests.
-- [ ] 2. Optional ingredients on the shopping list
+- [x] **2. Optional ingredients on the shopping list** (Ronnie chose option b,
+  content-only; list behaviour unchanged). New `validateRecipes` rule
+  (`dietTagConflicts`): a vegan/vegetarian/dairy-free/gluten-free tag may not be
+  contradicted by any ingredient (optional included) or declared allergen. It
+  caught 3: minestrone + mujadara (garnish moved to a tip, Dairy allergen dropped
+  with the ingredient), bolognese (kept the parmesan, lost its `dairy-free` tag).
 - [ ] 3. Imported recipe cleanup — Ronnie (2026-09-24): lenient triage (fix
   what we can, drop only what's broken), refill dropped slots from the next
   candidates, ship to the live branch.
