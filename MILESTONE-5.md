@@ -290,6 +290,11 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       missing glaze/marinade/slaw ingredients, fridge not room-temp
       marinating, kidneys removed from hotpot); 5 dropped (ezme, flafla,
       avocado dip, salt cod tortilla, air-fryer bravas). 353 → 348 imports.
+    - [x] Batch 3: 28 fixed (cannelloni listed cannellini beans instead of
+      pasta tubes; rendang lacked its whole spice paste; summer rolls never
+      cooked the chicken; bean soaks → canned); 2 dropped (broccoli tempura,
+      pork buns). "Egg Plants" spelling falsely tripped the Eggs allergen —
+      renamed on 2 recipes (Eggs label removed, ingredient gone). 348 → 346.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
