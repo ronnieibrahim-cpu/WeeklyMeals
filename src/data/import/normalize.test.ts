@@ -1,5 +1,5 @@
 import { RECIPES } from '@/data/seed/recipes';
-import { dietTagConflicts, inferAllergens, inferDietTags, inferProvides, parseMeasure, unsupportedProvides } from './normalize';
+import { dietTagConflicts, inferAllergens, inferDietTags, inferProvides, parseMeasure, unsupportedProvides, usIngredientName, usStepText } from './normalize';
 
 describe('parseMeasure — metric measures convert to customary units', () => {
   it('converts small gram amounts to ounces', () => {
@@ -240,5 +240,45 @@ describe('dietTagConflicts — diet tags must not contradict ingredients or alle
   it('every hand-authored recipe is consistent (minestrone, mujadara, bolognese fixed)', () => {
     const bad = RECIPES.filter((r) => !r.id.startsWith('mealdb-')).filter((r) => dietTagConflicts(r).length > 0);
     expect(bad.map((r) => r.id)).toEqual([]);
+  });
+});
+
+describe('British → US names (M5.8 task 3)', () => {
+  it('renames British ingredient names to what an H-E-B shopper buys', () => {
+    expect(usIngredientName('courgettes')).toBe('zucchini');
+    expect(usIngredientName('spring onions')).toBe('green onions');
+    expect(usIngredientName('plain flour')).toBe('all-purpose flour');
+    expect(usIngredientName('king prawns')).toBe('jumbo shrimp');
+    expect(usIngredientName('minced beef')).toBe('ground beef');
+    expect(usIngredientName('chicken stock')).toBe('chicken broth');
+    expect(usIngredientName('red pepper')).toBe('red bell pepper');
+  });
+
+  it('bare coriander is the fresh herb; ground coriander and seeds stay the spice', () => {
+    expect(usIngredientName('coriander')).toBe('cilantro');
+    expect(usIngredientName('ground coriander')).toBe('ground coriander');
+    expect(usIngredientName('coriander seeds')).toBe('coriander seeds');
+  });
+
+  it('leaves US and unrelated names alone ("minced garlic" is not mince)', () => {
+    for (const n of ['minced garlic', 'mincemeat', 'black pepper', 'heavy cream', 'chicken breast']) {
+      expect(usIngredientName(n)).toBe(n);
+    }
+  });
+
+  it('renames in step text without touching ambiguous words', () => {
+    expect(usStepText('Fry the courgettes and spring onions in the chicken stock.')).toBe(
+      'Fry the zucchini and green onions in the chicken broth.',
+    );
+    expect(usStepText('Toast the coriander and a pinch of pepper.')).toBe('Toast the coriander and a pinch of pepper.');
+  });
+
+  it('the rename never changes inference: an eggplant import is an egg dish only if it lists eggs', () => {
+    const imported = RECIPES.filter((r) => r.id.startsWith('mealdb-'));
+    const eggplant = imported.filter((r) => r.ingredients.some((i) => i.name.includes('eggplant')));
+    expect(eggplant.length).toBeGreaterThan(0);
+    for (const r of eggplant.filter((x) => x.primaryProtein === 'Eggs')) {
+      expect(r.ingredients.some((i) => /\beggs?\b/.test(i.name))).toBe(true);
+    }
   });
 });

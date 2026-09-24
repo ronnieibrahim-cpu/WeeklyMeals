@@ -268,7 +268,13 @@ validate, all seven harnesses pass, import regeneration byte-identical.
   contradicted by any ingredient (optional included) or declared allergen. It
   caught 3: minestrone + mujadara (garnish moved to a tip, Dairy allergen dropped
   with the ingredient), bolognese (kept the parmesan, lost its `dairy-free` tag).
-- [ ] 3. Imported recipe cleanup
+- [ ] 3. Imported recipe cleanup — Ronnie (2026-09-24): lenient triage (fix
+  what we can, drop only what's broken), refill dropped slots from the next
+  candidates, ship to the live branch.
+  - [x] 3a. British → US ingredient names + step wording (467 ingredient names
+    across 71 distinct renames, 160 steps; zero change to allergens, diet
+    tags, protein, departments, spice, membership). Unit groups 224 → 217.
+  - [ ] 3b. Unit clean-up · 3c. triage batches of ~30 (keep / fix / drop).
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes

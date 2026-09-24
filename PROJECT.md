@@ -668,6 +668,13 @@ history, all shipped and deployed:
   change actually changed, not also whatever shifted upstream on TheMealDB
   meanwhile). Refreshing the library with genuinely new upstream recipes is a
   deliberate, separate task: re-fetch, overwrite the fixture, re-run.
+- Imported ingredient names and step text are translated British → US
+  (courgette → zucchini, spring onion → green onions, bare coriander →
+  cilantro, stock → broth, …; `usIngredientName`/`usStepText` in
+  `normalize.ts`, M5.8 task 3). The rename is applied to the output only;
+  every inference (allergens, diet tags, protein, department, spice) still
+  reads the original TheMealDB words, so it cannot change what a recipe is.
+  Recipe titles are left as published.
 - Every push to `claude/weekly-meals-app-eyowlr` deploys the web build.
 - Keep changes small and grouped by task; isolate anything touching the plan lifecycle,
   allergy filtering, sync, or seed data.
