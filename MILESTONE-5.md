@@ -274,7 +274,10 @@ validate, all seven harnesses pass, import regeneration byte-identical.
   - [x] 3a. British → US ingredient names + step wording (467 ingredient names
     across 71 distinct renames, 160 steps; zero change to allergens, diet
     tags, protein, departments, spice, membership). Unit groups 224 → 217.
-  - [ ] 3b. Unit clean-up · 3c. triage batches of ~30 (keep / fix / drop).
+  - [x] 3b. Unit spellings: 168 import quantities fixed (122 "tblsp"/"tbls"
+    read as pieces → tbsp; splash/knob → tbsp; handfuls → cup; 26 garnish
+    herbs pinch → 1 bunch). No other field changed. Unit groups 217 → 202.
+  - [ ] 3c. Triage batches of ~30 (keep / fix / drop; refill dropped slots).
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
