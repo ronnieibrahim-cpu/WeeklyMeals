@@ -2491,113 +2491,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53335",
-    "name": "Jiggs Dinner",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "yellow split peas",
-      "cabbage",
-      "carrots",
-      "potatoes"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "beef",
-        "quantity": 2,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "yellow split peas",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "cabbage",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 6,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "turnips",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "butter",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "The night before, break salt beef into big chunks and soak in water overnight, at least 8-10 hours. Put split peas into a bowl and cover with water to soak overnight.",
-      "Drain the salt beef and place it into a large stockpot. Cover with fresh water, at least 6-7 litres. Place the split peas into a pease pudding canvas bag or triple layer of cheesecloth and tie, making sure to leave room for peas to expand inside the bag.",
-      "Put the bag inside the pot, tying the strings to the outside handle so it doesn't stick to the bottom of the pot with the salt beef. Bring to a boil, then lower the heat and simmer for 2 hours.",
-      "Remove the peas pudding bag and empty contents into a bowl, mixing with butter and pepper for taste. Set aside.",
-      "Add your cabbage to the pot and boil for 20 more minutes. Then add turnip, carrots and potatoes then boil for 20 more, or until vegetables are tender.",
-      "Remove salt beef and vegetables from the pot and put them on a platter.",
-      "Use the cooking liquid in two ways; as a pot liquor which some people like to drink or reduce it to make a jus or gravy to pour over the meal."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Dairy"
-    ],
-    "dietTags": [
-      "gluten-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/z1tfnw1764443171.jpg",
-    "origin": "Canadian",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://canadianfoodfocus.org/recipes/classic-canadian-dishes-jiggs-dinner/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52887",
     "name": "Kedgeree",
     "cuisine": "American",
@@ -2758,7 +2651,7 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
+    "prepMinutes": 20,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -3025,164 +2918,6 @@ export const recipeImported: Recipe[] = [
     "origin": "British",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/9099/lancashire-hotpot",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-52927",
-    "name": "Montreal Smoked Meat",
-    "cuisine": "American",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "cilantro",
-      "cilantro",
-      "garlic",
-      "onion"
-    ],
-    "techniques": [
-      "roast",
-      "grill",
-      "simmer",
-      "steam"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 420,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "beef brisket",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "salt",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "bay leaf",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "cloves",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "black pepper",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "paprika",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "dill",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "english mustard",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "celery salt",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "red pepper flakes",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      }
-    ],
-    "steps": [
-      "To make the cure, in a small bowl mix together salt, pink salt, black pepper, coriander, sugar, bay leaf, and cloves. Coat entire brisket with the cure and place in an extra-large resealable plastic bag. Place in the coldest part of the refrigerator and cure for 4 days, flipping brisket twice a day.",
-      "Remove brisket from bag and wash as much cure off as possible under cold running water. Place brisket in a large container and fill with water and let soak for 2 hours, replacing water every 30 minutes. Remove from water and pat dry with paper towels.",
-      "To make the rub, mix together black pepper, coriander, paprika, garlic powder, onion powder, dill weed, mustard, celery seed, and crushed red papper in a small bowl. Coat entire brisket with the rub.",
-      "Fire up smoker or grill to 225 degrees, adding chunks of smoking wood chunks when at temperature. When wood is ignited and producing smoke, place brisket in, fat side up, and smoke until an instant read thermometer registers 165 degrees when inserted into thickest part of the brisket, about 6 hours.",
-      "Transfer brisket to large roasting pan with V-rack. Place roasting pan over two burners on stovetop and fill with 1-inch of water. Bring water to a boil over high heat, reduce heat to medium, cover roasting pan with aluminum foil, and steam brisket until an instant read thermometer registers 180 degrees when inserted into thickest part of the meat, 1 to 2 hours, adding more hot water as needed.",
-      "Transfer brisket to cutting board and let cool slightly. Slice and serve, preferably on rye with mustard."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/uttupv1511815050.jpg",
-    "origin": "Canadian",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "http://www.meatwave.com/blog/montreal-smoked-meat-recipe",
     "estimated": true
   },
   {
@@ -5443,27 +5178,29 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "tomato",
       "onions",
       "carrots",
-      "lime"
+      "lime",
+      "green onions"
     ],
     "techniques": [
-      "braise"
+      "simmer"
     ],
     "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 75,
+    "cookMinutes": 40,
     "baseServings": 6,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 38,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -5545,15 +5282,33 @@ export const recipeImported: Recipe[] = [
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "green onions",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Squeeze lime over chicken and rub well. Drain off excess lime juice.",
-      "Combine tomato, scallion, onion, garlic, pepper, thyme, pimento and soy sauce in a large bowl with the chicken pieces. Cover and marinate at least one hour.",
-      "Heat oil in a dutch pot or large saucepan. Shake off the seasonings as you remove each piece of chicken from the marinade. Reserve the marinade for sauce.",
-      "Lightly brown the chicken a few pieces at a time in very hot oil. Place browned chicken pieces on a plate to rest while you brown the remaining pieces.",
-      "Drain off excess oil and return the chicken to the pan. Pour the marinade over the chicken and add the carrots. Stir and cook over medium heat for 10 minutes.",
-      "Mix flour and coconut milk and add to stew, stirring constantly. Turn heat down to minimum and cook another 20 minutes or until tender."
+      "Squeeze the lime over the chicken, rub it in and drain off the juice.",
+      "Toss the chicken with the chopped tomato, green onions, onions, garlic, pepper, thyme, allspice, soy sauce and a pinch of salt. Cover and marinate in the fridge at least 1 hour.",
+      "Heat the oil in a large heavy pot. Shake the seasonings off the chicken (keep the marinade) and brown the pieces a few at a time in the very hot oil. Set aside.",
+      "Pour off excess oil, return the chicken, add the marinade and the sliced carrot, and cook over medium heat 10 minutes, stirring. Meanwhile, cook the rice.",
+      "Whisk the cornstarch into the coconut milk, stir into the pot and cook on the lowest heat about 20 minutes more, until the thighs read 175°F. Serve with the rice."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -5715,19 +5470,18 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "fry",
-      "simmer",
-      "braise"
+      "simmer"
     ],
     "difficulty": "Hard",
     "spiceLevel": "None",
     "prepMinutes": 20,
-    "cookMinutes": 90,
+    "cookMinutes": 130,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
+      "calories": 580,
       "protein": 36,
       "carbs": 48,
-      "fat": 18
+      "fat": 30
     },
     "ingredients": [
       {
@@ -5757,7 +5511,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "pumpkin",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -5768,7 +5522,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef broth",
-        "quantity": 8.25,
+        "quantity": 6,
         "unit": "cup",
         "department": "Meat"
       },
@@ -5785,22 +5539,33 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "Brown the Beef: In a large pot, brown the beef cubes. Remove and set aside.",
-      "Sauté Vegetables: In the same pot, cook the onion until translucent. Add carrots, potatoes, and pumpkin, cooking for a few minutes.",
-      "Simmer: Return the beef to the pot. Add broth and dried apricots. Season with salt and pepper. Simmer for 1-2 hours, until the beef is tender.",
-      "Serve: Enjoy hot, with a crusty piece of bread.",
-      "Pro Tips:",
-      "Brown the beef in batches to ensure it gets a good sear, which adds depth to the stew's flavor.",
-      "Adding the fruits towards the end of cooking preserves their texture and adds a subtle sweetness to the dish."
+      "Heat the oil in a large pot and brown the beef cubes in batches. Set aside.",
+      "Fry the onion in the same pot until translucent. Add the carrots, potatoes and pumpkin, all in chunks, and cook a few minutes.",
+      "Return the beef, add the broth, season with salt and pepper, and simmer 1 1/2–2 hours, until the beef is tender.",
+      "Stir in the dried apricots for the last 15 minutes. Serve hot with crusty bread."
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/8b2msz1763074897.jpg",
@@ -5997,16 +5762,21 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
+      "vegetable",
       "starch"
     ],
     "primaryProtein": "Pork",
-    "vegetables": [],
-    "techniques": [
-      "grill"
+    "vegetables": [
+      "lettuce",
+      "tomato"
     ],
-    "difficulty": "Medium",
+    "techniques": [
+      "grill",
+      "fry"
+    ],
+    "difficulty": "Easy",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
@@ -6018,7 +5788,7 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chorizo",
-        "quantity": 4,
+        "quantity": 8,
         "unit": "piece",
         "department": "Meat"
       },
@@ -6030,19 +5800,28 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chimichurri sauce",
-        "quantity": 1,
-        "unit": "tbsp",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "Grill the Chorizos: Cook the chorizos on a grill or pan until fully cooked, about 10-15 minutes.",
-      "Prepare the Rolls: Slice the rolls and toast them lightly on the grill or in a pan.",
-      "Assemble: Slice each chorizo lengthwise and place in a roll. Top with a generous amount of chimichurri sauce.",
-      "Serve: Enjoy immediately while hot.",
-      "Pro Tips:",
-      "Grill the chorizo slowly on medium heat to prevent the skin from bursting and to ensure it cooks evenly throughout.",
-      "Toast the bread on the grill to absorb some of the chorizo's flavors."
+      "Grill or pan-fry the sausages slowly over medium heat, turning, 12–15 minutes, until browned and 160°F inside (a gentle heat keeps the skins from bursting).",
+      "Split the rolls and toast them on the grill or in the pan.",
+      "Split each sausage lengthwise, tuck two into each roll and spoon over plenty of chimichurri.",
+      "Serve right away with a lettuce and tomato salad."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -6212,12 +5991,13 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "bake",
-      "fry"
+      "fry",
+      "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 45,
+    "cookMinutes": 35,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -6294,16 +6074,21 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Make the Dough: Mix flour and salt in a large bowl. Add butter, using your fingers to blend into a crumbly texture. Gradually add water, mixing until a dough forms. Wrap and chill for 30 minutes.",
-      "Prepare the Filling: Cook onions in a pan until translucent. Add ground beef, cooking until browned. Stir in spices, then remove from heat. Once cooled, mix in eggs and olives.",
-      "Assemble: Roll out the dough and cut into circles. Place a spoonful of filling in each, fold over, and seal the edges.",
-      "Cook: Bake at 200°C (400°F) for 20-25 minutes, or until golden.",
-      "Pro Tips:",
-      "For a flakier crust, incorporate a tablespoon of vinegar into the dough mixture. This helps prevent gluten formation.",
-      "Seal the edges of the empanadas with a fork to ensure they do not open during baking or frying."
+      "Make the dough: rub the butter into the flour and salt until crumbly, then mix in the water to a dough. Wrap and chill 30 minutes.",
+      "Hard-boil the eggs for 10 minutes, cool, peel and chop.",
+      "Fry the chopped onions in the oil until translucent. Add the ground beef and cook until browned with no pink left. Stir in the cumin, paprika, salt and pepper, then cool. Mix in the chopped eggs and sliced olives.",
+      "Heat the oven to 400°F. Roll out the dough and cut into circles. Fill each with a spoonful of filling, fold over and seal the edges with a fork.",
+      "Bake 20–25 minutes, until golden."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -7377,9 +7162,9 @@ export const recipeImported: Recipe[] = [
       "grill",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
+    "prepMinutes": 140,
     "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
@@ -7506,18 +7291,24 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "kidney beans",
-        "quantity": 1.75,
-        "unit": "lb",
+        "quantity": 2,
+        "unit": "can",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "To make the jerk marinade, combine all the ingredients in a food processor along with 1 tsp salt, and blend to a purée. If you’re having trouble getting it to blend, just keep turning off the blender, stirring the mixture, and trying again. Eventually it will start to blend up – don’t be tempted to add water, as you want a thick paste.",
-      "Taste the jerk mixture for seasoning – it should taste pretty salty, but not unpleasantly, puckering salty. You can now throw in more chiles if it’s not spicy enough for you. If it tastes too salty and sour, try adding in a bit more brown sugar until the mixture tastes well balanced.",
-      "Make a few slashes in the chicken thighs and pour the marinade over the meat, rubbing it into all the crevices. Cover and leave to marinate overnight in the fridge.",
-      "If you want to barbecue your chicken, get the coals burning 1 hr or so before you’re ready to cook. Authentic jerked meats are not exactly grilled as we think of grilling, but sort of smoke-grilled. To get a more authentic jerk experience, add some wood chips to your barbecue, and cook your chicken over slow, indirect heat for 30 mins. To cook in the oven, heat to 180C/160C fan/gas 4. Put the chicken pieces in a roasting tin with the lime halves and cook for 45 mins until tender and cooked through.",
-      "While the chicken is cooking, prepare the rice & peas. Rinse the rice in plenty of cold water, then tip it into a large saucepan with all the remaining ingredients except the kidney beans. Season with salt, add 300ml cold water and set over a high heat. Once the rice begins to boil, turn it down to a medium heat, cover and cook for 10 mins.",
-      "Add the beans to the rice, then cover with a lid. Leave off the heat for 5 mins until all the liquid is absorbed. Squeeze the roasted lime over the chicken and serve with the rice & peas, and some hot sauce if you like it really spicy."
+      "Blend the jerk marinade — lime half, first bunch of green onions, ginger, 3 garlic cloves, onion, chiles, thyme, lime juice, soy sauce, oil, brown sugar, 1 tbsp allspice and 1 tsp salt — to a thick paste without adding water. Taste and balance with more sugar or chile.",
+      "Slash the chicken thighs, rub the marinade into them, cover and refrigerate at least 2 hours, ideally overnight.",
+      "Heat the oven to 350°F. Roast the chicken in a roasting pan with the squeezed lime halves for about 45 minutes, until it reads 175°F. (Or cook over indirect heat on a grill, about 30–40 minutes.)",
+      "Meanwhile, rinse the rice and put it in a saucepan with the coconut milk, the second bunch of green onions, thyme sprigs, 2 garlic cloves, remaining allspice, 1 tsp salt and 1 1/4 cups water. Boil, then cover and cook on medium 10 minutes.",
+      "Add the drained beans, cover and leave off the heat 5 minutes until the liquid is absorbed. Squeeze the roasted lime over the chicken and serve with the rice and peas."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -7532,131 +7323,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Jamaican",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/2369635/jerk-chicken-with-rice-and-peas",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53146",
-    "name": "Locro",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "pumpkin",
-      "potatoes",
-      "onion"
-    ],
-    "techniques": [
-      "simmer",
-      "braise"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "dried white corn",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "dried white beans",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "pumpkin",
-        "quantity": 10.5,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "beef",
-        "quantity": 10.5,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "pork",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "chorizo",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "paprika",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Soak: Soak corn and beans overnight in water.",
-      "Cook Meats: In a large pot, brown the beef and pork. Add onions and spices, cooking until translucent.",
-      "Simmer the Stew: Add soaked corn and beans, pumpkin, potato, and enough water to cover. Simmer for 2-3 hours, until thick.",
-      "Serve: Enjoy hot, with bread on the side.",
-      "Pro Tips:",
-      "Toasting the corn slightly before adding it to the stew enhances its flavor.",
-      "Add a spoonful of paprika or a dash of cumin for an extra layer of warmth and complexity"
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/5sgsob1763196284.jpg",
-    "origin": "Argentina",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
     "estimated": true
   },
   {
@@ -7677,8 +7343,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
+    "prepMinutes": 10,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
       "calories": 420,
@@ -7689,7 +7355,7 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "beef flank steak",
-        "quantity": 2.25,
+        "quantity": 2,
         "unit": "lb",
         "department": "Meat"
       },
@@ -7733,13 +7399,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Prepare the Steak: Season the steak with salt and pepper. Grill one side until half-cooked.",
-      "Add Toppings: Spread tomato sauce over the cooked side, then add cheese, oregano, and olives.",
-      "Finish Grilling: Grill until the cheese is melted and bubbly.",
-      "Serve: Slice and serve hot.",
-      "Pro Tips:",
-      "Tenderize the matambre by scoring it lightly on both sides. This helps it cook more evenly and absorb the flavors.",
-      "Precook the matambre on the grill before adding the toppings to ensure it's fully cooked without burning the cheese."
+      "Lightly score the steak on both sides and season with salt and pepper.",
+      "Grill over medium-high heat (or broil) 5–6 minutes on one side, until well browned.",
+      "Turn it over and spread the cooked side with the tomato sauce, then top with the mozzarella, oregano and sliced olives.",
+      "Close the grill lid (or return under the broiler) and cook 5–7 minutes more, until the cheese is bubbling and the steak reads 135°F.",
+      "Rest 5 minutes, then slice across the grain and serve hot."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -7768,21 +7432,22 @@ export const recipeImported: Recipe[] = [
     "primaryProtein": "Beef",
     "vegetables": [
       "parsley",
-      "garlic"
+      "garlic",
+      "lemon"
     ],
     "techniques": [
       "fry"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
+      "calories": 580,
       "protein": 36,
       "carbs": 48,
-      "fat": 18
+      "fat": 30
     },
     "ingredients": [
       {
@@ -7828,16 +7493,26 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "Season the Cutlets: Salt and pepper the cutlets.",
-      "Bread the Cutlets: Dip each cutlet in egg, then coat with a mixture of breadcrumbs, parsley, and garlic.",
-      "Fry: Heat oil in a large pan over medium heat. Fry the cutlets until golden and cooked through, about 3-4 minutes per side.",
-      "Serve: Serve hot with lemon wedges or a side salad.",
-      "Pro Tips:",
-      "For an extra crispy crust, use panko breadcrumbs mixed with finely grated Parmesan cheese.",
-      "Gently pound the cutlets to an even thickness for uniform cooking."
+      "Pound the cutlets to an even 1/4-inch thickness and season with salt and pepper.",
+      "Mix the breadcrumbs with the parsley and garlic. Dip each cutlet in beaten egg, then press into the crumbs.",
+      "Heat the oil in a large skillet over medium heat and fry the cutlets 3–4 minutes per side, until golden and no longer pink inside.",
+      "Serve hot with lemon wedges."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -8868,7 +8543,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -8879,19 +8555,17 @@ export const recipeImported: Recipe[] = [
       "lime juice"
     ],
     "techniques": [
-      "roast",
-      "fry",
-      "steam"
+      "fry"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 20,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 36,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -8993,15 +8667,20 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "jasmine rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
       }
     ],
     "steps": [
-      "Fry the eggs sunny-side up and set aside. Finely chop the garlic. Wash the lettuce leaves and drain well. Thinly slice the onion and tomatoes.",
-      "Cut the beef tenderloin into 2–3 cm cubes. Marinate with sea salt, palm sugar, Chinese cooking wine, oyster sauce, soy sauce, and sesame oil. Mix well.",
-      "Heat a frying pan on high heat with cooking oil. Add chopped garlic and stir until the garlic browns lightly. Add the marinated beef (with all the marinade) and cook for 5–7 minutes, depending on how rare you want the beef.",
-      "Dry roast the black Kampot peppercorns in a frying pan over medium-low heat for 2–3 minutes until fragrant. Grind the roasted pepper, place it in a bowl, then add sea salt and lime juice. Mix well.",
-      "On a serving plate, arrange a bed of lettuce, then layer tomatoes, then onions. Spoon the cooked beef over the vegetables and place fried eggs on top. Serve with the Kampot pepper sauce and fragrant steamed rice.",
-      "Sear hot and fast, Lok Lak is at its best when the beef stays tender and juicy, with a bold, bright dipping sauce to cut through the richness."
+      "Cook the rice. Fry the eggs sunny-side up and set aside. Finely chop the garlic, wash and drain the lettuce, and thinly slice the onion and tomatoes.",
+      "Cut the beef into 1-inch cubes and marinate with 1 tsp salt, the palm sugar, wine, oyster sauce, soy sauce and sesame oil.",
+      "Heat the oil in a large skillet over high heat. Fry the garlic until lightly golden, then add the beef and marinade and sear hot and fast 5–7 minutes, until 135°F for medium.",
+      "Toast the peppercorns in a dry pan 2–3 minutes, grind, and mix with the remaining salt and the lime juice for the dipping sauce.",
+      "Layer lettuce, tomatoes and onion on a platter, spoon the beef over and top with the eggs. Serve with the pepper sauce and rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -11997,10 +11676,10 @@ export const recipeImported: Recipe[] = [
       "simmer",
       "braise"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 25,
+    "cookMinutes": 45,
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
@@ -12011,7 +11690,7 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "shrimp",
-        "quantity": 6,
+        "quantity": 12,
         "unit": "piece",
         "department": "Seafood"
       },
@@ -12097,13 +11776,13 @@ export const recipeImported: Recipe[] = [
       {
         "name": "mussels",
         "quantity": 1,
-        "unit": "cup",
+        "unit": "lb",
         "department": "Seafood"
       },
       {
         "name": "white fish",
-        "quantity": 7,
-        "unit": "oz",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
@@ -12115,24 +11794,38 @@ export const recipeImported: Recipe[] = [
       {
         "name": "bread",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "piece",
         "department": "Bakery"
+      },
+      {
+        "name": "mayonnaise",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Twist the heads from the shrimp, then peel away the legs and shells, but leave the tails intact. Devein each shrimp. Fry the shells in 1 tbsp oil for 5 mins, until dark pink and golden in patches. Add the wine, boil down by two thirds, then pour in the stock. Strain into a jug, discarding the shells.",
-      "Heat the rest of the oil in a deep frying pan or casserole. Add the fennel, onion and garlic, season, then cover and gently cook for 10 mins until softened. Meanwhile, peel the potato and cut into 2cm-ish chunks. Put into a pan of cold water, bring to the boil and cook for 5 mins until almost tender. Drain in a colander.",
-      "Peel a strip of zest from the orange. Put the zest, star anise, bay and ½ tsp harissa into the pan. Fry gently, uncovered, for 5-10 mins, until the vegetables are soft, sweet and golden.",
-      "Stir in the tomato purée, cook for 2 mins, then add the tomatoes and stock. Simmer for 10 mins until the sauce thickens slightly. Season to taste. The sauce can be made ahead, then reheated later in the day. Meantime, scrub the mussels or clams and pull away any stringy beards. Any that are open should be tapped sharply on the worktop – if they don’t close after a few seconds, discard them.",
-      "Reheat the sauce if necessary, then stir the potato, chunks of fish and shrimp very gently into the stew. Bring back to the boil, then cover and gently simmer for 3 mins. Scatter the mussels or clams over the stew, then cover and cook for 2 mins more or until the shells have opened wide. Discard any that remain closed. The chunks of fish should flake easily and the shrimp should be pink through. Scatter with the thyme leaves.",
-      "To make the quick rouille, stir the rest of the harissa through the mayonnaise. Serve the stew in bowls, topped with spoonfuls of rouille, which will melt into the sauce and enrich it. Have some good bread ready, as you’ll definitely want to mop up the juices."
+      "Twist the heads off the shrimp, peel them (leaving the tails) and devein. Fry the heads and shells in 1 tbsp oil for 5 minutes until pink and golden. Add the wine, boil down by two-thirds, add the broth, then strain into a pitcher.",
+      "Heat the rest of the oil in a deep pot. Add the diced fennel, onion and garlic, season, cover and cook gently 10 minutes. Meanwhile, cut the potato into 3/4-inch chunks and boil 5 minutes until almost tender; drain.",
+      "Add a strip of orange zest, the star anise, bay leaf and 1/2 tsp harissa and fry gently 5–10 minutes, until the vegetables are soft and golden.",
+      "Stir in the tomato paste for 2 minutes, then the tomatoes and the shrimp broth. Simmer 10 minutes and season. Meanwhile, scrub the mussels and discard any that stay open when tapped.",
+      "Add the potato, chunks of fish and the shrimp, cover and simmer 3 minutes. Scatter over the mussels, cover and cook 2–3 minutes more, until they open (discard any that don’t), the fish flakes and the shrimp are pink. Scatter with thyme leaves.",
+      "Stir the rest of the harissa into the mayonnaise. Serve the stew topped with the rouille, with bread."
     ],
     "makesLeftovers": true,
     "seasons": [],
     "allergens": [
       "Gluten",
       "Shellfish",
-      "Fish"
+      "Fish",
+      "Eggs"
     ],
     "dietTags": [
       "dairy-free"
@@ -18296,8 +17989,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
+    "prepMinutes": 10,
+    "cookMinutes": 35,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -18308,8 +18001,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "butter",
-        "quantity": 50,
-        "unit": "piece",
+        "quantity": 3,
+        "unit": "tbsp",
         "department": "Dairy"
       },
       {
@@ -18320,8 +18013,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 5.25,
-        "unit": "oz",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -18344,26 +18037,26 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "jumbo shrimp",
-        "quantity": 8.5,
+        "quantity": 12,
         "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "salmon",
-        "quantity": 5.25,
+        "quantity": 12,
         "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "asparagus",
-        "quantity": 3.5,
+        "quantity": 8,
         "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "black pepper",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
       },
@@ -18375,13 +18068,12 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Melt the butter in a thick-based pan and gently cook the onion without colour until it is soft.",
-      "Add the rice and stir to coat all the grains in the butter",
-      "Add the wine and cook gently stirring until it is absorbed",
-      "Gradually add the hot stock, stirring until each addition is absorbed. Keep stirring until the rice is tender",
-      "Season with the lemon juice and zest, and pepper to taste. (there will probably be sufficient saltiness from the salmon to not need to add salt) Stir gently to heat through",
-      "Serve scattered with the Parmesan and seasonal vegetables.",
-      "Grill the salmon and gently place onto the risotto with the shrimp and asparagus"
+      "Melt the butter in a heavy pot and gently cook the chopped onion without coloring until soft.",
+      "Add the rice and stir to coat, then add the wine and stir until absorbed.",
+      "Add the hot broth a ladle at a time, stirring until each is absorbed, about 20 minutes, until the rice is tender but still has a little bite. Meanwhile, heat the broiler.",
+      "Broil the salmon 8–10 minutes, until it flakes and reads 145°F. Blanch the asparagus 2 minutes.",
+      "Stir the shrimp into the risotto for the last 3–4 minutes, until pink. Season with the lemon juice and zest and pepper.",
+      "Serve topped with flaked salmon, asparagus and parmesan shavings."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -20480,82 +20172,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53438",
-    "name": "Bolita di Keshi",
-    "cuisine": "Mediterranean",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "protein"
-    ],
-    "primaryProtein": "Eggs",
-    "vegetables": [],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 20,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "cheddar cheese",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Dairy"
-      },
-      {
-        "name": "feta",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Dairy"
-      },
-      {
-        "name": "eggs",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "cornstarch",
-        "quantity": 5,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Grate finely and toss together.",
-      "1 lb. sharp yellow cheese (cheddar or oude boerenkaas)",
-      "1 lb. keshi di buriko (or any white cheese such as fromage blanc, queso blanco, ricotto, feta etc.)",
-      "Stir in:",
-      "6 eggs, beaten",
-      "5 Tbs. Cornstarch",
-      "Shape the mixture into small balls. These may be kept indefinitely in the freezer. Drop the balls into deep, hot fat and fry until golden. Serve piping hot on toothpicks."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [
-      "vegetarian",
-      "gluten-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/skzd0x1780091674.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.visitaruba.com/aruba-recipes/bolita-di-keshi/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53055",
     "name": "Cevapi Sausages",
     "cuisine": "Mediterranean",
@@ -21263,12 +20879,13 @@ export const recipeImported: Recipe[] = [
       "parsley"
     ],
     "techniques": [
+      "fry",
       "simmer",
       "steam"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -21280,50 +20897,67 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "potatoes",
-        "quantity": 1,
+        "quantity": 4,
         "unit": "piece",
         "department": "Produce"
       },
       {
         "name": "olive oil",
-        "quantity": 1,
+        "quantity": 4,
         "unit": "tsp",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "chorizo",
-        "quantity": 1.75,
+        "quantity": 7,
         "unit": "oz",
         "department": "Meat"
       },
       {
         "name": "egg",
-        "quantity": 3,
+        "quantity": 12,
         "unit": "piece",
         "department": "Dairy"
       },
       {
         "name": "parsley",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
         "name": "cheddar cheese",
-        "quantity": 1,
+        "quantity": 3.5,
         "unit": "oz",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "butter",
+        "quantity": 4,
+        "unit": "tsp",
         "department": "Dairy"
       }
     ],
     "steps": [
-      "step 1 Cook the potato in boiling water for 8-10 mins or until tender.",
-      "Drain and allow to steam-dry.",
-      "Heat oil in an omelette pan, add chorizo and cook for 2 mins.",
-      "Add the potato and cook for a further 5 mins until the potato starts to crisp.",
-      "Spoon pan contents out, wipe pan and cook a 2 or 3-egg omelette in the same pan.",
-      "When almost cooked, scatter with the chorizo and potato, parsley and cheese.",
-      "Fold the omelette in the pan and cook for 1 min more to melt the cheese."
+      "Dice the potatoes and boil 8–10 minutes until tender. Drain and let steam-dry.",
+      "Heat the oil in an omelette pan, fry the diced chorizo 2 minutes, add the potatoes and fry 5 minutes until starting to crisp. Spoon out and keep warm.",
+      "Wipe the pan. For each omelette, melt 1 tsp butter, add 3 beaten, seasoned eggs and cook, drawing in the edges, until almost set.",
+      "Scatter a quarter of the chorizo and potato, parsley and cheese over, fold, and cook 1 minute more to melt the cheese. Repeat for the other three."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -25645,28 +25279,29 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
       "onions",
       "carrots",
-      "garlic"
+      "garlic",
+      "parsley"
     ],
     "techniques": [
       "fry",
-      "simmer",
-      "braise"
+      "simmer"
     ],
     "difficulty": "Hard",
     "spiceLevel": "Mild",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 75,
+    "cookMinutes": 130,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 36,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -25738,22 +25373,34 @@ export const recipeImported: Recipe[] = [
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "Clean the meat from the veins if there are some and cut it into smaller pieces, 3 × 3 cm. Marinate the meat in the mustard and spices and let it sit in the refrigerator for one hour",
-      "Heat one tablespoon of pork fat or vegetable oil in a pot and fry the meat on all sides until it gets browned. Once the meat is cooked, transfer it to a plate and add another tablespoon of fat to the pot",
-      "Cut the onions very fine, peel the carrots and shred it using a grater. Cook the onions and carrots over low heat for 15 minutes. You can salt the vegetables a little to make them soften faster",
-      "Once the vegetables have browned and become slightly mushy, add the meat and bay leaves and garlic. Pour over with wine and simmer for 10-15 minutes to allow the alcohol to evaporate. Now is the right time to add 2/3 the amount of liquid",
-      "Cover the pot and cook over low heat for an hour, stirring occasionally. After the first hour, pour over the rest of the water or stock and cook for another 30-45 minutes",
-      "Allow the stew to cool slightly and serve it with a sprinkle of chopped parsley and few slices of fresh hot pepper if you like to spice it up a bit",
-      "Slice ​​some fresh bread, season the salad and simply enjoying these wonderful flavors"
+      "Trim the beef and cut into 1 1/4-inch cubes. Toss with the mustard, salt, pepper and paprika and refrigerate 1 hour.",
+      "Heat 1 tbsp oil in a heavy pot and fry the beef on all sides until browned. Set aside and add the rest of the oil.",
+      "Finely chop the onions and grate the carrots. Cook over low heat 15 minutes until soft.",
+      "Return the beef with the bay leaves and garlic. Pour in the wine and simmer 10–15 minutes, then add 4 cups of the water.",
+      "Cover and cook on low 1 hour, stirring now and then. Add the remaining water and cook 30–45 minutes more, until the beef is tender.",
+      "Sprinkle with parsley and serve with crusty bread."
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/n1hcou1628770088.jpg",
@@ -25778,13 +25425,13 @@ export const recipeImported: Recipe[] = [
       "garlic"
     ],
     "techniques": [
-      "bake",
-      "fry"
+      "fry",
+      "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 20,
+    "cookMinutes": 140,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -25857,19 +25504,24 @@ export const recipeImported: Recipe[] = [
       {
         "name": "extra virgin olive oil",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "masarepa",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Cook the meat: Place the flank steak in a pot with broth or water and salt. Cook over low heat for about 2 hours, until tender and easy to shred.",
-      "Shred the meat: Once cooked, drain and shred the meat using two forks.",
-      "Prepare the vegetables: Sauté chopped onion, bell pepper, and garlic in a little oil. Add cumin, oregano, paprika, and salt. Stir in the meat and cook for a few minutes until the flavors are well combined.",
-      "Make the dough: In a bowl, mix the cornmeal with warm water and salt until a soft dough forms. Let it rest for 5 minutes.",
-      "Form the arepas: Divide the dough into 6 portions, shape into balls, and flatten into thick discs.",
-      "Cook: Cook the arepas on a griddle or skillet over medium heat for 2–3 minutes on each side until golden. You can then bake them for a few minutes if you prefer them crispier.",
-      "Fill: Slice the arepas open on one side, fill with the hot shredded beef, and top with grated cheese."
+      "Put the flank steak in a pot with the broth and a pinch of salt. Simmer on low about 2 hours, until tender enough to shred.",
+      "Drain and shred the beef with two forks.",
+      "Fry the chopped onion, bell pepper and garlic in the oil until soft. Add the cumin, oregano, paprika and salt, then the beef, and cook a few minutes.",
+      "Mix the masarepa with the 2 1/2 cups warm water and a pinch of salt to a soft dough. Rest 5 minutes, then shape into 6 thick discs.",
+      "Cook the arepas on a griddle over medium heat 5–6 minutes per side, until golden and they sound hollow when tapped.",
+      "Split the arepas, fill with the hot beef and top with grated cheese."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -26882,10 +26534,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 25,
+    "cookMinutes": 90,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -26995,18 +26647,23 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cilantro",
-        "quantity": 1,
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 2,
         "unit": "piece",
         "department": "Produce"
       }
     ],
     "steps": [
-      "Add hind shank, 1 halved small onion, halved bell pepper, 4 whole garlic cloves, the dark green leaves of the leek, and stock to a large stockpot. Cook for 45-60 minutes until the meat is fork-tender. NOTE: the meat can take a bit longer to be fork-tender; that is okay, just add more cooking time if necessary.",
-      "When the meat is tender, remove the big pieces of vegetables and bones. Discard.",
-      "Add diced onion, 2 minced garlic, mini sweet peppers, sliced leeks (light green part), scallions, yucca, and corn; Mix and simmer covered over medium heat for 5- 8 minutes, until the yucca is starting to soften. NOTE: the yuca can take a bit longer to start softening; that is okay, just add more cooking time if necessary.",
-      "Add yautia, white yam, and butternut squash. Mix to combine. Simmer covered over medium heat for 5 – 6 minutes, until all the root vegetables are tender. NOTE: Do not cook too much, or they will fall apart.",
-      "Taste and add salt to your taste, if necessary. Add cilantro and the remaining 2 minced garlic cloves. Mix and let simmer for 2 more minutes.",
-      "Serve hot in large soup bowls, dividing the meat and vegetables evenly. Add a squish of lime juice and/or hot sauce, if desired. Serve along with arepas and or casabe (cassava bread)."
+      "Put the beef shank, 1 halved onion, the halved pepper, 4 whole garlic cloves, the dark green leek tops and the broth in a large pot. Simmer 45–60 minutes, until the meat is fork-tender.",
+      "Remove the bones and the big pieces of vegetable.",
+      "Add the second onion (diced), 2 cloves minced garlic, the sweet peppers, the sliced light-green leek, scallions, the peeled yuca in chunks and the corn (cut into rounds). Cover and simmer 8–10 minutes, until the yuca starts to soften.",
+      "Add the yautía, white yam and squash, all in chunks, and simmer covered 6–10 minutes, until all the roots are tender when pierced but not falling apart.",
+      "Season with salt, stir in the cilantro and the last 2 garlic cloves and simmer 2 minutes. Serve in big bowls with lime wedges."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -29442,21 +29099,24 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
+      "vegetable",
       "starch"
     ],
     "primaryProtein": "Lentils",
     "vegetables": [
       "cilantro",
       "chickpeas",
-      "onion"
+      "onion",
+      "garlic"
     ],
     "techniques": [
+      "fry",
       "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 20,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -29497,7 +29157,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "onion",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "piece",
         "department": "Produce"
       },
@@ -29514,16 +29174,45 @@ export const recipeImported: Recipe[] = [
         "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "all-purpose flour",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "canned tomatoes",
+        "quantity": 1,
+        "unit": "can",
+        "department": "DryGoods"
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "white wine vinegar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Cook the lentils. Bring lentils and 4 cups of water to a boil in a medium pot or saucepan over high heat. Reduce the heat to low and cook until lentils are just tender (15-17 minutes). Drain from water and season with a little salt. (Note: when the lentils are ready, they should not be fully cooked. They should be only par-cooked and still have a bite to them as they need to finish cooking with the rice).",
-      "Now, for the rice. Drain the rice from its soaking water. Combine the par-cooked lentils and the rice in the saucepan over medium-high heat with 1 tbsp cooking oil, salt, pepper, and coriander. Cook for 3 minutes, stirring regularly. Add warm water to cover the rice and lentil mixture by about 1 1/2 inches (you’ll probably use about 3 cups of water here). Bring to a boil; the water should reduce a bit. Now cover and cook until all the liquid has been absorbed and both the rice and lentils are well cooked through (about 20 minutes).  Keep covered and undisturbed for 5 minutes or so.",
-      "Now make the pasta. While the rice and lentils are cooking, make the pasta according to package instructions by adding the elbow pasta to boiling water with a dash of salt and a little oil. Cook until the pasta is al dente. Drain.",
-      "Cover the chickpeas and warm in the microwave briefly before serving.",
-      "Make the crispy onion topping.",
-      "Sprinkle the onion rings with salt, then toss them in the flour to coat. Shake off excess flour.",
-      "In a large skillet, heat the cooking oil over medium-high heat, cook the onion rings, stirring often, until they turn a nice caramelized brown. Onions must be crispy, but not burned (15-20 minutes)."
+      "Soak the rice in water 15 minutes. Meanwhile, boil the lentils in 4 cups water 15–17 minutes, until just tender but with a bite. Drain and salt lightly.",
+      "Drain the rice. Stir it with the lentils, 1 tbsp oil, salt, pepper and ground coriander over medium-high heat 3 minutes. Add warm water to cover by 1 1/2 inches, boil, then cover and cook on low about 20 minutes until tender and absorbed. Rest 5 minutes.",
+      "Cook the macaroni according to the package and drain.",
+      "Slice the onions into thin rings, sprinkle with salt, toss in the flour and fry in the remaining oil over medium-high heat, stirring, 15–20 minutes until deep brown and crisp. Drain on paper towels.",
+      "In 1 tbsp of the onion oil, fry the minced garlic and cumin 30 seconds, add the tomatoes, vinegar and a pinch of salt and simmer 10 minutes.",
+      "Warm the chickpeas. Layer rice-lentils, macaroni and chickpeas in bowls, spoon over the tomato sauce and top with the crispy onions."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -30133,115 +29822,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Tunisian",
     "sourceName": "TheMealDB",
     "sourceUrl": "http://allrecipes.co.uk/recipe/43419/leblebi--tunisian-chickpea-soup-.aspx",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53047",
-    "name": "Moroccan Carrot Soup",
-    "cuisine": "MiddleEastern",
-    "categories": [
-      "Vegetarian",
-      "Soups"
-    ],
-    "provides": [
-      "vegetable"
-    ],
-    "primaryProtein": "None",
-    "vegetables": [
-      "carrots",
-      "onion",
-      "cilantro",
-      "lemon juice"
-    ],
-    "techniques": [
-      "bake",
-      "roast",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 480,
-      "protein": 12,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "carrots",
-        "quantity": 6,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic clove",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "cumin",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "olive oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "garam masala",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "lemon juice",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Preheat oven to 180° C.",
-      "Combine carrots, onion, garlic, cumin seeds, coriander seeds, salt and olive oil in a bowl and mix well. Transfer on a baking tray.",
-      "Put the baking tray in preheated oven and roast for 10-12 minutes or till carrots soften. Remove from heat and cool.",
-      "Grind the baked carrot mixture along with some water to make a smooth paste and strain in a bowl.",
-      "Heat the carrot mixture in a non-stick pan. Add two cups of water and bring to a boil. Add garam masala powder and mix. Add salt and mix well.",
-      "Remove from heat, add lemon juice and mix well.",
-      "Serve hot."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "vegetarian",
-      "vegan",
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/jcr46d1614763831.jpg",
-    "origin": "Moroccan",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.sanjeevkapoor.com/Recipe/Moroccan-Carrot-Soup.html",
     "estimated": true
   },
   {
@@ -32057,8 +31637,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 30,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -32133,6 +31713,20 @@ export const recipeImported: Recipe[] = [
         "quantity": 4,
         "unit": "tbsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
@@ -33438,10 +33032,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Medium",
-    "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "difficulty": "Hard",
+    "spiceLevel": "Medium",
+    "prepMinutes": 25,
+    "cookMinutes": 195,
     "baseServings": 6,
     "nutrition": {
       "calories": 520,
@@ -33477,7 +33071,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "garlic",
         "quantity": 3,
-        "unit": "piece",
+        "unit": "clove",
         "department": "Produce"
       },
       {
@@ -33561,7 +33155,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "diced tomatoes",
         "quantity": 1,
-        "unit": "cup",
+        "unit": "can",
         "department": "Produce"
       },
       {
@@ -33569,6 +33163,38 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "pinch",
         "department": "DryGoods"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "dried mushrooms",
+        "quantity": 0.5,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "cayenne pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
       }
     ],
     "steps": [
@@ -34016,14 +33642,13 @@ export const recipeImported: Recipe[] = [
       "tomatoes"
     ],
     "techniques": [
-      "bake",
       "fry",
       "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 40,
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
@@ -34088,34 +33713,53 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sour cream",
-        "quantity": 1,
-        "unit": "pinch",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
         "name": "dill",
-        "quantity": 1,
-        "unit": "bunch",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "rye bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "Add the butter to a large Dutch oven or other heavy-duty pot over medium heat. When the butter has melted, add the onion and sauté until translucent.",
-      "Add the cabbage, carrot, and celery. Sauté until the vegetables begin to soften, stirring frequently, about 3 minutes.",
-      "Add the bay leaf and vegetable broth and bring to a boil over high heat. Reduce the heat to low and simmer, covered, until the vegetables are crisp-tender, about 15 minutes.",
-      "Add the potatoes and bring it back to a boil over high heat. Reduce the heat to low and simmer, covered, until the potatoes are tender, about 10 minutes.",
-      "Add the tomatoes (or undrained canned tomatoes) and bring the soup back to a boil over high heat. Reduce the heat to low and simmer, uncovered, for 5 minutes. Season to taste with salt and pepper.",
-      "emove and discard the bay leaf from the pot.",
-      "Serve topped with fresh sour cream and fresh dill."
+      "Melt the butter in a large heavy pot over medium heat and fry the chopped onion until translucent.",
+      "Add the shredded cabbage, carrot and celery and cook 3 minutes, stirring.",
+      "Add the bay leaf and broth, bring to a boil, then cover and simmer on low about 15 minutes, until crisp-tender.",
+      "Add the diced potatoes, bring back to a boil, then simmer covered about 10 minutes until tender.",
+      "Add the chopped tomatoes and simmer uncovered 5 minutes. Season with salt and pepper and remove the bay leaf.",
+      "Serve topped with sour cream and dill, with rye bread."
     ],
     "makesLeftovers": true,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
     "dietTags": [
-      "vegetarian",
-      "gluten-free"
+      "vegetarian"
     ],
     "image": "https://www.themealdb.com/images/media/meals/60oc3k1699009846.jpg",
     "origin": "Russian",
@@ -34551,12 +34195,13 @@ export const recipeImported: Recipe[] = [
       "garlic"
     ],
     "techniques": [
-      "bake"
+      "bake",
+      "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 40,
+    "cookMinutes": 40,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -34657,15 +34302,27 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "piece",
         "department": "Dairy"
+      },
+      {
+        "name": "cornstarch",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "milk",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Dairy"
       }
     ],
     "steps": [
-      "Make the filling: Melt butter in a large skillet over medium heat. Add onion, garlic, oregano, cumin, salt, and pepper; cook and stir until onion is golden brown, 5 to 7 minutes. Add pork and cook until completely browned and crumbly, 7 to 10 minutes more. Drain fat from the skillet. Stir in raisins, olives, and hard-cooked eggs.",
-      "Whisk water and cornstarch together in a small bowl; pour into the skillet and stir until liquid thickens. Remove from the heat and set aside.",
-      "Make the dough: Whisk milk and melted shortening together in a bowl until evenly blended. Stir flour and salt together in a separate large bowl. Pour milk mixture into flour mixture; whisk until well combined and a dough forms. Let rest for 10 minutes.",
-      "Preheat the oven to 400 degrees F (200 degrees C). Line a baking sheet with parchment paper.",
-      "Roll dough on a lightly floured surface to a thickness of 1/8 inch. Cut into 12 circles with a round cookie cutter or glass. Spoon filling into the center of each circle. Fold each circle in half and press the edges with a fork to seal. Brush the tops with beaten egg. Place empanadas onto the prepared baking sheet.",
-      "Bake in the preheated oven until golden brown, about 25 minutes."
+      "Hard-boil 3 of the eggs for 10 minutes, cool, peel and chop.",
+      "Melt the butter in a large skillet over medium heat. Cook the onion, garlic, oregano, cumin, salt and pepper until golden, 5–7 minutes. Add the pork and cook 7–10 minutes until browned and crumbly with no pink left. Drain the fat.",
+      "Stir in the raisins, olives and chopped eggs. Whisk the cornstarch into the water, stir in until thickened, and take off the heat.",
+      "Make the dough: whisk the milk with the melted shortening. Stir the flour and salt together, pour in the milk mixture and mix to a dough. Rest 10 minutes.",
+      "Heat the oven to 400°F and line a baking sheet. Roll the dough 1/8 inch thick, cut 12 circles, fill, fold and seal with a fork. Brush with the 2 remaining eggs, beaten.",
+      "Bake about 25 minutes, until golden brown."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -35346,10 +35003,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "braise"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Mild",
     "prepMinutes": 20,
-    "cookMinutes": 90,
+    "cookMinutes": 40,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -35442,6 +35099,13 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "pinch",
         "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
         "pantryStaple": true
       }
     ],
@@ -38277,7 +37941,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -38289,18 +37954,17 @@ export const recipeImported: Recipe[] = [
       "bake",
       "roast",
       "fry",
-      "simmer",
-      "steam"
+      "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 150,
+    "cookMinutes": 65,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 38,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -38343,19 +38007,19 @@ export const recipeImported: Recipe[] = [
       {
         "name": "cumin",
         "quantity": 1.5,
-        "unit": "piece",
+        "unit": "tsp",
         "department": "Spices"
       },
       {
         "name": "cilantro",
         "quantity": 1.5,
-        "unit": "piece",
+        "unit": "tsp",
         "department": "Produce"
       },
       {
         "name": "fennel",
         "quantity": 1.5,
-        "unit": "piece",
+        "unit": "tsp",
         "department": "Produce"
       },
       {
@@ -38375,16 +38039,40 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "cloves",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "cardamom",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "jasmine rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
       }
     ],
     "steps": [
-      "In a blender, add the ingredients for the spice paste and blend until smooth.",
-      "Over medium heat, pour the spice paste in a skillet or pan and fry for 10 minutes until fragrant. Add water or oil 1 tablespoon at a time if the paste becomes too dry. Don't burn the paste. Lower the fire slightly if needed.",
-      "Add the cloves, cardamom, tamarind pulp, coconut milk, water, sugar and salt. Turn the heat up and bring the mixture to boil. Turn the heat to medium low and simmer for 10 minutes. Stir occasionally. It will reduce slightly. This is the marinade/sauce, so taste and adjust seasoning if necessary. Don't worry if it's slightly bitter. It will go away when roasting.",
-      "When the marinade/sauce has cooled, pour everything over the chicken and marinate overnight to two days.",
-      "Preheat the oven to 425 F.",
-      "Remove the chicken from the marinade. Spoon the marinade onto a greased (or aluminum lined) baking sheet. Lay the chicken on top of the sauce (make sure the chicken covers the sauce and the sauce isn't exposed or it'll burn) and spread the remaining marinade on the chicken. Roast for 35-45 minutes or until internal temp of the thickest part of chicken is at least 175 F.",
-      "Let chicken rest for 5 minutes. Brush the chicken with some of the oil. Serve chicken with the sauce over steamed rice (or coconut rice)."
+      "Blend the shallots, ginger, garlic, soaked dried chiles, turmeric, cumin, coriander and fennel to a smooth paste.",
+      "Fry the paste in a skillet over medium heat for 10 minutes until fragrant, adding a spoonful of water or oil if it gets dry. Don’t let it burn.",
+      "Add the cloves, cardamom, tamarind, coconut milk, 1 cup water, sugar and salt. Boil, then simmer on medium-low 10 minutes, stirring. Let cool.",
+      "Pour over the chicken and marinate in the fridge at least 2 hours, ideally overnight.",
+      "Heat the oven to 425°F. Spoon some sauce onto a lined baking sheet, lay the chicken on top and spread the rest of the sauce over. Roast 35–45 minutes, until the thickest part reads 175°F. Meanwhile, cook the rice.",
+      "Rest 5 minutes and serve with the sauce over the rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -39130,7 +38818,8 @@ export const recipeImported: Recipe[] = [
     ],
     "primaryProtein": "Pork",
     "vegetables": [
-      "garlic"
+      "garlic",
+      "eggplant"
     ],
     "techniques": [
       "bake",
@@ -39138,7 +38827,7 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 30,
     "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
@@ -39148,12 +38837,6 @@ export const recipeImported: Recipe[] = [
       "fat": 30
     },
     "ingredients": [
-      {
-        "name": "egg plants",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Dairy"
-      },
       {
         "name": "sugar",
         "quantity": 2,
@@ -39176,8 +38859,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "garlic",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 8,
+        "unit": "clove",
         "department": "Produce"
       },
       {
@@ -39210,6 +38893,18 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "piece",
         "department": "Spices"
+      },
+      {
+        "name": "eggplant",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
@@ -39225,7 +38920,6 @@ export const recipeImported: Recipe[] = [
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Eggs",
       "Soy"
     ],
     "dietTags": [
@@ -39663,152 +39357,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Thai",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/420631/beef-massaman-curry",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53423",
-    "name": "Meang Nem",
-    "cuisine": "Thai",
-    "categories": [
-      "Seafood"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Shellfish",
-    "vegetables": [
-      "orange zest",
-      "chile pepper",
-      "peanuts",
-      "pickled scallion heads",
-      "pickled scallion head brine",
-      "shallots"
-    ],
-    "techniques": [
-      "roast",
-      "fry",
-      "stir-fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 30,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "dried shrimp",
-        "quantity": 1.75,
-        "unit": "oz",
-        "department": "Seafood"
-      },
-      {
-        "name": "rice",
-        "quantity": 1.5,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "coconut",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "orange zest",
-        "quantity": 0.75,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "chile pepper",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "peanuts",
-        "quantity": 1.75,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "pickled scallion heads",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "pickled scallion head brine",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "galangal",
-        "quantity": 1,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "shallots",
-        "quantity": 1,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "orange juice",
-        "quantity": 1.5,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "lime juice",
-        "quantity": 3.5,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 3.5,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "palm sugar",
-        "quantity": 1.75,
-        "unit": "oz",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Rinse the rice, soak in water for about 10 minutes, then drain well. Heat a wok or large skillet over medium heat. Add the rice and stir constantly until evenly dark golden brown and very fragrant, about 5 minutes. Transfer to a bowl to cool. Grind finely using a spice grinder or mortar and pestle, then sift through a fine mesh strainer to remove any large pieces. Set aside.",
-      "Thinly slice the shallots lengthwise. Finely chop the galangal, pickled scallion heads, chili peppers, and bitter orange zest. Coarsely grind the roasted peanuts. Heat a frying pan over low heat, add shredded coconut, and toast, stirring, for 2–3 minutes. Set aside.",
-      "In a large bowl, combine lime juice, bitter orange juice, palm sugar, pickled scallion brine, and fish sauce. Stir until fully dissolved and well mixed.",
-      "In a mixing bowl, combine dried shrimp, toasted coconut, chopped aromatics, and dressing. Mix well. Add roasted rice powder and stir again. Top with coarsely ground roasted peanuts.",
-      "Place the salad on a large plate. Let each guest spoon a little onto their own small plate, wrap in leafy greens with vegetables, and enjoy in bite-size portions.",
-      "For a vegetarian version, omit the dried shrimp and fish sauce. Season to taste with soy sauce and a pinch of sea salt, keeping the sweet-sour balance."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Shellfish",
-      "Fish",
-      "Peanuts"
-    ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/5rk8vc1779740302.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.chefnak.com/meang-nem",
     "estimated": true
   },
   {
@@ -41032,112 +40580,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Vietnamese",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/rice-paper-dumplings",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53052",
-    "name": "Roti john",
-    "cuisine": "Thai",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "chile pepper"
-    ],
-    "techniques": [
-      "grill"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 420,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "ground beef",
-        "quantity": 0.25,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "eggs",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "chile pepper",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "baguette",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Bakery"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "mayonnaise",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Mix all the ingredients in a bowl.",
-      "Heat a pan or griddle with a little vegetable oil.",
-      "Pour the mixture onto the pan and place a piece of open-faced baguette on top.",
-      "Press on the bread with a spatula and grill for 2 minutes.",
-      "Turn the bread over to make it a little crispy.",
-      "Remove from pan and cut the bread into small portions.",
-      "Add mayonnaise and/or Sambal before cutting the sandwich (optional)."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Eggs"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/hx335q1619789561.jpg",
-    "origin": "Malaysian",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.196flavors.com/malaysia-roti-john/",
     "estimated": true
   },
   {
@@ -44099,6 +43541,164 @@ export const recipeImportedRetired: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-52927",
+    "name": "Montreal Smoked Meat",
+    "cuisine": "American",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "cilantro",
+      "cilantro",
+      "garlic",
+      "onion"
+    ],
+    "techniques": [
+      "roast",
+      "grill",
+      "simmer",
+      "steam"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 420,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "beef brisket",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "salt",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cloves",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "dill",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "english mustard",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "celery salt",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "red pepper flakes",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      }
+    ],
+    "steps": [
+      "To make the cure, in a small bowl mix together salt, pink salt, black pepper, coriander, sugar, bay leaf, and cloves. Coat entire brisket with the cure and place in an extra-large resealable plastic bag. Place in the coldest part of the refrigerator and cure for 4 days, flipping brisket twice a day.",
+      "Remove brisket from bag and wash as much cure off as possible under cold running water. Place brisket in a large container and fill with water and let soak for 2 hours, replacing water every 30 minutes. Remove from water and pat dry with paper towels.",
+      "To make the rub, mix together black pepper, coriander, paprika, garlic powder, onion powder, dill weed, mustard, celery seed, and crushed red papper in a small bowl. Coat entire brisket with the rub.",
+      "Fire up smoker or grill to 225 degrees, adding chunks of smoking wood chunks when at temperature. When wood is ignited and producing smoke, place brisket in, fat side up, and smoke until an instant read thermometer registers 165 degrees when inserted into thickest part of the brisket, about 6 hours.",
+      "Transfer brisket to large roasting pan with V-rack. Place roasting pan over two burners on stovetop and fill with 1-inch of water. Bring water to a boil over high heat, reduce heat to medium, cover roasting pan with aluminum foil, and steam brisket until an instant read thermometer registers 180 degrees when inserted into thickest part of the meat, 1 to 2 hours, adding more hot water as needed.",
+      "Transfer brisket to cutting board and let cool slightly. Slice and serve, preferably on rye with mustard."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/uttupv1511815050.jpg",
+    "origin": "Canadian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "http://www.meatwave.com/blog/montreal-smoked-meat-recipe",
+    "estimated": true
+  },
+  {
     "id": "mealdb-52955",
     "name": "Egg Drop Soup",
     "cuisine": "Chinese",
@@ -44571,6 +44171,221 @@ export const recipeImportedRetired: Recipe[] = [
     "origin": "Irish",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/boxty-bacon-eggs-tomatoes",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53047",
+    "name": "Moroccan Carrot Soup",
+    "cuisine": "MiddleEastern",
+    "categories": [
+      "Vegetarian",
+      "Soups"
+    ],
+    "provides": [
+      "vegetable"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "carrots",
+      "onion",
+      "cilantro",
+      "lemon juice"
+    ],
+    "techniques": [
+      "bake",
+      "roast",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 480,
+      "protein": 12,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "carrots",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "garam masala",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Preheat oven to 180° C.",
+      "Combine carrots, onion, garlic, cumin seeds, coriander seeds, salt and olive oil in a bowl and mix well. Transfer on a baking tray.",
+      "Put the baking tray in preheated oven and roast for 10-12 minutes or till carrots soften. Remove from heat and cool.",
+      "Grind the baked carrot mixture along with some water to make a smooth paste and strain in a bowl.",
+      "Heat the carrot mixture in a non-stick pan. Add two cups of water and bring to a boil. Add garam masala powder and mix. Add salt and mix well.",
+      "Remove from heat, add lemon juice and mix well.",
+      "Serve hot."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/jcr46d1614763831.jpg",
+    "origin": "Moroccan",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.sanjeevkapoor.com/Recipe/Moroccan-Carrot-Soup.html",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53052",
+    "name": "Roti john",
+    "cuisine": "Thai",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "chile pepper"
+    ],
+    "techniques": [
+      "grill"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 420,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "ground beef",
+        "quantity": 0.25,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "eggs",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "chile pepper",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "baguette",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "mayonnaise",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Mix all the ingredients in a bowl.",
+      "Heat a pan or griddle with a little vegetable oil.",
+      "Pour the mixture onto the pan and place a piece of open-faced baguette on top.",
+      "Press on the bread with a spatula and grill for 2 minutes.",
+      "Turn the bread over to make it a little crispy.",
+      "Remove from pan and cut the bread into small portions.",
+      "Add mayonnaise and/or Sambal before cutting the sandwich (optional)."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Eggs"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/hx335q1619789561.jpg",
+    "origin": "Malaysian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.196flavors.com/malaysia-roti-john/",
     "estimated": true
   },
   {
@@ -45122,6 +44937,131 @@ export const recipeImportedRetired: Recipe[] = [
     "origin": "Spanish",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/jamon-wild-garlic-croquetas",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53146",
+    "name": "Locro",
+    "cuisine": "BBQ",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "pumpkin",
+      "potatoes",
+      "onion"
+    ],
+    "techniques": [
+      "simmer",
+      "braise"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 20,
+    "cookMinutes": 90,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "dried white corn",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "dried white beans",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "pumpkin",
+        "quantity": 10.5,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "beef",
+        "quantity": 10.5,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "pork",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "chorizo",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Soak: Soak corn and beans overnight in water.",
+      "Cook Meats: In a large pot, brown the beef and pork. Add onions and spices, cooking until translucent.",
+      "Simmer the Stew: Add soaked corn and beans, pumpkin, potato, and enough water to cover. Simmer for 2-3 hours, until thick.",
+      "Serve: Enjoy hot, with bread on the side.",
+      "Pro Tips:",
+      "Toasting the corn slightly before adding it to the stew enhances its flavor.",
+      "Add a spoonful of paprika or a dash of cumin for an extra layer of warmth and complexity"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/5sgsob1763196284.jpg",
+    "origin": "Argentina",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
     "estimated": true
   },
   {
@@ -46115,6 +46055,113 @@ export const recipeImportedRetired: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53335",
+    "name": "Jiggs Dinner",
+    "cuisine": "American",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "yellow split peas",
+      "cabbage",
+      "carrots",
+      "potatoes"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "yellow split peas",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "turnips",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "The night before, break salt beef into big chunks and soak in water overnight, at least 8-10 hours. Put split peas into a bowl and cover with water to soak overnight.",
+      "Drain the salt beef and place it into a large stockpot. Cover with fresh water, at least 6-7 litres. Place the split peas into a pease pudding canvas bag or triple layer of cheesecloth and tie, making sure to leave room for peas to expand inside the bag.",
+      "Put the bag inside the pot, tying the strings to the outside handle so it doesn't stick to the bottom of the pot with the salt beef. Bring to a boil, then lower the heat and simmer for 2 hours.",
+      "Remove the peas pudding bag and empty contents into a bowl, mixing with butter and pepper for taste. Set aside.",
+      "Add your cabbage to the pot and boil for 20 more minutes. Then add turnip, carrots and potatoes then boil for 20 more, or until vegetables are tender.",
+      "Remove salt beef and vegetables from the pot and put them on a platter.",
+      "Use the cooking liquid in two ways; as a pot liquor which some people like to drink or reduce it to make a jus or gravy to pour over the meal."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/z1tfnw1764443171.jpg",
+    "origin": "Canadian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://canadianfoodfocus.org/recipes/classic-canadian-dishes-jiggs-dinner/",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53336",
     "name": "Molasses Baked Beans",
     "cuisine": "American",
@@ -46832,6 +46879,152 @@ export const recipeImportedRetired: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53423",
+    "name": "Meang Nem",
+    "cuisine": "Thai",
+    "categories": [
+      "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Shellfish",
+    "vegetables": [
+      "orange zest",
+      "chile pepper",
+      "peanuts",
+      "pickled scallion heads",
+      "pickled scallion head brine",
+      "shallots"
+    ],
+    "techniques": [
+      "roast",
+      "fry",
+      "stir-fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 30,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "dried shrimp",
+        "quantity": 1.75,
+        "unit": "oz",
+        "department": "Seafood"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "coconut",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "orange zest",
+        "quantity": 0.75,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "chile pepper",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "peanuts",
+        "quantity": 1.75,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "pickled scallion heads",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "pickled scallion head brine",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "galangal",
+        "quantity": 1,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "shallots",
+        "quantity": 1,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "orange juice",
+        "quantity": 1.5,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "lime juice",
+        "quantity": 3.5,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 3.5,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "palm sugar",
+        "quantity": 1.75,
+        "unit": "oz",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Rinse the rice, soak in water for about 10 minutes, then drain well. Heat a wok or large skillet over medium heat. Add the rice and stir constantly until evenly dark golden brown and very fragrant, about 5 minutes. Transfer to a bowl to cool. Grind finely using a spice grinder or mortar and pestle, then sift through a fine mesh strainer to remove any large pieces. Set aside.",
+      "Thinly slice the shallots lengthwise. Finely chop the galangal, pickled scallion heads, chili peppers, and bitter orange zest. Coarsely grind the roasted peanuts. Heat a frying pan over low heat, add shredded coconut, and toast, stirring, for 2–3 minutes. Set aside.",
+      "In a large bowl, combine lime juice, bitter orange juice, palm sugar, pickled scallion brine, and fish sauce. Stir until fully dissolved and well mixed.",
+      "In a mixing bowl, combine dried shrimp, toasted coconut, chopped aromatics, and dressing. Mix well. Add roasted rice powder and stir again. Top with coarsely ground roasted peanuts.",
+      "Place the salad on a large plate. Let each guest spoon a little onto their own small plate, wrap in leafy greens with vegetables, and enjoy in bite-size portions.",
+      "For a vegetarian version, omit the dried shrimp and fish sauce. Season to taste with soy sauce and a pinch of sea salt, keeping the sweet-sour balance."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Shellfish",
+      "Fish",
+      "Peanuts"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/5rk8vc1779740302.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.chefnak.com/meang-nem",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53432",
     "name": "Slow-cooked, Wadadli-spiced Cubano pork belly",
     "cuisine": "Other",
@@ -46977,6 +47170,82 @@ export const recipeImportedRetired: Recipe[] = [
     "image": "https://www.themealdb.com/images/media/meals/t1hg8s1780087329.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.theguardian.com/food/2020/jul/04/andi-oliver-antiguan-feast-recipes-slow-cooked-pork-belly-corn-chilli-lime-mango-chow-spiced-bread-butter-pudding",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53438",
+    "name": "Bolita di Keshi",
+    "cuisine": "Mediterranean",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "protein"
+    ],
+    "primaryProtein": "Eggs",
+    "vegetables": [],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 20,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "cheddar cheese",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Dairy"
+      },
+      {
+        "name": "feta",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Dairy"
+      },
+      {
+        "name": "eggs",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "cornstarch",
+        "quantity": 5,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Grate finely and toss together.",
+      "1 lb. sharp yellow cheese (cheddar or oude boerenkaas)",
+      "1 lb. keshi di buriko (or any white cheese such as fromage blanc, queso blanco, ricotto, feta etc.)",
+      "Stir in:",
+      "6 eggs, beaten",
+      "5 Tbs. Cornstarch",
+      "Shape the mixture into small balls. These may be kept indefinitely in the freezer. Drop the balls into deep, hot fat and fry until golden. Serve piping hot on toothpicks."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/skzd0x1780091674.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.visitaruba.com/aruba-recipes/bolita-di-keshi/",
     "estimated": true
   },
   {

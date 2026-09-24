@@ -319,6 +319,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       to a kebob; frog legs tagged vegetarian; conch stew; cassava pizza;
       poutine; egg drop soup; semolina dumpling soup; molasses beans; a
       method-less Sunday roast). 329 → 319.
+    - [x] Batch 8: 23 fixed ("Pro Tips" lines as steps on 5 Argentine
+      recipes; 3 recipes' hard-boiled eggs never boiled; arepas never listed
+      their masarepa; koshari gains its tomato sauce; risotto's salmon now
+      cooked; omelette scaled from one to four). 7 dropped (smoked meat's
+      4-day cure, jiggs dinner, locro, meang nem, bolita di keshi, roti john,
+      carrot soup). 319 → 312.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
