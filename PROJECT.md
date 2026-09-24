@@ -494,7 +494,10 @@ the identical result regardless of order, or they ping-pong forever.
    is decided by the recipe's `vegetarian` diet tag alone, and "pescatarian" by a
    fish/shellfish `primaryProtein` or a `vegetarian`/`pescatarian` tag — never by a
    vegetarian-sounding `primaryProtein` (Quiche Lorraine is an Eggs dish with
-   bacon). Curated tags are hand-checked; imported/user-recipe tags come from
+   bacon). Curated tags are hand-checked, and `validateRecipes.ts` fails any
+   hand-authored recipe whose vegan/vegetarian/dairy-free/gluten-free tag is
+   contradicted by an ingredient — *optional ones included, since optional items
+   still go on the shopping list* — or by a declared allergen (M5.8 task 2); imported/user-recipe tags come from
    ingredient inference, which excludes duck, lard, broth, Worcestershire, dashi,
    etc. `filters.test.ts` asserts library-wide that nothing passing "vegetarian"
    lists meat or fish.

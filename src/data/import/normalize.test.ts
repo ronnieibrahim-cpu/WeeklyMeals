@@ -1,4 +1,5 @@
-import { inferAllergens, inferDietTags, inferProvides, parseMeasure, unsupportedProvides } from './normalize';
+import { RECIPES } from '@/data/seed/recipes';
+import { dietTagConflicts, inferAllergens, inferDietTags, inferProvides, parseMeasure, unsupportedProvides } from './normalize';
 
 describe('parseMeasure — metric measures convert to customary units', () => {
   it('converts small gram amounts to ounces', () => {
@@ -208,5 +209,36 @@ describe('inferDietTags — vegetarian means no meat anywhere in the dish', () =
 
   it('never tags a wheat pasta dish gluten-free', () => {
     expect(tagsOf('None', 'spaghetti', 'tomatoes', 'garlic')).not.toContain('gluten-free');
+  });
+});
+
+describe('dietTagConflicts — diet tags must not contradict ingredients or allergens (M5.8 task 2)', () => {
+  const base = { allergens: [] as string[], ingredients: [{ name: 'lentils' }] };
+
+  it('flags an optional dairy garnish on a vegan recipe', () => {
+    const r = { ...base, dietTags: ['vegan'], ingredients: [{ name: 'parmesan', optional: true }] };
+    expect(dietTagConflicts(r)).toEqual(['tagged "vegan" but ingredient "parmesan" (optional) triggers "Dairy"']);
+  });
+
+  it('flags a declared allergen that contradicts a tag', () => {
+    expect(dietTagConflicts({ ...base, dietTags: ['dairy-free'], allergens: ['Dairy'] })).toEqual([
+      'tagged "dairy-free" but declares allergen "Dairy"',
+    ]);
+  });
+
+  it('flags fish on a vegetarian recipe, egg on vegan, flour on gluten-free', () => {
+    expect(dietTagConflicts({ ...base, dietTags: ['vegetarian'], ingredients: [{ name: 'anchovies' }] })).toHaveLength(1);
+    expect(dietTagConflicts({ ...base, dietTags: ['vegan'], ingredients: [{ name: 'eggs' }] })).toHaveLength(1);
+    expect(dietTagConflicts({ ...base, dietTags: ['gluten-free'], ingredients: [{ name: 'all-purpose flour' }] })).toHaveLength(1);
+  });
+
+  it('passes a consistent recipe and ignores coconut milk on dairy-free', () => {
+    expect(dietTagConflicts({ ...base, dietTags: ['vegan', 'dairy-free', 'gluten-free'] })).toEqual([]);
+    expect(dietTagConflicts({ ...base, dietTags: ['dairy-free'], ingredients: [{ name: 'coconut milk' }] })).toEqual([]);
+  });
+
+  it('every hand-authored recipe is consistent (minestrone, mujadara, bolognese fixed)', () => {
+    const bad = RECIPES.filter((r) => !r.id.startsWith('mealdb-')).filter((r) => dietTagConflicts(r).length > 0);
+    expect(bad.map((r) => r.id)).toEqual([]);
   });
 });
