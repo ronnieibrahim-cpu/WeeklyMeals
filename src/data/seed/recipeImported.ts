@@ -1378,13 +1378,13 @@ export const recipeImported: Recipe[] = [
       "parsley"
     ],
     "techniques": [
-      "roast",
-      "fry"
+      "fry",
+      "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 10,
+    "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -1463,16 +1463,17 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parsley",
-        "quantity": 1,
-        "unit": "bunch",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "Produce"
       }
     ],
     "steps": [
-      "Fry your onion, peppers and garlic in olive oil until nicely translucent. Make a well in your veg and add your chicken. Add your seasoning and salt. Allow to colour slightly.",
-      "Add your cream, stock and macaroni.",
-      "Cook on low for 20 minutes. Add your cheeses, stir to combine.",
-      "Top with roasted peppers and parsley."
+      "Heat the oil in a large deep skillet and fry the diced onion, peppers and garlic until soft, 5–6 minutes.",
+      "Push the vegetables aside, add the diced chicken, the fajita seasoning and the salt, and fry until the chicken is lightly colored.",
+      "Add the broth, cream and macaroni and bring to a simmer.",
+      "Cover and cook on low for about 20 minutes, stirring now and then, until the macaroni is tender and the chicken reads 165°F.",
+      "Stir in the cheddar until melted and sprinkle with parsley."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -5141,7 +5142,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Lentils",
     "vegetables": [
@@ -5158,19 +5160,19 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 40,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 18,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
         "name": "canola oil",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "tbsp",
         "department": "DryGoods"
       },
       {
@@ -5230,13 +5232,13 @@ export const recipeImported: Recipe[] = [
       {
         "name": "tomato",
         "quantity": 2,
-        "unit": "piece",
+        "unit": "can",
         "department": "Produce"
       },
       {
         "name": "vegetable bouillon cube",
         "quantity": 1,
-        "unit": "cup",
+        "unit": "piece",
         "department": "DryGoods"
       },
       {
@@ -5253,16 +5255,29 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "lentils",
-        "quantity": 8.75,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "cup",
         "department": "DryGoods"
+      },
+      {
+        "name": "basmati rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a large, heavy-based pan. Add the onions and cook gently for 5 – 10 mins until softened.",
-      "Add the garlic, spices, dried thyme, carrots, celery and peppers and cook for 5 minutes.",
-      "Add the tomatoes, stock, zucchini and fresh thyme and cook for 20 - 25 minutes.",
-      "Take out the thyme sprigs. Stir in the lentils and bring back to a simmer. Serve with wild and white basmati rice, mash or quinoa."
+      "Heat the oil in a large heavy pot and cook the chopped onion gently 5–10 minutes until soft.",
+      "Add the garlic, paprika, cumin, dried thyme, and the chopped carrots, celery and peppers. Cook 5 minutes.",
+      "Add the tomatoes, the bouillon dissolved in 1 cup hot water, the sliced zucchini and the thyme sprigs. Simmer 20–25 minutes, until the carrots are tender. Meanwhile, cook the rice.",
+      "Remove the thyme sprigs, stir in the lentils and bring back to a simmer. Season and serve with the rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -7423,7 +7438,8 @@ export const recipeImported: Recipe[] = [
       "Seafood"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Shellfish",
     "vegetables": [
@@ -7433,15 +7449,15 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Easy",
     "spiceLevel": "Hot",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
-      "calories": 420,
+      "calories": 520,
       "protein": 30,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 18
     },
     "ingredients": [
@@ -7511,6 +7527,12 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
@@ -12034,10 +12056,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 20,
+    "cookMinutes": 75,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -12048,8 +12070,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken",
-        "quantity": 3.25,
-        "unit": "lb",
+        "quantity": 1,
+        "unit": "piece",
         "department": "Meat"
       },
       {
@@ -12122,7 +12144,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "thyme",
         "quantity": 1,
-        "unit": "cup",
+        "unit": "tbsp",
         "department": "Spices"
       },
       {
@@ -12165,10 +12187,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Preheat the oven to 180°C/Gas mark 4. Have the chicken joints ready to cook. Heat the butter and 3 tbsp olive oil in a flameproof casserole or large frying pan. Brown the chicken pieces in batches on both sides, seasoning them with salt and pepper as you go. Don't crowd the pan - fry the chicken in small batches, removing the pieces to kitchen paper as they are done.",
-      "Add a little more olive oil to the casserole and fry the onions over a medium heat for 10 minutes, stirring frequently, until softened but not browned. Add the rest of the oil, then the peppers and cook for another 5 minutes.",
-      "Add the chorizo, sun-dried tomatoes and garlic and cook for 2-3 minutes. Add the rice, stirring to ensure it is well coated in the oil. Stir in the tomato paste, paprika, bay leaves and chopped thyme. Pour in the stock and wine. When the liquid starts to bubble, turn the heat down to a gentle simmer. Press the rice down into the liquid if it isn't already submerged and place the chicken on top. Add the lemon wedges and olives around the chicken.",
-      "Cover and cook in the oven for 50 minutes. The rice should be cooked but still have some bite, and the chicken should have juices that run clear when pierced in the thickest part with a knife. If not, cook for another 5 minutes and check again."
+      "Heat the oven to 350°F. Heat the butter and 3 tbsp olive oil in a large ovenproof lidded pot. Brown the chicken pieces in small batches, seasoning as you go. Set aside.",
+      "Add a little more oil and fry the sliced onions over medium heat 10 minutes until soft. Add the rest of the oil and the sliced peppers and cook 5 minutes.",
+      "Add the sliced chorizo, sun-dried tomatoes and garlic for 2–3 minutes. Stir in the rice to coat, then the tomato paste, paprika, bay leaves and thyme.",
+      "Pour in the broth and wine and bring to a gentle simmer. Press the rice under the liquid, set the chicken on top and tuck the lemon wedges and olives around.",
+      "Cover and bake 50 minutes, until the rice is tender and the thighs read 175°F."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -12314,8 +12337,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 25,
+    "cookMinutes": 65,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -12425,13 +12448,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 1.75,
         "unit": "oz",
         "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "For the topping, boil the potatoes in salted water until tender. Drain and push through a potato ricer, or mash thoroughly. Stir in the butter, cream and egg yolks. Season and set aside.",
-      "For the filling, melt the butter in a large pan. Add the shallots, carrots and celery and gently fry until soft, then add the garlic. Pour in the wine and cook for 1 minute. Stir in the tomato purée, chopped tomatoes and stock and cook for 10–15 minutes, until thickened. Add the shredded chicken, olives and parsley. Season to taste with salt and pepper.",
-      "Preheat the oven to 180C/160C Fan/Gas 4.",
-      "Put the filling in a 20x30cm/8x12in ovenproof dish and top with the mashed potato. Grate over the Gruyère. Bake for 30–35 minutes, until piping hot and the potato is golden-brown."
+      "For the topping, boil the peeled potatoes in salted water until tender. Drain and mash, then stir in the 30 g butter, the cream and egg yolks. Season.",
+      "For the filling, melt the other 30 g butter in a large pan and gently fry the chopped shallots, carrots and celery until soft. Add the garlic, then the wine for 1 minute.",
+      "Stir in the tomato paste, tomatoes and broth and cook 10–15 minutes until thickened. Add the shredded chicken, olives and parsley and season.",
+      "Heat the oven to 350°F. Spread the filling in an 8x12-inch baking dish, top with the mash and grate over the Gruyère.",
+      "Bake 30–35 minutes, until bubbling at the edges and the potato is golden."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -12639,10 +12677,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "bake"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 40,
+    "cookMinutes": 75,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -12727,10 +12765,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "For the pastry, sift the flour and salt into the bowl of a food processor, add the butter and lard, then whizz together briefly until the mixture looks like fine breadcrumbs. Tip the mixture into a bowl, then stir in the cheese and enough of the water for the mixture to come together. Tip out onto a lightly floured surface and knead briefly until smooth. Roll out thinly and line a 23cm x 4cm loose-?bottomed fluted flan tin. Prick the base with a fork. Chill for 20 minutes.",
-      "Melt the 75g butter in a saucepan over a low heat, then add the leeks and the salt. Cover and cook for ?10 minutes until soft. Uncover the pan, increase the heat and cook ?for 2 minutes, stirring occasionally, until the liquid has evaporated. Spoon onto a plate and leave to cool.",
-      "Preheat the oven to 200°C/fan180°C/gas 6. Line the pastry case with baking paper and baking beans or rice and blind bake for 15-20 minutes until the edges are biscuit-coloured. Remove the paper and beans/rice and return the case to the oven for 7-10 minutes until the base is crisp and lightly golden. Remove and set aside. Reduce the oven temperature to 190°C/fan170°C/gas 5.",
-      "Put the crème fraîche into a bowl with the whole egg, egg yolks and nutmeg. Lightly beat together, then season. Stir in the leeks. Spoon ?the mixture into the tart case and bake for 35-40 minutes until set ?and lightly golden. Remove from ?the oven and leave for 10 minutes. Take out of the tin and serve."
+      "Make the pastry: pulse the flour, 1/2 tsp salt, the 60 g butter and the lard in a food processor until like fine crumbs. Stir in the cheese and the water until it comes together. Knead briefly, roll out thinly and line a 9-inch loose-bottomed tart pan. Prick the base and chill 20 minutes.",
+      "Melt the 75 g butter in a saucepan over low heat, add the sliced leeks and the other 1/2 tsp salt. Cover and cook 10 minutes until soft, then uncover and cook 2 minutes more until the liquid has evaporated. Let cool.",
+      "Heat the oven to 400°F. Line the pastry with parchment and baking beans or rice and bake 15–20 minutes, then remove the paper and beans and bake 7–10 minutes more, until the base is crisp. Lower the oven to 375°F.",
+      "Beat the crème fraîche with the egg, egg yolks and nutmeg, season, and stir in the leeks.",
+      "Pour into the tart case and bake 35–40 minutes, until set in the center and lightly golden. Rest 10 minutes before serving."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -17328,149 +17367,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53505",
-    "name": "Conch Fritters",
-    "cuisine": "Italian",
-    "categories": [
-      "Seafood",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Fish",
-    "vegetables": [
-      "onion",
-      "chile pepper",
-      "lime",
-      "garlic",
-      "basil"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "conchs",
-        "quantity": 1,
-        "unit": "can",
-        "department": "DryGoods"
-      },
-      {
-        "name": "green bell pepper",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "red bell pepper",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "chile pepper",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "basil",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "red pepper flakes",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "all-purpose flour",
-        "quantity": 10,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Note: Make the conch mix the day before and store in the refrigerator to allow time for flavours to meld together. Tartar sauce can also be prepared beforehand. Just combine all the ingredients and mix well. Cover and refrigerate.",
-      "Use your food grinder to grind together the conch pieces, red and green peppers, onions and hot peppers. Once done, add in your lime juice, minced garlic, black pepper, salt, dried basil, and red pepper flakes; make sure to mix it thoroughly. Then add your egg and mix again. Lastly, add your flour one tablespoon at a time and mix until combined. You can either plastic wrap it and let sit in the fridge for an hour or overnight.",
-      "Once you're ready to fry, fill the deep-frying pan with about 1 ½ to 2 inches of a high heat oil of your choice. Turn stove on to a medium-low heat.",
-      "Use two spoons to form 1-inch balls and drop them into the hot oil one at a time. Each fritter should fry about 5-7 minutes or until golden brown and the inside is cooked. Repeat until you have used all the conch mixture. Serve with your tartar sauce and lime wedges."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Eggs"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/nmtq3n1782772031.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.ourcayman.ky/en-us/about/more-about-cayman/recipes",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53064",
     "name": "Fettuccine Alfredo",
     "cuisine": "Italian",
@@ -18767,14 +18663,12 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "bake",
-      "simmer",
-      "braise",
-      "grill"
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 15,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -18817,13 +18711,13 @@ export const recipeImported: Recipe[] = [
       {
         "name": "cannellini beans",
         "quantity": 2,
-        "unit": "cup",
+        "unit": "can",
         "department": "DryGoods"
       },
       {
         "name": "canned tomatoes",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "can",
         "department": "DryGoods"
       },
       {
@@ -18861,13 +18755,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 0.5,
         "unit": "cup",
         "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Put 2 tablespoons of the oil in a large pot over medium heat. When it’s hot, add onion, carrot, celery and garlic; sprinkle with salt and pepper and cook, stirring occasionally, until vegetables are soft, 5 to 10 minutes.",
-      "Heat the oven to 500 degrees. Drain the beans; if they’re canned, rinse them as well. Add them to the pot along with tomatoes and their juices and stock, rosemary and thyme. Bring to a boil, then reduce heat so the soup bubbles steadily; cover and cook, stirring once or twice to break up the tomatoes, until the flavors meld, 15 to 20 minutes.",
-      "Fish out and discard rosemary and thyme stems, if you like, and stir in kale. Taste and adjust seasoning. Lay bread slices on top of the stew so they cover the top and overlap as little as possible. Scatter red onion slices over the top, drizzle with the remaining 3 tablespoons oil and sprinkle with Parmesan.",
-      "Put the pot in the oven and bake until the bread, onions and cheese are browned and crisp, 10 to 15 minutes. (If your pot fits under the broiler, you can also brown the top there.) Divide the soup and bread among 4 bowls and serve."
+      "Heat 2 tbsp of the oil in a large ovenproof pot over medium heat. Add the onion, carrot, celery and garlic, sprinkle with salt and pepper and cook until soft, 5–10 minutes.",
+      "Heat the oven to 500°F. Drain and rinse the beans and add them to the pot with the tomatoes and their juice, the 4 cups water, the rosemary and thyme.",
+      "Bring to a boil, then lower to a steady bubble, cover and cook 15–20 minutes, breaking up the tomatoes.",
+      "Remove the herb stems and stir in the kale. Taste for seasoning. Lay the bread over the top, scatter with the red onion, drizzle with the remaining oil and sprinkle with parmesan.",
+      "Bake 10–15 minutes, until the bread, onion and cheese are browned and crisp. Serve in bowls."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -18911,7 +18820,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 60,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -18942,7 +18851,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "fennel bulb",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "piece",
         "department": "Produce"
       },
       {
@@ -19026,10 +18935,12 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Heat a tablespoon of oil in a large saute pan for which you have a lid. Add the sausage pieces and fry on a medium-high heat for 10 minutes, stirring regularly, until golden-brown all over. Transfer the sausages to a plate, then add the onion and fennel to the hot pan and fry for 15 minutes, stirring once in a while, until soft and caramelised; if the pan goes a bit dry, add a teaspoon or so of extra oil. Stir in the paprika, garlic and half the fennel seeds, fry for two minutes more, then pour on the wine and boil for 30 seconds, to reduce by half. Add the tomatoes, sugar, 100ml water, the seared sausage and half a teaspoon of salt, cover and simmer for 30 minutes; remove the lid after 10 minutes, and cook until the sauce is thick and rich. Remove from the heat, stir through the olives and remaining fennel seeds and set aside until you’re ready to serve.",
-      "Bring a large pot of salted water to a boil, add the pasta and cook for 12-14 minutes (or according to the instructions on the packet), until al dente. Meanwhile, reheat the sauce. Drain the pasta, return it to the pot, stir in a tablespoon of oil, then divide between the bowls.",
-      "Put all the pesto ingredients except the basil in the small bowl of a food processor. Add a tablespoon of water and blitz to a rough paste. Add the basil, then blitz until just combined (the pesto has a much better texture if the basil is not overblended).",
-      "Spoon over the ragù and top with a spoonful of pesto. Finish with a sprinkling of chopped fennel fronds, if you have any, and serve at once."
+      "Heat 1 tbsp oil in a large lidded sauté pan and fry the sausage slices over medium-high heat for 10 minutes, until browned all over. Set aside.",
+      "Add the onion and chopped fennel and fry 15 minutes until soft and caramelized, adding a little oil if dry. Stir in the paprika, sliced garlic and half the fennel seeds for 2 minutes.",
+      "Add the wine and boil 30 seconds, then add the tomatoes, sugar, 1/2 cup water, the sausage and 1/2 tsp salt. Cover and simmer 30 minutes, uncovering after 10, until thick and the sausage is cooked through (160°F). Stir in the olives and remaining fennel seeds.",
+      "Cook the rigatoni in salted boiling water according to the package. Drain and toss with 1 tbsp oil.",
+      "Make the pesto: blitz the pecorino, anchovy, crushed garlic, olive oil and 1 tbsp water to a rough paste, then add the basil and pulse briefly.",
+      "Divide the pasta among bowls, spoon the ragù over and top with pesto."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -21455,7 +21366,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 60,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -21536,13 +21447,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oil in a large flameproof casserole dish and brown the chicken pieces on all sides – you may have to do this in batches. Remove from the dish and put to one side.",
-      "Lower the heat, add the onion and pepper, and gently cook for 10 mins until softened. Add the garlic and chorizo, and cook for a further 2 mins until the chorizo has released some of its oils into the dish. Stir in the tomato purée and cook for 1 min more.",
-      "Return the chicken pieces to the dish along with the thyme, white wine and stock. Bring the liquid to a boil, cover the dish with a tight-fitting lid and lower the heat. Cook for 30 mins.",
-      "Tip in the rice and stir everything together. Cover, set over a low heat and cook for a further 15 mins, or until the rice is cooked and has absorbed most of the cooking liquid. Remove from the heat and leave the dish to sit for 10 mins to absorb any remaining liquid. Season to taste and scatter with parsley to serve."
+      "Heat the oil in a large heavy lidded pot and brown the chicken pieces on all sides in batches. Set aside.",
+      "Lower the heat, add the onion and pepper and cook gently 10 minutes until soft. Add the garlic and sliced chorizo and cook 2 minutes. Stir in the tomato paste for 1 minute.",
+      "Return the chicken with the thyme, wine and broth. Bring to a boil, cover and simmer on low for 30 minutes.",
+      "Stir in the rice, cover and cook on low 15 minutes more, until the rice is tender and the thighs read 175°F.",
+      "Take off the heat and rest 10 minutes. Season and scatter with parsley."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -22452,7 +22378,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 60,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -22518,8 +22444,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "butter beans",
-        "quantity": 14,
-        "unit": "oz",
+        "quantity": 1,
+        "unit": "can",
         "department": "Dairy"
       },
       {
@@ -22530,16 +22456,30 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parsley",
-        "quantity": 1,
+        "quantity": 0.5,
         "unit": "cup",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oven to 200C/180C fan/gas 6. Heat the olive oil in a large ovenproof frying pan over a medium heat and fry the onion, chorizo and peppers along with a pinch of salt and pepper for 15 mins until the veg has softened and the chorizo has released its oils. Add the paprika and garlic, and cook for another few minutes until fragrant.",
-      "Tip in the chopped tomatoes, olives and butter beans, stir to combine and season. Nestle in the chicken thighs and season well. Transfer to the oven and bake for 40 mins until the chicken skin is crisp and the meat cooked through and tender. Scatter with the parsley and serve.",
-      "Watch after ad (0.04):",
-      "3 Budget Egg Ideas"
+      "Heat the oven to 400°F. Heat the oil in a large ovenproof skillet over medium heat and fry the onion, chorizo and peppers with a pinch of salt and pepper for 15 minutes, until soft and the chorizo has released its oil.",
+      "Add the paprika and garlic and cook a few minutes until fragrant.",
+      "Stir in the tomatoes, olives and drained butter beans and season. Nestle in the chicken thighs, skin up, and season them well.",
+      "Bake 40 minutes, until the skin is crisp and the thighs read 175°F. Scatter with parsley."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -22572,7 +22512,8 @@ export const recipeImported: Recipe[] = [
       "green chile",
       "cilantro",
       "garlic",
-      "ginger"
+      "ginger",
+      "red onion"
     ],
     "techniques": [
       "fry",
@@ -22580,7 +22521,7 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
+    "prepMinutes": 35,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -22635,7 +22576,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "ginger",
-        "quantity": 2,
+        "quantity": 1,
         "unit": "piece",
         "department": "Produce"
       },
@@ -22660,16 +22601,43 @@ export const recipeImported: Recipe[] = [
       {
         "name": "vegetable oil",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "cup",
         "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "red onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "mango chutney",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
         "pantryStaple": true
       }
     ],
     "steps": [
-      "Put the fish into a lidded pan and pour over enough water to cover. Bring to a simmer and gently poach for 10 minutes over a low heat with the lid on. Drain and flake the fish.",
-      "Put the fish, potato, green chile, coriander, cumin, black pepper, garlic and ginger in a large bowl. Season, add the rice flour, mix well and break in 1 egg. Stir the mixture and divide into 15, then form into small logs. Break the remaining eggs into a bowl and whisk lightly. Put the breadcrumbs into another bowl. Dip each fofo in the beaten egg followed by the breadcrumb mixture. Chill for 20 minutes.",
-      "Heat 1cm of oil in a large frying pan over a medium heat. Fry the fofos in batches for 2 minutes on each side, turning gently to get an even golden brown colour all over. Drain on kitchen paper and repeat with the remaining fofos.",
-      "For the onion salad, mix together the onion, coriander and lemon juice with a pinch of salt. Serve with the fofos and mango chutney."
+      "Peel and chunk the potatoes and boil 12–15 minutes until tender. Drain and mash.",
+      "Meanwhile, put the fish in a lidded pan, cover with water, bring to a simmer and poach gently, covered, 10 minutes until it flakes. Drain and flake.",
+      "Mix the fish, mashed potato, chopped chile, 2 tbsp of the cilantro, cumin seeds, pepper, grated garlic and ginger. Season, add the flour and 1 egg and mix well. Shape into 15 small logs.",
+      "Beat the other eggs in one bowl and put the breadcrumbs in another. Dip each log in egg, then crumbs. Chill 20 minutes.",
+      "Heat 1/2 inch oil in a large skillet over medium heat and fry the fofos in batches, 2 minutes per side, until golden. Drain on paper towels.",
+      "Mix the thinly sliced red onion with the rest of the cilantro, the lemon juice and a pinch of salt. Serve with the fofos and mango chutney."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -23203,7 +23171,7 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -23215,8 +23183,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "dried white beans",
-        "quantity": 15.75,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "can",
         "department": "DryGoods"
       },
       {
@@ -23246,8 +23214,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bread",
-        "quantity": 3.5,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "piece",
         "department": "Bakery"
       },
       {
@@ -23270,28 +23238,44 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken broth",
-        "quantity": 4.25,
+        "quantity": 2,
         "unit": "cup",
         "department": "Meat"
       },
       {
         "name": "parsley",
-        "quantity": 1,
+        "quantity": 0.5,
         "unit": "cup",
         "department": "Produce"
       },
       {
         "name": "hake",
-        "quantity": 6,
+        "quantity": 4,
         "unit": "piece",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Drain the beans, then tip into a large pan with 2 litres of water. Simmer with the whole garlic cloves, bay leaves and thyme for 30 mins or until cooked and tender. Remove from the heat and set aside.",
-      "Meanwhile, heat 2 tbsp oil in a frying pan. Fry the bread with the remaining garlic clove. When golden and crisp, scoop out and drain on kitchen paper. Add the chorizo to the pan, fry until crisp, tip out and keep warm with the bread.",
-      "Add another 2 tbsp oil and the onion to the pan, and cook for 5 mins until softened. Stir in the paprika. Drain the beans and add to the onions with the chicken broth and 2 tsp salt. Cook for 5-10 mins. Stir through the parsley and keep warm.",
-      "Season the hake and heat the remaining 2 tbsp oil in the frying pan. Put the hake, skin-side down, in the pan and cook for 3-5 mins over a mediumhigh heat to crisp up the skin. Flip the fish over and cook for a further 3-5 mins until cooked through. Spoon the white bean mix into bowls, place the hake on top and finish with the fried bread, chorizo and a little more thyme."
+      "Heat 2 tbsp oil in a skillet. Tear the bread into small pieces and fry with 1 smashed garlic clove until golden and crisp. Lift onto paper towels.",
+      "Fry the diced chorizo in the same pan until crisp and set aside with the bread.",
+      "Add 2 tbsp more oil and the chopped onion and cook 5 minutes until soft. Stir in the paprika, the remaining garlic (sliced), the bay leaves and thyme.",
+      "Add the drained beans, the broth and the salt and simmer 5–10 minutes. Stir in the parsley and keep warm.",
+      "Season the hake. Heat the remaining 2 tbsp oil and cook the fish skin-side down over medium-high heat for 3–5 minutes until crisp, then turn and cook 3–5 minutes more, until it flakes and reads 145°F.",
+      "Spoon the beans into bowls, top with the hake and finish with the crispy bread and chorizo."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -23627,7 +23611,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Eggs",
     "vegetables": [
@@ -23643,12 +23628,12 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 60,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 20,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -23685,7 +23670,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "thyme",
-        "quantity": 1,
+        "quantity": 3,
         "unit": "piece",
         "department": "Spices"
       },
@@ -23721,9 +23706,29 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parsley",
-        "quantity": 1,
+        "quantity": 0.25,
         "unit": "cup",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
@@ -23735,11 +23740,11 @@ export const recipeImported: Recipe[] = [
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Eggs"
     ],
     "dietTags": [
       "vegetarian",
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/0nswfe1763279040.jpg",
@@ -24224,12 +24229,13 @@ export const recipeImported: Recipe[] = [
       "garlic"
     ],
     "techniques": [
+      "grill",
       "fry"
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 80,
+    "cookMinutes": 10,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -24246,13 +24252,13 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "beef fillet",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "piece",
         "department": "Meat"
       },
       {
         "name": "olive oil",
-        "quantity": 2,
+        "quantity": 3,
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
@@ -24271,14 +24277,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "ciabatta",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "piece",
         "department": "DryGoods"
       },
       {
         "name": "arugula",
         "quantity": 2,
-        "unit": "piece",
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
@@ -24322,13 +24328,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 0.5,
         "unit": "tsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Rub the garlic over the steaks then put in a sandwich bag and tip in the olive oil, sherry vinegar and parsley stalks. Smoosh everything together, then use a rolling pin to bash the steaks a few times. Leave for 1-2 hours.",
-      "To make the sauce, put all the ingredients into a blender with 1 tbsp water and whizz until as smooth as possible. This will make more than you’ll need for the recipe but will keep for a week in an airtight jar.",
-      "Heat a griddle or frying pan to high. Brush away the garlic and parsley stalks from the steaks and season well. Sear the steaks for 2 minutes on each side then rest on a plate. Put the ciabatta halves onto the plate, toasted-side down, to soak up any juices.",
-      "Slice the steaks then stuff into the rolls with the green sauce and arugula."
+      "Rub the garlic clove over the steaks, then put them in a zip-top bag with the olive oil, 1 tbsp vinegar and the parsley stems. Pound a few times with a rolling pin and marinate in the fridge 1–2 hours.",
+      "Make the green sauce: blend the basil, parsley leaves, jalapeño, the other 1 tbsp vinegar, green onions, half garlic clove, sugar and 1 tbsp water until smooth.",
+      "Heat a grill pan or skillet to high. Brush the marinade off the steaks and season. Sear 2 minutes per side, until 130°F for medium-rare. Rest on a plate.",
+      "Split and toast the rolls, then press them cut-side down onto the plate to soak up the juices.",
+      "Slice the steaks and stuff into the rolls with the green sauce and arugula."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -24680,14 +24701,14 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
+    "prepMinutes": 20,
     "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
+      "calories": 580,
       "protein": 12,
       "carbs": 48,
-      "fat": 18
+      "fat": 30
     },
     "ingredients": [
       {
@@ -24781,13 +24802,22 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "olive oil",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "1 Put the fennel, eggplant, pepper and zucchini in a roasting tray. Add a glug of olive oil, season with salt and pepper and toss around to coat the veggies in the oil. Roast in the oven for 20 minutes, turning a couple of times until the veg are pretty much cooked through and turning golden.",
-      "2 Meanwhile, heat a paella pan or large frying pan over a low– medium heat and add a glug of olive oil. Sauté the onion for 8–10 minutes until softened. Increase the heat to medium and stir in the rice, paprika and saffron. Cook for around 1 minute to start toasting the rice, then add the white wine. Reduce by about half before stirring in two-thirds of the stock. Reduce to a simmer and cook for 10 minutes without a lid, stirring a couple of times.",
-      "3 Stir in the peas, add some seasoning, then gently mix in the roasted veg. Pour over the remaining stock, arrange the lemon wedges on top and cover with a lid or some aluminium foil. Cook for a further 10 minutes.",
-      "4 To ensure you get the classic layer of toasted rice at the bottom of the pan, increase the heat to high until you hear a slight crackle. Remove from the heat and sit for 5 minutes before sprinkling over the parsley and serving."
+      "Heat the oven to 400°F. Toss the fennel wedges, halved eggplants, sliced pepper and zucchini chunks with 3 tbsp olive oil, salt and pepper in a roasting pan. Roast 20 minutes, turning twice, until tender and golden.",
+      "Meanwhile, heat 1 tbsp olive oil in a paella pan or large skillet over low-medium heat and fry the onion 8–10 minutes until soft.",
+      "Turn up to medium, stir in the rice, paprika and saffron for 1 minute, then add the wine and reduce by half.",
+      "Stir in two-thirds of the broth and simmer uncovered 10 minutes, stirring a couple of times.",
+      "Stir in the peas and seasoning, fold in the roasted vegetables, pour over the rest of the broth, top with lemon wedges and cover with a lid or foil. Cook 10 minutes more, until the rice is tender.",
+      "Turn the heat to high until the bottom crackles, then rest 5 minutes off the heat and sprinkle with parsley."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -27122,12 +27152,13 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "bake",
-      "roast"
+      "roast",
+      "grill"
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 25,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -27138,8 +27169,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chickpeas",
-        "quantity": 14,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "can",
         "department": "Produce"
       },
       {
@@ -27205,22 +27236,30 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "corn tortillas",
-        "quantity": 4,
+        "quantity": 8,
         "unit": "piece",
         "department": "Bakery"
       },
       {
         "name": "cilantro",
-        "quantity": 1,
-        "unit": "bunch",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat oven to 200C/180C fan/gas 6 and line a baking tray with foil. Drain the chickpeas, pat dry and tip onto the prepared baking tray. Add the oil and paprika, toss to coat, then roast for 20-25 mins until browned and crisp, shaking halfway through cooking.",
-      "Meanwhile, put the tomatoes and onion in a small bowl with the vinegar and set aside to pickle. Put the avocado in another bowl and mash with a fork, leaving some larger chunks. Stir in the lime juice and season well. Mix the soured cream with the harissa and set aside until ready to serve.",
-      "Heat a griddle pan until nearly smoking. Add the tortillas , one at a time, charring each side until hot with griddle lines.",
-      "Put everything on the table and build the fajitas : spread a little of the harissa cream over the tortilla, top with roasted chickpeas, guacamole, pickled salsa and coriander, if you like. Serve with the lime wedges for squeezing over."
+      "Heat the oven to 400°F and line a baking sheet with foil. Drain the chickpeas, pat dry, toss with the oil and paprika and roast 20–25 minutes, shaking halfway, until browned and crisp.",
+      "Mix the chopped tomatoes and sliced red onion with the vinegar and set aside to pickle.",
+      "Mash the avocado with the lime juice and a pinch of salt, leaving some chunks. Mix the sour cream with the harissa.",
+      "Char the tortillas one at a time in a very hot grill pan until hot and marked.",
+      "Build the fajitas at the table: harissa cream, chickpeas, guacamole, pickled salsa and cilantro, with lime wedges."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -30509,10 +30548,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 120,
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
@@ -30602,22 +30641,23 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "couscous",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "parsley",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "Produce"
       }
     ],
     "steps": [
-      "Heat the olive oil in a heavy-based pan and add the onion and carrot. Cook for 3- 4 mins until softened.",
-      "Add the diced lamb and brown all over. Stir in the garlic and all the spices and cook for a few mins more or until the aromas are released.",
-      "Add the honey and apricots, crumble in the stock cube and pour over roughly 500ml boiling water or enough to cover the meat. Give it a good stir and bring to the boil. Turn down to a simmer, put the lid on and cook for 1 hour.",
-      "Remove the lid and cook for a further 30 mins, then stir in the squash. Cook for 20 – 30 mins more until the squash is soft and the lamb is tender. Serve alongside rice or couscous and sprinkle with parsley and pine nuts, if using."
+      "Heat the oil in a heavy pot and cook the sliced onion and carrots 3–4 minutes until softened.",
+      "Add the diced lamb and brown all over. Stir in the garlic, cumin, ginger, saffron and cinnamon and cook a few minutes until fragrant.",
+      "Add the honey and apricots, crumble in the bouillon cube and pour in about 2 cups boiling water, enough to cover. Bring to a boil, cover and simmer 1 hour.",
+      "Uncover and cook 30 minutes, then stir in the cubed squash and cook 20–30 minutes more, until the squash is soft and the lamb is tender.",
+      "Meanwhile, prepare the couscous according to the package. Serve the tagine over it, sprinkled with parsley."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -33088,8 +33128,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 45,
     "baseServings": 6,
     "nutrition": {
       "calories": 420,
@@ -33180,10 +33220,10 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Add the lamb to a casserole and cook over high heat. When browned, remove from the heat and set aside.",
-      "Keep a tablespoon of fat in the casserole and discard the rest. Reduce to medium heat then add the garlic, onion and spinach and cook until the onion is translucent and the spinach wilted or about 5 minutes.",
-      "Return the lamb to the casserole with the onion-spinach mixture, add the tomato puree, cumin, harissa, chicken, chickpeas, lemon juice, salt and pepper in the pan. Simmer over low heat for about 20 minutes.",
-      "Add the pasta and cook for 15 minutes or until pasta is cooked."
+      "Brown the ground lamb in a large pot over high heat until no pink remains. Set aside.",
+      "Keep 1 tbsp of the fat in the pot and discard the rest. Over medium heat, add the garlic, chopped onion and spinach and cook until the onion is translucent and the spinach has wilted, about 5 minutes.",
+      "Return the lamb and add the tomato paste, cumin, harissa, broth, drained chickpeas, lemon juice, salt and pepper. Simmer on low for 20 minutes.",
+      "Add the macaroni and cook 10–15 minutes, until tender."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -33733,10 +33773,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 25,
+    "cookMinutes": 215,
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
@@ -34496,133 +34536,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-52979",
-    "name": "Bitterballen (Dutch meatballs)",
-    "cuisine": "Other",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "parsley"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "butter",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "Dairy"
-      },
-      {
-        "name": "flour",
-        "quantity": 5.25,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "beef broth",
-        "quantity": 3,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "beef",
-        "quantity": 14,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "nutmeg",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices"
-      },
-      {
-        "name": "flour",
-        "quantity": 1.75,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "eggs",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "breadcrumbs",
-        "quantity": 1.75,
-        "unit": "oz",
-        "department": "Bakery"
-      }
-    ],
-    "steps": [
-      "Melt the butter in a skillet or pan. When melted, add the flour little by little and stir into a thick paste. Slowly stir in the stock, making sure the roux absorbs the liquid. Simmer for a couple of minutes on a low heat while you stir in the onion, parsley and the shredded meat. The mixture should thicken and turn into a heavy, thick sauce.",
-      "Pour the mixture into a shallow container, cover and refrigerate for several hours, or until the sauce has solidified.",
-      "Take a heaping tablespoon of the cold, thick sauce and quickly roll it into a small ball. Roll lightly through the flour, then the egg and finally the breadcrumbs. Make sure that the egg covers the whole surface of the bitterbal. When done, refrigerate the snacks while the oil in your fryer heats up to 190C (375F). Fry four bitterballen at a time, until golden.",
-      "Serve on a plate with a nice grainy or spicy mustard."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/lhqev81565090111.jpg",
-    "origin": "Netherlands",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.holland.com/global/tourism/information/traditional-dutch-food/bitterballen.htm",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53311",
     "name": "Borsch",
     "cuisine": "Other",
@@ -34647,10 +34560,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 20,
+    "cookMinutes": 140,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -34679,7 +34592,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 5.5,
+        "quantity": 1.25,
         "unit": "lb",
         "department": "Produce"
       },
@@ -34734,8 +34647,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "kidney beans",
-        "quantity": 14,
-        "unit": "oz",
+        "quantity": 1,
+        "unit": "can",
         "department": "DryGoods"
       },
       {
@@ -34753,15 +34666,31 @@ export const recipeImported: Recipe[] = [
       {
         "name": "crusty bread",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "piece",
         "department": "Bakery"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "To make the stock, put the meat, whole onion, bay leaf and 2 litres of lightly salted cold water in a large saucepan. Cook over a very low heat for 1 hr 30 mins or until the beef shin is soft and falls apart easily – this can take up to 3 hrs. Skim off the scum with a spoon from time to time. Break up any larger pieces of beef into the broth, remove the whole onion and discard.",
-      "Add the potatoes to the borscht, season well with salt and pepper and cook for 10-15 mins until tender. Meanwhile, heat the sunflower oil in a large, deep frying pan. Add the diced onion and carrot, and cook over a medium heat, stirring, until the carrot is soft and is about to start caramelising.",
-      "Add the beets and cook for around 5 mins, stirring occasionally. Add the red pepper, if using, and cook for another 2 mins, then add the tomatoes and prunes, stir, then increase the heat and boil to reduce slightly, before adding everything to the borscht.",
-      "Add the shredded cabbage and the kidney beans, and cook for 7-10 mins or until tender. Serve with a dollop of sour cream or crème fraîche, lots of chopped dill and some crusty bread."
+      "Put the beef shin, whole onion, bay leaf and 8 cups lightly salted cold water in a large pot. Simmer very gently 1 1/2–2 hours, skimming now and then, until the beef falls apart. Break up the beef and discard the onion.",
+      "Add the diced potatoes, season well and cook 10–15 minutes until tender.",
+      "Meanwhile, heat the oil in a large deep skillet and fry the diced onion and grated carrot until the carrot is soft.",
+      "Add the grated beets and cook 5 minutes, then the chopped pepper for 2 minutes. Add the tomatoes and chopped prunes, boil to reduce slightly, and add everything to the pot.",
+      "Add the shredded cabbage and drained kidney beans and cook 7–10 minutes until tender.",
+      "Serve with a spoonful of crème fraîche, plenty of chopped dill and crusty bread."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -37997,10 +37926,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 80,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -38080,13 +38009,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 4,
         "unit": "tbsp",
         "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the lard in a saucepan over a medium heat and fry the finely chopped onion until golden, around 5-8 mins. Tip in the cumin and pork, and fry for 10 mins all over until browned. Add the garlic, season well and scatter over the flour. Cook for about a minute, then add the paprika and cook for 1 min more.",
-      "Pour in half of the stock, add the bay leaves, and simmer with the lid on over a low heat for 30 mins.",
-      "Add the sauerkraut, remaining stock and a drizzle of the sauerkraut pickling juices. Simmer with the lid for 30 mins, stirring occasionally, until the meat is tender. Stir in the cream and simmer for 5 mins to combine the flavours. Season to taste, the serve garnished with a spoonful of soured cream.",
-      "This recipe has been provided by Apetit Online and not been re-tested by us."
+      "Heat the lard in a large pot over medium heat and fry the chopped onions until golden, 5–8 minutes.",
+      "Add the cumin seeds and the pork (in 1 1/2-inch cubes) and fry 10 minutes until browned all over. Add the garlic, season well and sprinkle over the flour. Cook 1 minute, then add the paprika for 1 minute more.",
+      "Pour in half the broth, add the bay leaves, cover and simmer on low for 30 minutes.",
+      "Add the sauerkraut with a splash of its juice and the rest of the broth. Cover and simmer 30 minutes more, stirring now and then, until the pork is tender.",
+      "Stir in the cream and simmer 5 minutes. Season and serve with a spoonful of sour cream."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -39432,7 +39376,8 @@ export const recipeImported: Recipe[] = [
       "onion",
       "mushrooms",
       "garlic",
-      "tomato ketchup"
+      "tomato ketchup",
+      "onion"
     ],
     "techniques": [
       "bake",
@@ -39441,7 +39386,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -39518,12 +39463,6 @@ export const recipeImported: Recipe[] = [
         "department": "Dairy"
       },
       {
-        "name": "dill",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
         "name": "chives",
         "quantity": 1,
         "unit": "tbsp",
@@ -39534,13 +39473,33 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "dill pickles",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Heat the oven to 200C/180C fan/gas 6. Bake the baguettes on a baking tray for 8-10 mins, then leave to cool.",
-      "Heat 2 tsp of the butter and 1 tsp of the oil in a pan over a low heat and cook the chopped onion for 5 mins until soft. Stir in the mushrooms, turn the heat to medium and cook for 5-10 mins more until the veg is soft and the mushroom liquid has evaporated. Stir in the garlic and cook for 1-2 mins until soft. Season, then stir in the mayonnaise and remove from the heat.",
-      "Halve the baguettes lengthways, then return to the baking tray, cut-side up and spread over the mushroom mixture, then sprinkle over the cheddar, ham, kabanos and mozzarella. Bake for 8-10 mins, or until the cheese has melted and turned golden.",
-      "Meanwhile, heat the remaining butter and oil in a pan over a medium heat and fry the sliced onions for 5 mins until golden and soft. Remove from the heat and set aside. Once the pizzas are cooked, top with the caramelised onions, dill pickles (if using), the chives and a zig-zag drizzle of ketchup."
+      "Heat the oven to 400°F. Bake the baguettes on a baking sheet for 8–10 minutes, then let cool.",
+      "Heat 2 tsp of the butter and 1 tsp of the oil over low heat and cook one chopped onion 5 minutes until soft. Add the mushrooms, turn up to medium and cook 5–10 minutes until their liquid evaporates. Add the garlic for 1–2 minutes, season and stir in the mayonnaise.",
+      "Halve the baguettes lengthwise, spread with the mushroom mixture and top with the cheddar, ham, sliced kabanos and mozzarella. Bake 8–10 minutes, until the cheese is melted and golden.",
+      "Meanwhile, fry the second onion, sliced, in the remaining butter and oil for 5 minutes until golden.",
+      "Top the baked baguettes with the onions, sliced pickles, chives and a zigzag of ketchup."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -41938,12 +41897,13 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "fry",
+      "stir-fry",
       "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 10,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -41954,7 +41914,7 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "rice noodles",
-        "quantity": 4.5,
+        "quantity": 8,
         "unit": "oz",
         "department": "DryGoods"
       },
@@ -41966,51 +41926,51 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cayenne pepper",
-        "quantity": 0.5,
+        "quantity": 1,
         "unit": "tsp",
         "department": "Spices"
       },
       {
         "name": "dark brown sugar",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "tsp",
         "department": "DryGoods"
       },
       {
         "name": "fish sauce",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "tbsp",
         "department": "International"
       },
       {
         "name": "vegetable oil",
-        "quantity": 2,
+        "quantity": 3,
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "jumbo shrimp",
-        "quantity": 7,
+        "quantity": 14,
         "unit": "oz",
         "department": "Seafood"
       },
       {
         "name": "green onions",
-        "quantity": 4,
+        "quantity": 8,
         "unit": "piece",
         "department": "Produce"
       },
       {
         "name": "bean sprouts",
-        "quantity": 5,
+        "quantity": 10,
         "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "peanuts",
-        "quantity": 1,
-        "unit": "oz",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Produce"
       },
       {
@@ -42027,16 +41987,17 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sweet chili sauce",
-        "quantity": 1,
-        "unit": "pinch",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "Produce"
       }
     ],
     "steps": [
-      "Put the noodles in a large heatproof bowl, pour boiling water over them and leave for 4 minutes, then drain and refresh under cold running water.",
-      "Put the lime juice, cayenne, sugar and fish sauce in a bowl and mix well. Have all the other ingredients ready by the cooker.",
-      "Heat the oil and fry the shrimp until warmed through. Add the green onions and noodles and toss around. Tip in the lime juice mixture, then stir in the beansprouts and half the peanuts and coriander. Cook for 1 minute until everything is heated through.",
-      "Pile into a large dish, scatter with the rest of the peanuts and coriander, and serve with lime wedges and sweet chili sauce."
+      "Put the noodles in a large heatproof bowl, cover with boiling water and leave 4 minutes. Drain and rinse under cold water.",
+      "Mix the lime juice, cayenne, sugar and fish sauce.",
+      "Heat the oil in a wok and stir-fry the shrimp until pink and opaque, 2–3 minutes. Add the green onions and noodles and toss.",
+      "Add the lime mixture, the bean sprouts and half the chopped peanuts and cilantro. Toss 1 minute until hot.",
+      "Pile onto a platter, scatter with the rest of the peanuts and cilantro, and serve with lime wedges and sweet chili sauce."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -42078,13 +42039,12 @@ export const recipeImported: Recipe[] = [
       "garlic"
     ],
     "techniques": [
-      "simmer",
-      "steam"
+      "simmer"
     ],
     "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 25,
+    "cookMinutes": 20,
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
@@ -42095,38 +42055,32 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "coconut milk",
-        "quantity": 1.75,
-        "unit": "cup",
-        "department": "International"
-      },
-      {
-        "name": "panang curry paste",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 2,
+        "unit": "can",
         "department": "International"
       },
       {
         "name": "chicken breast",
-        "quantity": 7,
-        "unit": "oz",
+        "quantity": 1.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "green beans",
-        "quantity": 3.5,
+        "quantity": 8,
         "unit": "oz",
         "department": "Produce"
       },
       {
         "name": "fish sauce",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 3,
+        "unit": "tbsp",
         "department": "International"
       },
       {
         "name": "brown sugar",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "tbsp",
         "department": "DryGoods"
       },
       {
@@ -42143,8 +42097,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "jasmine rice",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "International"
       },
       {
@@ -42212,13 +42166,28 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "white pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "First, make the curry paste. Use a pestle and mortar to pound together the dried and fresh chiles, shrimp paste, garlic, galangal, lemongrass, lime zest, white pepper, coriander, cumin, nutmeg and peanuts, plus 1 tsp salt. You should have a rough paste. Alternatively, add all the ingredients to a food processor along with 2-3 tbsp of coconut milk and pulse until you have a paste. Store in a lidded jar in the fridge. Will keep for up to two weeks.",
-      "Add 2-3 tbsp of the thick part of the coconut milk into a saucepan over a medium-high heat. When the coconut milk starts bubbling, add 1-2 tbsp of the curry paste and stir well for about 1 min, until fragrant.",
-      "Stir in the chicken and let it cook for about 3-4 mins until beginning to brown all over. Follow with the French beans and stir well.",
-      "Season with the fish sauce and sugar, then add the rest of coconut milk. Mix well, add half the makrut lime leaves and simmer for 3-5 mins until the chicken is cooked through. Taste and add more sugar or fish sauce if necessary – it should be salty and nutty, and the sweetness should come through. Add the Thai basil leaves, give it a quick mix and take off the heat. Serve with steamed jasmine rice, garnished with the sliced chile and the rest of the makrut lime leaves."
+      "Make the curry paste: pound or blend the dried and fresh chiles, shrimp paste, garlic, galangal, lemongrass, lime zest, white pepper, coriander, cumin, nutmeg, peanuts and salt, with 2–3 tbsp coconut milk if blending. (Extra keeps 2 weeks in the fridge.) Cook the rice.",
+      "Heat 3 tbsp of the thick coconut cream in a saucepan over medium-high heat. When it bubbles, add 3–4 tbsp of the paste and stir 1 minute until fragrant.",
+      "Add the sliced chicken and cook 3–4 minutes until it starts to brown, then the green beans.",
+      "Add the fish sauce, sugar, the rest of the coconut milk and half the lime leaves. Simmer 5–7 minutes, until the chicken reads 165°F. Taste and adjust.",
+      "Stir in the basil and serve with the rice, garnished with sliced chile and the rest of the lime leaves."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -42545,8 +42514,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 35,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -42648,10 +42617,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Tip the cabbage into a food processor and blitz until finely chopped. Season with ½ tsp salt, toss well and set aside for 15 mins. Tip into a clean tea towel and squeeze out as much water as you can. Tip into a bowl with the carrot, mushrooms, pork mince, garlic, ginger, soy sauce, sesame oil and green onions. Season with black pepper. Scrunch everything together using your hands, mixing well until everything is combined.",
-      "Soak the spring roll sheets for a couple of seconds in a shallow dish of warm water, then transfer to an oiled chopping board. Working with one sheet at a time, spoon 1 heaped tbsp of the filling into the middle, then fold the bottom up and over the filling. Fold down the top of the sheet, then the sides to fully encase and make a neat square. If the dumpling feels a little fragile, soak another sheet and wrap it again. Repeat with the remaining sheets and filling, transferring the dumplings to an oiled plate as you go.",
-      "Heat the oil in a large, non-stick frying pan (ensuring it is no more than a third full) over a medium-high heat and fry the dumplings for 3-5 mins until golden brown. Use a slotted spoon or spider to turn them, then cover with a lid and cook for another 3-4 mins until golden. Remove the lid and cook for 1-2 mins.",
-      "Meanwhile, combine all the dipping sauce ingredients in small bowl. Serve the dumplings with the dipping sauce on the side."
+      "Finely chop the cabbage in a food processor, toss with 1/2 tsp salt and leave 15 minutes. Squeeze out as much water as you can in a clean towel.",
+      "Mix the cabbage with the grated carrot, chopped mushrooms, ground pork, garlic, ginger, 2 tsp soy sauce, sesame oil, the 3 green onions and some black pepper.",
+      "Dip a rice paper sheet in warm water for a couple of seconds and lay it on an oiled board. Spoon 1 heaped tbsp filling into the middle and fold into a neat square. Repeat.",
+      "Heat the oil in a large nonstick skillet over medium-high heat and fry the dumplings 3–5 minutes until golden. Turn, cover and cook 3–4 minutes, then uncover for 1–2 minutes, until the filling reaches 160°F.",
+      "Mix the 2 tbsp soy sauce, rice vinegar, sesame seeds and the 2 green onions for dipping, and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -43595,18 +43565,18 @@ export const recipeImported: Recipe[] = [
       "potatoes",
       "green beans",
       "garlic",
-      "lime",
-      "basil"
+      "basil",
+      "makrut lime leaves"
     ],
     "techniques": [
       "fry",
       "stir-fry",
       "simmer"
     ],
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 15,
+    "prepMinutes": 10,
+    "cookMinutes": 25,
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
@@ -43671,12 +43641,6 @@ export const recipeImported: Recipe[] = [
         "department": "Meat"
       },
       {
-        "name": "lime",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
         "name": "basil",
         "quantity": 1,
         "unit": "cup",
@@ -43684,16 +43648,23 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "DryGoods"
+      },
+      {
+        "name": "makrut lime leaves",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "Put the potatoes in a pan of boiling water and cook for 5 minutes. Throw in the beans and cook for a further 3 minutes, by which time both should be just tender but not too soft. Drain and put to one side.",
-      "In a wok or large frying pan, heat the oil until very hot, then drop in the garlic and cook until golden, this should take only a few seconds. Don’t let it go very dark or it will spoil the taste. Spoon in the curry paste and stir it around for a few seconds to begin to cook the spices and release all the flavours. Next, pour in the coconut milk and let it come to a bubble.",
-      "Stir in the fish sauce and sugar, then the pieces of chicken. Turn the heat down to a simmer and cook, covered, for about 8 minutes until the chicken is cooked.",
-      "Tip in the potatoes and beans and let them warm through in the hot coconut milk, then add a lovely citrussy flavour by stirring in the shredded lime leaves (or lime zest). The basil leaves go in next, but only leave them briefly on the heat or they will quickly lose their brightness. Scatter with the lime garnish and serve immediately with boiled rice."
+      "Cook the rice. Boil the halved potatoes 5 minutes, add the green beans and cook 3 minutes more, until both are just tender. Drain.",
+      "Heat the oil in a wok until very hot and fry the sliced garlic for a few seconds until golden.",
+      "Stir in the curry paste for a few seconds, then add the coconut milk and bring to a bubble.",
+      "Stir in the fish sauce and sugar, then the chicken pieces. Cover and simmer about 8 minutes, until the chicken reads 165°F.",
+      "Add the potatoes and beans to warm through, then the shredded lime leaves and the basil. Serve with the rice."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -43884,8 +43855,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "vermicelli rice noodles",
-        "quantity": 0.5,
-        "unit": "piece",
+        "quantity": 8,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
@@ -43902,8 +43873,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "fish sauce",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 3,
+        "unit": "tbsp",
         "department": "International"
       },
       {
@@ -43933,7 +43904,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "ginger",
         "quantity": 1,
-        "unit": "tbsp",
+        "unit": "piece",
         "department": "Produce"
       },
       {
@@ -43950,43 +43921,29 @@ export const recipeImported: Recipe[] = [
         "pantryStaple": true
       },
       {
-        "name": "sesame seed",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "oil",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "sirloin steak",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
         "name": "red chile",
         "quantity": 1,
         "unit": "piece",
         "department": "Produce"
+      },
+      {
+        "name": "mint",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "Place the noodles and beansprouts in a heatproof bowl and cover with boiling water. Leave for 4 mins, or until the noodles are tender. Drain, then cool under cold running water and drain again. Return to the bowl.",
-      "Stir together the lime zest and juice, fish or soy sauce and sugar. Stir into the noodles with the red onion and lettuce.",
-      "To make with mince, heat a little oil in a non-stick frying pan and stir-fry 500g minced pork, a small knob of grated ginger and pinch cayenne pepper or chili powder for 10 mins, until the mince is browned and cooked through. Mix into the noodles, divide between four bowls and serve warm.",
-      "To make with steak, make the rice noodle salad. Heat 1 tsp sunflower oil in a frying pan. Tip 2 tbsp sesame seeds onto a plate. Rub 1 tsp oil into 4 x 175g sirloin steaks and press into sesame seeds. Fry for 5 mins for medium rare, turning halfway. Leave to rest for 5 mins, then thinly slice. Toss 1 deseeded and shredded red chile, and a handful mint leaves into noodles. Top with steak to serve."
+      "Put the noodles and bean sprouts in a heatproof bowl and cover with boiling water. Leave 4 minutes, until the noodles are tender. Drain, cool under cold water and drain again.",
+      "Stir together the lime zest and juice, fish sauce and sugar, and toss into the noodles with the sliced red onion and shredded lettuce.",
+      "Heat the sunflower oil in a nonstick skillet and stir-fry the ground pork with the grated ginger and cayenne for about 10 minutes, until browned with no pink left.",
+      "Toss the pork, sliced chile and mint into the noodles and serve warm."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Fish",
-      "Sesame"
+      "Fish"
     ],
     "dietTags": [
       "dairy-free"
@@ -45506,6 +45463,133 @@ export const recipeImportedRetired: Recipe[] = [
     "origin": "France",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/2085/barneys-confit-of-duck",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52979",
+    "name": "Bitterballen (Dutch meatballs)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "parsley"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "butter",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "Dairy"
+      },
+      {
+        "name": "flour",
+        "quantity": 5.25,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "beef broth",
+        "quantity": 3,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "beef",
+        "quantity": 14,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "flour",
+        "quantity": 1.75,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "eggs",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "breadcrumbs",
+        "quantity": 1.75,
+        "unit": "oz",
+        "department": "Bakery"
+      }
+    ],
+    "steps": [
+      "Melt the butter in a skillet or pan. When melted, add the flour little by little and stir into a thick paste. Slowly stir in the stock, making sure the roux absorbs the liquid. Simmer for a couple of minutes on a low heat while you stir in the onion, parsley and the shredded meat. The mixture should thicken and turn into a heavy, thick sauce.",
+      "Pour the mixture into a shallow container, cover and refrigerate for several hours, or until the sauce has solidified.",
+      "Take a heaping tablespoon of the cold, thick sauce and quickly roll it into a small ball. Roll lightly through the flour, then the egg and finally the breadcrumbs. Make sure that the egg covers the whole surface of the bitterbal. When done, refrigerate the snacks while the oil in your fryer heats up to 190C (375F). Fry four bitterballen at a time, until golden.",
+      "Serve on a plate with a nice grainy or spicy mustard."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/lhqev81565090111.jpg",
+    "origin": "Netherlands",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.holland.com/global/tourism/information/traditional-dutch-food/bitterballen.htm",
     "estimated": true
   },
   {
@@ -47129,6 +47213,149 @@ export const recipeImportedRetired: Recipe[] = [
     "image": "https://www.themealdb.com/images/media/meals/w0rsga1782683912.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://cookinglsl.com/cottage-cheese-stuffed-peppers/#wprm-recipe-container-59383",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53505",
+    "name": "Conch Fritters",
+    "cuisine": "Italian",
+    "categories": [
+      "Seafood",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "onion",
+      "chile pepper",
+      "lime",
+      "garlic",
+      "basil"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "conchs",
+        "quantity": 1,
+        "unit": "can",
+        "department": "DryGoods"
+      },
+      {
+        "name": "green bell pepper",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "red bell pepper",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "chile pepper",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "basil",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "red pepper flakes",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "all-purpose flour",
+        "quantity": 10,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Note: Make the conch mix the day before and store in the refrigerator to allow time for flavours to meld together. Tartar sauce can also be prepared beforehand. Just combine all the ingredients and mix well. Cover and refrigerate.",
+      "Use your food grinder to grind together the conch pieces, red and green peppers, onions and hot peppers. Once done, add in your lime juice, minced garlic, black pepper, salt, dried basil, and red pepper flakes; make sure to mix it thoroughly. Then add your egg and mix again. Lastly, add your flour one tablespoon at a time and mix until combined. You can either plastic wrap it and let sit in the fridge for an hour or overnight.",
+      "Once you're ready to fry, fill the deep-frying pan with about 1 ½ to 2 inches of a high heat oil of your choice. Turn stove on to a medium-low heat.",
+      "Use two spoons to form 1-inch balls and drop them into the hot oil one at a time. Each fritter should fry about 5-7 minutes or until golden brown and the inside is cooked. Repeat until you have used all the conch mixture. Serve with your tartar sauce and lime wedges."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Eggs"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/nmtq3n1782772031.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.ourcayman.ky/en-us/about/more-about-cayman/recipes",
     "estimated": true
   }
 ];

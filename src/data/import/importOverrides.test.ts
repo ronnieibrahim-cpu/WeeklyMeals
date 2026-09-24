@@ -1,5 +1,5 @@
 import raw from './themealdb-raw.json';
-import { IMPORT_DROPS, IMPORT_FIXES } from './importOverrides';
+import { IMPORT_DROPS, IMPORT_FIXES, IMPORT_KEPT } from './importOverrides';
 import { applyImportFix, fromMealDb, inferAllergens, normalize } from './normalize';
 import { getRecipe, RECIPES } from '@/data/seed/recipes';
 import { recipeImported, recipeImportedRetired } from '@/data/seed/recipeImported';
@@ -47,6 +47,12 @@ describe('importOverrides — every entry matches the generated corpus', () => {
       expect(getRecipe(id)?.id).toBe(id);
     }
     expect(recipeImportedRetired.map((r) => r.id).sort()).toEqual(Object.keys(IMPORT_DROPS).sort());
+  });
+
+  it('every kept id is a live import, with no fix or drop too', () => {
+    for (const [id, why] of Object.entries(IMPORT_KEPT)) {
+      expect([id, liveIds.has(id), !!IMPORT_FIXES[id], !!IMPORT_DROPS[id], why.trim().length > 0]).toEqual([id, true, false, false, true]);
+    }
   });
 
   it('every fix targets a live import and has a reason', () => {

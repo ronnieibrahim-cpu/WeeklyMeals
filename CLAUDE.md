@@ -60,8 +60,8 @@ explicit go-ahead from Ronnie.
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine + data/import (+ syncStore) test suite — currently 566 tests
-npx tsx scripts/validateRecipes.ts # 310/310 curated mains + 50/50 sides (699/699 allergen labels + provides) must pass
+npx jest                           # engine + data/import (+ syncStore) test suite — currently 567 tests
+npx tsx scripts/validateRecipes.ts # 310/310 curated mains + 50/50 sides (697/697 allergen labels + provides) must pass
 npm run web                        # local browser preview for manual testing
 ```
 Pushing to branch `claude/weekly-meals-app-eyowlr` auto-deploys the web build to

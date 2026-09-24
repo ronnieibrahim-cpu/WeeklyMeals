@@ -300,6 +300,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       heavy cream; pho/fish broth scaled to 4); 7 dropped (veg chilli from
       packets, ramen with only the egg, raw stuffed peppers, arepa pabellón,
       carrot slaw, boxty breakfast, duck confit's 1–2 day cure). 346 → 339.
+    - [x] Batch 5: 27 fixed, 1 kept (new `IMPORT_KEPT` list records reviewed
+      keeps). Web-page junk steps removed (2); noodle salad listed pork AND
+      steak versions (pork kept; Sesame dropped with the steak's seeds); hake's
+      unsoaked dried beans → canned; fofos' potatoes never cooked; pad thai
+      and prego scaled to 4; borsch's 5.5 lb potatoes → 1 1/4 lb. 2 dropped
+      (bitterballen, conch fritters). 339 → 337.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
