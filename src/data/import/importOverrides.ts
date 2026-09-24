@@ -32,7 +32,12 @@ export interface ImportFix {
   cookMinutes?: number;
 }
 
-export const IMPORT_DROPS: Record<string, string> = {};
+export const IMPORT_DROPS: Record<string, string> = {
+  // Batch 1. No refill: the fixture has no spare candidates (decision 45).
+  'mealdb-53371': 'Sichuan long beans: the two "steps" are notes, with no cooking at all; also a side, not a dinner.',
+  'mealdb-53063': 'Chivito: garbled steps ("crush the meat so that it is finite"); brisket in a thin-steak sandwich.',
+  'mealdb-53478': 'Grilled corn with garlic mayo: a side dish, not a dinner main.',
+};
 
 export const IMPORT_FIXES: Record<string, ImportFix> = {
   // ── Batch 1 (the 30 thinnest: two long paragraphs each) ──────────────────

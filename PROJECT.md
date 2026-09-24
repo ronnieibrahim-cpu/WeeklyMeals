@@ -684,7 +684,8 @@ history, all shipped and deployed:
   `useRecipesById`) so a saved plan keeps its dinner and shopping list, but
   never in `RECIPES`, so never planned, re-rolled, searched or browsed. Ids
   are never reused. The fixture holds exactly 356 meals, all used, so there
-  is no spare candidate to refill a dropped slot.
+  is no spare candidate to refill a dropped slot (decision 45: no refill;
+  hand-written recipes replace the lost variety later).
 - Every push to `claude/weekly-meals-app-eyowlr` deploys the web build.
 - Keep changes small and grouped by task; isolate anything touching the plan lifecycle,
   allergy filtering, sync, or seed data.

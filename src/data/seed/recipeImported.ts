@@ -6291,119 +6291,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53063",
-    "name": "Chivito uruguayo",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "lettuce",
-      "tomato",
-      "onion"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "beef brisket",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "bread",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Bakery"
-      },
-      {
-        "name": "lettuce",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "tomato",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "ham",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "mozzarella",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "Dairy"
-      },
-      {
-        "name": "bacon",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Crush the meat so that it is finite and we put it on a griddle to brown. Put the eggs, bacon and ham to fry.",
-      "Cut the bread in half, put the beef brisket, the fried eggs, the bacon, the ham, the mozzarella, the tomato and the lettuce. Cover with the other half of the bread and serve."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/n7qnkb1630444129.jpg",
-    "origin": "Uruguayan",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://cookpad.com/uy/recetas/116102-chivito-uruguayo",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53136",
     "name": "Choripán",
     "cuisine": "BBQ",
@@ -11444,108 +11331,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Chinese",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.simplyrecipes.com/recipes/sichuan_eggplant/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53371",
-    "name": "Sichuan Style Stir-Fried Chinese Long Beans",
-    "cuisine": "Chinese",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [],
-    "primaryProtein": "None",
-    "vegetables": [
-      "peanut oil",
-      "dried chiles"
-    ],
-    "techniques": [
-      "fry",
-      "stir-fry"
-    ],
-    "difficulty": "Easy",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 15,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 12,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "chinese long beans",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "peanut oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "dried chiles",
-        "quantity": 6,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "sichuan pepper",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "salt",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "sugar",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "sesame seed oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      }
-    ],
-    "steps": [
-      "Chinese long beans can be found in both green and purple varieties. Both have similar flavors and textures, and either kind can be used for this recipe.",
-      "If you don't have a wok, use a sturdy, large sauté pan that has at least a two-inch lip."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Soy",
-      "Peanuts",
-      "Sesame"
-    ],
-    "dietTags": [
-      "vegetarian",
-      "vegan",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/i0610h1765659464.jpg",
-    "origin": "Chinese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.simplyrecipes.com/recipes/sichuan_style_stir_fried_chinese_long_beans/",
     "estimated": true
   },
   {
@@ -17932,95 +17717,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Italian",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/fettucine-alfredo",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53478",
-    "name": "Grilled corn with garlic mayo & grated cheese",
-    "cuisine": "Italian",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "protein",
-      "vegetable"
-    ],
-    "primaryProtein": "None",
-    "vegetables": [
-      "garlic",
-      "cilantro",
-      "lime"
-    ],
-    "techniques": [
-      "grill",
-      "simmer"
-    ],
-    "difficulty": "Easy",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 12,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "corn on the cob",
-        "quantity": 6,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "mayonnaise",
-        "quantity": 6,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "parmesan",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Boil the corn cobs for 5 mins. Leave in the water until you’re ready to grill them. Mix the garlic and mayonnaise in a small bowl. Just before barbecuing, remove the cobs from the pan, pat dry and rub the mayonnaise into each one.",
-      "Season the cobs and grill them until marks appear, about 5 mins. Remove and scatter over the Parmesan and coriander. Squeeze lime over to serve."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [
-      "vegetarian",
-      "gluten-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/k1if4d1782589892.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/grilled-corn-garlic-mayo-grated-cheese",
     "estimated": true
   },
   {
@@ -46072,4 +45768,309 @@ export const recipeImported: Recipe[] = [
  * the planning pool — kept only so saved plans, ratings, favorites and
  * notes that point at these ids still resolve. Ids are never reused.
  */
-export const recipeImportedRetired: Recipe[] = [];
+export const recipeImportedRetired: Recipe[] = [
+  {
+    "id": "mealdb-53063",
+    "name": "Chivito uruguayo",
+    "cuisine": "BBQ",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "lettuce",
+      "tomato",
+      "onion"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "beef brisket",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "bread",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "ham",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "mozzarella",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "Dairy"
+      },
+      {
+        "name": "bacon",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Crush the meat so that it is finite and we put it on a griddle to brown. Put the eggs, bacon and ham to fry.",
+      "Cut the bread in half, put the beef brisket, the fried eggs, the bacon, the ham, the mozzarella, the tomato and the lettuce. Cover with the other half of the bread and serve."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/n7qnkb1630444129.jpg",
+    "origin": "Uruguayan",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://cookpad.com/uy/recetas/116102-chivito-uruguayo",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53371",
+    "name": "Sichuan Style Stir-Fried Chinese Long Beans",
+    "cuisine": "Chinese",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [],
+    "primaryProtein": "None",
+    "vegetables": [
+      "peanut oil",
+      "dried chiles"
+    ],
+    "techniques": [
+      "fry",
+      "stir-fry"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 12,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "chinese long beans",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "peanut oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "dried chiles",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "sichuan pepper",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "sugar",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "sesame seed oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      }
+    ],
+    "steps": [
+      "Chinese long beans can be found in both green and purple varieties. Both have similar flavors and textures, and either kind can be used for this recipe.",
+      "If you don't have a wok, use a sturdy, large sauté pan that has at least a two-inch lip."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Soy",
+      "Peanuts",
+      "Sesame"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/i0610h1765659464.jpg",
+    "origin": "Chinese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.simplyrecipes.com/recipes/sichuan_style_stir_fried_chinese_long_beans/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53478",
+    "name": "Grilled corn with garlic mayo & grated cheese",
+    "cuisine": "Italian",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
+    "primaryProtein": "None",
+    "vegetables": [
+      "garlic",
+      "cilantro",
+      "lime"
+    ],
+    "techniques": [
+      "grill",
+      "simmer"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 12,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "corn on the cob",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "mayonnaise",
+        "quantity": 6,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "parmesan",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Boil the corn cobs for 5 mins. Leave in the water until you’re ready to grill them. Mix the garlic and mayonnaise in a small bowl. Just before barbecuing, remove the cobs from the pan, pat dry and rub the mayonnaise into each one.",
+      "Season the cobs and grill them until marks appear, about 5 mins. Remove and scatter over the Parmesan and coriander. Squeeze lime over to serve."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/k1if4d1782589892.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/grilled-corn-garlic-mayo-grated-cheese",
+    "estimated": true
+  }
+];

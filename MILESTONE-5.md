@@ -281,10 +281,11 @@ validate, all seven harnesses pass, import regeneration byte-identical.
     Mechanism: `src/data/import/importOverrides.ts` (fixes patch raw text
     before inference; drops retire the id but keep it resolvable). The frozen
     fixture holds exactly 356 meals, all in use — no spare candidates to
-    refill from (asked Ronnie).
+    refill from. Ronnie chose (decision 45): drop without refill now, replace
+    the lost variety with hand-written recipes later, alongside task 4.
     - [x] Batch 1 (30 thinnest): 27 fixed (steps split, °F, doneness temps,
-      missing seasonings/amounts, 4 cooking bugs); 3 proposed drops held
-      pending the refill answer (Sichuan long beans, chivito, grilled corn).
+      missing seasonings/amounts, 4 cooking bugs); 3 dropped (Sichuan long
+      beans, chivito, grilled corn).
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
