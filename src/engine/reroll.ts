@@ -1,7 +1,7 @@
 import { isMain, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 
 import { canonicalIngredientName } from './ingredientKey';
-import { composeSides, fitsCombinedTime, saucePairsWithMain } from './mealComposition';
+import { composeSides, fitsCombinedTime, saucePairsWithMain, sidePairsWithMain } from './mealComposition';
 import { coveredByAny } from './pantryMatch';
 import { passesHardFilters, scoreRecipe, WEIGHTS } from './recommendation';
 import { GenerateContext } from './recommendation/types';
@@ -370,6 +370,10 @@ function rerollKeepSides(
       (side) => (!side.provides || side.provides.length === 0) && !saucePairsWithMain(side, main),
     );
     if (sauceMismatch) continue;
+
+    // Pairing gate (d) — M5.8. A kept cuisine-bound side (naan, tortillas)
+    // must still belong with the new main, same reasoning as (c).
+    if (!keptSides.every((side) => sidePairsWithMain(side, main))) continue;
 
     // Plate assembly: kept sides first, verbatim; top up only if the plate
     // is short of 2 sides AND the hard minimum still isn't met.

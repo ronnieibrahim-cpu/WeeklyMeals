@@ -81,6 +81,20 @@ export function saucePairsWithMain(sauce: Recipe, main: Recipe): boolean {
   return (sauce.pairsWith ?? []).includes(main.cuisine);
 }
 
+/**
+ * M5.8: may this SIDE (not sauce) go next to this main? Sides were only
+ * nudged toward a matching cuisine (`sideCuisineFit`), which is right for
+ * roasted broccoli but wrong for garlic naan beside lasagna. A side that
+ * belongs to a cuisine declares `pairsWith`; this is then a hard gate, same
+ * shape as `saucePairsWithMain`. A side WITHOUT `pairsWith` stays universal
+ * — unlike sauces, most sides genuinely go with almost anything, so the
+ * default is open. Sauces are not affected (they keep their own gate).
+ */
+export function sidePairsWithMain(side: Recipe, main: Recipe): boolean {
+  if (side.role === 'sauce' || !side.pairsWith) return true;
+  return side.pairsWith.includes(main.cuisine);
+}
+
 /** Does adding `candidate` move the plate meaningfully forward? A sauce
  * (undefined/empty `provides`) never "duplicates" anything — it has nothing
  * to duplicate — so it's never excluded here; a real side/starch/vegetable
@@ -131,7 +145,8 @@ export function composeSides(main: Recipe, sidesPool: Recipe[], ctx: GenerateCon
     (s) =>
       !blocked.has(s.id) &&
       passesHardFilters(s, ctx.intake, ctx.profile) &&
-      fitsCombinedTime(main, s, ctx.intake),
+      fitsCombinedTime(main, s, ctx.intake) &&
+      sidePairsWithMain(s, main),
   );
 
   const chosen: Recipe[] = [];

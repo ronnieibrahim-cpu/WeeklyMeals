@@ -1,5 +1,5 @@
 import { GenerateContext } from './recommendation/types';
-import { composeSides, fitsCombinedTime, mainIsAlreadySauced, saucePairsWithMain } from './mealComposition';
+import { composeSides, fitsCombinedTime, mainIsAlreadySauced, saucePairsWithMain, sidePairsWithMain } from './mealComposition';
 import { makeIntake, makePreferences, makeProfile, makeRecipe } from './testFixtures';
 
 function ctxFor(overrides: Partial<GenerateContext> = {}): GenerateContext {
@@ -308,5 +308,30 @@ describe('composeSides — priority order (hard minimum, then target, then sauce
       cookMinutes: 10,
     });
     expect(composeSides(braise, [sauce(), sauce({ id: 'sauce-2' })], ctxFor())).toEqual([]);
+  });
+});
+
+describe('sidePairsWithMain (M5.8)', () => {
+  const italianMain = () => makeRecipe({ id: 'main-lasagna', cuisine: 'Italian', provides: ['protein'] });
+  const indianMain = () => makeRecipe({ id: 'main-curry', cuisine: 'Indian', provides: ['protein'] });
+
+  it('a side without `pairsWith` goes with any main', () => {
+    expect(sidePairsWithMain(vegSide({ cuisine: 'Thai' }), italianMain())).toBe(true);
+  });
+
+  it('a side with `pairsWith` only goes with those cuisines', () => {
+    const naan = starchSide({ id: 'naan', cuisine: 'Indian', pairsWith: ['Indian', 'MiddleEastern'] });
+    expect(sidePairsWithMain(naan, indianMain())).toBe(true);
+    expect(sidePairsWithMain(naan, italianMain())).toBe(false);
+  });
+
+  it('never applies to sauces (they keep their own gate)', () => {
+    expect(sidePairsWithMain(sauce({ pairsWith: ['Thai'] }), italianMain())).toBe(true);
+  });
+
+  it('composeSides never places a cuisine-bound side on a non-matching main, even when it is the only gap filler', () => {
+    const naan = starchSide({ id: 'naan', cuisine: 'Indian', pairsWith: ['Indian'] });
+    expect(composeSides(italianMain(), [naan], ctxFor())).not.toContain('naan');
+    expect(composeSides(indianMain(), [naan], ctxFor())).toContain('naan');
   });
 });

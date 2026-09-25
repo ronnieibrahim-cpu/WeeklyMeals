@@ -519,6 +519,43 @@ describe('rerollCandidates — M4.5 keep/re-roll a plate component', () => {
   });
 
   describe('keep sides, re-roll the main', () => {
+    it('M5.8: a kept cuisine-bound side only re-rolls onto mains of a cuisine it pairs with', () => {
+      const outgoing = makeRecipe({ id: 'outgoing', cuisine: 'Indian', ingredients: [] });
+      const naan = makeRecipe({
+        id: 'naan',
+        role: 'side',
+        provides: ['starch'],
+        cuisine: 'Indian',
+        pairsWith: ['Indian'],
+        primaryProtein: 'None',
+        ingredients: [{ name: 'naan', quantity: 4, unit: 'piece', department: 'Bakery' }],
+      });
+      const mk = (id: string, cuisine: Recipe['cuisine']) =>
+        makeRecipe({
+          id,
+          cuisine,
+          primaryProtein: 'Chicken',
+          provides: ['protein'],
+          ingredients: [{ name: 'chicken', quantity: 1, unit: 'lb', department: 'Meat' }],
+        });
+      const curry = mk('curry', 'Indian');
+      const lasagna = mk('lasagna', 'Italian');
+      const plan = makePlan({ meals: [makeMeal({ recipeId: 'outgoing', dayIndex: 0, sideRecipeIds: ['naan'] })] });
+      const recipes = [outgoing, naan, curry, lasagna];
+      const outcome = rerollCandidates(
+        plan,
+        0,
+        recipes,
+        (id) => recipes.find((r) => r.id === id),
+        new Set(['naan', 'chicken']),
+        ctxFor(),
+        { keepMain: false, keptSideIds: ['naan'] },
+      );
+      const ids = outcome.candidates.map((c) => c.recipe.id);
+      expect(ids).toContain('curry');
+      expect(ids).not.toContain('lasagna');
+    });
+
     it('carries the kept side id verbatim and first on the candidate when the kept sauce pairs with the new main', () => {
       const outgoing = makeRecipe({ id: 'outgoing', ingredients: [] });
       const sauce = makeRecipe({

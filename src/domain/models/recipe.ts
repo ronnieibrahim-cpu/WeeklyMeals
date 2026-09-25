@@ -39,7 +39,12 @@ export interface Recipe {
    * sauce). Required on every `role: 'sauce'` recipe — `validateRecipes.ts`
    * fails the build without it, so a new sauce can't quietly default to
    * "goes with everything," which is how sauces ended up on 431 of 601
-   * plates before this existed. Meaningless on mains and non-sauce sides.
+   * plates before this existed. Meaningless on mains.
+   *
+   * SIDES (M5.8): optional. A side that belongs to particular cuisines
+   * (naan, tortillas, smashed cucumber salad) declares them here and is then
+   * only paired with those mains (`sidePairsWithMain`). A side without it
+   * goes with anything.
    */
   pairsWith?: Cuisine[];
   primaryProtein: Protein;
