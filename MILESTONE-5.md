@@ -355,7 +355,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       Plants" spelling), Sesame ×2 (steak-variant seeds; homemade-bun
       topping), Gluten ×1 (Irish stew's optional wheat berries). Known
       over-label kept: "veggie hotpot" reads Eggs from its name ("veggie").
-- [ ] 4. More sides
+- [x] 4. More sides + replacement mains (Ronnie: sides OK if they only land
+  beside mains they fit; smashed cucumber over kimchi fried rice; 24 mains).
+  12 sides (50 → 62) + new side-pairing gate (`sidePairsWithMain`, 10 existing
+  cuisine-bound sides tagged; wrong-cuisine side placements 98 → 0). 24 mains in
+  `recipeBatch12.ts` (310 → 334): Other 6, BBQ 4, Thai 4, Chinese 4, American 3,
+  Middle Eastern 2, Mediterranean 1. 568 → 573 tests; all harnesses pass.
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
 - [ ] 7. Small content items (paneer twins, branzino count, label-check tips)

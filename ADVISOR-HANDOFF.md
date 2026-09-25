@@ -616,6 +616,8 @@ what changed, and let him decide.
 
 ---
 
+46. **More sides, cuisine-bound side pairing, 24 replacement mains (Ronnie, 2026-09-25, M5.8 task 4).** Ronnie approved the 12 proposed sides "as long as the mains they are matched with make sense", chose smashed cucumber salad over kimchi fried rice (a one-pan meal, not a side), and chose 24 replacement mains (options 12 / 24 / 71). To honor the pairing condition, sides gained an optional `pairsWith` (hard gate via `sidePairsWithMain` in `composeSides` and the kept-side re-roll path; sides without it stay universal — unlike sauces, which fail closed). **Advisor review owed:** new labels only (nothing removed): Caesar salad declares Fish (anchovy paste) + Eggs (mayo) + Dairy + Gluten; Pad Prik King declares Shellfish as a precaution because many red curry pastes contain shrimp paste (the older curated red-curry recipe does not — flagged, not changed); gochujang/Worcestershire/sweet chili sauce allergens declared by hand. Chinese chicken & corn soup uses blended corn rather than cream-style corn to stay dairy-free honestly.
+
 ## PART 5 — CURRENT OPEN ITEMS (verify each against the repo before acting)
 
 > ⚠️ **This is the section most likely to be stale.** Check the repo and ask Ronnie

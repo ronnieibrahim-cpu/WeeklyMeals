@@ -232,7 +232,12 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
      the best-scoring sauce regardless of fit, putting a sauce on 431 of 601 plates
      (274 of them two sauces and no real side) — tahini on Thai curries, gremolata
      on chicken piccata. Now 82 and 21. `reroll.ts` applies the identical gate to a
-     KEPT sauce when the main is re-rolled out from under it. **Combined time
+     KEPT sauce when the main is re-rolled out from under it. **Side pairing
+     (M5.8):** a SIDE may also declare `pairsWith`; if it does, `sidePairsWithMain`
+     only places it beside mains of those cuisines (naan, tortillas, elote, bok
+     choy, cucumber salads, cornbread…). Sides without it stay universal (roasted
+     broccoli, sweet potatoes). Same gate for a kept side in re-roll. Before it,
+     street corn alone sat beside 98 non-Mexican/BBQ/American mains. **Combined time
      (M5.6):** prep is summed but cook is the MAXIMUM of main and side — sides cook
      alongside the main, they don't queue behind it. Summing cook time meant a
      45-minute main against a 45-minute budget rejected every side with any cook
