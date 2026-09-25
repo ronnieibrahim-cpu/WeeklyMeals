@@ -331,6 +331,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       olive oil"; karbonader's "▢" steps; golabki's unlisted tomato soup).
       7 dropped (hot and sour soup, mee goreng mamak, smørrebrød, liver
       pâté, wontons fried at 450°F, soufflés, kabse). 312 → 305.
+    - [x] Batch 10: 21 fixed, 1 kept (mutabbaq's "mincemeat" → ground beef;
+      lo mein's 10-second noodles; curry goat off the pressure cooker; chivito
+      sandwich uses store buns instead of overnight brioche — Sesame leaves
+      with the bun topping; dumpling stew lists its Worcestershire (Fish)).
+      8 dropped (torta de fiambre, Olivier salad, ham croquetas, asado,
+      pepperpot, sushi, mulukhiyah, fermented-soybean fish). 305 → 297.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
