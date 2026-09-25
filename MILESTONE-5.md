@@ -325,6 +325,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       cooked; omelette scaled from one to four). 7 dropped (smoked meat's
       4-day cure, jiggs dinner, locro, meang nem, bolita di keshi, roti john,
       carrot soup). 319 → 312.
+    - [x] Batch 9: 22 fixed, 1 kept (waterzooi never added its potatoes and
+      had a blog promo as a step; asado's potatoes/carrots unlisted;
+      caldereta needed a pressure cooker and liver spread; fatteh's "2 cups
+      olive oil"; karbonader's "▢" steps; golabki's unlisted tomato soup).
+      7 dropped (hot and sour soup, mee goreng mamak, smørrebrød, liver
+      pâté, wontons fried at 450°F, soufflés, kabse). 312 → 305.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
