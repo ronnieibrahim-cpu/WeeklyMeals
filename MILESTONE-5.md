@@ -268,7 +268,7 @@ validate, all seven harnesses pass, import regeneration byte-identical.
   contradicted by any ingredient (optional included) or declared allergen. It
   caught 3: minestrone + mujadara (garnish moved to a tip, Dairy allergen dropped
   with the ingredient), bolognese (kept the parmesan, lost its `dairy-free` tag).
-- [ ] 3. Imported recipe cleanup — Ronnie (2026-09-24): lenient triage (fix
+- [x] 3. Imported recipe cleanup — Ronnie (2026-09-24): lenient triage (fix
   what we can, drop only what's broken), refill dropped slots from the next
   candidates, ship to the live branch.
   - [x] 3a. British → US ingredient names + step wording (467 ingredient names
@@ -277,7 +277,9 @@ validate, all seven harnesses pass, import regeneration byte-identical.
   - [x] 3b. Unit spellings: 168 import quantities fixed (122 "tblsp"/"tbls"
     read as pieces → tbsp; splash/knob → tbsp; handfuls → cup; 26 garnish
     herbs pinch → 1 bunch). No other field changed. Unit groups 217 → 202.
-  - [ ] 3c. Triage batches of ~30 (keep / fix / drop; refill dropped slots).
+  - [x] 3c. Triage batches of ~30 (keep / fix / drop). **Done: all 356
+    reviewed — 277 fixed, 8 kept as is, 71 dropped (no refill); 285 live.**
+    Test enforces every live import is fixed or kept.
     Mechanism: `src/data/import/importOverrides.ts` (fixes patch raw text
     before inference; drops retire the id but keep it resolvable). The frozen
     fixture holds exactly 356 meals, all in use — no spare candidates to
@@ -343,6 +345,16 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       list; margherita doubled from one small pizza; slow-cooker tacos moved
       to the oven). 6 dropped (prahok dip, balchi di pisca, napa cabbage,
       callaloo, saltfish and ackee, IP rice and beans). 297 → 291.
+    - [x] Batch 12 (last 26, all cut off by the 14-step cap): 20 rewritten
+      whole (photo captions, blog asides, "rate this recipe" lines removed;
+      slow-cooker/pressure-cooker recipes moved to oven/stovetop). 6 dropped
+      (satee, naem khao, raspeballer, kelem dolmasi, Liège meatballs,
+      paszteciki). 291 → 285.
+    - Net label changes (advisor to review): Gluten +27, Eggs +2, Dairy +1,
+      Fish +1; removed only where the ingredient left — Eggs ×4 ("Egg
+      Plants" spelling), Sesame ×2 (steak-variant seeds; homemade-bun
+      topping), Gluten ×1 (Irish stew's optional wheat berries). Known
+      over-label kept: "veggie hotpot" reads Eggs from its name ("veggie").
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes

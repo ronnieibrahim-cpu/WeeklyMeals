@@ -686,6 +686,12 @@ history, all shipped and deployed:
   are never reused. The fixture holds exactly 356 meals, all used, so there
   is no spare candidate to refill a dropped slot (decision 45: no refill;
   hand-written recipes replace the lost variety later).
+  Triage is complete (M5.8 3c): all 356 reviewed — 277 fixed, 8 kept
+  (`IMPORT_KEPT`), 71 dropped; 285 live. A test fails if any live import is
+  neither fixed nor kept, so a fixture refresh forces a review. Note that
+  `splitSteps` in normalize.ts keeps at most 14 lines: every live import that
+  hit the cap now carries a full rewrite, but a refreshed fixture would need
+  the same check.
 - Every push to `claude/weekly-meals-app-eyowlr` deploys the web build.
 - Keep changes small and grouped by task; isolate anything touching the plan lifecycle,
   allergy filtering, sync, or seed data.

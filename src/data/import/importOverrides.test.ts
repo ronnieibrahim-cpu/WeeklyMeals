@@ -55,6 +55,11 @@ describe('importOverrides — every entry matches the generated corpus', () => {
     }
   });
 
+  it('every live import was triaged: fixed or kept, never both (M5.8 3c)', () => {
+    const untriaged = recipeImported.map((r) => r.id).filter((id) => !IMPORT_FIXES[id] && !IMPORT_KEPT[id]);
+    expect(untriaged).toEqual([]);
+  });
+
   it('every fix targets a live import and has a reason', () => {
     for (const [id, fix] of Object.entries(IMPORT_FIXES)) {
       expect(liveIds.has(id)).toBe(true);

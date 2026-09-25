@@ -6124,8 +6124,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 50,
+    "cookMinutes": 55,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -6236,20 +6236,12 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Make the Pastry Dough",
-      "To a large bowl, add flour, 1 teaspoon salt, and turmeric and mix thoroughly.",
-      "Rub shortening into flour until there are small pieces of shortening completely covered with flour.",
-      "Pour in 1/2 cup of the ice water and mix with your hands to bring the dough together. Keep adding ice water 2 to 3 tablespoons at a time until the mixture forms a dough.",
-      "At this stage, you can cut the dough into 2 large pieces, wrap in plastic and refrigerate for 30 minutes before using it.",
-      "Alternatively, cut the dough into 10 to 12 equal pieces, place on a platter or baking sheet, cover securely with plastic wrap and let chill for 30 minutes while you make the filling.",
-      "Make the Filling",
-      "Add ground beef to a large bowl. Sprinkle in allspice and black pepper. Mix together and set aside.",
-      "Heat oil in a skillet until hot.",
-      "Add onions and sauté until translucent. Add hot pepper, garlic and thyme and continue to sauté for another minute. Add 1/4 teaspoon salt.",
-      "Add seasoned ground beef and toss to mix, breaking up any clumps, and let cook until the meat is no longer pink.",
-      "Add ketchup and more salt to taste.",
-      "Pour in 2 cups of water and stir. Bring the mixture to a boil then reduce heat and let simmer until most of the liquid has evaporated and whatever is remaining has reduced to a thick sauce.",
-      "Fold in green onions. Remove from heat and let cool completely."
+      "Mix the flour, 1 tsp salt and the curry powder. Rub in the cold butter until pea-size, then mix in 1/2 cup ice water, adding more a spoonful at a time until it forms a dough. Divide into 12, cover and chill 30 minutes.",
+      "Season the beef with the allspice and black pepper.",
+      "Heat the oil in a skillet and fry the onions until translucent. Add the pepper, garlic, thyme and 1/4 tsp salt for 1 minute.",
+      "Add the beef, break it up and cook until no pink remains. Stir in the ketchup and 2 cups water and simmer until reduced to a thick sauce. Stir in the second onion, finely chopped, and cool.",
+      "Heat the oven to 375°F. Roll each piece of dough into a 6-inch circle, fill one half, fold over and crimp with a fork.",
+      "Brush with the egg beaten with 1 tbsp water and bake 25–30 minutes, until golden."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -7640,7 +7632,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -7650,18 +7643,17 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "fry",
       "stir-fry",
-      "simmer",
-      "steam"
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 15,
+    "cookMinutes": 10,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 36,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -7744,23 +7736,20 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Marinate the beef:",
-      "Stir together the beef marinade ingredients (1 teaspoon soy sauce, 1 teaspoon Chinese rice wine, 1/2 teaspoon cornstarch, 1/8 teaspoon black pepper) in a medium bowl.",
-      "Add the beef slices and stir until coated. Let stand for 10 minutes.",
-      "Prepare the sauce:",
-      "Stir together the sauce ingredients (2 tablespoons oyster sauce, 1 teaspoon Chinese rice wine, 1 teaspoon soy sauce, 1/4 cup chicken broth) in a small bowl. Set aside.",
-      "Blanch or steam the broccoli:",
-      "Bring a pot of water to a boil. Add the broccoli and cook until crisp-tender, about 2 minutes. Drain thoroughly.",
-      "Stir-fry the beef:",
-      "Heat a large frying pan or wok over high heat until a bead of water sizzles and instantly evaporates upon contact. Add the cooking oil and swirl to coat.",
-      "Add the beef and immediately spread it out all over the surface of the wok or pan in a single layer (preferably not touching).",
-      "Let the beef fry undisturbed for 1 minute. Flip the beef slices over, add the garlic to the pan, and fry for an additional 30 seconds to 1 minute until no longer pink.",
-      "Add the sauce, cornstarch, and broccoli:",
-      "Pour in the sauce and the cornstarch slurry (1 teaspoon cornstarch dissolved in 1 tablespoon of water). Stir until the sauce boils and thickens, about 30 seconds. Stir in the broccoli.",
-      "Serve immediately, with steamed rice or on its own."
+      "Cook the rice. Stir together 1 tsp soy sauce, 1 tsp sherry, 1/2 tsp cornstarch and the pepper, add the thinly sliced beef and let stand 10 minutes.",
+      "Mix the oyster sauce, 1 tsp sherry, 1 tbsp soy sauce and the broth for the sauce.",
+      "Boil the broccoli florets 2 minutes until crisp-tender and drain well.",
+      "Heat a wok over high heat, add the oil, spread the beef in one layer and fry undisturbed 1 minute. Flip, add the garlic and fry 30–60 seconds until no longer pink.",
+      "Add the sauce and the remaining 1 tsp cornstarch mixed with 1 tbsp water and stir until it boils and thickens, about 30 seconds. Stir in the broccoli and serve with rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -8237,10 +8226,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 20,
+    "cookMinutes": 25,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -8350,7 +8339,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "scallions",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "piece",
         "department": "Produce"
       },
@@ -8362,26 +8351,18 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 1,
-        "unit": "pinch",
+        "quantity": 1.5,
+        "unit": "cup",
         "department": "DryGoods"
       }
     ],
     "steps": [
-      "Make the orange sauce:",
-      "Whisk together sauce ingredients in a medium bowl. Set aside.",
-      "Prep the chicken:",
-      "Cut chicken into about 1-inch cubes. Whisk eggs with salt and black pepper in a bowl and add chicken. Stir together.",
-      "In a separate bowl, whisk together flour and cornstarch. Remove chicken from eggs with a slotted spoon or tongs, letting excess egg drain off, then transfer to cornstarch mixture and coat well.",
-      "Fry the chicken:",
-      "Add oil to a large 10- to 12-inch skillet. Heat over medium-high heat until it reaches 350°F. If you don’t have a thermometer, you can also test the temperature by sprinkling in some flour. If the oil is hot enough, it should fizzle immediately.",
-      "Once oil is hot, fry the chicken in two batches. The oil might not completely cover the chicken—that’s okay. Cook for 3 to 4 minutes. Flip the chicken pieces and cook until the chicken is cooked through, about 3 to 4 more minutes. Total cook time is about 6 to 8 minutes.",
-      "Remove fried chicken cubes and transfer to a plate lined with paper towels, so the chicken can drain. Repeat until all the chicken is cooked.",
-      "Simmer the chicken in the sauce:",
-      "Once chicken is done, pour out hot oil and wipe pan clean. Add a fresh tablespoon of oil along with chopped garlic and shallot. Cook for a minute and then add the sauce. Simmer the sauce until it starts to thicken.",
-      "Once the sauce is lightly bubbling, add fried chicken and toss together to coat. The sauce should continue to thicken and stick to the chicken. Let simmer for a minute or two more. Serve orange chicken over cooked white rice, garnished with sesame seeds and fresh scallions.",
-      "Did you love this recipe? Let us know with a rating and review!",
-      "LEFTOVERS! The orange chicken keeps well in the fridge for 5 days. Reheat in a skillet with a splash of water over low heat. Freeze the orange chicken for up to 3 months, but be sure to thaw it before reheating so the chicken doesn’t clump together."
+      "Cook the rice. Whisk the orange zest, juice, soy sauce, water, rice vinegar, 1 tbsp cornstarch, sesame oil and sugar.",
+      "Cut the chicken into 1-inch cubes and toss with the eggs, salt and pepper.",
+      "Mix the flour with the 1/2 cup cornstarch. Lift the chicken from the egg and coat it well.",
+      "Heat the oil in a 12-inch skillet to 350°F and fry the chicken in two batches, 6–8 minutes total, turning once, until golden and 165°F. Drain.",
+      "Pour off the oil and wipe the pan. Heat 1 tbsp fresh oil, cook the garlic and shallot 1 minute, add the sauce and simmer until it thickens.",
+      "Toss in the chicken for 1–2 minutes and serve over rice with sesame seeds and scallions."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -8976,138 +8957,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53443",
-    "name": "Satee",
-    "cuisine": "Chinese",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "garlic",
-      "lemons"
-    ],
-    "techniques": [
-      "grill",
-      "fry"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "lemons",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "sugar",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "International"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "ground coriander",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Meat"
-      },
-      {
-        "name": "oil",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "beef",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "oil",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      }
-    ],
-    "steps": [
-      "To make the marinade for the satee put in the container of an electric blender:",
-      "1 large onion, coarsely chopped 2 cloves of garlic",
-      "Juice of 2 lemons",
-      "2Tbs. of sugar 1 cup of soy sauce",
-      "1 tsp. salt 1 tsp. ground coriander for beef (or chicken) or 1 tsp. ground ginger for pork",
-      "1 cup of oil",
-      "Blend thoroughly and pour over:",
-      "5 lbs. of beef or pork tenderloin, cubed",
-      "DO NOT marinate overnight, but only for a few hours.",
-      "Place the meat on: 36 skewers",
-      "Blend well:",
-      "1 cup of oil",
-      "2 Tbs. Soy sauce",
-      "Pour into a large shallow dish."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Soy"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/dqxtlh1780153831.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.visitaruba.com/aruba-recipes/satee/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52953",
     "name": "Shrimp Chow Fun",
     "cuisine": "Chinese",
@@ -9128,10 +8977,9 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "fry",
-      "stir-fry",
-      "simmer"
+      "stir-fry"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
     "cookMinutes": 15,
@@ -9145,19 +8993,19 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "rice stick noodles",
-        "quantity": 0.5,
-        "unit": "piece",
+        "quantity": 14,
+        "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "shrimp",
-        "quantity": 8,
-        "unit": "oz",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Seafood"
       },
       {
         "name": "egg",
-        "quantity": 0.5,
+        "quantity": 1,
         "unit": "piece",
         "department": "Dairy"
       },
@@ -9249,20 +9097,12 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "- SOAK THE RICE NOODLES",
-      "Soak the rice noodles overnight untill they are soft",
-      "- BOIL THE RICE NOODLES",
-      "Boil the noodles for 10-15 minutes and then rinse with cold water to stop the cooking process of the noodles.",
-      "-MARINATING THE SHRIMP",
-      "In a bowl add the shrimp, egg, 1 pinch of white pepper, 1 Teaspoon of sesame seed oil, 1 Tablespoon corn starch and 1 tablespoon of oil",
-      "Mix together well",
-      "- STIR FRY",
-      "In a wok add 2 Tablespoons of oil, shrimp and stir fry them until it is golden brown",
-      "Set the shrimp aside",
-      "Add 1 Tablespoon of oil to the work and then add minced garlic, ginger and all of the vegetables.",
-      "Add the noodles to the wok",
-      "Next add sherry cooking wine, oyster sauce, sugar, vinegar, sesame seed oil, 1 pinch white pepper, and soy sauce",
-      "Add back in the shrimp"
+      "Cook or soften the rice noodles according to the package, then rinse with cold water.",
+      "Toss the shrimp with the egg, a pinch of white pepper, 1 tsp sesame oil, 1 tbsp cornstarch and 1 tbsp oil.",
+      "Heat 2 tbsp oil in a wok and stir-fry the shrimp until pink and opaque. Set aside.",
+      "Add 1 tbsp oil, the garlic, ginger, onion, bean sprouts and green onions and stir-fry 1–2 minutes.",
+      "Add the noodles, cooking wine, oyster sauce, sugar, vinegar, remaining sesame oil, white pepper and soy sauce and toss until coated and hot.",
+      "Return the shrimp, toss and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -9430,7 +9270,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -9446,24 +9287,18 @@ export const recipeImported: Recipe[] = [
       "stir-fry",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
     "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 38,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
-      {
-        "name": "egg plants",
-        "quantity": 1.5,
-        "unit": "lb",
-        "department": "Dairy"
-      },
       {
         "name": "peanut oil",
         "quantity": 2,
@@ -9532,32 +9367,35 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cilantro",
-        "quantity": 1,
-        "unit": "bunch",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "eggplant",
+        "quantity": 1.5,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "This recipe calls for asian eggplants, or Japanese eggplants. They are long and thin compared to a European or globe eggplant, and much more tender and delicate. If you can't find them you can substitute globe eggplant, but the dish is really best with the asian eggplant.",
-      "*A lot of grocery stores have Asian ingredient aisles now. You should be able to find chili-bean paste, a mixture of preserved chilies mixed with mashed soybeans, there or at any Asian market. (Do not confuse with black bean paste or chili-garlic paste.)",
-      "**Sichuan peppercorns are available at some stores and online for quite cheap. They aren't spicy like other peppers but rather have a citrusy flavor and induce a tingly, numbing sensation like a carbonated drink.",
-      "Prep eggplant, chili sauce, cornstarch slurry, vinegar and scallions:",
-      "Begin your mise en place. Quarter the eggplant lengthwise and chop into large batons and set aside.",
-      "In a small bowl, mix together the chicken broth, sugar, and soy sauce and set it aside.",
-      "In a second bowl, mix together the chili bean paste, garlic, ginger, and sichuan peppercorns and set it aside.",
-      "In a third bowl, mix together the cornstarch with a tablespoon of water and set it aside.",
-      "Lastly, in a fourth bowl, mix together the scallions and vinegar and set it aside.",
-      "Sauté eggplant:",
-      "Place the oil in a wok or large sauté pan over medium-high heat until the oil is almost smoking. Add the eggplant and sauté, allowing it to sit for a few seconds each time you move it to allow it to brown and blister. If the eggplant absorbs all the oil and some pieces don't get any then add a little more oil.",
-      "Add the chili bean paste, garlic, ginger, and sichuan peppercorns and sauté:",
-      "until fragrant, about 30 seconds.",
-      "Add the chicken broth mixture:"
+      "Cook the rice. Quarter the eggplants lengthwise and cut into batons.",
+      "Mix the broth, sugar and soy sauce in one bowl; the chili bean paste, garlic, ginger and ground Sichuan pepper in a second; the cornstarch with 1 tbsp water in a third; and the scallions with the vinegar in a fourth.",
+      "Heat the oil in a wok over medium-high heat until almost smoking. Add the eggplant and sauté, letting it sit between stirs to blister, until soft, 6–8 minutes.",
+      "Add the chili bean paste mixture and stir 30 seconds until fragrant.",
+      "Add the broth mixture and simmer 2 minutes, then stir in the cornstarch slurry until glossy.",
+      "Toss in the scallions and vinegar, sprinkle with cilantro and serve with rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
       "Gluten",
-      "Eggs",
       "Soy",
       "Peanuts"
     ],
@@ -9592,15 +9430,14 @@ export const recipeImported: Recipe[] = [
       "cilantro"
     ],
     "techniques": [
-      "bake",
       "fry",
       "stir-fry",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 20,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -9641,7 +9478,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "ground ginger",
-        "quantity": 2,
+        "quantity": 1,
         "unit": "tbsp",
         "department": "Meat"
       },
@@ -9717,23 +9554,22 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "For the sweet onion, look for Vidalia, OSO Sweet, or Walla Walla. The super-sweet varieties are more suited to this stir-fry because at the end of cooking, the onion still has a slight crunch.",
-      "Make the sauce:",
-      "In a bowl, combine the sesame oil, soy sauce, and rice vinegar.",
-      "Cook the rice noodles:",
-      "Bring a large saucepan of water to a boil, add the noodles, and use tongs to turn them so they are submerged. Cook for 2 minutes, or until they are tender but still have some bite (they will cook a little more once you add them to the skillet).",
-      "Drain, rinse with cold water, and use scissors to snip the noodles several times to break them up into shorter lengths.",
-      "Scramble the eggs:",
-      "In a small bowl whisk together the eggs. Heat the skillet or Dutch oven over medium heat. Add 1 tablespoon of the peanut or canola oil. Add the eggs and scramble them for 2 minutes, or until they form large, soft curds. Transfer them from the pan to a plate or bowl.",
-      "Cook the vegetables:",
-      "Add 1 tablespoon of the remaining oil to the pan. When it is hot, add the ginger, garlic, carrots, jalapeño, onion, and salt. Cook, stirring constantly, for 2 minutes or until the vegetables start to soften.",
-      "Add the remaining ingredients:",
-      "Sprinkle the vegetable mixture with the remaining 1 tablespoon peanut or canola oil. When the oil is hot, add the ham, cabbage, scallions, red pepper, and curry powder to the pan. Cook, stirring constantly, for 1 minute.",
-      "Add the shrimp and cook, stirring, for 3 more minutes or until the shrimp are bright pink and cooked through.",
-      "Add the noodles in batches:"
+      "Mix the sesame oil, soy sauce and rice vinegar.",
+      "Boil the noodles 2 minutes until just tender, rinse with cold water and snip into shorter lengths.",
+      "Heat 1 tbsp oil in a large skillet and scramble the beaten eggs 2 minutes into soft curds. Set aside.",
+      "Add 1 tbsp oil, then the ginger, garlic, carrots, jalapeño, onion and salt and stir-fry 2 minutes.",
+      "Add the last 1 tbsp oil, the ham, cabbage, scallions, red pepper and curry powder for 1 minute, then the shrimp for 3 minutes, until pink.",
+      "Add the noodles, eggs and sauce, toss until evenly coated and hot, and sprinkle with cilantro."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -9762,7 +9598,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -9774,18 +9611,17 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "fry",
       "stir-fry",
-      "simmer",
-      "steam"
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 20,
     "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 38,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -9868,23 +9704,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tsp",
         "department": "Produce"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Coat the chicken with egg white:",
-      "In a bowl, combine the chicken with the egg white, 1/2 teaspoon kosher salt, and cornstarch. Stir to coat the chicken evenly. Let sit for 15 minutes at room temperature or up to overnight in the refrigerator.",
-      "Make the sweet and sour sauce:",
-      "Whisk together the pineapple juice, vinegar, ketchup, 1/2 teaspoon kosher salt, and brown sugar.",
-      "Stir-fry the chicken over high heat:",
-      "Heat a large frying pan or wok over high heat until a bead of water instantly sizzles and evaporates. Pour in 1 tablespoon of cooking oil and swirl to coat. It's important that the pan is very hot.",
-      "Add the chicken and spread the pieces out in one layer. Let the chicken fry untouched for 1 minute, until the bottoms are browned.",
-      "Flip and fry the other side for 1 minute. The chicken should still be pinkish in the middle. Dish out the chicken onto a clean plate, leaving as much oil in the pan as possible.",
-      "Stir-fry the bell pepper and ginger:",
-      "Reduce the heat to medium and add the remaining 1 teaspoon of cooking oil. Let the oil heat up before adding the bell pepper chunks and ginger. Fry for 1 minute.",
-      "Add the pineapple, sauce, and then, the chicken:",
-      "Add the pineapple chunks and the sweet and sour sauce. Turn up the heat to high. When the sauce is simmering, add the chicken pieces back in.",
-      "Let simmer for 1 to 2 minutes, until the chicken is cooked through. Timing depends on how thick you've cut your chicken. The best way to tell if the chicken is done is to take a piece out and cut into it. If it's pink, add another minute to the cooking.",
-      "Adjust the seasoning and serve:"
+      "Cook the rice. Toss the chicken pieces with the egg white, 1/2 tsp salt and the cornstarch; rest 15 minutes.",
+      "Whisk the pineapple juice, vinegar, ketchup, the other 1/2 tsp salt and brown sugar.",
+      "Heat a wok over high heat, add 1 tbsp oil and fry the chicken in one layer 1 minute, then flip and fry 1 minute more. Set aside.",
+      "Lower to medium, add the remaining oil and stir-fry the peppers and ginger 1 minute.",
+      "Add the pineapple and sauce, raise the heat, and when it simmers return the chicken. Simmer 2–3 minutes, until the chicken reads 165°F.",
+      "Taste for seasoning and serve over rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -12838,7 +12672,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
@@ -12850,17 +12685,17 @@ export const recipeImported: Recipe[] = [
       "lime"
     ],
     "techniques": [
-      "simmer"
+      "fry"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 20,
+    "cookMinutes": 45,
     "baseServings": 6,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 34,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -12937,23 +12772,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "piece",
         "department": "Produce"
+      },
+      {
+        "name": "basmati rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
       }
     ],
     "steps": [
-      "If you are using rohu fish it will usually be frozen. Soak it in cold water for 30-45 minutes to defrost and while still a little firm, descale and cut each steak into quarters and wash in cold saltwater a few times. Drain and set aside. If using an alternative such as cod, cut into 2 ½ inch chunks then rinse, drain and set aside",
-      "2",
-      "Top and tail the daikon and peel using a potato peeler. Cut in half widthways then cut each half down the middle, lengthways. Now slice into 2cm-thick half-moon pieces. Rinse and set aside",
-      "3",
-      "Place a large, shallow saucepan over a medium heat and add the oil. When the oil is hot add the crushed garlic and stir for a minute until pale golden",
-      "4",
-      "Add the onion paste and salt and cook for 3-5 minutes, until the onion softens and becomes translucent, stirring occasionally",
-      "5",
-      "Pour in 200ml of water then cover and cook for 10 minutes, stirring once or twice",
-      "6",
-      "After 10 minutes add the ground spices and stir for a couple of minutes so that the spices cook through. Cover and cook for 5 minutes over a low heat then stir in the daikon. After a minute or so add 200ml of water. Cover and cook for 10 minutes on a medium heat",
-      "7",
-      "Add the fish pieces to the pan and mix thoroughly so that the fish is coated in the spices. Gently shake the pan and cover and cook for 5 minutes on medium heat. It is very important not to stir the pot after this stage",
-      "8"
+      "Cut the fish into 2 1/2-inch chunks. Peel the daikon, quarter it lengthwise and slice into 3/4-inch pieces. Blend the onion to a paste. Cook the rice.",
+      "Heat the oil in a large shallow pan over medium heat and fry the crushed garlic 1 minute until pale golden.",
+      "Add the onion paste and salt and cook 3–5 minutes until soft. Add 3/4 cup water, cover and cook 10 minutes.",
+      "Stir in the turmeric, coriander and chili powder for 2 minutes, cover and cook 5 minutes on low, then add the daikon and another 3/4 cup water. Cover and cook 10 minutes.",
+      "Add the fish and slit green chiles, coat gently, cover and cook 5–7 minutes without stirring, until the fish flakes.",
+      "Scatter with cilantro and serve with lime wedges and rice."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -13267,6 +13100,160 @@ export const recipeImported: Recipe[] = [
     "image": "https://www.themealdb.com/images/media/meals/9ya6o71780262651.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.allrecipes.com/recipe/215055/bengali-chicken-curry-with-potatoes/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53459",
+    "name": "Chicken and Potato Roti",
+    "cuisine": "Indian",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [
+      "parsley",
+      "onion",
+      "garlic",
+      "potatoes"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Hot",
+    "prepMinutes": 30,
+    "cookMinutes": 65,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 38,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "shortening",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "chicken breast",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "thyme",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "jerk",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 4,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "scotch bonnet",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "chicken broth",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "curry powder",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Spices"
+      }
+    ],
+    "steps": [
+      "Heat the sugar in a large pot over high heat until it caramelizes, then add the cubed chicken and stir until browned.",
+      "Add the chopped onions, garlic, parsley, thyme, jerk seasoning, curry powder, salt, pepper, the whole (uncut) scotch bonnet and the broth. Simmer on low 25 minutes.",
+      "Meanwhile, make the roti: rub the shortening into the flour and salt until like breadcrumbs, then mix in water a little at a time to a soft dough. Roll into 8 thin rounds and cover with a towel.",
+      "Add the cubed potatoes and 1 cup water to the chicken, cover and cook 30 minutes, until the potatoes are soft and the chicken reads 165°F. Remove the scotch bonnet.",
+      "Cook each roti on a hot dry griddle 1 minute per side, until spotted brown but still soft.",
+      "Spoon the chicken and potato curry onto the roti and fold up to serve."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/mp9z0i1782238092.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.totallybarbados.com/articles/barbados-recipes/chicken-potato-roti-recipe/",
     "estimated": true
   },
   {
@@ -13734,151 +13721,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53449",
-    "name": "Kelem dolmasi",
-    "cuisine": "Indian",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Lamb",
-    "vegetables": [
-      "cabbage",
-      "onion",
-      "cilantro",
-      "chickpeas"
-    ],
-    "techniques": [
-      "bake",
-      "simmer",
-      "steam"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "ground lamb",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "cabbage",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 8,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "turmeric",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "cinnamon",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "dill",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "rice",
-        "quantity": 2,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "chickpeas",
-        "quantity": 2,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "lamb fat",
-        "quantity": 3,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "First boil the rice for eight minutes. Meanwhile, peel and finely chop the onion. Then chop the herbs.",
-      "The recipe didn't really say what to do with the chickpeas (also known of course as garbanzo beans), beyond soaking them overnight and rinsing them. I used canned chickpeas, since I've never actually seen them dried. I decided to chop/mash them slightly so they would better incorporate into the filling.",
-      "Chickpeas (or garbanzo beans) roughly chopped",
-      "Now mince the lamb (I used my mini food processor). Here's where I ran into another problem: what to do with the lamb fat this recipe calls for? Mince it? Melt it? Does lamb fat even melt? I decided to mince mine. Thankfully, my husband doesn't actually read this blog because he'd be horrified if he knew I put fat in the dolma on purpose.",
-      "Minced lamb and its good friend, minced fat. Ew.",
-      "The ingredients for the dolma stuffing include onion, cilantro, chickpeas and turmeric.",
-      "Anyway, now get your hands into all that slimy raw meat and mix in the onion, spices, chickpeas, rice, chopped herbs and fat. Add a little salt and pepper for good measure. In fact, based on my results I would say to err on the side of a little extra salt and pepper.",
-      "Mix well with your hands until the stuffing looks something like this.",
-      "Fill the biggest saucepan you own with salted water and bring it to a boil over high heat. Now pull the outer leaves off of the cabbage (save them) and drop the rest of it, whole, into the water. Let it boil for three or four minutes, turning it if the water level isn't quite high enough to completely cover it.",
-      "The reason you are doing this is because it's difficult to get whole cabbage leaves off of an American cabbage. The cabbages you typically buy in our supermarkets come in very tight round balls, and because the leaves are crispy they will snap and crack when you try to pull them off in an un-blanched state. Blanching them for a few minutes makes it so they will come right off without tearing.",
-      "Now carefully take the cabbage out of the water (but keep the water boiling) and let it cool for a minute or two so you don't burn your fingers. Carefully pull the leaves off the cabbage, cutting them at the base if you have to do so to loosen them. Try to get them off in one piece. If the inner leaves are still crispy, return the cabbage to the boiling water for another three or four minutes. Repeat until all of the useable leaves are free.",
-      "Blanched cabbage leaves",
-      "Now put the leaves on a cutting board and cut out the tough stalks (save them). Cut the largest leaves in half.",
-      "Remove the tough inner stalk and set aside. Cut larger leaves in two."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/7vdtqi1780160088.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://travelbystove.blogspot.com/2012/01/recipes-from-azerbaijani.html",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52868",
     "name": "Kidney Bean Curry",
     "cuisine": "Indian",
@@ -14018,6 +13860,7 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
+      "vegetable",
       "starch"
     ],
     "primaryProtein": "Lamb",
@@ -14026,23 +13869,23 @@ export const recipeImported: Recipe[] = [
       "ginger garlic paste",
       "garlic",
       "mint",
-      "cilantro"
+      "cilantro",
+      "tomatoes"
     ],
     "techniques": [
-      "bake",
       "fry",
       "simmer"
     ],
     "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 30,
+    "cookMinutes": 100,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
+      "calories": 580,
       "protein": 34,
       "carbs": 48,
-      "fat": 18
+      "fat": 30
     },
     "ingredients": [
       {
@@ -14083,14 +13926,14 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "mint",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Produce"
       },
       {
         "name": "cilantro",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Produce"
       },
       {
@@ -14164,23 +14007,47 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tbsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green chile",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "milk",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Grind the cashew, poppy seeds and cumin seeds into a smooth paste, using as little water as possible. Set aside.",
-      "Deep fry the sliced onions when it is hot. Don’t overcrowd the oil. When the onions turn light brown, remove from oil and drain on paper towel. The fried onion will crisp up as it drains. Also fry the cashewnuts till golden brown. Set aside.",
-      "Wash the rice and soak in water for twenty minutes.",
-      "Meanwhile, take a big wide pan, add oil in medium heat, add the sliced onions, add the blended paste, to it add the green chiles, ginger garlic paste and garlic and fry for a minute.",
-      "Then add the tomatoes and sauté them well till they are cooked and not mushy.",
-      "Then to it add the red chili powder, biryani powder, mint, cilantro and sauté them well.",
-      "Add the yogurt and mix well. I always move the skillet away from the heat when adding yogurt which prevents it from curdling.",
-      "Now after returning the skillet back to the stove, add the washed lamb and salt and ½ cup water and mix well. Cook for 1 hour and cook it covered in medium low heat or put it in a pressure cooker for 6 whistles. If the water is not drained totally, heat it by keeping it open.",
-      "Take another big pan, add thrice the cup of rice you use, and boil it. When it is boiling high, add the rice, salt and jeera and mix well. After 7 minutes exact or when the rice is 80% done. Switch off and drain the rice.",
-      "Now, the layering starts. To the lamb, pat and level it. Add the drained hot rice on the top of it. Garnish with fried onions, ghee, mint, cilantro and saffron dissolved in milk.",
-      "Cover the dish and bake in a 350f oven for 15 minutes or till the cooked but not mushy. Or cook in the stove medium heat for 12 minutes and lowest heat for 5 minutes. And switch off. Mix and serve hot!",
-      "Notes",
-      "If you are cooking in oven, do make sure to cook in a big oven safe pan and cover it tight and then keep in oven for the final step.",
-      "You can skip biryani masala if you don’t have and add just garam masala (1 tsp and red chili powder – 3 tsp instead of 1 tsp)"
+      "Grind the cashews, poppy seeds and 1/2 tbsp cumin seeds to a smooth paste with a little water.",
+      "Deep-fry two of the sliced onions in the oil until golden and crisp. Drain on paper towels. Soak the rice 20 minutes. Warm the milk and stir in the saffron.",
+      "Heat 2 tbsp of the onion oil in a wide pot. Fry the third sliced onion, the cashew paste, slit green chiles, ginger-garlic paste and garlic 1 minute. Add the chopped tomatoes and cook until soft.",
+      "Add the chili powder, biryani masala and half the mint and cilantro. Take off the heat, stir in the yogurt, then return to the heat with the lamb, 1 tsp salt and 1/2 cup water. Cover and cook on medium-low 1 hour, until tender.",
+      "Boil the rice in plenty of water with 1 tsp salt, the 1 tbsp cumin seeds and whole spices 7 minutes, until 80% done. Drain.",
+      "Level the lamb, layer the rice over it and top with fried onions, ghee, the rest of the herbs and the saffron milk. Cover tightly and cook on low 15 minutes. Mix gently and serve."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -14757,26 +14624,28 @@ export const recipeImported: Recipe[] = [
       "HighProtein"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Fish",
     "vegetables": [
       "red chile",
       "ginger",
-      "garlic"
+      "garlic",
+      "lime"
     ],
     "techniques": [
       "fry"
     ],
     "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 85,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 34,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -14826,7 +14695,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "cinnamon stick",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "piece",
         "department": "Spices"
       },
       {
@@ -14849,8 +14718,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "tamarind ball",
-        "quantity": 2,
-        "unit": "piece",
+        "quantity": 1,
+        "unit": "tbsp",
         "department": "DryGoods"
       },
       {
@@ -14861,27 +14730,37 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "oil",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "Soak all the spices, ginger, garlic, tamarind pulp and kashmiri chilies except oil in vinegar.",
-      "Add sugar and salt.",
-      "Also add turmeric powder.",
-      "Combine all nicely and marinate for 35-40 mins.",
-      "Grind the mixture until soft and smooth. Add more vinegar if required but ensure the paste has to be thick so add vinegar accordingly. If the masala paste is thin then it would not stick to the fish.",
-      "Rinse the fish slit from the center and give some incision from the top. You could see the fish below for clarity.",
-      "Now stuff the paste into the center and into the incision. Coat the entire fish with this paste. Marinate the fish for 30 mins.",
-      "Place oil in a shallow pan, once oil is quite hot shallow fry the stuffed mackerels.",
-      "Fry until golden brown from both sides",
-      "Serve the recheado mackerels hot with salad, lime wedges, rice and curry.",
-      "Notes",
-      "Ensure the masala paste is thick else the result won't be good.",
-      "If you aren't able to find kashmiri chilies then use bedgi chilies or kashmiri red chili powder.",
-      "You could use white vinegar or coconut vinegar."
+      "Soak the chiles, ginger, garlic, pepper, cumin, cinnamon, cloves, cardamom and tamarind in the vinegar with the sugar, salt and turmeric for 35–40 minutes.",
+      "Grind to a thick, smooth paste, adding only as much extra vinegar as needed.",
+      "Slit each mackerel down the belly, clean it and cut a few slashes on each side. Stuff and coat with the paste and marinate 30 minutes. Meanwhile, cook the rice.",
+      "Heat the oil in a shallow pan and fry the fish over medium heat until golden on both sides and the flesh flakes at the thickest part, about 5–6 minutes per side.",
+      "Serve hot with rice and lime wedges."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -14923,10 +14802,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 35,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -14950,7 +14829,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "chicken",
-        "quantity": 5,
+        "quantity": 4,
         "unit": "piece",
         "department": "Meat"
       },
@@ -15050,26 +14929,17 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "parsley",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "Produce"
       }
     ],
     "steps": [
-      "Heat 1 tablespoon of butter and 2 tablespoons of olive oil in a large skillet over medium-high heat.",
-      "Season both sides of each chicken breast with seasoned salt and a pinch of pepper.",
-      "Add the chicken to the skillet and cook for 5-7 minutes on each side, or until cooked through.",
-      "While the chicken is cooking, bring a large pot of water to a boil.",
-      "Season the boiling water with a few generous pinches of kosher salt.",
-      "Add the pasta and give it a stir.",
-      "Cook, stirring occasionally, until al dente, about 12 minutes.",
-      "Reserve 1/2 cup of pasta water before draining the pasta.",
-      "Remove the chicken from the pan and transfer it to a cutting board; allow it to rest.",
-      "Turn the heat down to medium and dd the remaining 1 tablespoon of butter and olive oil to the same pan you used to cook the chicken.",
-      "Add the veggies (minus the garlic) and red pepper flakes to the pan and stir to coat with the oil and butter (refrain from seasoning with salt until the veggies are finished browning).",
-      "Cook, stirring often, until the veggies are tender, about 5 minutes.",
-      "Add the garlic and a generous pinch of salt and pepper to the pan and cook for 1 minute.",
-      "Deglaze the pan with the white wine."
+      "Heat 1 tbsp butter and 2 tbsp oil in a large skillet over medium-high heat. Season the chicken and cook 5–7 minutes per side, until 165°F. Rest on a board.",
+      "Meanwhile, cook the bowtie pasta in salted boiling water until al dente, keeping 1/2 cup of the water.",
+      "Add the remaining butter and oil to the skillet over medium heat and cook the squash, broccoli, mushrooms, pepper, onion and pepper flakes about 5 minutes until tender. Add the garlic, salt and pepper for 1 minute.",
+      "Add the wine and simmer until mostly reduced, then the milk and cream. Simmer 2–3 minutes and stir in the parmesan until smooth.",
+      "Toss in the pasta, loosening with pasta water. Slice the chicken, lay it on top and sprinkle with parsley."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -17386,14 +17256,13 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "bake",
-      "roast",
       "fry",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Mild",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 75,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -17447,7 +17316,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "parsley",
         "quantity": 1,
-        "unit": "tsp",
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
@@ -17472,27 +17341,18 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "olive oil",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
       }
     ],
     "steps": [
-      "1",
-      "Prepare the dish",
-      "Fry the leeks in a small dash of olive oil for a few minutes until they start to brown.",
-      "2",
-      "Prepare the Dish",
-      "Add the roasted red peppers, garlic, stock, herbs, salt, pepper and paprika. Give it a good stir, add the rice and stir again.",
-      "3",
-      "Leave it to come to the boil. Leave to simmer for 2 minutes.",
-      "4",
-      "Pour the mixture into a baking tray with a depth of 2 inches or more. Mix thoroughly and ensure equally levelled out.",
-      "5",
-      "Cooking",
-      "Place on the bottom self of a preheated oven at 180 degrees. Leave to bake for 1 hour.",
-      "6"
+      "Heat the oven to 350°F. Fry the sliced leeks in the oil a few minutes until they start to brown. Add the diced peppers and cook 5 minutes more.",
+      "Add the garlic, broth, herbs, salt, pepper and paprika, stir, then stir in the rice.",
+      "Bring to a boil and simmer 2 minutes.",
+      "Pour into a baking dish at least 2 inches deep and level it out.",
+      "Bake on the bottom rack about 1 hour, until the liquid is absorbed and the rice is tender."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -19944,8 +19804,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 20,
+    "cookMinutes": 90,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -20017,8 +19877,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "thyme",
-        "quantity": 1,
-        "unit": "pinch",
+        "quantity": 4,
+        "unit": "piece",
         "department": "Spices"
       },
       {
@@ -20033,23 +19893,33 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "rosemary",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "sage",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "Preheat oven to 200°C fan / 220°C / 425°F / Gas mark 7",
-      "If you have not bought diced lamb, cut your lamb shoulder or leg into large chunks and place to one side.",
-      "Chunks of chopped lamb of a red chopping board",
-      "Make oil marinade -",
-      "Mix 80ml of olive oil in a bowl with garlic puree, sundried tomato puree ,black pepper and salt.",
-      "olive oil, gia sundried tomato puree and gia garlic puree and black pepper mixed together in a silver bowl to make Croatian peka",
-      "Add potatoes and vegetables into a large lidded casserole dish.",
-      "Chopped up vegetables which consist of chopped up red onion, zucchini, potatoes red peppers in a cast iron pan",
-      "Place diced lamb on top of the vegetables, pour the marinade and wine over the top.",
-      "Chunks of lamb covered in in a sundried tomato oil sauce which is on top of chopped red onion, eggplant, zucchini and potatoes in a cast iron pan",
-      "Add the rosemary, thyme and sage, trying to keep the herbs on top.",
-      "So you can easily remove the herb stalks once cooked.",
-      "Chunks of lamb coated in a sundried tomato oil sauce and covered with thyme, rosemary and sage which is on top of chopped red onion, eggplant, zucchini and potatoes in a cast iron pan",
-      "Place lid on the casserole dish and cook for 1hr 30 minute"
+      "Heat the oven to 425°F. Cut the lamb into large chunks.",
+      "Mix the olive oil with the garlic purée, tomato paste, pepper and salt.",
+      "Put the chunked potatoes and vegetables in a large lidded ovenproof pot.",
+      "Lay the lamb on top and pour the marinade and wine over. Tuck the herbs on top.",
+      "Cover and bake 1 1/2 hours, until the lamb is tender and the potatoes are soft. Remove the herb stems before serving."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -21908,13 +21778,12 @@ export const recipeImported: Recipe[] = [
       "dried mint"
     ],
     "techniques": [
-      "bake",
-      "grill"
+      "bake"
     ],
     "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 20,
+    "cookMinutes": 75,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -22043,20 +21912,12 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Preheat oven to 350 F.",
-      "Heat oil in a skillet. Add the ground meat and cook, breaking it down with a wooden spoon for 6-7 minutes, until browned. Add onion and garlic. Add carrots (optional).Add salt, black pepper, dried mint, summer savory, thyme (optional), tomato sauce and tomato paste. Cook for 2-3 minutes, stirring frequently.",
-      "Grease a 9×9 or 9×13 baking dish with oil.",
-      "Add in the drained potatoes and meat mixture. Stir to evenly distribute the meat into the potatoes.",
-      "Add cold water to the baking dish, so it just covers the top of the potatoes.",
-      "Bake for 40-50 minutes, until the water is absorbed by the potatoes and they are fully cooked.",
-      "In the mean time prepare the Bechamel sauce (or the Bulgarian Style Topping).",
-      "For the Bechamel:",
-      "In a bowl, swish egg yolks. Set aside.",
-      "Melt butter in a saucepan. add flour. Cook for 3 minutes on medium heat, stirring frequently.",
-      "Slowly add the milk, whisking to incorporate. Add salt and nutmeg. Cook for 3 minutes, until thickened. Let the mixture cool for 5 minutes. Add in the egg yolks (with feta). Let the sauce stand at room temperature, while the potatoes and meat are cooking.",
-      "Pour the sauce over the cooked potatoes. Top with cheese. Bake for 15 minutes, until golden. You can broil for 1-2 minutes, if the top is not getting to the desired golden color.",
-      "For the Bulgarian Moussaka topping:",
-      "In a bowl beat together eggs, yogurt, milk, flour, then add salt and baking soda."
+      "Heat the oven to 350°F. Peel and slice the potatoes 1/4 inch thick.",
+      "Heat the oil in a skillet and brown the beef 6–7 minutes. Add the onion, garlic and carrots, then the salt, pepper, mint, savory, tomato sauce and paste. Cook 2–3 minutes.",
+      "Grease a 9x13-inch dish, add the potatoes and meat and toss together. Pour in the water, just covering the potatoes.",
+      "Bake 40–50 minutes, until the water is absorbed and the potatoes are tender.",
+      "Meanwhile, melt the butter, stir in the flour for 3 minutes, whisk in the milk, salt and nutmeg and cook 3 minutes until thick. Cool 5 minutes, then whisk in the egg yolks and crumbled feta.",
+      "Pour the sauce over the moussaka and bake 15 minutes more, until golden and set."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -25271,7 +25132,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -25282,17 +25144,18 @@ export const recipeImported: Recipe[] = [
       "tomato ketchup"
     ],
     "techniques": [
-      "fry"
+      "fry",
+      "simmer"
     ],
     "difficulty": "Hard",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 120,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 36,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -25382,23 +25245,20 @@ export const recipeImported: Recipe[] = [
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Season beef with salt, pepper and minced garlic",
-      "Chop 1 onion in 4 big wedges",
-      "Place in the beef pressure cooker with the 4 wedges of onion and the stock",
-      "Pressure cook for 20 minutes",
-      "Release the pressure and open the lid",
-      "Remove the beef and SAVE 2 cups of stock in another container",
-      "With 2 forks, shred the beef. Beef should be tender enough to so easily. If not, cook for another 10 minutes",
-      "Press the saute button of the Instant pot. Add the olive oil",
-      "When the machine beeps, add the sliced onion, pepper and tomatoes. Cook until tender",
-      "Add the shredded beef back in the pot and mix",
-      "Pour in 1 1/2 cups of the saved stock, the Worcestershire sauce, tomato paste, ketchup and cumin. Mix",
-      "If sauce seems to dry, add a tad more of stock",
-      "Season with salt and pepper",
-      "Serve!"
+      "Season the beef with salt, pepper and the minced garlic. Put it in a large pot with the chopped onion (in wedges) and the broth.",
+      "Bring to a boil, cover and simmer 1 1/2–2 hours, until the beef shreds easily. Meanwhile, cook the rice.",
+      "Lift out the beef, keep 2 cups of the broth, and shred the beef with two forks.",
+      "Heat the oil in a large skillet and fry the sliced onion, pepper and tomatoes until soft.",
+      "Add the beef, 1 1/2 cups of the saved broth, the Worcestershire, tomato paste, ketchup and cumin and simmer until saucy, adding more broth if dry. Season and serve with rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -29300,26 +29160,29 @@ export const recipeImported: Recipe[] = [
       "HighProtein"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
-      "lemon juice"
+      "lemon juice",
+      "garlic",
+      "lettuce",
+      "tomato"
     ],
     "techniques": [
-      "bake",
-      "grill",
-      "braise"
+      "bake"
     ],
     "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 15,
+    "cookMinutes": 185,
     "baseServings": 4,
     "nutrition": {
-      "calories": 420,
+      "calories": 520,
       "protein": 36,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 18
     },
     "ingredients": [
@@ -29395,31 +29258,53 @@ export const recipeImported: Recipe[] = [
         "quantity": 0.25,
         "unit": "tsp",
         "department": "Meat"
+      },
+      {
+        "name": "pita bread",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "greek yogurt",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "1",
-      "In a dutch oven or slow cooker, add all the spices, beef broth and lemon juice. Stir to combine..",
-      "2",
-      "Add the beef and turn to coat, spoon some sauce over the top.",
-      "3",
-      "Cover and cook on low for 8-10 hours.",
-      "4",
-      "After cooking, remove beef and use two forks to shred. Discard any excess fat.",
-      "5",
-      "Skim fat off of the top of the liquid remaining.",
-      "6",
-      "Mix shredded beef into sauce. Keep warm until you are ready to serve.",
-      "7",
-      "Build wrap by spreading garlic sauce on the pita. Top with beef and add garnishes to your liking."
+      "Heat the oven to 300°F. In a lidded ovenproof pot, stir all the spices into the broth and lemon juice.",
+      "Add the beef, turn to coat, and spoon some sauce over the top.",
+      "Cover and bake about 3 hours, until the beef shreds easily with a fork.",
+      "Shred the beef, discarding excess fat, skim the fat from the liquid and stir the beef back in.",
+      "Make the garlic sauce: mix the yogurt with the grated garlic and a pinch of salt.",
+      "Spread the pitas with garlic sauce and top with beef, lettuce and tomato."
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
+    "allergens": [
+      "Gluten",
+      "Dairy"
     ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/swo87v1763595282.jpg",
     "origin": "Saudi Arabian",
     "sourceName": "TheMealDB",
@@ -30847,192 +30732,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53463",
-    "name": "Belgian Meatballs in Liège Syrup Sauce",
-    "cuisine": "Other",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "garlic",
-      "parsley",
-      "onion"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "ground beef",
-        "quantity": 10.5,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "ground pork",
-        "quantity": 10.5,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "breadcrumbs",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "Bakery"
-      },
-      {
-        "name": "mustard",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "butter",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "brown sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "white wine vinegar",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "mustard",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "sirop de liège",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "beef broth",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "bay leaf",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "beer",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Make the meatballs",
-      "Mix the minced meat with the onion, garlic, egg, breadcrumbs, mustard, parsley, salt, and pepper.",
-      "Shape into meatballs. Traditionally, Liège restaurants serve **one or two very large meatballs**, depending on appetite.",
-      "For weeknight cooking, I keep mine smaller so they brown faster and cook through quickly.",
-      "Brown the meatballs",
-      "Heat butter or oil in a large pan.",
-      "Brown the meatballs on all sides until they have a nice crust.",
-      "Remove them from the pan and set aside.",
-      "Start the sauce",
-      "In the same pan, melt 1 tbsp butter.",
-      "Add the sliced onions and cook until soft and lightly caramelised.",
-      "Sprinkle in the brown sugar and let it melt into the onions.",
-      "Deglaze and add the stock",
-      "Add the vinegar and scrape up all the browned bits from the pan."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/gjjlzc1782496055.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://junedarville.com/belgian-meatballs.html",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53468",
     "name": "Belgian Stoemp",
     "cuisine": "Other",
@@ -32099,7 +31798,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -32111,17 +31811,17 @@ export const recipeImported: Recipe[] = [
       "parsley"
     ],
     "techniques": [
-      "braise"
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 15,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 36,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -32170,15 +31870,15 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "salt",
-        "quantity": 0.5,
-        "unit": "tbsp",
+        "quantity": 1,
+        "unit": "tsp",
         "department": "Spices",
         "pantryStaple": true
       },
       {
         "name": "black pepper",
         "quantity": 0.5,
-        "unit": "tbsp",
+        "unit": "tsp",
         "department": "Spices",
         "pantryStaple": true
       },
@@ -32211,23 +31911,20 @@ export const recipeImported: Recipe[] = [
         "quantity": 2,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Heat a large skillet or braiser over medium heat on the stovetop. Add the olive oil.",
-      "A braiser with cooked ground beef",
-      "Cook the Meat:",
-      "Add the ground meat to the pan. Use a potato masher or wooden spoon to break it into small pieces. Cook for 3–4 minutes until browned.",
-      "Add Vegetables and Seasoning:",
-      "Stir in the onion, carrots, red pepper, garlic, and tomato paste. Season with salt, black pepper, smoked paprika, ground cumin, and Italian seasoning (if using). Cook for 2–3 minutes, stirring frequently.",
-      "A braiser with cooked ground beef, carrots, onions, peppers, garlic and seasoning.",
-      "Add Cabbage and Liquid:",
-      "Add the chopped cabbage, apple cider vinegar or lemon juice (if using), and water. Stir well to combine. Reduce the heat to medium-low, cover, and cook for 30 minutes. Stir occasionally to prevent the cabbage from sticking to the bottom of the pan.",
-      "A pot with cooked ground beef, vegetables and cabbage on a stove top",
-      "Check for Doneness:",
-      "Uncover and check the texture of the cabbage. If necessary, increase the heat to medium-high and cook for an additional 5–7 minutes to evaporate excess liquid and finish cooking.",
-      "A braiser with cooked ground meat and cabbage dish on a stove top",
-      "Garnish and Serve:"
+      "Cook the rice. Heat the oil in a large lidded skillet over medium heat.",
+      "Add the ground beef, break it up and cook 3–4 minutes until browned.",
+      "Stir in the chopped onion, carrots, red pepper, garlic and tomato paste with the salt, pepper, smoked paprika and cumin. Cook 2–3 minutes.",
+      "Add the chopped cabbage, vinegar and water, stir, cover and cook on medium-low 30 minutes, stirring now and then.",
+      "Uncover and cook 5–7 minutes more if watery, until the cabbage is tender. Sprinkle with parsley and serve with rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -32239,156 +31936,6 @@ export const recipeImported: Recipe[] = [
     "image": "https://www.themealdb.com/images/media/meals/brmxra1782681940.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://cookinglsl.com/ground-beef-cabbage-recipe/#wprm-recipe-container-59951",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53459",
-    "name": "Chicken and Potato Roti",
-    "cuisine": "Other",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Chicken",
-    "vegetables": [
-      "parsley",
-      "onion",
-      "garlic",
-      "potatoes"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Hot",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 38,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "flour",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "shortening",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "chicken breast",
-        "quantity": 6,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "thyme",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices"
-      },
-      {
-        "name": "jerk",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "sugar",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 4,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "scotch bonnet",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Add a pint of chicken broth to the simmer and put three tablespoons of sugar into a large saucepan on high; cook until the sugar caramelizes, then add the cubed chicken breasts and stir until the chicken browns.",
-      "Add chopped onions, garlic, parsley, thyme, jerk seasoning, salt, and the whole scotch bonnet pepper – do not cut up the pepper! Reduce the heat to low and let this simmer for 25 minutes.",
-      "In a large mixing bowl, sift the flour, and add a pinch of salt to taste.",
-      "Now add the first tablespoon of shortening, and with your fingers, rub the flour into the shortening until it forms a breadcrumb-like consistency.",
-      "Then add the second tablespoon of shortening and rub against the flour until it looks like breadcrumbs.",
-      "Now add the third tablespoon of shortening and repeat the process.",
-      "You should by now have used all the flour. Your bowl should be all breadcrumb-like; if you still have fresh flour, use another tablespoon of shortening until your fresh flour is all used up.",
-      "Add a small amount of water and mix with a butter knife; keep adding small amounts until your mixture forms a soft dough.",
-      "Now dust your surface with flour and roll out your pastry; you want to roll wafer-thin rounds – this mixture should make at least 12 roti skins.",
-      "Cover with a tea towel while returning to the pot.",
-      "Now peel the potatoes and cube them into small bite-size pieces.",
-      "After 25 minutes of simmering, add 1/2 pint of water and the potatoes to the pool.",
-      "Now cover and cook for 30 minutes on low heat.",
-      "Turn a flat baking tray upside down, lightly cover with foil, and place on the stovetop on high; cook each roti skin for 1 minute on each side until brown but not crisp."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/mp9z0i1782238092.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.totallybarbados.com/articles/barbados-recipes/chicken-potato-roti-recipe/",
     "estimated": true
   },
   {
@@ -32809,14 +32356,16 @@ export const recipeImported: Recipe[] = [
     "vegetables": [
       "onion",
       "garlic",
-      "parsley"
+      "parsley",
+      "potatoes"
     ],
     "techniques": [
-      "fry"
+      "fry",
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
+    "prepMinutes": 20,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
@@ -32852,8 +32401,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "milk",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "Dairy"
       },
       {
@@ -32914,27 +32463,24 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods",
         "pantryStaple": true
+      },
+      {
+        "name": "potatoes",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "Prepare the Bread Mixture",
-      "Soak the bread slices in milk or water until soft.",
-      "Squeeze out excess liquid and mash into small crumbs.",
-      "Mix the Ingredients",
-      "In a large bowl, combine ground meat, chopped onions, garlic, soaked bread, egg, and seasonings.",
-      "Mix well until evenly combined.",
-      "Shape the Meat Patties",
-      "Take portions of the mixture and shape them into palm-sized patties.",
-      "Flatten slightly to help with even cooking.",
-      "Coat the Patties",
-      "Lightly dust each patty with flour.",
-      "Dip into beaten egg, then coat with breadcrumbs for a crispy finish.",
-      "Fry the Fašírky",
-      "Heat vegetable oil in a pan over medium heat."
+      "Boil the peeled potatoes until tender, then mash.",
+      "Soak the bread in the milk until soft, squeeze out the excess and crumble.",
+      "Mix the pork, chopped onion, garlic, bread, 1 egg, salt, pepper, marjoram, mustard and parsley. Shape into palm-sized patties and flatten slightly.",
+      "Dust each with flour, dip in the second egg (beaten), then coat with breadcrumbs.",
+      "Heat the oil in a large skillet over medium heat and fry the patties 4–5 minutes per side, until golden and 160°F inside. Drain on paper towels and serve with the mash."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -34130,143 +33676,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53017",
-    "name": "Paszteciki (Polish Pasties)",
-    "cuisine": "Other",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion"
-    ],
-    "techniques": [
-      "bake",
-      "fry"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "flour",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "butter",
-        "quantity": 5,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "butter",
-        "quantity": 6,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "onion",
-        "quantity": 0.33,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "rutabaga",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "beef brisket",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "eggs",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Sift flour and salt into a large mixing bowl.",
-      "Use a spoon to push the egg yolk through a fine sieve into the flour.",
-      "Add the raw egg and mix well.",
-      "Beat in butter 1 tablespoon at a time.",
-      "Place dough on a floured surface and knead until smooth and elastic, then wrap in waxed paper and refrigerate until firm (at least 30 minutes).",
-      "In a heavy skillet, melt 2 tablespoons butter over medium heat; saute the onion and rutabaga until the onion is soft and transparent (5 minutes).",
-      "Put the onions, rutabaga, and beef through a meat grinder twice if you have one, if not just chop them up as fine as possible.",
-      "Melt the remaining 4 tablespoons butter over medium heat, and add the meat mixture.",
-      "Cook over low heat, stirring occasionally, until all of the liquid has evaporated and the mixture is thick enough to hold its shape.",
-      "Remove from heat and let cool, then stir in 1 egg, and season with salt and pepper.",
-      "Preheat oven to 350°F.",
-      "On a lightly floured surface, roll the dough out into a 13x8\" rectangle (1/8\" thick).",
-      "Spoon the filling down the center of the rectangle lengthwise, leaving about an inch of space on each end.",
-      "Lightly brush the long sides with cold water, then fold one of the long sides over the filling and the other side over the top of that."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/c9a3l31593261890.jpg",
-    "origin": "Polish",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.food.com/recipe/paszteciki-polish-pasties-117909",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53301",
     "name": "Pork & sauerkraut goulash",
     "cuisine": "Other",
@@ -34508,155 +33917,6 @@ export const recipeImported: Recipe[] = [
     "image": "https://www.themealdb.com/images/media/meals/sjfgbc1779647169.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.myalbanianfood.com/recipe/albanian-leek-and-rice-bake/#google_vignette",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53124",
-    "name": "Raspeballer (Norwegian Potato Dumplings)",
-    "cuisine": "Other",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "potatoes",
-      "red potatoes",
-      "freshly chopped parsley",
-      "carrots"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "pork knuckle",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "sausages",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Produce"
-      },
-      {
-        "name": "red potatoes",
-        "quantity": 2,
-        "unit": "lb",
-        "department": "Produce"
-      },
-      {
-        "name": "flour",
-        "quantity": 1.25,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "all-purpose flour",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "bouillon cubes",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "freshly chopped parsley",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "rutabaga",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "carrots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cream",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "Dairy"
-      },
-      {
-        "name": "butter",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "nutmeg",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      }
-    ],
-    "steps": [
-      "Raspeballer & (Optional) Salted Meat",
-      "▢",
-      "If you're making pork knuckle, cook it in simmering water for about 3 hours, until the meat falls from the bone. Remove the pork and save the broth to cook the raspeballer.",
-      "▢",
-      "Boil the boiled potatoes and peel once cooled. Also peel the raw potatoes, and then grate them or run them through a food processor. Use a paper towel to remove some of the moisture from the grated potatoes.",
-      "▢",
-      "Mash the boiled potatoes in a potato ricer or with a masher. Make sure there are no lumps. Add the grated raw potatoes to the mashed potatoes in a large mixing bowl and stir together. Add the barley flour, all purpose flour, and salt and mix together with your hands until the mixture is fully blended.",
-      "▢",
-      "You can cook the raspeballer in either vegetable or beef broth, or if you're making pork knuckle, cook them in the broth from the pork knuckle. Bring the broth to a very light simmer – you don't want it to fully boil because then the raspeballer might break apart.",
-      "▢",
-      "Use a tablespoon dipped in cold water to shape each raspeball in your hand. Try to make them as smooth as possible and then gently drop them into the simmering broth. Dip the tablespoon in a bowl of cold water between each raspeball.",
-      "▢",
-      "Let the raspeballer simmer for about 30 minutes. If you're making smoked sausage, you can heat the sausage in the same pot with the raspeballer. Top with fresh chopped parsley.",
-      "Mashed Rutabaga"
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/hhm7xy1763075871.jpg",
-    "origin": "Norway",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://scandinaviancookbook.com/raspeballer-norwegian-potato-dumplings/",
     "estimated": true
   },
   {
@@ -35080,7 +34340,7 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Hard",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 115,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -35186,20 +34446,12 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "1",
-      "Baking the Lamb",
-      "In a large pan (with a lid) melt the butter and olive oil together then add the diced lamb. Brown the lamb on a medium heat, this will take around 5 minutes.",
-      "2",
-      "Add the garlic, oregano, 300ml of water and season with salt and pepper. Mix well before covering with the lid. Leave to simmer for 50 minutes mixing a couple of times ensuring the lamb doesn’t start to burn.",
-      "3",
-      "The juices should have nearly all boiled away so another 150ml of water should be added along with the rice. Mix altogether, bring to the boil, place the lid on and leave for just 10 minutes. It’s advised to check at around 8 minutes – you want the liquid to be evaporated with just moist coating of oily water left over the lamb and rice.",
-      "4",
-      "Place the lamb and rice into a casserole dish, the mixture should fully cover the base and have at least 2 inches spare for the yogurt. Alternatively you can split into four ceramic bowls.",
-      "5",
-      "Making a Roux",
-      "In a small saucepan melt the butter over a medium heat and then add two tablespoons of flour while continuously stirring for two minutes (add a little extra flour if needed). The roux should not be thick but not too runny, the colour will darken slightly. Pour the roux into a bowl and keep to one side.",
-      "6",
-      "Making the Yogurt Mixture"
+      "Melt the 20 g butter with the oil in a large lidded pan and brown the diced lamb over medium heat, about 5 minutes.",
+      "Add the garlic, oregano and 1 1/4 cups of the water, season, cover and simmer 50 minutes, stirring now and then.",
+      "Add the remaining 2/3 cup water and the rice, bring to a boil, cover and cook 10 minutes, until the liquid is nearly gone.",
+      "Heat the oven to 350°F. Spread the lamb and rice in a baking dish at least 2 inches deep.",
+      "Melt the 50 g butter, stir in the flour for 2 minutes and let cool slightly. Whisk the yogurt with the eggs, salt and pepper, then whisk in the roux.",
+      "Pour the yogurt over the lamb and bake 40–45 minutes, until the top is set and golden."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -36918,177 +36170,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Malaysian",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/prawn-laksa-curry-bowl",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53427",
-    "name": "Lao Naem Khao",
-    "cuisine": "Thai",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "pickled garlics",
-      "lime",
-      "onion",
-      "shallots",
-      "green onions",
-      "cilantro"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "jasmine rice",
-        "quantity": 3,
-        "unit": "cup",
-        "department": "International"
-      },
-      {
-        "name": "coconut",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "sour pork sausage",
-        "quantity": 2,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "pickled garlics",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "shallots",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "hot mint",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "mint",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "roasted peanut",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "vegetables",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      },
-      {
-        "name": "lettuce",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Slice the onion and shallots thinly. Let them soak in a ice water bath while preparing the rest of the meal.",
-      "Grate the coconut. Put in a large bowl.",
-      "Add the coconut in a large bowl. Add the rice. Using your hands, mix the coconut and rice together.",
-      "Roll the mixture to form 2-inch rice ball croquettes.",
-      "Heat up the cooking oil in a pot or pan.",
-      "Beat two eggs and a large bowl. Dip the balls into the egg mixture. Then, drop the balls into the cooking oil.",
-      "Allow the balls to turn a dark amber brown color. Deep fry until crispy, crunchy, and golden. Remove and set on paper towel to drain excess oil.",
-      "Once cooled, break apart the rice balls and add into a larger bowl.",
-      "Drain the onion and the shallots.",
-      "Make sure you tear the pork sausage up into small pieces. You can use a knife too, but the traditional method is tearing.",
-      "In the large bowl, add in the onion, shallots, sour pork sausage, pickled garlic, lime juice, fish sauce, sugar, cilantro, hot mint, regular mint.",
-      "Top with peanuts. Serve with Lettuce, dry chile, and other fresh vegetables.",
-      "Preserving Naem Khao Recipe",
-      "Naem Khao can be kept in the refrigerator for 4 days. It can then be served chilled."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Fish",
-      "Peanuts"
-    ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/0dypw51779817467.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://cookingwithlane.com/naem-khao-crispy-coconut-rice-salad/",
     "estimated": true
   },
   {
@@ -42250,6 +41331,143 @@ export const recipeImportedRetired: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53017",
+    "name": "Paszteciki (Polish Pasties)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion"
+    ],
+    "techniques": [
+      "bake",
+      "fry"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "flour",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "butter",
+        "quantity": 5,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "butter",
+        "quantity": 6,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 0.33,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "rutabaga",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "beef brisket",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "eggs",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Sift flour and salt into a large mixing bowl.",
+      "Use a spoon to push the egg yolk through a fine sieve into the flour.",
+      "Add the raw egg and mix well.",
+      "Beat in butter 1 tablespoon at a time.",
+      "Place dough on a floured surface and knead until smooth and elastic, then wrap in waxed paper and refrigerate until firm (at least 30 minutes).",
+      "In a heavy skillet, melt 2 tablespoons butter over medium heat; saute the onion and rutabaga until the onion is soft and transparent (5 minutes).",
+      "Put the onions, rutabaga, and beef through a meat grinder twice if you have one, if not just chop them up as fine as possible.",
+      "Melt the remaining 4 tablespoons butter over medium heat, and add the meat mixture.",
+      "Cook over low heat, stirring occasionally, until all of the liquid has evaporated and the mixture is thick enough to hold its shape.",
+      "Remove from heat and let cool, then stir in 1 egg, and season with salt and pepper.",
+      "Preheat oven to 350°F.",
+      "On a lightly floured surface, roll the dough out into a 13x8\" rectangle (1/8\" thick).",
+      "Spoon the filling down the center of the rectangle lengthwise, leaving about an inch of space on each end.",
+      "Lightly brush the long sides with cold water, then fold one of the long sides over the filling and the other side over the top of that."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/c9a3l31593261890.jpg",
+    "origin": "Polish",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.food.com/recipe/paszteciki-polish-pasties-117909",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53026",
     "name": "Tamiya",
     "cuisine": "MiddleEastern",
@@ -43772,6 +42990,155 @@ export const recipeImportedRetired: Recipe[] = [
     "origin": "Norway",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbc.co.uk/food/recipes/nordic_smorrebrod_69435",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53124",
+    "name": "Raspeballer (Norwegian Potato Dumplings)",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "potatoes",
+      "red potatoes",
+      "freshly chopped parsley",
+      "carrots"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "pork knuckle",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "sausages",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "red potatoes",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "flour",
+        "quantity": 1.25,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "all-purpose flour",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "bouillon cubes",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "freshly chopped parsley",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "rutabaga",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cream",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Dairy"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      }
+    ],
+    "steps": [
+      "Raspeballer & (Optional) Salted Meat",
+      "▢",
+      "If you're making pork knuckle, cook it in simmering water for about 3 hours, until the meat falls from the bone. Remove the pork and save the broth to cook the raspeballer.",
+      "▢",
+      "Boil the boiled potatoes and peel once cooled. Also peel the raw potatoes, and then grate them or run them through a food processor. Use a paper towel to remove some of the moisture from the grated potatoes.",
+      "▢",
+      "Mash the boiled potatoes in a potato ricer or with a masher. Make sure there are no lumps. Add the grated raw potatoes to the mashed potatoes in a large mixing bowl and stir together. Add the barley flour, all purpose flour, and salt and mix together with your hands until the mixture is fully blended.",
+      "▢",
+      "You can cook the raspeballer in either vegetable or beef broth, or if you're making pork knuckle, cook them in the broth from the pork knuckle. Bring the broth to a very light simmer – you don't want it to fully boil because then the raspeballer might break apart.",
+      "▢",
+      "Use a tablespoon dipped in cold water to shape each raspeball in your hand. Try to make them as smooth as possible and then gently drop them into the simmering broth. Dip the tablespoon in a bowl of cold water between each raspeball.",
+      "▢",
+      "Let the raspeballer simmer for about 30 minutes. If you're making smoked sausage, you can heat the sausage in the same pot with the raspeballer. Top with fresh chopped parsley.",
+      "Mashed Rutabaga"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/hhm7xy1763075871.jpg",
+    "origin": "Norway",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://scandinaviancookbook.com/raspeballer-norwegian-potato-dumplings/",
     "estimated": true
   },
   {
@@ -46790,6 +46157,177 @@ export const recipeImportedRetired: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53427",
+    "name": "Lao Naem Khao",
+    "cuisine": "Thai",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "pickled garlics",
+      "lime",
+      "onion",
+      "shallots",
+      "green onions",
+      "cilantro"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "jasmine rice",
+        "quantity": 3,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "coconut",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "sour pork sausage",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "pickled garlics",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "shallots",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "hot mint",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "mint",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "roasted peanut",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "vegetables",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Slice the onion and shallots thinly. Let them soak in a ice water bath while preparing the rest of the meal.",
+      "Grate the coconut. Put in a large bowl.",
+      "Add the coconut in a large bowl. Add the rice. Using your hands, mix the coconut and rice together.",
+      "Roll the mixture to form 2-inch rice ball croquettes.",
+      "Heat up the cooking oil in a pot or pan.",
+      "Beat two eggs and a large bowl. Dip the balls into the egg mixture. Then, drop the balls into the cooking oil.",
+      "Allow the balls to turn a dark amber brown color. Deep fry until crispy, crunchy, and golden. Remove and set on paper towel to drain excess oil.",
+      "Once cooled, break apart the rice balls and add into a larger bowl.",
+      "Drain the onion and the shallots.",
+      "Make sure you tear the pork sausage up into small pieces. You can use a knife too, but the traditional method is tearing.",
+      "In the large bowl, add in the onion, shallots, sour pork sausage, pickled garlic, lime juice, fish sauce, sugar, cilantro, hot mint, regular mint.",
+      "Top with peanuts. Serve with Lettuce, dry chile, and other fresh vegetables.",
+      "Preserving Naem Khao Recipe",
+      "Naem Khao can be kept in the refrigerator for 4 days. It can then be served chilled."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Fish",
+      "Peanuts"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/0dypw51779817467.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://cookingwithlane.com/naem-khao-crispy-coconut-rice-salad/",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53432",
     "name": "Slow-cooked, Wadadli-spiced Cubano pork belly",
     "cuisine": "Other",
@@ -47149,6 +46687,138 @@ export const recipeImportedRetired: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53443",
+    "name": "Satee",
+    "cuisine": "Chinese",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "lemons"
+    ],
+    "techniques": [
+      "grill",
+      "fry"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "lemons",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "sugar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "ground coriander",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "oil",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "beef",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "oil",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      }
+    ],
+    "steps": [
+      "To make the marinade for the satee put in the container of an electric blender:",
+      "1 large onion, coarsely chopped 2 cloves of garlic",
+      "Juice of 2 lemons",
+      "2Tbs. of sugar 1 cup of soy sauce",
+      "1 tsp. salt 1 tsp. ground coriander for beef (or chicken) or 1 tsp. ground ginger for pork",
+      "1 cup of oil",
+      "Blend thoroughly and pour over:",
+      "5 lbs. of beef or pork tenderloin, cubed",
+      "DO NOT marinate overnight, but only for a few hours.",
+      "Place the meat on: 36 skewers",
+      "Blend well:",
+      "1 cup of oil",
+      "2 Tbs. Soy sauce",
+      "Pour into a large shallow dish."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Soy"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/dqxtlh1780153831.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.visitaruba.com/aruba-recipes/satee/",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53446",
     "name": "Clear Soup with Semolina Dumplings",
     "cuisine": "Other",
@@ -47248,6 +46918,151 @@ export const recipeImportedRetired: Recipe[] = [
     "image": "https://www.themealdb.com/images/media/meals/qserum1780156275.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.austria.info/en-gb/recipes/clear-soup-with-semolina-dumplings/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53449",
+    "name": "Kelem dolmasi",
+    "cuisine": "Indian",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Lamb",
+    "vegetables": [
+      "cabbage",
+      "onion",
+      "cilantro",
+      "chickpeas"
+    ],
+    "techniques": [
+      "bake",
+      "simmer",
+      "steam"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 45,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "ground lamb",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 8,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "turmeric",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cinnamon",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "dill",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "rice",
+        "quantity": 2,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chickpeas",
+        "quantity": 2,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "lamb fat",
+        "quantity": 3,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "First boil the rice for eight minutes. Meanwhile, peel and finely chop the onion. Then chop the herbs.",
+      "The recipe didn't really say what to do with the chickpeas (also known of course as garbanzo beans), beyond soaking them overnight and rinsing them. I used canned chickpeas, since I've never actually seen them dried. I decided to chop/mash them slightly so they would better incorporate into the filling.",
+      "Chickpeas (or garbanzo beans) roughly chopped",
+      "Now mince the lamb (I used my mini food processor). Here's where I ran into another problem: what to do with the lamb fat this recipe calls for? Mince it? Melt it? Does lamb fat even melt? I decided to mince mine. Thankfully, my husband doesn't actually read this blog because he'd be horrified if he knew I put fat in the dolma on purpose.",
+      "Minced lamb and its good friend, minced fat. Ew.",
+      "The ingredients for the dolma stuffing include onion, cilantro, chickpeas and turmeric.",
+      "Anyway, now get your hands into all that slimy raw meat and mix in the onion, spices, chickpeas, rice, chopped herbs and fat. Add a little salt and pepper for good measure. In fact, based on my results I would say to err on the side of a little extra salt and pepper.",
+      "Mix well with your hands until the stuffing looks something like this.",
+      "Fill the biggest saucepan you own with salted water and bring it to a boil over high heat. Now pull the outer leaves off of the cabbage (save them) and drop the rest of it, whole, into the water. Let it boil for three or four minutes, turning it if the water level isn't quite high enough to completely cover it.",
+      "The reason you are doing this is because it's difficult to get whole cabbage leaves off of an American cabbage. The cabbages you typically buy in our supermarkets come in very tight round balls, and because the leaves are crispy they will snap and crack when you try to pull them off in an un-blanched state. Blanching them for a few minutes makes it so they will come right off without tearing.",
+      "Now carefully take the cabbage out of the water (but keep the water boiling) and let it cool for a minute or two so you don't burn your fingers. Carefully pull the leaves off the cabbage, cutting them at the base if you have to do so to loosen them. Try to get them off in one piece. If the inner leaves are still crispy, return the cabbage to the boiling water for another three or four minutes. Repeat until all of the useable leaves are free.",
+      "Blanched cabbage leaves",
+      "Now put the leaves on a cutting board and cut out the tough stalks (save them). Cut the largest leaves in half.",
+      "Remove the tough inner stalk and set aside. Cut larger leaves in two."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/7vdtqi1780160088.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://travelbystove.blogspot.com/2012/01/recipes-from-azerbaijani.html",
     "estimated": true
   },
   {
@@ -47496,6 +47311,192 @@ export const recipeImportedRetired: Recipe[] = [
     "image": "https://www.themealdb.com/images/media/meals/5tf8j11782236249.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.totallybarbados.com/articles/barbados-recipes/barbados-pepperpot/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53463",
+    "name": "Belgian Meatballs in Liège Syrup Sauce",
+    "cuisine": "Other",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "parsley",
+      "onion"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "ground beef",
+        "quantity": 10.5,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "ground pork",
+        "quantity": 10.5,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "breadcrumbs",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "Bakery"
+      },
+      {
+        "name": "mustard",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "brown sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "white wine vinegar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mustard",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "sirop de liège",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "beef broth",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Meat"
+      },
+      {
+        "name": "bay leaf",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "beer",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Make the meatballs",
+      "Mix the minced meat with the onion, garlic, egg, breadcrumbs, mustard, parsley, salt, and pepper.",
+      "Shape into meatballs. Traditionally, Liège restaurants serve **one or two very large meatballs**, depending on appetite.",
+      "For weeknight cooking, I keep mine smaller so they brown faster and cook through quickly.",
+      "Brown the meatballs",
+      "Heat butter or oil in a large pan.",
+      "Brown the meatballs on all sides until they have a nice crust.",
+      "Remove them from the pan and set aside.",
+      "Start the sauce",
+      "In the same pan, melt 1 tbsp butter.",
+      "Add the sliced onions and cook until soft and lightly caramelised.",
+      "Sprinkle in the brown sugar and let it melt into the onions.",
+      "Deglaze and add the stock",
+      "Add the vinegar and scrape up all the browned bits from the pan."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/gjjlzc1782496055.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://junedarville.com/belgian-meatballs.html",
     "estimated": true
   },
   {
