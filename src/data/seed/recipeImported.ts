@@ -451,32 +451,31 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "bake",
-      "roast",
       "fry",
       "simmer"
     ],
     "difficulty": "Hard",
     "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 45,
+    "cookMinutes": 250,
     "baseServings": 4,
     "nutrition": {
-      "calories": 520,
+      "calories": 580,
       "protein": 36,
       "carbs": 48,
-      "fat": 18
+      "fat": 30
     },
     "ingredients": [
       {
         "name": "beef brisket",
-        "quantity": 1,
-        "unit": "piece",
+        "quantity": 4,
+        "unit": "lb",
         "department": "Meat"
       },
       {
         "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
+        "quantity": 2,
+        "unit": "tsp",
         "department": "Spices",
         "pantryStaple": true
       },
@@ -530,26 +529,32 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "potatoes",
-        "quantity": 4,
-        "unit": "piece",
+        "quantity": 2,
+        "unit": "lb",
         "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "1 Prepare the brisket for cooking: On one side of the brisket there should be a layer of fat, which you want. If there are any large chunks of fat, cut them off and discard them. Large pieces of fat will not be able to render out completely.",
-      "Using a sharp knife, score the fat in parallel lines, about 3/4-inch apart. Slice through the fat, not the beef. Repeat in the opposite direction to make a cross-hatch pattern.",
-      "Salt the brisket well and let it sit at room temperature for 30 minutes.",
-      "2 Sear the brisket: You'll need an oven-proof, thick-bottomed pot with a cover, or Dutch oven, that is just wide enough to hold the brisket roast with a little room for the onions.",
-      "Pat the brisket dry and place it, fatty side down, into the pot and place it on medium high heat. Cook for 5-8 minutes, lightly sizzling, until the fat side is nicely browned. (If the roast seems to be cooking too fast, turn the heat down to medium. You want a steady sizzle, not a raging sear.)",
-      "Turn the brisket over and cook for a few minutes more to brown the other side.",
-      "3 Sauté the onions and garlic: When the brisket has browned, remove it from the pot and set aside. There should be a couple tablespoons of fat rendered in the pot, if not, add some olive oil.",
-      "Add the chopped onions and increase the heat to high. Sprinkle a little salt on the onions. Sauté, stirring often, until the onions are lightly browned, 5-8 minutes. Stir in the garlic and cook 1-2 more minutes.",
-      "4 Return brisket to pot, add herbs, stock, bring to simmer, cover, cook in oven: Preheat the oven to 300°F. Use kitchen twine to tie together the bay leaves, rosemary and thyme.",
-      "Move the onions and garlic to the sides of the pot and nestle the brisket inside. Add the beef broth and the tied-up herbs. Bring the stock to a boil on the stovetop.",
-      "Cover the pot, place the pot in the 300°F oven and cook for 3 hours. Carefully flip the brisket every hour so it cooks evenly.",
-      "5 Add carrots, continue to cook: After 3 hours, add the carrots. Cover the pot and cook for 1 hour more, or until the carrots are cooked through and the brisket is falling-apart tender.",
-      "6 Remove brisket to cutting board, tent with foil: When the brisket is falling-apart tender, take the pot out of the oven and remove the brisket to a cutting board. Cover it with foil. Pull out and discard the herbs.",
-      "7 Make sauce (optional): At this point you have two options. You can serve as is, or you can make a sauce with the drippings and some of the onions. If you serve as is, skip this step."
+      "Trim any thick chunks of fat off the brisket, leaving the fat layer, and score it in a crosshatch. Salt well and leave 30 minutes at room temperature.",
+      "Heat the oven to 300°F. Pat the brisket dry and sear it fat side down in a large ovenproof pot over medium-high heat, 5–8 minutes, then the other side. Set aside.",
+      "Add the oil if the pot is dry, then the chopped onions with a little salt. Cook until lightly browned, 5–8 minutes, then the garlic for 1–2 minutes.",
+      "Nestle the brisket in, add the broth and the tied bundle of thyme, rosemary and bay leaves, and bring to a boil. Cover and bake 3 hours, turning every hour.",
+      "Add the carrots and the peeled potatoes in chunks, cover and bake 1 hour more, until the brisket is falling-apart tender.",
+      "Rest the brisket under foil. Discard the herbs, stir the mustard into the pan juices, season, and serve sliced with the vegetables and sauce."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -1972,8 +1977,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
+    "prepMinutes": 90,
+    "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -3653,14 +3658,14 @@ export const recipeImported: Recipe[] = [
       "carrots"
     ],
     "techniques": [
+      "bake",
       "roast",
-      "fry",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 20,
+    "cookMinutes": 60,
     "baseServings": 6,
     "nutrition": {
       "calories": 480,
@@ -3778,22 +3783,27 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tsp",
         "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "Begin by roasting the squash. Slice it into thin crescents and drizzle with a little oil and sprinkle with sea salt. I added a fresh little sage I had in the fridge, but it’s unnecessary. Roast the squash a 205 C (400 F) for 20-30 minutes, flipping halfway through, until soft and golden. Let cool and chop into cubes.",
-      "Meanwhile, rinse the lentils and cover them with water. Bring them to the boil then turn down to a simmer and let cook (uncovered) for 20-30 minutes, or until tender. Drain and set aside.",
-      "While the lentils are cooking heat the 1 Tbsp. of oil on low in a medium pot. Add the onions and leeks and sauté for 5 or so minutes, or until they begin to soften. Add the garlic next along with the cumin and coriander, cooking for a few more minutes. Add the remaining spices – paprika, cinnamon, chile, cocoa, Worcestershire sauce, salt, and oregano. Next add the can of tomatoes, the water or stock, and carrots. Let simmer, covered, for 20 minutes or until the veg is tender and the mixture has thickened up. You’ll need to check on the pot periodically for a stir and a top of of liquid if needed.",
-      "Add the lentils and chopped roasted squash. Let cook for 10 more minutes to heat through.",
-      "Serve with sliced jalapeno, lime wedges, cilantro, green onions, and cashew sour cream.",
-      "SIMPLE CASHEW SOUR CREAM",
-      "1 Cup Raw Unsalted Cashews",
-      "Pinch Sea Salt",
-      "1 tsp. Apple Cider Vinegar",
-      "Water",
-      "Bring some water to the boil, and use it to soak the cashews for at least four hours. Alternatively, you can use cold water and let the cashews soak overnight, but I’m forgetful/lazy, so often use the boil method which is much faster.",
-      "After the cashews have soaked, drain them and add to a high speed blender. Begin to puree, slowly adding about 1/2 cup fresh water, until a creamy consistency is reached. You may need to add less or more water to reach the desired consistency.",
-      "Add a pinch of sea salt and vinegar (or lemon juice)."
+      "At least 4 hours ahead (or use boiling water for faster soaking), soak the cashews.",
+      "Heat the oven to 400°F. Slice the squash into thin crescents, toss with a little oil and salt and roast 20–30 minutes, turning once, until soft. Cool and cube.",
+      "Meanwhile, rinse the lentils, cover with water, bring to a boil and simmer uncovered 20–30 minutes until tender. Drain.",
+      "Heat the oil in a pot and cook the onion and leek 5 minutes. Add the garlic, cumin and coriander for a few minutes, then the paprika, cinnamon, chili powder, cocoa, salt and oregano.",
+      "Add the tomatoes, the water and the carrots and simmer covered 20 minutes, until the carrots are tender. Stir in the lentils and squash and cook 10 minutes more.",
+      "Blend the drained cashews with the vinegar, a pinch of salt and about 1/2 cup water until creamy. Serve the chili with the cashew cream, lime wedges and cilantro."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -5287,130 +5297,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-52939",
-    "name": "Callaloo Jamaican Style",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "kale",
-      "garlic",
-      "onion",
-      "tomato",
-      "banana"
-    ],
-    "techniques": [
-      "fry",
-      "steam"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 34,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "kale",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "bacon",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "garlic",
-        "quantity": 3,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "paprika",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "thyme",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "tomato",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red bell pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "banana",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Cut leaves and soft stems from the kale branches, them soak in a bowl of cold water for about 5-10 minutes or until finish with prep.",
-      "Proceed to slicing the onions, mincing the garlic and dicing the tomatoes. Set aside",
-      "Remove kale from water cut in chunks.",
-      "Place bacon on saucepan and cook until crispy. Then add onions, garlic, thyme, stir for about a minute or more",
-      "Add tomatoes; scotch bonnet pepper, smoked paprika. Sauté for about 2-3 more minutes.",
-      "Finally add vegetable, salt, mix well, and steamed for about 6-8 minutes or until leaves are tender. Add a tiny bit of water as needed. Adjust seasonings and turn off the heat.",
-      "Using a sharp knife cut both ends off the plantain. This will make it easy to grab the skin of the plantains. Slit a shallow line down the long seam of the plantain; peel only as deep as the peel. Remove plantain peel by pulling it back.",
-      "Slice the plantain into medium size lengthwise slices and set aside.",
-      "Coat a large frying pan with cooking oil spray. Spray the tops of the plantains with a generous layer of oil spray and sprinkle with salt, freshly ground pepper.",
-      "Let the plantains \"fry\" on medium heat, shaking the frying pan to redistribute them every few minutes.",
-      "As the plantains brown, continue to add more cooking oil spray, salt and pepper (if needed) until they have reached the desired color and texture.",
-      "Remove and serve with kale"
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/ussyxw1515364536.jpg",
-    "origin": "Jamaican",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.africanbites.com/callaloo-jamaican-style/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53141",
     "name": "Carbonada Criolla",
     "cuisine": "BBQ",
@@ -6814,138 +6700,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53352",
-    "name": "Jamaican Instant Pot Rice and Beans",
-    "cuisine": "BBQ",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Beans",
-    "vegetables": [
-      "onion",
-      "garlic",
-      "green onions"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 18,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "olive oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "rice",
-        "quantity": 2,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "coconut milk",
-        "quantity": 0.75,
-        "unit": "cup",
-        "department": "International"
-      },
-      {
-        "name": "salt",
-        "quantity": 1.5,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "allspice",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "black pepper",
-        "quantity": 0.25,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "kidney beans",
-        "quantity": 15.75,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "thyme",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Spices"
-      }
-    ],
-    "steps": [
-      "Instructions",
-      "Set Instant Pot to \"Sauté.\" Once Hot, add olive oil. Then add yellow onion and stir until softened, about 3 minutes. Add garlic and green onions and stir for about 30 more seconds.",
-      "Press “Cancel” on the Instant Pot. Add rice, coconut milk, water, salt, allspice, and black pepper and stir.",
-      "Pour undrained kidney beans on top of the rice mixture. Do not stir. Lay sprigs of thyme on top. Cover the Instant Pot, ensuring the valve is set to “Sealing.”",
-      "Press “Manual” or “Pressure Cook” on the Instant Pot and set for High pressure for 6 minutes.",
-      "Once the pressure cooking time is done, allow it to natural release for 10 minutes, then quick release any remaining pressure by moving valve to \"Venting\"",
-      "Open lid and remove thyme sprigs. Fluff rice with fork and Enjoy!",
-      "Stove Top Instructions",
-      "Heat olive oil in a large pot over medium heat. Add yellow onion and stir until softened, about 3 minutes. Add garlic and green onions and stir for about 30 more seconds.",
-      "Add rice, undrained kidney beans, coconut milk, water, salt, allspice, and black pepper and stir until combined. Lay thyme on top. Bring mixture to a simmer.",
-      "Cover with a lid and reduce heat to low. Allow to cook for 18 minutes over low heat, then remove from heat. Leave the lid on for an additional 5 minutes.",
-      "Open the lid and remove the thyme. Fluff rice with fork. Enjoy."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "vegetarian",
-      "vegan",
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/11bvtm1764795135.jpg",
-    "origin": "Jamaican",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.myforkinglife.com/jamaican-instant-pot-rice-and-beans/#recipe",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53349",
     "name": "Jamaican Pepper Shrimp",
     "cuisine": "BBQ",
@@ -7753,170 +7507,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-52936",
-    "name": "Saltfish and Ackee",
-    "cuisine": "BBQ",
-    "categories": [
-      "Seafood",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Fish",
-    "vegetables": [
-      "onion",
-      "tomatoes"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "salt cod",
-        "quantity": 15.75,
-        "unit": "oz",
-        "department": "Seafood"
-      },
-      {
-        "name": "ackee",
-        "quantity": 14,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "paprika",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "curry powder",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "jerusalem artichokes",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "hotsauce",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "red bell pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "yellow bell pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "tomatoes",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "self-rising flour",
-        "quantity": 8.75,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "suet",
-        "quantity": 1,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "olive oil",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "DryGoods",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "For the saltfish, soak the salt cod overnight, changing the water a couple of times.",
-      "Drain, then put the cod in a large pan of fresh water and bring to the boil. Drain again, add fresh water and bring to the boil again.",
-      "Simmer for about five minutes, or until cooked through, then drain and flake the fish into large pieces. Discard any skin or bones.",
-      "For the dumplings, mix the flour and suet with a pinch of salt and 250ml/9fl oz water to make a dough.",
-      "Wrap the mixture in clingfilm and leave in the fridge to rest.",
-      "Open the can of ackee, drain and rinse, then set aside.",
-      "Heat a tablespoon of olive oil in a pan and fry the onion until softened but not brown.",
-      "Add the spices, seasoning, pepper sauce and sliced peppers and continue to fry until the peppers are tender.",
-      "Add the chopped tomatoes, then the salt cod and mix together. Lastly stir in the ackee very gently and leave to simmer until ready to serve.",
-      "When you’re almost ready to eat, heat about 1cm/½in vegetable oil in a frying pan and heat until just smoking.",
-      "Shape the dumpling mix into plum-size balls and shallow-fry until golden-brown. (CAUTION: hot oil can be dangerous. Do not leave the pan unattended.)",
-      "Drain the dumplings on kitchen paper and serve with the saltfish and ackee."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/vytypy1511883765.jpg",
-    "origin": "Jamaican",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbc.co.uk/food/recipes/saltfish__ackee_with_64803",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53496",
     "name": "Bai Sach Chrouk – Grilled Pork with Rice",
     "cuisine": "Chinese",
@@ -7938,10 +7528,10 @@ export const recipeImported: Recipe[] = [
       "grill",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 20,
+    "prepMinutes": 40,
+    "cookMinutes": 25,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -8014,24 +7604,17 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "cilantro",
-        "quantity": 1,
-        "unit": "bunch",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "Produce"
       }
     ],
     "steps": [
-      "In a large bowl, combine the coconut milk, soy sauce, oyster sauce, honey, minced garlic, and black pepper to make the marinade.",
-      "Add the thinly sliced pork shoulder to the marinade, ensuring each piece is fully coated, then cover and refrigerate for at least 30 minutes to allow the flavors to penetrate.",
-      "While the pork marinates, rinse the jasmine rice under cold water until the water runs clear to remove excess starch, which helps prevent clumping.",
-      "In a medium pot, combine the rinsed rice and 4 cups of water, bring to a boil over high heat, then reduce to a simmer, cover, and cook for 15 minutes until the water is absorbed and the rice is tender.",
-      "Heat a grill pan or outdoor grill to medium-high heat (about 400°F) and lightly brush with vegetable oil to prevent sticking.",
-      "Remove the pork from the marinade, shaking off any excess, and place it on the hot grill, cooking for 3-4 minutes per side until nicely charred and cooked through with an internal temperature of 145°F.",
-      "Tip: Avoid overcrowding the grill pan to ensure even browning and proper caramelization of the marinade.",
-      "Once the pork is grilled, let it rest for 5 minutes before slicing to retain its juices and tenderness.",
-      "Tip: If you prefer a saucier dish, simmer the leftover marinade in a small saucepan for 5 minutes until slightly thickened and drizzle it over the pork.",
-      "Fluff the cooked rice with a fork to separate the grains and serve it warm alongside the grilled pork slices.",
-      "Arrange the thinly sliced cucumber and fresh cilantro leaves on top as a refreshing garnish.",
-      "Tip: For an extra kick, serve with a side of pickled vegetables or a squeeze of lime juice to balance the rich, savory flavors."
+      "Mix the coconut milk, soy sauce, oyster sauce, honey, minced garlic and pepper. Add the thinly sliced pork, cover and refrigerate at least 30 minutes.",
+      "Rinse the rice until the water runs clear, then cook with 3 cups water: boil, cover and simmer 15 minutes until absorbed.",
+      "Heat a grill pan or grill to medium-high and brush with oil.",
+      "Grill the pork 3–4 minutes per side, without crowding, until charred and 145°F. Rest 5 minutes and slice.",
+      "Serve over the rice with sliced cucumber and cilantro."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -8548,10 +8131,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 40,
     "baseServings": 4,
     "nutrition": {
       "calories": 520,
@@ -8562,8 +8145,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "chicken",
-        "quantity": 8,
-        "unit": "oz",
+        "quantity": 1,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -8600,30 +8183,23 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "rice",
-        "quantity": 0.5,
+        "quantity": 1,
         "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "cilantro",
-        "quantity": 2,
-        "unit": "oz",
+        "quantity": 0.25,
+        "unit": "cup",
         "department": "Produce"
       }
     ],
     "steps": [
-      "- MARINATING THE CHICKEN",
-      "In a bowl, add chicken, salt, white pepper, ginger juice and then mix it together well.",
-      "Set the chicken aside.",
-      "- RINSE THE WHITE RICE",
-      "Rinse the rice in a metal bowl or pot a couple times and then drain the water.",
-      "- BOILING THE WHITE RICE",
-      "Next add 8 cups of water and then set the stove on high heat until it is boiling. Once rice porridge starts to boil, set the stove on low heat and then stir it once every 8-10 minutes for around 20-25 minutes.",
-      "After 25 minutes, this is optional but you can add a little bit more water to make rice porridge to make it less thick or to your preference.",
-      "Next add the marinated chicken to the rice porridge and leave the stove on low heat for another 10 minutes.",
-      "After an additional 10 minutes add the green onions, sliced ginger, 1 pinch of salt, 1 pinch of white pepper and stir for 10 seconds.",
-      "Serve the rice porridge in a bowl",
-      "Optional: add Coriander on top of the rice porridge."
+      "Toss the chicken with salt, white pepper and the ginger juice. Set aside.",
+      "Rinse the rice a couple of times and drain.",
+      "Put the rice in a large pot with the 8 cups water and bring to a boil. Lower the heat and simmer 25 minutes, stirring every 8–10 minutes, until creamy. Add more water if you like it thinner.",
+      "Add the chicken and simmer on low 10 minutes, until it reads 165°F.",
+      "Stir in the green onions, sliced ginger, a pinch of salt and pepper, and serve topped with cilantro."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -9251,137 +8827,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Chinese",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.chinasichuanfood.com/mapo-tofu-recipe/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53377",
-    "name": "Napa Cabbage with Dried Shrimp",
-    "cuisine": "Chinese",
-    "categories": [
-      "Seafood"
-    ],
-    "provides": [
-      "protein",
-      "vegetable"
-    ],
-    "primaryProtein": "Shellfish",
-    "vegetables": [
-      "napa cabbage",
-      "peanut oil",
-      "scallions",
-      "ginger"
-    ],
-    "techniques": [
-      "fry",
-      "stir-fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 15,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 30,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "dried shrimp",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Seafood"
-      },
-      {
-        "name": "boiling water",
-        "quantity": 0.75,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "napa cabbage",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "peanut oil",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "scallions",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "ginger",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "cornstarch",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "kosher salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Dried shrimp gives this Chinese dish a punch of salty umami flavor. You can find it at an Asian grocery store in the frozen or refrigerated section. Look for small-sized dried shrimp, about a 1/4-inch in size. If you use medium or large dried shrimp, hydrate the shrimp with more water (1 cup for medium-sized shrimp, 1 1/4 cup for large) and for longer time (45 to 60 minutes), then chop it up into smaller 1/4-inch chunks. To make this recipe vegetarian, omit the dried shrimp and use four or five dried shiitake mushrooms, rehydrated, and sliced thin.",
-      "Rehydrate the dried shrimp:",
-      "Place the dried shrimp in a small bowl and pour the boiling water over it. Cover with a small plate and let sit for 30 minutes so the shrimp can rehydrate. The shrimp will be lighter in color and plump up slightly.",
-      "Prep the cabbage:",
-      "Meanwhile, split the napa cabbage in half lengthwise. Rinse the cabbage and shake it dry. Cut out the core of the cabbage and discard.",
-      "Set out two large bowls. Cut the remaining cabbage into 1-inch pieces, putting the thicker white pieces at the bottom of the cabbage into one bowl and the top thinner leafy green pieces into the other bowl.",
-      "Drain the shrimp:",
-      "Once the shrimp has rehydrated, drain it and discard the liquid.",
-      "Cook the shrimp and cabbage:",
-      "In a large wok or skillet over high heat add the peanut oil, swirling it around to coat the pan.",
-      "Heat until the oil looks shimmering hot, then carefully add the scallions, ginger, and rehydrated shrimp, paying specially attention as the wet ingredients may cause the hot oil to splatter. Toss with a spatula until the scallions are bright green and the entire mixture is fragrant, about 1 minute.",
-      "Add the thicker white part of the napa cabbage to the pan and lower the heat to medium high. Continue to cook and stir for 3 to 4 minutes, or until the edges of the cabbage pieces start to look slightly translucent but the center of the cabbage pieces are still opaque white.",
-      "Reduce the heat to medium low and add the leafy green pieces of cabbage into the pan. Cook until the leaves are wilted, about 2 minutes.",
-      "Make a cornstarch slurry:"
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Shellfish",
-      "Soy",
-      "Peanuts"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/9nh4dl1766435484.jpg",
-    "origin": "Chinese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.simplyrecipes.com/napa-cabbage-dried-shrimp-recipe-5208805",
     "estimated": true
   },
   {
@@ -10465,7 +9910,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Pork",
     "vegetables": [
@@ -10473,24 +9919,25 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "fry",
-      "stir-fry"
+      "stir-fry",
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 15,
+    "prepMinutes": 30,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
-      "calories": 420,
+      "calories": 580,
       "protein": 34,
-      "carbs": 18,
-      "fat": 18
+      "carbs": 48,
+      "fat": 30
     },
     "ingredients": [
       {
         "name": "pork",
-        "quantity": 7,
-        "unit": "oz",
+        "quantity": 1.5,
+        "unit": "lb",
         "department": "Meat"
       },
       {
@@ -10508,56 +9955,60 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "sugar",
-        "quantity": 1,
-        "unit": "tsp",
+        "quantity": 3,
+        "unit": "tbsp",
         "department": "DryGoods"
       },
       {
         "name": "soy sauce",
-        "quantity": 0.25,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "International"
       },
       {
         "name": "starch",
         "quantity": 0.25,
-        "unit": "oz",
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "tomato puree",
-        "quantity": 1,
-        "unit": "oz",
+        "quantity": 0.5,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "vinegar",
-        "quantity": 0.25,
-        "unit": "oz",
+        "quantity": 3,
+        "unit": "tbsp",
         "department": "DryGoods"
       },
       {
         "name": "cilantro",
-        "quantity": 1,
-        "unit": "bunch",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 3,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
       }
     ],
     "steps": [
-      "Preparation",
-      "Crack the egg into a bowl. Separate the egg white and yolk.",
-      "Sweet and Sour Pork",
-      "Slice the pork tenderloin into strips.",
-      "Prepare the marinade using a pinch of salt, one teaspoon of starch, two teaspoons of light soy sauce, and an egg white.",
-      "Marinade the pork strips for about 20 minutes.",
-      "Put the remaining starch in a bowl. Add some water and vinegar to make a starchy sauce.",
-      "Sweet and Sour Pork",
-      "Cooking Instructions",
-      "Pour the cooking oil into a wok and heat to 190°C (375°F). Add the marinated pork strips and fry them until they turn brown. Remove the cooked pork from the wok and place on a plate.",
-      "Leave some oil in the wok. Put the tomato sauce and white sugar into the wok, and heat until the oil and sauce are fully combined.",
-      "Add some water to the wok and thoroughly heat the sweet and sour sauce before adding the pork strips to it.",
-      "Pour in the starchy sauce. Stir-fry all the ingredients until the pork and sauce are thoroughly mixed together.",
-      "Serve on a plate and add some coriander for decoration."
+      "Cook the rice. Slice the pork into strips and marinate 20 minutes with a pinch of salt, 1 tsp cornstarch, 2 tsp soy sauce and the egg white.",
+      "Mix the rest of the cornstarch with 1/4 cup water and the vinegar.",
+      "Heat the oil in a wok to 375°F and fry the pork in batches until golden and no longer pink inside. Drain. Keep children away from the hot oil.",
+      "Pour off all but 1 tbsp oil. Add the ketchup and sugar and stir until combined, then add 1/2 cup water and bring to a simmer.",
+      "Stir in the cornstarch mixture until thick and glossy, add the pork and toss to coat. Garnish with cilantro and serve with rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -13262,7 +12713,8 @@ export const recipeImported: Recipe[] = [
       "Vegetarian"
     ],
     "provides": [
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "None",
     "vegetables": [
@@ -13274,26 +12726,25 @@ export const recipeImported: Recipe[] = [
       "cilantro"
     ],
     "techniques": [
-      "bake",
       "roast",
-      "grill",
-      "fry"
+      "fry",
+      "grill"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 10,
+    "cookMinutes": 35,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 12,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
         "name": "eggplant",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "piece",
         "department": "Produce"
       },
@@ -13346,23 +12797,20 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "basmati rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
       }
     ],
     "steps": [
-      "Rinse the baingan (eggplant or eggplant) in water. Pat dry with a kitchen napkin. Apply some oil all over and",
-      "keep it for roasting on an open flame. You can also grill the baingan or roast in the oven. But then you won't get",
-      "the smoky flavor of the baingan. Keep the eggplant turning after a 2 to 3 minutes on the flame, so that its evenly",
-      "cooked. You could also embed some garlic cloves in the baingan and then roast it.",
-      "Roast the eggplant till its completely cooked and tender. With a knife check the doneness. The knife should slid",
-      "easily in eggplant without any resistance. Remove the baingan and immerse in a bowl of water till it cools",
-      "down.",
-      "You can also do the dhungar technique of infusing charcoal smoky flavor in the baingan. This is an optional step.",
-      "Use natural charcoal for this method. Heat a small piece of charcoal on flame till it becomes smoking hot and red.",
-      "Make small cuts on the baingan with a knife. Place the red hot charcoal in the same plate where the roasted",
-      "eggplant is kept. Add a few drops of oil on the charcoal. The charcoal would begin to smoke.",
-      "As soon as smoke begins to release from the charcoal, cover the entire plate tightly with a large bowl. Allow the",
-      "charcoal smoke to get infused for 1 to 2 minutes. The more you do, the more smoky the baingan bharta will",
-      "become. I just keep for a minute. Alternatively, you can also do this dhungar method once the baingan bharta is"
+      "Rub the eggplants with a little oil and roast directly over a gas flame (or under a hot broiler), turning every few minutes, until the skin is charred and a knife slides in with no resistance, 15–20 minutes. Cool in a bowl of water, then peel and mash.",
+      "Cook the rice.",
+      "Heat the oil in a skillet and fry the finely chopped onion until golden. Add the minced garlic and green chile for 1 minute.",
+      "Add the chopped tomatoes and red chili powder and cook until the tomatoes break down, 5–7 minutes.",
+      "Stir in the mashed eggplant and salt and cook 5 minutes. Garnish with cilantro and serve with rice."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -13547,8 +12995,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 40,
+    "cookMinutes": 140,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -13559,13 +13007,13 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "basmati rice",
-        "quantity": 2.25,
-        "unit": "lb",
+        "quantity": 3,
+        "unit": "cup",
         "department": "International"
       },
       {
         "name": "beef broth",
-        "quantity": 5,
+        "quantity": 6,
         "unit": "cup",
         "department": "Meat"
       },
@@ -13627,24 +13075,49 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "bay leaf",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "beef",
+        "quantity": 2.5,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "ground coriander",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "ground cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Meat"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "cinnamon",
         "quantity": 0.5,
         "unit": "tsp",
         "department": "Spices"
       }
     ],
     "steps": [
-      "Wash the beef and cut into large pieces. Season lightly with salt and turmeric.",
-      "Heat ghee/oil in a large pot. Add sliced onions and sauté until light golden.",
-      "Add garlic, green chilies, and tomato; cook until softened.",
-      "Add the mandi spice mix: coriander, cumin, black pepper, cinnamon, cardamom, cloves, and bay leaves.",
-      "Add beef pieces and stir on medium heat until the meat is well coated with spices.",
-      "Pour in water or beef broth. Cover and simmer until beef is tender (about 1.5–2 hours depending on cut).",
-      "Remove beef carefully and set aside. Strain and measure the broth.",
-      "Add washed, soaked basmati rice to the broth (usually 1 cup rice = 1.5–2 cups liquid). Adjust seasoning and bring to a boil.",
-      "Lower heat, cover, and cook the rice until fluffy.",
-      "Place the beef pieces over the rice and steam on low heat for 10 minutes so flavors combine.",
-      "Optional: For smoky flavor, place a small hot charcoal on foil in the pot, add 1 tsp butter/oil, immediately cover for 5 minutes. Remove coal before serving.",
-      "Fluff rice and serve beef mandi with salad or chutney."
+      "Cut the beef into large pieces and season lightly with salt and turmeric. Rinse the rice and soak 30 minutes.",
+      "Heat the oil in a large pot and fry the sliced onions until light golden. Add the garlic, green chiles and tomato and cook until soft.",
+      "Add the coriander, cumin, pepper, cinnamon, cardamom, cloves and bay leaves, then the beef, and stir to coat.",
+      "Add the broth, cover and simmer 1 1/2–2 hours, until the beef is tender.",
+      "Lift out the beef. Measure 4 1/2 cups of the broth back into the pot, add the drained rice and the remaining salt, boil, then cover and cook on low about 15 minutes until fluffy.",
+      "Set the beef on the rice, cover and steam on low 10 minutes. Serve with a salad."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -16171,8 +15644,8 @@ export const recipeImported: Recipe[] = [
     ],
     "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 30,
+    "cookMinutes": 160,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -16289,6 +15762,20 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tsp",
         "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
@@ -16609,10 +16096,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "bake"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 35,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -16623,57 +16110,57 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "sugar",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "tsp",
         "department": "DryGoods"
       },
       {
         "name": "yeast",
-        "quantity": 0.5,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "piece",
         "department": "DryGoods"
       },
       {
         "name": "all-purpose flour",
-        "quantity": 8,
+        "quantity": 15.75,
         "unit": "oz",
         "department": "DryGoods"
       },
       {
         "name": "salt",
-        "quantity": 1.5,
-        "unit": "tsp",
+        "quantity": 1,
+        "unit": "tbsp",
         "department": "Spices",
         "pantryStaple": true
       },
       {
         "name": "olive oil",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
       },
       {
         "name": "strained tomatoes (passata)",
-        "quantity": 2.75,
-        "unit": "oz",
+        "quantity": 1,
+        "unit": "cup",
         "department": "DryGoods"
       },
       {
         "name": "mozzarella",
-        "quantity": 2.5,
+        "quantity": 8,
         "unit": "oz",
         "department": "Dairy"
       },
       {
         "name": "oregano",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "tsp",
         "department": "Spices"
       },
       {
         "name": "basil",
-        "quantity": 1,
+        "quantity": 8,
         "unit": "piece",
         "department": "Produce"
       },
@@ -16686,18 +16173,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "1 Preheat the oven to 230°C.",
-      "2 Add the sugar and crumble the fresh yeast into warm water.",
-      "3 Allow the mixture to stand for 10 – 15 minutes in a warm place (we find a windowsill on a sunny day works best) until froth develops on the surface.",
-      "4 Sift the flour and salt into a large mixing bowl, make a well in the middle and pour in the yeast mixture and olive oil.",
-      "5 Lightly flour your hands, and slowly mix the ingredients together until they bind.",
-      "6 Generously dust your surface with flour.",
-      "7 Throw down the dough and begin kneading for 10 minutes until smooth, silky and soft.",
-      "8 Place in a lightly oiled, non-stick baking tray (we use a round one, but any shape will do!)",
-      "9 Spread the passata on top making sure you go to the edge.",
-      "10 Evenly place the mozzarella (or other cheese) on top, season with the oregano and black pepper, then drizzle with a little olive oil.",
-      "11 Cook in the oven for 10 – 12 minutes until the cheese slightly colours.",
-      "12 When ready, place the basil leaf on top and tuck in!"
+      "Heat the oven to 450°F. Stir the sugar and yeast into the warm water and leave 10–15 minutes, until frothy.",
+      "Mix the flour and salt in a large bowl, make a well, and pour in the yeast mixture and 1 tbsp oil. Mix to a dough.",
+      "Knead on a floured surface 10 minutes, until smooth. Divide in two and press each into an oiled pan or baking sheet.",
+      "Spread the passata to the edges, top with the torn mozzarella, oregano and pepper and drizzle with the rest of the oil.",
+      "Bake 10–12 minutes, until the crust is golden and the cheese is bubbling. Top with basil."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -17426,12 +16906,11 @@ export const recipeImported: Recipe[] = [
     "vegetables": [],
     "techniques": [
       "fry",
-      "stir-fry",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
@@ -17443,8 +16922,8 @@ export const recipeImported: Recipe[] = [
     "ingredients": [
       {
         "name": "spaghetti",
-        "quantity": 11.25,
-        "unit": "oz",
+        "quantity": 1,
+        "unit": "lb",
         "department": "DryGoods"
       },
       {
@@ -17468,7 +16947,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "pecorino",
-        "quantity": 1.75,
+        "quantity": 3.5,
         "unit": "oz",
         "department": "DryGoods"
       },
@@ -17481,18 +16960,12 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Put a large saucepan of water on to boil.",
-      "Finely chop the 100g pancetta, having first removed any rind. Finely grate 50g pecorino cheese and 50g parmesan and mix them together.",
-      "Beat the 3 large eggs in a medium bowl and season with a little freshly grated black pepper. Set everything aside.",
-      "Add 1 tsp salt to the boiling water, add 350g spaghetti and when the water comes back to the boil, cook at a constant simmer, covered, for 10 minutes or until al dente (just cooked).",
-      "Squash 2 peeled plump garlic cloves with the blade of a knife, just to bruise it.",
-      "While the spaghetti is cooking, fry the pancetta with the garlic. Drop 50g unsalted butter into a large frying pan or wok and, as soon as the butter has melted, tip in the pancetta and garlic.",
-      "Leave to cook on a medium heat for about 5 minutes, stirring often, until the pancetta is golden and crisp. The garlic has now imparted its flavour, so take it out with a slotted spoon and discard.",
-      "Keep the heat under the pancetta on low. When the pasta is ready, lift it from the water with a pasta fork or tongs and put it in the frying pan with the pancetta. Don’t worry if a little water drops in the pan as well (you want this to happen) and don’t throw the pasta water away yet.",
-      "Mix most of the cheese in with the eggs, keeping a small handful back for sprinkling over later.",
-      "Take the pan of spaghetti and pancetta off the heat. Now quickly pour in the eggs and cheese. Using the tongs or a long fork, lift up the spaghetti so it mixes easily with the egg mixture, which thickens but doesn’t scramble, and everything is coated.",
-      "Add extra pasta cooking water to keep it saucy (several tablespoons should do it). You don’t want it wet, just moist. Season with a little salt, if needed.",
-      "Use a long-pronged fork to twist the pasta on to the serving plate or bowl. Serve immediately with a little sprinkling of the remaining cheese and a grating of black pepper. If the dish does get a little dry before serving, splash in some more hot pasta water and the glossy sauciness will be revived."
+      "Bring a large pot of salted water to a boil. Cook the spaghetti according to the package.",
+      "Meanwhile, finely chop the bacon and fry it in a large skillet over medium heat about 5 minutes, until golden and crisp. Keep the pan on low.",
+      "Beat the egg yolks with most of the grated pecorino and plenty of black pepper.",
+      "Lift the pasta into the skillet with some of its water clinging to it, toss, then take the pan off the heat.",
+      "Quickly pour in the egg mixture and toss with tongs so it thickens into a glossy sauce without scrambling, adding a few spoonfuls of pasta water to keep it saucy.",
+      "Serve at once with the rest of the pecorino and more pepper."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -25196,15 +24669,16 @@ export const recipeImported: Recipe[] = [
     "vegetables": [
       "garlic",
       "grape tomatoes",
-      "avocado"
+      "avocado",
+      "cilantro"
     ],
     "techniques": [
       "bake"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 55,
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
@@ -25264,7 +24738,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "grape tomatoes",
         "quantity": 1,
-        "unit": "piece",
+        "unit": "cup",
         "department": "Produce"
       },
       {
@@ -25296,22 +24770,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tbsp",
         "department": "Dairy"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "Put the uncooked chicken breasts in the crock pot. Pour the full bottle of salad dressing over the chicken. Sprinkle the rest of the ingredients over the top and mix them in a bit with a spoon.",
-      "Cover your crock pot with the lid and cook on high for 4 hours.",
-      "Remove all the chicken breasts from the crock pot and let cool.",
-      "Shred the chicken breasts and move to a glass bowl.",
-      "Pour most of the liquid over the shredded chicken.",
-      "FOR THE TACOS:",
-      "Make the guacamole sauce by mixing the avocado and green salsa together. Pour the guacamole mixture through a strainer until smooth and transfer to a squeeze bottle. Cut the tip off the lid of the squeeze bottle to make the opening more wide if needed.",
-      "Make the sour cream sauce by mixing the sour cream and milk together until you get a more liquid sour cream sauce. Transfer to a squeeze bottle.",
-      "In a 9x 13 glass baking dish, fill all 12+ tacos with a layer of refried beans, cooked chicken and shredded cheese.",
-      "Bake at 450 for 10-15 minutes just until the cheese is melted and bubbling.",
-      "Out of the oven top all the tacos with the sliced grape tomaotes, jalapeno and cilantro.",
-      "Finish with a drizzle of guacamole and sour cream.",
-      "Enjoy!"
+      "Heat the oven to 350°F. Put the chicken in a baking dish, pour the dressing over and sprinkle with the cumin, paprika and garlic. Cover with foil and bake about 35 minutes, until the chicken reads 165°F.",
+      "Shred the chicken and moisten with most of the cooking liquid. Raise the oven to 450°F.",
+      "Mash the avocado with the green salsa. Thin the sour cream with the milk.",
+      "Stand the taco shells in a 9x13-inch dish and fill each with refried beans, chicken and cheese.",
+      "Bake 10–15 minutes, until the cheese is melted and bubbling.",
+      "Top with halved tomatoes, sliced jalapeño and cilantro, and drizzle with the avocado and sour cream sauces."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -26435,27 +25908,31 @@ export const recipeImported: Recipe[] = [
       "HighProtein"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
       "garlic",
       "lemon juice",
       "garlic",
-      "lemon juice"
+      "lemon juice",
+      "lettuce",
+      "tomato"
     ],
     "techniques": [
       "fry"
     ],
     "difficulty": "Hard",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 135,
+    "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 38,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -26544,30 +26021,52 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tbsp",
         "department": "Produce"
+      },
+      {
+        "name": "pita bread",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "mint",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "1",
-      "Start by cutting your chicken up into reasonably small slices. Grab your ziplock bag and dump the freshly sliced chicken inside.",
-      "2",
-      "Add garlic, coriander, cumin, cardomom, cayenne pepper, paprika, salt, pepper, lemon juice and olive oil to the bag. Close the bag and mix thoroughly. Place in fridge for 10-12 hours (shorter is fine but longer is better).",
-      "3",
-      "Once ready to cook, heat your fry pan to medium-high and add a tiny bit of olive oil. Fry one side of all of your flatbreads until slightly toasty. Remove from pan, add enough oil to coat the fry pan. Put crumble fries into air fryer on 180 for 15 minutes shaking occasionally.",
-      "4",
-      "The pan should be pretty hot by now, add the chicken in 2 batches (unless you have a big fry pan) to avoid overcrowding. The chicken should get a nice sear and darker colour which is perfect. Cook for a further 5-8 minutes or until cooked through. Repeat with next chicken batch.",
-      "5",
-      "While chicken is cooking, place your Greek yoghurt into a bowl. Combine garlic, finely chopped mint and parsley, squeeze or so of lemon and cumin. Combine and add salt to taste. In a small bowl, combine 1tsp garlic powder, paprika, cumin, onion powder, oregano, dried parsley, cayenne pepper (optional) mix and leave aside for fries.",
-      "6",
-      "Season fries immediately once cooked and add salt to taste. Once the chicken is complete, serve immediately by laying out your flatbread, spreading the sauce evenly over the bread, add lettuce, onion, tomato, fries, chicken, feta and more sauce on top. Serve immediately."
+      "Slice the chicken and put it in a zip-top bag with the 2 minced garlic cloves, coriander, cumin, cardamom, cayenne, paprika, salt, 2 tbsp lemon juice and the oil. Mix well and refrigerate at least 2 hours, up to 12.",
+      "Make the sauce: mix the yogurt, crushed garlic, chopped mint, 1 tsp cumin, a squeeze of lemon and a pinch of salt.",
+      "Warm the pitas in a dry skillet and set aside.",
+      "Heat a little oil in the skillet over medium-high heat and cook the chicken in two batches, 5–8 minutes, until well seared and 165°F.",
+      "Spread the pitas with sauce and top with lettuce, sliced tomato, onion and chicken."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Dairy"
     ],
-    "dietTags": [
-      "gluten-free"
-    ],
+    "dietTags": [],
     "image": "https://www.themealdb.com/images/media/meals/hcg6l91763596970.jpg",
     "origin": "Saudi Arabian",
     "sourceName": "TheMealDB",
@@ -27163,31 +26662,36 @@ export const recipeImported: Recipe[] = [
     "categories": [
       "Vegetarian"
     ],
-    "provides": [],
+    "provides": [
+      "vegetable",
+      "starch"
+    ],
     "primaryProtein": "None",
     "vegetables": [
       "parsley",
-      "lemons"
+      "lemons",
+      "tomato",
+      "cucumber"
     ],
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Easy",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 10,
+    "cookMinutes": 15,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 12,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
         "name": "broad beans",
         "quantity": 2,
-        "unit": "cup",
+        "unit": "can",
         "department": "DryGoods"
       },
       {
@@ -27198,8 +26702,8 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "olive oil",
-        "quantity": 1,
-        "unit": "pinch",
+        "quantity": 3,
+        "unit": "tbsp",
         "department": "DryGoods",
         "pantryStaple": true
       },
@@ -27218,32 +26722,49 @@ export const recipeImported: Recipe[] = [
       {
         "name": "cumin",
         "quantity": 1,
-        "unit": "pinch",
+        "unit": "tsp",
         "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pita bread",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "tomato",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cucumber",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "As the cooking time varies depending on the quality and age of the beans, it is good to cook them in advance and to reheat them when you are ready to serve. Cook the drained beans in a fresh portion of unsalted water in a large saucepan with the lid on until tender, adding water to keep them covered, and salt when the beans have softened. They take 2–2 1/2 hours of gentle simmering. When the beans are soft, let the liquid reduce. It is usual to take out a ladle or two of the beans and to mash them with some of the cooking liquid, then stir this back into the beans. This is to thicken the sauce.",
-      "Serve the beans in soup bowls sprinkled with chopped parsley and accompanied by Arab bread.",
-      "Pass round the dressing ingredients for everyone to help themselves: a bottle of extra-virgin olive oil, the quartered lemons, salt and pepper, a little saucer with the crushed garlic, one with chili-pepper flakes, and one with ground cumin.",
-      "The beans are eaten gently crushed with the fork, so that they absorb the dressing.",
-      "Optional Garnishes",
-      "Peel hard-boiled eggs—1 per person—to cut up in the bowl with the beans.",
-      "Top the beans with a chopped cucumber-and-tomato salad and thinly sliced mild onions or scallions. Otherwise, pass round a good bunch of scallions and quartered tomatoes and cucumbers cut into sticks.",
-      "Serve with tahina cream sauce (page 65) or salad (page 67), with pickles and sliced onions soaked in vinegar for 30 minutes.",
-      "Another way of serving ful medames is smothered in a garlicky tomato sauce (see page 464).",
-      "In Syria and Lebanon, they eat ful medames with yogurt or feta cheese, olives, and small cucumbers.",
-      "Variations",
-      "A traditional way of thickening the sauce is to throw a handful of red lentils (1/4 cup) into the water at the start of the cooking.",
-      "In Iraq, large brown beans are used instead of the small Egyptian ones, in a dish called badkila, which is also sold for breakfast in the street."
+      "Put the beans and their liquid in a saucepan and simmer 10 minutes. Mash a ladleful and stir it back in to thicken.",
+      "Crush the garlic with a little salt.",
+      "Serve the beans in bowls, topped with the parsley, garlic, cumin, a good drizzle of olive oil and a squeeze of lemon.",
+      "Serve with warm pita and chopped tomato and cucumber."
     ],
     "makesLeftovers": false,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
       "vegetarian",
       "vegan",
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/lvn2d51598732465.jpg",
@@ -29383,7 +28904,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Eggs",
     "vegetables": [
@@ -29391,25 +28913,24 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "fry",
-      "simmer",
-      "steam"
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 5,
+    "cookMinutes": 25,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 20,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
       {
         "name": "tomato",
-        "quantity": 8.75,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "lb",
         "department": "Produce"
       },
       {
@@ -29421,7 +28942,7 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "egg",
-        "quantity": 4,
+        "quantity": 6,
         "unit": "piece",
         "department": "Dairy"
       },
@@ -29444,32 +28965,30 @@ export const recipeImported: Recipe[] = [
         "unit": "pinch",
         "department": "Spices",
         "pantryStaple": true
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "1",
-      "First, pan fry the black pepper and garlic over a dry medium heat until fragrant.",
-      "2",
-      "Add a good amount of extra virgin olive oil and infuse for a minute.",
-      "3",
-      "Once the oil heats up, add the tomatoes and salt, and cover with a lid. Simmer for 5 minutes.",
-      "4",
-      "Remove the lid and mash the tomatoes. Reduce until you reach the desired consistency of choice.",
-      "5",
-      "Make craters for the eggs and lower the heat. Carefully crack the eggs into the craters, making sure it touches the pan and not the tomato sauce.",
-      "6",
-      "Cover the eggs and leave it for 5 minutes without lifting the lid.",
-      "7",
-      "Remove from the heat and let the residual heat steam the eggs for 1-2 minutes."
+      "Dry-fry the black pepper and sliced garlic in a skillet over medium heat until fragrant.",
+      "Add the olive oil and let it infuse 1 minute.",
+      "Add the chopped tomatoes and salt, cover and simmer 5 minutes.",
+      "Uncover, mash the tomatoes and simmer until thick.",
+      "Make wells, lower the heat and crack in the eggs. Cover and cook 5 minutes without lifting the lid, then rest off the heat 1–2 minutes, until the whites are set.",
+      "Serve with bread."
     ],
     "makesLeftovers": false,
     "seasons": [],
     "allergens": [
+      "Gluten",
       "Eggs"
     ],
     "dietTags": [
       "vegetarian",
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/crd1jz1763592990.jpg",
@@ -31074,45 +30593,45 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 15,
+    "prepMinutes": 10,
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
-      "calories": 420,
+      "calories": 480,
       "protein": 20,
       "carbs": 18,
-      "fat": 18
+      "fat": 30
     },
     "ingredients": [
       {
         "name": "red onions",
-        "quantity": 0.5,
+        "quantity": 1,
         "unit": "piece",
         "department": "Produce"
       },
       {
         "name": "red bell pepper",
-        "quantity": 0.5,
+        "quantity": 1,
         "unit": "piece",
         "department": "Spices"
       },
       {
         "name": "tomato",
-        "quantity": 14,
-        "unit": "oz",
+        "quantity": 2,
+        "unit": "can",
         "department": "Produce"
       },
       {
         "name": "cumin",
-        "quantity": 0.5,
+        "quantity": 1,
         "unit": "tsp",
         "department": "Spices"
       },
       {
         "name": "garlic granules",
-        "quantity": 0.5,
+        "quantity": 1,
         "unit": "tsp",
         "department": "Produce"
       },
@@ -31124,20 +30643,20 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "paprika",
-        "quantity": 1,
+        "quantity": 2,
         "unit": "tsp",
         "department": "Spices"
       },
       {
         "name": "egg",
-        "quantity": 2,
+        "quantity": 6,
         "unit": "piece",
         "department": "Dairy"
       },
       {
         "name": "parsley",
-        "quantity": 1,
-        "unit": "bunch",
+        "quantity": 2,
+        "unit": "tbsp",
         "department": "Produce"
       },
       {
@@ -31148,24 +30667,31 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "toast",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "piece",
         "department": "DryGoods"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
       }
     ],
     "steps": [
-      "1",
-      "Fry onion and pepper together on medium heat until onion is soft",
-      "2",
-      "Add garlic granules, cook for a minute",
-      "3",
-      "Add chopped tomatoes and remaining spices, stir well",
-      "4",
-      "Simmer for about 20 minutes",
-      "5",
-      "Make indents for in the sauce and crack an egg into each one",
-      "6",
-      "Once egg whites are cooked through, garnish and serve with toast"
+      "Heat the oil in a large lidded skillet and fry the chopped onion and pepper over medium heat until soft.",
+      "Add the garlic granules for 1 minute, then the tomatoes, cumin, cayenne, paprika and a pinch of salt.",
+      "Simmer about 20 minutes, until thick.",
+      "Make 6 wells, crack in the eggs, cover and cook 6–8 minutes, until the whites are set.",
+      "Scatter with parsley and pepper flakes and serve with toast."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -31181,141 +30707,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Saudi Arabian",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://cookpad.com/eng/recipes/16275721?ref=search&search_term=saudi+arabia",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53440",
-    "name": "Balchi di Pisca",
-    "cuisine": "Other",
-    "categories": [
-      "Seafood",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Fish",
-    "vegetables": [
-      "potatoes",
-      "tomato",
-      "onion",
-      "garlic"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "salt cod",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Seafood"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "tomato",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green bell pepper",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "tobasco sauce",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "nutmeg",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      }
-    ],
-    "steps": [
-      "These delectable fish balls can also be made with salmon or fish fillets. Substitute one large can of salmon or one pound of any white fish for the cod.",
-      "Soak for twenty-four hours:",
-      "1 salted cod, or bakijow Discard the water.",
-      "Place cod in saucepan with fresh water to cover. Simmer gently until the fish flakes easily when tested with the tines of a fork. Strain, reserving a bit of the broth. De bone the cod and set it aside for later use. In a saucepan, bring to boil in water to cover: 3 medium potatoes, peeled and diced When the potatoes are tender, drain them well. Add the cod and mash the two ingredients thoroughly together.",
-      "Place in the container of an electric blender:",
-      "1 tomato, peeled and chopped",
-      "1/2 green pepper, chopped",
-      "1 medium onion, peeled and chopped",
-      "1 clove garlic, slivered",
-      "1/2 tsp. Tabasco sauce, or minced hot pepper",
-      "Dash of nutmeg",
-      "Salt and pepper to taste",
-      "Blend for a few seconds and pour the sauce over the mashed fish mixture. Combine these ingredients well and add 1 egg, beaten Mixture should be stiff enough to mold into balls about one and a half inches in diameter, If it's too dry, add the fish broth a tablespoon at a time. Fry the balls in hot, deep fat until golden brown."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Fish",
-      "Eggs"
-    ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/qqwhw51780093126.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.visitaruba.com/aruba-recipes/balchi-di-pisca/",
     "estimated": true
   },
   {
@@ -33318,16 +32709,17 @@ export const recipeImported: Recipe[] = [
     ],
     "primaryProtein": "Lamb",
     "vegetables": [
-      "white cabbage"
+      "white cabbage",
+      "potatoes",
+      "parsley"
     ],
     "techniques": [
-      "simmer",
-      "braise"
+      "simmer"
     ],
     "difficulty": "Hard",
     "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 15,
+    "cookMinutes": 165,
     "baseServings": 4,
     "nutrition": {
       "calories": 520,
@@ -33364,24 +32756,29 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "flour",
-        "quantity": 5,
+        "quantity": 2,
         "unit": "tbsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
       }
     ],
     "steps": [
-      "▢",
-      "Cut the lamb into large pieces.",
-      "▢",
-      "Slice the cabbage into large wedges, keeping the core attached.",
-      "▢",
-      "Add a layer of lamb pieces to the bottom of a large pot, fatty side down. Sprinkle with peppercorns and salt. Add a layer of cabbage wedges on top. Repeat with more layers of lamb, peppercorns, and cabbage, ending with cabbage on top.",
-      "▢",
-      "Optional: Sprinkle a couple of tablespoons on top of the lamb for a thicker stew.",
-      "▢",
-      "Add water to the pot and bring to a boil. Cover and reduce heat. Cook on low heat for 2 – 3 hours, until the lamb gently falls away from the bone.",
-      "▢",
-      "Serve with boiled potatoes and fresh parsley, covering generously with the fårikål broth."
+      "Cut the lamb into large pieces and the cabbage into wedges, keeping the core on.",
+      "Layer lamb (fatty side down), a sprinkle of peppercorns and salt, and cabbage in a large pot. Repeat, ending with cabbage. Sprinkle the flour over a middle layer if you want a thicker broth.",
+      "Add the water, bring to a boil, then cover and cook on low 2–3 hours, until the lamb falls from the bone.",
+      "For the last 25 minutes, boil the peeled potatoes separately until tender.",
+      "Serve with the potatoes and parsley, spooning plenty of broth over."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -33576,10 +32973,10 @@ export const recipeImported: Recipe[] = [
     "techniques": [
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
+    "prepMinutes": 20,
+    "cookMinutes": 25,
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
@@ -33659,21 +33056,21 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "tbsp",
         "department": "DryGoods"
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "▢",
-      "Cut the fish fillets in cubes or strips. Crush or chop the garlic. Rinse the vegetables and cut into thin strips.",
-      "▢",
-      "Heat the butter in a pot and add the garlic. Once the garlic starts to turn golden add the flour, whisking well.",
-      "▢",
-      "Add the fish broth and continue to whisk until there are no lumps.",
-      "▢",
-      "Add the vegetables and milk and bring to a boil. Cook for about 10 minutes.",
-      "▢",
-      "Add the crème fraîche (or sour cream). Bring the soup back to a simmer and once the soup begins to bubble again turn off the heat. Keep the soup on the burner and add the fish. Let the fish cook in the hot soup for 5 minutes. If using shrimp, add right before serving.",
-      "▢",
-      "Sprinkle with chives (or dill or parsley) before serving."
+      "Cut the fish into cubes. Crush the garlic. Cut the potatoes, carrots and leek into thin strips.",
+      "Heat the butter in a pot and add the garlic. When it turns golden, whisk in the flour.",
+      "Whisk in the fish broth until smooth.",
+      "Add the vegetables and milk, bring to a boil and cook about 10 minutes, until the potatoes are tender.",
+      "Stir in the crème fraîche and bring back to a simmer, then turn off the heat, add the fish and leave 5 minutes, until it flakes easily. Stir in the shrimp just before serving.",
+      "Sprinkle with chives and serve with bread."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -34348,7 +33745,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Beef",
     "vegetables": [
@@ -34358,18 +33756,17 @@ export const recipeImported: Recipe[] = [
     ],
     "techniques": [
       "fry",
-      "simmer",
-      "braise"
+      "simmer"
     ],
     "difficulty": "Hard",
     "spiceLevel": "Medium",
     "prepMinutes": 20,
-    "cookMinutes": 90,
+    "cookMinutes": 160,
     "baseServings": 6,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 36,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -34438,32 +33835,30 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "boiling water",
-        "quantity": 4.25,
+        "quantity": 4,
         "unit": "cup",
         "department": "DryGoods"
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
       }
     ],
     "steps": [
-      "1",
-      "Cooking",
-      "Add some olive oil to a saute pan or saucepan (one with a lid). One heated add in the onions, diced beef, red peppers and fry for 5 minutes stirring occasionally. The meat should be fully browned.",
-      "2",
-      "Add the paprika, tomato puree, red pepper flakes and season with salt and pepper. Mix together and continue to fry for 2 minutes.",
-      "3",
-      "Add the cabbage and stir the mixture together. Fry the mixture while stirring occasionally for 3-5 minutes. Most of the oil should have burned away.",
-      "4",
-      "Pour the boiling water into the pan, ensuring that the water level completely covers the cabbage, plus about 1 inch above it. Put on the lid and bring to the boil.",
-      "5",
-      "Leave to simmer for 2.5 hours. The stew is ready when the cabbage is soft and meat tender.",
-      "6",
-      "Serving",
-      "Serve into wide bowls and leave to cool for 5 minutes."
+      "Heat the oil in a large lidded pot. Add the diced onion, beef and red peppers and fry 5 minutes, until the beef is browned.",
+      "Add the paprika, tomato paste, pepper flakes, salt and pepper and fry 2 minutes.",
+      "Add the diced cabbage and fry 3–5 minutes, stirring.",
+      "Pour in the boiling water to cover by about an inch, cover and bring to a boil.",
+      "Simmer about 2 1/2 hours, until the beef is tender. Serve in wide bowls with bread."
     ],
     "makesLeftovers": true,
     "seasons": [],
-    "allergens": [],
+    "allergens": [
+      "Gluten"
+    ],
     "dietTags": [
-      "gluten-free",
       "dairy-free"
     ],
     "image": "https://www.themealdb.com/images/media/meals/mobh1l1779648766.jpg",
@@ -35032,10 +34427,10 @@ export const recipeImported: Recipe[] = [
       "fry",
       "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 45,
+    "prepMinutes": 10,
+    "cookMinutes": 75,
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
@@ -35097,20 +34492,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "1",
-      "Cooking",
-      "Fry the leeks in a small dash of olive oil for a few minutes until they start to brown.",
-      "2",
-      "Add the onions and mince and fry until everything is browned. Ensure you keep stirring to prevent the leeks catching and burning.",
-      "3",
-      "Add the rice and stir together for a few minutes ensuring the rice is well blended and coated in any juices.",
-      "4",
-      "Add the lamb broth, salt and pepper. Give it a good stir and leave it to come to the boil. Leave to boil for 2 minutes.",
-      "5",
-      "Baking",
-      "Pour the mixture into a large baking tray, place on the bottom self of a preheated oven at 180 degrees. Leave to bake for up to 1 hour. The dish is ready when all the liquid is evaporated and the rice is soft.",
-      "6",
-      "Serving"
+      "Heat the oven to 350°F. Fry the sliced leeks in the oil a few minutes until they start to brown.",
+      "Add the onion and ground lamb and fry until browned with no pink left, stirring so the leeks don’t burn.",
+      "Add the rice and stir a few minutes to coat.",
+      "Add the broth, salt and pepper, stir and boil 2 minutes.",
+      "Pour into a large baking dish and bake on the bottom rack up to 1 hour, until the liquid is absorbed and the rice is soft."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -35992,10 +35378,10 @@ export const recipeImported: Recipe[] = [
       "simmer",
       "steam"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "None",
     "prepMinutes": 15,
-    "cookMinutes": 30,
+    "cookMinutes": 45,
     "baseServings": 4,
     "nutrition": {
       "calories": 520,
@@ -36012,13 +35398,13 @@ export const recipeImported: Recipe[] = [
       },
       {
         "name": "russet potato",
-        "quantity": 2,
+        "quantity": 4,
         "unit": "piece",
         "department": "Produce"
       },
       {
         "name": "bacon",
-        "quantity": 4,
+        "quantity": 6,
         "unit": "piece",
         "department": "Meat"
       },
@@ -36050,18 +35436,11 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "Bring salted water to boil in a large pot.",
-      "Add in the cabbage and potatoes, cook until tender about 30-40 minutes",
-      "When tender, drain, very well.",
-      "Return the vegetables to the pot and turn on the burner to low. Let steam",
-      "Meanwhile cook up the bacon, reserving the fat for frying the hash.",
-      "Chop up the bacon, into small pieces.",
-      "Mash the potatoes and cabbage with a potato masher and add in the minced garlic.",
-      "Add in salt and pepper to taste.",
-      "Using a form for individual servings, press the hash mixture into the form with bacon on top, fry in the reserved bacon fat until golden brown, flip over and repeat on the other side.",
-      "Remove form and garnish with chopped parsley.",
-      "If you want to make one big hash, just use a skillet, pressing the hash into the skillet with the bacon pieces and reserved fat, then flip over once golden brown. Cut into servings.",
-      "Garnish with chopped parsley."
+      "Bring a large pot of salted water to a boil. Add the chopped cabbage and peeled, chunked potatoes and cook 25–30 minutes, until very tender. Drain well and return to the pot over low heat to steam dry.",
+      "Meanwhile, fry the bacon until crisp, keeping the fat. Chop the bacon.",
+      "Mash the potatoes and cabbage with the garlic, salt and pepper.",
+      "Heat the bacon fat in a large skillet, press in the mash with the bacon and fry until golden underneath. Flip in sections and brown the other side.",
+      "Cut into wedges and garnish with parsley."
     ],
     "makesLeftovers": false,
     "seasons": [],
@@ -38492,135 +37871,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53499",
-    "name": "Prahok Ktis – Pork and Coconut Dip",
-    "cuisine": "Thai",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "garlic",
-      "shallots",
-      "chile pepper",
-      "lime",
-      "cilantro"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 34,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "ground pork",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "coconut milk",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "International"
-      },
-      {
-        "name": "prahok",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "garlic",
-        "quantity": 4,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "shallots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "chile pepper",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "brown sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Heat 2 tbsp vegetable oil in a large skillet over medium-high heat until shimmering, about 1 minute.",
-      "Add 4 cloves minced garlic and 2 finely chopped shallots to the skillet, stirring constantly until fragrant and lightly golden, 2-3 minutes.",
-      "Tip: Keep the heat medium to prevent burning—garlic can turn bitter if overcooked.",
-      "Add 1 lb ground pork to the skillet, breaking it up with a spoon, and cook until no pink remains, 5-7 minutes.",
-      "Stir in 3 tbsp prahok and cook for 1 minute to blend the flavors, mashing it slightly into the pork.",
-      "Pour in 1 cup coconut milk, stirring to combine, then reduce heat to medium-low and simmer for 10 minutes until the mixture thickens slightly.",
-      "Tip: Simmer gently to avoid curdling the coconut milk—a steady bubble is ideal.",
-      "Add 2 tbsp fish sauce, 1 tbsp palm sugar, and 2 minced Thai chilies, stirring until the sugar dissolves, about 2 minutes.",
-      "Remove the skillet from heat and stir in 2 tbsp lime juice, mixing thoroughly.",
-      "Tip: Add lime juice off the heat to preserve its fresh, tangy flavor without cooking it out.",
-      "Transfer the dip to a serving bowl and garnish with ¼ cup chopped fresh cilantro.",
-      "Let the dip cool for 5 minutes before serving to allow the flavors to meld."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Fish"
-    ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/g80f4t1782690273.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://recipes-for-life.com/cambodian-recipes/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53200",
     "name": "Prawn stir-fry",
     "cuisine": "Thai",
@@ -39057,7 +38307,8 @@ export const recipeImported: Recipe[] = [
       "HighProtein"
     ],
     "provides": [
-      "protein"
+      "protein",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -39074,12 +38325,12 @@ export const recipeImported: Recipe[] = [
     "difficulty": "Hard",
     "spiceLevel": "Medium",
     "prepMinutes": 15,
-    "cookMinutes": 45,
+    "cookMinutes": 35,
     "baseServings": 6,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 38,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -39159,7 +38410,7 @@ export const recipeImported: Recipe[] = [
       {
         "name": "basil",
         "quantity": 1,
-        "unit": "bunch",
+        "unit": "cup",
         "department": "Produce"
       },
       {
@@ -39167,6 +38418,12 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "pinch",
         "department": "Produce"
+      },
+      {
+        "name": "jasmine rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
       }
     ],
     "steps": [
@@ -39207,7 +38464,8 @@ export const recipeImported: Recipe[] = [
     ],
     "provides": [
       "protein",
-      "vegetable"
+      "vegetable",
+      "starch"
     ],
     "primaryProtein": "Chicken",
     "vegetables": [
@@ -39219,18 +38477,17 @@ export const recipeImported: Recipe[] = [
       "chile pepper"
     ],
     "techniques": [
-      "simmer",
-      "braise"
+      "simmer"
     ],
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "spiceLevel": "Medium",
-    "prepMinutes": 20,
-    "cookMinutes": 90,
+    "prepMinutes": 15,
+    "cookMinutes": 35,
     "baseServings": 6,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 38,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -39300,22 +38557,20 @@ export const recipeImported: Recipe[] = [
         "quantity": 1,
         "unit": "piece",
         "department": "Produce"
+      },
+      {
+        "name": "jasmine rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
       }
     ],
     "steps": [
-      "Heat 1 tbsp vegetable oil in a large pot over medium-high heat until it shimmers, about 1 minute.",
-      "Add 1 lb boneless, skinless chicken thighs to the pot and cook until browned on all sides, approximately 5-7 minutes, stirring occasionally to prevent sticking.",
-      "Pour 4 cups water into the pot and bring to a boil, then reduce heat to a simmer.",
-      "Stir in 2 tbsp tamarind paste, 1 tbsp fish sauce, and 1 tsp sugar until fully dissolved, about 1 minute.",
-      "Add 1 stalk lemongrass and 2 kaffir lime leaves to the pot, then cover and simmer for 10 minutes to infuse the broth with flavor.",
-      "Tip: Bruising the lemongrass before adding helps release its essential oils for a more aromatic stew.",
-      "Add 1 cup pineapple chunks, 1 cup cherry tomatoes, and 1 cup green beans to the pot, stirring gently to combine.",
-      "Simmer uncovered for 10-12 minutes, or until the green beans are tender but still crisp and the tomatoes start to soften.",
-      "Tip: Avoid overcooking the vegetables to maintain their vibrant color and texture in the final dish.",
-      "Stir in 1 Thai chili and simmer for an additional 2 minutes to incorporate the heat.",
-      "Tip: Taste the broth and adjust with extra tamarind paste or fish sauce if desired, but do so gradually to avoid overpowering the balance.",
-      "Remove the pot from heat and discard the lemongrass and kaffir lime leaves before serving.",
-      "Present the stew hot in bowls, optionally garnished with fresh herbs like cilantro."
+      "Heat the oil in a large pot over medium-high heat and brown the chicken thighs 5–7 minutes.",
+      "Add the 4 cups water, bring to a boil, then lower to a simmer. Stir in the tamarind, fish sauce and sugar.",
+      "Add the bruised lemongrass and lime leaves, cover and simmer 10 minutes. Meanwhile, cook the rice.",
+      "Add the pineapple, tomatoes and green beans and simmer uncovered 10–12 minutes, until the beans are crisp-tender and the chicken reads 175°F.",
+      "Add the sliced chile for 2 minutes, taste and adjust with tamarind or fish sauce, and remove the lemongrass and lime leaves. Serve with rice."
     ],
     "makesLeftovers": true,
     "seasons": [],
@@ -42194,6 +41449,294 @@ export const recipeImportedRetired: Recipe[] = [
     "origin": "Canadian",
     "sourceName": "TheMealDB",
     "sourceUrl": "http://www.meatwave.com/blog/montreal-smoked-meat-recipe",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52936",
+    "name": "Saltfish and Ackee",
+    "cuisine": "BBQ",
+    "categories": [
+      "Seafood",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "onion",
+      "tomatoes"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "salt cod",
+        "quantity": 15.75,
+        "unit": "oz",
+        "department": "Seafood"
+      },
+      {
+        "name": "ackee",
+        "quantity": 14,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "curry powder",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "jerusalem artichokes",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "hotsauce",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "red bell pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "yellow bell pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "tomatoes",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "self-rising flour",
+        "quantity": 8.75,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "suet",
+        "quantity": 1,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "DryGoods",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "For the saltfish, soak the salt cod overnight, changing the water a couple of times.",
+      "Drain, then put the cod in a large pan of fresh water and bring to the boil. Drain again, add fresh water and bring to the boil again.",
+      "Simmer for about five minutes, or until cooked through, then drain and flake the fish into large pieces. Discard any skin or bones.",
+      "For the dumplings, mix the flour and suet with a pinch of salt and 250ml/9fl oz water to make a dough.",
+      "Wrap the mixture in clingfilm and leave in the fridge to rest.",
+      "Open the can of ackee, drain and rinse, then set aside.",
+      "Heat a tablespoon of olive oil in a pan and fry the onion until softened but not brown.",
+      "Add the spices, seasoning, pepper sauce and sliced peppers and continue to fry until the peppers are tender.",
+      "Add the chopped tomatoes, then the salt cod and mix together. Lastly stir in the ackee very gently and leave to simmer until ready to serve.",
+      "When you’re almost ready to eat, heat about 1cm/½in vegetable oil in a frying pan and heat until just smoking.",
+      "Shape the dumpling mix into plum-size balls and shallow-fry until golden-brown. (CAUTION: hot oil can be dangerous. Do not leave the pan unattended.)",
+      "Drain the dumplings on kitchen paper and serve with the saltfish and ackee."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/vytypy1511883765.jpg",
+    "origin": "Jamaican",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbc.co.uk/food/recipes/saltfish__ackee_with_64803",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52939",
+    "name": "Callaloo Jamaican Style",
+    "cuisine": "BBQ",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "kale",
+      "garlic",
+      "onion",
+      "tomato",
+      "banana"
+    ],
+    "techniques": [
+      "fry",
+      "steam"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 34,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "kale",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "bacon",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "paprika",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "thyme",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red bell pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "banana",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Cut leaves and soft stems from the kale branches, them soak in a bowl of cold water for about 5-10 minutes or until finish with prep.",
+      "Proceed to slicing the onions, mincing the garlic and dicing the tomatoes. Set aside",
+      "Remove kale from water cut in chunks.",
+      "Place bacon on saucepan and cook until crispy. Then add onions, garlic, thyme, stir for about a minute or more",
+      "Add tomatoes; scotch bonnet pepper, smoked paprika. Sauté for about 2-3 more minutes.",
+      "Finally add vegetable, salt, mix well, and steamed for about 6-8 minutes or until leaves are tender. Add a tiny bit of water as needed. Adjust seasonings and turn off the heat.",
+      "Using a sharp knife cut both ends off the plantain. This will make it easy to grab the skin of the plantains. Slit a shallow line down the long seam of the plantain; peel only as deep as the peel. Remove plantain peel by pulling it back.",
+      "Slice the plantain into medium size lengthwise slices and set aside.",
+      "Coat a large frying pan with cooking oil spray. Spray the tops of the plantains with a generous layer of oil spray and sprinkle with salt, freshly ground pepper.",
+      "Let the plantains \"fry\" on medium heat, shaking the frying pan to redistribute them every few minutes.",
+      "As the plantains brown, continue to add more cooking oil spray, salt and pepper (if needed) until they have reached the desired color and texture.",
+      "Remove and serve with kale"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/ussyxw1515364536.jpg",
+    "origin": "Jamaican",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.africanbites.com/callaloo-jamaican-style/",
     "estimated": true
   },
   {
@@ -46117,6 +45660,138 @@ export const recipeImportedRetired: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53352",
+    "name": "Jamaican Instant Pot Rice and Beans",
+    "cuisine": "BBQ",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Beans",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "green onions"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 18,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "rice",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "coconut milk",
+        "quantity": 0.75,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "salt",
+        "quantity": 1.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "allspice",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.25,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "kidney beans",
+        "quantity": 15.75,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "thyme",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      }
+    ],
+    "steps": [
+      "Instructions",
+      "Set Instant Pot to \"Sauté.\" Once Hot, add olive oil. Then add yellow onion and stir until softened, about 3 minutes. Add garlic and green onions and stir for about 30 more seconds.",
+      "Press “Cancel” on the Instant Pot. Add rice, coconut milk, water, salt, allspice, and black pepper and stir.",
+      "Pour undrained kidney beans on top of the rice mixture. Do not stir. Lay sprigs of thyme on top. Cover the Instant Pot, ensuring the valve is set to “Sealing.”",
+      "Press “Manual” or “Pressure Cook” on the Instant Pot and set for High pressure for 6 minutes.",
+      "Once the pressure cooking time is done, allow it to natural release for 10 minutes, then quick release any remaining pressure by moving valve to \"Venting\"",
+      "Open lid and remove thyme sprigs. Fluff rice with fork and Enjoy!",
+      "Stove Top Instructions",
+      "Heat olive oil in a large pot over medium heat. Add yellow onion and stir until softened, about 3 minutes. Add garlic and green onions and stir for about 30 more seconds.",
+      "Add rice, undrained kidney beans, coconut milk, water, salt, allspice, and black pepper and stir until combined. Lay thyme on top. Bring mixture to a simmer.",
+      "Cover with a lid and reduce heat to low. Allow to cook for 18 minutes over low heat, then remove from heat. Leave the lid on for an additional 5 minutes.",
+      "Open the lid and remove the thyme. Fluff rice with fork. Enjoy."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/11bvtm1764795135.jpg",
+    "origin": "Jamaican",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.myforkinglife.com/jamaican-instant-pot-rice-and-beans/#recipe",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53357",
     "name": "Jamaican Rice and Peas",
     "cuisine": "BBQ",
@@ -46411,6 +46086,137 @@ export const recipeImportedRetired: Recipe[] = [
     "origin": "Chinese",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.simplyrecipes.com/recipes/sichuan_style_stir_fried_chinese_long_beans/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53377",
+    "name": "Napa Cabbage with Dried Shrimp",
+    "cuisine": "Chinese",
+    "categories": [
+      "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
+    "primaryProtein": "Shellfish",
+    "vegetables": [
+      "napa cabbage",
+      "peanut oil",
+      "scallions",
+      "ginger"
+    ],
+    "techniques": [
+      "fry",
+      "stir-fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 30,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "dried shrimp",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Seafood"
+      },
+      {
+        "name": "boiling water",
+        "quantity": 0.75,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "napa cabbage",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "peanut oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "scallions",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "ginger",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "cornstarch",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "kosher salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Dried shrimp gives this Chinese dish a punch of salty umami flavor. You can find it at an Asian grocery store in the frozen or refrigerated section. Look for small-sized dried shrimp, about a 1/4-inch in size. If you use medium or large dried shrimp, hydrate the shrimp with more water (1 cup for medium-sized shrimp, 1 1/4 cup for large) and for longer time (45 to 60 minutes), then chop it up into smaller 1/4-inch chunks. To make this recipe vegetarian, omit the dried shrimp and use four or five dried shiitake mushrooms, rehydrated, and sliced thin.",
+      "Rehydrate the dried shrimp:",
+      "Place the dried shrimp in a small bowl and pour the boiling water over it. Cover with a small plate and let sit for 30 minutes so the shrimp can rehydrate. The shrimp will be lighter in color and plump up slightly.",
+      "Prep the cabbage:",
+      "Meanwhile, split the napa cabbage in half lengthwise. Rinse the cabbage and shake it dry. Cut out the core of the cabbage and discard.",
+      "Set out two large bowls. Cut the remaining cabbage into 1-inch pieces, putting the thicker white pieces at the bottom of the cabbage into one bowl and the top thinner leafy green pieces into the other bowl.",
+      "Drain the shrimp:",
+      "Once the shrimp has rehydrated, drain it and discard the liquid.",
+      "Cook the shrimp and cabbage:",
+      "In a large wok or skillet over high heat add the peanut oil, swirling it around to coat the pan.",
+      "Heat until the oil looks shimmering hot, then carefully add the scallions, ginger, and rehydrated shrimp, paying specially attention as the wet ingredients may cause the hot oil to splatter. Toss with a spatula until the scallions are bright green and the entire mixture is fragrant, about 1 minute.",
+      "Add the thicker white part of the napa cabbage to the pan and lower the heat to medium high. Continue to cook and stir for 3 to 4 minutes, or until the edges of the cabbage pieces start to look slightly translucent but the center of the cabbage pieces are still opaque white.",
+      "Reduce the heat to medium low and add the leafy green pieces of cabbage into the pan. Cook until the leaves are wilted, about 2 minutes.",
+      "Make a cornstarch slurry:"
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Shellfish",
+      "Soy",
+      "Peanuts"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/9nh4dl1766435484.jpg",
+    "origin": "Chinese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.simplyrecipes.com/napa-cabbage-dried-shrimp-recipe-5208805",
     "estimated": true
   },
   {
@@ -47208,6 +47014,141 @@ export const recipeImportedRetired: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53440",
+    "name": "Balchi di Pisca",
+    "cuisine": "Other",
+    "categories": [
+      "Seafood",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "potatoes",
+      "tomato",
+      "onion",
+      "garlic"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "salt cod",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Seafood"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green bell pepper",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "tobasco sauce",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "nutmeg",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      }
+    ],
+    "steps": [
+      "These delectable fish balls can also be made with salmon or fish fillets. Substitute one large can of salmon or one pound of any white fish for the cod.",
+      "Soak for twenty-four hours:",
+      "1 salted cod, or bakijow Discard the water.",
+      "Place cod in saucepan with fresh water to cover. Simmer gently until the fish flakes easily when tested with the tines of a fork. Strain, reserving a bit of the broth. De bone the cod and set it aside for later use. In a saucepan, bring to boil in water to cover: 3 medium potatoes, peeled and diced When the potatoes are tender, drain them well. Add the cod and mash the two ingredients thoroughly together.",
+      "Place in the container of an electric blender:",
+      "1 tomato, peeled and chopped",
+      "1/2 green pepper, chopped",
+      "1 medium onion, peeled and chopped",
+      "1 clove garlic, slivered",
+      "1/2 tsp. Tabasco sauce, or minced hot pepper",
+      "Dash of nutmeg",
+      "Salt and pepper to taste",
+      "Blend for a few seconds and pour the sauce over the mashed fish mixture. Combine these ingredients well and add 1 egg, beaten Mixture should be stiff enough to mold into balls about one and a half inches in diameter, If it's too dry, add the fish broth a tablespoon at a time. Fry the balls in hot, deep fat until golden brown."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Fish",
+      "Eggs"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/qqwhw51780093126.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.visitaruba.com/aruba-recipes/balchi-di-pisca/",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53446",
     "name": "Clear Soup with Semolina Dumplings",
     "cuisine": "Other",
@@ -47948,6 +47889,135 @@ export const recipeImportedRetired: Recipe[] = [
     "image": "https://www.themealdb.com/images/media/meals/bqx8mc1782684286.jpg",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://cookinglsl.com/shopska-salad-recipe-bulgarian-tomato-and-cucumber-salad/#wprm-recipe-container-35244",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53499",
+    "name": "Prahok Ktis – Pork and Coconut Dip",
+    "cuisine": "Thai",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "garlic",
+      "shallots",
+      "chile pepper",
+      "lime",
+      "cilantro"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 34,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "ground pork",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "coconut milk",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "prahok",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "garlic",
+        "quantity": 4,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "shallots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "chile pepper",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "brown sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Heat 2 tbsp vegetable oil in a large skillet over medium-high heat until shimmering, about 1 minute.",
+      "Add 4 cloves minced garlic and 2 finely chopped shallots to the skillet, stirring constantly until fragrant and lightly golden, 2-3 minutes.",
+      "Tip: Keep the heat medium to prevent burning—garlic can turn bitter if overcooked.",
+      "Add 1 lb ground pork to the skillet, breaking it up with a spoon, and cook until no pink remains, 5-7 minutes.",
+      "Stir in 3 tbsp prahok and cook for 1 minute to blend the flavors, mashing it slightly into the pork.",
+      "Pour in 1 cup coconut milk, stirring to combine, then reduce heat to medium-low and simmer for 10 minutes until the mixture thickens slightly.",
+      "Tip: Simmer gently to avoid curdling the coconut milk—a steady bubble is ideal.",
+      "Add 2 tbsp fish sauce, 1 tbsp palm sugar, and 2 minced Thai chilies, stirring until the sugar dissolves, about 2 minutes.",
+      "Remove the skillet from heat and stir in 2 tbsp lime juice, mixing thoroughly.",
+      "Tip: Add lime juice off the heat to preserve its fresh, tangy flavor without cooking it out.",
+      "Transfer the dip to a serving bowl and garnish with ¼ cup chopped fresh cilantro.",
+      "Let the dip cool for 5 minutes before serving to allow the flavors to meld."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Fish"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/g80f4t1782690273.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://recipes-for-life.com/cambodian-recipes/",
     "estimated": true
   },
   {

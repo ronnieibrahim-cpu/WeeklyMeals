@@ -337,6 +337,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
       with the bun topping; dumpling stew lists its Worcestershire (Fish)).
       8 dropped (torta de fiambre, Olivier salad, ham croquetas, asado,
       pepperpot, sushi, mulukhiyah, fermented-soybean fish). 305 → 297.
+    - [x] Batch 11: 23 fixed, 1 kept (beef mandi's beef was missing from its
+      list; brisket and baingan bharta were cut off by the importer's
+      14-step cap — rewritten; carbonara's steps used ingredients it didn't
+      list; margherita doubled from one small pizza; slow-cooker tacos moved
+      to the oven). 6 dropped (prahok dip, balchi di pisca, napa cabbage,
+      callaloo, saltfish and ackee, IP rice and beans). 297 → 291.
 - [ ] 4. More sides
 - [ ] 5. Nutrition refresh
 - [ ] 6. Photos for the M5.7 recipes
