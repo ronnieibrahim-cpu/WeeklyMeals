@@ -20,6 +20,9 @@ export const CUISINE_EMOJI: Record<Cuisine, string> = {
   American: '🍔',
   MiddleEastern: '🧆',
   BBQ: '🍖',
+  Caribbean: '🌴',
+  LatinAmerican: '🫓',
+  SoutheastAsian: '🍲',
   Other: '🌍',
 };
 

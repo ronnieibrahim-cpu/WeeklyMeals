@@ -19,6 +19,9 @@ export const CUISINES: LabeledOption<Cuisine>[] = [
   { value: 'American', label: 'American' },
   { value: 'MiddleEastern', label: 'Middle Eastern' },
   { value: 'BBQ', label: 'BBQ' },
+  { value: 'Caribbean', label: 'Caribbean' },
+  { value: 'LatinAmerican', label: 'Latin American' },
+  { value: 'SoutheastAsian', label: 'Southeast Asian' },
   { value: 'Other', label: 'Other' },
 ];
 

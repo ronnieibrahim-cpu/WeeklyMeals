@@ -13,6 +13,11 @@ export type Cuisine =
   | 'American'
   | 'MiddleEastern'
   | 'BBQ'
+  /** Added November 2026 so imported dishes stop borrowing a neighbour's
+   * label: Jamaican curry goat was 'BBQ', Vietnamese pho was 'Thai'. */
+  | 'Caribbean'
+  | 'LatinAmerican'
+  | 'SoutheastAsian'
   /** Catch-all for imported dishes whose real cuisine (Polish, Norwegian,
    * Russian, etc.) doesn't fit any bucket above — honest labeling instead of
    * silently folding them into American, which was skewing swap/variety

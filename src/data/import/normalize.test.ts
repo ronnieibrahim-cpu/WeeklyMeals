@@ -1,5 +1,5 @@
 import { RECIPES } from '@/data/seed/recipes';
-import { dietTagConflicts, inferAllergens, inferDietTags, inferProvides, parseMeasure, unsupportedProvides, usIngredientName, usStepText } from './normalize';
+import { departmentFor, dietTagConflicts, fromMealDb, inferAllergens, inferProtein, normalize, inferDietTags, inferProvides, parseMeasure, unsupportedProvides, usIngredientName, usStepText } from './normalize';
 
 describe('parseMeasure — metric measures convert to customary units', () => {
   it('converts small gram amounts to ounces', () => {
@@ -309,5 +309,74 @@ describe('parseMeasure — TheMealDB unit spellings (M5.8 task 3b)', () => {
       .filter((i) => i.name === 'parsley');
     expect(parsley.some((i) => i.unit === 'bunch')).toBe(true);
     expect(parsley.some((i) => i.unit === 'pinch')).toBe(false);
+  });
+});
+
+describe('inferProtein — broth, stock cubes and goat cheese are not the protein (Nov 2026, CONTENT-REVIEW C1)', () => {
+  it('ignores chicken broth / bouillon in a vegetable dish', () => {
+    expect(inferProtein('Vegetarian', ' eggplant chicken broth soy sauce ')).toBe('None');
+    expect(inferProtein('Vegetarian', ' plum tomatoes eggs chicken bouillon powder ')).toBe('Eggs');
+  });
+  it("reads goat's cheese as cheese, not goat", () => {
+    expect(inferProtein('Vegetarian', " aubergine goats cheese pita bread ")).toBe('None');
+  });
+  it('trusts the ingredients over a contradicting meat category', () => {
+    expect(inferProtein('Beef', ' lamb loin chops carrots chicken broth ')).toBe('Lamb');
+    expect(inferProtein('Lamb', ' italian fennel sausages anchovy fillet rigatoni ')).toBe('Pork');
+    expect(inferProtein('Beef', ' cannellini beans chorizo ')).toBe('Pork');
+  });
+  it('keeps a meat category when the ingredients name no other meat', () => {
+    expect(inferProtein('Beef', ' shredded meat black beans ')).toBe('Beef');
+    expect(inferProtein('Beef', ' hind shank yams beef broth ')).toBe('Beef');
+  });
+  it('"minced pork" is pork, not beef', () => {
+    expect(inferProtein('Vegetarian', ' rice noodles minced pork fish sauce ')).toBe('Pork');
+  });
+  it('fish sauce alone does not make a dish fish; anchovy only leads without meat', () => {
+    expect(inferProtein('Vegetarian', ' chicken breast fish sauce lime ')).toBe('Chicken');
+    expect(inferProtein('Pasta', ' spaghetti anchovy fillet garlic ')).toBe('Fish');
+  });
+});
+
+describe('departmentFor — broth is a shelf good (CONTENT-REVIEW C2)', () => {
+  it.each(['chicken broth', 'beef stock', 'fish broth', 'chicken bouillon cube'])('%s -> DryGoods', (n) => {
+    expect(departmentFor(n)).toBe('DryGoods');
+  });
+  it("goat's cheese -> Dairy", () => expect(departmentFor('goats cheese')).toBe('Dairy'));
+  it('meat is still meat', () => expect(departmentFor('chicken thighs')).toBe('Meat'));
+});
+
+describe('cuisine mapping — own buckets for Caribbean, Latin American, Southeast Asian', () => {
+  const meal = (area: string) =>
+    normalize(
+      fromMealDb({
+        idMeal: '1', strMeal: 'Test stew', strArea: area, strCategory: 'Chicken',
+        strInstructions: 'Brown the chicken.\nSimmer 30 minutes.',
+        strIngredient1: 'Chicken', strMeasure1: '1 lb', strIngredient2: 'Onion', strMeasure2: '1',
+        strIngredient3: 'Garlic', strMeasure3: '2 cloves',
+      }),
+    );
+  it.each([
+    ['Jamaican', 'Caribbean'], ['Argentina', 'LatinAmerican'], ['Uruguayan', 'LatinAmerican'],
+    ['Venezuela', 'LatinAmerican'], ['Vietnamese', 'SoutheastAsian'], ['Filipino', 'SoutheastAsian'],
+    ['Malaysian', 'SoutheastAsian'], ['Thai', 'Thai'],
+  ])('%s -> %s', (area, cuisine) => expect(meal(area)?.cuisine).toBe(cuisine));
+});
+
+describe('imported library — protein labels match the ingredients', () => {
+  it('no live import is labeled with a meat its ingredients do not contain', () => {
+    const words: Record<string, RegExp> = {
+      Lamb: /lamb|mutton|goat/, Pork: /pork|bacon|sausage|\bham\b|chorizo|pancetta|prosciutto|jam[oó]n|ribs/,
+      Beef: /beef|steak|brisket|oxtail|veal|chuck|sirloin|mince|shank|meat/,
+    };
+    const bad = RECIPES.filter((r) => r.id.startsWith('mealdb-') && words[r.primaryProtein])
+      .filter((r) => !words[r.primaryProtein].test(r.ingredients.map((i) => i.name.toLowerCase()).join(' ')))
+      .map((r) => `${r.id} ${r.name} (${r.primaryProtein})`);
+    expect(bad).toEqual([]);
+  });
+  it('no live import files broth in the Meat or Seafood aisle', () => {
+    const bad = RECIPES.filter((r) => r.id.startsWith('mealdb-'))
+      .flatMap((r) => r.ingredients.filter((i) => /broth|stock|bouillon/.test(i.name.toLowerCase()) && ['Meat', 'Seafood'].includes(i.department)).map((i) => `${r.id} ${i.name}`));
+    expect(bad).toEqual([]);
   });
 });

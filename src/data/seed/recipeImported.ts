@@ -513,7 +513,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 2,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "carrots",
@@ -679,7 +679,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 2,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "bay leaf",
@@ -1256,7 +1256,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken bouillon cube",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "nutmeg",
@@ -1366,7 +1366,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "heavy cream",
@@ -1558,7 +1558,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 1,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "russet potato",
@@ -1693,7 +1693,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "salt",
@@ -1905,7 +1905,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "salt",
@@ -2396,7 +2396,7 @@ export const recipeImported: Recipe[] = [
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Beef",
+    "primaryProtein": "Lamb",
     "vegetables": [
       "shallots",
       "carrots",
@@ -2414,7 +2414,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
-      "protein": 36,
+      "protein": 34,
       "carbs": 48,
       "fat": 30
     },
@@ -2490,7 +2490,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "salt",
@@ -2906,7 +2906,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "bay leaves",
@@ -3798,7 +3798,7 @@ export const recipeImported: Recipe[] = [
       }
     ],
     "steps": [
-      "At least 4 hours ahead (or use boiling water for faster soaking), soak the cashews.",
+      "Cover the cashews with boiling water and leave them to soak while the chili cooks (at least 30 minutes).",
       "Heat the oven to 400°F. Slice the squash into thin crescents, toss with a little oil and salt and roast 20–30 minutes, turning once, until soft. Cool and cube.",
       "Meanwhile, rinse the lentils, cover with water, bring to a boil and simmer uncovered 20–30 minutes until tender. Drain.",
       "Heat the oil in a pot and cook the onion and leek 5 minutes. Add the garlic, cumin and coriander for a few minutes, then the paprika, cinnamon, chili powder, cocoa, salt and oregano.",
@@ -4968,181 +4968,9 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53317",
-    "name": "Beef Empanadas",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "tomato",
-      "garlic",
-      "red onions",
-      "green onions",
-      "parsley"
-    ],
-    "techniques": [
-      "bake",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 60,
-    "cookMinutes": 40,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "lard",
-        "quantity": 2,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "all-purpose flour",
-        "quantity": 1.25,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "tomato",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "red onions",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "sirloin steak",
-        "quantity": 1.75,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "dried oregano",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "paprika",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "red pepper flakes",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "egg",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "egg wash",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "chimichurri sauce",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "olive oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Make the dough: mix the lard, warm water and salt, then add the flour and oregano and knead 5 minutes. Cover and rest at least 30 minutes.",
-      "Hard-boil the eggs for 10 minutes, cool, peel and dice.",
-      "Blanch the tomatoes 30 seconds, peel and dice. Cook the garlic and diced onions in the oil until translucent and set aside.",
-      "Dice the steak small and brown it over high heat. Add the herbs, spices, onions and tomatoes and simmer a few minutes until the beef is cooked through. Season, cool, and mix in the eggs.",
-      "Heat the oven to 400°F. Roll half the dough thin, cut 5-inch circles, fill with 2–4 tsp filling, wet the edges, fold and seal with a fork. Repeat.",
-      "Brush with egg wash and bake about 25 minutes, until golden. Serve warm with chimichurri."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Eggs"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/dxpc7j1764370714.jpg",
-    "origin": "Uruguayan",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://jennyisbaking.com/2019/10/25/traditionelle-uruguayische-empanadas/#recipe",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52940",
     "name": "Brown Stew Chicken",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Stews",
       "HighProtein"
@@ -5297,366 +5125,9 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53141",
-    "name": "Carbonada Criolla",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "carrots",
-      "potatoes",
-      "pumpkin"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 130,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "beef",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "pumpkin",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Produce"
-      },
-      {
-        "name": "dried apricots",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "beef broth",
-        "quantity": 6,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "crusty bread",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Bakery"
-      }
-    ],
-    "steps": [
-      "Heat the oil in a large pot and brown the beef cubes in batches. Set aside.",
-      "Fry the onion in the same pot until translucent. Add the carrots, potatoes and pumpkin, all in chunks, and cook a few minutes.",
-      "Return the beef, add the broth, season with salt and pepper, and simmer 1 1/2–2 hours, until the beef is tender.",
-      "Stir in the dried apricots for the last 15 minutes. Serve hot with crusty bread."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/8b2msz1763074897.jpg",
-    "origin": "Argentina",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53319",
-    "name": "Chivito sandwich",
-    "cuisine": "BBQ",
-    "categories": [
-      "Sandwiches",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "garlic",
-      "tomato",
-      "lettuce"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Mild",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "egg",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "sirloin steak",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "bacon",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "ham",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "mozzarella",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "tomato",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "lettuce",
-        "quantity": 0.25,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "mustard",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "chimichurri sauce",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "brioche buns",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Bakery"
-      },
-      {
-        "name": "butter",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Dairy"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Slice the onions and cook slowly in the butter 10–15 minutes, until caramelized.",
-      "Rub the steaks with the cut garlic clove, season, and sear 1–2 minutes per side in a very hot skillet, until no longer pink in the middle. Fry the bacon until crisp and the eggs until the whites are set.",
-      "Split and toast the buns.",
-      "Spread mustard on the bottoms and layer steak, ham, mozzarella, bacon, tomato, lettuce and a fried egg. Top with chimichurri and onions and close."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/j80gmw1764372176.jpg",
-    "origin": "Uruguayan",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://jennyisbaking.com/2019/06/14/lets-grill-chivito-uruguays-national-dish/#recipe",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53136",
-    "name": "Choripán",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "lettuce",
-      "tomato"
-    ],
-    "techniques": [
-      "grill",
-      "fry"
-    ],
-    "difficulty": "Easy",
-    "spiceLevel": "None",
-    "prepMinutes": 10,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "chorizo",
-        "quantity": 8,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "crusty bread",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Bakery"
-      },
-      {
-        "name": "chimichurri sauce",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "lettuce",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "tomato",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Grill or pan-fry the sausages slowly over medium heat, turning, 12–15 minutes, until browned and 160°F inside (a gentle heat keeps the skins from bursting).",
-      "Split the rolls and toast them on the grill or in the pan.",
-      "Split each sausage lengthwise, tuck two into each roll and spoon over plenty of chimichurri.",
-      "Serve right away with a lettuce and tomato salad."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/5i25sg1763075353.jpg",
-    "origin": "Argentina",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53350",
     "name": "Corned Beef and Cabbage – Jamaican Style",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "HighProtein"
     ],
@@ -5791,139 +5262,9 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53134",
-    "name": "Empanadas",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion"
-    ],
-    "techniques": [
-      "bake",
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Mild",
-    "prepMinutes": 45,
-    "cookMinutes": 35,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "all-purpose flour",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "butter",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Dairy"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "ground beef",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "egg",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "green olives",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "cumin",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "paprika",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Make the dough: rub the butter into the flour and salt until crumbly, then mix in the water to a dough. Wrap and chill 30 minutes.",
-      "Hard-boil the eggs for 10 minutes, cool, peel and chop.",
-      "Fry the chopped onions in the oil until translucent. Add the ground beef and cook until browned with no pink left. Stir in the cumin, paprika, salt and pepper, then cool. Mix in the chopped eggs and sliced olives.",
-      "Heat the oven to 400°F. Roll out the dough and cut into circles. Fill each with a spoonful of filling, fold over and seal the edges with a fork.",
-      "Bake 20–25 minutes, until golden."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy",
-      "Eggs"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/q99te31763075494.jpg",
-    "origin": "Argentina",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52944",
     "name": "Escovitch Fish",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Seafood",
       "HighProtein"
@@ -6101,7 +5442,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-52938",
     "name": "Jamaican Beef Patties",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "HighProtein"
     ],
@@ -6260,7 +5601,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53345",
     "name": "Jamaican Curry Chicken Recipe",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Stews",
       "HighProtein"
@@ -6402,7 +5743,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53354",
     "name": "Jamaican Curry Goat",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Stews",
       "HighProtein"
@@ -6544,7 +5885,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53362",
     "name": "Jamaican Curry Shrimp Recipe",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Seafood",
       "Stews"
@@ -6694,7 +6035,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53349",
     "name": "Jamaican Pepper Shrimp",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Seafood"
     ],
@@ -6756,7 +6097,7 @@ export const recipeImported: Recipe[] = [
         "name": "shrimp stock",
         "quantity": 0.75,
         "unit": "cup",
-        "department": "Seafood"
+        "department": "DryGoods"
       },
       {
         "name": "onion",
@@ -6820,7 +6161,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-52937",
     "name": "Jerk chicken with rice & peas",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "HighProtein"
     ],
@@ -7007,213 +6348,9 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53140",
-    "name": "Matambre a la Pizza",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [],
-    "techniques": [
-      "grill"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 10,
-    "cookMinutes": 15,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 420,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "beef flank steak",
-        "quantity": 2,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "tomato sauce",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "mozzarella",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Dairy"
-      },
-      {
-        "name": "oregano",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "green olives",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Lightly score the steak on both sides and season with salt and pepper.",
-      "Grill over medium-high heat (or broil) 5–6 minutes on one side, until well browned.",
-      "Turn it over and spread the cooked side with the tomato sauce, then top with the mozzarella, oregano and sliced olives.",
-      "Close the grill lid (or return under the broiler) and cook 5–7 minutes more, until the cheese is bubbling and the steak reads 135°F.",
-      "Rest 5 minutes, then slice across the grain and serve hot."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Dairy"
-    ],
-    "dietTags": [],
-    "image": "https://www.themealdb.com/images/media/meals/wf49qs1763075222.jpg",
-    "origin": "Argentina",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53135",
-    "name": "Milanesa",
-    "cuisine": "BBQ",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "parsley",
-      "garlic",
-      "lemon"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Easy",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 15,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "beef cutlet",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "egg",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "breadcrumbs",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Bakery"
-      },
-      {
-        "name": "parsley",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "lemon",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Pound the cutlets to an even 1/4-inch thickness and season with salt and pepper.",
-      "Mix the breadcrumbs with the parsley and garlic. Dip each cutlet in beaten egg, then press into the crumbs.",
-      "Heat the oil in a large skillet over medium heat and fry the cutlets 3–4 minutes per side, until golden and no longer pink inside.",
-      "Serve hot with lemon wedges."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Eggs"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/wdfa171763065079.jpg",
-    "origin": "Argentina",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-52943",
     "name": "Oxtail with broad beans",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "HighProtein"
     ],
@@ -7358,7 +6495,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-52941",
     "name": "Red Peas Soup",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Soups",
       "HighProtein"
@@ -7710,7 +6847,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "broccoli",
@@ -7932,171 +7069,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Chinese",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://sueandgambo.com/pages/beef-lo-mein",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53421",
-    "name": "BEEF LOK LAK (Lok Lak Sach Ko)",
-    "cuisine": "Chinese",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "garlic",
-      "lettuce",
-      "tomato",
-      "onion",
-      "lime juice"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 20,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "beef tenderloin",
-        "quantity": 2.25,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "garlic",
-        "quantity": 5,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "oil",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "palm sugar",
-        "quantity": 1.5,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "sea salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "white wine",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "oyster sauce",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "sesame seed oil",
-        "quantity": 1.5,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "lettuce",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Produce"
-      },
-      {
-        "name": "tomato",
-        "quantity": 14,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "eggs",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "sea salt",
-        "quantity": 1.5,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "kampot pepper",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Spices"
-      },
-      {
-        "name": "lime juice",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "jasmine rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "International"
-      }
-    ],
-    "steps": [
-      "Cook the rice. Fry the eggs sunny-side up and set aside. Finely chop the garlic, wash and drain the lettuce, and thinly slice the onion and tomatoes.",
-      "Cut the beef into 1-inch cubes and marinate with 1 tsp salt, the palm sugar, wine, oyster sauce, soy sauce and sesame oil.",
-      "Heat the oil in a large skillet over high heat. Fry the garlic until lightly golden, then add the beef and marinade and sear hot and fast 5–7 minutes, until 135°F for medium.",
-      "Toast the peppercorns in a dry pan 2–3 minutes, grind, and mix with the remaining salt and the lime juice for the dipping sauce.",
-      "Layer lettuce, tomatoes and onion on a platter, spoon the beef over and top with the eggs. Serve with the pepper sauce and rice."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Shellfish",
-      "Eggs",
-      "Soy",
-      "Sesame"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/t2b8bn1779737789.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.chefnak.com/beef-lok-lak",
     "estimated": true
   },
   {
@@ -8386,14 +7358,14 @@ export const recipeImported: Recipe[] = [
     "name": "Chinese Tomato Egg Stir Fry",
     "cuisine": "Chinese",
     "categories": [
-      "HighProtein"
+      "ComfortFood"
     ],
     "provides": [
       "protein",
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Chicken",
+    "primaryProtein": "Eggs",
     "vegetables": [
       "plum tomatoes",
       "green onions"
@@ -8409,7 +7381,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 38,
+      "protein": 20,
       "carbs": 48,
       "fat": 30
     },
@@ -8443,7 +7415,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken bouillon powder",
         "quantity": 2,
         "unit": "tsp",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "sugar",
@@ -8652,13 +7624,13 @@ export const recipeImported: Recipe[] = [
     "name": "Ma Po Tofu",
     "cuisine": "Chinese",
     "categories": [
-      "HighProtein"
+      "ComfortFood"
     ],
     "provides": [
       "protein",
       "starch"
     ],
-    "primaryProtein": "Beef",
+    "primaryProtein": "Tofu",
     "vegetables": [
       "scallions",
       "green onions",
@@ -8678,7 +7650,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 36,
+      "protein": 20,
       "carbs": 48,
       "fat": 30
     },
@@ -9216,7 +8188,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "scallions",
@@ -9266,14 +8238,13 @@ export const recipeImported: Recipe[] = [
     "name": "Sichuan Eggplant",
     "cuisine": "Chinese",
     "categories": [
-      "HighProtein"
+      "ComfortFood"
     ],
     "provides": [
-      "protein",
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Chicken",
+    "primaryProtein": "None",
     "vegetables": [
       "peanut oil",
       "chili bean paste",
@@ -9294,7 +8265,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 38,
+      "protein": 12,
       "carbs": 48,
       "fat": 30
     },
@@ -9309,7 +8280,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "sugar",
@@ -10165,7 +9136,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 1.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "dry white wine",
@@ -10282,7 +9253,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken bouillon cube",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "black olives",
@@ -10437,7 +9408,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 1.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "chicken",
@@ -10561,7 +9532,7 @@ export const recipeImported: Recipe[] = [
         "name": "fish broth",
         "quantity": 0.75,
         "unit": "cup",
-        "department": "Seafood"
+        "department": "DryGoods"
       },
       {
         "name": "fennel",
@@ -11261,7 +10232,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 1.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "butter",
@@ -11888,9 +10859,10 @@ export const recipeImported: Recipe[] = [
       "Vegetarian"
     ],
     "provides": [
+      "protein",
       "vegetable"
     ],
-    "primaryProtein": "None",
+    "primaryProtein": "Beans",
     "vegetables": [
       "onion",
       "tomatoes",
@@ -11908,7 +10880,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 480,
-      "protein": 12,
+      "protein": 18,
       "carbs": 18,
       "fat": 30
     },
@@ -12477,7 +11449,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 1,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "dill",
@@ -12848,7 +11820,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 6,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "onion",
@@ -13226,7 +12198,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "curry powder",
@@ -14577,7 +13549,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.75,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "greek yogurt",
@@ -15498,7 +14470,7 @@ export const recipeImported: Recipe[] = [
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Chicken",
+    "primaryProtein": "Beef",
     "vegetables": [
       "onion",
       "carrots",
@@ -15519,7 +14491,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 38,
+      "protein": 36,
       "carbs": 48,
       "fat": 30
     },
@@ -15607,7 +14579,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "tomatoes",
@@ -16069,14 +15041,13 @@ export const recipeImported: Recipe[] = [
     "name": "Porotos Granados (Chilean Bean Stew)",
     "cuisine": "Italian",
     "categories": [
-      "Stews",
-      "HighProtein"
+      "Stews"
     ],
     "provides": [
       "protein",
       "vegetable"
     ],
-    "primaryProtein": "Chicken",
+    "primaryProtein": "Beans",
     "vegetables": [
       "onion",
       "basil"
@@ -16091,7 +15062,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 6,
     "nutrition": {
       "calories": 480,
-      "protein": 38,
+      "protein": 18,
       "carbs": 18,
       "fat": 30
     },
@@ -16131,7 +15102,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 3,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "sweetcorn",
@@ -16244,7 +15215,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "creme fraiche",
@@ -16484,7 +15455,7 @@ export const recipeImported: Recipe[] = [
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Lamb",
+    "primaryProtein": "Pork",
     "vegetables": [
       "onion",
       "fennel bulb",
@@ -17608,7 +16579,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken bouillon cube",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "rosemary",
@@ -18028,7 +16999,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 2.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "honey",
@@ -18453,6 +17424,1460 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53329",
+    "name": "Arepa pelua",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "garlic"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 20,
+    "cookMinutes": 140,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red bell pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "oregano",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "beef broth",
+        "quantity": 4.25,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "cheese",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Dairy"
+      },
+      {
+        "name": "extra virgin olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "masarepa",
+        "quantity": 2,
+        "unit": "cup",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Put the flank steak in a pot with the broth and a pinch of salt. Simmer on low about 2 hours, until tender enough to shred.",
+      "Drain and shred the beef with two forks.",
+      "Fry the chopped onion, bell pepper and garlic in the oil until soft. Add the cumin, oregano, paprika and salt, then the beef, and cook a few minutes.",
+      "Mix the masarepa with the 2 1/2 cups warm water and a pinch of salt to a soft dough. Rest 5 minutes, then shape into 6 thick discs.",
+      "Cook the arepas on a griddle over medium heat 5–6 minutes per side, until golden and they sound hollow when tapped.",
+      "Split the arepas, fill with the hot beef and top with grated cheese."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Dairy"
+    ],
+    "dietTags": [
+      "gluten-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/jgl9qq1764437635.jpg",
+    "origin": "Venezuela",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://goya.es/en/recipes/arepa-pelua",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53317",
+    "name": "Beef Empanadas",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "tomato",
+      "garlic",
+      "red onions",
+      "green onions",
+      "parsley"
+    ],
+    "techniques": [
+      "bake",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Mild",
+    "prepMinutes": 60,
+    "cookMinutes": 40,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "lard",
+        "quantity": 2,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "all-purpose flour",
+        "quantity": 1.25,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "tomato",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "red onions",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "sirloin steak",
+        "quantity": 1.75,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "dried oregano",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "red pepper flakes",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "egg",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "egg wash",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "chimichurri sauce",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Make the dough: mix the lard, warm water and salt, then add the flour and oregano and knead 5 minutes. Cover and rest at least 30 minutes.",
+      "Hard-boil the eggs for 10 minutes, cool, peel and dice.",
+      "Blanch the tomatoes 30 seconds, peel and dice. Cook the garlic and diced onions in the oil until translucent and set aside.",
+      "Dice the steak small and brown it over high heat. Add the herbs, spices, onions and tomatoes and simmer a few minutes until the beef is cooked through. Season, cool, and mix in the eggs.",
+      "Heat the oven to 400°F. Roll half the dough thin, cut 5-inch circles, fill with 2–4 tsp filling, wet the edges, fold and seal with a fork. Repeat.",
+      "Brush with egg wash and bake about 25 minutes, until golden. Serve warm with chimichurri."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Eggs"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/dxpc7j1764370714.jpg",
+    "origin": "Uruguayan",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://jennyisbaking.com/2019/10/25/traditionelle-uruguayische-empanadas/#recipe",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53141",
+    "name": "Carbonada Criolla",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "carrots",
+      "potatoes",
+      "pumpkin"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 20,
+    "cookMinutes": 130,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "pumpkin",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "dried apricots",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "beef broth",
+        "quantity": 6,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Bakery"
+      }
+    ],
+    "steps": [
+      "Heat the oil in a large pot and brown the beef cubes in batches. Set aside.",
+      "Fry the onion in the same pot until translucent. Add the carrots, potatoes and pumpkin, all in chunks, and cook a few minutes.",
+      "Return the beef, add the broth, season with salt and pepper, and simmer 1 1/2–2 hours, until the beef is tender.",
+      "Stir in the dried apricots for the last 15 minutes. Serve hot with crusty bread."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/8b2msz1763074897.jpg",
+    "origin": "Argentina",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53319",
+    "name": "Chivito sandwich",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "Sandwiches",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "tomato",
+      "lettuce"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "egg",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "sirloin steak",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "bacon",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "ham",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "mozzarella",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "tomato",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 0.25,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "mustard",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chimichurri sauce",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "brioche buns",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "butter",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Slice the onions and cook slowly in the butter 10–15 minutes, until caramelized.",
+      "Rub the steaks with the cut garlic clove, season, and sear 1–2 minutes per side in a very hot skillet, until no longer pink in the middle. Fry the bacon until crisp and the eggs until the whites are set.",
+      "Split and toast the buns.",
+      "Spread mustard on the bottoms and layer steak, ham, mozzarella, bacon, tomato, lettuce and a fried egg. Top with chimichurri and onions and close."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/j80gmw1764372176.jpg",
+    "origin": "Uruguayan",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://jennyisbaking.com/2019/06/14/lets-grill-chivito-uruguays-national-dish/#recipe",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53136",
+    "name": "Choripán",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "lettuce",
+      "tomato"
+    ],
+    "techniques": [
+      "grill",
+      "fry"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "None",
+    "prepMinutes": 10,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "chorizo",
+        "quantity": 8,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "crusty bread",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "chimichurri sauce",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Grill or pan-fry the sausages slowly over medium heat, turning, 12–15 minutes, until browned and 160°F inside (a gentle heat keeps the skins from bursting).",
+      "Split the rolls and toast them on the grill or in the pan.",
+      "Split each sausage lengthwise, tuck two into each roll and spoon over plenty of chimichurri.",
+      "Serve right away with a lettuce and tomato salad."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/5i25sg1763075353.jpg",
+    "origin": "Argentina",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53134",
+    "name": "Empanadas",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion"
+    ],
+    "techniques": [
+      "bake",
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Mild",
+    "prepMinutes": 45,
+    "cookMinutes": 35,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "all-purpose flour",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "butter",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "ground beef",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "egg",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "green olives",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "paprika",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Make the dough: rub the butter into the flour and salt until crumbly, then mix in the water to a dough. Wrap and chill 30 minutes.",
+      "Hard-boil the eggs for 10 minutes, cool, peel and chop.",
+      "Fry the chopped onions in the oil until translucent. Add the ground beef and cook until browned with no pink left. Stir in the cumin, paprika, salt and pepper, then cool. Mix in the chopped eggs and sliced olives.",
+      "Heat the oven to 400°F. Roll out the dough and cut into circles. Fill each with a spoonful of filling, fold over and seal the edges with a fork.",
+      "Bake 20–25 minutes, until golden."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy",
+      "Eggs"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/q99te31763075494.jpg",
+    "origin": "Argentina",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53140",
+    "name": "Matambre a la Pizza",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [],
+    "techniques": [
+      "grill"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 420,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "beef flank steak",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "tomato sauce",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mozzarella",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Dairy"
+      },
+      {
+        "name": "oregano",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "green olives",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Lightly score the steak on both sides and season with salt and pepper.",
+      "Grill over medium-high heat (or broil) 5–6 minutes on one side, until well browned.",
+      "Turn it over and spread the cooked side with the tomato sauce, then top with the mozzarella, oregano and sliced olives.",
+      "Close the grill lid (or return under the broiler) and cook 5–7 minutes more, until the cheese is bubbling and the steak reads 135°F.",
+      "Rest 5 minutes, then slice across the grain and serve hot."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Dairy"
+    ],
+    "dietTags": [],
+    "image": "https://www.themealdb.com/images/media/meals/wf49qs1763075222.jpg",
+    "origin": "Argentina",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53135",
+    "name": "Milanesa",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "parsley",
+      "garlic",
+      "lemon"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef cutlet",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "egg",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "breadcrumbs",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Bakery"
+      },
+      {
+        "name": "parsley",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "lemon",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Pound the cutlets to an even 1/4-inch thickness and season with salt and pepper.",
+      "Mix the breadcrumbs with the parsley and garlic. Dip each cutlet in beaten egg, then press into the crumbs.",
+      "Heat the oil in a large skillet over medium heat and fry the cutlets 3–4 minutes per side, until golden and no longer pink inside.",
+      "Serve hot with lemon wedges."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Eggs"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/wdfa171763065079.jpg",
+    "origin": "Argentina",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.munchery.com/blog/the-ten-iconic-dishes-of-argentina-and-how-to-cook-them-at-home/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53327",
+    "name": "Venezuelan Coconut Chicken",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "tomato",
+      "ginger paste"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 38,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "chicken breasts",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "bay leaves",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "turmeric",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "tomato",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "ginger paste",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 0.33,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "coconut milk",
+        "quantity": 1,
+        "unit": "can",
+        "department": "International"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Cut the chicken into bite-size pieces. Chop the onions and mince the garlic. Cook the rice.",
+      "Heat the oil in a skillet over medium heat and fry the onion until translucent. Transfer to a blender.",
+      "Add the tomatoes, garlic, turmeric, cumin, sugar, ginger paste, coconut milk, water, salt and pepper and blend smooth.",
+      "Brown the chicken in the same skillet, about 3 minutes.",
+      "Add the blended sauce and bay leaves, bring to a simmer and cook 15–20 minutes, until the chicken reads 165°F and the sauce is creamy.",
+      "Remove the bay leaves and serve with the rice."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/z2sw3o1764378271.jpg",
+    "origin": "Venezuela",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.reluctantgourmet.com/venezuelan-coconut-chicken/#recipe",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53326",
+    "name": "Venezuelan Sancocho",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "onion",
+      "garlic",
+      "garlic",
+      "leek",
+      "scallions",
+      "cilantro"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 25,
+    "cookMinutes": 90,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 36,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "hind shank",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "onion",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "garlic",
+        "quantity": 4,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic",
+        "quantity": 4,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "leek",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "beef broth",
+        "quantity": 8,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "red bell peppers",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Spices"
+      },
+      {
+        "name": "scallions",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "sweetcorn",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "cassaba",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "yautia",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "white yam",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "DryGoods"
+      },
+      {
+        "name": "butternut squash",
+        "quantity": 0.5,
+        "unit": "lb",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "cilantro",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Put the beef shank, 1 halved onion, the halved pepper, 4 whole garlic cloves, the dark green leek tops and the broth in a large pot. Simmer 45–60 minutes, until the meat is fork-tender.",
+      "Remove the bones and the big pieces of vegetable.",
+      "Add the second onion (diced), 2 cloves minced garlic, the sweet peppers, the sliced light-green leek, scallions, the peeled yuca in chunks and the corn (cut into rounds). Cover and simmer 8–10 minutes, until the yuca starts to soften.",
+      "Add the yautía, white yam and squash, all in chunks, and simmer covered 6–10 minutes, until all the roots are tender when pierced but not falling apart.",
+      "Season with salt, stir in the cilantro and the last 2 garlic cloves and simmer 2 minutes. Serve in big bowls with lime wedges."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/8859m71764377470.jpg",
+    "origin": "Venezuela",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://mommyshomecooking.com/easy-venezuelan-sancocho/#recipe",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53328",
+    "name": "Venezuelan Shredded Beef",
+    "cuisine": "LatinAmerican",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "garlic",
+      "onion",
+      "onion",
+      "tomato",
+      "tomato ketchup"
+    ],
+    "techniques": [
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 120,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "skirty steak",
+        "quantity": 2,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red bell pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "beef broth",
+        "quantity": 4,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "worcestershire sauce",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "tomato puree",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "cumin",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "tomato ketchup",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "olive oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Season the beef with salt, pepper and the minced garlic. Put it in a large pot with the chopped onion (in wedges) and the broth.",
+      "Bring to a boil, cover and simmer 1 1/2–2 hours, until the beef shreds easily. Meanwhile, cook the rice.",
+      "Lift out the beef, keep 2 cups of the broth, and shred the beef with two forks.",
+      "Heat the oil in a large skillet and fry the sliced onion, pepper and tomatoes until soft.",
+      "Add the beef, 1 1/2 cups of the saved broth, the Worcestershire, tomato paste, ketchup and cumin and simmer until saucy, adding more broth if dry. Season and serve with rice."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/mq27gf1764436795.jpg",
+    "origin": "Venezuela",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://livingsweetmoments.com/venezuelan-shredded-beef-made-instant-pot/",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53156",
     "name": "Arroz al horno (baked rice)",
     "cuisine": "Mediterranean",
@@ -18559,7 +18984,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 6.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "thyme",
@@ -18700,7 +19125,7 @@ export const recipeImported: Recipe[] = [
         "name": "seafood stock",
         "quantity": 2.75,
         "unit": "cup",
-        "department": "Seafood"
+        "department": "DryGoods"
       },
       {
         "name": "squid",
@@ -18965,7 +19390,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 3.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "rice",
@@ -19082,7 +19507,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.75,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "thyme",
@@ -19672,7 +20097,7 @@ export const recipeImported: Recipe[] = [
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Beef",
+    "primaryProtein": "Pork",
     "vegetables": [
       "tomatoes",
       "garlic",
@@ -19689,7 +20114,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 6,
     "nutrition": {
       "calories": 580,
-      "protein": 36,
+      "protein": 34,
       "carbs": 48,
       "fat": 30
     },
@@ -19790,7 +20215,7 @@ export const recipeImported: Recipe[] = [
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Beef",
+    "primaryProtein": "Lamb",
     "vegetables": [
       "potatoes",
       "zucchini",
@@ -19809,7 +20234,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 36,
+      "protein": 34,
       "carbs": 48,
       "fat": 30
     },
@@ -20598,7 +21023,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "parsley",
@@ -21217,7 +21642,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 1.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "cinnamon stick",
@@ -22332,7 +22757,7 @@ export const recipeImported: Recipe[] = [
         "name": "fish broth",
         "quantity": 2.75,
         "unit": "cup",
-        "department": "Seafood"
+        "department": "DryGoods"
       },
       {
         "name": "tomatoes",
@@ -22454,7 +22879,7 @@ export const recipeImported: Recipe[] = [
         "name": "fish broth",
         "quantity": 4.25,
         "unit": "cup",
-        "department": "Seafood"
+        "department": "DryGoods"
       },
       {
         "name": "peas",
@@ -22707,7 +23132,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 4,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "salt",
@@ -23381,7 +23806,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 2,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "butter beans",
@@ -23848,134 +24273,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Croatian",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.chasingthedonkey.com/croatian-recipes-traditional-croatian-goulash/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53329",
-    "name": "Arepa pelua",
-    "cuisine": "Mexican",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "garlic"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Mild",
-    "prepMinutes": 20,
-    "cookMinutes": 140,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "beef",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red bell pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "cumin",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "oregano",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "paprika",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "beef broth",
-        "quantity": 4.25,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "cheese",
-        "quantity": 7,
-        "unit": "oz",
-        "department": "Dairy"
-      },
-      {
-        "name": "extra virgin olive oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "masarepa",
-        "quantity": 2,
-        "unit": "cup",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Put the flank steak in a pot with the broth and a pinch of salt. Simmer on low about 2 hours, until tender enough to shred.",
-      "Drain and shred the beef with two forks.",
-      "Fry the chopped onion, bell pepper and garlic in the oil until soft. Add the cumin, oregano, paprika and salt, then the beef, and cook a few minutes.",
-      "Mix the masarepa with the 2 1/2 cups warm water and a pinch of salt to a soft dough. Rest 5 minutes, then shape into 6 thick discs.",
-      "Cook the arepas on a griddle over medium heat 5–6 minutes per side, until golden and they sound hollow when tapped.",
-      "Split the arepas, fill with the hot beef and top with grated cheese."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Dairy"
-    ],
-    "dietTags": [
-      "gluten-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/jgl9qq1764437635.jpg",
-    "origin": "Venezuela",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://goya.es/en/recipes/arepa-pelua",
     "estimated": true
   },
   {
@@ -24813,469 +25110,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53327",
-    "name": "Venezuelan Coconut Chicken",
-    "cuisine": "Mexican",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Chicken",
-    "vegetables": [
-      "onion",
-      "garlic",
-      "tomato",
-      "ginger paste"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 38,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "chicken breasts",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "bay leaves",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "turmeric",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices"
-      },
-      {
-        "name": "cumin",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "tomato",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "ginger paste",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "olive oil",
-        "quantity": 0.33,
-        "unit": "cup",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "coconut milk",
-        "quantity": 1,
-        "unit": "can",
-        "department": "International"
-      },
-      {
-        "name": "rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Cut the chicken into bite-size pieces. Chop the onions and mince the garlic. Cook the rice.",
-      "Heat the oil in a skillet over medium heat and fry the onion until translucent. Transfer to a blender.",
-      "Add the tomatoes, garlic, turmeric, cumin, sugar, ginger paste, coconut milk, water, salt and pepper and blend smooth.",
-      "Brown the chicken in the same skillet, about 3 minutes.",
-      "Add the blended sauce and bay leaves, bring to a simmer and cook 15–20 minutes, until the chicken reads 165°F and the sauce is creamy.",
-      "Remove the bay leaves and serve with the rice."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/z2sw3o1764378271.jpg",
-    "origin": "Venezuela",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.reluctantgourmet.com/venezuelan-coconut-chicken/#recipe",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53326",
-    "name": "Venezuelan Sancocho",
-    "cuisine": "Mexican",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "onion",
-      "garlic",
-      "garlic",
-      "leek",
-      "scallions",
-      "cilantro"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 25,
-    "cookMinutes": 90,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 36,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "hind shank",
-        "quantity": 2,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "onion",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "pepper",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "garlic",
-        "quantity": 4,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic",
-        "quantity": 4,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "leek",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "beef broth",
-        "quantity": 8,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "red bell peppers",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "Spices"
-      },
-      {
-        "name": "scallions",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "sweetcorn",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "cassaba",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "yautia",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "white yam",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "DryGoods"
-      },
-      {
-        "name": "butternut squash",
-        "quantity": 0.5,
-        "unit": "lb",
-        "department": "Dairy"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "cilantro",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "lime",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Put the beef shank, 1 halved onion, the halved pepper, 4 whole garlic cloves, the dark green leek tops and the broth in a large pot. Simmer 45–60 minutes, until the meat is fork-tender.",
-      "Remove the bones and the big pieces of vegetable.",
-      "Add the second onion (diced), 2 cloves minced garlic, the sweet peppers, the sliced light-green leek, scallions, the peeled yuca in chunks and the corn (cut into rounds). Cover and simmer 8–10 minutes, until the yuca starts to soften.",
-      "Add the yautía, white yam and squash, all in chunks, and simmer covered 6–10 minutes, until all the roots are tender when pierced but not falling apart.",
-      "Season with salt, stir in the cilantro and the last 2 garlic cloves and simmer 2 minutes. Serve in big bowls with lime wedges."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/8859m71764377470.jpg",
-    "origin": "Venezuela",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://mommyshomecooking.com/easy-venezuelan-sancocho/#recipe",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53328",
-    "name": "Venezuelan Shredded Beef",
-    "cuisine": "Mexican",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "garlic",
-      "onion",
-      "onion",
-      "tomato",
-      "tomato ketchup"
-    ],
-    "techniques": [
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 120,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "skirty steak",
-        "quantity": 2,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red bell pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "tomato",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "beef broth",
-        "quantity": 4,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "worcestershire sauce",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "tomato puree",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "cumin",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "tomato ketchup",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "olive oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Season the beef with salt, pepper and the minced garlic. Put it in a large pot with the chopped onion (in wedges) and the broth.",
-      "Bring to a boil, cover and simmer 1 1/2–2 hours, until the beef shreds easily. Meanwhile, cook the rice.",
-      "Lift out the beef, keep 2 cups of the broth, and shred the beef with two forks.",
-      "Heat the oil in a large skillet and fry the sliced onion, pepper and tomatoes until soft.",
-      "Add the beef, 1 1/2 cups of the saved broth, the Worcestershire, tomato paste, ketchup and cumin and simmer until saucy, adding more broth if dry. Season and serve with rice."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/mq27gf1764436795.jpg",
-    "origin": "Venezuela",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://livingsweetmoments.com/venezuelan-shredded-beef-made-instant-pot/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53281",
     "name": "Algerian Kefta (Meatballs)",
     "cuisine": "MiddleEastern",
@@ -25730,7 +25564,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.75,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "cilantro",
@@ -26282,7 +26116,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken bouillon cube",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "tomatoes",
@@ -28477,14 +28311,14 @@ export const recipeImported: Recipe[] = [
     "name": "Roast aubergine with goat's cheese & toasted flatbread",
     "cuisine": "MiddleEastern",
     "categories": [
-      "HighProtein"
+      "Vegetarian"
     ],
     "provides": [
       "protein",
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Lamb",
+    "primaryProtein": "None",
     "vegetables": [
       "eggplant",
       "cherry tomatoes",
@@ -28504,7 +28338,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 34,
+      "protein": 12,
       "carbs": 48,
       "fat": 30
     },
@@ -28568,7 +28402,7 @@ export const recipeImported: Recipe[] = [
         "name": "goats cheese",
         "quantity": 1.75,
         "unit": "oz",
-        "department": "Meat"
+        "department": "Dairy"
       },
       {
         "name": "arugula",
@@ -28603,7 +28437,9 @@ export const recipeImported: Recipe[] = [
       "Gluten",
       "Dairy"
     ],
-    "dietTags": [],
+    "dietTags": [
+      "vegetarian"
+    ],
     "image": "https://www.themealdb.com/images/media/meals/iydbwy1763816111.jpg",
     "origin": "Turkish",
     "sourceName": "TheMealDB",
@@ -28680,7 +28516,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 0.75,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "walnuts",
@@ -29196,7 +29032,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 1,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "lemon juice",
@@ -29438,7 +29274,7 @@ export const recipeImported: Recipe[] = [
       "protein",
       "starch"
     ],
-    "primaryProtein": "Chicken",
+    "primaryProtein": "Beef",
     "vegetables": [],
     "techniques": [
       "simmer"
@@ -29450,7 +29286,7 @@ export const recipeImported: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 38,
+      "protein": 36,
       "carbs": 48,
       "fat": 30
     },
@@ -29497,7 +29333,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "rice",
@@ -29892,7 +29728,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 1,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "sweet potatoes",
@@ -30152,7 +29988,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 4.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "harissa spice",
@@ -30286,7 +30122,7 @@ export const recipeImported: Recipe[] = [
         "name": "lamb broth",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "dried apricots",
@@ -30665,7 +30501,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 4,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "pumpkin puree",
@@ -31155,7 +30991,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "tomato puree",
@@ -31461,7 +31297,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 3,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "rutabaga",
@@ -32577,7 +32413,7 @@ export const recipeImported: Recipe[] = [
         "name": "fish broth",
         "quantity": 4,
         "unit": "cup",
-        "department": "Seafood"
+        "department": "DryGoods"
       },
       {
         "name": "milk",
@@ -32727,7 +32563,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 2.5,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "mustard",
@@ -33753,7 +33589,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 6.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "bay leaves",
@@ -33876,7 +33712,7 @@ export const recipeImported: Recipe[] = [
         "name": "lamb broth",
         "quantity": 4.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "salt",
@@ -34583,7 +34419,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 6,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       }
     ],
     "steps": [
@@ -34863,152 +34699,9 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53495",
-    "name": "Amok Trey – Cambodian Fish Curry",
-    "cuisine": "Thai",
-    "categories": [
-      "Seafood",
-      "Stews",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Fish",
-    "vegetables": [
-      "kaffir lime leaves",
-      "banana leaves",
-      "cilantro",
-      "lime"
-    ],
-    "techniques": [
-      "simmer",
-      "steam"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Medium",
-    "prepMinutes": 15,
-    "cookMinutes": 35,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "fish fillet",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Seafood"
-      },
-      {
-        "name": "coconut milk",
-        "quantity": 1,
-        "unit": "can",
-        "department": "International"
-      },
-      {
-        "name": "red curry paste",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "brown sugar",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "chicken broth",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Meat"
-      },
-      {
-        "name": "egg",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "kaffir lime leaves",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "banana leaves",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "jasmine rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "International"
-      }
-    ],
-    "steps": [
-      "In a medium bowl, combine the coconut milk, red curry paste, fish sauce, palm sugar, and broth, whisking until smooth—this ensures no lumps in the sauce.",
-      "Heat the vegetable oil in a large skillet over medium heat (about 350°F) for 30 seconds until shimmering.",
-      "Pour the coconut milk mixture into the skillet and bring it to a gentle simmer, stirring occasionally, which should take about 3-4 minutes.",
-      "Add the fish cubes and kaffir lime leaves to the skillet, submerging them fully in the sauce.",
-      "Reduce the heat to low, cover the skillet, and let it cook for 10 minutes until the fish is opaque and flakes easily with a fork—avoid overcooking to keep it tender.",
-      "Stir in the beaten egg slowly, cooking for 2 more minutes until the sauce thickens slightly, which adds a rich, custard-like texture.",
-      "While the curry simmers, prepare the banana leaves by briefly passing them over a gas flame for 10 seconds to make them pliable, or use parchment paper as a handy alternative.",
-      "Spoon the curry into the center of each banana leaf square, folding the edges to form a tight packet to trap steam.",
-      "Place the packets in a steamer basket over boiling water and steam for 10 minutes until heated through and fragrant.",
-      "Carefully unwrap the packets and garnish with fresh cilantro and lime wedges before serving"
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [
-      "Fish",
-      "Eggs"
-    ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/diuub11782687570.jpg",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://recipes-for-life.com/cambodian-recipes/",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53050",
     "name": "Ayam Percik",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -35163,7 +34856,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53071",
     "name": "Beef Asado",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -35207,7 +34900,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth concentrate",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "tomato puree",
@@ -35321,7 +35014,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53070",
     "name": "Beef Caldereta",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -35364,7 +35057,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "soy sauce",
@@ -35478,9 +35171,175 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
+    "id": "mealdb-53421",
+    "name": "BEEF LOK LAK (Lok Lak Sach Ko)",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "garlic",
+      "lettuce",
+      "tomato",
+      "onion",
+      "lime juice"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 20,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef tenderloin",
+        "quantity": 2.25,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 5,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "palm sugar",
+        "quantity": 1.5,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "sea salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "white wine",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "oyster sauce",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "sesame seed oil",
+        "quantity": 1.5,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Produce"
+      },
+      {
+        "name": "tomato",
+        "quantity": 14,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 7,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "eggs",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "sea salt",
+        "quantity": 1.5,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "kampot pepper",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Spices"
+      },
+      {
+        "name": "lime juice",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "jasmine rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
+      }
+    ],
+    "steps": [
+      "Cook the rice. Fry the eggs sunny-side up and set aside. Finely chop the garlic, wash and drain the lettuce, and thinly slice the onion and tomatoes.",
+      "Cut the beef into 1-inch cubes and marinate with 1 tsp salt, the palm sugar, wine, oyster sauce, soy sauce and sesame oil.",
+      "Heat the oil in a large skillet over high heat. Fry the garlic until lightly golden, then add the beef and marinade and sear hot and fast 5–7 minutes, until 135°F for medium.",
+      "Toast the peppercorns in a dry pan 2–3 minutes, grind, and mix with the remaining salt and the lime juice for the dipping sauce.",
+      "Layer lettuce, tomatoes and onion on a platter, spoon the beef over and top with the eggs. Serve with the pepper sauce and rice."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Shellfish",
+      "Eggs",
+      "Soy",
+      "Sesame"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/t2b8bn1779737789.jpg",
+    "origin": "Cambodian",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.chefnak.com/beef-lok-lak",
+    "estimated": true
+  },
+  {
     "id": "mealdb-53238",
     "name": "Beef pho",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -35516,7 +35375,7 @@ export const recipeImported: Recipe[] = [
         "name": "beef broth",
         "quantity": 8,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "onion",
@@ -35642,7 +35501,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53053",
     "name": "Beef Rendang",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -35815,7 +35674,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53069",
     "name": "Bistek",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -35931,7 +35790,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-53073",
     "name": "Eggplant Adobo",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -36058,7 +35917,7 @@ export const recipeImported: Recipe[] = [
   {
     "id": "mealdb-52821",
     "name": "Laksa King Prawn Noodles",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "Seafood"
     ],
@@ -36173,149 +36032,9 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-52827",
-    "name": "Massaman Beef curry",
-    "cuisine": "Thai",
-    "categories": [
-      "Stews",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "peanuts",
-      "potatoes",
-      "onion",
-      "chile pepper",
-      "makrut lime leaves"
-    ],
-    "techniques": [
-      "bake",
-      "roast",
-      "fry",
-      "simmer"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "Medium",
-    "prepMinutes": 20,
-    "cookMinutes": 130,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "peanuts",
-        "quantity": 3,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "coconut cream",
-        "quantity": 1.75,
-        "unit": "cup",
-        "department": "International"
-      },
-      {
-        "name": "massaman curry paste",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "beef",
-        "quantity": 1.25,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "potatoes",
-        "quantity": 15.75,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "onion",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cinnamon stick",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "tamarind paste",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "brown sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "chile pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "jasmine rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "International"
-      },
-      {
-        "name": "makrut lime leaves",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Heat the oven to 400°F. Roast the peanuts on a baking sheet for 5 minutes until golden, cool and roughly chop. Turn the oven down to 350°F.",
-      "Heat 2 tbsp of the coconut cream in a large lidded ovenproof pot. Fry the curry paste for 1 minute, then add the beef strips and stir until coated and browned.",
-      "Stir in the rest of the coconut cream, 3/4 cup water, the potatoes (in chunks), onion wedges, lime leaves, cinnamon, tamarind, sugar, fish sauce and most of the peanuts.",
-      "Bring to a simmer, cover and cook in the oven for 2 hours, until the beef is tender.",
-      "Meanwhile, cook the rice. Scatter the curry with sliced chile and the rest of the peanuts and serve with the rice."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [
-      "Fish",
-      "Peanuts"
-    ],
-    "dietTags": [
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/tvttqv1504640475.jpg",
-    "origin": "Thai",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/420631/beef-massaman-curry",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53051",
     "name": "Nasi lemak",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "Seafood",
       "HighProtein"
@@ -36485,6 +36204,1837 @@ export const recipeImported: Recipe[] = [
     "origin": "Malaysian",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.allrecipes.com/recipe/78938/malaysian-nasi-lemak/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53227",
+    "name": "Rice paper dumplings",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "white cabbage",
+      "carrots",
+      "shiitake mushrooms",
+      "garlic",
+      "ginger",
+      "green onions"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 35,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "white cabbage",
+        "quantity": 0.25,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "shiitake mushrooms",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "ground pork",
+        "quantity": 14,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "garlic",
+        "quantity": 2,
+        "unit": "clove",
+        "department": "Produce"
+      },
+      {
+        "name": "ginger",
+        "quantity": 0.75,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "International"
+      },
+      {
+        "name": "sesame seed oil",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "International"
+      },
+      {
+        "name": "green onions",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "rice paper sheets",
+        "quantity": 20,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "rice vinegar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "sesame seed",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "green onions",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Finely chop the cabbage in a food processor, toss with 1/2 tsp salt and leave 15 minutes. Squeeze out as much water as you can in a clean towel.",
+      "Mix the cabbage with the grated carrot, chopped mushrooms, ground pork, garlic, ginger, 2 tsp soy sauce, sesame oil, the 3 green onions and some black pepper.",
+      "Dip a rice paper sheet in warm water for a couple of seconds and lay it on an oiled board. Spoon 1 heaped tbsp filling into the middle and fold into a neat square. Repeat.",
+      "Heat the oil in a large nonstick skillet over medium-high heat and fry the dumplings 3–5 minutes until golden. Turn, cover and cook 3–4 minutes, then uncover for 1–2 minutes, until the filling reaches 160°F.",
+      "Mix the 2 tbsp soy sauce, rice vinegar, sesame seeds and the 2 green onions for dipping, and serve."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Soy",
+      "Sesame"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/sfahy01763752319.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/rice-paper-dumplings",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53247",
+    "name": "Sea bass with sizzled ginger, chilli & spring onions",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "Seafood",
+      "Stews",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "ginger",
+      "red chile",
+      "green onions"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 10,
+    "cookMinutes": 20,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "sea bass fillets",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Seafood"
+      },
+      {
+        "name": "sunflower oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "ginger",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "red chile",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Season 6 sea bass fillets with salt and pepper, then slash the skin 3 times.",
+      "Heat a heavy-based frying pan and add 1 tbsp sunflower oil.",
+      "Once hot, fry the sea bass fillets, skin-side down, for 5 mins or until the skin is very crisp and golden. The fish will be almost cooked through.",
+      "Turn over, cook for another 30 seconds - 1 minute, then transfer to a serving plate and keep warm. You’ll need to fry the sea bass fillets in 2 batches.",
+      "Heat 2 tbsp sunflower oil, then fry the large knob of peeled ginger, cut into matchsticks, 3 thinly sliced garlic cloves and 3 thinly shredded red chiles for about 2 mins until golden.",
+      "Take off the heat and toss in the bunch of shredded green onions. Splash the fish with 1 tbsp soy sauce and spoon over the contents of the pan."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish",
+      "Soy"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/tqd7s21763780609.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/sea-bass-sizzled-ginger-chilli-spring-onions",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53229",
+    "name": "Steak & Vietnamese noodle salad",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "Salads",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "carrots",
+      "chinese cabbage",
+      "green onions",
+      "cilantro",
+      "red chile",
+      "lime"
+    ],
+    "techniques": [
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 20,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "brown rice noodle",
+        "quantity": 6,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "canola oil",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "fillet of steak",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "chinese cabbage",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "red chile",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "brown sugar",
+        "quantity": 4,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "rice vinegar",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "International"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Make the dressing: mix the chopped chile, lime juice, brown sugar, rice vinegar, garlic, fish sauce and 2 tbsp water until the sugar dissolves.",
+      "Cook the noodles according to the package, then cool them in cold water and drain.",
+      "Toss the noodles with the grated carrots, shredded cabbage, green onions and dressing.",
+      "Heat the oil in a skillet over high heat. Season the steak and sear 2–3 minutes per side, until 130°F for medium-rare. Rest 5 minutes, then slice.",
+      "Divide the salad among bowls, top with the steak and scatter with cilantro."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/st9shl1763755808.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/steak-vietnamese-noodle-salad",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53240",
+    "name": "Tofu, greens & cashew stir-fry",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Tofu",
+    "vegetables": [
+      "broccoli",
+      "red chile",
+      "green onions"
+    ],
+    "techniques": [
+      "fry",
+      "stir-fry"
+    ],
+    "difficulty": "Easy",
+    "spiceLevel": "Medium",
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 20,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "broccoli",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "red chile",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "soya bean",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "bok choy",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "marinated tofu",
+        "quantity": 10.5,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "hoisin sauce",
+        "quantity": 1.5,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "cashew nuts",
+        "quantity": 1,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Cook the rice according to the package.",
+      "Heat the oil in a nonstick wok. Add the broccoli florets and fry on high heat 5 minutes, until just tender, adding a splash of water if it catches.",
+      "Add the garlic and chile for 1 minute, then toss in the green onions, edamame, bok choy and tofu. Stir-fry 2–3 minutes, until the bok choy wilts.",
+      "Add the hoisin, soy sauce and cashews and toss to warm through. Serve with the rice. Tip: hoisin sauces vary — check the label if anyone has allergies."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Soy",
+      "Tree Nuts"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "vegan",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/minfsc1763766806.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/tofu-greens-cashew-stir-fry",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53075",
+    "name": "Tortang Talong",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Eggs",
+    "vegetables": [
+      "eggplant"
+    ],
+    "techniques": [
+      "fry",
+      "grill"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 20,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "eggs",
+        "quantity": 6,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "olive oil",
+        "quantity": 4,
+        "unit": "tsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "eggplant",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Cook the rice. Char the eggplants under a hot broiler or over a gas flame, turning, until the skin is nearly black and the flesh is soft.",
+      "Cool slightly, then peel, keeping the stem on.",
+      "Beat the eggs with the salt.",
+      "Flatten each eggplant on a plate with a fork, then dip it in the egg.",
+      "Heat the oil in a skillet over medium heat and fry each eggplant 3–4 minutes per side, until the egg is set and golden. Serve with rice."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Eggs"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/va668f1683209318.jpg",
+    "origin": "Filipino",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.sainsburysmagazine.co.uk/recipes/mains/tortang-talong",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53251",
+    "name": "Turkish lahmacun",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "tomato",
+      "green chile",
+      "green onions",
+      "parsley",
+      "red pepper flakes",
+      "lemon"
+    ],
+    "techniques": [
+      "bake"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 60,
+    "cookMinutes": 30,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "bread flour",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Bakery"
+      },
+      {
+        "name": "fast action yeast",
+        "quantity": 0.25,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "corn flour",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "DryGoods"
+      },
+      {
+        "name": "tomato",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green chile",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "parsley",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "ground beef",
+        "quantity": 8.75,
+        "unit": "oz",
+        "department": "Meat"
+      },
+      {
+        "name": "red pepper flakes",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Produce"
+      },
+      {
+        "name": "ground cumin",
+        "quantity": 1,
+        "unit": "pinch",
+        "department": "Meat"
+      },
+      {
+        "name": "allspice",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "Spices"
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "lemon",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red onions",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "salt",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "black pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "department": "Spices",
+        "pantryStaple": true
+      }
+    ],
+    "steps": [
+      "Sift the flour into a bowl, make a well and sprinkle in the yeast. Pour 1/2 cup water over the yeast, flick flour over it, cover and leave in a warm place 15 minutes.",
+      "Mix in 1 cup more water and 1 tsp salt and knead 10 minutes until elastic. Cover and let rise 30 minutes, until doubled.",
+      "Heat the oven as high as it goes (about 475°F) and sprinkle two baking sheets with cornmeal.",
+      "Scald, peel, seed and chop the tomatoes. Seed and finely dice the chiles. Mix with the green onions, half the parsley (chopped), the beef, spices, 1 tsp salt and the pepper.",
+      "Divide the dough into four, roll each very thin and spread with a thin layer of the meat.",
+      "Bake 10–15 minutes, until the edges darken and the meat is cooked through. Top with the rest of the parsley, sliced red onion and a squeeze of lemon."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/tqd3ac1763786065.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/lahmacun",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52828",
+    "name": "Vietnamese Grilled Pork (bun-thit-nuong)",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "garlic",
+      "cucumber",
+      "mint",
+      "peanuts",
+      "lime",
+      "lettuce"
+    ],
+    "techniques": [
+      "bake",
+      "grill"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "None",
+    "prepMinutes": 80,
+    "cookMinutes": 25,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "pork",
+        "quantity": 1.5,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "rice vermicelli",
+        "quantity": 8,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "egg rolls",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Bakery"
+      },
+      {
+        "name": "challots",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "garlic",
+        "quantity": 1.5,
+        "unit": "tbsp",
+        "department": "Produce"
+      },
+      {
+        "name": "sugar",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tbsp",
+        "department": "Spices",
+        "pantryStaple": true
+      },
+      {
+        "name": "olive oil",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "cucumber",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "mint",
+        "quantity": 0.5,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "peanuts",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Slice the pork very thin (about 1/8 inch); 15 minutes in the freezer makes it easier.",
+      "Mix the minced shallots and garlic with the sugar, 1 tbsp fish sauce, soy sauce, pepper and oil until the sugar dissolves. Marinate the pork at least 1 hour in the fridge.",
+      "Heat the oven to 375°F. Spread the pork on a baking sheet and bake 10–15 minutes, then broil, turning once, until browned and 145°F. Bake the egg rolls according to the package alongside.",
+      "Cook the vermicelli according to the package and rinse in cold water.",
+      "Make the dipping sauce: mix the lime juice, 3 tbsp fish sauce, 1 tbsp sugar and 1/2 cup water.",
+      "Build bowls of lettuce, noodles, cucumber, mint, pork and sliced egg rolls, scatter with peanuts and pour over the sauce."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish",
+      "Eggs",
+      "Soy",
+      "Peanuts"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/qqwypw1504642429.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "http://www.hungryhuy.com/bun-thit-nuong-recipe-vietnamese-grilled-bbq-pork-with-rice-vermicelli-vegetables/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53237",
+    "name": "Vietnamese pork salad",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "Salads",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable"
+    ],
+    "primaryProtein": "Pork",
+    "vegetables": [
+      "lime",
+      "red chile",
+      "cilantro",
+      "white cabbage",
+      "cucumber",
+      "celery"
+    ],
+    "techniques": [
+      "bake",
+      "roast",
+      "grill",
+      "fry"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 25,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 480,
+      "protein": 34,
+      "carbs": 18,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "sugar",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red chile",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "sesame seed oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "pork tenderloin",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "white cabbage",
+        "quantity": 0.25,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cucumber",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "celery",
+        "quantity": 5,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 3,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red chile",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lemongrass stalks",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "mint",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "sesame seed",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Make the dressing: heat the sugar, the juice of 2 limes and 1 tbsp water until the sugar dissolves. Blend with one chopped chile and a handful of cilantro until smooth, then stir in the sesame oil, fish sauce, soy sauce and sesame seeds.",
+      "Heat the oven to 400°F and heat a grill pan. Brush the pork with oil and sear on all sides for a few minutes. Move to a baking sheet and roast 10–12 minutes, until 145°F.",
+      "Rest the pork, then slice thinly against the grain and toss with half the dressing.",
+      "Toss the shredded cabbage, cucumber, celery, green onions, the second chile, finely chopped lemongrass, lime zest and herbs with the rest of the dressing.",
+      "Pile onto a platter, top with the pork and spoon over the juices."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish",
+      "Soy",
+      "Sesame"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/g7jomp1763763994.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/vietnamese-pork-salad",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53243",
+    "name": "Vietnamese prawn spiralized rolls",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "Seafood"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Shellfish",
+    "vegetables": [
+      "lime",
+      "birds-eye chiles",
+      "mint",
+      "cilantro",
+      "carrots",
+      "zucchini"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 35,
+    "cookMinutes": 0,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 30,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "rice vinegar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "palm sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 3,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "birds-eye chiles",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "rice paper sheets",
+        "quantity": 12,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "mint",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "jumbo shrimp",
+        "quantity": 24,
+        "unit": "piece",
+        "department": "Seafood"
+      },
+      {
+        "name": "carrots",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "zucchini",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Make the dipping sauce: stir the lime juice, rice vinegar, palm sugar, fish sauce, chopped chile and 3 tbsp water until the sugar dissolves.",
+      "Cut the carrots and zucchini into long thin matchsticks (or spiralize them if you have a spiralizer).",
+      "Dip a rice paper sheet in warm water for a few seconds until soft and lay it on a damp towel.",
+      "Put a few mint and cilantro leaves in the center, then 2 shrimp halves and a small pile of vegetables.",
+      "Fold in the sides and roll up tightly. Repeat with the rest. Slice on the diagonal and serve with the dipping sauce."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Shellfish",
+      "Fish"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/9r2xrg1763771238.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/vietnamese-prawn-spiralized-rolls",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53241",
+    "name": "Vietnamese veg parcels",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Chicken",
+    "vegetables": [
+      "carrots",
+      "cucumber",
+      "lettuce",
+      "cilantro",
+      "mint",
+      "lime"
+    ],
+    "techniques": [
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "Medium",
+    "prepMinutes": 35,
+    "cookMinutes": 15,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 520,
+      "protein": 38,
+      "carbs": 48,
+      "fat": 18
+    },
+    "ingredients": [
+      {
+        "name": "rice flour pancakes",
+        "quantity": 16,
+        "unit": "piece",
+        "department": "DryGoods"
+      },
+      {
+        "name": "rice noodles",
+        "quantity": 4,
+        "unit": "oz",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chicken breast",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Meat"
+      },
+      {
+        "name": "carrots",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cucumber",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red bell pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "mint",
+        "quantity": 1,
+        "unit": "bunch",
+        "department": "Produce"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "rice vinegar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "red chile",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Put the chicken breasts in a pot, cover with cold salted water and bring to a simmer. Poach gently 12–15 minutes, until 165°F. Cool and shred.",
+      "Soak the rice noodles according to the package, drain and cut into short lengths.",
+      "Make the dipping sauce: mix the fish sauce, rice vinegar, lime juice, sugar, sliced chile and 3 tbsp water.",
+      "Dip a rice wrapper in warm water for a few seconds until soft and lay it on a board. Place some noodles, chicken, sliced carrot, cucumber, pepper and herb leaves a third of the way up.",
+      "Fold in the sides and roll up tightly. Repeat with the rest.",
+      "Serve with lettuce leaves, extra herbs and the dipping sauce."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Fish"
+    ],
+    "dietTags": [
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/f698g91763768731.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/vietnamese-veg-parcels",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53236",
+    "name": "Vietnamese-style veggie hotpot",
+    "cuisine": "SoutheastAsian",
+    "categories": [
+      "Vegetarian"
+    ],
+    "provides": [
+      "protein",
+      "vegetable",
+      "starch"
+    ],
+    "primaryProtein": "Tofu",
+    "vegetables": [
+      "ginger",
+      "green beans",
+      "green onions",
+      "cilantro"
+    ],
+    "techniques": [
+      "fry",
+      "stir-fry",
+      "simmer"
+    ],
+    "difficulty": "Medium",
+    "spiceLevel": "None",
+    "prepMinutes": 10,
+    "cookMinutes": 20,
+    "baseServings": 4,
+    "nutrition": {
+      "calories": 580,
+      "protein": 20,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "vegetable oil",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "ginger",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "garlic clove",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "butternut squash",
+        "quantity": 0.5,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "soy sauce",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "International"
+      },
+      {
+        "name": "brown sugar",
+        "quantity": 2,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "vegetable broth",
+        "quantity": 0.75,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "green beans",
+        "quantity": 3.5,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "green onions",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "jasmine rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "firm tofu",
+        "quantity": 14,
+        "unit": "oz",
+        "department": "DryGoods"
+      }
+    ],
+    "steps": [
+      "Cook the rice.",
+      "Heat the oil in a medium lidded saucepan and stir-fry the ginger and garlic about 1 minute.",
+      "Add the peeled, cubed squash, the cubed tofu, soy sauce, sugar and broth. Cover and simmer 10 minutes.",
+      "Uncover, add the green beans and cook 3 minutes more, until the squash is tender when pierced.",
+      "Stir in the green onions, sprinkle with cilantro and serve with the rice."
+    ],
+    "makesLeftovers": false,
+    "seasons": [],
+    "allergens": [
+      "Gluten",
+      "Eggs",
+      "Soy"
+    ],
+    "dietTags": [
+      "vegetarian",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/4uje7l1763762276.jpg",
+    "origin": "Vietnamese",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/vietnamese-veggie-hotpot",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-53495",
+    "name": "Amok Trey – Cambodian Fish Curry",
+    "cuisine": "Thai",
+    "categories": [
+      "Seafood",
+      "Stews",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Fish",
+    "vegetables": [
+      "kaffir lime leaves",
+      "banana leaves",
+      "cilantro",
+      "lime"
+    ],
+    "techniques": [
+      "simmer",
+      "steam"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Medium",
+    "prepMinutes": 15,
+    "cookMinutes": 35,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 580,
+      "protein": 34,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "fish fillet",
+        "quantity": 1,
+        "unit": "lb",
+        "department": "Seafood"
+      },
+      {
+        "name": "coconut milk",
+        "quantity": 1,
+        "unit": "can",
+        "department": "International"
+      },
+      {
+        "name": "red curry paste",
+        "quantity": 2,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "brown sugar",
+        "quantity": 1,
+        "unit": "tsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "chicken broth",
+        "quantity": 1,
+        "unit": "cup",
+        "department": "DryGoods"
+      },
+      {
+        "name": "egg",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Dairy"
+      },
+      {
+        "name": "kaffir lime leaves",
+        "quantity": 2,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "vegetable oil",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods",
+        "pantryStaple": true
+      },
+      {
+        "name": "banana leaves",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cilantro",
+        "quantity": 0.25,
+        "unit": "cup",
+        "department": "Produce"
+      },
+      {
+        "name": "lime",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "jasmine rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
+      }
+    ],
+    "steps": [
+      "In a medium bowl, combine the coconut milk, red curry paste, fish sauce, palm sugar, and broth, whisking until smooth—this ensures no lumps in the sauce.",
+      "Heat the vegetable oil in a large skillet over medium heat (about 350°F) for 30 seconds until shimmering.",
+      "Pour the coconut milk mixture into the skillet and bring it to a gentle simmer, stirring occasionally, which should take about 3-4 minutes.",
+      "Add the fish cubes and kaffir lime leaves to the skillet, submerging them fully in the sauce.",
+      "Reduce the heat to low, cover the skillet, and let it cook for 10 minutes until the fish is opaque and flakes easily with a fork—avoid overcooking to keep it tender.",
+      "Stir in the beaten egg slowly, cooking for 2 more minutes until the sauce thickens slightly, which adds a rich, custard-like texture.",
+      "While the curry simmers, prepare the banana leaves by briefly passing them over a gas flame for 10 seconds to make them pliable, or use parchment paper as a handy alternative.",
+      "Spoon the curry into the center of each banana leaf square, folding the edges to form a tight packet to trap steam.",
+      "Place the packets in a steamer basket over boiling water and steam for 10 minutes until heated through and fragrant.",
+      "Carefully unwrap the packets and garnish with fresh cilantro and lime wedges before serving"
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Fish",
+      "Eggs"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/diuub11782687570.jpg",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://recipes-for-life.com/cambodian-recipes/",
+    "estimated": true
+  },
+  {
+    "id": "mealdb-52827",
+    "name": "Massaman Beef curry",
+    "cuisine": "Thai",
+    "categories": [
+      "Stews",
+      "HighProtein"
+    ],
+    "provides": [
+      "protein",
+      "starch"
+    ],
+    "primaryProtein": "Beef",
+    "vegetables": [
+      "peanuts",
+      "potatoes",
+      "onion",
+      "chile pepper",
+      "makrut lime leaves"
+    ],
+    "techniques": [
+      "bake",
+      "roast",
+      "fry",
+      "simmer"
+    ],
+    "difficulty": "Hard",
+    "spiceLevel": "Medium",
+    "prepMinutes": 20,
+    "cookMinutes": 130,
+    "baseServings": 6,
+    "nutrition": {
+      "calories": 580,
+      "protein": 36,
+      "carbs": 48,
+      "fat": 30
+    },
+    "ingredients": [
+      {
+        "name": "peanuts",
+        "quantity": 3,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "coconut cream",
+        "quantity": 1.75,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "massaman curry paste",
+        "quantity": 4,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "beef",
+        "quantity": 1.25,
+        "unit": "lb",
+        "department": "Meat"
+      },
+      {
+        "name": "potatoes",
+        "quantity": 15.75,
+        "unit": "oz",
+        "department": "Produce"
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "cinnamon stick",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Spices"
+      },
+      {
+        "name": "tamarind paste",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "brown sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "DryGoods"
+      },
+      {
+        "name": "fish sauce",
+        "quantity": 1,
+        "unit": "tbsp",
+        "department": "International"
+      },
+      {
+        "name": "chile pepper",
+        "quantity": 1,
+        "unit": "piece",
+        "department": "Produce"
+      },
+      {
+        "name": "jasmine rice",
+        "quantity": 1.5,
+        "unit": "cup",
+        "department": "International"
+      },
+      {
+        "name": "makrut lime leaves",
+        "quantity": 4,
+        "unit": "piece",
+        "department": "Produce"
+      }
+    ],
+    "steps": [
+      "Heat the oven to 400°F. Roast the peanuts on a baking sheet for 5 minutes until golden, cool and roughly chop. Turn the oven down to 350°F.",
+      "Heat 2 tbsp of the coconut cream in a large lidded ovenproof pot. Fry the curry paste for 1 minute, then add the beef strips and stir until coated and browned.",
+      "Stir in the rest of the coconut cream, 3/4 cup water, the potatoes (in chunks), onion wedges, lime leaves, cinnamon, tamarind, sugar, fish sauce and most of the peanuts.",
+      "Bring to a simmer, cover and cook in the oven for 2 hours, until the beef is tender.",
+      "Meanwhile, cook the rice. Scatter the curry with sliced chile and the rest of the peanuts and serve with the rice."
+    ],
+    "makesLeftovers": true,
+    "seasons": [],
+    "allergens": [
+      "Fish",
+      "Peanuts"
+    ],
+    "dietTags": [
+      "gluten-free",
+      "dairy-free"
+    ],
+    "image": "https://www.themealdb.com/images/media/meals/tvttqv1504640475.jpg",
+    "origin": "Thai",
+    "sourceName": "TheMealDB",
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/420631/beef-massaman-curry",
     "estimated": true
   },
   {
@@ -37105,157 +38655,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53227",
-    "name": "Rice paper dumplings",
-    "cuisine": "Thai",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "white cabbage",
-      "carrots",
-      "shiitake mushrooms",
-      "garlic",
-      "ginger",
-      "green onions"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 35,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "white cabbage",
-        "quantity": 0.25,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "carrots",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "shiitake mushrooms",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "ground pork",
-        "quantity": 14,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "garlic",
-        "quantity": 2,
-        "unit": "clove",
-        "department": "Produce"
-      },
-      {
-        "name": "ginger",
-        "quantity": 0.75,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "International"
-      },
-      {
-        "name": "sesame seed oil",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "International"
-      },
-      {
-        "name": "green onions",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "rice paper sheets",
-        "quantity": 20,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "rice vinegar",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "sesame seed",
-        "quantity": 0.5,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "green onions",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Finely chop the cabbage in a food processor, toss with 1/2 tsp salt and leave 15 minutes. Squeeze out as much water as you can in a clean towel.",
-      "Mix the cabbage with the grated carrot, chopped mushrooms, ground pork, garlic, ginger, 2 tsp soy sauce, sesame oil, the 3 green onions and some black pepper.",
-      "Dip a rice paper sheet in warm water for a couple of seconds and lay it on an oiled board. Spoon 1 heaped tbsp filling into the middle and fold into a neat square. Repeat.",
-      "Heat the oil in a large nonstick skillet over medium-high heat and fry the dumplings 3–5 minutes until golden. Turn, cover and cook 3–4 minutes, then uncover for 1–2 minutes, until the filling reaches 160°F.",
-      "Mix the 2 tbsp soy sauce, rice vinegar, sesame seeds and the 2 green onions for dipping, and serve."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Soy",
-      "Sesame"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/sfahy01763752319.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/rice-paper-dumplings",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53511",
     "name": "Salt Beef and Beans",
     "cuisine": "Thai",
@@ -37462,7 +38861,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 1,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "fish sauce",
@@ -37668,280 +39067,6 @@ export const recipeImported: Recipe[] = [
     "estimated": true
   },
   {
-    "id": "mealdb-53247",
-    "name": "Sea bass with sizzled ginger, chilli & spring onions",
-    "cuisine": "Thai",
-    "categories": [
-      "Seafood",
-      "Stews",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "starch"
-    ],
-    "primaryProtein": "Fish",
-    "vegetables": [
-      "ginger",
-      "red chile",
-      "green onions"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 10,
-    "cookMinutes": 20,
-    "baseServings": 6,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "sea bass fillets",
-        "quantity": 6,
-        "unit": "piece",
-        "department": "Seafood"
-      },
-      {
-        "name": "sunflower oil",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "ginger",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic clove",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "red chile",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Season 6 sea bass fillets with salt and pepper, then slash the skin 3 times.",
-      "Heat a heavy-based frying pan and add 1 tbsp sunflower oil.",
-      "Once hot, fry the sea bass fillets, skin-side down, for 5 mins or until the skin is very crisp and golden. The fish will be almost cooked through.",
-      "Turn over, cook for another 30 seconds - 1 minute, then transfer to a serving plate and keep warm. You’ll need to fry the sea bass fillets in 2 batches.",
-      "Heat 2 tbsp sunflower oil, then fry the large knob of peeled ginger, cut into matchsticks, 3 thinly sliced garlic cloves and 3 thinly shredded red chiles for about 2 mins until golden.",
-      "Take off the heat and toss in the bunch of shredded green onions. Splash the fish with 1 tbsp soy sauce and spoon over the contents of the pan."
-    ],
-    "makesLeftovers": true,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish",
-      "Soy"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/tqd7s21763780609.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/sea-bass-sizzled-ginger-chilli-spring-onions",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53229",
-    "name": "Steak & Vietnamese noodle salad",
-    "cuisine": "Thai",
-    "categories": [
-      "Salads",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "carrots",
-      "chinese cabbage",
-      "green onions",
-      "cilantro",
-      "red chile",
-      "lime"
-    ],
-    "techniques": [
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 20,
-    "cookMinutes": 15,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "brown rice noodle",
-        "quantity": 6,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "canola oil",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "fillet of steak",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "carrots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "chinese cabbage",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "red chile",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "lime",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "brown sugar",
-        "quantity": 4,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "rice vinegar",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "International"
-      },
-      {
-        "name": "garlic clove",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Make the dressing: mix the chopped chile, lime juice, brown sugar, rice vinegar, garlic, fish sauce and 2 tbsp water until the sugar dissolves.",
-      "Cook the noodles according to the package, then cool them in cold water and drain.",
-      "Toss the noodles with the grated carrots, shredded cabbage, green onions and dressing.",
-      "Heat the oil in a skillet over high heat. Season the steak and sear 2–3 minutes per side, until 130°F for medium-rare. Rest 5 minutes, then slice.",
-      "Divide the salad among bowls, top with the steak and scatter with cilantro."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/st9shl1763755808.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/steak-vietnamese-noodle-salad",
-    "estimated": true
-  },
-  {
     "id": "mealdb-53214",
     "name": "Thai green chicken soup",
     "cuisine": "Thai",
@@ -38020,7 +39145,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 8.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "lime leaves",
@@ -38364,7 +39489,6 @@ export const recipeImported: Recipe[] = [
     "name": "Thai rice noodle salad",
     "cuisine": "Thai",
     "categories": [
-      "Seafood",
       "Salads",
       "HighProtein"
     ],
@@ -38373,7 +39497,7 @@ export const recipeImported: Recipe[] = [
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Fish",
+    "primaryProtein": "Pork",
     "vegetables": [
       "bean sprouts",
       "lime",
@@ -38541,7 +39665,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken broth",
         "quantity": 4,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "thai red curry paste",
@@ -38607,138 +39731,6 @@ export const recipeImported: Recipe[] = [
     "origin": "Thai",
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/thai-style-fish-broth-greens",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53240",
-    "name": "Tofu, greens & cashew stir-fry",
-    "cuisine": "Thai",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Tofu",
-    "vegetables": [
-      "broccoli",
-      "red chile",
-      "green onions"
-    ],
-    "techniques": [
-      "fry",
-      "stir-fry"
-    ],
-    "difficulty": "Easy",
-    "spiceLevel": "Medium",
-    "prepMinutes": 10,
-    "cookMinutes": 15,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 20,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "broccoli",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic clove",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "red chile",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "soya bean",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "bok choy",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "marinated tofu",
-        "quantity": 10.5,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "hoisin sauce",
-        "quantity": 1.5,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "cashew nuts",
-        "quantity": 1,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Cook the rice according to the package.",
-      "Heat the oil in a nonstick wok. Add the broccoli florets and fry on high heat 5 minutes, until just tender, adding a splash of water if it catches.",
-      "Add the garlic and chile for 1 minute, then toss in the green onions, edamame, bok choy and tofu. Stir-fry 2–3 minutes, until the bok choy wilts.",
-      "Add the hoisin, soy sauce and cashews and toss to warm through. Serve with the rice. Tip: hoisin sauces vary — check the label if anyone has allergies."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Soy",
-      "Tree Nuts"
-    ],
-    "dietTags": [
-      "vegetarian",
-      "vegan",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/minfsc1763766806.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/tofu-greens-cashew-stir-fry",
     "estimated": true
   },
   {
@@ -38818,7 +39810,7 @@ export const recipeImported: Recipe[] = [
         "name": "chicken bouillon cube",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "oyster mushrooms",
@@ -38897,998 +39889,6 @@ export const recipeImported: Recipe[] = [
     "sourceName": "TheMealDB",
     "sourceUrl": "https://www.bbcgoodfood.com/recipes/tom-yum-soup-with-prawns",
     "estimated": true
-  },
-  {
-    "id": "mealdb-53075",
-    "name": "Tortang Talong",
-    "cuisine": "Thai",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Eggs",
-    "vegetables": [
-      "eggplant"
-    ],
-    "techniques": [
-      "fry",
-      "grill"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 15,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 20,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "eggs",
-        "quantity": 6,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "salt",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "olive oil",
-        "quantity": 4,
-        "unit": "tsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "eggplant",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Cook the rice. Char the eggplants under a hot broiler or over a gas flame, turning, until the skin is nearly black and the flesh is soft.",
-      "Cool slightly, then peel, keeping the stem on.",
-      "Beat the eggs with the salt.",
-      "Flatten each eggplant on a plate with a fork, then dip it in the egg.",
-      "Heat the oil in a skillet over medium heat and fry each eggplant 3–4 minutes per side, until the egg is set and golden. Serve with rice."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Eggs"
-    ],
-    "dietTags": [
-      "vegetarian",
-      "gluten-free",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/va668f1683209318.jpg",
-    "origin": "Filipino",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.sainsburysmagazine.co.uk/recipes/mains/tortang-talong",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53251",
-    "name": "Turkish lahmacun",
-    "cuisine": "Thai",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Beef",
-    "vegetables": [
-      "tomato",
-      "green chile",
-      "green onions",
-      "parsley",
-      "red pepper flakes",
-      "lemon"
-    ],
-    "techniques": [
-      "bake"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 60,
-    "cookMinutes": 30,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 36,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "bread flour",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Bakery"
-      },
-      {
-        "name": "fast action yeast",
-        "quantity": 0.25,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "corn flour",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "DryGoods"
-      },
-      {
-        "name": "tomato",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green chile",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "parsley",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "ground beef",
-        "quantity": 8.75,
-        "unit": "oz",
-        "department": "Meat"
-      },
-      {
-        "name": "red pepper flakes",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Produce"
-      },
-      {
-        "name": "ground cumin",
-        "quantity": 1,
-        "unit": "pinch",
-        "department": "Meat"
-      },
-      {
-        "name": "allspice",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "Spices"
-      },
-      {
-        "name": "olive oil",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "lemon",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red onions",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "salt",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "black pepper",
-        "quantity": 0.5,
-        "unit": "tsp",
-        "department": "Spices",
-        "pantryStaple": true
-      }
-    ],
-    "steps": [
-      "Sift the flour into a bowl, make a well and sprinkle in the yeast. Pour 1/2 cup water over the yeast, flick flour over it, cover and leave in a warm place 15 minutes.",
-      "Mix in 1 cup more water and 1 tsp salt and knead 10 minutes until elastic. Cover and let rise 30 minutes, until doubled.",
-      "Heat the oven as high as it goes (about 475°F) and sprinkle two baking sheets with cornmeal.",
-      "Scald, peel, seed and chop the tomatoes. Seed and finely dice the chiles. Mix with the green onions, half the parsley (chopped), the beef, spices, 1 tsp salt and the pepper.",
-      "Divide the dough into four, roll each very thin and spread with a thin layer of the meat.",
-      "Bake 10–15 minutes, until the edges darken and the meat is cooked through. Top with the rest of the parsley, sliced red onion and a squeeze of lemon."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/tqd3ac1763786065.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/lahmacun",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-52828",
-    "name": "Vietnamese Grilled Pork (bun-thit-nuong)",
-    "cuisine": "Thai",
-    "categories": [
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "garlic",
-      "cucumber",
-      "mint",
-      "peanuts",
-      "lime",
-      "lettuce"
-    ],
-    "techniques": [
-      "bake",
-      "grill"
-    ],
-    "difficulty": "Hard",
-    "spiceLevel": "None",
-    "prepMinutes": 80,
-    "cookMinutes": 25,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "pork",
-        "quantity": 1.5,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "rice vermicelli",
-        "quantity": 8,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "egg rolls",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Bakery"
-      },
-      {
-        "name": "challots",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "garlic",
-        "quantity": 1.5,
-        "unit": "tbsp",
-        "department": "Produce"
-      },
-      {
-        "name": "sugar",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 0.5,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "pepper",
-        "quantity": 0.5,
-        "unit": "tbsp",
-        "department": "Spices",
-        "pantryStaple": true
-      },
-      {
-        "name": "olive oil",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "cucumber",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "mint",
-        "quantity": 0.5,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "peanuts",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "lime",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "lettuce",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Slice the pork very thin (about 1/8 inch); 15 minutes in the freezer makes it easier.",
-      "Mix the minced shallots and garlic with the sugar, 1 tbsp fish sauce, soy sauce, pepper and oil until the sugar dissolves. Marinate the pork at least 1 hour in the fridge.",
-      "Heat the oven to 375°F. Spread the pork on a baking sheet and bake 10–15 minutes, then broil, turning once, until browned and 145°F. Bake the egg rolls according to the package alongside.",
-      "Cook the vermicelli according to the package and rinse in cold water.",
-      "Make the dipping sauce: mix the lime juice, 3 tbsp fish sauce, 1 tbsp sugar and 1/2 cup water.",
-      "Build bowls of lettuce, noodles, cucumber, mint, pork and sliced egg rolls, scatter with peanuts and pour over the sauce."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish",
-      "Eggs",
-      "Soy",
-      "Peanuts"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/qqwypw1504642429.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "http://www.hungryhuy.com/bun-thit-nuong-recipe-vietnamese-grilled-bbq-pork-with-rice-vermicelli-vegetables/",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53237",
-    "name": "Vietnamese pork salad",
-    "cuisine": "Thai",
-    "categories": [
-      "Salads",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable"
-    ],
-    "primaryProtein": "Pork",
-    "vegetables": [
-      "lime",
-      "red chile",
-      "cilantro",
-      "white cabbage",
-      "cucumber",
-      "celery"
-    ],
-    "techniques": [
-      "bake",
-      "roast",
-      "grill",
-      "fry"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 25,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 480,
-      "protein": 34,
-      "carbs": 18,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "sugar",
-        "quantity": 1,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red chile",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "sesame seed oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "pork tenderloin",
-        "quantity": 1,
-        "unit": "lb",
-        "department": "Meat"
-      },
-      {
-        "name": "vegetable oil",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "white cabbage",
-        "quantity": 0.25,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cucumber",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "celery",
-        "quantity": 5,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 3,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red chile",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "lemongrass stalks",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "mint",
-        "quantity": 1,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "sesame seed",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Make the dressing: heat the sugar, the juice of 2 limes and 1 tbsp water until the sugar dissolves. Blend with one chopped chile and a handful of cilantro until smooth, then stir in the sesame oil, fish sauce, soy sauce and sesame seeds.",
-      "Heat the oven to 400°F and heat a grill pan. Brush the pork with oil and sear on all sides for a few minutes. Move to a baking sheet and roast 10–12 minutes, until 145°F.",
-      "Rest the pork, then slice thinly against the grain and toss with half the dressing.",
-      "Toss the shredded cabbage, cucumber, celery, green onions, the second chile, finely chopped lemongrass, lime zest and herbs with the rest of the dressing.",
-      "Pile onto a platter, top with the pork and spoon over the juices."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish",
-      "Soy",
-      "Sesame"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/g7jomp1763763994.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/vietnamese-pork-salad",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53243",
-    "name": "Vietnamese prawn spiralized rolls",
-    "cuisine": "Thai",
-    "categories": [
-      "Seafood"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Shellfish",
-    "vegetables": [
-      "lime",
-      "birds-eye chiles",
-      "mint",
-      "cilantro",
-      "carrots",
-      "zucchini"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 35,
-    "cookMinutes": 0,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 30,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "rice vinegar",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "palm sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 3,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "birds-eye chiles",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "rice paper sheets",
-        "quantity": 12,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "mint",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "jumbo shrimp",
-        "quantity": 24,
-        "unit": "piece",
-        "department": "Seafood"
-      },
-      {
-        "name": "carrots",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "zucchini",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Produce"
-      }
-    ],
-    "steps": [
-      "Make the dipping sauce: stir the lime juice, rice vinegar, palm sugar, fish sauce, chopped chile and 3 tbsp water until the sugar dissolves.",
-      "Cut the carrots and zucchini into long thin matchsticks (or spiralize them if you have a spiralizer).",
-      "Dip a rice paper sheet in warm water for a few seconds until soft and lay it on a damp towel.",
-      "Put a few mint and cilantro leaves in the center, then 2 shrimp halves and a small pile of vegetables.",
-      "Fold in the sides and roll up tightly. Repeat with the rest. Slice on the diagonal and serve with the dipping sauce."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Shellfish",
-      "Fish"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/9r2xrg1763771238.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/vietnamese-prawn-spiralized-rolls",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53241",
-    "name": "Vietnamese veg parcels",
-    "cuisine": "Thai",
-    "categories": [
-      "Seafood",
-      "HighProtein"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Fish",
-    "vegetables": [
-      "carrots",
-      "cucumber",
-      "lettuce",
-      "cilantro",
-      "mint",
-      "lime"
-    ],
-    "techniques": [
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "Medium",
-    "prepMinutes": 35,
-    "cookMinutes": 15,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 520,
-      "protein": 34,
-      "carbs": 48,
-      "fat": 18
-    },
-    "ingredients": [
-      {
-        "name": "rice flour pancakes",
-        "quantity": 16,
-        "unit": "piece",
-        "department": "DryGoods"
-      },
-      {
-        "name": "rice noodles",
-        "quantity": 4,
-        "unit": "oz",
-        "department": "DryGoods"
-      },
-      {
-        "name": "chicken breast",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Meat"
-      },
-      {
-        "name": "carrots",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cucumber",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red bell pepper",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "lettuce",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "mint",
-        "quantity": 1,
-        "unit": "bunch",
-        "department": "Produce"
-      },
-      {
-        "name": "fish sauce",
-        "quantity": 4,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "rice vinegar",
-        "quantity": 2,
-        "unit": "tbsp",
-        "department": "International"
-      },
-      {
-        "name": "lime",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "red chile",
-        "quantity": 1,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "sugar",
-        "quantity": 1,
-        "unit": "tbsp",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Put the chicken breasts in a pot, cover with cold salted water and bring to a simmer. Poach gently 12–15 minutes, until 165°F. Cool and shred.",
-      "Soak the rice noodles according to the package, drain and cut into short lengths.",
-      "Make the dipping sauce: mix the fish sauce, rice vinegar, lime juice, sugar, sliced chile and 3 tbsp water.",
-      "Dip a rice wrapper in warm water for a few seconds until soft and lay it on a board. Place some noodles, chicken, sliced carrot, cucumber, pepper and herb leaves a third of the way up.",
-      "Fold in the sides and roll up tightly. Repeat with the rest.",
-      "Serve with lettuce leaves, extra herbs and the dipping sauce."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Fish"
-    ],
-    "dietTags": [
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/f698g91763768731.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/vietnamese-veg-parcels",
-    "estimated": true
-  },
-  {
-    "id": "mealdb-53236",
-    "name": "Vietnamese-style veggie hotpot",
-    "cuisine": "Thai",
-    "categories": [
-      "Vegetarian"
-    ],
-    "provides": [
-      "protein",
-      "vegetable",
-      "starch"
-    ],
-    "primaryProtein": "Tofu",
-    "vegetables": [
-      "ginger",
-      "green beans",
-      "green onions",
-      "cilantro"
-    ],
-    "techniques": [
-      "fry",
-      "stir-fry",
-      "simmer"
-    ],
-    "difficulty": "Medium",
-    "spiceLevel": "None",
-    "prepMinutes": 10,
-    "cookMinutes": 20,
-    "baseServings": 4,
-    "nutrition": {
-      "calories": 580,
-      "protein": 20,
-      "carbs": 48,
-      "fat": 30
-    },
-    "ingredients": [
-      {
-        "name": "vegetable oil",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "DryGoods",
-        "pantryStaple": true
-      },
-      {
-        "name": "ginger",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "garlic clove",
-        "quantity": 2,
-        "unit": "piece",
-        "department": "Spices"
-      },
-      {
-        "name": "butternut squash",
-        "quantity": 0.5,
-        "unit": "piece",
-        "department": "Dairy"
-      },
-      {
-        "name": "soy sauce",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "International"
-      },
-      {
-        "name": "brown sugar",
-        "quantity": 2,
-        "unit": "tsp",
-        "department": "DryGoods"
-      },
-      {
-        "name": "vegetable broth",
-        "quantity": 0.75,
-        "unit": "cup",
-        "department": "DryGoods"
-      },
-      {
-        "name": "green beans",
-        "quantity": 3.5,
-        "unit": "oz",
-        "department": "Produce"
-      },
-      {
-        "name": "green onions",
-        "quantity": 4,
-        "unit": "piece",
-        "department": "Produce"
-      },
-      {
-        "name": "cilantro",
-        "quantity": 0.25,
-        "unit": "cup",
-        "department": "Produce"
-      },
-      {
-        "name": "jasmine rice",
-        "quantity": 1.5,
-        "unit": "cup",
-        "department": "International"
-      },
-      {
-        "name": "firm tofu",
-        "quantity": 14,
-        "unit": "oz",
-        "department": "DryGoods"
-      }
-    ],
-    "steps": [
-      "Cook the rice.",
-      "Heat the oil in a medium lidded saucepan and stir-fry the ginger and garlic about 1 minute.",
-      "Add the peeled, cubed squash, the cubed tofu, soy sauce, sugar and broth. Cover and simmer 10 minutes.",
-      "Uncover, add the green beans and cook 3 minutes more, until the squash is tender when pierced.",
-      "Stir in the green onions, sprinkle with cilantro and serve with the rice."
-    ],
-    "makesLeftovers": false,
-    "seasons": [],
-    "allergens": [
-      "Gluten",
-      "Eggs",
-      "Soy"
-    ],
-    "dietTags": [
-      "vegetarian",
-      "dairy-free"
-    ],
-    "image": "https://www.themealdb.com/images/media/meals/4uje7l1763762276.jpg",
-    "origin": "Vietnamese",
-    "sourceName": "TheMealDB",
-    "sourceUrl": "https://www.bbcgoodfood.com/recipes/vietnamese-veggie-hotpot",
-    "estimated": true
   }
 ];
 
@@ -39903,13 +39903,13 @@ export const recipeImportedRetired: Recipe[] = [
     "name": "Poutine",
     "cuisine": "American",
     "categories": [
-      "HighProtein"
+      "ComfortFood"
     ],
     "provides": [
       "protein",
       "starch"
     ],
-    "primaryProtein": "Beef",
+    "primaryProtein": "None",
     "vegetables": [
       "potatoes"
     ],
@@ -39923,7 +39923,7 @@ export const recipeImportedRetired: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 36,
+      "protein": 12,
       "carbs": 48,
       "fat": 30
     },
@@ -40163,10 +40163,12 @@ export const recipeImportedRetired: Recipe[] = [
     "name": "Duck Confit",
     "cuisine": "French",
     "categories": [
-      "ComfortFood"
+      "HighProtein"
     ],
-    "provides": [],
-    "primaryProtein": "None",
+    "provides": [
+      "protein"
+    ],
+    "primaryProtein": "Chicken",
     "vegetables": [
       "garlic"
     ],
@@ -40183,7 +40185,7 @@ export const recipeImportedRetired: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 420,
-      "protein": 12,
+      "protein": 38,
       "carbs": 18,
       "fat": 18
     },
@@ -40250,14 +40252,14 @@ export const recipeImportedRetired: Recipe[] = [
     "name": "Three-cheese souffles",
     "cuisine": "French",
     "categories": [
-      "HighProtein"
+      "Vegetarian"
     ],
     "provides": [
       "protein",
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Lamb",
+    "primaryProtein": "Eggs",
     "vegetables": [
       "spinach"
     ],
@@ -40272,7 +40274,7 @@ export const recipeImportedRetired: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 34,
+      "protein": 20,
       "carbs": 48,
       "fat": 30
     },
@@ -40335,7 +40337,7 @@ export const recipeImportedRetired: Recipe[] = [
         "name": "goats cheese",
         "quantity": 8,
         "unit": "piece",
-        "department": "Meat"
+        "department": "Dairy"
       },
       {
         "name": "heavy cream",
@@ -40367,7 +40369,9 @@ export const recipeImportedRetired: Recipe[] = [
       "Dairy",
       "Eggs"
     ],
-    "dietTags": [],
+    "dietTags": [
+      "vegetarian"
+    ],
     "image": "https://www.themealdb.com/images/media/meals/sxwquu1511793428.jpg",
     "origin": "France",
     "sourceName": "TheMealDB",
@@ -40535,7 +40539,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-52936",
     "name": "Saltfish and Ackee",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Seafood",
       "HighProtein"
@@ -40699,7 +40703,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-52939",
     "name": "Callaloo Jamaican Style",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "HighProtein"
     ],
@@ -41004,7 +41008,7 @@ export const recipeImportedRetired: Recipe[] = [
         "name": "chicken broth",
         "quantity": 1,
         "unit": "piece",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "salt",
@@ -41093,14 +41097,13 @@ export const recipeImportedRetired: Recipe[] = [
     "name": "Egg Drop Soup",
     "cuisine": "Chinese",
     "categories": [
-      "Soups",
-      "HighProtein"
+      "Soups"
     ],
     "provides": [
       "protein",
       "vegetable"
     ],
-    "primaryProtein": "Chicken",
+    "primaryProtein": "Eggs",
     "vegetables": [
       "peas",
       "mushrooms",
@@ -41117,7 +41120,7 @@ export const recipeImportedRetired: Recipe[] = [
     "baseServings": 6,
     "nutrition": {
       "calories": 480,
-      "protein": 38,
+      "protein": 20,
       "carbs": 18,
       "fat": 30
     },
@@ -41126,7 +41129,7 @@ export const recipeImportedRetired: Recipe[] = [
         "name": "chicken broth",
         "quantity": 3,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "salt",
@@ -41251,7 +41254,7 @@ export const recipeImportedRetired: Recipe[] = [
         "name": "beef broth",
         "quantity": 3,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "onion",
@@ -41906,7 +41909,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53048",
     "name": "Mee goreng mamak",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "Seafood"
     ],
@@ -42057,7 +42060,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53052",
     "name": "Roti john",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -42163,7 +42166,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53063",
     "name": "Chivito uruguayo",
-    "cuisine": "BBQ",
+    "cuisine": "LatinAmerican",
     "categories": [
       "HighProtein"
     ],
@@ -42471,7 +42474,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53068",
     "name": "Beef Mechado",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -43144,7 +43147,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53133",
     "name": "Asado",
-    "cuisine": "BBQ",
+    "cuisine": "LatinAmerican",
     "categories": [
       "HighProtein"
     ],
@@ -43332,7 +43335,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53146",
     "name": "Locro",
-    "cuisine": "BBQ",
+    "cuisine": "LatinAmerican",
     "categories": [
       "HighProtein"
     ],
@@ -43920,17 +43923,15 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53230",
     "name": "Purple sprouting broccoli tempura with nuoc cham",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
-      "Seafood",
-      "HighProtein"
+      "ComfortFood"
     ],
     "provides": [
-      "protein",
       "vegetable",
       "starch"
     ],
-    "primaryProtein": "Fish",
+    "primaryProtein": "None",
     "vegetables": [
       "broccolini",
       "lime",
@@ -43946,7 +43947,7 @@ export const recipeImportedRetired: Recipe[] = [
     "baseServings": 4,
     "nutrition": {
       "calories": 580,
-      "protein": 34,
+      "protein": 12,
       "carbs": 48,
       "fat": 30
     },
@@ -44037,7 +44038,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53242",
     "name": "Barbecue pork buns",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "HighProtein"
     ],
@@ -44153,7 +44154,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53246",
     "name": "Tangy carrot, cabbage & onion salad",
-    "cuisine": "Thai",
+    "cuisine": "SoutheastAsian",
     "categories": [
       "Vegetarian",
       "Salads"
@@ -44504,7 +44505,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53318",
     "name": "Torta de fiambre",
-    "cuisine": "BBQ",
+    "cuisine": "LatinAmerican",
     "categories": [
       "HighProtein"
     ],
@@ -44614,7 +44615,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53330",
     "name": "Cassava pizza",
-    "cuisine": "Mexican",
+    "cuisine": "LatinAmerican",
     "categories": [
       "HighProtein"
     ],
@@ -44712,7 +44713,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53334",
     "name": "Arepa Pabellón",
-    "cuisine": "Mexican",
+    "cuisine": "LatinAmerican",
     "categories": [
       "HighProtein"
     ],
@@ -45029,7 +45030,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53352",
     "name": "Jamaican Instant Pot Rice and Beans",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Vegetarian"
     ],
@@ -45161,7 +45162,7 @@ export const recipeImportedRetired: Recipe[] = [
   {
     "id": "mealdb-53357",
     "name": "Jamaican Rice and Peas",
-    "cuisine": "BBQ",
+    "cuisine": "Caribbean",
     "categories": [
       "Vegetarian"
     ],
@@ -46823,13 +46824,12 @@ export const recipeImportedRetired: Recipe[] = [
     "name": "Clear Soup with Semolina Dumplings",
     "cuisine": "Other",
     "categories": [
-      "Soups",
-      "HighProtein"
+      "Soups"
     ],
     "provides": [
       "protein"
     ],
-    "primaryProtein": "Beef",
+    "primaryProtein": "Eggs",
     "vegetables": [
       "parsley"
     ],
@@ -46843,7 +46843,7 @@ export const recipeImportedRetired: Recipe[] = [
     "baseServings": 6,
     "nutrition": {
       "calories": 480,
-      "protein": 36,
+      "protein": 20,
       "carbs": 18,
       "fat": 30
     },
@@ -46890,7 +46890,7 @@ export const recipeImportedRetired: Recipe[] = [
         "name": "beef broth",
         "quantity": 4.25,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "parsley",
@@ -47455,7 +47455,7 @@ export const recipeImportedRetired: Recipe[] = [
         "name": "beef broth",
         "quantity": 1,
         "unit": "cup",
-        "department": "Meat"
+        "department": "DryGoods"
       },
       {
         "name": "bay leaf",

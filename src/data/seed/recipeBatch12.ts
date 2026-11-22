@@ -72,7 +72,7 @@ export const recipeBatch12: Recipe[] = [
   {
     id: 'ot-lemongrass-chicken-bowls',
     name: 'Vietnamese Lemongrass Chicken Rice Bowls',
-    cuisine: 'Other',
+    cuisine: 'SoutheastAsian',
     origin: 'Vietnamese',
     categories: ['RiceBowls', 'HighProtein'],
     primaryProtein: 'Chicken',
@@ -127,7 +127,7 @@ export const recipeBatch12: Recipe[] = [
   {
     id: 'ot-jerk-chicken',
     name: 'Oven Jerk Chicken',
-    cuisine: 'Other',
+    cuisine: 'Caribbean',
     origin: 'Jamaican',
     categories: ['HighProtein', 'SheetPan'],
     primaryProtein: 'Chicken',
@@ -180,7 +180,7 @@ export const recipeBatch12: Recipe[] = [
   {
     id: 'ot-chicken-adobo',
     name: 'Filipino Chicken Adobo',
-    cuisine: 'Other',
+    cuisine: 'SoutheastAsian',
     origin: 'Filipino',
     categories: ['OnePot', 'HighProtein', 'ComfortFood'],
     primaryProtein: 'Chicken',
@@ -230,7 +230,7 @@ export const recipeBatch12: Recipe[] = [
   {
     id: 'ot-peruvian-roast-chicken',
     name: 'Peruvian-Style Roast Chicken & Potatoes with Green Sauce',
-    cuisine: 'Other',
+    cuisine: 'LatinAmerican',
     origin: 'Peruvian',
     categories: ['SheetPan', 'HighProtein'],
     primaryProtein: 'Chicken',

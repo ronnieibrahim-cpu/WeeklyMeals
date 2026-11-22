@@ -14,6 +14,8 @@
  * fix text in the fixture's own words; the US renames run on output.
  */
 
+import { Protein } from '@/domain/models';
+
 export interface ImportFix {
   /** One line: what was wrong. */
   note: string;
@@ -30,6 +32,11 @@ export interface ImportFix {
   /** Replace the technique-based time guess. */
   prepMinutes?: number;
   cookMinutes?: number;
+  /** Override the inferred main protein, when no keyword rule can see it
+   * (a dish built around tofu that also uses a little ground beef). */
+  protein?: Protein;
+  /** Correct TheMealDB's area (drives cuisine and the origin label). */
+  area?: string;
 }
 
 export const IMPORT_DROPS: Record<string, string> = {
@@ -2243,7 +2250,8 @@ export const IMPORT_FIXES: Record<string, ImportFix> = {
     prepMinutes: 40, cookMinutes: 40,
   },
   'mealdb-53421': {
-    note: 'A closing tip was step 6; rice listed; beef doneness temp; "white wine" is the Chinese cooking wine.',
+    note: 'A closing tip was step 6; rice listed; beef doneness temp; "white wine" is the Chinese cooking wine. Lok lak is Cambodian, not Chinese.',
+    area: 'Cambodian',
     addIngredients: [{ name: 'Jasmine Rice', measure: '1 1/2 cups' }],
     instructions: [
       'Cook the rice. Fry the eggs sunny-side up and set aside. Finely chop the garlic, wash and drain the lettuce, and thinly slice the onion and tomatoes.',
@@ -2805,6 +2813,8 @@ export const IMPORT_FIXES: Record<string, ImportFix> = {
     note: '"Garlic greens" were unlisted (use the green onions); 2 cm in inches; rice listed.',
     addIngredients: [{ name: 'Rice', measure: '1 1/2 cups' }],
     prepMinutes: 15, cookMinutes: 20,
+    // 3.5 oz of beef seasons a block of tofu — the tofu is the dish.
+    protein: 'Tofu',
   },
   'mealdb-52795': {
     note: 'Time was 15+15 (really ~45); chicken made explicit with a doneness temp; naan listed.',
@@ -3102,11 +3112,11 @@ export const IMPORT_FIXES: Record<string, ImportFix> = {
     prepMinutes: 90, cookMinutes: 30,
   },
   'mealdb-52784': {
-    note: 'Steps added Worcestershire (not vegan, unlisted) — removed; cashew cream needs a 4 h soak — soaking noted up front; water listed; lime/cilantro served.',
+    note: 'Steps added Worcestershire (not vegan, unlisted) — removed; cashews quick-soaked in boiling water during the cook (a 4 h soak hid outside the stated time); water listed; lime/cilantro served.',
     measures: { Water: '3 cups', Squash: '1 small butternut' },
     addIngredients: [{ name: 'Lime', measure: '1' }, { name: 'Cilantro', measure: '1/4 cup' }],
     instructions: [
-      'At least 4 hours ahead (or use boiling water for faster soaking), soak the cashews.',
+      'Cover the cashews with boiling water and leave them to soak while the chili cooks (at least 30 minutes).',
       'Heat the oven to 400°F. Slice the squash into thin crescents, toss with a little oil and salt and roast 20–30 minutes, turning once, until soft. Cool and cube.',
       'Meanwhile, rinse the lentils, cover with water, bring to a boil and simmer uncovered 20–30 minutes until tender. Drain.',
       'Heat the oil in a pot and cook the onion and leek 5 minutes. Add the garlic, cumin and coriander for a few minutes, then the paprika, cinnamon, chili powder, cocoa, salt and oregano.',

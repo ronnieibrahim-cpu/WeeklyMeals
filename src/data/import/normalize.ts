@@ -54,9 +54,6 @@ const AREA_TO_CUISINE: Record<string, Cuisine> = {
   indian: 'Indian',
   india: 'Indian',
   thai: 'Thai',
-  vietnamese: 'Thai',
-  malaysian: 'Thai',
-  filipino: 'Thai',
   japanese: 'Japanese',
   chinese: 'Chinese',
   french: 'French',
@@ -78,10 +75,19 @@ const AREA_TO_CUISINE: Record<string, Cuisine> = {
   syrian: 'MiddleEastern',
   'saudi arabian': 'MiddleEastern',
   lebanese: 'MiddleEastern',
-  jamaican: 'BBQ',
-  argentina: 'BBQ',
-  uruguayan: 'BBQ',
-  venezuela: 'Mexican',
+  // November 2026: own buckets instead of BBQ/Mexican/Thai (see
+  // CONTENT-REVIEW.md C4) — a family ticking "BBQ" meant Texas barbecue,
+  // not Jamaican curry goat.
+  jamaican: 'Caribbean',
+  argentina: 'LatinAmerican',
+  argentinian: 'LatinAmerican',
+  uruguayan: 'LatinAmerican',
+  venezuela: 'LatinAmerican',
+  venezulan: 'LatinAmerican',
+  vietnamese: 'SoutheastAsian',
+  filipino: 'SoutheastAsian',
+  malaysian: 'SoutheastAsian',
+  cambodian: 'SoutheastAsian',
   // Genuinely distinct cuisines with no close existing bucket — mapping
   // these to American was inflating that bucket with dishes that don't
   // taste, look, or cook anything like American food (Belgian stoemp,
@@ -227,10 +233,14 @@ const DEPT_RULES: [Department, string[]][] = [
   ['DryGoods', ['rice', 'pasta', 'flour', 'sugar', 'oil', 'vinegar', 'bean', 'lentil', 'chickpea', 'stock', 'broth', 'noodle', 'oat', 'breadcrumb', 'cornstarch', 'cornflour', 'honey', 'syrup', 'wine', 'chocolate', 'almond', 'cashew', 'walnut', 'peanut', 'raisin', 'couscous', 'quinoa', 'polenta', 'semolina', 'baking', 'yeast', 'gelatin', 'cocoa', 'coconut', 'sun-dried', 'olives', 'caper', 'passata', 'puree', 'ketchup', 'mustard', 'mayonnaise', 'worcestershire']],
 ];
 
-function departmentFor(name: string): Department {
+export function departmentFor(name: string): Department {
   const n = lc(name);
   // Special cases where a keyword would otherwise mislead.
   if (has(n, 'fish sauce')) return 'International';
+  // Broth, stock and bouillon are shelf goods even when named after a meat
+  // ("chicken broth" was landing in the Meat aisle — CONTENT-REVIEW.md C2).
+  if (has(n, 'broth', 'stock', 'bouillon')) return 'DryGoods';
+  if (/goat'?s?\s+(cheese|milk|curd)/.test(n)) return 'Dairy';
   if (has(n, 'coconut milk', 'coconut cream')) return 'International';
   if (has(n, 'sesame') && has(n, 'oil')) return 'International';
   if (has(n, 'canned tomato', 'crushed tomato', 'chopped tomato', 'tinned tomato', 'tomato paste', 'passata', 'tomato sauce', 'tomato puree')) return 'DryGoods';
@@ -398,29 +408,74 @@ function parseIngredients(pairs: { name: string; measure: string }[]): RecipeIng
 // ---------------------------------------------------------------------------
 // Protein / categories / techniques / spice / times / nutrition inference.
 // ---------------------------------------------------------------------------
-function inferProtein(category: string | undefined, ingText: string): Protein {
+/**
+ * Words that NAME a meat but aren't the dish's protein: a broth, a stock
+ * cube, goat's cheese, fish sauce, eggplant. Stripped before every protein
+ * check (November 2026, CONTENT-REVIEW.md C1): "chicken broth" made a
+ * Sichuan eggplant a Chicken dish and "goat's cheese" made a roast-aubergine
+ * flatbread a Lamb dish.
+ */
+function proteinText(ingText: string): string {
+  return ingText
+    .toLowerCase()
+    .replace(/\b(chicken|beef|lamb|fish|vegetable|seafood|shrimp|pork|ham)\s+(broth|stock|bouillon|cubes?|powder|concentrate|granules|gravy)\b/g, ' ')
+    .replace(/\b(broth|stock|bouillon)\s+(cubes?|powder|concentrate)\b/g, ' ')
+    .replace(/\bgoat'?s?\s+(cheese|milk|curd)\b/g, ' cheese ')
+    .replace(/\b(fish|oyster|shrimp)\s+sauce\b/g, ' ')
+    .replace(/\bshrimp\s+paste\b/g, ' ')
+    .replace(/\begg\s*plants?\b/g, ' aubergine ')
+    // "minced pork" is pork, not the beef that bare "mince" means.
+    .replace(/\bminced\s+(pork|lamb|chicken|turkey)\b/g, ' $1 ')
+    .replace(/\b(pork|lamb|chicken|turkey)\s+mince\b/g, ' $1 ');
+}
+
+/** Keywords that confirm a TheMealDB meat category against the ingredients. */
+const CATEGORY_PROTEIN: Record<string, [Protein, string[]]> = {
+  chicken: ['Chicken', ['chicken', 'turkey', 'duck', 'poussin', 'drumstick', 'thigh', 'wing']],
+  beef: ['Beef', ['beef', 'steak', 'mince', 'brisket', 'oxtail', 'veal', 'chuck', 'sirloin', 'rump', 'ribeye', 'flank', 'skirt', 'shank']],
+  pork: ['Pork', ['pork', 'bacon', 'sausage', 'ham', 'jamon', 'jamón', 'chorizo', 'pancetta', 'prosciutto', 'gammon', 'ribs']],
+  lamb: ['Lamb', ['lamb', 'mutton', 'goat']],
+  goat: ['Lamb', ['lamb', 'mutton', 'goat']],
+};
+
+const MEATS: Protein[] = ['Chicken', 'Turkey', 'Beef', 'Pork', 'Lamb', 'Fish', 'Shellfish'];
+
+function scanProtein(t: string): Protein {
+  if (has(t, 'shrimp', 'prawn', 'crab', 'lobster', 'mussel', 'clam', 'scallop', 'squid')) return 'Shellfish';
+  if (has(t, 'salmon', 'tuna', 'cod', 'fish', 'haddock', 'tilapia', 'trout', 'sardine', 'barramundi', 'hake', 'mackerel', 'sea bass')) return 'Fish';
+  if (has(t, 'chicken', 'turkey', 'duck')) return has(t, 'turkey') && !has(t, 'chicken') ? 'Turkey' : 'Chicken';
+  if (has(t, 'beef', 'steak', 'mince', 'ground beef', 'brisket', 'oxtail', 'veal')) return 'Beef';
+  if (has(t, 'pork', 'bacon', 'sausage', 'chorizo', 'jamon', 'jamón') || /\bham\b/.test(t)) return 'Pork';
+  if (has(t, 'lamb', 'mutton', 'goat')) return 'Lamb';
+  // An anchovy or two seasons a sauce; it only leads when no meat does.
+  if (has(t, 'anchov')) return 'Fish';
+  if (has(t, 'tofu', 'tempeh')) return 'Tofu';
+  if (has(t, 'lentil')) return 'Lentils';
+  if (has(t, 'chickpea', 'black bean', 'kidney bean', 'cannellini', 'pinto', 'refried', 'butter bean', 'lima bean', 'great northern', 'white bean', 'haricot')) return 'Beans';
+  if (has(t, 'egg')) return 'Eggs';
+  return 'None';
+}
+
+/** Exported for tests (normalize.test.ts). TheMealDB's category is trusted
+ * when the ingredients confirm it, or name no other meat — its "Beef" Irish stew is made with
+ * lamb, its "Lamb" rigatoni with pork sausage. Otherwise the ingredients
+ * decide. */
+export function inferProtein(category: string | undefined, ingText: string): Protein {
   const c = lc(category ?? '');
-  if (c === 'chicken') return 'Chicken';
-  if (c === 'beef') return 'Beef';
-  if (c === 'pork') return 'Pork';
-  if (c === 'lamb' || c === 'goat') return 'Lamb';
+  const t = proteinText(ingText);
   if (c === 'seafood') {
-    return has(ingText, 'shrimp', 'prawn', 'crab', 'lobster', 'mussel', 'clam', 'scallop', 'squid', 'octopus')
+    return has(t, 'shrimp', 'prawn', 'crab', 'lobster', 'mussel', 'clam', 'scallop', 'squid', 'octopus')
       ? 'Shellfish'
       : 'Fish';
   }
-  // Otherwise scan the ingredients (works for Vegetarian/Pasta/Miscellaneous).
-  if (has(ingText, 'shrimp', 'prawn', 'crab', 'lobster', 'mussel', 'clam', 'scallop', 'squid')) return 'Shellfish';
-  if (has(ingText, 'salmon', 'tuna', 'cod', 'fish', 'haddock', 'tilapia', 'trout', 'anchov', 'sardine')) return 'Fish';
-  if (has(ingText, 'chicken', 'turkey')) return has(ingText, 'turkey') && !has(ingText, 'chicken') ? 'Turkey' : 'Chicken';
-  if (has(ingText, 'beef', 'steak', 'mince', 'ground beef', 'brisket')) return 'Beef';
-  if (has(ingText, 'pork', 'bacon', 'sausage', 'ham', 'chorizo')) return 'Pork';
-  if (has(ingText, 'lamb', 'mutton', 'goat')) return 'Lamb';
-  if (has(ingText, 'tofu', 'tempeh')) return 'Tofu';
-  if (has(ingText, 'lentil')) return 'Lentils';
-  if (has(ingText, 'chickpea', 'black bean', 'kidney bean', 'cannellini', 'pinto', 'refried')) return 'Beans';
-  if (has(ingText, 'egg')) return 'Eggs';
-  return 'None';
+  const cat = CATEGORY_PROTEIN[c];
+  if (!cat) return scanProtein(t);
+  if (has(t, ...cat[1])) return cat[0];
+  // The category says meat but names none we know: switch only when the
+  // ingredients name a DIFFERENT meat or fish. Never fall back to a
+  // meatless label — "shredded meat" in a Beef recipe is still beef.
+  const scanned = scanProtein(t);
+  return MEATS.includes(scanned) ? scanned : cat[0];
 }
 
 function inferTechniques(instructions: string): string[] {
@@ -652,7 +707,7 @@ const NON_VEGETARIAN_WORDS = [
   'chicken', 'beef', 'pork', 'lamb', 'mutton', 'veal', 'venison', 'goat', 'duck', 'goose', 'turkey', 'ham', 'bacon',
   'lardons?', 'lard', 'suet', 'pancetta', 'prosciutto', 'chorizo', 'salami', 'pepperoni', 'sausage', 'mince', 'meatballs?',
   'liver', 'oxtail', 'gelatine?', 'fish', 'anchov(y|ies)', 'shrimp', 'prawn', 'dashi', 'bonito', 'worcestershire',
-  'oyster sauce', 'fish sauce',
+  'oyster sauce', 'fish sauce', 'jam[oó]n', 'meat', 'shank',
 ];
 
 /** Exported for tests (normalize.test.ts). */
@@ -752,7 +807,13 @@ function difficultyFor(steps: number, totalMinutes: number): Difficulty {
 }
 
 /** Normalize a raw external recipe into a Recipe, or null if it isn't a usable dinner main. */
-export function normalize(raw: RawRecipe, times?: { prepMinutes?: number; cookMinutes?: number }): Recipe | null {
+export function normalize(
+  raw: RawRecipe,
+  times?: { prepMinutes?: number; cookMinutes?: number; protein?: Protein; area?: string },
+): Recipe | null {
+  // A triage fix can correct the source's area (Lok Lak is Cambodian, not
+  // Chinese) — everything downstream, origin included, reads the corrected one.
+  if (times?.area) raw = { ...raw, area: times.area };
   const cat = lc(raw.category ?? '');
   // The planner is for dinners — skip desserts, drinks, breakfasts, sides, starters.
   if (['dessert', 'breakfast', 'side', 'starter'].includes(cat)) return null;
@@ -772,7 +833,7 @@ export function normalize(raw: RawRecipe, times?: { prepMinutes?: number; cookMi
   // bought/cooked. scripts/validateRecipes.ts's plausibility check builds
   // its ground truth from ingredients the same way, so the two stay in sync.
   const ingredientOnlyText = ' ' + ingredients.map((i) => i.name).join(' ') + ' ';
-  const protein = inferProtein(raw.category, ingText);
+  const protein = times?.protein ?? inferProtein(raw.category, ingText);
   const cuisine = mapCuisine(raw.area, ingText);
   const techniques = inferTechniques(raw.instructions);
   const estimate = estimateTimes(techniques);
