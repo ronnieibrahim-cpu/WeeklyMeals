@@ -41,6 +41,22 @@ function pickNearBest(scored: { r: Recipe; score: number }[]): Recipe {
   return contenders[Math.floor(Math.random() * contenders.length)].r;
 }
 
+/**
+ * The candidates that have gone longest without being planned (absent from
+ * the recency map = longest of all). Used for Instant Pot nights only: that
+ * pool is tiny (6 recipes at a 45-minute limit), so the soft repeat penalty
+ * could not stop one strong fit from winning every week — a household that
+ * asked for two Instant Pot nights got the same tikka masala on 25 of 26
+ * weekly plans (CONTENT-REVIEW.md R1). Choosing among the most-rested first
+ * makes the Instant Pot nights a round-robin over everything that fits; the
+ * score still picks within that tier, so the first week is unchanged.
+ */
+export function mostRested(candidates: Recipe[], ctx: GenerateContext): Recipe[] {
+  const rest = (r: Recipe) => ctx.recencyByRecipeId?.[r.id] ?? Number.POSITIVE_INFINITY;
+  const best = Math.max(...candidates.map(rest));
+  return candidates.filter((r) => rest(r) === best);
+}
+
 /** Does this recipe genuinely require an Instant Pot? Matches the exact label
  * from `EQUIPMENT` (src/domain/constants/equipment.ts) that the curated
  * Instant Pot recipes declare, case-insensitively. */
@@ -111,7 +127,8 @@ export class LocalRecommendationEngine implements RecommendationProvider {
         // limit can filter most of them out): fill what exists and let the
         // rest of the week fill normally rather than leaving a day empty.
         if (remaining.length === 0) break;
-        selected.push(pickNearBest(remaining.map((r) => ({ r, score: scoreRecipe(r, ctx, selected) }))));
+        const rested = mostRested(remaining, ctx);
+        selected.push(pickNearBest(rested.map((r) => ({ r, score: scoreRecipe(r, ctx, selected) }))));
       }
     }
 

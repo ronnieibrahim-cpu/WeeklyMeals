@@ -138,6 +138,32 @@ describe('LocalRecommendationEngine.generate', () => {
       expect(ids).toHaveLength(5);
     });
 
+    it('rotates through every Instant Pot recipe before repeating one (CONTENT-REVIEW R1)', () => {
+      const engine = new LocalRecommendationEngine();
+      // ip-star wins every head-to-head on score (favorite cuisine + protein).
+      const star = makeRecipe({ id: 'ip-star', equipment: ['Instant Pot'], cuisine: 'Italian', primaryProtein: 'Chicken' });
+      const ips = [star, ...Array.from({ length: 5 }, (_, i) => makeRecipe({ id: `ip-${i}`, equipment: ['Instant Pot'], cuisine: 'Thai', primaryProtein: 'Tofu' }))];
+      const others = Array.from({ length: 12 }, (_, i) => makeRecipe({ id: `r-${i}` }));
+      const profile = makeProfile({ favoriteCuisines: ['Italian'], preferredProteins: ['Chicken'] });
+      const recency: Record<string, number> = {};
+      const used: string[] = [];
+      for (let week = 0; week < 3; week++) {
+        // Age everything by a week, then plan.
+        for (const id of Object.keys(recency)) recency[id] += 1;
+        const meals = engine.generate(
+          ctxFor({ profile, intake: makeIntake(profile, { dinners: 5, instantPotNights: 2 }), recencyByRecipeId: { ...recency } }),
+          [...ips, ...others],
+        );
+        const ipIds = meals.map((m) => m.recipeId).filter((id) => id.startsWith('ip-'));
+        expect(ipIds).toHaveLength(2);
+        used.push(...ipIds);
+        for (const m of meals) recency[m.recipeId] = 0;
+      }
+      // Six Instant Pot recipes, two a week, three weeks: each exactly once.
+      expect(new Set(used).size).toBe(6);
+      expect(used[0] === 'ip-star' || used[1] === 'ip-star').toBe(true);
+    });
+
     it('plans no Instant Pot dinners when none are asked for', () => {
       const engine = new LocalRecommendationEngine();
       const pool = [ipRecipe('ip-0'), ...Array.from({ length: 12 }, (_, i) => makeRecipe({ id: `plain-${i}` }))];
