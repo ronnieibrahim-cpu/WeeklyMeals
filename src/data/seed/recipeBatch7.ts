@@ -29,6 +29,7 @@ export const recipeBatch7: Recipe[] = [
       { name: 'garlic', quantity: 3, unit: 'clove', department: 'Produce' },
       { name: 'parmesan', quantity: 0.5, unit: 'cup', department: 'Dairy' },
       { name: 'olive oil', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
+      { name: 'vodka', quantity: 0.25, unit: 'cup', department: 'DryGoods' },
     ],
     description: 'Penne tossed in a creamy tomato-vodka blush sauce — a restaurant favorite made easily at home.',
     tips: [
@@ -36,7 +37,7 @@ export const recipeBatch7: Recipe[] = [
       "Save some pasta water before draining — it's essential for loosening the sauce so it clings to the pasta.",
     ],
     steps: [
-      'Saute the finely chopped onion and garlic in the olive oil in a pot until soft, about 5 minutes (add a splash of vodka here if you have it and cook it off).',
+      'Saute the finely chopped onion and garlic in the olive oil in a pot until soft, about 5 minutes . Pour in the vodka and simmer 2 minutes, until it no longer smells sharp.',
       'Add the crushed tomatoes and simmer 10 minutes.',
       'Stir in the cream to make a blush sauce; season.',
       'Meanwhile, boil the penne in salted water until al dente, reserving some pasta water.',
@@ -590,6 +591,7 @@ export const recipeBatch7: Recipe[] = [
     tips: [
       'Be generous with the chilies — pad krapow is meant to be assertively spicy.',
       'A crispy fried egg on top, with a runny yolk, is the classic finishing touch.',
+      'Classically topped with a crispy-edged fried egg.',
     ],
     steps: [
       'Cook the jasmine rice so it’s ready when the chicken is.',
@@ -597,7 +599,7 @@ export const recipeBatch7: Recipe[] = [
       'Heat the vegetable oil in a wok over high heat and stir-fry the garlic and chilies for 20–30 seconds, until fragrant.',
       'Add the ground chicken and stir-fry, breaking it up, until browned and cooked through, 4–5 minutes.',
       'Add the green beans and the sauce and toss 2–3 minutes, until the beans are crisp-tender and the sauce coats the chicken.',
-      'Turn off the heat and fold in a big handful of Thai basil until wilted. Serve over the rice, classically topped with a crispy fried egg.',
+      'Turn off the heat and fold in a big handful of Thai basil until wilted. Serve over the rice.',
     ],
     makesLeftovers: false,
     seasons: [],
@@ -674,18 +676,20 @@ export const recipeBatch7: Recipe[] = [
       { name: 'jasmine rice', quantity: 1.5, unit: 'cup', department: 'International' },
       { name: 'garlic', quantity: 2, unit: 'clove', department: 'Produce' },
       { name: 'vegetable oil', quantity: 0.75, unit: 'cup', department: 'DryGoods', pantryStaple: true },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Ginger-soy marinated chicken thighs coated in potato starch and fried until deeply crisp — Japanese-style fried chicken.',
     tips: [
       'Potato starch, rather than flour or cornstarch, is what gives karaage its lacy, extra-crisp crust.',
       "Fry in batches so the oil temperature doesn't drop — overcrowding leads to soggy, pale chicken.",
+      'A dollop of Japanese Kewpie mayo for dipping is classic (it contains egg).',
     ],
     steps: [
       'Cook the jasmine rice so it’s ready when the chicken is.',
       'Cut the chicken thighs into chunks and marinate in the soy sauce and grated ginger (a little garlic too) for 15–20 minutes.',
       'Coat the chicken in the potato starch, shaking off the excess.',
       'Fry in about 1 inch of oil at 340–350°F until golden and cooked through, 4–5 minutes, working in batches.',
-      'Serve with shredded cabbage, rice, and a wedge of lemon or a dollop of Kewpie mayo.',
+      'Serve with shredded cabbage, rice, and lemon wedges.',
     ],
     makesLeftovers: false,
     seasons: [],
@@ -1164,7 +1168,7 @@ export const recipeBatch7: Recipe[] = [
     steps: [
       'Heat the oven to 400°F to bake the meatballs.',
       'Mix the ground lamb with the grated onion, minced garlic, cumin, half the chopped mint, the salt, and pepper; roll into 1½-inch meatballs and bake on a lined sheet pan 15 minutes.',
-      'Meanwhile, cook the couscous: pour an equal volume of boiling water or broth over it, cover, steam 5 minutes, then fluff.',
+      'Meanwhile, cook the couscous: pour an equal volume of boiling water over it, cover, steam 5 minutes, then fluff.',
       'Simmer the baked meatballs in the crushed tomatoes (with a pinch of salt) 8–10 minutes, until cooked through (160°F) and coated in sauce.',
       'Serve the meatballs and sauce over the couscous, topped with chopped mint.',
     ],
@@ -1504,6 +1508,7 @@ export const recipeBatch7: Recipe[] = [
       { name: 'onion', quantity: 1, unit: 'piece', department: 'Produce' },
       { name: 'bell pepper', quantity: 2, unit: 'piece', department: 'Produce' },
       { name: 'beer', quantity: 1, unit: 'cup', department: 'DryGoods' },
+      { name: 'spicy brown mustard', quantity: 0.25, unit: 'cup', department: 'DryGoods' },
     ],
     description: 'Bratwurst simmered in beer with onion and bell pepper, then grilled and tucked into a hoagie with the beer-braised vegetables.',
     tips: [
@@ -1515,7 +1520,7 @@ export const recipeBatch7: Recipe[] = [
       'In a skillet or foil pan, simmer the bratwurst with the beer, onion, and peppers over medium heat 12–15 minutes, until the brats are cooked through and the vegetables are soft.',
       'Remove the brats and finish them on a hot grill or in a dry skillet, turning, until browned and blistered, 4–5 minutes.',
       'Keep cooking the onion and peppers in the beer until it mostly reduces away and they turn jammy.',
-      'Tuck each brat into a hoagie roll and top with the beer-braised onions and peppers. Mustard strongly encouraged.',
+      'Tuck each brat into a hoagie roll and top with the beer-braised onions and peppers. Finish with a stripe of spicy brown mustard.',
     ],
     makesLeftovers: false,
     seasons: ['summer'],

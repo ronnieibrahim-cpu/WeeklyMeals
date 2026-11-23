@@ -255,6 +255,8 @@ export const recipeBatch8: Recipe[] = [
       { name: 'rice', quantity: 1.5, unit: 'cup', department: 'DryGoods' },
       { name: 'corn', quantity: 1, unit: 'cup', department: 'Frozen' },
       { name: 'lime', quantity: 1, unit: 'piece', department: 'Produce' },
+      { name: 'avocado', quantity: 1, unit: 'piece', department: 'Produce' },
+      { name: 'cilantro', quantity: 0.5, unit: 'bunch', department: 'Produce', optional: true },
     ],
     description: 'Crumbled tofu braised in smoky chipotle sauce until saucy and browned — a vegan take on Mexican sofritas bowls.',
     tips: [
@@ -266,7 +268,7 @@ export const recipeBatch8: Recipe[] = [
       'Heat the oil in a skillet over medium-high, crumble in the pressed tofu, and cook 6–8 minutes, until browned in spots. Add the diced onion, minced garlic, and cumin for 2 minutes, then the chipotle in adobo, salt, and ¼ cup water; simmer until saucy, 3–4 minutes.',
       'Warm the drained black beans and the corn while the tofu braises.',
       'Build bowls over the rice with the sofritas, beans, and corn.',
-      'Finish with a squeeze of lime, and avocado or cilantro if you like.',
+      'Finish with a squeeze of lime, sliced avocado, and chopped cilantro.',
     ],
     leftoverNotes: 'Holds well for lunches.',
     makesLeftovers: true,

@@ -405,6 +405,7 @@ export const recipeInstantPot: Recipe[] = [
       { name: 'fresh ginger', quantity: 1, unit: 'tbsp', department: 'Produce' },
       { name: 'olive oil', quantity: 1, unit: 'tbsp', department: 'Spices', pantryStaple: true },
       { name: 'salt', quantity: 1, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'jasmine rice', quantity: 1.5, unit: 'cup', department: 'International' },
     ],
     steps: [
       'Cut the beef chuck roast into 1-inch cubes, season with salt, and brown them in the olive oil on Sauté in two batches until well colored on the outside.',
@@ -412,7 +413,7 @@ export const recipeInstantPot: Recipe[] = [
       'Pour in the beef broth and the soy sauce and scrape the bottom completely clean, then add the carrots and yukon gold potatoes cut into large two-inch chunks.',
       'Seal the lid and pressure cook on High for 20 minutes, then let the pressure release naturally for 10 minutes before venting the rest.',
       'Break the japanese curry roux into squares, stir them in until fully dissolved, and let the pot sit on Sauté for 3 to 4 minutes as the sauce thickens to a glossy gravy.',
-      'Taste for seasoning and serve over steamed rice — the sauce should coat the back of a spoon, not run off it.',
+      'Taste for seasoning and serve over the rice — the sauce should coat the back of a spoon, not run off it.',
     ],
     description:
       'The thick, gently sweet curry that Japanese kids grow up on: fork-tender beef with big chunks of potato and carrot in a glossy brown sauce.',

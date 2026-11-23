@@ -535,10 +535,11 @@ export const recipeBatch5: Recipe[] = [
     tips: [
       "Poach the fish gently and avoid stirring hard once it's in — it breaks apart easily.",
       'Mustard seeds and curry leaves bloomed in the oil first, if you have them, add real depth to the base.',
+      'For a more South Indian flavor, sizzle a teaspoon of mustard seeds and a few curry leaves in the oil before the onion.',
     ],
     steps: [
       'Cook the basmati rice so it’s ready when the curry is.',
-      'Heat the vegetable oil in a pot (bloom mustard seeds and curry leaves in it first if you have them) and saute the chopped onion 5 minutes. Add the minced garlic and ginger for 1 minute, then the curry powder for 30 seconds, then the diced tomatoes and salt; cook until softened, 6–7 minutes.',
+      'Heat the vegetable oil in a pot and saute the chopped onion 5 minutes. Add the minced garlic and ginger for 1 minute, then the curry powder for 30 seconds, then the diced tomatoes and salt; cook until softened, 6–7 minutes.',
       'Pour in the coconut milk and simmer 5 minutes to make a loose sauce.',
       'Slip in the fish pieces and poach gently 5–7 minutes, until just opaque — don’t stir hard.',
       'Finish with a squeeze of the lime juice and serve over the rice.',
@@ -754,7 +755,7 @@ export const recipeBatch5: Recipe[] = [
       'Cut the tofu into cubes, pat very dry, and coat in the cornstarch.',
       'Heat the vegetable oil in a skillet, about 1/2 inch deep, and fry the tofu until crisp and golden on all sides; drain.',
       'Warm the dashi with the soy sauce and mirin in a small pot until steaming.',
-      'Serve the crispy tofu over the rice, pour the warm broth around it, and top with sliced green onion (and grated daikon if you have it).',
+      'Serve the crispy tofu over the rice, pour the warm broth around it, and top with sliced green onion.',
     ],
     makesLeftovers: false,
     seasons: [],
@@ -926,13 +927,14 @@ export const recipeBatch5: Recipe[] = [
     tips: [
       "Day-old, cold rice is essential here — fresh rice steams and clumps instead of frying up separate and light.",
       "A drizzle of sesame oil at the very end, if you have it, adds a lot of aroma for very little effort.",
+      'A few drops of toasted sesame oil at the end add a nutty finish (skip it for sesame allergies).',
     ],
     steps: [
       'Day-old cold rice works best for frying without clumping.',
       'Beat the eggs and scramble them in the vegetable oil in a hot wok or skillet until just set, then remove and set aside.',
       'Dice the carrots and stir-fry the carrots and peas in the same wok over high heat 2–3 minutes.',
       'Add the rice and press it into the pan to fry and crisp, 3–4 minutes.',
-      'Add the soy sauce, return the egg, and toss everything together. Finish with the sliced green onions and a drizzle of sesame oil if you have it.',
+      'Add the soy sauce, return the egg, and toss everything together. Finish with the sliced green onions.',
     ],
     makesLeftovers: false,
     seasons: [],
@@ -1322,13 +1324,14 @@ export const recipeBatch5: Recipe[] = [
     tips: [
       'The double-dip in buttermilk and flour is what gives the crust its shattering, craggy texture.',
       'Let the fried chicken rest briefly on a rack, not paper towels, so the bottom stays crisp.',
+      'A swipe of mayo or a drizzle of hot honey on the bun is a great finish.',
     ],
     steps: [
       'If the breasts are thick, halve them horizontally into 4 even cutlets. Soak in the buttermilk (season it with salt and a little hot sauce) for at least 20 minutes, or up to overnight.',
       'Season the flour generously with salt, pepper, and paprika. Lift each piece from the buttermilk, letting excess drip off, and dredge firmly in the flour, pressing so it clings. For extra crunch, dip back into the buttermilk and dredge a second time.',
       'Heat 1 inch of oil in a deep skillet to 350°F. Fry the chicken 4–5 minutes per side until deep golden and cooked through (165°F internal), then drain on a rack.',
       'Toast the burger buns in the residual heat or a dry pan.',
-      'Build each sandwich on a toasted bun with lettuce, pickles, and the crispy chicken. Add mayo or a squeeze of hot honey if you like.',
+      'Build each sandwich on a toasted bun with lettuce, pickles, and the crispy chicken.',
     ],
     makesLeftovers: false,
     seasons: [],

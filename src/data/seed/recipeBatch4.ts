@@ -168,6 +168,7 @@ export const recipeBatch4: Recipe[] = [
       { name: 'taco seasoning', quantity: 1, unit: 'tbsp', department: 'Spices' },
       { name: 'salsa', quantity: 1, unit: 'cup', department: 'International' },
       { name: 'vegetable oil', quantity: 1, unit: 'tbsp', department: 'DryGoods', pantryStaple: true },
+      { name: 'sour cream', quantity: 0.5, unit: 'cup', department: 'Dairy', optional: true },
     ],
     description: 'Melty cheddar and seasoned chicken folded into crisp griddled tortillas — a fast, kid-friendly Mexican classic.',
     tips: [
@@ -298,6 +299,7 @@ export const recipeBatch4: Recipe[] = [
       { name: 'oregano', quantity: 1, unit: 'tbsp', department: 'Spices' },
       { name: 'salt', quantity: 0.5, unit: 'tsp', department: 'Spices', pantryStaple: true },
       { name: 'black pepper', quantity: 0.25, unit: 'tsp', department: 'Spices', pantryStaple: true },
+      { name: 'lemon', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'Oregano-spiced ground lamb seared and wrapped in warm pita with tzatziki, tomato, and red onion.',
     tips: [
@@ -1334,6 +1336,7 @@ export const recipeBatch4: Recipe[] = [
     tips: [
       'Mashing just some of the potatoes right in the pot gives the soup body while keeping a few hearty chunks.',
       'Add the cheese over low heat only — high heat can make it grainy instead of smooth.',
+      'Crumbled crisp bacon on top is a favorite for the meat-eaters at the table.',
     ],
     steps: [
       'Dice the onion and mince the garlic. Melt the butter in a large pot over medium heat and cook the onion 5 minutes, until soft; add the garlic for 30 seconds.',
@@ -1341,7 +1344,7 @@ export const recipeBatch4: Recipe[] = [
       'Mash some of the potatoes right in the pot for body, leaving some chunks.',
       'Stir in the milk over low heat until warmed through — do not let it boil.',
       'Stir in most of the cheddar until melted and creamy; season with the remaining salt and the pepper.',
-      'Serve topped with the remaining cheddar, a spoonful of sour cream, and sliced green onions (plus crumbled bacon for the non-vegetarians, if you like).',
+      'Serve topped with the remaining cheddar, a spoonful of sour cream, and sliced green onions.',
     ],
     leftoverNotes: 'Thickens; loosen with milk.',
     makesLeftovers: true,

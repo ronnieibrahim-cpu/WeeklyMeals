@@ -33,13 +33,14 @@ export const recipeBatch6: Recipe[] = [
     tips: [
       "Simmering the lentils until they're fully soft and the sauce thickens is what gives this its meaty texture without any meat.",
       "The sauce alone freezes beautifully, so it's worth doubling the batch.",
+      'Not cooking vegan? Grated parmesan on top is excellent.',
     ],
     steps: [
       'Finely dice the carrots and onion and mince the garlic.',
       'Saute them in the olive oil in a large pot until softened, 6–7 minutes.',
       'Add the green lentils and crushed tomatoes with about 2 cups water and simmer 25–30 minutes, until the lentils are tender and the sauce is thick; season.',
       'Meanwhile, boil the spaghetti in salted water until al dente.',
-      'Toss the pasta with the lentil sauce, loosening with pasta water, and serve with parmesan.',
+      'Toss the pasta with the lentil sauce, loosening with pasta water, and serve with a drizzle of olive oil.',
     ],
     leftoverNotes: 'Sauce is even better next day.',
     freezingNotes: 'Sauce freezes well.',
