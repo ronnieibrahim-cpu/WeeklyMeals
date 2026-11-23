@@ -128,4 +128,9 @@ export const WEIGHTS = {
   // 1.3 (0.65) — enough to nudge a pick when things are close, never strong
   // enough to bury a better dish or beat variety.
   wasteFit: 0.5,
+  // November 2026: a side already on other plates this week loses up to
+  // this much (half at one repeat, all at two). Sides only — mains have
+  // `variety` and `repeat`. Strong enough to spread a week across different
+  // sides; a side that fits far better than anything else still wins.
+  sideRepeat: 1.0,
 } as const;

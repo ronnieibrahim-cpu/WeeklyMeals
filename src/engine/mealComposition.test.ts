@@ -1,3 +1,4 @@
+import { scoreSide } from './recommendation/scoring';
 import { GenerateContext } from './recommendation/types';
 import { composeSides, fitsCombinedTime, mainIsAlreadySauced, saucePairsWithMain, sidePairsWithMain } from './mealComposition';
 import { makeIntake, makePreferences, makeProfile, makeRecipe } from './testFixtures';
@@ -333,5 +334,42 @@ describe('sidePairsWithMain (M5.8)', () => {
     const naan = starchSide({ id: 'naan', cuisine: 'Indian', pairsWith: ['Indian'] });
     expect(composeSides(italianMain(), [naan], ctxFor())).not.toContain('naan');
     expect(composeSides(indianMain(), [naan], ctxFor())).toContain('naan');
+  });
+});
+
+describe('side variety (November 2026, CONTENT-REVIEW R3/R4)', () => {
+  const completeMain = () =>
+    makeRecipe({ id: 'main-full', provides: ['protein', 'vegetable', 'starch'], techniques: ['grill'], categories: [], prepMinutes: 10, cookMinutes: 10 });
+
+  it('never puts two sauces on one plate', () => {
+    for (let i = 0; i < 20; i++) {
+      const ids = composeSides(completeMain(), [sauce({ id: 's1' }), sauce({ id: 's2' }), sauce({ id: 's3' })], ctxFor());
+      expect(ids.length).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('breaks near-ties at random instead of always taking the same side', () => {
+    const main = proteinOnlyMain();
+    const pool = [vegSide({ id: 'v1' }), vegSide({ id: 'v2' }), vegSide({ id: 'v3' })];
+    const seen = new Set<string>();
+    for (let i = 0; i < 60; i++) seen.add(composeSides(main, pool, ctxFor())[0]);
+    expect(seen.size).toBe(3);
+  });
+
+  it('steers away from a side already on other plates this week', () => {
+    const main = proteinOnlyMain();
+    const used = vegSide({ id: 'v-used' });
+    const fresh = vegSide({ id: 'v-fresh' });
+    const ctx = ctxFor({ weekRecipes: [used, used] });
+    for (let i = 0; i < 20; i++) expect(composeSides(main, [used, fresh], ctx)[0]).toBe('v-fresh');
+  });
+
+  it("does not judge a side by its own cuisine tag against the family's favorite cuisines", () => {
+    const profile = makeProfile({ favoriteCuisines: ['American'] });
+    const main = proteinOnlyMain();
+    const american = vegSide({ id: 'v-am', cuisine: 'American' });
+    const french = vegSide({ id: 'v-fr', cuisine: 'French' });
+    const ctx = ctxFor({ profile, intake: makeIntake(profile, { cuisines: ['American'] }) });
+    expect(scoreSide(american, main, ctx)).toBeCloseTo(scoreSide(french, main, ctx), 5);
   });
 });

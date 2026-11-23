@@ -52,6 +52,20 @@ describe('LocalRecommendationEngine.generate', () => {
     expect(scoreRecipe(twin, ctxRecent, [])).toBeLessThan(scoreRecipe(twin, ctxRested, []));
   });
 
+  it('spreads a week across different sides instead of one side on every plate (CONTENT-REVIEW R3)', () => {
+    const engine = new LocalRecommendationEngine();
+    const mains = Array.from({ length: 5 }, (_, i) =>
+      makeRecipe({ id: `m-${i}`, provides: ['protein'], prepMinutes: 5, cookMinutes: 10, cuisine: (['Italian', 'Thai', 'Greek', 'Indian', 'French'] as const)[i] }),
+    );
+    const sides = Array.from({ length: 5 }, (_, i) =>
+      makeRecipe({ id: `veg-${i}`, role: 'side', provides: ['vegetable'], primaryProtein: 'None', prepMinutes: 5, cookMinutes: 8 }),
+    );
+    const meals = engine.generate(ctxFor({ intake: makeIntake(makeProfile(), { dinners: 5 }) }), [...mains, ...sides]);
+    const counts: Record<string, number> = {};
+    for (const m of meals) for (const s of m.sideRecipeIds ?? []) counts[s] = (counts[s] ?? 0) + 1;
+    expect(Math.max(...Object.values(counts))).toBeLessThanOrEqual(2);
+  });
+
   it('never returns more meals than intake.dinners', () => {
     const engine = new LocalRecommendationEngine();
     const pool = Array.from({ length: 20 }, (_, i) => makeRecipe({ id: `r-${i}` }));

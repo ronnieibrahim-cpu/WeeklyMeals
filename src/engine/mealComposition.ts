@@ -7,6 +7,26 @@ import { GenerateContext } from './recommendation/types';
 const MAX_SIDES = 2;
 type Provides = 'protein' | 'vegetable' | 'starch';
 
+/** A sauce: no `provides` (flavor, not a plate component). */
+const isSauce = (r: Recipe) => !r.provides || r.provides.length === 0;
+
+/**
+ * Side scores within this band of the best count as a tie, broken at random
+ * (November 2026, CONTENT-REVIEW.md R3). Side picks used to be a strict
+ * argmax with no memory, so a given main got the same side every time and
+ * 43 of 62 sides never appeared on any plate. Wider than the mains' band
+ * (2%) on purpose: side scores sit in a narrow range, and "roasted broccoli
+ * or garlic green beans" is a genuine coin-flip, not a ranking.
+ */
+export const SIDE_NEAR_TIE_BAND = 0.35;
+
+function pickNearBestSide(candidates: Recipe[], main: Recipe, ctx: GenerateContext): Recipe {
+  const scored = candidates.map((r) => ({ r, score: scoreSide(r, main, ctx) }));
+  const best = Math.max(...scored.map((s) => s.score));
+  const contenders = scored.filter((s) => s.score >= best - SIDE_NEAR_TIE_BAND);
+  return contenders[Math.floor(Math.random() * contenders.length)].r;
+}
+
 /** A side's own prep/cook time passes `passesHardFilters` on its own, but a
  * plate is cooked together — the intake's time limit is a promise about the
  * whole dinner, not just the entrée. Checked as two independent budgets
@@ -157,17 +177,18 @@ export function composeSides(main: Recipe, sidesPool: Recipe[], ctx: GenerateCon
 
     let pick: Recipe | undefined;
     if (gapFillers.length > 0) {
-      pick = gapFillers.reduce((best, c) => (scoreSide(c, main, ctx) > scoreSide(best, main, ctx) ? c : best));
+      pick = pickNearBestSide(gapFillers, main, ctx);
     } else if (hardMinimumMet(plateProvides)) {
       // M5.6: a sauce must EARN the slot (`saucePairsWithMain`). It used to
       // be a consolation prize — the slot was free, so the best-scoring sauce
       // took it regardless of whether it belonged on the dish. When nothing
       // pairs, the plate stops short: one right side beats two wrong ones.
-      const sauces = remaining.filter(
-        (c) => (!c.provides || c.provides.length === 0) && saucePairsWithMain(c, main),
-      );
+      // November 2026: one sauce per plate — salsa verde AND salsa roja on
+      // the same tacos was 82 of 619 plates (CONTENT-REVIEW.md R4).
+      if (chosen.some(isSauce)) break;
+      const sauces = remaining.filter((c) => isSauce(c) && saucePairsWithMain(c, main));
       if (sauces.length === 0) break;
-      pick = sauces.reduce((best, c) => (scoreSide(c, main, ctx) > scoreSide(best, main, ctx) ? c : best));
+      pick = pickNearBestSide(sauces, main, ctx);
     } else {
       break; // best-effort: nothing left can move the plate toward safety
     }

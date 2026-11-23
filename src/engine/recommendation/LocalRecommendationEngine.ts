@@ -143,11 +143,11 @@ export class LocalRecommendationEngine implements RecommendationProvider {
       selected.push(pickNearBest(scored));
     }
 
-    return selected.slice(0, ctx.intake.dinners).map((r, index) => ({
-      recipeId: r.id,
-      servings: ctx.intake.servingsPerMeal,
-      dayIndex: index,
-      locked: lockedIds.has(r.id),
+    const sideById = new Map(sidesPool.map((s) => [s.id, s]));
+    // Sides chosen on earlier plates this week, so later plates can see
+    // (and avoid piling onto) them — `sideRepeatPenalty` in scoring.ts.
+    const weekSides: Recipe[] = [];
+    return selected.slice(0, ctx.intake.dinners).map((r, index) => {
       // M4.3: the whole week's mains are the waste-fit comparison pool for
       // each plate's sides — a side that mops up a half-unit any other main
       // this week already forces buying scores a small bonus. `selected`
@@ -157,11 +157,24 @@ export class LocalRecommendationEngine implements RecommendationProvider {
       // -> scoring.ts scoreSide) doesn't count `r`'s ingredients twice
       // (F7: a lone 0.5-unit ingredient would otherwise self-sum to 1.0,
       // reading as "no leftover" and zeroing the exact bonus this is for).
-      sideRecipeIds: composeSides(r, sidesPool, {
+      // November 2026: earlier plates' sides join the pool too, the same
+      // shape swap/re-roll already pass (`otherWeekRecipes`).
+      const sideRecipeIds = composeSides(r, sidesPool, {
         ...ctx,
-        weekRecipes: selected.filter((s) => s.id !== r.id),
-      }),
-    }));
+        weekRecipes: [...selected.filter((s) => s.id !== r.id), ...weekSides],
+      });
+      for (const id of sideRecipeIds) {
+        const side = sideById.get(id);
+        if (side) weekSides.push(side);
+      }
+      return {
+        recipeId: r.id,
+        servings: ctx.intake.servingsPerMeal,
+        dayIndex: index,
+        locked: lockedIds.has(r.id),
+        sideRecipeIds,
+      };
+    });
   }
 }
 

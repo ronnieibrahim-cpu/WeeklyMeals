@@ -236,6 +236,20 @@ function ratingsPenalty(recipe: Recipe, ctx: GenerateContext): number {
   return Math.min(1, penalty);
 }
 
+/**
+ * November 2026 (CONTENT-REVIEW.md R3): how much this side already appears
+ * on the rest of the week — 0 for a fresh side, 0.5 once, 1 at twice or
+ * more. `weekRecipes` carries the other plates' mains AND sides (generate()
+ * adds each plate's sides as it composes them; swap/re-roll pass every other
+ * day's plate). Decision 23 still holds in spirit — a side repeating is not
+ * a defect — but one side on most of a week's plates is, and 43 of 62 sides
+ * were never appearing at all.
+ */
+function sideRepeatPenalty(side: Recipe, ctx: GenerateContext): number {
+  const times = (ctx.weekRecipes ?? []).filter((r) => r.id === side.id).length;
+  return Math.min(1, times / 2);
+}
+
 /** Weighted, explainable score. Higher is better. */
 export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Recipe[]): number {
   const w = weightsFor(ctx);
@@ -259,6 +273,9 @@ export function scoreRecipe(recipe: Recipe, ctx: GenerateContext, selected: Reci
     w.repeat * repeatPenalty(recipe, ctx)
   );
 }
+
+/** The midpoint of a 0–1 factor: neither for nor against. */
+const NEUTRAL = 0.5;
 
 function cuisineFitBonus(recipe: Recipe, main: Recipe): number {
   return recipe.cuisine === main.cuisine ? 1 : 0;
@@ -291,7 +308,14 @@ export function scoreSide(side: Recipe, main: Recipe, ctx: GenerateContext): num
   const chosenSoFar = [main, ...(ctx.weekRecipes ?? [])];
   return (
     w.pantry * pantryOverlap(side, ctx.pantry) +
-    w.preference * preferenceMatch(side, ctx) +
+    // November 2026 (CONTENT-REVIEW.md R3): neutral, not `preferenceMatch`/
+    // `adventurousFit`. Both judge the SIDE's own cuisine tag against the
+    // family's favorite cuisines, and a side's tag is close to arbitrary
+    // (roasted cauliflower is "Indian", sautéed kale "American"): a family
+    // that likes American food got kale and egg noodles beside everything,
+    // and 43 of 62 sides never appeared. The main already carries the
+    // family's cuisine choice; `sideCuisineFit` matches the side to it.
+    w.preference * NEUTRAL +
     w.affinity * affinityBonus(side, ctx) +
     w.favorite * favoriteBonus(side, ctx, chosenSoFar) +
     w.curated * curatedBonus(side) +
@@ -302,12 +326,13 @@ export function scoreSide(side: Recipe, main: Recipe, ctx: GenerateContext): num
     w.time * timeFit(side, ctx) +
     w.nutrition * nutritionFit(side, ctx) +
     w.healthyComfort * healthyComfortFit(side, ctx) +
-    w.adventurous * adventurousFit(side, ctx) +
+    w.adventurous * NEUTRAL +
     w.season * seasonFit(side, ctx) +
     // M4.3: a side that uses up the main's own half-unit, or another meal's,
     // both count — the "half cabbage becomes sautéed cabbage on Thursday"
     // case from MILESTONE-4.md.
     w.wasteFit * wasteFitBonus(side, [main, ...(ctx.weekRecipes ?? [])]) -
-    w.ratingsPenalty * ratingsPenalty(side, ctx)
+    w.ratingsPenalty * ratingsPenalty(side, ctx) -
+    w.sideRepeat * sideRepeatPenalty(side, ctx)
   );
 }
