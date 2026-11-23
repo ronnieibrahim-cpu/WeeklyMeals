@@ -190,8 +190,8 @@ const batch1: Recipe[] = [
       { name: 'lime', quantity: 1, unit: 'piece', department: 'Produce' },
     ],
     description: 'A build-your-own burrito bowl with well-seasoned ground beef, black beans, and sweet corn over rice — fast, filling, and easy to customize.',
-    tips: ['Great for meal prep — portion into containers and add toppings fresh at serving time.'],
     tips: [
+      'Great for meal prep — portion into containers and add toppings fresh at serving time.',
       'Shredded cheese or sour cream on top is a family favorite if nobody is avoiding dairy.',
     ],
     steps: [

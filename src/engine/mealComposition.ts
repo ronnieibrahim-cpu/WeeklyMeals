@@ -16,9 +16,11 @@ const isSauce = (r: Recipe) => !r.provides || r.provides.length === 0;
  * argmax with no memory, so a given main got the same side every time and
  * 43 of 62 sides never appeared on any plate. Wider than the mains' band
  * (2%) on purpose: side scores sit in a narrow range, and "roasted broccoli
- * or garlic green beans" is a genuine coin-flip, not a ranking.
+ * or garlic green beans" is a genuine coin-flip, not a ranking. Kept BELOW
+ * one waste-fit match (0.5 × 0.5 = 0.25), one season mismatch (0.32) and
+ * the cuisine fit (0.4), so those still decide rather than being randomized.
  */
-export const SIDE_NEAR_TIE_BAND = 0.35;
+export const SIDE_NEAR_TIE_BAND = 0.2;
 
 function pickNearBestSide(candidates: Recipe[], main: Recipe, ctx: GenerateContext): Recipe {
   const scored = candidates.map((r) => ({ r, score: scoreSide(r, main, ctx) }));

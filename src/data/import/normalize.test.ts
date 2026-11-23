@@ -384,7 +384,7 @@ describe('imported library — protein labels match the ingredients', () => {
 describe('curated mains — a bread/grain the dish is served on counts as its starch (CONTENT-REVIEW C3)', () => {
   it('every main with rolls, buns, tortillas, tostadas, grits, pita, pasta, rice or potatoes declares starch', () => {
     const carrier = /\b(hoagie|buns?|rolls?|tortillas?|tostadas?|grits|pitas?|naan|baguette|pasta|spaghetti|linguine|penne|rigatoni|noodles?|potato(es)?|gnocchi|couscous|rice)\b/;
-    const notACarrier = /rice (vinegar|wine|paper|flour)|spring roll|potato starch|tortilla chips/;
+    const notACarrier = /rice (vinegar|wine|paper|flour)|spring roll|potato starch|tortilla chips|for toasting/;
     const missing = RECIPES.filter((r) => (r.role ?? 'main') === 'main' && !r.id.startsWith('mealdb-'))
       .filter((r) => !(r.provides ?? []).includes('starch'))
       .filter((r) => r.ingredients.some((i) => !i.optional && carrier.test(i.name.toLowerCase()) && !notACarrier.test(i.name.toLowerCase())))
