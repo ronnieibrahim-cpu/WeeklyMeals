@@ -365,11 +365,12 @@ validate, all seven harnesses pass, import regeneration byte-identical.
 - [ ] 6. Photos for the M5.7 recipes
 - [ ] 7. Small content items (paneer twins, branzino count, label-check tips)
 
-## M5.9 — Content-integrity review and fixes (November 2026, branch `claude/epic-lamport-632c7d`)
+## M5.9 — Content-integrity review and fixes (November 2026, shipped live 2026-11-23)
 
 Review: `CONTENT-REVIEW.md`. Ronnie (2026-11-23): fix everything except R2
 (longer repeat fade); new cuisine labels for Jamaican etc.; unused sides are a
-problem. Decision 47. Owes the advisor review.
+problem. Decision 47. Shipped live at Ronnie's direction (advisor gate
+waived); the advisor review is owed after the fact.
 
 - [x] 1. New cuisines Caribbean / LatinAmerican / SoutheastAsian; import
   protein inference (11 live imports corrected) and broth → dry-goods aisle.
