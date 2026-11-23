@@ -577,7 +577,7 @@ const STARCH_INGREDIENT_KEYWORDS = [
   'quinoa', 'flour', 'polenta', 'gnocchi', 'linguine', 'spaghetti', 'fettuccine',
   'penne', 'macaroni', 'ziti', 'rigatoni', 'fusilli', 'orzo', 'ravioli',
   'tortellini', 'vermicelli', 'udon', 'soba', 'ramen', 'lasagna', 'lasagne',
-  'farfalle', 'bagel', 'baguette', 'naan', 'pita', 'biscuit', 'hoagie', 'tostada', 'grits',
+  'farfalle', 'bagel', 'baguette', 'naan', 'pita', 'biscuit', 'hoagie', 'tostada', 'grits', 'plantain',
 ];
 
 function hasStarchIngredient(ingText: string): boolean {

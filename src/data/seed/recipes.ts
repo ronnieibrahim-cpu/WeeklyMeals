@@ -11,6 +11,7 @@ import { recipeBatch9 } from './recipeBatch9';
 import { recipeBatch10 } from './recipeBatch10';
 import { recipeBatch11 } from './recipeBatch11';
 import { recipeBatch12 } from './recipeBatch12';
+import { recipeBatch13 } from './recipeBatch13';
 import { DISH_TWINS } from './dishTwins';
 import { recipeImported, recipeImportedRetired } from './recipeImported';
 import { recipeInstantPot } from './recipeInstantPot';
@@ -1170,6 +1171,7 @@ export const RECIPES: Recipe[] = withTwins([
   ...recipeBatch10,
   ...recipeBatch11,
   ...recipeBatch12,
+  ...recipeBatch13,
   ...recipeInstantPot,
   ...recipeImported,
   ...recipeSides,
