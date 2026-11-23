@@ -49,6 +49,13 @@ every existing curated recipe, a vegetarian/pescatarian diet-filter fix, broader
 import allergen keywords, and a cook-mode timer fix — see `ADVISOR-HANDOFF.md`
 decision 41. The diet-filter change owes the advisor review before it ships.
 
+**November 2026 (M5.9, branch `claude/epic-lamport-632c7d`, not yet deployed):**
+content-integrity review (`CONTENT-REVIEW.md`) and its fixes — new Caribbean /
+Latin American / Southeast Asian cuisines, import protein + broth-aisle fixes,
+Instant Pot round-robin, twin dishes rotate as one, side variety, a fidelity
+pass on 30 thin recipes, and 40 new mains (`recipeBatch13.ts`). See
+`ADVISOR-HANDOFF.md` decision 47; owes the advisor review.
+
 **Before building anything new, the priority is the independent advisor
 close-out audit of the whole M4.3–M4.7 + M5.0–M5.1 range** — it shipped in one
 orchestrated worker session that also self-reviewed (the sweep was run by that
@@ -60,8 +67,8 @@ explicit go-ahead from Ronnie.
 ```bash
 npm install                        # first run only
 npm run typecheck                  # tsc --noEmit — zero errors
-npx jest                           # engine + data/import (+ syncStore) test suite — currently 573 tests
-npx tsx scripts/validateRecipes.ts # 334/334 curated mains + 62/62 sides (681/681 allergen labels + provides) must pass
+npx jest                           # engine + data/import (+ syncStore) test suite — currently 608 tests
+npx tsx scripts/validateRecipes.ts # 374/374 curated mains + 62/62 sides (721/721 allergen labels + provides) must pass
 npm run web                        # local browser preview for manual testing
 ```
 Pushing to branch `claude/weekly-meals-app-eyowlr` auto-deploys the web build to

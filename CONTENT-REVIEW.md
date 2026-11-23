@@ -3,8 +3,10 @@
 Scope: recipe accuracy, missing content, and how often recipes repeat.
 Reviewed against the live library on `claude/epic-lamport-632c7d` after M5.8
 task 4 (619 mains = 334 curated + 285 imported, plus 62 sides/sauces).
-**This is a review only: no code or recipe has been changed.** Fixes are
-proposed at the end and wait on Ronnie's approval (CLAUDE.md process).
+**Status (2026-11-23):** Ronnie approved every fix except R2 (the longer
+repeat fade), and asked for new cuisine labels (C4). All shipped as M5.9 on
+this branch — see "Outcome" at the end and `ADVISOR-HANDOFF.md` decision 47.
+The findings below are kept as written at review time.
 
 How the evidence was gathered:
 - **Repetition:** a simulation that plans 26 weeks in a row for 5 household
@@ -245,3 +247,22 @@ Other gaps in the curated library:
   Keep Vietnamese/Filipino/Malaysian in Thai (closest bucket we have).
 - Whether R3 overrides decision 23's "side repeats aren't a defect" (recommended:
   yes, in the limited form in item 4).
+
+---
+
+## Outcome (M5.9, 2026-11-23)
+
+| Finding | Result |
+|---|---|
+| R1 Instant Pot | Round-robin over the most-rested Instant Pot recipes: top dish 25/26 weeks → 9/26; 15 → 25 Instant Pot mains (6 → 16 under 45 minutes). |
+| R2 Repeat fade | Not changed (Ronnie). |
+| R3 Sides | Distinct sides over 26 weeks: default 13 → 28, Asian-leaning 12 → 25, vegetarian 7 → 19, nut allergy 5 → 11. Never placed on any plate: 43 → 3. |
+| R4 Two sauces | 82 → 0 plates. |
+| R5 Twins | 21 pairs linked (`dishTwins.ts`); never in one week, rested together. |
+| C1 Protein | Inference fixed; 11 live imports corrected, test guards it. |
+| C2 Broth aisle | 65 broths/stocks → dry goods; goat cheese → dairy. |
+| C3 Hidden starch | 7 mains corrected; test guards it. |
+| C4 Cuisines | New Caribbean, Latin American, Southeast Asian. |
+| C5 Fidelity | 30 recipes; no allergen or diet tag changed. |
+| C6 Small slips | Spice levels, cashew soak and Lok Lak's origin fixed. The two °C mentions show °F alongside and were left. |
+| M1 Missing content | 40 new mains. Gluten allergy pool 145 → 174, gluten + dairy 99 → 128, vegan 59 → 70. |

@@ -365,6 +365,29 @@ validate, all seven harnesses pass, import regeneration byte-identical.
 - [ ] 6. Photos for the M5.7 recipes
 - [ ] 7. Small content items (paneer twins, branzino count, label-check tips)
 
+## M5.9 — Content-integrity review and fixes (November 2026, branch `claude/epic-lamport-632c7d`)
+
+Review: `CONTENT-REVIEW.md`. Ronnie (2026-11-23): fix everything except R2
+(longer repeat fade); new cuisine labels for Jamaican etc.; unused sides are a
+problem. Decision 47. Owes the advisor review.
+
+- [x] 1. New cuisines Caribbean / LatinAmerican / SoutheastAsian; import
+  protein inference (11 live imports corrected) and broth → dry-goods aisle.
+- [x] 2. Curated data: 7 hidden starches declared, 4 spice None → Mild,
+  pesto Italian-only, chimichurri to Latin American.
+- [x] 3. Instant Pot round-robin (top dish 25/26 weeks → 9/26).
+- [x] 4. Twin dishes (`sameDishAs`, 21 pairs) rotate as one dish.
+- [x] 5. Side variety: neutral side cuisine preference, random near-ties,
+  within-week side repeat penalty, one sauce per plate (distinct sides over
+  26 weeks 13 → 28 default; two-sauce plates 82 → 0; unused sides 43 → 3).
+- [ ] ~~R2 longer repeat fade~~ — declined by Ronnie.
+- [x] 6. Fidelity pass, 30 thin curated recipes (no allergen/diet-tag change).
+- [x] 7. 40 new mains (`recipeBatch13.ts`): 10 Instant Pot (≤45 min), 7
+  sheet-pan, 5 spring, 4 vegan + vegan IP/sheet-pan, 12 Caribbean / Latin
+  American / Southeast Asian / Korean. Pools: Instant Pot at 45 min 6 → 16,
+  gluten allergy 145 → 174, gluten + dairy 99 → 128, vegan 59 → 70.
+  573 → 608 tests; validator 374/374 + 62/62.
+
 ---
 
 ## Candidates for the M5 pipeline (Ronnie prioritizes; do NOT start unasked)

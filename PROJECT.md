@@ -247,7 +247,17 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
      — a side is food, it can hurt someone just as badly as a main. Scored with
      `scoreSide` — every `scoreRecipe` signal except `varietyBonus` (which is
      main-vs-week-scoped and inverts into the wrong signal at plate scope), plus a
-     small cuisine-fit bonus against the main. `sideRecipeIds` flows into
+     small cuisine-fit bonus against the main. **Side variety (Nov 2026,
+     CONTENT-REVIEW.md R3/R4):** `scoreSide` no longer judges a side's own cuisine
+     tag against the family's favorite cuisines (preference and adventurousness are
+     neutral for sides — that bias put kale and egg noodles beside everything for an
+     American-leaning family and left 43 of 62 sides unused); near-tied sides (within
+     `SIDE_NEAR_TIE_BAND = 0.2`, kept below one waste-fit match) are picked at random;
+     a side already on other plates this week loses `WEIGHTS.sideRepeat = 1.0` × (½
+     per repeat, max 1) — `generate()` threads earlier plates' sides into
+     `weekRecipes`; and a plate carries **at most one sauce**. Result over 26
+     simulated weeks: 13 → 28 distinct sides for the default family, 7 → 19 for a
+     vegetarian one; two-sauce plates 82 → 0. `sideRecipeIds` flows into
      `buildShoppingList`/cost through the exact same per-recipe path as the main —
      one source of truth, unchanged. Some curated mains (a frozen, reviewed
      allowlist in `scripts/validateRecipes.ts`) are honestly protein-light and stay
@@ -349,7 +359,11 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    same scoring, still pass every hard filter (allergy included), and a request
    the library can't fill (a tight time limit filters most of them out) fills
    what it can rather than leaving a day empty. Instant Pot dishes show a badge
-   on meal cards and the equipment on the recipe detail. Verified by
+   on meal cards and the equipment on the recipe detail. **Round-robin (Nov 2026):**
+   the reserved nights pick among the most-rested Instant Pot candidates first
+   (`mostRested`), score deciding within that tier — the pool is small enough that
+   the soft repeat penalty alone let one strong fit win 25 of 26 weeks. 25
+   Instant Pot mains now (16 fit a 45-minute limit). Verified by
    `scripts/checkInstantPot.ts` (48 varied weeks per request level, time limits
    swept 30-90 min: delivered in 48/48 at every level, no short weeks, and every
    tagged recipe really does describe pressure cooking).
@@ -362,8 +376,11 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    of it), a **per-week crowding taper** (the 2nd favorite gets half, the 3rd
    none — a week of hearted re-runs is not a menu), and a **repeat penalty**
    (`WEIGHTS.repeat = 1.0`, fading to nothing over 4 weeks). Mains only —
-   side repeats are normal, and penalizing them would repeat the M4.2 part 2
-   scope-inversion mistake (decision 23). All soft: pantry (3.0) still outweighs
+   sides have their own within-week repeat penalty (see Composed plates above).
+   **Twins (Nov 2026):** 21 dishes exist under two ids (an import beside the
+   curated original, an Instant Pot version beside the stovetop one); the table
+   in `src/data/seed/dishTwins.ts` stamps `sameDishAs`, and `dishKey()` makes
+   recency, same-week selection, swap and re-roll treat them as one dish. All soft: pantry (3.0) still outweighs
    rotation, so a repeat that's genuinely the best use of what's on hand still
    wins, and no week is ever left short. Measured by `scripts/checkRotation.ts`
    (100 two-week scenarios): favorites returning to the very next week fell
@@ -680,6 +697,15 @@ history, all shipped and deployed:
   every inference (allergens, diet tags, protein, department, spice) still
   reads the original TheMealDB words, so it cannot change what a recipe is.
   Recipe titles are left as published.
+- **Nov 2026 import inference fixes (CONTENT-REVIEW.md C1/C2/C4):** protein
+  inference strips broth/stock/bouillon, goat's cheese, fish/oyster sauce and
+  eggplant before matching, and trusts TheMealDB's meat category only when the
+  ingredients confirm it or name no other meat (Irish stew is Lamb, not Beef).
+  Broth/stock/bouillon file under DryGoods, goat's cheese under Dairy. A triage
+  fix may override `protein` or `area`. Cuisines: Jamaican → **Caribbean**;
+  Argentine/Uruguayan/Venezuelan → **LatinAmerican**; Vietnamese/Filipino/
+  Malaysian/Cambodian → **SoutheastAsian** (three new `Cuisine` values, with
+  labels, tile colors and emoji; side/sauce `pairsWith` extended to them).
 - Import triage (M5.8 3c) lives in `src/data/import/importOverrides.ts`:
   `IMPORT_FIXES` patch the raw TheMealDB text (steps, added/replaced
   ingredients, times) BEFORE inference, so allergens/diet tags re-derive from
