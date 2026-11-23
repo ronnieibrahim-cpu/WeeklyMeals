@@ -68,7 +68,7 @@ export const recipeSides: Recipe[] = [
     vegetables: ['green beans'],
     techniques: ['saute'],
     difficulty: 'Easy',
-    spiceLevel: 'None',
+    spiceLevel: 'Mild',
     prepMinutes: 5,
     cookMinutes: 8,
     baseServings: 4,

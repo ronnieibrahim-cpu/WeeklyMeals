@@ -1213,7 +1213,7 @@ export const recipeBatch5: Recipe[] = [
     cuisine: 'American',
     categories: ['Sandwiches', 'ComfortFood'],
     primaryProtein: 'Beef',
-    provides: ['protein', 'vegetable'],
+    provides: ['protein', 'vegetable', 'starch'],
     vegetables: ['onion', 'bell pepper'],
     techniques: ['sear'],
     difficulty: 'Easy',

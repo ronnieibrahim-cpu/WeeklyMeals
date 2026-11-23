@@ -385,7 +385,7 @@ export const recipeInstantPot: Recipe[] = [
     categories: ['ComfortFood', 'OnePot', 'HighProtein'],
     equipment: ['Instant Pot'],
     primaryProtein: 'Beef',
-    provides: ['protein', 'vegetable'],
+    provides: ['protein', 'vegetable', 'starch'],
     vegetables: ['carrot', 'potato'],
     techniques: ['pressure-cook', 'sear', 'braise'],
     difficulty: 'Easy',

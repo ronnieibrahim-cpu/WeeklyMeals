@@ -515,7 +515,7 @@ function estimateTimes(techniques: string[]): { prep: number; cook: number } {
 /** Exported so scripts/validateRecipes.ts and the sides library can share the
  * exact same starch check used for nutrition estimation. */
 export function hasStarch(ingText: string): boolean {
-  return has(ingText, 'rice', 'pasta', 'noodle', 'potato', 'bread', 'tortilla', 'bun', 'couscous', 'quinoa', 'flour', 'polenta', 'gnocchi');
+  return has(ingText, 'rice', 'pasta', 'noodle', 'potato', 'bread', 'tortilla', 'bun', 'couscous', 'quinoa', 'flour', 'polenta', 'gnocchi', 'hoagie', 'tostada', 'grits', 'pita', 'naan', 'baguette');
 }
 
 // ---------------------------------------------------------------------------
@@ -577,7 +577,7 @@ const STARCH_INGREDIENT_KEYWORDS = [
   'quinoa', 'flour', 'polenta', 'gnocchi', 'linguine', 'spaghetti', 'fettuccine',
   'penne', 'macaroni', 'ziti', 'rigatoni', 'fusilli', 'orzo', 'ravioli',
   'tortellini', 'vermicelli', 'udon', 'soba', 'ramen', 'lasagna', 'lasagne',
-  'farfalle', 'bagel', 'baguette', 'naan', 'pita', 'biscuit',
+  'farfalle', 'bagel', 'baguette', 'naan', 'pita', 'biscuit', 'hoagie', 'tostada', 'grits',
 ];
 
 function hasStarchIngredient(ingText: string): boolean {

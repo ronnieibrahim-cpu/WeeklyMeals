@@ -70,7 +70,7 @@ export const recipeBatch10: Recipe[] = [
     cuisine: 'Mexican',
     categories: ['HighProtein'],
     primaryProtein: 'Chicken',
-    provides: ['protein', 'vegetable'],
+    provides: ['protein', 'vegetable', 'starch'],
     vegetables: ['tomato', 'onion', 'lettuce'],
     techniques: ['poach', 'simmer', 'assemble'],
     difficulty: 'Easy',

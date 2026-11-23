@@ -12,7 +12,7 @@ export const recipeBatch2: Recipe[] = [
     cuisine: 'Italian',
     categories: ['OnePot', 'ComfortFood'],
     primaryProtein: 'Pork',
-    provides: ['protein', 'vegetable'],
+    provides: ['protein', 'vegetable', 'starch'],
     vegetables: ['bell pepper', 'onion'],
     techniques: ['sear', 'simmer'],
     difficulty: 'Easy',

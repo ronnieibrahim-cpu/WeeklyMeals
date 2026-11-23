@@ -34572,9 +34572,9 @@ export const recipeImported: Recipe[] = [
     "cookMinutes": 30,
     "baseServings": 4,
     "nutrition": {
-      "calories": 480,
+      "calories": 580,
       "protein": 34,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 30
     },
     "ingredients": [
@@ -42082,9 +42082,9 @@ export const recipeImportedRetired: Recipe[] = [
     "cookMinutes": 20,
     "baseServings": 4,
     "nutrition": {
-      "calories": 420,
+      "calories": 520,
       "protein": 36,
-      "carbs": 18,
+      "carbs": 48,
       "fat": 18
     },
     "ingredients": [

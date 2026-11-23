@@ -452,7 +452,7 @@ export const recipeBatch9: Recipe[] = [
     origin: 'Southern',
     categories: ['Seafood', 'ComfortFood'],
     primaryProtein: 'Shellfish',
-    provides: ['protein'],
+    provides: ['protein', 'starch'],
     vegetables: ['green onions'],
     techniques: ['simmer', 'saute'],
     difficulty: 'Medium',
