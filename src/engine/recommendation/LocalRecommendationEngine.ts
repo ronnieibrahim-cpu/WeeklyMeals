@@ -1,5 +1,6 @@
 import { isMain, PlannedMeal, Recipe } from '@/domain/models';
 
+import { dishKey } from '../dishKey';
 import { composeSides } from '../mealComposition';
 import { passesHardFilters } from './filters';
 import { scoreRecipe } from './scoring';
@@ -52,7 +53,7 @@ function pickNearBest(scored: { r: Recipe; score: number }[]): Recipe {
  * score still picks within that tier, so the first week is unchanged.
  */
 export function mostRested(candidates: Recipe[], ctx: GenerateContext): Recipe[] {
-  const rest = (r: Recipe) => ctx.recencyByRecipeId?.[r.id] ?? Number.POSITIVE_INFINITY;
+  const rest = (r: Recipe) => ctx.recencyByRecipeId?.[dishKey(r)] ?? Number.POSITIVE_INFINITY;
   const best = Math.max(...candidates.map(rest));
   return candidates.filter((r) => rest(r) === best);
 }
@@ -95,6 +96,9 @@ export class LocalRecommendationEngine implements RecommendationProvider {
     for (const r of mains) {
       if (lockedIds.has(r.id) && !selected.includes(r)) selected.push(r);
     }
+    // One dish per week: a recipe whose twin is already on the week is out
+    // (CONTENT-REVIEW.md R5). Checked against `selected` as it grows.
+    const sameDishChosen = (r: Recipe) => selected.some((s) => s === r || dishKey(s) === dishKey(r));
 
     // `avoidRecipeIds` (regenerate): drop the outgoing picks so the re-pick
     // is genuinely different, but only while enough candidates remain to
@@ -122,7 +126,7 @@ export class LocalRecommendationEngine implements RecommendationProvider {
       const stillWanted = Math.min(wantedInstantPot, target) - lockedInstantPot;
       for (let i = 0; i < stillWanted; i++) {
         if (selected.length >= target) break;
-        const remaining = pool.filter((r) => usesInstantPot(r) && !selected.includes(r));
+        const remaining = pool.filter((r) => usesInstantPot(r) && !sameDishChosen(r));
         // Fewer Instant Pot recipes available than asked for (a tight time
         // limit can filter most of them out): fill what exists and let the
         // rest of the week fill normally rather than leaving a day empty.
@@ -133,7 +137,7 @@ export class LocalRecommendationEngine implements RecommendationProvider {
     }
 
     while (selected.length < target) {
-      const remaining = pool.filter((r) => !selected.includes(r));
+      const remaining = pool.filter((r) => !sameDishChosen(r));
       if (remaining.length === 0) break;
       const scored = remaining.map((r) => ({ r, score: scoreRecipe(r, ctx, selected) }));
       selected.push(pickNearBest(scored));

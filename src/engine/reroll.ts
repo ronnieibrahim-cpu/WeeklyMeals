@@ -1,5 +1,6 @@
 import { isMain, Recipe, ShoppingList, WeeklyPlan } from '@/domain/models';
 
+import { dishKey } from './dishKey';
 import { canonicalIngredientName } from './ingredientKey';
 import { composeSides, fitsCombinedTime, saucePairsWithMain, sidePairsWithMain } from './mealComposition';
 import { coveredByAny } from './pantryMatch';
@@ -236,6 +237,13 @@ export function rerollCandidates(
   // caller), which is the point: overlap with it makes real alternatives
   // easier to find.
   const usedIds = new Set(plan.meals.map((m) => m.recipeId));
+  // Twins of any dinner on the week are out too (CONTENT-REVIEW.md R5).
+  const usedDishes = new Set(
+    plan.meals.map((m) => {
+      const r = getRecipe(m.recipeId);
+      return r ? dishKey(r) : m.recipeId;
+    }),
+  );
   const selectedRecipes = plan.meals
     .filter((m) => m.dayIndex !== dayIndex)
     .map((m) => getRecipe(m.recipeId))
@@ -269,7 +277,11 @@ export function rerollCandidates(
   }
 
   const pool = mains.filter(
-    (r) => !usedIds.has(r.id) && !blocked.has(r.id) && passesHardFilters(r, ctx.intake, ctx.profile),
+    (r) =>
+      !usedIds.has(r.id) &&
+      !usedDishes.has(dishKey(r)) &&
+      !blocked.has(r.id) &&
+      passesHardFilters(r, ctx.intake, ctx.profile),
   );
 
   if (keptSideIds.length > 0) {

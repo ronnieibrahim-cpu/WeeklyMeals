@@ -32,6 +32,26 @@ describe('LocalRecommendationEngine.generate', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
+  it('never puts a dish and its twin in the same week (CONTENT-REVIEW R5)', () => {
+    const engine = new LocalRecommendationEngine();
+    const original = makeRecipe({ id: 'cn-beef-broccoli' });
+    const twin = makeRecipe({ id: 'mealdb-1', sameDishAs: 'cn-beef-broccoli' });
+    const pool = [original, twin, ...Array.from({ length: 4 }, (_, i) => makeRecipe({ id: `r-${i}` }))];
+    for (let i = 0; i < 20; i++) {
+      const ids = engine.generate(ctxFor({ intake: makeIntake(makeProfile(), { dinners: 5 }) }), pool).map((m) => m.recipeId);
+      expect(ids.includes('cn-beef-broccoli') && ids.includes('mealdb-1')).toBe(false);
+    }
+  });
+
+  it('a twin planned last week carries the repeat penalty onto its original', () => {
+    const original = makeRecipe({ id: 'cn-beef-broccoli' });
+    const ctxRested = ctxFor();
+    const ctxRecent = ctxFor({ recencyByRecipeId: { 'cn-beef-broccoli': 1 } });
+    expect(scoreRecipe(original, ctxRecent, [])).toBeLessThan(scoreRecipe(original, ctxRested, []));
+    const twin = makeRecipe({ id: 'mealdb-1', sameDishAs: 'cn-beef-broccoli' });
+    expect(scoreRecipe(twin, ctxRecent, [])).toBeLessThan(scoreRecipe(twin, ctxRested, []));
+  });
+
   it('never returns more meals than intake.dinners', () => {
     const engine = new LocalRecommendationEngine();
     const pool = Array.from({ length: 20 }, (_, i) => makeRecipe({ id: `r-${i}` }));

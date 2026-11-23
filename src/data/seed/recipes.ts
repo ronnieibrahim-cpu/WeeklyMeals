@@ -11,6 +11,7 @@ import { recipeBatch9 } from './recipeBatch9';
 import { recipeBatch10 } from './recipeBatch10';
 import { recipeBatch11 } from './recipeBatch11';
 import { recipeBatch12 } from './recipeBatch12';
+import { DISH_TWINS } from './dishTwins';
 import { recipeImported, recipeImportedRetired } from './recipeImported';
 import { recipeInstantPot } from './recipeInstantPot';
 import { recipeSides } from './recipeSides';
@@ -1124,6 +1125,11 @@ const batch1: Recipe[] = [
   },
 ];
 
+/** Stamp `sameDishAs` from the twin table (see dishTwins.ts). */
+function withTwins(recipes: Recipe[]): Recipe[] {
+  return recipes.map((r) => (DISH_TWINS[r.id] ? { ...r, sameDishAs: DISH_TWINS[r.id] } : r));
+}
+
 /**
  * The unified recipe pool (M4.2 part 2): mains, imported dishes, AND sides/
  * sauces all live here now, so any id — main or side — resolves the same way
@@ -1132,7 +1138,7 @@ const batch1: Recipe[] = [
  * browse tab) must filter through `isMain()`, never assume this array is
  * mains-only.
  */
-export const RECIPES: Recipe[] = [
+export const RECIPES: Recipe[] = withTwins([
   ...batch1,
   ...recipeBatch2,
   ...recipeBatch3,
@@ -1148,7 +1154,7 @@ export const RECIPES: Recipe[] = [
   ...recipeInstantPot,
   ...recipeImported,
   ...recipeSides,
-];
+]);
 
 /** Fast lookup by id. */
 export const recipesById: Record<string, Recipe> = {};
@@ -1158,7 +1164,7 @@ for (const r of RECIPES) {
 // Imports dropped in triage (M5.8 3c): resolvable by id only, so a saved
 // plan keeps its dinner and shopping list — never in RECIPES, so never
 // planned, re-rolled, searched or browsed again.
-for (const r of recipeImportedRetired) {
+for (const r of withTwins(recipeImportedRetired)) {
   if (!recipesById[r.id]) recipesById[r.id] = r;
 }
 

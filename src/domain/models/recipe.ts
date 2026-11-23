@@ -77,6 +77,14 @@ export interface Recipe {
   allergens: string[]; // e.g. ['peanuts', 'dairy']
   dietTags: string[]; // e.g. ['vegetarian', 'gluten-free']
   image?: string; // direct photo URL or asset key; UI falls back to a cuisine tile
+  /**
+   * The same dish under another id (November 2026): an imported "Beef and
+   * Broccoli Stir-Fry" next to the curated "Beef & Broccoli", or an Instant
+   * Pot version of a stovetop dish. Holds the canonical recipe's id; the
+   * engine treats both as one dish for rotation and week variety
+   * (`dishKey`). Set from src/data/seed/dishTwins.ts, never by hand here.
+   */
+  sameDishAs?: string;
   origin?: string; // true country/region label for display (may differ from the mapped `cuisine`)
   sourceName?: string; // attribution, e.g. 'TheMealDB'
   sourceUrl?: string; // link back to the original recipe (citation)

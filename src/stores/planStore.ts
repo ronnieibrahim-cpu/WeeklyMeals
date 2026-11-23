@@ -9,6 +9,7 @@ import { IntakeAnswers, isMain, PlannedMeal, Profile, RatingEvent, Recipe, Shopp
 import { composeSides } from '@/engine/mealComposition';
 import { servingsPerMeal as computeServingsPerMeal } from '@/engine/portions';
 import { moveMeal as moveMealInPlan } from '@/engine/rearrange';
+import { dishKey } from '@/engine/dishKey';
 import { recencyByRecipe } from '@/engine/rotation';
 import { GenerateContext, localRecommendationEngine, passesAllergySafety, passesHardFilters, rankReplacements } from '@/engine/recommendation';
 import { availableIngredients, missingIngredients, missingIngredientsForPlate, pinBlockReason, PinBlockReason, pinnableDays, RerollKeepOptions, RerollOutcome, rerollCandidates } from '@/engine/reroll';
@@ -76,7 +77,10 @@ function context(intake: IntakeAnswers, profile: Profile, lockedRecipeIds: strin
     preferences: learning.preferences,
     favoriteRecipeIds: learning.favorites,
     kidApprovedRecipeIds: learning.kidApproved,
-    recencyByRecipeId: recencyByRecipe(rotationPlans()),
+    recencyByRecipeId: recencyByRecipe(rotationPlans(), undefined, (id) => {
+      const r = getAnyRecipe(id);
+      return r ? dishKey(r) : id;
+    }),
     pantry: intake.ingredientsAtHome,
     season: seasonForDate(new Date()),
     lockedRecipeIds,
@@ -547,7 +551,13 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const { draftPlan, intake } = get();
     const profile = useProfileStore.getState().profile ?? createDefaultProfile();
     if (!draftPlan || !intake) return [];
-    const used = new Set(draftPlan.meals.map((m) => m.recipeId));
+    // Dish keys, so a twin of another day's dinner isn't offered as a swap.
+    const used = new Set(
+      draftPlan.meals.map((m) => {
+        const r = getAnyRecipe(m.recipeId);
+        return r ? dishKey(r) : m.recipeId;
+      }),
+    );
     const selected = draftPlan.meals
       .filter((m) => m.dayIndex !== dayIndex)
       .map((m) => getAnyRecipe(m.recipeId))
@@ -556,7 +566,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     // Mains only (M4.2 part 2) — a swap picks a whole dinner's main; its
     // sides get composed at commit time in `swapMealTo`.
     const candidates = mainRecipesList().filter(
-      (r) => !used.has(r.id) && passesHardFilters(r, intake, profile),
+      (r) => !used.has(dishKey(r)) && passesHardFilters(r, intake, profile),
     );
     return rankReplacements(candidates, ctx, selected, 3);
   },

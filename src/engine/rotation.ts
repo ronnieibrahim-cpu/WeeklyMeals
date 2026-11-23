@@ -55,14 +55,24 @@ function weeksBetween(referenceISO: string, weekStartISO: string): number {
  * result is independent of the order `plans` arrives in — worth stating
  * because the archive is per-device and sorts newest-first, while the active
  * plan is prepended by the caller.
+ *
+ * `keyOf` (November 2026) folds twin recipes onto one dish key — the app
+ * passes `dishKey` — so planning "Beef and Broccoli Stir-Fry" rests the
+ * curated "Beef & Broccoli" too. Lookups must then use `dishKey(recipe)`.
+ * Defaults to the plain id, which is what every caller passed before.
  */
-export function recencyByRecipe(plans: WeeklyPlan[], referenceISO: string = localDateString()): RecencyMap {
+export function recencyByRecipe(
+  plans: WeeklyPlan[],
+  referenceISO: string = localDateString(),
+  keyOf: (recipeId: string) => string = (id) => id,
+): RecencyMap {
   const map: RecencyMap = {};
   for (const plan of plans) {
     const weeksAgo = weeksBetween(referenceISO, plan.weekStartISO);
     for (const meal of plan.meals) {
-      const existing = map[meal.recipeId];
-      if (existing === undefined || weeksAgo < existing) map[meal.recipeId] = weeksAgo;
+      const key = keyOf(meal.recipeId);
+      const existing = map[key];
+      if (existing === undefined || weeksAgo < existing) map[key] = weeksAgo;
     }
   }
   return map;

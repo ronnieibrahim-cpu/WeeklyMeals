@@ -8,6 +8,7 @@ import {
   learningConfidence,
   repeatPenaltyFactor,
 } from '../rotation';
+import { dishKey } from '../dishKey';
 import { wasteFitBonus } from '../wasteFit';
 import { GenerateContext, WEIGHTS } from './types';
 
@@ -145,7 +146,7 @@ function affinityBonus(recipe: Recipe, ctx: GenerateContext): number {
 function favoriteBonus(recipe: Recipe, ctx: GenerateContext, alreadyChosen: Recipe[]): number {
   const favorites = ctx.favoriteRecipeIds;
   if (!favorites?.includes(recipe.id)) return 0;
-  const rest = favoriteRestFactor(ctx.recencyByRecipeId?.[recipe.id]);
+  const rest = favoriteRestFactor(ctx.recencyByRecipeId?.[dishKey(recipe)]);
   const favoritesSoFar = alreadyChosen.filter((r) => favorites.includes(r.id)).length;
   return rest * favoriteCrowdingFactor(favoritesSoFar);
 }
@@ -160,7 +161,7 @@ function favoriteBonus(recipe: Recipe, ctx: GenerateContext, alreadyChosen: Reci
  * deliberate).
  */
 function repeatPenalty(recipe: Recipe, ctx: GenerateContext): number {
-  return repeatPenaltyFactor(ctx.recencyByRecipeId?.[recipe.id]);
+  return repeatPenaltyFactor(ctx.recencyByRecipeId?.[dishKey(recipe)]);
 }
 
 /** M2.4: flat bonus for hand-curated recipes (id not prefixed `mealdb-`). */

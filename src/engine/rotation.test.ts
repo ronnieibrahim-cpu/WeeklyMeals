@@ -9,7 +9,8 @@ import {
   REPEAT_FADE_WEEKS,
   repeatPenaltyFactor,
 } from './rotation';
-import { makeMeal, makePlan } from './testFixtures';
+import { dishKey } from './dishKey';
+import { makeMeal, makePlan, makeRecipe } from './testFixtures';
 
 describe('recencyByRecipe', () => {
   const reference = '2026-07-26'; // a Sunday, the week being planned
@@ -136,5 +137,29 @@ describe('learningConfidence', () => {
   it('reaches full strength at the threshold and stays there', () => {
     expect(learningConfidence(CONFIDENCE_FULL_AT_RATINGS)).toBe(1);
     expect(learningConfidence(CONFIDENCE_FULL_AT_RATINGS * 10)).toBe(1);
+  });
+});
+
+describe('twin recipes rotate as one dish (CONTENT-REVIEW R5)', () => {
+  const twin = makeRecipe({ id: 'mealdb-1', sameDishAs: 'cn-beef-broccoli' });
+  const original = makeRecipe({ id: 'cn-beef-broccoli' });
+  const plan = (ids: string[], weekStartISO: string) =>
+    ({ id: weekStartISO, weekStartISO, meals: ids.map((recipeId, dayIndex) => ({ recipeId, dayIndex, servings: 4 })) }) as never;
+
+  it('dishKey is the canonical id for a twin, the own id otherwise', () => {
+    expect(dishKey(twin)).toBe('cn-beef-broccoli');
+    expect(dishKey(original)).toBe('cn-beef-broccoli');
+    expect(dishKey(makeRecipe({ id: 'x' }))).toBe('x');
+  });
+
+  it('planning the twin rests the original under the dish key', () => {
+    const byId: Record<string, typeof twin> = { [twin.id]: twin, [original.id]: original };
+    const map = recencyByRecipe([plan(['mealdb-1'], '2026-07-19')], '2026-07-26', (id) => dishKey(byId[id]));
+    expect(map['cn-beef-broccoli']).toBe(1);
+    expect(map['mealdb-1']).toBeUndefined();
+  });
+
+  it('defaults to plain ids, exactly as before', () => {
+    expect(recencyByRecipe([plan(['mealdb-1'], '2026-07-19')], '2026-07-26')).toEqual({ 'mealdb-1': 1 });
   });
 });
