@@ -1,12 +1,15 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Linking, Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { buildListEmail, isPlausibleEmail, mailtoUrl } from '@/engine/listEmail';
 import { useLearningStore } from '@/stores/learningStore';
+import { useManualItemsStore } from '@/stores/manualItemsStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useRecipeNotesStore } from '@/stores/recipeNotesStore';
 import { useSyncStore } from '@/stores/syncStore';
+import { useSettingsStore } from '@/stores/settingsStore';
 import { useRecipesById } from '@/stores/userRecipesStore';
 import { Card, MealCard, NavHeader, PrimaryButton, SecondaryButton, Text } from '@/ui/components';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -74,6 +77,15 @@ export default function ReviewPlanScreen() {
     await useSyncStore.getState().syncNow();
     approve();
     router.dismissAll();
+    // Optional H-E-B list email (Settings > H-E-B list). Read-only: it
+    // formats the freshly built list and opens the mail app; the user still
+    // taps Send. If no mail app can open, approving has already succeeded.
+    const to = useSettingsStore.getState().hebListEmail;
+    const { plan, shoppingList } = usePlanStore.getState();
+    if (plan && isPlausibleEmail(to)) {
+      const email = buildListEmail(shoppingList, useManualItemsStore.getState().items, plan.weekStartISO);
+      Linking.openURL(mailtoUrl(to, email)).catch(() => {});
+    }
   };
 
   return (

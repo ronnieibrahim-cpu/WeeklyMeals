@@ -1,7 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Pressable, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Pressable, TextInput, View } from 'react-native';
 
+import { isPlausibleEmail } from '@/engine/listEmail';
 import { Card, NavHeader, Screen, Text } from '@/ui/components';
 import { ThemePreference, useSettingsStore } from '@/stores/settingsStore';
 import { useTheme } from '@/ui/theme/useTheme';
@@ -24,6 +26,16 @@ export default function SettingsScreen() {
   const theme = useTheme();
   const themePreference = useSettingsStore((s) => s.themePreference);
   const setThemePreference = useSettingsStore((s) => s.setThemePreference);
+  const hebListEmail = useSettingsStore((s) => s.hebListEmail);
+  const setHebListEmail = useSettingsStore((s) => s.setHebListEmail);
+  // Edited locally and saved on blur/done, so a half-typed address is never
+  // stored. An address that doesn't look like one is not saved.
+  const [emailDraft, setEmailDraft] = useState(hebListEmail);
+  useEffect(() => setEmailDraft(hebListEmail), [hebListEmail]);
+  const emailLooksWrong = emailDraft.trim() !== '' && !isPlausibleEmail(emailDraft);
+  const saveEmail = () => {
+    if (emailDraft.trim() === '' || isPlausibleEmail(emailDraft)) setHebListEmail(emailDraft);
+  };
 
   return (
     <Screen scroll>
@@ -69,6 +81,45 @@ export default function SettingsScreen() {
             ) : null}
           </Pressable>
         ))}
+      </Card>
+
+      <Text
+        variant="footnote"
+        color="secondary"
+        style={{ marginBottom: theme.spacing.sm, marginLeft: theme.spacing.xs }}
+      >
+        H-E-B LIST
+      </Text>
+      <Card style={{ marginBottom: theme.spacing.xl }}>
+        <Text variant="body">Email my list after I approve a week</Text>
+        <TextInput
+          value={emailDraft}
+          onChangeText={setEmailDraft}
+          onBlur={saveEmail}
+          onSubmitEditing={saveEmail}
+          placeholder="you@example.com"
+          placeholderTextColor={theme.colors.textTertiary}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          inputMode="email"
+          returnKeyType="done"
+          style={{
+            marginTop: theme.spacing.sm,
+            borderWidth: 1,
+            borderColor: theme.colors.border,
+            borderRadius: theme.radius.md,
+            paddingVertical: theme.spacing.sm,
+            paddingHorizontal: theme.spacing.md,
+            fontSize: 17,
+            color: theme.colors.text,
+          }}
+        />
+        <Text variant="footnote" color="tertiary" style={{ marginTop: theme.spacing.xs }}>
+          {emailLooksWrong
+            ? "That doesn't look like an email address, so it isn't saved."
+            : 'Saved on this phone only. Leave blank to turn off. Approving a week then opens a ready email of what to buy; you tap Send.'}
+        </Text>
       </Card>
 
       <Text
