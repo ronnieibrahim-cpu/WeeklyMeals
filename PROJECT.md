@@ -407,6 +407,14 @@ scripts/          validateRecipes · importRecipes · importPhotos ·
    `weekStartISO` so the first still-uncooked meal lands today; it changes only the
    anchor date, never the shopping list, cooked flags, servings, sides, or ratings, and
    nothing happens without the tap. See §6 for how the re-anchored `weekStartISO` merges.
+8. **H-E-B list email (Nov 2026, optional):** Settings > H-E-B list holds an email
+   address (this device only, never synced, never in code; blank = off). After
+   **Approve this week**, if an address is set, the app opens a ready email
+   (`mailto:`) of the week's unchecked list items, grouped by store department with
+   H-E-B product names, plus unchecked hand-added items (`engine/listEmail.ts`).
+   Read-only: the list itself is never changed, and nothing sends until the user taps
+   Send in their mail app. Used to hand the week's list to whoever fills the H-E-B
+   delivery cart.
 
 ## 6. The sync merge contract (the most dangerous code in the app)
 
